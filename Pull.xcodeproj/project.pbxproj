@@ -7,17 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33324E921A0EEEE70073F1CA /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 33324E8F1A0EEEE70073F1CA /* NSDate+Utilities.m */; };
+		33324E931A0EEEE70073F1CA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 33324E901A0EEEE70073F1CA /* README.md */; };
+		33BD5AC41A0E9EE800F92414 /* PULLocationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */; };
+		33BD5ACA1A0EA25400F92414 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BD5AC91A0EA25400F92414 /* Firebase.framework */; };
+		33BD5ACD1A0EB50C00F92414 /* PULConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD5ACC1A0EB50C00F92414 /* PULConstants.m */; };
 		952BDB5E1A0C4F0500C67BB5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */; };
 		952BDB601A0C4F0500C67BB5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB5F1A0C4F0500C67BB5 /* Security.framework */; };
 		952BDB621A0C4F0500C67BB5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB611A0C4F0500C67BB5 /* SystemConfiguration.framework */; };
 		952BDB671A0C4F0500C67BB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB661A0C4F0500C67BB5 /* main.m */; };
 		952BDB6A1A0C4F0500C67BB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB691A0C4F0500C67BB5 /* AppDelegate.m */; };
 		952BDB6D1A0C4F0500C67BB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 952BDB6B1A0C4F0500C67BB5 /* Main.storyboard */; };
-		952BDB701A0C4F0500C67BB5 /* ___VARIABLE_classPrefix:identifier___ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB6F1A0C4F0500C67BB5 /* ___VARIABLE_classPrefix:identifier___ViewController.m */; };
-		952BDB721A0C4F0500C67BB5 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB711A0C4F0500C67BB5 /* Firebase.framework */; };
 		952BDB741A0C4F0500C67BB5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 952BDB731A0C4F0500C67BB5 /* Images.xcassets */; };
 		952BDB771A0C4F0500C67BB5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 952BDB751A0C4F0500C67BB5 /* LaunchScreen.xib */; };
 		952BDB831A0C4F0500C67BB5 /* PullTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB821A0C4F0500C67BB5 /* PullTests.m */; };
+		952BDB931A0C500C00C67BB5 /* PULUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB921A0C500C00C67BB5 /* PULUser.m */; };
+		952BDB961A0C503200C67BB5 /* PULAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB951A0C503200C67BB5 /* PULAccount.m */; };
+		952BDB9A1A0C504D00C67BB5 /* PULPullManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB991A0C504D00C67BB5 /* PULPullManager.m */; };
+		952BDB9D1A0C505C00C67BB5 /* PULFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB9C1A0C505C00C67BB5 /* PULFriendManager.m */; };
+		952BDBA01A0C50B300C67BB5 /* PULPull.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB9F1A0C50B300C67BB5 /* PULPull.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +39,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		33324E8E1A0EEEE70073F1CA /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
+		33324E8F1A0EEEE70073F1CA /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
+		33324E901A0EEEE70073F1CA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		33BD5AC21A0E9EE800F92414 /* PULLocationUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULLocationUpdater.h; sourceTree = "<group>"; };
+		33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULLocationUpdater.m; sourceTree = "<group>"; };
+		33BD5AC61A0E9F8400F92414 /* PULMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PULMacros.h; sourceTree = "<group>"; };
+		33BD5AC81A0EA1C500F92414 /* Pull-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pull-Prefix.pch"; sourceTree = "<group>"; };
+		33BD5AC91A0EA25400F92414 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
+		33BD5ACB1A0EB50C00F92414 /* PULConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULConstants.h; sourceTree = "<group>"; };
+		33BD5ACC1A0EB50C00F92414 /* PULConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULConstants.m; sourceTree = "<group>"; };
+		33BD5ACF1A0EBDE400F92414 /* PULFirebaseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULFirebaseProtocol.h; sourceTree = "<group>"; };
 		952BDB5A1A0C4F0500C67BB5 /* Pull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		952BDB5F1A0C4F0500C67BB5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -40,14 +59,21 @@
 		952BDB681A0C4F0500C67BB5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		952BDB691A0C4F0500C67BB5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		952BDB6C1A0C4F0500C67BB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		952BDB6E1A0C4F0500C67BB5 /* ___VARIABLE_classPrefix:identifier___ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "___VARIABLE_classPrefix:identifier___ViewController.h"; sourceTree = "<group>"; };
-		952BDB6F1A0C4F0500C67BB5 /* ___VARIABLE_classPrefix:identifier___ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___VARIABLE_classPrefix:identifier___ViewController.m"; sourceTree = "<group>"; };
-		952BDB711A0C4F0500C67BB5 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = /Users/Shared/Firebase/Frameworks/Firebase.framework; sourceTree = "<absolute>"; };
 		952BDB731A0C4F0500C67BB5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		952BDB761A0C4F0500C67BB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		952BDB7C1A0C4F0500C67BB5 /* PullTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PullTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		952BDB811A0C4F0500C67BB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		952BDB821A0C4F0500C67BB5 /* PullTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullTests.m; sourceTree = "<group>"; };
+		952BDB911A0C500C00C67BB5 /* PULUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUser.h; sourceTree = "<group>"; };
+		952BDB921A0C500C00C67BB5 /* PULUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUser.m; sourceTree = "<group>"; };
+		952BDB941A0C503200C67BB5 /* PULAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULAccount.h; sourceTree = "<group>"; };
+		952BDB951A0C503200C67BB5 /* PULAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULAccount.m; sourceTree = "<group>"; };
+		952BDB981A0C504D00C67BB5 /* PULPullManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullManager.h; sourceTree = "<group>"; };
+		952BDB991A0C504D00C67BB5 /* PULPullManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPullManager.m; sourceTree = "<group>"; };
+		952BDB9B1A0C505C00C67BB5 /* PULFriendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULFriendManager.h; sourceTree = "<group>"; };
+		952BDB9C1A0C505C00C67BB5 /* PULFriendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULFriendManager.m; sourceTree = "<group>"; };
+		952BDB9E1A0C50B300C67BB5 /* PULPull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPull.h; sourceTree = "<group>"; };
+		952BDB9F1A0C50B300C67BB5 /* PULPull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPull.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +84,7 @@
 				952BDB601A0C4F0500C67BB5 /* Security.framework in Frameworks */,
 				952BDB621A0C4F0500C67BB5 /* SystemConfiguration.framework in Frameworks */,
 				952BDB5E1A0C4F0500C67BB5 /* CFNetwork.framework in Frameworks */,
-				952BDB721A0C4F0500C67BB5 /* Firebase.framework in Frameworks */,
+				33BD5ACA1A0EA25400F92414 /* Firebase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,9 +98,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33324E8B1A0EEED40073F1CA /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				33324E8C1A0EEEE70073F1CA /* NSDate-Extensions-master */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
+		33324E8C1A0EEEE70073F1CA /* NSDate-Extensions-master */ = {
+			isa = PBXGroup;
+			children = (
+				33324E8E1A0EEEE70073F1CA /* NSDate+Utilities.h */,
+				33324E8F1A0EEEE70073F1CA /* NSDate+Utilities.m */,
+				33324E901A0EEEE70073F1CA /* README.md */,
+			);
+			path = "NSDate-Extensions-master";
+			sourceTree = "<group>";
+		};
+		33BD5AC11A0E9ED400F92414 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				33BD5AC21A0E9EE800F92414 /* PULLocationUpdater.h */,
+				33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		33BD5AC51A0E9F7C00F92414 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				33BD5ACB1A0EB50C00F92414 /* PULConstants.h */,
+				33BD5ACC1A0EB50C00F92414 /* PULConstants.m */,
+				33BD5AC61A0E9F8400F92414 /* PULMacros.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		33BD5ACE1A0EBDBB00F92414 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				33BD5ACF1A0EBDE400F92414 /* PULFirebaseProtocol.h */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
 		952BDB511A0C4F0500C67BB5 = {
 			isa = PBXGroup;
 			children = (
+				33BD5AC81A0EA1C500F92414 /* Pull-Prefix.pch */,
 				952BDB631A0C4F0500C67BB5 /* Pull */,
 				952BDB7F1A0C4F0500C67BB5 /* PullTests */,
 				952BDB5C1A0C4F0500C67BB5 /* Frameworks */,
@@ -94,6 +166,7 @@
 		952BDB5C1A0C4F0500C67BB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				33BD5AC91A0EA25400F92414 /* Firebase.framework */,
 				952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */,
 				952BDB5F1A0C4F0500C67BB5 /* Security.framework */,
 				952BDB611A0C4F0500C67BB5 /* SystemConfiguration.framework */,
@@ -104,14 +177,10 @@
 		952BDB631A0C4F0500C67BB5 /* Pull */ = {
 			isa = PBXGroup;
 			children = (
-				952BDB681A0C4F0500C67BB5 /* AppDelegate.h */,
-				952BDB691A0C4F0500C67BB5 /* AppDelegate.m */,
-				952BDB6B1A0C4F0500C67BB5 /* Main.storyboard */,
-				952BDB6E1A0C4F0500C67BB5 /* ___VARIABLE_classPrefix:identifier___ViewController.h */,
-				952BDB6F1A0C4F0500C67BB5 /* ___VARIABLE_classPrefix:identifier___ViewController.m */,
-				952BDB711A0C4F0500C67BB5 /* Firebase.framework */,
-				952BDB731A0C4F0500C67BB5 /* Images.xcassets */,
-				952BDB751A0C4F0500C67BB5 /* LaunchScreen.xib */,
+				952BDB8C1A0C4F4D00C67BB5 /* Classes */,
+				33BD5AC51A0E9F7C00F92414 /* Headers */,
+				952BDB8E1A0C4F6D00C67BB5 /* UI */,
+				952BDB8F1A0C4F7300C67BB5 /* Resources */,
 				952BDB641A0C4F0500C67BB5 /* Supporting Files */,
 			);
 			path = Pull;
@@ -123,7 +192,7 @@
 				952BDB651A0C4F0500C67BB5 /* Info.plist */,
 				952BDB661A0C4F0500C67BB5 /* main.m */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		952BDB7F1A0C4F0500C67BB5 /* PullTests */ = {
@@ -140,7 +209,70 @@
 			children = (
 				952BDB811A0C4F0500C67BB5 /* Info.plist */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		952BDB8C1A0C4F4D00C67BB5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				952BDB8D1A0C4F5500C67BB5 /* App */,
+				952BDB971A0C503E00C67BB5 /* Managers */,
+				952BDB901A0C4FA400C67BB5 /* Models */,
+				33BD5ACE1A0EBDBB00F92414 /* Protocols */,
+				33BD5AC11A0E9ED400F92414 /* Services */,
+				33324E8B1A0EEED40073F1CA /* Vendor */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		952BDB8D1A0C4F5500C67BB5 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				952BDB681A0C4F0500C67BB5 /* AppDelegate.h */,
+				952BDB691A0C4F0500C67BB5 /* AppDelegate.m */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		952BDB8E1A0C4F6D00C67BB5 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				952BDB6B1A0C4F0500C67BB5 /* Main.storyboard */,
+				952BDB751A0C4F0500C67BB5 /* LaunchScreen.xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		952BDB8F1A0C4F7300C67BB5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				952BDB731A0C4F0500C67BB5 /* Images.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		952BDB901A0C4FA400C67BB5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				952BDB941A0C503200C67BB5 /* PULAccount.h */,
+				952BDB951A0C503200C67BB5 /* PULAccount.m */,
+				952BDB9E1A0C50B300C67BB5 /* PULPull.h */,
+				952BDB9F1A0C50B300C67BB5 /* PULPull.m */,
+				952BDB911A0C500C00C67BB5 /* PULUser.h */,
+				952BDB921A0C500C00C67BB5 /* PULUser.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		952BDB971A0C503E00C67BB5 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				952BDB9B1A0C505C00C67BB5 /* PULFriendManager.h */,
+				952BDB9C1A0C505C00C67BB5 /* PULFriendManager.m */,
+				952BDB981A0C504D00C67BB5 /* PULPullManager.h */,
+				952BDB991A0C504D00C67BB5 /* PULPullManager.m */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +324,7 @@
 				TargetAttributes = {
 					952BDB591A0C4F0500C67BB5 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 894BCL9P67;
 					};
 					952BDB7B1A0C4F0500C67BB5 = {
 						CreatedOnToolsVersion = 6.1;
@@ -244,8 +377,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				952BDB6A1A0C4F0500C67BB5 /* AppDelegate.m in Sources */,
+				952BDBA01A0C50B300C67BB5 /* PULPull.m in Sources */,
+				952BDB961A0C503200C67BB5 /* PULAccount.m in Sources */,
+				952BDB9A1A0C504D00C67BB5 /* PULPullManager.m in Sources */,
+				952BDB9D1A0C505C00C67BB5 /* PULFriendManager.m in Sources */,
+				33BD5ACD1A0EB50C00F92414 /* PULConstants.m in Sources */,
+				952BDB931A0C500C00C67BB5 /* PULUser.m in Sources */,
+				33BD5AC41A0E9EE800F92414 /* PULLocationUpdater.m in Sources */,
 				952BDB671A0C4F0500C67BB5 /* main.m in Sources */,
-				952BDB701A0C4F0500C67BB5 /* ___VARIABLE_classPrefix:identifier___ViewController.m in Sources */,
+				33324E931A0EEEE70073F1CA /* README.md in Sources */,
+				33324E921A0EEEE70073F1CA /* NSDate+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,11 +508,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Shared/Firebase/Frameworks,
+					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = Pull/Info.plist;
+				GCC_PREFIX_HEADER = "Pull-Prefix.pch";
+				INFOPLIST_FILE = "Pull/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -386,11 +531,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Shared/Firebase/Frameworks,
+					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = Pull/Info.plist;
+				GCC_PREFIX_HEADER = "Pull-Prefix.pch";
+				INFOPLIST_FILE = "Pull/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -413,7 +562,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = PullTests/Info.plist;
+				INFOPLIST_FILE = "PullTests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pull.app/Pull";
@@ -428,7 +577,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = PullTests/Info.plist;
+				INFOPLIST_FILE = "PullTests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pull.app/Pull";
@@ -454,6 +603,7 @@
 				952BDB881A0C4F0500C67BB5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		952BDB891A0C4F0500C67BB5 /* Build configuration list for PBXNativeTarget "PullTests" */ = {
 			isa = XCConfigurationList;
@@ -462,6 +612,7 @@
 				952BDB8B1A0C4F0500C67BB5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

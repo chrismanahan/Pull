@@ -10,8 +10,57 @@
 
 #import "PULFirebaseProtocol.h"
 
+@class PULUser;
+@class CLLocation;
+@class UIImage;
+
+@protocol PULUserDelegate <NSObject>
+
+/**
+ *  Called when something, usually location, is updated
+ *
+ *  @param user User
+ */
+- (void)userDidRefresh:(PULUser*)user;
+
+@end
+
 @interface PULUser : NSObject <PULFirebaseProtocol>
 
+/*******************************
+        Properties
+ ******************************/
+@property (nonatomic, strong) id <PULUserDelegate> delegate;
+
 @property (nonatomic, strong) NSString *uid;
+
+@property (nonatomic, strong) NSString *fbId;
+
+@property (nonatomic, strong) NSString *phoneNumber;
+@property (nonatomic, strong) NSString *email;
+
+@property (nonatomic, strong) NSString *firstName;
+@property (nonatomic, strong) NSString *lastName;
+@property (nonatomic, strong) NSString *fullName;
+
+@property (nonatomic, strong) UIImage *image;
+
+@property (nonatomic, strong) CLLocation *location;
+
+@property (nonatomic, assign) BOOL isPrivate;
+
+/*******************************
+        Instance Methods
+ ******************************/
+
+/**
+ *  Instantiates a new user from a dictionary retrieved from the user's endpoint on firebase
+ *
+ *  @param dictionary Dictionary of data
+ *
+ *  @return User
+ */
+- (instancetype)initFromFirebaseData:(NSDictionary*)dictionary uid:(NSString*)uid;
+
 
 @end

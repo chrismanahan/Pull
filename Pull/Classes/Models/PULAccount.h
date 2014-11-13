@@ -13,6 +13,20 @@
 
 #import "PULLocationUpdater.h"
 
+/**
+ *  Notifcation sent when a single user is updated. The object with the notif is the updated user
+ */
+extern NSString * const kPULAccountFriendUpdatedNotifcation;
+/**
+ *  Notification sent when a friend array is updated. This encompasses a new friend being added, invited, accepted, etc. And also for when a user is pulled, or pull status changes with some user. Or when the order of an array is changed 
+ */
+extern NSString * const kPULAccountFriendListUpdatedNotification;
+
+/**
+ *  Sent out when account's location is changed. Attached object is cllocation
+ */
+extern NSString * const kPULAccountDidUpdateLocationNotification;
+
 @interface PULAccount : PULUser <PULFriendManagerDelegate, PULPullManagerDelegate, PULLocationUpdaterDelegate>
 
 @property (nonatomic, strong) PULPullManager *pullManager;
@@ -20,24 +34,15 @@
 
 @property (nonatomic, strong) PULLocationUpdater *locationUpdater;
 
-
-//@property (nonatomic, copy) NSString *username;
-//@property (nonatomic, copy) NSString *fbId;
-//@property (nonatomic, copy) NSString *uid;
-//@property (nonatomic, copy) NSString *email;
-//@property (nonatomic, assign) NSInteger provider;
-//@property (nonatomic, copy) NSString *phoneNumber;
-//
-//@property (nonatomic, copy) NSString *firstName;
-//@property (nonatomic, copy) NSString *lastName;
-//@property (nonatomic, copy) NSString *fullName;
-//
-//@property (nonatomic, strong) UIImage *image;
-//
-//@property (nonatomic, strong) CLLocation *location;
-//
-//@property (nonatomic, assign) BOOL isPrivate;
+@property (nonatomic) NSString *fbToken;
 
 + (PULAccount*)currentUser;
+
+/**
+ *  Saves all basic info to firebase
+ */
+- (void)saveUser;
+
+- (void)initializeAccount;
 
 @end

@@ -12,6 +12,7 @@
 		33BD5AC41A0E9EE800F92414 /* PULLocationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */; };
 		33BD5ACA1A0EA25400F92414 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BD5AC91A0EA25400F92414 /* Firebase.framework */; };
 		33BD5ACD1A0EB50C00F92414 /* PULConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD5ACC1A0EB50C00F92414 /* PULConstants.m */; };
+		33EC2D861A100C6B0055E30B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33EC2D851A100C6B0055E30B /* FacebookSDK.framework */; };
 		952BDB5E1A0C4F0500C67BB5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */; };
 		952BDB601A0C4F0500C67BB5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB5F1A0C4F0500C67BB5 /* Security.framework */; };
 		952BDB621A0C4F0500C67BB5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB611A0C4F0500C67BB5 /* SystemConfiguration.framework */; };
@@ -50,6 +51,7 @@
 		33BD5ACB1A0EB50C00F92414 /* PULConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULConstants.h; sourceTree = "<group>"; };
 		33BD5ACC1A0EB50C00F92414 /* PULConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULConstants.m; sourceTree = "<group>"; };
 		33BD5ACF1A0EBDE400F92414 /* PULFirebaseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULFirebaseProtocol.h; sourceTree = "<group>"; };
+		33EC2D851A100C6B0055E30B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		952BDB5A1A0C4F0500C67BB5 /* Pull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		952BDB5F1A0C4F0500C67BB5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -82,6 +84,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				952BDB601A0C4F0500C67BB5 /* Security.framework in Frameworks */,
+				33EC2D861A100C6B0055E30B /* FacebookSDK.framework in Frameworks */,
 				952BDB621A0C4F0500C67BB5 /* SystemConfiguration.framework in Frameworks */,
 				952BDB5E1A0C4F0500C67BB5 /* CFNetwork.framework in Frameworks */,
 				33BD5ACA1A0EA25400F92414 /* Firebase.framework in Frameworks */,
@@ -166,6 +169,7 @@
 		952BDB5C1A0C4F0500C67BB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				33EC2D851A100C6B0055E30B /* FacebookSDK.framework */,
 				33BD5AC91A0EA25400F92414 /* Firebase.framework */,
 				952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */,
 				952BDB5F1A0C4F0500C67BB5 /* Security.framework */,

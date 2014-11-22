@@ -145,25 +145,29 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
                         // create a user out of the fbId
                         PULLog(@"force adding %@", fbId);
                         [self p_userFromUid:userUID completion:^(PULUser *user) {
-                            user.delegate = self;
                             
-                            [self p_forceAddUserAsFriend:user completion:^(PULUser *friend) {
-                                if (![PULError handleError:error target:_delegate selector:@selector(friendManagerDidEncounterError:) object:error])
-                                {
-                                    // add to friends
-                                    [_allFriends addObject:friend];
-                                    [_nearbyFriends addObject:friend];
-                                    
-                                    [self updateOrganizationForUser:friend];
-                                    
-                                    PULLog(@"force added user");
-                                    if ([_delegate respondsToSelector:@selector(friendManager:didForceAddUser:)])
+                            if (user)
+                            {
+                                user.delegate = self;
+                                
+                                [self p_forceAddUserAsFriend:user completion:^(PULUser *friend) {
+                                    if (![PULError handleError:error target:_delegate selector:@selector(friendManagerDidEncounterError:) object:error])
                                     {
-                                        [_delegate friendManager:self didForceAddUser:user];
+                                        // add to friends
+                                        [_allFriends addObject:friend];
+                                        [_nearbyFriends addObject:friend];
+                                        
+                                        [self updateOrganizationForUser:friend];
+                                        
+                                        PULLog(@"force added user");
+                                        if ([_delegate respondsToSelector:@selector(friendManager:didForceAddUser:)])
+                                        {
+                                            [_delegate friendManager:self didForceAddUser:user];
+                                        }
+                                        
                                     }
-                                    
-                                }
-                            }];
+                                }];
+                            }
                         }];
                     }
                 }
@@ -417,7 +421,11 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSDictionary *data = snapshot.value;
         
-        PULUser *user = [[PULUser alloc] initFromFirebaseData:data uid:snapshot.key];
+        PULUser *user = nil;
+        if (![data isKindOfClass:[NSNull class]])
+        {
+            user = [[PULUser alloc] initFromFirebaseData:data uid:snapshot.key];
+        }
         
         completion(user);
     }];

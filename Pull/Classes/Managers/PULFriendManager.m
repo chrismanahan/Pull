@@ -42,9 +42,14 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
 - (void)initializeFriends
 {
-    _allFriends = [[NSMutableArray alloc] init];
-    _pendingFriends = [[NSMutableArray alloc] init];
-    _invitedFriends = [[NSMutableArray alloc] init];
+    _allFriends         = [[NSMutableArray alloc] init];
+    _nearbyFriends      = [[NSMutableArray alloc] init];
+    _farAwayFriends     = [[NSMutableArray alloc] init];
+    _pulledFriends      = [[NSMutableArray alloc] init];
+    _pullPendingFriends = [[NSMutableArray alloc] init];
+    _pullInvitedFriends = [[NSMutableArray alloc] init];
+    _pendingFriends     = [[NSMutableArray alloc] init];
+    _invitedFriends     = [[NSMutableArray alloc] init];
     
     __block NSInteger arraysToFill = 3;
     
@@ -60,29 +65,44 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     };
     
     [self p_usersFromEndpoint:@"friends" userBlock:^(PULUser *user, BOOL done) {
-        [_allFriends addObject:user];
-        user.delegate = self;
+        if (user)
+        {
+            PULLog(@"added friend");
+            [_allFriends addObject:user];
+            user.delegate = self;
+        }
         
         if (done)
         {
+            PULLog(@"loading friends done");
             completion();
         }
     }];
     
     [self p_usersFromEndpoint:@"pending" userBlock:^(PULUser *user, BOOL done) {
-        [_pendingFriends addObject:user];
+        if (user)
+        {
+            PULLog(@"added pending friend");
+            [_pendingFriends addObject:user];
+        }
         
         if (done)
         {
+            PULLog(@"loading pending done");
             completion();
         }
     }];
     
     [self p_usersFromEndpoint:@"invited" userBlock:^(PULUser *user, BOOL done) {
-        [_invitedFriends addObject:user];
+        if (user)
+        {
+            PULLog(@"added invited friend");
+            [_invitedFriends addObject:user];
+        }
         
         if (done)
         {
+            PULLog(@"loading invited done");
             completion();
         }
     }];
@@ -90,8 +110,9 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
 - (void)addFriendsFromFacebook
 {
+    PULLog(@"Trying to add friends from facebook");
     [FBRequestConnection startForMyFriendsWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if (![self p_handleError:error])
+        if (![PULError handleError:error target:_delegate selector:@selector(friendManagerDidEncounterError:) object:error])
         {
             NSArray *friends = ((NSDictionary*)result)[@"data"];
             
@@ -105,30 +126,45 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
                 if (!val)
                 {
                     // haven't previously removed, check users
+                    BOOL needToAdd = YES;
+                    NSString *userUID = [NSString stringWithFormat:@"facebook:%@", fbId];
                     for (PULUser *user in _allFriends)
                     {
-                        NSString *userUID = [NSString stringWithFormat:@"facebook:%@", fbId];
-                        if (![user.uid isEqualToString:userUID])
+                        PULLog(@"checking if friends with %@", user.fullName);
+                        if ([user.uid isEqualToString:userUID])
                         {
-                            // found a user we need to add
-                            // create a user out of the fbId
-                            [self p_userFromUid:userUID completion:^(PULUser *user) {
-                                user.delegate = self;
-                                
-                                [self p_forceAddUserAsFriend:user completion:^(NSError *error) {
-                                    if (![self p_handleError:error])
-                                    {
-                                        // add to friends
-                                        [_allFriends addObject:user];
-                                        if ([_delegate respondsToSelector:@selector(friendManager:didForceAddUser:)])
-                                        {
-                                            [_delegate friendManager:self didForceAddUser:user];
-                                        }
-                                        
-                                    }
-                                }];
-                            }];
+                            PULLog(@"\t\t[1]");
+                            needToAdd = NO;
+                            break;
                         }
+                    }
+                    
+                    if (needToAdd)
+                    {
+                        // found a user we need to add
+                        // create a user out of the fbId
+                        PULLog(@"force adding %@", fbId);
+                        [self p_userFromUid:userUID completion:^(PULUser *user) {
+                            user.delegate = self;
+                            
+                            [self p_forceAddUserAsFriend:user completion:^(PULUser *friend) {
+                                if (![PULError handleError:error target:_delegate selector:@selector(friendManagerDidEncounterError:) object:error])
+                                {
+                                    // add to friends
+                                    [_allFriends addObject:friend];
+                                    [_nearbyFriends addObject:friend];
+                                    
+                                    [self updateOrganizationForUser:friend];
+                                    
+                                    PULLog(@"force added user");
+                                    if ([_delegate respondsToSelector:@selector(friendManager:didForceAddUser:)])
+                                    {
+                                        [_delegate friendManager:self didForceAddUser:user];
+                                    }
+                                    
+                                }
+                            }];
+                        }];
                     }
                 }
             }
@@ -275,10 +311,13 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
 - (void)updateOrganizationForUser:(PULUser*)user;
 {
+    PULLog(@"updating organization with user: %@", user.fullName);
     // verify we're still friends with this person
     if ([_allFriends containsObject:user])
     {
-        if ([_nearbyFriends containsObject:user] || [_farAwayFriends containsObject:user])
+        BOOL haveLocation = (BOOL)[PULAccount currentUser].location;
+
+        if (([_nearbyFriends containsObject:user] || [_farAwayFriends containsObject:user]) && haveLocation)
         {
             BOOL didChange = NO;
             
@@ -286,6 +325,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
             
             if (distance <= kPULMaxDistanceToBeNearby && ![_nearbyFriends containsObject:user])
             {
+                PULLog(@"user is nearby now");
                 // we're nearby
                 [self p_moveUser:user toArray:_nearbyFriends];
                 [self p_sortArrayByDistanceFromMe:_nearbyFriends];
@@ -294,6 +334,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
             }
             else if (![_farAwayFriends containsObject:user])
             {
+                PULLog(@"user is far now");
                 [self p_moveUser:user toArray:_farAwayFriends];
                 [self p_sortArrayByDistanceFromMe:_farAwayFriends];
                 
@@ -302,6 +343,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
             if (didChange)
             {
+                PULLog(@"organization changed");
                 if ([_delegate respondsToSelector:@selector(friendManagerDidReorganize:)])
                 {
                     [_delegate friendManagerDidReorganize:self];
@@ -389,23 +431,29 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSDictionary *data = snapshot.value;
 
-        __block NSInteger userCount = data.count;
-        
-        [data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            NSString *uid = key;
-            [self p_userFromUid:uid completion:^(PULUser *user) {
-                
-                BOOL isDone = NO;
-                if (--userCount == 0)
-                {
-                    isDone = YES;
-                }
-                
-                completion(user, isDone);
+        if (![data isKindOfClass:[NSNull class]])
+        {
+            __block NSInteger userCount = data.count;
+            
+            [data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+                NSString *uid = key;
+                [self p_userFromUid:uid completion:^(PULUser *user) {
+                    
+                    BOOL isDone = NO;
+                    if (--userCount == 0)
+                    {
+                        isDone = YES;
+                    }
+                    
+                    completion(user, isDone);
+                }];
             }];
-        }];
+        }
+        else
+        {
+            completion(nil, YES);
+        }
     }];
-
 }
 
 - (void)p_sortAllArrays
@@ -469,12 +517,12 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     }
 }
 
-- (void)p_forceAddUserAsFriend:(PULUser*)friend completion:(void (^)(NSError *error))completion
+- (void)p_forceAddUserAsFriend:(PULUser*)friend completion:(void (^)(PULUser* friend))completion
 {
     PULLog(@"Force adding friend: %@", friend);
 
     [self p_addRelationshipFromMeToYouWithEndpoints:@[@"friends", @"friends"] friend:friend completion:^{
-        [self updateOrganizationForUser:friend];
+        completion(friend);
     }];
 }
 
@@ -486,7 +534,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     __block NSInteger blockCount = 2;
     void (^friendAddCompletion)(NSError *error, Firebase *ref) = ^(NSError *error, Firebase *ref)
     {
-        if (![self p_handleError:error])
+        if (![PULError handleError:error target:_delegate selector:@selector(friendManagerDidEncounterError:) object:error])
         {
             if (--blockCount == 0)
             {
@@ -510,7 +558,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     __block NSInteger blockCount = 2;
     void (^friendRemoveCompletion)(NSError *error, Firebase *ref) = ^(NSError *error, Firebase *ref)
     {
-        if (![self p_handleError:error])
+        if (![PULError handleError:error target:_delegate selector:@selector(friendManagerDidEncounterError:) object:error])
         {
             if (--blockCount == 0)
             {
@@ -525,29 +573,6 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     Firebase *friendRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:friend.uid] childByAppendingPath:friendEndpoint] childByAppendingPath:[PULAccount currentUser].uid];
     [friendRef removeValueWithCompletionBlock:friendRemoveCompletion];
 
-}
-
-/**
- *  Checks if there is an error, and notifies the delegate if there is
- *
- *  @param error Error
- *
- *  @return Yes if error, No if error is nil
- */
-- (BOOL)p_handleError:(NSError*)error
-{
-    if (error)
-    {
-        PULLogError(@"Friending", @"%@", error.localizedDescription);
-        
-        if ([_delegate respondsToSelector:@selector(pullManagerEncounteredError:)])
-        {
-            [_delegate friendManager:self didEncounterError:error];
-        }
-        
-        return YES;
-    }
-    return NO;
 }
 
 @end

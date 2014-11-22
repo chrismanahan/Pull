@@ -28,6 +28,8 @@
     {
         _uid = uid;
         [self p_loadPropertiesFromDictionary:dictionary];
+        
+        // TODO: observing user changes does not seem to be working
         [self startObservingChanges];
     }
     
@@ -82,12 +84,12 @@
 #pragma mark - Firebase Protocol
 - (NSDictionary*)firebaseRepresentation
 {
-    return @{@"fbId": _fbId,
-             @"email": _email,
-             @"phoneNumber": _phoneNumber,
-             @"firstName": _firstName,
-             @"lastName": _lastName,
-             @"loc":@{@"lat": @(_location.coordinate.latitude),
+    return @{@"fbId": _fbId ?: @"",
+             @"email": _email ?: @"",
+             @"phoneNumber": _phoneNumber ?: @"",
+             @"firstName": _firstName ?: @"",
+             @"lastName": _lastName ?: @"",
+             @"location":@{@"lat": @(_location.coordinate.latitude),
                       @"lon": @(_location.coordinate.longitude),
                       @"alt": @(_location.altitude)},
              @"isPrivate": @(_isPrivate)};

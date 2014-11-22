@@ -13,6 +13,11 @@
 
 #import "PULLocationUpdater.h"
 
+@class FAuthData;
+@class PULAccount;
+
+typedef void(^PULAccountLoginCompletionBlock)(PULAccount *account, NSError *error);
+
 /**
  *  Notifcation sent when a single user is updated. The object with the notif is the updated user
  */
@@ -27,6 +32,11 @@ extern NSString * const kPULAccountFriendListUpdatedNotification;
  */
 extern NSString * const kPULAccountDidUpdateLocationNotification;
 
+/**
+ *  Sent out when account's magnetic heading is changed. Attached object is CLHeading
+ */
+extern NSString * const kPULAccountDidUpdateHeadingNotification;
+
 @interface PULAccount : PULUser <PULFriendManagerDelegate, PULPullManagerDelegate, PULLocationUpdaterDelegate>
 
 @property (nonatomic, strong) PULPullManager *pullManager;
@@ -34,7 +44,12 @@ extern NSString * const kPULAccountDidUpdateLocationNotification;
 
 @property (nonatomic, strong) PULLocationUpdater *locationUpdater;
 
-@property (nonatomic) NSString *fbToken;
+@property (nonatomic) NSString *authToken;
+
+/**
+ *  Flag indicated if the user is authenticated with Firebase
+ */
+@property (nonatomic, assign, getter=isAuthenticated, readonly) BOOL authenticated;
 
 + (PULAccount*)currentUser;
 
@@ -43,6 +58,23 @@ extern NSString * const kPULAccountDidUpdateLocationNotification;
  */
 - (void)saveUser;
 
+/**
+ *  Initializes account by getting friends from firebase and adding friends from facebook if they have not been added yet
+ */
 - (void)initializeAccount;
+
+/**
+ *  Authenticates the user with a token retreived from facebook
+ *
+ *  @param accessToken facebook access token
+ */
+- (void)loginWithFacebookToken:(NSString*)accessToken completion:(PULAccountLoginCompletionBlock)completion;
+
+/**
+ *  Registers a new user to firebase with auth data
+ *
+ *  @param authData Auth data
+ */
+- (void)registerUserWithFacebookAuthData:(FAuthData*)authData;
 
 @end

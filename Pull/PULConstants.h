@@ -9,3 +9,5 @@
 extern NSString * const kPULFirebaseURL;
 
 extern NSString * const kPULFacebookAppID;
+
+extern const float kPULDistanceUnitCutoff;

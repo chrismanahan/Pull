@@ -17,6 +17,7 @@ extern NSString* const PULLocationPermissionsNeededNotification;
 @protocol PULLocationUpdaterDelegate <NSObject>
 
 - (void)locationUpdater:(PULLocationUpdater*)updater didUpdateLocation:(CLLocation*)location;
+- (void)locationUpdater:(PULLocationUpdater*)updater didUpdateHeading:(CLHeading*)heading;
 
 @end
 
@@ -24,6 +25,8 @@ extern NSString* const PULLocationPermissionsNeededNotification;
  *  This singleton is responsible for keeping track of the user's location and posting it to the BE
  */
 @interface PULLocationUpdater : NSObject <CLLocationManagerDelegate>
+
+@property (nonatomic, strong) id <PULLocationUpdaterDelegate> delegate;
 
 +(PULLocationUpdater*)sharedUpdater;
 

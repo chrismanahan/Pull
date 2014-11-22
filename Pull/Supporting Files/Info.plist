@@ -20,6 +20,10 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>468309439970987</string>
+	<key>FacebookDisplayName</key>
+	<string>Pull</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -34,5 +38,16 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb468309439970987</string>
+			</array>
+		</dict>
+	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need to keep your pulled friends updated on your location!</string>
 </dict>
 </plist>

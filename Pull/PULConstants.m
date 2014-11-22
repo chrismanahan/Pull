@@ -11,3 +11,5 @@
 NSString * const kPULFirebaseURL = @"https://pull.firebaseio.com";
 
 NSString * const kPULFacebookAppID = @"468309439970987";
+
+const float kPULDistanceUnitCutoff = 1000;

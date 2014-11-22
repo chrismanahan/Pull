@@ -27,20 +27,22 @@
 #pragma mark - Initialization
 - (instancetype)initNewPullBetweenSender:(PULUser*)sendingUser receiver:(PULUser*)receivingUser;
 {
-    return [self initExistingPullWithSender:sendingUser receiver:receivingUser status:PULPullStatusPending expiration:nil];
+    return [self initExistingPullWithUid:nil sender:sendingUser receiver:receivingUser status:PULPullStatusPending expiration:nil];
 }
 
-- (instancetype)initExistingPullWithSender:(PULUser*)sendingUser receiver:(PULUser*)receivingUser status:(PULPullStatus)status expiration:(NSDate*)expiration
+- (instancetype)initExistingPullWithUid:(NSString*)uid sender:(PULUser*)sendingUser receiver:(PULUser*)receivingUser status:(PULPullStatus)status expiration:(NSDate*)expiration
 {
     NSParameterAssert(sendingUser);
     NSParameterAssert(receivingUser);
     
     if (self = [self init])
     {
+        _uid           = uid;
         _sendingUser   = sendingUser;
         _receivingUser = receivingUser;
         _status        = status;
         _expiration    = expiration;
+        
     }
     
     return self;
@@ -84,14 +86,19 @@
     
     _statusObserverHandle = [_fireRef observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
         // pull changed, check status
-        NSDictionary *data = snapshot.value;
-        
-        _status = (PULPullStatus)[data[@"status"] integerValue];
-        
-        if ([_delegate respondsToSelector:@selector(pull:didUpdateStatus:)])
+        if ([snapshot.key isEqualToString:@"status"])
         {
-            [_delegate pull:self didUpdateStatus:_status];
+            // status has updated
+            
+            _status = (PULPullStatus)[snapshot.value integerValue];
+            
+            if ([_delegate respondsToSelector:@selector(pull:didUpdateStatus:)])
+            {
+                [_delegate pull:self didUpdateStatus:_status];
+            }
+
         }
+        
     }];
 }
 

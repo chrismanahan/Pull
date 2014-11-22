@@ -38,4 +38,11 @@
 #define NSStringFromBool(b) (b ? @"YES" : @"NO")
 
 
+/*****************************************
+ Maths
+ *****************************************/
+#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
+#define METERS_TO_FEET(meters) (meters * 3.28084)
+#define METERS_TO_MILES(meters) (meters * 0.000621371)
+
 #endif

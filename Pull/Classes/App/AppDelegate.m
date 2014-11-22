@@ -8,6 +8,16 @@
 
 #import "AppDelegate.h"
 
+#import "PULAccount.h"
+
+#import "PULConstants.h"
+
+#import "PULLoginViewController.h"
+#import "PULPullListViewController.h"
+
+#import <FacebookSDK/FacebookSDK.h>
+#import <Firebase/Firebase.h>
+
 @interface AppDelegate ()
 
 @end
@@ -17,6 +27,35 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    NSString *vcName;
+    
+    // check if we are logged in
+    Firebase *ref = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
+    if (ref.authData)
+    {
+        vcName = NSStringFromClass([PULPullListViewController class]);
+
+        PULLog(@"opening active fb session");
+        [FBSession openActiveSessionWithReadPermissions:@[@"email", @"public_profile", @"user_friends"]
+                                           allowLoginUI:NO
+                                      completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                          // TODO: validate that session is open and valid
+                                          PULLog(@"opened session");
+                                          [[PULAccount currentUser] loginWithFacebookToken:session.accessTokenData.accessToken completion:nil];
+                                      }];
+    }
+    else
+    {
+        vcName = NSStringFromClass([PULLoginViewController class]);
+    }
+    
+    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:vcName];
+    
+    [self.window setRootViewController:vc];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -40,6 +79,12 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Facebook
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
 }
 
 @end

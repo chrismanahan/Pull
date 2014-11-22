@@ -28,7 +28,7 @@
 - (void)friendManager:(PULFriendManager*)friendManager didUnfriendUser:(PULUser*)user;
 - (void)friendManager:(PULFriendManager*)friendManager didDetectFriendChange:(PULUser*)user;
 
-- (void)friendManager:(PULFriendManager *)friendManager didEncounterError:(NSError*)error;
+- (void)friendManagerDidEncounterError:(NSError*)error;
 
 @end
 

@@ -59,9 +59,6 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
 //        {
 //            [self p_initializeLocationTracking];
 //        }
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_applicationDidEnterForeground) name:UIApplicationDidBecomeActiveNotification object:nil];
 
     }
     
@@ -78,7 +75,10 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.distanceFilter = kLocationForegroundDistanceFilter;
-
+    [_locationManager startUpdatingHeading];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_applicationDidEnterForeground) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 /*!
@@ -166,7 +166,18 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     CLLocation* loc = locations[locations.count-1];
     PULLog(@"Updated locations: %@", locations);
 
-    
+    if ([_delegate respondsToSelector:@selector(locationUpdater:didUpdateLocation:)])
+    {
+        [_delegate locationUpdater:self didUpdateLocation:loc];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+{
+    if ([_delegate respondsToSelector:@selector(locationUpdater:didUpdateHeading:)])
+    {
+        [_delegate locationUpdater:self didUpdateHeading:newHeading];
+    }
 }
 
 #pragma mark - Application notifications

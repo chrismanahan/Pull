@@ -109,7 +109,7 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
  *
  *  @return Pull
  */
-- (instancetype)initExistingPullWithSender:(PULUser*)sendingUser receiver:(PULUser*)receivingUser status:(PULPullStatus)status expiration:(NSDate*)expiration;
+- (instancetype)initExistingPullWithUid:(NSString*)uid sender:(PULUser*)sendingUser receiver:(PULUser*)receivingUser status:(PULPullStatus)status expiration:(NSDate*)expiration;
 
 /**
  *  Checks if pull contains a user

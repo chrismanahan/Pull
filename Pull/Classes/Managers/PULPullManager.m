@@ -9,6 +9,7 @@
 #import "PULPullManager.h"
 
 #import "PULAccount.h"
+#import "PULFriendManager.h"
 
 #import "PULConstants.h"
 
@@ -21,6 +22,9 @@ const NSInteger kPULPullExirationHours = 6;
 @interface PULPullManager ()
 
 @property (nonatomic, strong) Firebase *fireRef;
+
+@property (nonatomic) FirebaseHandle accountPullAddObserver;
+@property (nonatomic) FirebaseHandle accountPullRemoveObserver;
 
 - (PULPull*)p_pullWithUser:(PULUser*)user;
 - (void)p_pruneExpiredPulls;
@@ -42,8 +46,10 @@ const NSInteger kPULPullExirationHours = 6;
     return self;
 }
 
-- (void)initializePullsWithFriends:(NSArray*)friends;
+- (void)initializePulls
 {
+    NSAssert([PULAccount currentUser].friendManager.allFriends != nil, @"Need to have an array of friends to proceed");
+    
     PULLog(@"initializing pulls with friends");
     // initialize pulls array
     _pulls = [[NSMutableArray alloc] init];
@@ -71,55 +77,7 @@ const NSInteger kPULPullExirationHours = 6;
                     }
                     else
                     {
-                        NSDictionary *data = snapshot.value;
-                        
-                        // instantiate pull
-                        // we need to find the friend as a user obj associated with this pull
-                        PULPullStatus status = (PULPullStatus)[data[@"status"] integerValue];
-                        
-                        // convert epoch seconds to date
-                        NSTimeInterval secondsToExpire = [data[@"expiration"] integerValue];
-                        NSDate *expiration = [NSDate dateWithTimeIntervalSince1970:secondsToExpire];
-                        
-                        // get uids of users involved
-                        NSString *sendingUserUid   = data[@"sendingUser"];
-                        NSString *receivingUserUid = data[@"receivingUser"];
-                        
-                        // determine which user is which
-                        PULUser *sendingUser   = nil;
-                        PULUser *receivingUser = nil;
-                        
-                        // block to find a user from the passed in array
-                        PULUser* (^findUserFromUid)(NSString *uid) = ^PULUser* (NSString *uid) {
-                            PULUser *retUser = nil;
-                            for (PULUser *otherUser in friends)
-                            {
-                                if ([otherUser.uid isEqualToString:uid])
-                                {
-                                    retUser = otherUser;
-                                }
-                            }
-                            
-                            return retUser;
-                        };
-                        
-                        // determine which user is which
-                        if ([sendingUserUid isEqualToString:[PULAccount currentUser].uid])
-                        {
-                            sendingUser = [PULAccount currentUser];
-                            receivingUser = findUserFromUid(receivingUserUid);
-                        }
-                        else
-                        {
-                            receivingUser = [PULAccount currentUser];
-                            sendingUser = findUserFromUid(sendingUserUid);
-                        }
-                        
-                        PULPull *pull = [[PULPull alloc] initExistingPullWithUid:snapshot.key sender:sendingUser receiver:receivingUser status:status expiration:expiration];
-                        pull.delegate = self;
-                        
-                        // start observing
-                        [pull startObservingStatus];
+                        PULPull *pull = [self p_pullFromFirebaseSnapshot:snapshot];
                         
                         [_pulls addObject:pull];
                     }
@@ -146,7 +104,68 @@ const NSInteger kPULPullExirationHours = 6;
                 [_delegate pullManagerDidLoadPulls:_pulls];
             }
         }
+        
+        // start watching our pulls
+        [self p_stopObservingAccountPulls];
+        [self p_startObservingAccountPulls];
     }];
+}
+
+- (PULPull*)p_pullFromFirebaseSnapshot:(FDataSnapshot*)snapshot
+{
+    NSDictionary *data = snapshot.value;
+    
+    // instantiate pull
+    // we need to find the friend as a user obj associated with this pull
+    PULPullStatus status = (PULPullStatus)[data[@"status"] integerValue];
+    
+    // convert epoch seconds to date
+    NSTimeInterval secondsToExpire = [data[@"expiration"] integerValue];
+    NSDate *expiration = [NSDate dateWithTimeIntervalSince1970:secondsToExpire];
+    
+    // get uids of users involved
+    NSString *sendingUserUid   = data[@"sendingUser"];
+    NSString *receivingUserUid = data[@"receivingUser"];
+    
+    // determine which user is which
+    PULUser *sendingUser   = nil;
+    PULUser *receivingUser = nil;
+    
+    // block to find a user from the passed in array
+    PULUser* (^findUserFromUid)(NSString *uid) = ^PULUser* (NSString *uid) {
+        PULUser *retUser = nil;
+        NSArray *friends = [PULAccount currentUser].friendManager.allFriends;
+        for (PULUser *otherUser in friends)
+        {
+            if ([otherUser.uid isEqualToString:uid])
+            {
+                retUser = otherUser;
+                break;
+            }
+        }
+        
+        return retUser;
+    };
+    
+    // determine which user is which
+    if ([sendingUserUid isEqualToString:[PULAccount currentUser].uid])
+    {
+        sendingUser = [PULAccount currentUser];
+        receivingUser = findUserFromUid(receivingUserUid);
+    }
+    else
+    {
+        receivingUser = [PULAccount currentUser];
+        sendingUser = findUserFromUid(sendingUserUid);
+    }
+    
+    PULPull *pull = [[PULPull alloc] initExistingPullWithUid:snapshot.key sender:sendingUser receiver:receivingUser status:status expiration:expiration];
+    pull.delegate = self;
+    
+    // start observing
+    [pull startObservingStatus];
+    
+    return pull;
 }
 
 #pragma mark - Pull Delegate
@@ -251,6 +270,70 @@ const NSInteger kPULPullExirationHours = 6;
 }
 
 #pragma mark - Private
+/**
+ *  Starts observing account's pulls
+ */
+- (void)p_startObservingAccountPulls
+{
+    PULLog(@"starting to observe my pulls");
+    Firebase *pullRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:@"pulls"];
+    _accountPullAddObserver =  [pullRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+        PULLog(@"observed added pull: %@", snapshot.key);
+        
+        Firebase *newPullRef = [[_fireRef childByAppendingPath:@"pulls"]  childByAppendingPath:snapshot.key];
+        [newPullRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+            PULPull *pull = [self p_pullFromFirebaseSnapshot:snapshot];
+            [_pulls addObject:pull];
+            
+            if ([_delegate respondsToSelector:@selector(pullManagerDidReceivePull:)])
+            {
+                [_delegate pullManagerDidReceivePull:pull];
+            }
+        }];
+        
+    }];
+    
+    _accountPullRemoveObserver = [pullRef observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {
+        PULLog(@"observed removed pull");
+        
+        NSInteger removeIndex = -1;
+        for (int i = 0; i < _pulls.count; i++)
+        {
+            PULPull *pull = _pulls[i];
+            
+            if ([pull.uid isEqualToString:snapshot.key])
+            {
+                removeIndex = i;
+                break;
+            }
+        }
+        
+        if (removeIndex >= 0)
+        {
+            [_pulls removeObjectAtIndex:removeIndex];
+        }
+        
+        if ([_delegate respondsToSelector:@selector(pullManagerDidRemovePull)])
+        {
+            [_delegate pullManagerDidRemovePull];
+        }
+        
+        PULLog(@"%@", snapshot.key);
+    }];
+}
+
+/**
+ *  Stops observing account's pulls
+ */
+- (void)p_stopObservingAccountPulls
+{
+    if (_accountPullAddObserver)
+    {
+        [_fireRef removeObserverWithHandle:_accountPullAddObserver];
+        [_fireRef removeObserverWithHandle:_accountPullRemoveObserver];
+    }
+}
+
 /**
  *  Locally and remotely updates the status of a pull and notifies the delegate
  *

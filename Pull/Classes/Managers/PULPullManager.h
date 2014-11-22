@@ -51,7 +51,7 @@
  *
  *  @param friends Array of PULUser objects that are my friends
  */
-- (void)initializePullsWithFriends:(NSArray*)friends;
+- (void)initializePulls;
 
 - (void)sendPullToUser:(PULUser*)user;
 - (void)acceptPullFromUser:(PULUser*)user;

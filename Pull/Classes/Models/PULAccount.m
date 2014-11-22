@@ -68,7 +68,6 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
 {
     _needsAddFromFacebook = YES;
     [_friendManager initializeFriends];
-    [self startObservingPulls];
 }
 
 - (void)saveUser;
@@ -87,16 +86,6 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
         {
             PULLogError(@"Save account", @"%@", error.localizedDescription);
         }
-    }];
-}
-
-- (void)startObservingPulls
-{
-    PULLog(@"starting to observe my pulls");
-    Firebase *pullRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:self.uid] childByAppendingPath:@"pulls"];
-    [pullRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        PULLog(@"my pulls changed");
-        [self.pullManager initializePullsWithFriends:self.friendManager.allFriends];
     }];
 }
 
@@ -211,7 +200,7 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
         _needsAddFromFacebook = NO;
     }
     
-    [_pullManager initializePullsWithFriends:friendManager.allFriends];                                 // 2. Grab pulls that we have with our friends
+    [_pullManager initializePulls];                                 // 2. Grab pulls that we have with our friends
 }
 
 - (void)friendManagerDidReorganize:(PULFriendManager*)pullManager

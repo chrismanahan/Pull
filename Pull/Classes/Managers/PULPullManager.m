@@ -19,6 +19,8 @@
 
 const NSInteger kPULPullExirationHours = 6;
 
+const NSInteger kPULPullManagerPruneInterval = 30; //seconds
+
 @interface PULPullManager ()
 
 @property (nonatomic, strong) Firebase *fireRef;
@@ -26,8 +28,7 @@ const NSInteger kPULPullExirationHours = 6;
 @property (nonatomic) FirebaseHandle accountPullAddObserver;
 @property (nonatomic) FirebaseHandle accountPullRemoveObserver;
 
-- (PULPull*)p_pullWithUser:(PULUser*)user;
-- (void)p_pruneExpiredPulls;
+@property (nonatomic, strong) NSTimer *pruneTimer;
 
 @end
 
@@ -82,14 +83,32 @@ const NSInteger kPULPullExirationHours = 6;
                         [_pulls addObject:pull];
                     }
                     
+                    
+                    BOOL done = --pullCount == 0;
                     // decrement pulls count and see if we're done
-                    if (--pullCount == 0)
+                    if (done)
                     {
                         // we're done, notify delegate
                         if ([_delegate respondsToSelector:@selector(pullManagerDidLoadPulls:)])
                         {
                             [_delegate pullManagerDidLoadPulls:_pulls];
                         }
+                        
+                        // we should prune pulls that are expired
+                        [self p_pruneExpiredPulls];
+                        
+                        if (_pruneTimer)
+                        {
+                            [_pruneTimer invalidate];
+                            _pruneTimer = nil;
+                        }
+                        
+                        PULLog(@"starting pruning timer");
+                        _pruneTimer = [NSTimer scheduledTimerWithTimeInterval:kPULPullManagerPruneInterval
+                                                                       target:self
+                                                                     selector:@selector(p_pruneExpiredPulls)
+                                                                     userInfo:nil
+                                                                      repeats:YES];
                     }
                 }];
             }];
@@ -113,63 +132,76 @@ const NSInteger kPULPullExirationHours = 6;
 
 - (PULPull*)p_pullFromFirebaseSnapshot:(FDataSnapshot*)snapshot
 {
+    NSAssert([PULAccount currentUser].friendManager.allFriends != nil, @"need to initialize friends first");
+    
     NSDictionary *data = snapshot.value;
+    PULPull *pull = nil;
     
-    // instantiate pull
-    // we need to find the friend as a user obj associated with this pull
-    PULPullStatus status = (PULPullStatus)[data[@"status"] integerValue];
-    
-    // convert epoch seconds to date
-    NSTimeInterval secondsToExpire = [data[@"expiration"] integerValue];
-    NSDate *expiration = [NSDate dateWithTimeIntervalSince1970:secondsToExpire];
-    
-    // get uids of users involved
-    NSString *sendingUserUid   = data[@"sendingUser"];
-    NSString *receivingUserUid = data[@"receivingUser"];
-    
-    // determine which user is which
-    PULUser *sendingUser   = nil;
-    PULUser *receivingUser = nil;
-    
-    // block to find a user from the passed in array
-    PULUser* (^findUserFromUid)(NSString *uid) = ^PULUser* (NSString *uid) {
-        PULUser *retUser = nil;
-        NSArray *friends = [PULAccount currentUser].friendManager.allFriends;
-        for (PULUser *otherUser in friends)
-        {
-            if ([otherUser.uid isEqualToString:uid])
+    if (![data isKindOfClass:[NSNull class]])
+    {
+        // instantiate pull
+        // we need to find the friend as a user obj associated with this pull
+        PULPullStatus status = (PULPullStatus)[data[@"status"] integerValue];
+        
+        // convert epoch seconds to date
+        NSTimeInterval secondsToExpire = [data[@"expiration"] integerValue];
+        NSDate *expiration = [NSDate dateWithTimeIntervalSince1970:secondsToExpire];
+        
+        // get uids of users involved
+        NSString *sendingUserUid   = data[@"sendingUser"];
+        NSString *receivingUserUid = data[@"receivingUser"];
+        
+        // determine which user is which
+        PULUser *sendingUser   = nil;
+        PULUser *receivingUser = nil;
+        
+        // block to find a user from the passed in array
+        PULUser* (^findUserFromUid)(NSString *uid) = ^PULUser* (NSString *uid) {
+            PULUser *retUser = nil;
+            NSArray *friends = [PULAccount currentUser].friendManager.allFriends;
+            for (PULUser *otherUser in friends)
             {
-                retUser = otherUser;
-                break;
+                if ([otherUser.uid isEqualToString:uid])
+                {
+                    retUser = otherUser;
+                    break;
+                }
             }
+            
+            return retUser;
+        };
+        
+        // determine which user is which
+        if ([sendingUserUid isEqualToString:[PULAccount currentUser].uid])
+        {
+            sendingUser = [PULAccount currentUser];
+            receivingUser = findUserFromUid(receivingUserUid);
+        }
+        else
+        {
+            receivingUser = [PULAccount currentUser];
+            sendingUser = findUserFromUid(sendingUserUid);
         }
         
-        return retUser;
-    };
-    
-    // determine which user is which
-    if ([sendingUserUid isEqualToString:[PULAccount currentUser].uid])
-    {
-        sendingUser = [PULAccount currentUser];
-        receivingUser = findUserFromUid(receivingUserUid);
+        pull = [[PULPull alloc] initExistingPullWithUid:snapshot.key sender:sendingUser receiver:receivingUser status:status expiration:expiration];
+        pull.delegate = self;
+        
+        // start observing
+        [pull startObservingStatus];
     }
-    else
-    {
-        receivingUser = [PULAccount currentUser];
-        sendingUser = findUserFromUid(sendingUserUid);
-    }
-    
-    PULPull *pull = [[PULPull alloc] initExistingPullWithUid:snapshot.key sender:sendingUser receiver:receivingUser status:status expiration:expiration];
-    pull.delegate = self;
-    
-    // start observing
-    [pull startObservingStatus];
-    
     return pull;
 }
 
 #pragma mark - Pull Delegate
 - (void)pull:(PULPull *)pull didUpdateStatus:(PULPullStatus)status
+{
+    if ([_delegate respondsToSelector:@selector(pullManagerDidDetectPullStatusChange:)])
+    {
+        [_delegate pullManagerDidDetectPullStatusChange:pull];
+    }
+}
+
+- (void)pull:(PULPull *)pull didUpdateExpiration:(NSDate *)date
 {
     if ([_delegate respondsToSelector:@selector(pullManagerDidDetectPullStatusChange:)])
     {
@@ -283,11 +315,15 @@ const NSInteger kPULPullExirationHours = 6;
         Firebase *newPullRef = [[_fireRef childByAppendingPath:@"pulls"]  childByAppendingPath:snapshot.key];
         [newPullRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
             PULPull *pull = [self p_pullFromFirebaseSnapshot:snapshot];
-            [_pulls addObject:pull];
             
-            if ([_delegate respondsToSelector:@selector(pullManagerDidReceivePull:)])
+            if (pull)
             {
-                [_delegate pullManagerDidReceivePull:pull];
+                [_pulls addObject:pull];
+                
+                if ([_delegate respondsToSelector:@selector(pullManagerDidReceivePull:)])
+                {
+                    [_delegate pullManagerDidReceivePull:pull];
+                }
             }
         }];
         
@@ -433,7 +469,7 @@ const NSInteger kPULPullExirationHours = 6;
         
         // check expiration
         NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
-        if ([now isLaterThanDate:pull.expiration])
+        if ([now isLaterThanDate:pull.expiration] && [pull.expiration isLaterThanDate:[NSDate dateWithTimeIntervalSince1970:0]])
         {
             pull.status = PULPullStatusExpired;
         }

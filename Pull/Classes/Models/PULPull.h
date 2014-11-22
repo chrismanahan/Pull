@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
 
 @required
 - (void)pull:(PULPull*)pull didUpdateStatus:(PULPullStatus)status;
+- (void)pull:(PULPull *)pull didUpdateExpiration:(NSDate*)date;
 
 @end
 

@@ -96,7 +96,15 @@
             {
                 [_delegate pull:self didUpdateStatus:_status];
             }
-
+        }
+        else if ([snapshot.key isEqualToString:@"expiration"]);
+        {
+            _expiration = [NSDate dateWithTimeIntervalSince1970:[snapshot.value integerValue]];
+         
+            if ([_delegate respondsToSelector:@selector(pull:didUpdateExpiration:)])
+            {
+                [_delegate pull:self didUpdateExpiration:_expiration];
+            }
         }
         
     }];

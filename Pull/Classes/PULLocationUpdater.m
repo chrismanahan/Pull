@@ -158,6 +158,11 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     else
     {
         PULLog(@"access denied");
+        
+        if (!_locationManager)
+        {
+            [self p_initializeLocationTracking];
+        }
     }
 }
 

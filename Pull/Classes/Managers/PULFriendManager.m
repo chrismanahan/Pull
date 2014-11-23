@@ -25,6 +25,9 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
 @property (nonatomic, strong) Firebase *fireRef;
 
+@property (nonatomic) FirebaseHandle pendingFriendsObserver;
+@property (nonatomic) FirebaseHandle invitedFriendsObserver;
+
 @end
 
 @implementation PULFriendManager
@@ -61,6 +64,12 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
             {
                 [_delegate friendManagerDidLoadFriends:self];
             }
+            
+            [self p_stopObservingFriendsPending];
+            [self p_stopObservingFriendsInvited];
+            
+            [self p_startObservingFriendsPending];
+            [self p_startObservingFriendsInvited];
         }
     };
     
@@ -130,10 +139,8 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
                     NSString *userUID = [NSString stringWithFormat:@"facebook:%@", fbId];
                     for (PULUser *user in _allFriends)
                     {
-                        PULLog(@"checking if friends with %@", user.fullName);
                         if ([user.uid isEqualToString:userUID])
                         {
-                            PULLog(@"\t\t[1]");
                             needToAdd = NO;
                             break;
                         }
@@ -378,7 +385,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 - (void)acceptFriendRequestFromUser:(PULUser*)user
 {
     
-    [self p_removeRelationshipFromMeToYouWithEndpoints:@[@"invited", @"pending"] friend:user completion:^{
+    [self p_removeRelationshipFromMeToYouWithEndpoints:@[@"pending", @"invited"] friend:user completion:^{
         ;
     }];
     
@@ -414,6 +421,95 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 }
 
 #pragma mark - Private
+/**
+ *  Starts observing account's pulls
+ */
+- (void)p_startObservingFriendsPending
+{
+    PULLog(@"starting to observe pending friends");
+    Firebase *pendingRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:@"pending"];
+    _pendingFriendsObserver =  [pendingRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+        PULLog(@"observed added pending friend: %@", snapshot.key);
+        
+        BOOL needsAdd = YES;
+        // check if this user is already in pending
+        for (PULUser *friend in _pendingFriends)
+        {
+            if ([friend.uid isEqualToString:snapshot.key])
+            {
+                needsAdd = NO;
+                break;
+            }
+        }
+        
+        if (needsAdd)
+        {
+            [self p_userFromUid:snapshot.key completion:^(PULUser *user) {
+                if (user)
+                {
+                    [_pendingFriends addObject:user];
+                    
+                    if ([_delegate respondsToSelector:@selector(friendManager:didReceiveFriendRequestFromUser:)])
+                    {
+                        [_delegate friendManager:self didReceiveFriendRequestFromUser:user];
+                    }
+                }
+            }];
+        }
+        
+    }];
+}
+
+- (void)p_stopObservingFriendsPending
+{
+    if (_pendingFriendsObserver)
+    {
+        [_fireRef removeObserverWithHandle:_pendingFriendsObserver];
+    }
+}
+
+- (void)p_startObservingFriendsInvited
+{
+    PULLog(@"starting to observe invited friends");
+    Firebase *pendingRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:@"invited"];
+    _invitedFriendsObserver =  [pendingRef observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {
+        PULLog(@"observed removal of invited friend: %@", snapshot.key);
+        
+        PULUser *userToRemove = nil;
+        // check if this user is in invited
+        for (PULUser *friend in _invitedFriends)
+        {
+            if ([friend.uid isEqualToString:snapshot.key])
+            {
+                userToRemove = friend;
+                break;
+            }
+        }
+        
+        if (userToRemove)
+        {
+            [_invitedFriends removeObject:userToRemove];
+            [_allFriends addObject:userToRemove];
+            
+            if ([_delegate respondsToSelector:@selector(friendManager:friendRequestWasAcceptedWithUser:)])
+            {
+                [_delegate friendManager:self friendRequestWasAcceptedWithUser:userToRemove];
+            }
+        }
+        
+    }];
+
+}
+
+- (void)p_stopObservingFriendsInvited
+{
+    if (_invitedFriendsObserver)
+    {
+        [_fireRef removeObserverWithHandle:_invitedFriendsObserver];
+    }
+}
+
+
 - (void)p_userFromUid:(NSString*)uid completion:(void(^)(PULUser *user))completion
 {
     Firebase *ref = [[_fireRef childByAppendingPath:@"users"] childByAppendingPath:uid];

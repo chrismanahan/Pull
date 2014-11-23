@@ -363,7 +363,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
  */
 - (void)p_stopObservingAccountPulls
 {
-    if (_accountPullAddObserver)
+    if (_accountPullAddObserver || _accountPullRemoveObserver)
     {
         [_fireRef removeObserverWithHandle:_accountPullAddObserver];
         [_fireRef removeObserverWithHandle:_accountPullRemoveObserver];

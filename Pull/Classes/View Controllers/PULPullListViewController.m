@@ -50,6 +50,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 {
     PULLog(@"reloading friends tables");
     [_friendTableView reloadData];
+    [_friendRequestTableView reloadData];
 }
 
 #pragma mark - Table View Data Source
@@ -72,14 +73,25 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
             default: break;
         }
         
-        if (CellId)
-        {
-            cell = [tableView dequeueReusableCellWithIdentifier:CellId];
-            
-            cell.userImageView.image = friend.image;
-            cell.userDisplayNameLabel.text = friend.fullName;
+    }
+    else if ([tableView isEqual:_friendRequestTableView])
+    {
+        switch (indexPath.section) {
+            case 0: CellId = @"FriendRequestCellID"; break;
+            case 1: CellId = @"FriendInvitedCellID"; break;
+            default: break;
         }
     }
+    
+    if (CellId)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:CellId];
+        
+        cell.userImageView.image = friend.image;
+        cell.userDisplayNameLabel.text = friend.fullName;
+    }
+
+    NSAssert(cell != nil, @"We need to have a cell");
     
     return cell;
 }
@@ -92,13 +104,47 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *array = [self p_friendArrayForSection:section tableView:tableView];
-    
+
     if (array)
     {
         return array.count;
     }
     
     return 0;
+}
+
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *title = @"";
+    
+    if (tableView == _friendTableView)
+    {
+        switch (section)
+        {
+            case 0: title = @"Pulled"; break;
+            case 1: title = @"Pending Pulls"; break;
+            case 2: title = @"Waiting on Pulls"; break;
+            case 3: title = @"Nearby"; break;
+            case 4: title = @"Far Away"; break;
+                
+        }
+    }
+    else if (tableView == _friendRequestTableView)
+    {
+        switch (section)
+        {
+            case 0: title = @"Friend Requests"; break;
+            case 1: title = @"Waiting on Friends"; break;
+        }
+    }
+    
+    if ([self p_friendArrayForSection:section tableView:tableView].count == 0)
+    {
+        // don't show a title if nothing in section
+        title = @"";
+    }
+    
+    return title;
 }
 
 //- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -162,7 +208,23 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
                 break;
             }
         }
-        
+    }
+    else if ([tableView isEqual:_friendRequestTableView])
+    {
+        switch (indexPath.section) {
+            case 0: // friend is pending
+            {
+                [[PULAccount currentUser].friendManager acceptFriendRequestFromUser:friend];
+                break;
+            }
+            case 1:  // friend is invited
+            {
+                [[PULAccount currentUser].friendManager unfriendUser:friend];
+                break;
+            }
+            default:
+                break;
+        }
     }
 }
 
@@ -197,11 +259,16 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
                 retArray = friendManager.nearbyFriends;
                 break;
             }
+            case 4:
+            {
+                retArray = friendManager.allFriends;
+                break;
+            }
             default:
                 break;
         }
     }
-    else
+    else if ([tableView isEqual:_friendRequestTableView])
     {
         switch (index) {
             case 0:

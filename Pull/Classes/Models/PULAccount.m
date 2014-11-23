@@ -231,6 +231,22 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
 {
     PULLog(@"friend manager did accept friend request");
     
+    [_friendManager reorganizeWithPulls:_pullManager.pulls];
+    // send out notifcation
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kPULAccountFriendListUpdatedNotification object:self];
+}
+
+- (void)friendManager:(PULFriendManager *)friendManager friendRequestWasAcceptedWithUser:(PULUser *)user
+{
+    PULLog(@"friend manager friend request was accepted");
+    
+    [_friendManager reorganizeWithPulls:_pullManager.pulls];
+}
+
+- (void)friendManager:(PULFriendManager *)friendManager didReceiveFriendRequestFromUser:(PULUser *)user
+{
+    PULLog(@"friend manager did receive friend request");
+    
     // send out notifcation
     [[NSNotificationCenter defaultCenter] postNotificationName:kPULAccountFriendListUpdatedNotification object:self];
 }

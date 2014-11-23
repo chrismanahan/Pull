@@ -25,6 +25,8 @@
 - (void)friendManager:(PULFriendManager*)friendManager didForceAddUser:(PULUser*)user;
 - (void)friendManager:(PULFriendManager*)friendManager didSendFriendRequestToUser:(PULUser*)user;
 - (void)friendManager:(PULFriendManager*)friendManager didAcceptFriendRequestFromUser:(PULUser*)user;
+- (void)friendManager:(PULFriendManager *)friendManager friendRequestWasAcceptedWithUser:(PULUser*)user;
+- (void)friendManager:(PULFriendManager *)friendManager didReceiveFriendRequestFromUser:(PULUser*)user;
 - (void)friendManager:(PULFriendManager*)friendManager didUnfriendUser:(PULUser*)user;
 - (void)friendManager:(PULFriendManager*)friendManager didDetectFriendChange:(PULUser*)user;
 

@@ -28,6 +28,7 @@
 		33BD5ACD1A0EB50C00F92414 /* PULConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD5ACC1A0EB50C00F92414 /* PULConstants.m */; };
 		33EC2D861A100C6B0055E30B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33EC2D851A100C6B0055E30B /* FacebookSDK.framework */; };
 		33EE5F681A1D788700F5F343 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 33EE5F671A1D788700F5F343 /* compass.png */; };
+		33EFBCA21A229E0200345A14 /* PULCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 33EFBCA11A229E0200345A14 /* PULCache.m */; };
 		952BDB5E1A0C4F0500C67BB5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */; };
 		952BDB601A0C4F0500C67BB5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB5F1A0C4F0500C67BB5 /* Security.framework */; };
 		952BDB621A0C4F0500C67BB5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB611A0C4F0500C67BB5 /* SystemConfiguration.framework */; };
@@ -94,6 +95,8 @@
 		33BD5ACF1A0EBDE400F92414 /* PULFirebaseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULFirebaseProtocol.h; sourceTree = "<group>"; };
 		33EC2D851A100C6B0055E30B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		33EE5F671A1D788700F5F343 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
+		33EFBCA01A229E0200345A14 /* PULCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULCache.h; sourceTree = "<group>"; };
+		33EFBCA11A229E0200345A14 /* PULCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULCache.m; sourceTree = "<group>"; };
 		952BDB5A1A0C4F0500C67BB5 /* Pull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		952BDB5F1A0C4F0500C67BB5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -264,6 +267,8 @@
 		33BD5AC11A0E9ED400F92414 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				33EFBCA01A229E0200345A14 /* PULCache.h */,
+				33EFBCA11A229E0200345A14 /* PULCache.m */,
 				33BD5AC21A0E9EE800F92414 /* PULLocationUpdater.h */,
 				33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */,
 				334044C71A17FD6A00B00BC3 /* PULFriendFinder.h */,
@@ -550,6 +555,7 @@
 				33BD5AC41A0E9EE800F92414 /* PULLocationUpdater.m in Sources */,
 				952BDB671A0C4F0500C67BB5 /* main.m in Sources */,
 				334044C01A17F80C00B00BC3 /* PULSectionHeader.m in Sources */,
+				33EFBCA21A229E0200345A14 /* PULCache.m in Sources */,
 				3304995F1A182542003FEA42 /* PULPullDetailViewController.m in Sources */,
 				330499591A1803DA003FEA42 /* PULUserTableCellBackgroundView.m in Sources */,
 				3340449A1A17ACF900B00BC3 /* PULError.m in Sources */,

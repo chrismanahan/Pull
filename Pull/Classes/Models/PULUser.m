@@ -8,6 +8,10 @@
 
 #import "PULUser.h"
 
+#import "PULCache.h"
+
+#import <UIKit/UIKit.h>
+
 #import <Firebase/Firebase.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -80,6 +84,52 @@
 {
     return [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
 }
+
+- (UIImage*)image
+{
+    if (_image)
+    {
+        return _image;
+    }
+    
+    // check cache
+    NSString *cacheKey = [NSString stringWithFormat:@"UserImage%@", _uid];
+    UIImage *cached = [[PULCache sharedCache] objectForKey:cacheKey];
+    if (cached)
+    {
+        PULLog(@"loading image from cache");
+        _image = cached;
+        return cached;
+    }
+    
+    // load image from firebase
+    NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", self.fbId];
+    
+    PULLog(@"Fetching image for user: %@", _uid);
+    NSURL *url = [NSURL URLWithString:userImageURL];
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:req
+                                       queue:[NSOperationQueue currentQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               _image = [UIImage imageWithData:data];
+                               
+                               if (!_image)
+                               {
+                                   _image = [UIImage imageNamed:@"userPlaceholder.jpg"];
+                               }
+                               
+                               // set cache
+                               [[PULCache sharedCache] setObject:_image forKey:cacheKey];
+                               
+                               PULLog(@"Updated user image");
+                               if ([_delegate respondsToSelector:@selector(userDidRefresh:)])
+                               {
+                                   [_delegate userDidRefresh:self];
+                               }
+                           }];
+    return nil;
+}
+
 
 #pragma mark - Firebase Protocol
 - (NSDictionary*)firebaseRepresentation

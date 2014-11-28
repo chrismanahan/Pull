@@ -12,6 +12,8 @@
 
 #import "PULLocationUpdater.h"
 
+#import "NSData+Hex.h"
+
 #import <Firebase/Firebase.h>
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -68,6 +70,18 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
 {
     _needsAddFromFacebook = YES;
     [_friendManager initializeFriends];
+    
+    // lets make sure our device token is uploaded
+    Firebase *tokenRef = [[_fireRef childByAppendingPath:@"users"] childByAppendingPath:self.uid];
+    NSData *tokenData = [[NSUserDefaults standardUserDefaults] objectForKey:@"DeviceToken"];
+    
+    if (tokenData)
+    {
+        NSString *token = [tokenData hexadecimalString];
+        PULLog(@"writing token: %@", tokenData);
+        [tokenRef updateChildValues:@{@"deviceToken": token}];
+    }
+    
 }
 
 - (void)saveUser;
@@ -95,6 +109,7 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     [_fireRef authWithOAuthProvider:@"facebook" token:accessToken withCompletionBlock:^(NSError *error, FAuthData *authData) {
         if (error)
         {
+            PULLog(@"error logging in: %@", error.localizedDescription);
             if (completion)
             {
                 completion(nil, error);

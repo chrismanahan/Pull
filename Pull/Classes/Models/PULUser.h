@@ -43,6 +43,8 @@
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *fullName;
 
+@property (nonatomic, strong) NSString *deviceToken;
+
 @property (nonatomic, strong) UIImage *image;
 
 @property (nonatomic, strong) CLLocation *location;

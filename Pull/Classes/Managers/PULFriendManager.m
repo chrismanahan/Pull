@@ -137,6 +137,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
                     // haven't previously removed, check users
                     BOOL needToAdd = YES;
                     NSString *userUID = [NSString stringWithFormat:@"facebook:%@", fbId];
+                    
                     for (PULUser *user in _allFriends)
                     {
                         if ([user.uid isEqualToString:userUID])
@@ -343,7 +344,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
                 
                 didChange = YES;
             }
-            else if (![_farAwayFriends containsObject:user])
+            else if (![_farAwayFriends containsObject:user] && distance > kPULMaxDistanceToBeNearby)
             {
                 PULLog(@"user is far now");
                 [self p_moveUser:user toArray:_farAwayFriends];

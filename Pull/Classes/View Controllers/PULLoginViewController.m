@@ -38,7 +38,10 @@
 - (IBAction)ibPresentFacebookLogin:(id)sender;
 {
     PULLog(@"presenting facebook login");
-    [FBSession openActiveSessionWithReadPermissions:@[@"email", @"public_profile", @"user_friends"]
+    
+    NSArray *permissions = @[@"email", @"public_profile", @"user_friends"];
+    
+    [FBSession openActiveSessionWithReadPermissions:permissions
                                        allowLoginUI:YES
                                   completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                                       PULLog(@"opened active session");
@@ -47,7 +50,7 @@
                                           [PULError handleError:error];
                                           UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Authentication Error"
                                                                                                message:[NSString stringWithFormat:@"There was a problem authenticating: (%li) %@", error.code, error.localizedDescription]
-                                                                                              delegate:nil
+                                                                                              delegate:nil  
                                                                                      cancelButtonTitle:@"Ok"
                                                                                      otherButtonTitles: nil];
                                           [errorAlert show];

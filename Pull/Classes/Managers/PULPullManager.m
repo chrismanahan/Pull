@@ -479,7 +479,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         {
             [markedPulls addIndex:i];
         }
-    }
+    } 
     
     [markedPulls enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         PULPull *pull = _pulls[idx];

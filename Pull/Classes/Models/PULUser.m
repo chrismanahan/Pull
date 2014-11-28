@@ -64,6 +64,8 @@
     _lastName    = dict[@"lastName"];
     _isPrivate   = [dict[@"isPrivate"] boolValue];
     
+    _deviceToken = dict[@"deviceToken"];
+    
     NSDictionary *loc = dict[@"location"];
     double lat        = [loc[@"lat"] doubleValue];
     double lon        = [loc[@"lon"] doubleValue];
@@ -130,6 +132,21 @@
     return nil;
 }
 
+#pragma mark - Overrides
+- (BOOL)isEqual:(id)object
+{
+    if ([object isKindOfClass:[PULUser class]])
+    {
+        PULUser *otherUser = object;
+        
+        if ([otherUser.uid isEqualToString:self.uid])
+        {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
 
 #pragma mark - Firebase Protocol
 - (NSDictionary*)firebaseRepresentation

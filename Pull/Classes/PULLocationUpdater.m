@@ -65,17 +65,23 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     return self;
 }
 
--(void)p_initializeLocationTracking
+- (void)p_requestPermission
 {
     if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
     {
         [_locationManager requestAlwaysAuthorization];
     }
-    
+}
+
+-(void)p_initializeLocationTracking
+{
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.distanceFilter = kLocationForegroundDistanceFilter;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
     [_locationManager startUpdatingHeading];
+    
+    [self p_requestPermission];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_applicationDidEnterForeground) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -88,13 +94,9 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
 {
     if (!_locationManager)
     {
-        [self p_initializeLocationTracking];
-    
-        
+        [self p_initializeLocationTracking];   
     }
     PULLog(@"Starting foreground location update");
-    _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-    _locationManager.distanceFilter = kLocationForegroundDistanceFilter;
     [_locationManager startUpdatingLocation];
 }
 /*!
@@ -154,6 +156,7 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
         {
             [self p_initializeLocationTracking];
         }
+        [self startUpdatingLocation];
     }
     else
     {
@@ -162,6 +165,10 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
         if (!_locationManager)
         {
             [self p_initializeLocationTracking];
+        }
+        else
+        {
+            [self p_requestPermission];
         }
     }
 }

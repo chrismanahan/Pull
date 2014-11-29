@@ -100,15 +100,6 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-bU-Xro" userLabel="Title label">
-                                        <rect key="frame" x="109" y="16" width="103" height="48"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="NdD-ae-uEL"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="42"/>
-                                        <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0IB-vY-Nh3" userLabel="Left button" customClass="PULCircleButton">
                                         <rect key="frame" x="8" y="16" width="48" height="48"/>
                                         <constraints>
@@ -118,6 +109,15 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-bU-Xro" userLabel="Title label">
+                                        <rect key="frame" x="109" y="16" width="103" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="NdD-ae-uEL"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="42"/>
+                                        <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -157,12 +157,11 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="100" id="3HO-RX-S4s"/>
-                                                                <constraint firstAttribute="trailing" secondItem="BXE-Oy-GaD" secondAttribute="trailing" id="60x-Wb-QiB"/>
-                                                                <constraint firstItem="BXE-Oy-GaD" firstAttribute="top" secondItem="0rh-22-zXw" secondAttribute="top" id="Qjr-4d-E3e"/>
-                                                                <constraint firstAttribute="width" constant="100" id="Rhe-HZ-hgP"/>
-                                                                <constraint firstItem="BXE-Oy-GaD" firstAttribute="leading" secondItem="0rh-22-zXw" secondAttribute="leading" id="ZOT-Kz-DD0"/>
-                                                                <constraint firstAttribute="bottom" secondItem="BXE-Oy-GaD" secondAttribute="bottom" id="ok5-2i-hyg"/>
+                                                                <constraint firstAttribute="trailing" secondItem="BXE-Oy-GaD" secondAttribute="trailing" id="2qw-mf-YWy"/>
+                                                                <constraint firstAttribute="bottom" secondItem="BXE-Oy-GaD" secondAttribute="bottom" id="3oW-0S-c3s"/>
+                                                                <constraint firstItem="BXE-Oy-GaD" firstAttribute="top" secondItem="0rh-22-zXw" secondAttribute="top" id="4Lo-SU-yZH"/>
+                                                                <constraint firstItem="BXE-Oy-GaD" firstAttribute="leading" secondItem="0rh-22-zXw" secondAttribute="leading" id="V0Y-6I-RHc"/>
+                                                                <constraint firstAttribute="width" secondItem="0rh-22-zXw" secondAttribute="height" multiplier="1:1" id="xyI-YG-0ET"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="imageView" destination="BXE-Oy-GaD" id="Tln-jz-9Qc"/>
@@ -174,7 +173,7 @@
                                                             <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="166" placeholderIntrinsicHeight="28" text="Brandon Smith" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ntx-0l-yTa">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" placeholderIntrinsicWidth="166" placeholderIntrinsicHeight="28" text="Brandon Smith" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ntx-0l-yTa">
                                                             <rect key="frame" x="115" y="15" width="166" height="28"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
                                                             <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
@@ -183,14 +182,15 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ntx-0l-yTa" secondAttribute="trailing" constant="10" id="4fJ-ea-T0m"/>
-                                                        <constraint firstItem="0rh-22-zXw" firstAttribute="leading" secondItem="MnD-wL-40h" secondAttribute="leading" constant="1" id="FaZ-Lw-2hi"/>
-                                                        <constraint firstAttribute="bottom" secondItem="0rh-22-zXw" secondAttribute="bottom" constant="3" id="HAI-CW-o0x"/>
-                                                        <constraint firstItem="ntx-0l-yTa" firstAttribute="leading" secondItem="0rh-22-zXw" secondAttribute="trailing" constant="14" id="TJG-pN-zRd"/>
-                                                        <constraint firstItem="ntx-0l-yTa" firstAttribute="top" secondItem="MnD-wL-40h" secondAttribute="top" constant="15" id="acC-Ar-E4Q"/>
-                                                        <constraint firstItem="0rh-22-zXw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="MnD-wL-40h" secondAttribute="top" id="diV-GC-5pp"/>
-                                                        <constraint firstItem="sXG-xB-s1B" firstAttribute="centerY" secondItem="BXE-Oy-GaD" secondAttribute="centerY" constant="-3.5" id="hnP-5d-5pX"/>
-                                                        <constraint firstAttribute="trailing" secondItem="sXG-xB-s1B" secondAttribute="trailing" constant="14" id="zWi-gL-9rq"/>
+                                                        <constraint firstItem="0rh-22-zXw" firstAttribute="top" secondItem="MnD-wL-40h" secondAttribute="top" constant="12" id="6HD-c7-OZC"/>
+                                                        <constraint firstAttribute="trailing" secondItem="sXG-xB-s1B" secondAttribute="trailing" constant="14" id="80B-Ha-i2Z"/>
+                                                        <constraint firstItem="ntx-0l-yTa" firstAttribute="top" secondItem="MnD-wL-40h" secondAttribute="top" constant="15" id="RuW-Ix-6eO"/>
+                                                        <constraint firstItem="0rh-22-zXw" firstAttribute="top" secondItem="ntx-0l-yTa" secondAttribute="top" id="Vxc-4I-yWY"/>
+                                                        <constraint firstAttribute="centerY" secondItem="sXG-xB-s1B" secondAttribute="centerY" constant="-1" id="sL2-Do-QZ1"/>
+                                                        <constraint firstItem="0rh-22-zXw" firstAttribute="leading" secondItem="MnD-wL-40h" secondAttribute="leading" constant="1" id="uxp-oe-6ur"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ntx-0l-yTa" secondAttribute="trailing" constant="39" id="xqh-GK-mSa"/>
+                                                        <constraint firstItem="ntx-0l-yTa" firstAttribute="leading" secondItem="0rh-22-zXw" secondAttribute="trailing" constant="14" id="yXF-1w-w4A"/>
+                                                        <constraint firstAttribute="bottom" secondItem="0rh-22-zXw" secondAttribute="bottom" constant="3" id="ynM-4h-bRR"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>

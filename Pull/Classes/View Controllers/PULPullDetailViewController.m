@@ -41,6 +41,7 @@
     
     [self updateDistanceLabel:distance];
     
+    // TODO: remove observers when leaving detail view
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didUpdateHeading:)
                                                  name:kPULAccountDidUpdateHeadingNotification
@@ -48,7 +49,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didUpdateUser:)
-                                                 name:kPULAccountFriendUpdatedNotifcation
+                                                 name:kPULFriendUpdatedNotifcation
                                                object:[PULAccount currentUser]];
 }
 

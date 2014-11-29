@@ -148,6 +148,16 @@
     return NO;
 }
 
+- (NSString*)description
+{
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjects:@[[NSString stringWithFormat:@"%p", self], _uid,
+                                                                 _fullName?:@"", @{@"lat": @(_location.coordinate.latitude),
+                                                                                  @"lon": @(_location.coordinate.longitude),
+                                                                                  @"alt": @(_location.altitude)}] forKeys:@[@"user", @"uid", @"fullName", @"loc"]];
+    
+    return dict.description;
+}
+
 #pragma mark - Firebase Protocol
 - (NSDictionary*)firebaseRepresentation
 {

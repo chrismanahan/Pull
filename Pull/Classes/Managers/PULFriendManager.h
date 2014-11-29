@@ -70,7 +70,7 @@
  *
  *  @param user User to move
  */
-- (void)updateOrganizationForUser:(PULUser*)user;
+//- (void)updateOrganizationForUser:(PULUser*)user;
 
 - (void)sendFriendRequestToUser:(PULUser*)user;
 - (void)acceptFriendRequestFromUser:(PULUser*)user;

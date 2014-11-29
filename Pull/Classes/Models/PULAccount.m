@@ -17,7 +17,7 @@
 #import <Firebase/Firebase.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-NSString * const kPULAccountFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedNotifcation";
+NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedNotifcation";
 
 NSString * const kPULAccountFriendListUpdatedNotification = @"kPULAccountFriendListUpdatedNotification";
 
@@ -30,6 +30,9 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
 @property (nonatomic, strong) Firebase *fireRef;
 
 @property (nonatomic) BOOL needsAddFromFacebook;
+
+// protected
+- (void)p_loadPropertiesFromDictionary:(NSDictionary*)dict;
 
 @end
 
@@ -122,12 +125,17 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
             Firebase *userExistsRef = [[_fireRef childByAppendingPath:@"users"] childByAppendingPath:authData.uid];
             [userExistsRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
                 BOOL isNewUser = !snapshot.hasChildren;
+                self.uid = snapshot.key;
                 
                 if (isNewUser)
                 {
                     [self p_registerUserWithFacebookAuthData:authData];
                 }
-                self.uid = snapshot.key;
+                else
+                {
+                    [self p_loadPropertiesFromDictionary:snapshot.value];
+                }
+                
                 
                 [self initializeAccount];
                 
@@ -279,9 +287,9 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     PULLog(@"friend manager did detect friend change");
     
     // someone changed, lets reorganize
-    [_friendManager updateOrganizationForUser:user];
+   // [_friendManager updateOrganizationForUser:user];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPULAccountFriendUpdatedNotifcation object:user];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPULFriendUpdatedNotifcation object:user];
 }
 
 - (void)friendManager:(PULFriendManager *)friendManager didEncounterError:(NSError *)error

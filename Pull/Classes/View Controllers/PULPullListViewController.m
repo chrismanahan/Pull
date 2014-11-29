@@ -37,10 +37,10 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
                                                      name:kPULAccountFriendListUpdatedNotification
                                                    object:[PULAccount currentUser]];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(reload)
-                                                     name:kPULAccountFriendUpdatedNotifcation
-                                                   object:[PULAccount currentUser]];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(reload)
+//                                                     name:kPULAccountFriendUpdatedNotifcation
+//                                                   object:[PULAccount currentUser]];
         
     }
     return self;
@@ -89,6 +89,8 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
         
         cell.userImageView.image = friend.image;
         cell.userDisplayNameLabel.text = friend.fullName;
+        
+        cell.user = friend;
     }
 
     NSAssert(cell != nil, @"We need to have a cell");

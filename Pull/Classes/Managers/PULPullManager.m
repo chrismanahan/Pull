@@ -11,6 +11,8 @@
 #import "PULAccount.h"
 #import "PULFriendManager.h"
 
+#import "PULPush.h"
+
 #import "PULConstants.h"
 
 #import "NSDate+Utilities.h"
@@ -60,7 +62,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     // get list of my pull uids
     [myPullRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSDictionary *pulls = snapshot.value;
-        
+        PULLog(@"got list of pulls: %@", pulls);
         if (![pulls isKindOfClass:[NSNull class]])
         {
             __block NSInteger pullCount = pulls.count;
@@ -68,17 +70,20 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
             [pulls enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
                 NSString *pullId = (NSString*)key;
                 
+                PULLog(@"loading pull: %@", pullId);
                 // try to get pull from firebase
                 Firebase *pullRef = [[_fireRef childByAppendingPath:@"pulls"] childByAppendingPath:pullId];
                 [pullRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
                     if (![snapshot hasChildren])
                     {
+                        PULLog(@"pull no longer exists, remove: %@", pullId);
                         // pull no longer exists, remove from my pulls silently
                         [[myPullRef childByAppendingPath:pullId] removeValue];
                     }
                     else
                     {
                         PULPull *pull = [self p_pullFromFirebaseSnapshot:snapshot];
+                        PULLog(@"adding pull: %@", pull);
                         
                         [_pulls addObject:pull];
                     }
@@ -243,6 +248,9 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
                         pull.delegate = self;
                         [pull startObservingStatus];
                         
+                        // send push
+                        [PULPush sendPushType:kPULPushTypeSendPull to:user from:[PULAccount currentUser]];
+                        
                         // notify delegate
                         if ([_delegate respondsToSelector:@selector(pullManagerDidSendPull:)])
                         {
@@ -274,6 +282,9 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     pull.expiration = expiration;
     
     [self p_updatePull:pull status:PULPullStatusPulled];
+    
+    // send push
+    [PULPush sendPushType:kPULPushTypeAcceptPull to:user from:[PULAccount currentUser]];
     
 }
 
@@ -318,11 +329,18 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
             
             if (pull)
             {
-                [_pulls addObject:pull];
-                
-                if ([_delegate respondsToSelector:@selector(pullManagerDidReceivePull:)])
+                if ([_pulls containsObject:pull])
                 {
-                    [_delegate pullManagerDidReceivePull:pull];
+                    PULLog(@"pull already exists, not adding");
+                }
+                else
+                {
+                    [_pulls addObject:pull];
+                    
+                    if ([_delegate respondsToSelector:@selector(pullManagerDidReceivePull:)])
+                    {
+                        [_delegate pullManagerDidReceivePull:pull];
+                    }
                 }
             }
         }];
@@ -333,6 +351,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         PULLog(@"observed removed pull");
         
         NSInteger removeIndex = -1;
+        // find which pull we need to remove
         for (int i = 0; i < _pulls.count; i++)
         {
             PULPull *pull = _pulls[i];
@@ -354,7 +373,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
             [_delegate pullManagerDidRemovePull];
         }
         
-        PULLog(@"%@", snapshot.key);
+        PULLog(@"removed pull: %@", snapshot.key);
     }];
 }
 

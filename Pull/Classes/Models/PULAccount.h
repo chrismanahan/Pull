@@ -21,7 +21,7 @@ typedef void(^PULAccountLoginCompletionBlock)(PULAccount *account, NSError *erro
 /**
  *  Notifcation sent when a single user is updated. The object with the notif is the updated user
  */
-extern NSString * const kPULAccountFriendUpdatedNotifcation;
+extern NSString * const kPULFriendUpdatedNotifcation;
 /**
  *  Notification sent when a friend array is updated. This encompasses a new friend being added, invited, accepted, etc. And also for when a user is pulled, or pull status changes with some user. Or when the order of an array is changed 
  */

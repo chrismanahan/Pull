@@ -11,6 +11,8 @@
 #import "PULAccount.h"
 #import "PULPull.h"
 
+#import "PULPush.h"
+
 #import "PULConstants.h"
 
 #import <Firebase/Firebase.h>
@@ -73,47 +75,46 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         }
     };
     
-    [self p_usersFromEndpoint:@"friends" userBlock:^(PULUser *user, BOOL done) {
-        if (user)
+    [self p_usersFromEndpoint:@"friends" completion:^(NSArray *users) {
+        if (users)
         {
-            PULLog(@"added friend");
-            [_allFriends addObject:user];
-            user.delegate = self;
+            PULLog(@"added %i users to friends", users.count);
+            _allFriends = [[NSMutableArray alloc] initWithArray:users];
+        }
+        else
+        {
+            PULLog(@"added NO users to friends");
         }
         
-        if (done)
-        {
-            PULLog(@"loading friends done");
-            completion();
-        }
+        completion();
     }];
     
-    [self p_usersFromEndpoint:@"pending" userBlock:^(PULUser *user, BOOL done) {
-        if (user)
+    [self p_usersFromEndpoint:@"pending" completion:^(NSArray *users) {
+        if (users)
         {
-            PULLog(@"added pending friend");
-            [_pendingFriends addObject:user];
+            PULLog(@"added %i users to pending", users.count);
+            _pendingFriends = [[NSMutableArray alloc] initWithArray:users];
+        }
+        else
+        {
+            PULLog(@"added NO users to pending");
         }
         
-        if (done)
-        {
-            PULLog(@"loading pending done");
-            completion();
-        }
+        completion();
     }];
     
-    [self p_usersFromEndpoint:@"invited" userBlock:^(PULUser *user, BOOL done) {
-        if (user)
+    [self p_usersFromEndpoint:@"invited" completion:^(NSArray *users) {
+        if (users)
         {
-            PULLog(@"added invited friend");
-            [_invitedFriends addObject:user];
+            PULLog(@"added %i users to invited", users.count);
+            _invitedFriends = [[NSMutableArray alloc] initWithArray:users];
+        }
+        else
+        {
+            PULLog(@"added NO users to invited");
         }
         
-        if (done)
-        {
-            PULLog(@"loading invited done");
-            completion();
-        }
+        completion();
     }];
 }
 
@@ -165,7 +166,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
                                         [_allFriends addObject:friend];
                                         [_nearbyFriends addObject:friend];
                                         
-                                        [self updateOrganizationForUser:friend];
+//                                        [self updateOrganizationForUser:friend];
                                         
                                         PULLog(@"force added user");
                                         if ([_delegate respondsToSelector:@selector(friendManager:didForceAddUser:)])
@@ -321,54 +322,54 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
 }
 
-- (void)updateOrganizationForUser:(PULUser*)user;
-{
-    PULLog(@"updating organization with user: %@", user.fullName);
-    // verify we're still friends with this person
-    if ([_allFriends containsObject:user])
-    {
-        BOOL haveLocation = (BOOL)[PULAccount currentUser].location;
-
-        if (([_nearbyFriends containsObject:user] || [_farAwayFriends containsObject:user]) && haveLocation)
-        {
-            BOOL didChange = NO;
-            
-            CLLocationDistance distance = [user.location distanceFromLocation:[PULAccount currentUser].location];
-            
-            if (distance <= kPULMaxDistanceToBeNearby && ![_nearbyFriends containsObject:user])
-            {
-                PULLog(@"user is nearby now");
-                // we're nearby
-                [self p_moveUser:user toArray:_nearbyFriends];
-                [self p_sortArrayByDistanceFromMe:_nearbyFriends];
-                
-                didChange = YES;
-            }
-            else if (![_farAwayFriends containsObject:user] && distance > kPULMaxDistanceToBeNearby)
-            {
-                PULLog(@"user is far now");
-                [self p_moveUser:user toArray:_farAwayFriends];
-                [self p_sortArrayByDistanceFromMe:_farAwayFriends];
-                
-                didChange = YES;
-            }
-
-            if (didChange)
-            {
-                PULLog(@"organization changed");
-                if ([_delegate respondsToSelector:@selector(friendManagerDidReorganize:)])
-                {
-                    [_delegate friendManagerDidReorganize:self];
-                }
-            }
-        }
-    }
-    else
-    {
-        // remove user from all arrays
-        [self p_moveUser:user toArray:nil];
-    }
-}
+//- (void)updateOrganizationForUser:(PULUser*)user;
+//{
+//    PULLog(@"updating organization with user: %@", user.fullName);
+//    // verify we're still friends with this person
+//    if ([_allFriends containsObject:user])
+//    {
+//        BOOL haveLocation = (BOOL)[PULAccount currentUser].location;
+//
+//        if (([_nearbyFriends containsObject:user] || [_farAwayFriends containsObject:user]) && haveLocation)
+//        {
+//            BOOL didChange = NO;
+//            
+//            CLLocationDistance distance = [user.location distanceFromLocation:[PULAccount currentUser].location];
+//            
+//            if (distance <= kPULMaxDistanceToBeNearby && ![_nearbyFriends containsObject:user])
+//            {
+//                PULLog(@"user is nearby now");
+//                // we're nearby
+//                [self p_moveUser:user toArray:_nearbyFriends];
+//                [self p_sortArrayByDistanceFromMe:_nearbyFriends];
+//                
+//                didChange = YES;
+//            }
+//            else if (![_farAwayFriends containsObject:user] && distance > kPULMaxDistanceToBeNearby)
+//            {
+//                PULLog(@"user is far now");
+//                [self p_moveUser:user toArray:_farAwayFriends];
+//                [self p_sortArrayByDistanceFromMe:_farAwayFriends];
+//                
+//                didChange = YES;
+//            }
+//
+//            if (didChange)
+//            {
+//                PULLog(@"organization changed");
+//                if ([_delegate respondsToSelector:@selector(friendManagerDidReorganize:)])
+//                {
+//                    [_delegate friendManagerDidReorganize:self];
+//                }
+//            }
+//        }
+//    }
+//    else
+//    {
+//        // remove user from all arrays
+//        [self p_moveUser:user toArray:nil];
+//    }
+//}
 
 - (void)sendFriendRequestToUser:(PULUser*)user
 {
@@ -380,6 +381,9 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         {
             [_delegate friendManager:self didSendFriendRequestToUser:user];
         }
+        
+        // push
+        [PULPush sendPushType:kPULPushTypeSendFriendRequest to:user from:[PULAccount currentUser]];
     }];
 }
 
@@ -400,6 +404,9 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         {
             [_delegate friendManager:self didAcceptFriendRequestFromUser:user];
         }
+        
+        // push
+        [PULPush sendPushType:kPULPushTypeAcceptFriendRequest to:user from:[PULAccount currentUser]];
     }];
 }
 
@@ -528,7 +535,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     }];
 }
 
-- (void)p_usersFromEndpoint:(NSString*)endpoint userBlock:(void(^)(PULUser *user, BOOL done))completion
+- (void)p_usersFromEndpoint:(NSString*)endpoint completion:(void(^)(NSArray *users))completion
 {
     Firebase *ref = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:endpoint];
     
@@ -539,24 +546,29 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         if (![data isKindOfClass:[NSNull class]])
         {
             __block NSInteger userCount = data.count;
+            __block NSMutableArray *usersToReturn = [[NSMutableArray alloc] initWithCapacity:userCount];
             
+            // enumerate over friends uids
             [data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
                 NSString *uid = key;
+                
+                // create user and add to array
                 [self p_userFromUid:uid completion:^(PULUser *user) {
                     
-                    BOOL isDone = NO;
+                    // add user to array
+                    user.delegate = self;
+                    [usersToReturn addObject:user];
                     if (--userCount == 0)
                     {
-                        isDone = YES;
+                        // done loading users, call completion
+                        completion(usersToReturn);
                     }
-                    
-                    completion(user, isDone);
                 }];
             }];
         }
         else
         {
-            completion(nil, YES);
+            completion(nil);
         }
     }];
 }

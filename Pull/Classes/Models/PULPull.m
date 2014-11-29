@@ -117,6 +117,31 @@
     _statusObserverHandle = 0;
 }
 
+#pragma mark - Overrides
+- (BOOL)isEqual:(id)object
+{
+    if ([object isKindOfClass:[PULPull class]])
+    {
+        PULPull *pull = object;
+        
+        if ([pull.uid isEqualToString:self.uid])
+        {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+- (NSString*)description
+{
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjects:@[[NSString stringWithFormat:@"%p", self], _uid,
+                                                                 _sendingUser.uid, _receivingUser.uid,
+                                                                 _expiration?:@"", @(_status)] forKeys:@[@"pull", @"uid", @"sendingUser", @"receivingUser", @"expiration", @"status"]];
+    
+    return dict.description;
+}
+
 #pragma mark - Firebase Protocol
 - (NSDictionary*)firebaseRepresentation
 {

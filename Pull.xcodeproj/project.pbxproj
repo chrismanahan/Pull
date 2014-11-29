@@ -28,6 +28,7 @@
 		33BD5ACD1A0EB50C00F92414 /* PULConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD5ACC1A0EB50C00F92414 /* PULConstants.m */; };
 		33EC2D861A100C6B0055E30B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33EC2D851A100C6B0055E30B /* FacebookSDK.framework */; };
 		33ECD35F1A26D3E300192BC8 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 33ECD35E1A26D3E300192BC8 /* NSData+Hex.m */; };
+		33EE0CB31A28ED48005E4E2E /* PULPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 33EE0CB21A28ED48005E4E2E /* PULPush.m */; };
 		33EE5F681A1D788700F5F343 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 33EE5F671A1D788700F5F343 /* compass.png */; };
 		33EFBCA21A229E0200345A14 /* PULCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 33EFBCA11A229E0200345A14 /* PULCache.m */; };
 		952BDB5E1A0C4F0500C67BB5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */; };
@@ -97,6 +98,8 @@
 		33EC2D851A100C6B0055E30B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		33ECD35D1A26D3E300192BC8 /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hex.h"; sourceTree = "<group>"; };
 		33ECD35E1A26D3E300192BC8 /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hex.m"; sourceTree = "<group>"; };
+		33EE0CB11A28ED48005E4E2E /* PULPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPush.h; sourceTree = "<group>"; };
+		33EE0CB21A28ED48005E4E2E /* PULPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPush.m; sourceTree = "<group>"; };
 		33EE5F671A1D788700F5F343 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
 		33EFBCA01A229E0200345A14 /* PULCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULCache.h; sourceTree = "<group>"; };
 		33EFBCA11A229E0200345A14 /* PULCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULCache.m; sourceTree = "<group>"; };
@@ -276,6 +279,8 @@
 				33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */,
 				334044C71A17FD6A00B00BC3 /* PULFriendFinder.h */,
 				334044C81A17FD6A00B00BC3 /* PULFriendFinder.m */,
+				33EE0CB11A28ED48005E4E2E /* PULPush.h */,
+				33EE0CB21A28ED48005E4E2E /* PULPush.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -575,6 +580,7 @@
 				3340449A1A17ACF900B00BC3 /* PULError.m in Sources */,
 				33324E931A0EEEE70073F1CA /* README.md in Sources */,
 				33324E921A0EEEE70073F1CA /* NSDate+Utilities.m in Sources */,
+				33EE0CB31A28ED48005E4E2E /* PULPush.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

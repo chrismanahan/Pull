@@ -15,4 +15,6 @@
 @property (nonatomic, strong) IBOutlet UIImageView *userImageView;
 @property (nonatomic, strong) IBOutlet UILabel *userDisplayNameLabel;
 
+@property (nonatomic, strong) PULUser *user;
+
 @end

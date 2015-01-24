@@ -19,7 +19,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <CoreLocation/CoreLocation.h>
 
-const float kPULMaxDistanceToBeNearby = 48280.3;    // 30 miles
+const float kPULMaxDistanceToBeNearby = 99999999;// 48280.3;    // 30 miles
 
 NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
@@ -125,6 +125,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         if (![PULError handleError:error target:_delegate selector:@selector(friendManagerDidEncounterError:) object:error])
         {
             NSArray *friends = ((NSDictionary*)result)[@"data"];
+            PULLog(@"got %zd friends", friends.count);
             
             for (NSDictionary *friend in friends)
             {
@@ -157,8 +158,6 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
                             
                             if (user)
                             {
-                                user.delegate = self;
-                                
                                 [self p_forceAddUserAsFriend:user completion:^(PULUser *friend) {
                                     if (![PULError handleError:error target:_delegate selector:@selector(friendManagerDidEncounterError:) object:error])
                                     {
@@ -186,13 +185,13 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 }
 
 #pragma mark - User Delegate
-- (void)userDidRefresh:(PULUser *)user
-{
-    if ([_delegate respondsToSelector:@selector(friendManager:didDetectFriendChange:)])
-    {
-        [_delegate friendManager:self didDetectFriendChange:user];
-    }
-}
+//- (void)userDidRefresh:(PULUser *)user
+//{
+//    if ([_delegate respondsToSelector:@selector(friendManager:didDetectFriendChange:)])
+//    {
+//        [_delegate friendManager:self didDetectFriendChange:user];
+//    }
+//}
 
 #pragma mark - Public
 - (void)reorganizeWithPulls:(NSArray*)pulls
@@ -398,7 +397,6 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         
         [_pendingFriends removeObject:user];
         [_allFriends addObject:user];
-        user.delegate = self;
         
         if ([_delegate respondsToSelector:@selector(friendManager:didAcceptFriendRequestFromUser:)])
         {
@@ -531,7 +529,10 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
             user = [[PULUser alloc] initFromFirebaseData:data uid:snapshot.key];
         }
         
-        completion(user);
+        if (completion)
+        {
+            completion(user);
+        }
     }];
 }
 
@@ -555,9 +556,11 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
                 // create user and add to array
                 [self p_userFromUid:uid completion:^(PULUser *user) {
                     
-                    // add user to array
-                    user.delegate = self;
-                    [usersToReturn addObject:user];
+                    if (user)
+                    {
+                        // add user to array
+                        [usersToReturn addObject:user];
+                    }
                     if (--userCount == 0)
                     {
                         // done loading users, call completion

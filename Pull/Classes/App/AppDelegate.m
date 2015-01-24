@@ -17,6 +17,8 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 #import <Firebase/Firebase.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
 
@@ -50,19 +52,38 @@
     {
         vcName = NSStringFromClass([PULPullListViewController class]);
 
-        PULLog(@"opening active fb session");
-        [FBSession openActiveSessionWithReadPermissions:@[@"email", @"public_profile", @"user_friends"]
-                                           allowLoginUI:NO
-                                      completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                                          // TODO: validate that session is open and valid
-                                          PULLog(@"opened session");
-                                          [[PULAccount currentUser] loginWithFacebookToken:session.accessTokenData.accessToken completion:nil];
-                                      }];
+        if (ref.authData.providerData[@"accessToken"])
+        {
+            [ref authWithOAuthProvider:@"facebook" token:ref.authData.token withCompletionBlock:^(NSError *error, FAuthData *authData) {
+                [[PULAccount currentUser] loginWithFacebookToken:ref.authData.providerData[@"accessToken"] completion:nil];
+            }];
+        }
+        else
+        {
+            
+            PULLog(@"opening active fb session");
+            [FBSession openActiveSessionWithReadPermissions:@[@"email", @"public_profile", @"user_friends"]
+                                               allowLoginUI:YES
+                                          completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                              if (!error)
+                                              {
+                                                  // TODO: validate that session is open and valid
+                                                  PULLog(@"opened session");
+                                                  [[PULAccount currentUser] loginWithFacebookToken:session.accessTokenData.accessToken completion:nil];
+                                              }
+                                              else
+                                              {
+                                                  PULLog(@"%@", error.localizedDescription);
+                                              }
+                                          }];
+        }
     }
     else
     {
         vcName = NSStringFromClass([PULLoginViewController class]);
     }
+    
+    [Fabric with:@[CrashlyticsKit]];
     
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:vcName];
     
@@ -90,6 +111,8 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
     [[FBSession activeSession] handleDidBecomeActive];
+    
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

@@ -14,23 +14,28 @@
 @class CLLocation;
 @class UIImage;
 
-@protocol PULUserDelegate <NSObject>
-
 /**
- *  Called when something, usually location, is updated
- *
- *  @param user User
+ *  Notifcation sent when a single user is updated. The object with the notif is the updated user
  */
-- (void)userDidRefresh:(PULUser*)user;
+extern NSString * const kPULFriendUpdatedNotifcation;
 
-@end
+//@protocol PULUserDelegate <NSObject>
+//
+///**
+// *  Called when something, usually location, is updated
+// *
+// *  @param user User
+// */
+//- (void)userDidRefresh:(PULUser*)user;
+//
+//@end
 
 @interface PULUser : NSObject <PULFirebaseProtocol>
 
 /*******************************
         Properties
  ******************************/
-@property (nonatomic, strong) id <PULUserDelegate> delegate;
+//@property (nonatomic, strong) id <PULUserDelegate> delegate;
 
 @property (nonatomic, strong) NSString *uid;
 

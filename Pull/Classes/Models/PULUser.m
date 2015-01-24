@@ -10,10 +10,14 @@
 
 #import "PULCache.h"
 
+#import "PULConstants.h"
+
 #import <UIKit/UIKit.h>
 
 #import <Firebase/Firebase.h>
 #import <CoreLocation/CoreLocation.h>
+
+NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedNotifcation";
 
 @interface PULUser ()
 
@@ -42,14 +46,28 @@
 
 - (void)startObservingChanges
 {
-    [_fireRef observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        NSDictionary *data = snapshot.value;
+    _fireRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"location"];
+    
+    [_fireRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         
-        [self p_loadPropertiesFromDictionary:data];
+        NSDictionary *loc = snapshot.value;
         
-        if ([_delegate respondsToSelector:@selector(userDidRefresh:)])
+        if (![loc isKindOfClass:[NSNull class]])
         {
-            [_delegate userDidRefresh:self];
+            PULLog(@"user (%@) updated location", self.fullName);
+            
+            double lat        = [loc[@"lat"] doubleValue];
+            double lon        = [loc[@"lon"] doubleValue];
+            double alt        = [loc[@"alt"] doubleValue];
+            
+            CLLocationCoordinate2D coords = CLLocationCoordinate2DMake(lat, lon);
+            _location = [[CLLocation alloc] initWithCoordinate:coords
+                                                       altitude:alt
+                                            horizontalAccuracy:kCLLocationAccuracyNearestTenMeters
+                                              verticalAccuracy:kCLLocationAccuracyNearestTenMeters
+                                                     timestamp:[NSDate dateWithTimeIntervalSinceNow:0]];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPULFriendUpdatedNotifcation object:self];
         }
     }];
 }
@@ -124,10 +142,7 @@
                                [[PULCache sharedCache] setObject:_image forKey:cacheKey];
                                
                                PULLog(@"Updated user image");
-                               if ([_delegate respondsToSelector:@selector(userDidRefresh:)])
-                               {
-                                   [_delegate userDidRefresh:self];
-                               }
+                               [[NSNotificationCenter defaultCenter] postNotificationName:kPULFriendUpdatedNotifcation object:self];
                            }];
     return nil;
 }
@@ -151,7 +166,7 @@
 - (NSString*)description
 {
     NSDictionary *dict = [[NSDictionary alloc] initWithObjects:@[[NSString stringWithFormat:@"%p", self], _uid,
-                                                                 _fullName?:@"", @{@"lat": @(_location.coordinate.latitude),
+                                                                 self.fullName, @{@"lat": @(_location.coordinate.latitude),
                                                                                   @"lon": @(_location.coordinate.longitude),
                                                                                   @"alt": @(_location.altitude)}] forKeys:@[@"user", @"uid", @"fullName", @"loc"]];
     

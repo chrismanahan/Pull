@@ -51,7 +51,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
 
 - (void)initializePulls
 {
-    NSAssert([PULAccount currentUser].friendManager.allFriends != nil, @"Need to have an array of friends to proceed");
+    NSAssert([PULAccount currentUser].friendManager.allFriends != nil /*&& [PULAccount currentUser].friendManager.allFriends.count > 0*/, @"Need to have an array of friends to proceed");
     
     PULLog(@"initializing pulls with friends");
     // initialize pulls array
@@ -102,18 +102,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
                         // we should prune pulls that are expired
                         [self p_pruneExpiredPulls];
                         
-                        if (_pruneTimer)
-                        {
-                            [_pruneTimer invalidate];
-                            _pruneTimer = nil;
-                        }
-                        
-                        PULLog(@"starting pruning timer");
-                        _pruneTimer = [NSTimer scheduledTimerWithTimeInterval:kPULPullManagerPruneInterval
-                                                                       target:self
-                                                                     selector:@selector(p_pruneExpiredPulls)
-                                                                     userInfo:nil
-                                                                      repeats:YES];
+                        [self p_startPruningTimer];
                     }
                 }];
             }];
@@ -127,12 +116,30 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
             {
                 [_delegate pullManagerDidLoadPulls:_pulls];
             }
+            
+            [self p_startPruningTimer];
         }
         
         // start watching our pulls
         [self p_stopObservingAccountPulls];
         [self p_startObservingAccountPulls];
     }];
+}
+
+- (void)p_startPruningTimer
+{
+    if (_pruneTimer)
+    {
+        [_pruneTimer invalidate];
+        _pruneTimer = nil;
+    }
+    
+    PULLog(@"starting pruning timer");
+    _pruneTimer = [NSTimer scheduledTimerWithTimeInterval:kPULPullManagerPruneInterval
+                                                   target:self
+                                                 selector:@selector(p_pruneExpiredPulls)
+                                                 userInfo:nil
+                                                  repeats:YES];
 }
 
 - (PULPull*)p_pullFromFirebaseSnapshot:(FDataSnapshot*)snapshot
@@ -278,10 +285,10 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     NSParameterAssert(user);
     
     PULPull *pull = [self p_pullWithUser:user];
-    NSDate *expiration = [NSDate dateWithHoursFromNow:kPULPullExirationHours];
-    pull.expiration = expiration;
+    [pull setExpiration:[NSDate dateWithHoursFromNow:kPULPullExirationHours]];
+    pull.status = PULPullStatusPulled;
     
-    [self p_updatePull:pull status:PULPullStatusPulled];
+    [self p_updatePull:pull];
     
     // send push
     [PULPush sendPushType:kPULPushTypeAcceptPull to:user from:[PULAccount currentUser]];
@@ -302,8 +309,9 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     NSParameterAssert(user);
     
     PULPull *pull = [self p_pullWithUser:user];
+    pull.status = PULPullStatusSuspended;
     
-    [self p_updatePull:pull status:PULPullStatusSuspended];
+    [self p_updatePull:pull];
 }
 
 - (void)resumePullWithUser:(PULUser*)user
@@ -395,11 +403,9 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
  *  @param pull      PUll
  *  @param newStatus New status
  */
-- (void)p_updatePull:(PULPull*)pull status:(PULPullStatus)newStatus;
+- (void)p_updatePull:(PULPull*)pull
 {
     NSParameterAssert(pull);
-    
-    pull.status = newStatus;
     
     Firebase *pullRef = [[_fireRef childByAppendingPath:@"pulls"] childByAppendingPath:pull.uid];
 
@@ -408,7 +414,6 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         [PULError handleError:error target:_delegate selector:@selector(pullManagerEncounteredError:) object:error];
         
     }];
-    
 }
 
 /**
@@ -501,10 +506,17 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     } 
     
     [markedPulls enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        PULPull *pull = _pulls[idx];
         
-        [self p_removePull:pull];
-        
+        if (idx > _pulls.count - 1)
+        {
+            PULLog(@"PROBLEM PRUNING MARKED PULL, OUT OF BOUNDS");
+        }
+        else
+        {
+            PULPull *pull = _pulls[idx];
+            
+            [self p_removePull:pull];
+        }
     }];
 }
 

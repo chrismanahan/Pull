@@ -16,17 +16,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
-            condition = "(BOOL)([_allFriends count] == 0)"
             continueAfterRunningActions = "No"
-            filePath = "Pull/Classes/Managers/PULFriendManager.m"
-            timestampString = "438967044.256363"
+            filePath = "Pull/Classes/UI/Cells/Table Cells/PULUserCell.m"
+            timestampString = "439001536.215758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "-addFriendsFromFacebook"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "-setUser:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            condition = "retUser == nil"
+            continueAfterRunningActions = "No"
+            filePath = "Pull/Classes/Managers/PULPullManager.m"
+            timestampString = "443387019.372007"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "-p_pullFromFirebaseSnapshot:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pull/Classes/Managers/PULFriendManager.m"
+            timestampString = "443805111.206742"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "-initializeFriends"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -28,13 +28,13 @@
 - (void)friendManager:(PULFriendManager *)friendManager friendRequestWasAcceptedWithUser:(PULUser*)user;
 - (void)friendManager:(PULFriendManager *)friendManager didReceiveFriendRequestFromUser:(PULUser*)user;
 - (void)friendManager:(PULFriendManager*)friendManager didUnfriendUser:(PULUser*)user;
-- (void)friendManager:(PULFriendManager*)friendManager didDetectFriendChange:(PULUser*)user;
+//- (void)friendManager:(PULFriendManager*)friendManager didDetectFriendChange:(PULUser*)user;
 
 - (void)friendManagerDidEncounterError:(NSError*)error;
 
 @end
 
-@interface PULFriendManager : NSObject <PULUserDelegate>
+@interface PULFriendManager : NSObject
 
 /*****************************************
         Properties

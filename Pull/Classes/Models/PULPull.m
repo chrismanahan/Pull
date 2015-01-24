@@ -33,7 +33,7 @@
 - (instancetype)initExistingPullWithUid:(NSString*)uid sender:(PULUser*)sendingUser receiver:(PULUser*)receivingUser status:(PULPullStatus)status expiration:(NSDate*)expiration
 {
     NSParameterAssert(sendingUser);
-    NSParameterAssert(receivingUser);
+    NSParameterAssert(receivingUser);;
     
     if (self = [self init])
     {
@@ -97,7 +97,7 @@
                 [_delegate pull:self didUpdateStatus:_status];
             }
         }
-        else if ([snapshot.key isEqualToString:@"expiration"]);
+        else if ([snapshot.key isEqualToString:@"expiration"])
         {
             _expiration = [NSDate dateWithTimeIntervalSince1970:[snapshot.value integerValue]];
          

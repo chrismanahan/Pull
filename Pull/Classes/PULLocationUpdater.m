@@ -12,8 +12,8 @@
 
 
 // constants
-const NSInteger kLocationForegroundDistanceFilter = 20;    // meters
-const NSInteger kLocationBackgroundDistanceFilter = 100;
+const NSInteger kLocationForegroundDistanceFilter = 2;//20;    // meters
+const NSInteger kLocationBackgroundDistanceFilter = 30;
 
 NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
 NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissionsNeededNotification";
@@ -78,7 +78,7 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.distanceFilter = kLocationForegroundDistanceFilter;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [_locationManager startUpdatingHeading];
     
     [self p_requestPermission];

@@ -16,9 +16,12 @@
 
 #import "PULAccount.h"
 
+#import <MessageUI/MessageUI.h>
+#import <sys/utsname.h>
+
 const NSInteger kPULPullListNumberOfTableViewSections = 4;
 
-@interface PULPullListViewController ()
+@interface PULPullListViewController () <MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *friendTableView;
 @property (nonatomic, strong) IBOutlet UITableView *friendRequestTableView;
@@ -50,7 +53,60 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 {
     PULLog(@"reloading friends tables");
     [_friendTableView reloadData];
-    [_friendRequestTableView reloadData];
+//    [_friendRequestTableView reloadData];
+}
+
+#pragma mark - Actions
+- (IBAction)ibDebug:(id)sender
+{
+    NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+    NSString *appVersion = [infoDict objectForKey:@"CFBundleShortVersionString"];
+    NSNumber *buildNumber = [infoDict objectForKey:@"CFBundleVersion"];
+    
+    // get some device info
+    UIDevice *dev = [UIDevice currentDevice];
+    NSString *model = machineName();
+    NSString *version = dev.systemVersion;
+    
+    NSString *body = [NSString stringWithFormat:@"\n\n\n\n-----------------\nDevice Information\n \
+OS version: %@\n\
+Model: %@\n\
+Version: %@\n\
+Build: %@\n\
+-----------------", version, model, appVersion, buildNumber];
+    
+    if ([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+        [mail setSubject:@"Pull Bug Report"];
+        [mail setToRecipients:@[@"debugpull@gmail.com"]];
+        [mail setMessageBody:body isHTML:NO];
+        mail.mailComposeDelegate = self;
+        
+        [self presentViewController:mail animated:YES completion:nil];
+    }
+    else
+    {
+        [[[UIAlertView alloc] initWithTitle:@"No mail account detected"
+                                    message:@"Please set up a mail account on your phone before continuing"
+                                   delegate:self
+                          cancelButtonTitle:@"ok" otherButtonTitles: nil]show];
+    }
+}
+
+NSString* machineName()
+{
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    
+    return [NSString stringWithCString:systemInfo.machine
+                              encoding:NSUTF8StringEncoding];
+}
+
+#pragma mark - mail delegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table View Data Source

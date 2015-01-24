@@ -22,7 +22,7 @@ IB_DESIGNABLE
     
     CGContextRef ref = UIGraphicsGetCurrentContext();
     
-    CGContextSetFillColorWithColor(ref, [UIColor purpleColor].CGColor);
+    CGContextSetFillColorWithColor(ref, [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000].CGColor);
     
     CGContextFillEllipseInRect(ref, rect);
     

@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="timeburner_regular.ttf">
+            <string>TimeBurner</string>
+            <string>TimeBurner</string>
+            <string>TimeBurner</string>
+            <string>TimeBurner</string>
+            <string>TimeBurner</string>
+            <string>TimeBurner</string>
+            <string>TimeBurner</string>
+            <string>TimeBurner</string>
+            <string>TimeBurner</string>
+            <string>TimeBurner</string>
+            <string>TimeBurner</string>
+            <string>TimeBurner</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Login View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -25,8 +41,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="187" id="036-Jz-5y7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="120"/>
-                                <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="120"/>
+                                <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQB-8a-Cj4">
@@ -100,7 +116,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0IB-vY-Nh3" userLabel="Left button" customClass="PULCircleButton">
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0IB-vY-Nh3" userLabel="Left button" customClass="PULCircleButton">
                                         <rect key="frame" x="8" y="16" width="48" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="0IB-vY-Nh3" secondAttribute="height" multiplier="1:1" id="ID2-aN-7er"/>
@@ -114,8 +130,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="NdD-ae-uEL"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="42"/>
-                                        <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="42"/>
+                                        <color key="textColor" red="0.53725490196078429" green="0.18431372549019609" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -134,7 +150,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mIS-oU-QAh" userLabel="Pull table view">
-                                <rect key="frame" x="0.0" y="64" width="320" height="345"/>
+                                <rect key="frame" x="0.0" y="123" width="320" height="445"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -169,14 +185,14 @@
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="29" text="30 ft" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXG-xB-s1B">
                                                             <rect key="frame" x="226" y="44" width="80" height="29"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
-                                                            <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="18"/>
+                                                            <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" placeholderIntrinsicWidth="166" placeholderIntrinsicHeight="28" text="Brandon Smith" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ntx-0l-yTa">
-                                                            <rect key="frame" x="115" y="15" width="166" height="28"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
-                                                            <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="166" placeholderIntrinsicHeight="28" text="Brandon Smith" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ntx-0l-yTa">
+                                                            <rect key="frame" x="115" y="12" width="166" height="28"/>
+                                                            <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="18"/>
+                                                            <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -184,7 +200,6 @@
                                                     <constraints>
                                                         <constraint firstItem="0rh-22-zXw" firstAttribute="top" secondItem="MnD-wL-40h" secondAttribute="top" constant="12" id="6HD-c7-OZC"/>
                                                         <constraint firstAttribute="trailing" secondItem="sXG-xB-s1B" secondAttribute="trailing" constant="14" id="80B-Ha-i2Z"/>
-                                                        <constraint firstItem="ntx-0l-yTa" firstAttribute="top" secondItem="MnD-wL-40h" secondAttribute="top" constant="15" id="RuW-Ix-6eO"/>
                                                         <constraint firstItem="0rh-22-zXw" firstAttribute="top" secondItem="ntx-0l-yTa" secondAttribute="top" id="Vxc-4I-yWY"/>
                                                         <constraint firstAttribute="centerY" secondItem="sXG-xB-s1B" secondAttribute="centerY" constant="-1" id="sL2-Do-QZ1"/>
                                                         <constraint firstItem="0rh-22-zXw" firstAttribute="leading" secondItem="MnD-wL-40h" secondAttribute="leading" constant="1" id="uxp-oe-6ur"/>
@@ -205,6 +220,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="userDisplayNameLabel" destination="ntx-0l-yTa" id="PcX-Tb-3Te"/>
+                                            <outlet property="userDistanceLabel" destination="sXG-xB-s1B" id="KPR-HM-CuL"/>
                                             <outlet property="userImageView" destination="BXE-Oy-GaD" id="Igc-cq-kTZ"/>
                                         </connections>
                                     </tableViewCell>
@@ -238,8 +254,8 @@
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="166" placeholderIntrinsicHeight="28" text="Bob Corbet" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="4uG-g2-khw">
                                                             <rect key="frame" x="42" y="15" width="166" height="28"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
-                                                            <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="18"/>
+                                                            <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -296,16 +312,16 @@
                                                                 <outlet property="imageView" destination="1cX-iB-Oy8" id="lmM-Wl-dx1"/>
                                                             </connections>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="166" placeholderIntrinsicHeight="28" text="Maggie Hill" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="3qQ-Ra-coD">
-                                                            <rect key="frame" x="115" y="15" width="166" height="28"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
-                                                            <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pending pull. Tap to accept" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2p-4G-kTf">
+                                                            <rect key="frame" x="144" y="51" width="154" height="45"/>
+                                                            <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pending pull. Tap to accept" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2p-4G-kTf">
-                                                            <rect key="frame" x="144" y="51" width="157" height="41"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="166" placeholderIntrinsicHeight="28" text="Maggie Hill" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="3qQ-Ra-coD">
+                                                            <rect key="frame" x="115" y="15" width="166" height="28"/>
+                                                            <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="18"/>
+                                                            <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -345,8 +361,8 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AhC-GP-aP4" customClass="PULUserTableCellBackgroundView">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dih-Ik-pd9" customClass="PULUserImageView">
-                                                            <rect key="frame" x="1" y="13" width="100" height="100"/>
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dih-Ik-pd9" customClass="PULUserImageView">
+                                                            <rect key="frame" x="1" y="14" width="100" height="100"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8G2-Pb-bMM">
                                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -366,13 +382,13 @@
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="166" placeholderIntrinsicHeight="28" text="Brandon Smith" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Al5-4j-b6E">
                                                             <rect key="frame" x="115" y="13" width="166" height="28"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
-                                                            <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="18"/>
+                                                            <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="156" placeholderIntrinsicHeight="41" text="Waiting for friend to accept pull..." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNg-WZ-NOz">
-                                                            <rect key="frame" x="113" y="52" width="167" height="41"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for friend to accept pull..." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNg-WZ-NOz">
+                                                            <rect key="frame" x="113" y="57" width="167" height="45"/>
+                                                            <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="17"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -381,11 +397,12 @@
                                                     <constraints>
                                                         <constraint firstItem="dih-Ik-pd9" firstAttribute="top" secondItem="AhC-GP-aP4" secondAttribute="top" constant="13" id="3YD-V2-XuJ"/>
                                                         <constraint firstItem="Al5-4j-b6E" firstAttribute="leading" secondItem="dih-Ik-pd9" secondAttribute="trailing" constant="14" id="78z-YA-o7j"/>
+                                                        <constraint firstAttribute="bottom" secondItem="dNg-WZ-NOz" secondAttribute="bottom" constant="13" id="AFM-w0-lLM"/>
+                                                        <constraint firstItem="dNg-WZ-NOz" firstAttribute="top" relation="lessThanOrEqual" secondItem="Al5-4j-b6E" secondAttribute="bottom" priority="250" constant="13" id="E7a-jc-0my"/>
                                                         <constraint firstAttribute="bottom" secondItem="dih-Ik-pd9" secondAttribute="bottom" constant="2" id="PAT-M1-3FH"/>
                                                         <constraint firstAttribute="trailing" secondItem="dNg-WZ-NOz" secondAttribute="trailing" constant="40" id="USB-5S-QBR"/>
                                                         <constraint firstItem="dih-Ik-pd9" firstAttribute="leading" secondItem="AhC-GP-aP4" secondAttribute="leading" constant="1" id="bIo-z0-0KD"/>
                                                         <constraint firstItem="dNg-WZ-NOz" firstAttribute="leading" secondItem="dih-Ik-pd9" secondAttribute="trailing" constant="12" id="bbP-rN-CQ7"/>
-                                                        <constraint firstItem="dNg-WZ-NOz" firstAttribute="top" secondItem="Al5-4j-b6E" secondAttribute="bottom" constant="11" id="f4F-ag-4c7"/>
                                                         <constraint firstItem="Al5-4j-b6E" firstAttribute="top" secondItem="dih-Ik-pd9" secondAttribute="top" id="tO1-8t-hpg"/>
                                                     </constraints>
                                                 </view>
@@ -410,8 +427,7 @@
                                     <outlet property="delegate" destination="VCg-LE-m1S" id="44v-HF-PDH"/>
                                 </connections>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4ix-rX-Q8x" userLabel="Friend request table view">
-                                <rect key="frame" x="0.0" y="409" width="320" height="159"/>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4ix-rX-Q8x" userLabel="Friend request table view">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" restorationIdentifier="FriendRequestCellID" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendRequestCellID" id="SV4-Tr-01B" userLabel="Friend request cell" customClass="PULUserCell">
@@ -549,11 +565,22 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="VCg-LE-m1S" id="Wzg-Ko-uyY"/>
-                                    <outlet property="delegate" destination="VCg-LE-m1S" id="csi-LC-Vko"/>
-                                </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oc5-Dr-gUN">
+                                <rect key="frame" x="25" y="72" width="270" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.62746034400179407" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="eBv-Ox-1RK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
+                                <state key="normal" title="Report Bug">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="ibDebug:" destination="VCg-LE-m1S" eventType="touchUpInside" id="x8Y-4n-EGR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -561,12 +588,15 @@
                             <constraint firstAttribute="trailing" secondItem="mIS-oU-QAh" secondAttribute="trailing" id="Ft1-dg-6we"/>
                             <constraint firstItem="4ix-rX-Q8x" firstAttribute="top" secondItem="mIS-oU-QAh" secondAttribute="bottom" id="O3R-2Z-KsM"/>
                             <constraint firstItem="Col-68-KCe" firstAttribute="top" secondItem="Fa8-lq-H52" secondAttribute="top" id="O8z-jo-wGS"/>
+                            <constraint firstItem="oc5-Dr-gUN" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leadingMargin" constant="9" id="bMM-Es-LtN"/>
                             <constraint firstItem="4ix-rX-Q8x" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="ckv-2j-Pgs"/>
                             <constraint firstAttribute="trailing" secondItem="4ix-rX-Q8x" secondAttribute="trailing" id="fQP-vj-c1f"/>
-                            <constraint firstItem="mIS-oU-QAh" firstAttribute="top" secondItem="Col-68-KCe" secondAttribute="bottom" id="fXz-kg-czQ"/>
                             <constraint firstAttribute="trailing" secondItem="Col-68-KCe" secondAttribute="trailing" id="g71-Iz-rbN"/>
                             <constraint firstItem="mIS-oU-QAh" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="gFo-Qg-zwN"/>
-                            <constraint firstItem="4ix-rX-Q8x" firstAttribute="bottom" secondItem="mIS-oU-QAh" secondAttribute="bottom" constant="159" id="lBH-K6-pnQ"/>
+                            <constraint firstItem="oc5-Dr-gUN" firstAttribute="top" secondItem="1ww-bU-Xro" secondAttribute="bottom" constant="8" id="hxr-5Z-6IU"/>
+                            <constraint firstItem="4ix-rX-Q8x" firstAttribute="bottom" secondItem="mIS-oU-QAh" secondAttribute="bottom" id="lBH-K6-pnQ"/>
+                            <constraint firstItem="mIS-oU-QAh" firstAttribute="top" secondItem="oc5-Dr-gUN" secondAttribute="bottom" constant="11" id="lWN-gW-Apl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="oc5-Dr-gUN" secondAttribute="trailing" constant="9" id="oK0-Wq-Geo"/>
                             <constraint firstAttribute="bottom" secondItem="4ix-rX-Q8x" secondAttribute="bottom" id="uxG-Q3-NVJ"/>
                         </constraints>
                     </view>
@@ -578,7 +608,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PX-8q-Zmp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="994" y="443"/>
+            <point key="canvasLocation" x="994" y="440"/>
         </scene>
         <!--Pull Detail View Controller-->
         <scene sceneID="qhT-Rl-VQM">
@@ -609,8 +639,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="TNR-cf-4vb"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="42"/>
-                                        <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="42"/>
+                                        <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQq-dA-0Cz" userLabel="Left button" customClass="PULCircleButton">
@@ -618,7 +648,9 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="AQq-dA-0Cz" secondAttribute="height" multiplier="1:1" id="pxj-Vc-byw"/>
                                         </constraints>
-                                        <state key="normal">
+                                        <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="15"/>
+                                        <state key="normal" title="Back">
+                                            <color key="titleColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -644,47 +676,22 @@
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="174" placeholderIntrinsicHeight="36" text="220 Feet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJ1-p9-fqk">
                                 <rect key="frame" x="73" y="72" width="174" height="36"/>
-                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="22"/>
-                                <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="22"/>
+                                <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="compass.png" translatesAutoresizingMaskIntoConstraints="NO" id="OHw-Lt-ZsN">
-                                <rect key="frame" x="0.0" y="122" width="320" height="304"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="OHw-Lt-ZsN" secondAttribute="height" multiplier="327:311" id="sbO-dx-dTg"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" fixedFrame="YES" image="compass.png" translatesAutoresizingMaskIntoConstraints="NO" id="OHw-Lt-ZsN">
+                                <rect key="frame" x="23" y="163" width="280" height="266"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VSI-QL-eER" customClass="PULUserImageView">
-                                <rect key="frame" x="104" y="257" width="118" height="118"/>
+                            <view contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSI-QL-eER" customClass="PULUserImageView">
+                                <rect key="frame" x="104" y="279" width="118" height="118"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-RO-rfr">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-RO-rfr">
                                         <rect key="frame" x="0.0" y="0.0" width="118" height="118"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="118" id="dHG-zG-gSR"/>
-                                        </constraints>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="centerY" secondItem="VSI-QL-eER" secondAttribute="centerY" id="4Lz-V9-2jU"/>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="top" secondItem="VSI-QL-eER" secondAttribute="top" id="4rI-pp-kLa"/>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="top" secondItem="VSI-QL-eER" secondAttribute="top" id="8Xh-3L-u9q"/>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="leading" secondItem="VSI-QL-eER" secondAttribute="leading" id="CpW-9l-WF2"/>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="top" secondItem="VSI-QL-eER" secondAttribute="top" id="GIL-gh-4le"/>
-                                    <constraint firstAttribute="trailing" secondItem="VMi-RO-rfr" secondAttribute="trailing" id="Ju2-Cv-as3"/>
-                                    <constraint firstAttribute="bottom" secondItem="VMi-RO-rfr" secondAttribute="bottom" id="Rek-Zm-672"/>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="top" secondItem="VSI-QL-eER" secondAttribute="top" id="UhH-l6-Db6"/>
-                                    <constraint firstAttribute="trailing" secondItem="VMi-RO-rfr" secondAttribute="trailing" id="VG3-F7-3eB"/>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="leading" secondItem="VSI-QL-eER" secondAttribute="leading" id="Z9q-h3-XUy"/>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="leading" secondItem="VSI-QL-eER" secondAttribute="leading" id="cbf-oJ-Jax"/>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="centerX" secondItem="VSI-QL-eER" secondAttribute="centerX" id="g6i-oi-DKd"/>
-                                    <constraint firstAttribute="bottom" secondItem="VMi-RO-rfr" secondAttribute="bottom" id="hZL-qE-Mhm"/>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="leading" secondItem="VSI-QL-eER" secondAttribute="leading" id="hyd-jX-aXG"/>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="leading" secondItem="VSI-QL-eER" secondAttribute="leading" id="oZM-ca-gui"/>
-                                    <constraint firstItem="VMi-RO-rfr" firstAttribute="top" secondItem="VSI-QL-eER" secondAttribute="top" id="oac-Jl-oZO"/>
-                                    <constraint firstAttribute="bottom" secondItem="VMi-RO-rfr" secondAttribute="bottom" id="sBb-U8-sKe"/>
-                                    <constraint firstAttribute="trailing" secondItem="VMi-RO-rfr" secondAttribute="trailing" id="ySq-KF-1Yg"/>
-                                </constraints>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="imageView" destination="VMi-RO-rfr" id="afi-KL-T0I"/>
                                 </connections>
@@ -692,13 +699,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="OHw-Lt-ZsN" secondAttribute="trailing" id="468-cc-lXX"/>
-                            <constraint firstItem="OHw-Lt-ZsN" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leading" id="61f-Bj-kDP"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="VSI-QL-eER" secondAttribute="trailing" constant="82" id="IWI-8v-AYf"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="top" secondItem="PKI-rX-A2I" secondAttribute="top" id="Ife-q0-DkG"/>
-                            <constraint firstItem="OHw-Lt-ZsN" firstAttribute="top" secondItem="BJ1-p9-fqk" secondAttribute="bottom" constant="14" id="W9A-DC-mwm"/>
-                            <constraint firstItem="VSI-QL-eER" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leadingMargin" constant="88" id="XE2-5f-oyX"/>
-                            <constraint firstItem="XMP-0k-fHl" firstAttribute="top" secondItem="VSI-QL-eER" secondAttribute="bottom" constant="193" id="Z5q-pa-DKe"/>
                             <constraint firstItem="BJ1-p9-fqk" firstAttribute="top" secondItem="fBe-JC-L71" secondAttribute="bottom" constant="8" id="cPz-Cz-o2D"/>
                             <constraint firstAttribute="trailing" secondItem="fBe-JC-L71" secondAttribute="trailing" id="cQN-FP-pe4"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leading" id="lca-3j-yZm"/>
@@ -709,6 +710,7 @@
                         <outlet property="directionArrowView" destination="OHw-Lt-ZsN" id="axy-q5-zg5"/>
                         <outlet property="distanceLabel" destination="BJ1-p9-fqk" id="QBS-YI-qtS"/>
                         <outlet property="userImageView" destination="VMi-RO-rfr" id="NrI-aX-SdB"/>
+                        <outlet property="userImageViewContainer" destination="VSI-QL-eER" id="dl3-Tz-SRX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uOu-eW-nh2" userLabel="First Responder" sceneMemberID="firstResponder"/>

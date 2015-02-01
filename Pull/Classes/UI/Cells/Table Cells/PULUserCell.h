@@ -19,6 +19,7 @@
 - (void)userCellDidBeginPulling:(PULUserCell*)cell;
 - (void)userCellDidAbortPulling:(PULUserCell*)cell;
 - (void)userCellDidCompletePulling:(PULUserCell*)cell;
+- (void)userCellDidDeclinePull:(PULUserCell*)cell;
 
 @end
 

@@ -269,7 +269,7 @@ NSString* machineName()
             }
             case 2: // invited users
             {
-                [[PULAccount currentUser].pullManager unpullUser:friend];
+            //    [[PULAccount currentUser].pullManager unpullUser:friend];
                 break;
             }
             case 3:     // unpulled users
@@ -329,6 +329,12 @@ NSString* machineName()
         [[PULAccount currentUser].pullManager unpullUser:friend];
     }
     
+    [_friendTableView reloadData];
+}
+
+- (void)userCellDidDeclinePull:(PULUserCell *)cell
+{
+     [[PULAccount currentUser].pullManager unpullUser:cell.user];
     [_friendTableView reloadData];
 }
 

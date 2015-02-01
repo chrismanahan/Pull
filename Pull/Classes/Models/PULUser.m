@@ -211,7 +211,8 @@ NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedN
 
 - (NSString*)title
 {
-    return self.firstName;
+    NSString *initials = [NSString stringWithFormat:@"%@%@", [_firstName substringToIndex:1], [_lastName substringToIndex:1]];
+    return initials;
 }
 
 @end

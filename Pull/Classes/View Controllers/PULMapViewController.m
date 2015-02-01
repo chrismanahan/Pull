@@ -66,6 +66,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:_locationUpdateNotif];
 }
 
+#pragma mark - actions
 - (IBAction)ibClose:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -107,7 +108,22 @@
                                                                          reuseIdentifier:AnnotationIdentifier];
         annotationView.image = [UIImage imageNamed:@"map_pin"];
         annotationView.contentMode = UIViewContentModeScaleAspectFit;
-        annotationView.canShowCallout = YES;
+        annotationView.canShowCallout = NO;
+        
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, 60, 60)];
+        lbl.font = [UIFont fontWithName:@"Avenir-Roman" size:40];
+        lbl.textAlignment = NSTextAlignmentCenter;
+        lbl.textColor = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
+        lbl.text = [annotation title];
+        [lbl sizeToFit];
+        // adjust label center
+        CGPoint center = lbl.center;
+        CGFloat xOffset = abs(CGRectGetWidth(lbl.frame) - CGRectGetWidth(annotationView.frame));
+        xOffset /= 2;
+        center.x += xOffset;
+        lbl.center = center;
+        
+        [annotationView addSubview:lbl];
     
         return annotationView;
     }

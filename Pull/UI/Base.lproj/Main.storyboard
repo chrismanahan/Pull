@@ -298,26 +298,26 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W2W-CC-O1c" id="07H-yA-R8s">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h3e-ju-fpA" customClass="PULUserTableCellBackgroundView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h3e-ju-fpA" customClass="PULUserTableCellBackgroundView">
+                                                    <rect key="frame" x="0.0" y="1" width="320" height="115"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pending pull. Tap to accept" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2p-4G-kTf">
-                                                            <rect key="frame" x="144" y="51" width="159" height="47"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                                            <rect key="frame" x="109" y="51" width="197" height="22"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="166" placeholderIntrinsicHeight="28" text="Maggie Hill" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="3qQ-Ra-coD">
-                                                            <rect key="frame" x="115" y="15" width="166" height="28"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" placeholderIntrinsicWidth="166" placeholderIntrinsicHeight="28" text="Maggie Hill" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="3qQ-Ra-coD">
+                                                            <rect key="frame" x="115" y="16" width="166" height="28"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
                                                             <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowsPurple_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="h7b-hT-69i">
-                                                            <rect key="frame" x="70" y="35" width="179" height="45"/>
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="arrowsPurple_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="h7b-hT-69i">
+                                                            <rect key="frame" x="70" y="36" width="179" height="45"/>
                                                         </imageView>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="34t-DH-OAq" customClass="PULUserImageView">
-                                                            <rect key="frame" x="1" y="12" width="100" height="100"/>
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="34t-DH-OAq" customClass="PULUserImageView">
+                                                            <rect key="frame" x="1" y="13" width="100" height="100"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cX-iB-Oy8">
                                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -336,15 +336,30 @@
                                                                 <outlet property="imageView" destination="1cX-iB-Oy8" id="lmM-Wl-dx1"/>
                                                             </connections>
                                                         </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAa-D5-pc3">
+                                                            <rect key="frame" x="186" y="75" width="105" height="32"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="105" id="zfU-pG-e6B"/>
+                                                            </constraints>
+                                                            <state key="normal" backgroundImage="declineButton.png">
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="ibDecline:" destination="W2W-CC-O1c" eventType="touchUpInside" id="BzD-jt-3r5"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3qQ-Ra-coD" secondAttribute="trailing" constant="10" id="19f-IT-7uF"/>
                                                         <constraint firstItem="h7b-hT-69i" firstAttribute="top" secondItem="h3e-ju-fpA" secondAttribute="top" constant="35" id="2gC-xo-P79"/>
                                                         <constraint firstItem="3qQ-Ra-coD" firstAttribute="top" secondItem="h3e-ju-fpA" secondAttribute="top" constant="15" id="4EW-vd-Lh8"/>
+                                                        <constraint firstAttribute="bottom" secondItem="DAa-D5-pc3" secondAttribute="bottom" constant="8" id="4Fq-91-JUM"/>
                                                         <constraint firstItem="h7b-hT-69i" firstAttribute="leading" secondItem="h3e-ju-fpA" secondAttribute="leading" constant="70" id="CZG-di-0Ur"/>
+                                                        <constraint firstItem="DAa-D5-pc3" firstAttribute="top" secondItem="c2p-4G-kTf" secondAttribute="bottom" constant="2" id="CaP-je-I09"/>
+                                                        <constraint firstAttribute="trailing" secondItem="DAa-D5-pc3" secondAttribute="trailing" constant="29" id="Dd2-Cd-NgI"/>
                                                         <constraint firstAttribute="trailing" secondItem="h7b-hT-69i" secondAttribute="trailing" constant="71" id="DyO-0m-wrx"/>
-                                                        <constraint firstItem="c2p-4G-kTf" firstAttribute="leading" secondItem="34t-DH-OAq" secondAttribute="trailing" constant="43" id="Kqp-bh-Neb"/>
+                                                        <constraint firstItem="c2p-4G-kTf" firstAttribute="leading" secondItem="34t-DH-OAq" secondAttribute="trailing" constant="8" id="Kqp-bh-Neb"/>
                                                         <constraint firstItem="3qQ-Ra-coD" firstAttribute="leading" secondItem="34t-DH-OAq" secondAttribute="trailing" constant="14" id="SBk-fE-OMx"/>
                                                         <constraint firstAttribute="bottom" secondItem="h7b-hT-69i" secondAttribute="bottom" constant="35" id="VEY-4n-7vy"/>
                                                         <constraint firstItem="34t-DH-OAq" firstAttribute="leading" secondItem="h3e-ju-fpA" secondAttribute="leading" constant="1" id="eQO-f7-ePY"/>
@@ -391,8 +406,8 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for friend to accept pull..." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNg-WZ-NOz">
-                                                            <rect key="frame" x="113" y="55" width="167" height="47"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                                            <rect key="frame" x="113" y="58" width="167" height="44"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -645,7 +660,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PX-8q-Zmp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="987" y="431"/>
+            <point key="canvasLocation" x="928" y="429.5"/>
         </scene>
         <!--Pull Detail View Controller-->
         <scene sceneID="qhT-Rl-VQM">
@@ -863,6 +878,7 @@
         <image name="arrowsPurple_0.png" width="500" height="200"/>
         <image name="back_button.png" width="15" height="26"/>
         <image name="compass.png" width="579" height="812"/>
+        <image name="declineButton.png" width="104" height="31"/>
         <image name="facebookLoginButton_Active.png" width="360" height="73"/>
         <image name="facebookLoginButton_Pressed.png" width="360" height="73"/>
         <image name="purpleButtonClicked.png" width="395" height="74"/>

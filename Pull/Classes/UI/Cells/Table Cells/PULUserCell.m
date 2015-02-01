@@ -114,6 +114,13 @@
    }
 }
 
+#pragma mark - Actions
+- (IBAction)ibDecline:(id)sender
+{
+    [_delegate userCellDidDeclinePull:self];
+}
+
+
 #pragma mark - Touches
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

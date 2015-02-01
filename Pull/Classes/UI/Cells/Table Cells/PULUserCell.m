@@ -12,6 +12,8 @@
 
 #import "PULConstants.h"
 
+#import "PULUserTableCellBackgroundView.h"
+
 @interface PULUserCell ()
 
 @property (nonatomic, strong) id userUpdatedObserver;
@@ -25,7 +27,7 @@
 - (void)setUser:(PULUser *)user
 {
     // set ui
-    _userImageView.image = user.image;
+    _userImageViewContainer.imageView.image = user.image;
     _userDisplayNameLabel.text = user.fullName;
     
     if (_userDistanceLabel)
@@ -100,5 +102,136 @@
     
     _userDistanceLabel.text = string;
 }
+
+#pragma mark - Touches
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"touches began");
+    UITouch *touch = [touches allObjects][0];
+    CGPoint point = [touch locationInView:_userImageViewContainer];
+    
+    if (CGRectContainsPoint(_userImageViewContainer.bounds, point))
+    {
+        self.bgView.pulling = YES;
+        [self.bgView setNeedsDisplay];
+        
+        UIColor *borderColor;
+        if (self.bgView.left)
+        {
+            borderColor = [UIColor redColor];
+        }
+        else
+        {
+            borderColor =  [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
+        }
+        
+        _userImageViewContainer.borderColor = borderColor;
+        
+        [_userImageViewContainer setNeedsDisplay];
+        
+        [_delegate userCellDidBeginPulling:self];
+    }
+    else
+    {
+        [super touchesBegan:touches withEvent:event];
+    }
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (_bgView.isPulling)
+    {
+        UITouch *touch = [touches allObjects][0];
+        CGPoint point = [touch locationInView:_bgView];
+
+        CGPoint center = _userImageViewContainer.center;
+        center.x = point.x;
+        
+        if (center.x > CGRectGetWidth(_userImageViewContainer.frame) / 2 &&
+            center.x < CGRectGetWidth(_bgView.frame) - CGRectGetWidth(_userImageViewContainer.frame) / 2)
+        {
+            _userImageViewContainer.center = center;
+        }
+    }
+    else
+    {
+        [super touchesMoved:touches withEvent:event];
+    }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"touches ended");
+    [super touchesEnded:touches withEvent:event];
+    [self _touchesStopped];
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"touches canceled");
+    [super touchesCancelled:touches withEvent:event];
+    
+    [self _touchesStopped];
+}
+
+- (void)_touchesStopped
+{
+    // check position of user image view
+    if (_bgView.isPulling)
+    {
+        BOOL success = NO;
+        CGRect destRect;
+        if (CGRectEqualToRect(_bgView.originalRect, _bgView.rightImageViewFrame))
+        {
+            destRect = _bgView.leftImageViewFrame;
+        }
+        else
+        {
+            destRect = _bgView.rightImageViewFrame;
+        }
+        
+        CGRect sendToRect;
+        CGRect intersect = CGRectIntersection(_userImageViewContainer.frame, destRect);
+        if (CGSizeEqualToSize(intersect.size, CGSizeZero))
+        {
+            // return image view to source
+            sendToRect = _bgView.originalRect;
+        }
+        else
+        {
+            sendToRect = destRect;
+            success = YES;
+        }
+        
+        // animate and notify delegate
+        [UIView animateWithDuration:0.3 animations:^{
+            _userImageViewContainer.center = CGPointMake(CGRectGetMidX(sendToRect), _userImageViewContainer.center.y);
+        } completion:^(BOOL finished) {
+            if (success)
+            {
+                [_delegate userCellDidCompletePulling:self];
+            }
+            else
+            {
+                [_delegate userCellDidAbortPulling:self];
+            }
+            
+            self.bgView.pulling = NO;
+            _userImageViewContainer.borderColor = nil;
+            [_userImageViewContainer setNeedsDisplay];
+
+            [self.bgView setNeedsDisplay];
+
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.bgView setNeedsLayout];
+            });
+
+            
+        }];
+    }
+    
+}
+
+
 
 @end

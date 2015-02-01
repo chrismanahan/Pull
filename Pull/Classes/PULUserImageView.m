@@ -12,9 +12,31 @@
 
 IB_DESIGNABLE
 
+- (void)setSelected:(BOOL)selected
+{
+    _selected = selected;
+    
+    [self setNeedsDisplay];
+}
+
+- (UIColor*)borderColor
+{
+    if (!_borderColor)
+    {
+        return [UIColor whiteColor];
+    }
+    else
+    {
+        return _borderColor;
+    }
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    self.imageView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+    self.imageView.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
     
     NSInteger offset = 12;
     CAShapeLayer *circle = [CAShapeLayer layer];
@@ -29,7 +51,7 @@ IB_DESIGNABLE
     circle.lineWidth = 0;
     
     self.imageView.layer.mask = circle;
-//    self.imageView.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
+ 
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -37,11 +59,22 @@ IB_DESIGNABLE
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     
+    rect = CGRectInset(rect, 2, 2);
     CGContextRef ref = UIGraphicsGetCurrentContext();
     
     CGContextSetShadow(ref, CGSizeMake(1, 1), 2);
     
-    CGContextSetFillColorWithColor(ref, [UIColor whiteColor].CGColor);
+    CGColorRef color;
+    if (!_selected)
+    {
+        color = self.borderColor.CGColor;// [UIColor whiteColor].CGColor;
+    }
+    else
+    {
+        color = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000].CGColor;
+    }
+    
+    CGContextSetFillColorWithColor(ref, color);
     
     CGContextFillEllipseInRect(ref, rect);
 }

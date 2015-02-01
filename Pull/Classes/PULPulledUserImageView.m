@@ -12,25 +12,38 @@ IB_DESIGNABLE
 
 @implementation PULPulledUserImageView
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-
-    [super drawRect:rect];
-
-    NSInteger offset = 12;
-    
-    CGContextRef ref = UIGraphicsGetCurrentContext();
-    
-    CGContextSetFillColorWithColor(ref, [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000].CGColor);
-    
-    CGContextFillEllipseInRect(ref, rect);
-    
-    CGContextSetFillColorWithColor(ref, [UIColor whiteColor].CGColor);
-    CGRect innerRect = CGRectInset(rect, offset/2, offset/2);
-    
-    CGContextFillEllipseInRect(ref, innerRect);
+- (UIColor*)borderColor
+{
+    UIColor *color = [super borderColor];
+    if ([color isEqual:[UIColor whiteColor]])
+    {
+        return [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
+    }
+    else
+    {
+        return color;
+    }
 }
+
+//// Only override drawRect: if you perform custom drawing.
+//// An empty implementation adversely affects performance during animation.
+//- (void)drawRect:(CGRect)rect {
+//
+//    [super drawRect:rect];
+//
+//    NSInteger offset = 12;
+//    
+//    CGContextRef ref = UIGraphicsGetCurrentContext();
+//    
+//    CGContextSetFillColorWithColor(ref, self.borderColor.CGColor);
+//    
+//    CGContextFillEllipseInRect(ref, rect);
+//    
+//    CGContextSetFillColorWithColor(ref, [UIColor whiteColor].CGColor);
+//    CGRect innerRect = CGRectInset(rect, offset/2, offset/2);
+//    
+//    CGContextFillEllipseInRect(ref, innerRect);
+//}
 
 
 @end

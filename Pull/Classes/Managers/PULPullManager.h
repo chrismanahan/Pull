@@ -59,4 +59,6 @@
 - (void)suspendPullWithUser:(PULUser*)user;
 - (void)resumePullWithUser:(PULUser*)user;
 
+- (PULPullStatus)pullStatusWithUser:(PULUser*)user;
+
 @end

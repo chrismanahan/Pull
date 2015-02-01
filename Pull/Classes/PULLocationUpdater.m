@@ -13,7 +13,7 @@
 
 // constants
 const NSInteger kLocationForegroundDistanceFilter = 2;//20;    // meters
-const NSInteger kLocationBackgroundDistanceFilter = 30;
+const NSInteger kLocationBackgroundDistanceFilter = 5;//30;
 
 NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
 NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissionsNeededNotification";
@@ -96,6 +96,10 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     {
         [self p_initializeLocationTracking];   
     }
+    
+    _locationManager.distanceFilter = kLocationForegroundDistanceFilter;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
     PULLog(@"Starting foreground location update");
     [_locationManager startUpdatingLocation];
 }
@@ -117,7 +121,7 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     }
     
     PULLog(@"Starting background location update");
-    _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;// kCLLocationAccuracyHundredMeters;
     _locationManager.distanceFilter = kLocationBackgroundDistanceFilter;
     
     __block UIApplication* app = [UIApplication sharedApplication];

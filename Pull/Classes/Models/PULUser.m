@@ -22,6 +22,7 @@ NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedN
 @interface PULUser ()
 
 @property (nonatomic, strong) Firebase *fireRef;
+@property (nonatomic) FirebaseHandle observerHandle;
 
 @end
 
@@ -38,17 +39,28 @@ NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedN
         [self p_loadPropertiesFromDictionary:dictionary];
         
         // TODO: observing user changes does not seem to be working
-        [self startObservingChanges];
+//        [self startObservingLocationChanges];
     }
     
     return self;
 }
 
-- (void)startObservingChanges
+- (void)stopObservingLocationChanges
 {
+    if (_observerHandle)
+    {
+        PULLog(@"stopping location observer for %@", self.fullName);
+        [_fireRef removeObserverWithHandle:_observerHandle];
+    }
+}
+
+- (void)startObservingLocationChanges
+{
+    PULLog(@"starting location observer for %@", self.fullName);
+    
     _fireRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"location"];
     
-    [_fireRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+    _observerHandle = [_fireRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         
         NSDictionary *loc = snapshot.value;
         
@@ -186,6 +198,17 @@ NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedN
                       @"alt": @(_location.altitude)},
              @"isPrivate": @(_isPrivate)};
     
+}
+
+#pragma mark - Annotation protocol
+- (CLLocationCoordinate2D)coordinate
+{
+    return self.location.coordinate;
+}
+
+- (NSString*)title
+{
+    return self.firstName;
 }
 
 @end

@@ -12,4 +12,8 @@
 
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
 
+@property (nonatomic, assign, getter=isSelected) BOOL selected;
+
+@property (nonatomic, strong) UIColor *borderColor;
+
 @end

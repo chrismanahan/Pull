@@ -12,6 +12,12 @@ IB_DESIGNABLE
 
 @implementation PULCircleButton
 
+- (void)setHighlighted:(BOOL)highlighted
+{
+    [super setHighlighted:highlighted];
+    
+    [self setNeedsDisplay];
+}
 
 - (void)drawRect:(CGRect)rect {
     
@@ -19,10 +25,12 @@ IB_DESIGNABLE
     
     CGContextSetFillColorWithColor(ref, [UIColor whiteColor].CGColor);
 
-    CGContextSetShadow(ref, CGSizeMake(0, 3), 5.0);
+    CGFloat shadowY = self.isHighlighted ? 1 : 3;
+    CGFloat shadowBlur = self.isHighlighted ? 1 : 5;
+    CGContextSetShadow(ref, CGSizeMake(0, shadowY), shadowBlur);
     
     NSInteger minSide = MIN(CGRectGetWidth(rect), CGRectGetHeight(rect));
-    NSInteger offset  = 5;
+    NSInteger offset  = 6;
     CGRect squareRect = CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), minSide, minSide);
     squareRect        = CGRectInset(squareRect, offset, offset);
     

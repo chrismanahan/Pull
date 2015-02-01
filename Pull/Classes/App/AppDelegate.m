@@ -51,19 +51,22 @@
     if (ref.authData)
     {
         vcName = NSStringFromClass([PULPullListViewController class]);
-
-        if (ref.authData.providerData[@"accessToken"])
+        FBSession *fbSesh = [FBSession activeSession];
+        
+        if (fbSesh.accessTokenData.accessToken && fbSesh.state == FBSessionStateOpen )
         {
-            [ref authWithOAuthProvider:@"facebook" token:ref.authData.token withCompletionBlock:^(NSError *error, FAuthData *authData) {
-                [[PULAccount currentUser] loginWithFacebookToken:ref.authData.providerData[@"accessToken"] completion:nil];
-            }];
+            // i don't think this will actually ever get called. one day i'll figure out the whole fb login flow. just not now
+            PULLog(@"logging in with existing session");
+//            [ref authWithOAuthProvider:@"facebook" token:ref.authData.token withCompletionBlock:^(NSError *error, FAuthData *authData) {
+                [[PULAccount currentUser] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken completion:nil];
+//            }];
         }
-        else
+        else if (fbSesh.state == FBSessionStateCreatedTokenLoaded)
         {
             
             PULLog(@"opening active fb session");
             [FBSession openActiveSessionWithReadPermissions:@[@"email", @"public_profile", @"user_friends"]
-                                               allowLoginUI:YES
+                                               allowLoginUI:NO
                                           completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                                               if (!error)
                                               {
@@ -76,6 +79,10 @@
                                                   PULLog(@"%@", error.localizedDescription);
                                               }
                                           }];
+        }
+        else
+        {
+            vcName = NSStringFromClass([PULLoginViewController class]);
         }
     }
     else

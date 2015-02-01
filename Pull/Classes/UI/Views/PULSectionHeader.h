@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+extern const CGFloat kPULSectionHeaderHeight;
+
 @interface PULSectionHeader : UIView
 
-- (instancetype)initWithTitle:(NSString*)title;
+- (instancetype)initWithTitle:(NSString*)title width:(CGFloat)width;
 
 @end

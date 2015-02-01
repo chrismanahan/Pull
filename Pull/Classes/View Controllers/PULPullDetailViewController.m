@@ -7,6 +7,7 @@
 //
 
 #import "PULPullDetailViewController.h"
+#import "PULMapViewController.h"
 
 #import "PULAccount.h"
 
@@ -18,9 +19,12 @@
 @interface PULPullDetailViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *directionArrowView;
 @property (strong, nonatomic) IBOutlet UIImageView *userImageView;
 @property (strong, nonatomic) IBOutlet UIView *userImageViewContainer;
+
+@property (nonatomic) BOOL didSetUp;
 
 @end
 
@@ -34,8 +38,33 @@
     
     [self updateDistanceLabel:distance];
     
-    _userImageView.image = _user.image;
-    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
+    if (!_didSetUp)
+    {
+        _userImageView.image = _user.image;
+        [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
+        
+        CGFloat yOffset = CGRectGetMinY(_directionArrowView.frame) - CGRectGetMaxY(_distanceLabel.frame) - 8;
+        
+        CGPoint userCenter = _userImageViewContainer.center;
+        userCenter.x = self.view.center.x;
+        userCenter.y -= yOffset;
+        _userImageViewContainer.center = userCenter;
+        
+        CGPoint arrowCenter = _directionArrowView.center;
+        arrowCenter.x = self.view.center.x;
+        arrowCenter.y -= yOffset;
+        _directionArrowView.center = arrowCenter;
+        
+        _userImageViewContainer.translatesAutoresizingMaskIntoConstraints = YES;
+        _directionArrowView.translatesAutoresizingMaskIntoConstraints = YES;
+        
+        _userImageViewContainer.autoresizingMask = UIViewAutoresizingNone;
+        _directionArrowView.autoresizingMask = UIViewAutoresizingNone;
+        
+        _nameLabel.text = _user.fullName;
+
+        _didSetUp = YES;
+    }
     
     // TODO: remove observers when leaving detail view
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -62,43 +91,7 @@
                                                       
                                                   }];
 
-    CGFloat yOffset = CGRectGetMinY(_directionArrowView.frame) - CGRectGetMaxY(_distanceLabel.frame) - 8;
-    
-    CGPoint userCenter = _userImageViewContainer.center;
-    userCenter.x = self.view.center.x;
-    userCenter.y -= yOffset;
-    _userImageViewContainer.center = userCenter;
-    
-    CGPoint arrowCenter = _directionArrowView.center;
-    arrowCenter.x = self.view.center.x;
-    arrowCenter.y -= yOffset;
-    _directionArrowView.center = arrowCenter;
-    
-    _userImageViewContainer.translatesAutoresizingMaskIntoConstraints = YES;
-    _directionArrowView.translatesAutoresizingMaskIntoConstraints = YES;
-    
-    _userImageViewContainer.autoresizingMask = UIViewAutoresizingNone;
-    _directionArrowView.autoresizingMask = UIViewAutoresizingNone;
-    
-//    
-//    NSLog(@"arrow frame: %@", NSStringFromCGRect(_directionArrowView.frame));
-//    NSLog(@"arrow bounds: %@", NSStringFromCGRect(_directionArrowView.bounds));
-//    
-//    NSLog(@"user frame: %@", NSStringFromCGRect(_userImageViewContainer.frame));
-//    NSLog(@"user bounds: %@", NSStringFromCGRect(_userImageViewContainer.bounds));
-//
-//    CGFloat y = _userImageViewContainer.center.y - CGRectGetMinY(_directionArrowView.frame);
-//    CGFloat x = _userImageViewContainer.center.x - CGRectGetMinX(_directionArrowView.frame);
-//    CGFloat yOff = y / CGRectGetHeight(_directionArrowView.frame);
-//    CGFloat xOff = x / CGRectGetWidth(_directionArrowView.frame);
-//    
-//    _directionArrowView.center = _userImageViewContainer.center;
-//
-//    CGPoint anchor = CGPointMake(xOff, yOff);
-//    NSLog(@"anchor: %@", NSStringFromCGPoint(anchor));
-//    
-//    _directionArrowView.layer.anchorPoint = anchor;
-}
+    }
 
 #pragma mark - UI Setters
 - (void)updateDistanceLabel:(CGFloat)distance
@@ -132,6 +125,15 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)ibMap:(id)sender
+{
+    PULMapViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier: NSStringFromClass([PULMapViewController class])];
+    
+    vc.user = _user;
+    
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 #pragma mark - Notifcation Selectors
 - (void)didUpdateHeading:(NSNotification*)notif
 {
@@ -149,9 +151,7 @@
     // I may have that backwards, try the one below if it offsets the rotation in the wrong direction..
 //    CGSize offset = CGSizeMake(convertedCenter.x -_directionArrowView.center.x , convertedCenter.y - _directionArrowView.center.y);
     CGFloat rotation = rads;
-  
-    NSLog(@"offset: %@", NSStringFromCGSize(offset));
-    
+      
     CGAffineTransform tr = CGAffineTransformIdentity;
     tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
     tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
@@ -187,7 +187,8 @@
     if(deg < 0)
     {
         deg = -deg;
-    } else
+    }
+    else
     {
         deg = 360 - deg;
     }

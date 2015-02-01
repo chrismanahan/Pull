@@ -10,4 +10,14 @@
 
 @interface PULUserTableCellBackgroundView : UIView
 
+@property (nonatomic, assign, getter=isPulling) BOOL pulling;
+
+@property (nonatomic, assign) IBInspectable BOOL left;
+
+@property (nonatomic, assign) CGRect rightImageViewFrame;
+@property (nonatomic, assign) CGRect leftImageViewFrame;
+@property (nonatomic, assign) CGRect originalRect;
+
+@property (nonatomic, strong) IBOutlet UIImageView *arrowImageView;
+
 @end

@@ -231,6 +231,16 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
 {
     PULLog(@"friend manager did reorganize");
     
+    for (PULUser *friend in _friendManager.allFriends)
+    {
+        [friend stopObservingLocationChanges];
+    }
+    
+    for (PULUser *friend in _friendManager.pulledFriends)
+    {
+        [friend startObservingLocationChanges];
+    }
+    
     // send out notifcation that we have a different friend ordering                                    // 4. Everyone is in order, lets send out a notifcation
     [[NSNotificationCenter defaultCenter] postNotificationName:kPULAccountFriendListUpdatedNotification object:self];
 }

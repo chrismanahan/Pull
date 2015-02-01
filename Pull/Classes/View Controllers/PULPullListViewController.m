@@ -10,8 +10,6 @@
 
 #import "PULSectionHeader.h"
 
-#import "PULUserCell.h"
-
 #import "PULPullDetailViewController.h"
 
 #import "PULAccount.h"
@@ -143,13 +141,15 @@ NSString* machineName()
     {
         cell = [tableView dequeueReusableCellWithIdentifier:CellId];
         
-        cell.userImageView.image = friend.image;
+        cell.userImageViewContainer.imageView.image = friend.image;
         cell.userDisplayNameLabel.text = friend.fullName;
         
         cell.user = friend;
     }
 
     NSAssert(cell != nil, @"We need to have a cell");
+    
+    cell.delegate = self;
     
     return cell;
 }
@@ -199,32 +199,48 @@ NSString* machineName()
     if ([self p_friendArrayForSection:section tableView:tableView].count == 0)
     {
         // don't show a title if nothing in section
-        title = @"";
+        title = nil;
     }
     
     return title;
 }
 
-//- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    PULSectionHeader *header = nil;
-//    NSString *title;
-//    
-//    if (section == 0)
-//    {
-//        title = @"Near Me";
-//    }
-//    
-//    // we're doing the section title like this in case we need to add more later
-//    if (title)
-//    {
-//        header = [[PULSectionHeader alloc] initWithTitle:title];
-//    }
-//    
-//    return header;
-//}
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    PULSectionHeader *header = nil;
+    NSString *title;
+    
+    switch (section)
+    {
+        case 0: title = @"Pulled"; break;
+        case 1: title = @"Pending Pulls"; break;
+        case 2: title = @"Waiting on Pulls"; break;
+        case 3: title = @"Nearby"; break;
+        case 4: title = @"Far Away"; break;
+    }
+    
+    // we're doing the section title like this in case we need to add more later
+    if ([self p_friendArrayForSection:section tableView:tableView].count != 0)
+    {
+        header = [[PULSectionHeader alloc] initWithTitle:title width:CGRectGetWidth(tableView.frame)];
+    }
+    
+    return header;
+}
 
-#pragma mark - Table View Delegate 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if ([self p_friendArrayForSection:section tableView:tableView].count != 0)
+    {
+        return kPULSectionHeaderHeight;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+#pragma mark - Table View Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -258,7 +274,7 @@ NSString* machineName()
             }
             case 3:     // unpulled users
             {
-                [[PULAccount currentUser].pullManager sendPullToUser:friend];
+//                [[PULAccount currentUser].pullManager sendPullToUser:friend];
                 break;
             }
                 default:
@@ -284,6 +300,36 @@ NSString* machineName()
                 break;
         }
     }
+}
+
+#pragma mark - User cell delegate
+- (void)userCellDidAbortPulling:(PULUserCell *)cell
+{
+    _friendTableView.scrollEnabled = YES;
+}
+
+- (void)userCellDidBeginPulling:(PULUserCell *)cell
+{
+    _friendTableView.scrollEnabled = NO;
+}
+
+- (void)userCellDidCompletePulling:(PULUserCell *)cell
+{
+    _friendTableView.scrollEnabled = YES;
+    
+    PULUser *friend = cell.user;
+    
+    if ([[PULAccount currentUser].friendManager.nearbyFriends containsObject:friend])
+    {
+        // pull friend
+        [[PULAccount currentUser].pullManager sendPullToUser:friend];
+    }
+    else
+    {
+        [[PULAccount currentUser].pullManager unpullUser:friend];
+    }
+    
+    [_friendTableView reloadData];
 }
 
 #pragma mark - Private

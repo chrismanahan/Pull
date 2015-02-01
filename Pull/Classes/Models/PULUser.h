@@ -10,6 +10,8 @@
 
 #import "PULFirebaseProtocol.h"
 
+#import <MapKit/MapKit.h>
+
 @class PULUser;
 @class CLLocation;
 @class UIImage;
@@ -30,7 +32,7 @@ extern NSString * const kPULFriendUpdatedNotifcation;
 //
 //@end
 
-@interface PULUser : NSObject <PULFirebaseProtocol>
+@interface PULUser : NSObject <PULFirebaseProtocol, MKAnnotation>
 
 /*******************************
         Properties
@@ -68,6 +70,9 @@ extern NSString * const kPULFriendUpdatedNotifcation;
  *  @return User
  */
 - (instancetype)initFromFirebaseData:(NSDictionary*)dictionary uid:(NSString*)uid;
+
+- (void)startObservingLocationChanges;
+- (void)stopObservingLocationChanges;
 
 
 @end

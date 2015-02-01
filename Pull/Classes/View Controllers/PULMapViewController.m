@@ -124,6 +124,8 @@
         lbl.center = center;
         
         [annotationView addSubview:lbl];
+        
+        annotationView.centerOffset = CGPointMake(0, - annotationView.image.size.height / 2);
     
         return annotationView;
     }

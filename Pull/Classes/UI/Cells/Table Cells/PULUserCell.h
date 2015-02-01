@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "PULUserImageView.h"
+#import "PULUserTableCellBackgroundView.h"
 
 @class PULUser;
 @class PULUserTableCellBackgroundView;

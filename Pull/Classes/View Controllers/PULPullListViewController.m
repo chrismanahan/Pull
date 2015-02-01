@@ -9,6 +9,7 @@
 #import "PULPullListViewController.h"
 
 #import "PULSectionHeader.h"
+#import "PULInfoAlert.h"
 
 #import "PULPullDetailViewController.h"
 
@@ -319,7 +320,11 @@ NSString* machineName()
     
     PULUser *friend = cell.user;
     
-    if ([[PULAccount currentUser].friendManager.nearbyFriends containsObject:friend])
+    NSString *alertTitle = nil;
+    
+    PULFriendManager *friendMan = [PULAccount currentUser].friendManager;
+    
+    if ([friendMan.nearbyFriends containsObject:friend])
     {
         // pull friend
         [[PULAccount currentUser].pullManager sendPullToUser:friend];
@@ -327,6 +332,26 @@ NSString* machineName()
     else
     {
         [[PULAccount currentUser].pullManager unpullUser:friend];
+        
+        if ([friendMan.pullPendingFriends containsObject:friend])
+        {
+            alertTitle = @"pull Declined";
+        }
+        else if ([friendMan.pullInvitedFriends containsObject:friend])
+        {
+            alertTitle = @"pull Canceled";
+        }
+        else if ([friendMan.pulledFriends containsObject:friend])
+        {
+            alertTitle = @"pull Stopped";
+        }
+            
+    }
+    
+    if (alertTitle)
+    {
+        PULInfoAlert *alert = [PULInfoAlert alertWithText:alertTitle onView:self.view];
+        [alert show];
     }
     
     [_friendTableView reloadData];
@@ -335,6 +360,10 @@ NSString* machineName()
 - (void)userCellDidDeclinePull:(PULUserCell *)cell
 {
      [[PULAccount currentUser].pullManager unpullUser:cell.user];
+    
+    PULInfoAlert *alert = [PULInfoAlert alertWithText:@"pull Declined" onView:self.view];
+    [alert show];
+    
     [_friendTableView reloadData];
 }
 

@@ -12,8 +12,6 @@
 
 #import "PULConstants.h"
 
-#import "PULUserTableCellBackgroundView.h"
-
 @interface PULUserCell ()
 
 @property (nonatomic, strong) id userUpdatedObserver;

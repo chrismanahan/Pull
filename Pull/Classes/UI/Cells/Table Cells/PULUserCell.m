@@ -103,6 +103,17 @@
     _userDistanceLabel.text = string;
 }
 
+- (void)_hideLabels:(BOOL)hide
+{
+   for (UILabel *label in self.bgView.subviews)
+   {
+       if ([label isKindOfClass:[UILabel class]])
+       {
+           label.hidden = hide;
+       }
+   }
+}
+
 #pragma mark - Touches
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -128,6 +139,9 @@
         _userImageViewContainer.borderColor = borderColor;
         
         [_userImageViewContainer setNeedsDisplay];
+        
+        // hide some ui
+        [self _hideLabels:YES];
         
         [_delegate userCellDidBeginPulling:self];
     }
@@ -219,6 +233,9 @@
             self.bgView.pulling = NO;
             _userImageViewContainer.borderColor = nil;
             [_userImageViewContainer setNeedsDisplay];
+            
+            // show hidden ui
+            [self _hideLabels:NO];
 
             [self.bgView setNeedsDisplay];
 

@@ -79,5 +79,19 @@ IB_DESIGNABLE
     CGContextFillEllipseInRect(ref, rect);
 }
 
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone
+{
+    PULUserImageView *copy = [[[self class] alloc] init];
+    
+    if (copy)
+    {
+        [copy setImageView:self.imageView];
+        [copy setBorderColor:self.borderColor];
+        [copy setSelected:self.isSelected];
+    }
+    
+    return copy;
+}
 
 @end

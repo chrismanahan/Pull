@@ -147,11 +147,14 @@ NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedN
                                
                                if (!_image)
                                {
-                                   _image = [UIImage imageNamed:@"userPlaceholder.jpg"];
+                                   _image = [UIImage imageNamed:@"userPlaceholder.png"];
                                }
                                
                                // set cache
-                               [[PULCache sharedCache] setObject:_image forKey:cacheKey];
+                               if (_image)
+                               {
+                                   [[PULCache sharedCache] setObject:_image forKey:cacheKey];
+                               }
                                
                                PULLog(@"Updated user image");
                                [[NSNotificationCenter defaultCenter] postNotificationName:kPULFriendUpdatedNotifcation object:self];

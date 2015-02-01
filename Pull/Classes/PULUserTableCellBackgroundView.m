@@ -12,6 +12,14 @@
 
 IB_DESIGNABLE
 
+@interface PULUserTableCellBackgroundView ()
+
+@property (nonatomic, strong) PULUserImageView *accessoryImageViewContainer;
+
+@property (nonatomic) BOOL layedOutTwice;
+
+@end
+
 @implementation PULUserTableCellBackgroundView
 
 - (void)setPulling:(BOOL)pulling
@@ -51,6 +59,8 @@ IB_DESIGNABLE
         
         [_arrowImageView startAnimating];
     }
+    
+    _accessoryImageViewContainer.hidden = !pulling;
 }
 
 #pragma mark - Layout
@@ -61,7 +71,7 @@ IB_DESIGNABLE
     // we wanna make sure the image views are lined up correctly
     for (PULUserImageView *view in self.subviews)
     {
-        if ([view isKindOfClass:[PULUserImageView class]])
+        if ([view isKindOfClass:[PULUserImageView class]] && view != _accessoryImageViewContainer)
         {
             // resize
             CGSize size = view.frame.size;
@@ -96,7 +106,42 @@ IB_DESIGNABLE
             center.y = CGRectGetMidY(self.frame);
             view.center = center;
             
+            if (!_accessoryImageViewContainer)
+            {
+                _accessoryImageViewContainer = [view copy];
+                _accessoryImageViewContainer.hidden = YES;
+                
+                _accessoryImageViewContainer.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+                _accessoryImageViewContainer.imageView.contentMode = UIViewContentModeScaleAspectFit;
+                [_accessoryImageViewContainer addSubview:_accessoryImageViewContainer.imageView];
+                _accessoryImageViewContainer.imageView.image = [UIImage imageNamed: _left ? @"stopPlaceholder" : @"pullPlaceholder"];
+                
+                [self insertSubview:_accessoryImageViewContainer belowSubview:view];
+            }
+            
+            _accessoryImageViewContainer.frame = _left ? _rightImageViewFrame : _leftImageViewFrame;
+            
+            UIColor *color = _left ? [UIColor redColor] : [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
+            
+            _accessoryImageViewContainer.borderColor = color;
+            _accessoryImageViewContainer.backgroundColor = [UIColor clearColor];
+            
+            center = _accessoryImageViewContainer.center;
+            center.y = CGRectGetMidY(self.frame);
+            _accessoryImageViewContainer.center = center;
+            
+            [_accessoryImageViewContainer setNeedsLayout];
             [view setNeedsLayout];
+            
+            if (!_layedOutTwice)
+            {
+                _layedOutTwice = YES;
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self setNeedsLayout];
+                });
+                
+            }
             
             break;
         }

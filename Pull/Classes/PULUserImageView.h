@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PULUserImageView : UIView
+@interface PULUserImageView : UIView <NSCopying>
 
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
 

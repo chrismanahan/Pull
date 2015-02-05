@@ -19,6 +19,7 @@
 @property (nonatomic, strong) Firebase *fireRef;
 
 @property (nonatomic, assign) FirebaseHandle statusObserverHandle;
+@property (nonatomic, assign) FirebaseHandle deleteObserverHandle;
 
 @end
 
@@ -71,7 +72,7 @@
     return NO;
 }
 
-- (void)startObservingStatus;
+- (void)startObserving;
 {
     // set path to firebase if it hasn't been already
     if (![_fireRef.key isEqualToString:_uid])
@@ -79,9 +80,9 @@
         _fireRef = [[_fireRef childByAppendingPath:@"pulls"] childByAppendingPath:_uid];
     }
     
-    if (_statusObserverHandle)
+    if (_statusObserverHandle || _deleteObserverHandle)
     {
-        [self stopObservingStatus];
+        [self stopObserving];
     }
     
     _statusObserverHandle = [_fireRef observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
@@ -108,9 +109,16 @@
         }
         
     }];
+    
+    _deleteObserverHandle = [_fireRef observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {
+        if ([_delegate respondsToSelector:@selector(pull:didUpdateStatus:)])
+        {
+            [_delegate pullDidDelete:self];
+        }
+    }];
 }
 
-- (void)stopObservingStatus;
+- (void)stopObserving;
 {
     [_fireRef removeObserverWithHandle:_statusObserverHandle];
     

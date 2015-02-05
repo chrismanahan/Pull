@@ -101,12 +101,12 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="0IB-vY-Nh3" secondAttribute="height" multiplier="1:1" id="ID2-aN-7er"/>
                                         </constraints>
-                                        <state key="normal">
+                                        <state key="normal" image="menu_icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-bU-Xro" userLabel="Title label">
-                                        <rect key="frame" x="109" y="16" width="103" height="48"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-bU-Xro" userLabel="Title label">
+                                        <rect key="frame" x="94" y="16" width="133" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="NdD-ae-uEL"/>
                                         </constraints>
@@ -184,9 +184,9 @@
                                                         <constraint firstAttribute="trailing" secondItem="sXG-xB-s1B" secondAttribute="trailing" constant="14" id="80B-Ha-i2Z"/>
                                                         <constraint firstItem="XpF-hM-ick" firstAttribute="top" secondItem="MnD-wL-40h" secondAttribute="top" constant="35" id="Ccd-4O-rMz"/>
                                                         <constraint firstItem="0rh-22-zXw" firstAttribute="top" secondItem="ntx-0l-yTa" secondAttribute="top" id="Vxc-4I-yWY"/>
-                                                        <constraint firstAttribute="trailing" secondItem="XpF-hM-ick" secondAttribute="trailing" constant="50" id="ZLD-6Q-x2E"/>
+                                                        <constraint firstAttribute="trailing" secondItem="XpF-hM-ick" secondAttribute="trailing" constant="71" id="ZLD-6Q-x2E"/>
                                                         <constraint firstAttribute="bottom" secondItem="XpF-hM-ick" secondAttribute="bottom" constant="35" id="fld-U9-E9o"/>
-                                                        <constraint firstItem="XpF-hM-ick" firstAttribute="leading" secondItem="MnD-wL-40h" secondAttribute="leading" constant="91" id="gtg-0d-h6z"/>
+                                                        <constraint firstItem="XpF-hM-ick" firstAttribute="leading" secondItem="MnD-wL-40h" secondAttribute="leading" constant="70" id="gtg-0d-h6z"/>
                                                         <constraint firstAttribute="centerY" secondItem="sXG-xB-s1B" secondAttribute="centerY" constant="-1" id="sL2-Do-QZ1"/>
                                                         <constraint firstItem="0rh-22-zXw" firstAttribute="leading" secondItem="MnD-wL-40h" secondAttribute="leading" constant="1" id="uxp-oe-6ur"/>
                                                         <constraint firstAttribute="trailing" secondItem="ntx-0l-yTa" secondAttribute="trailing" constant="39" id="xqh-GK-mSa"/>
@@ -715,23 +715,6 @@
                                 <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VSI-QL-eER" customClass="PULUserImageView">
-                                <rect key="frame" x="90" y="225" width="140" height="140"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-RO-rfr">
-                                        <rect key="frame" x="-67" y="64" width="24" height="66"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="A6q-g3-sVV"/>
-                                    <constraint firstAttribute="width" secondItem="VSI-QL-eER" secondAttribute="height" multiplier="1:1" id="xTg-rM-T1N"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="imageView" destination="VMi-RO-rfr" id="afi-KL-T0I"/>
-                                </connections>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVM-ce-Lwj">
                                 <rect key="frame" x="16" y="503" width="288" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -747,8 +730,25 @@
                                     <action selector="ibMap:" destination="RUR-0i-DXW" eventType="touchUpInside" id="35l-Qo-DT0"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VSI-QL-eER" customClass="PULUserImageView">
+                                <rect key="frame" x="90" y="238" width="140" height="140"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-RO-rfr">
+                                        <rect key="frame" x="-67" y="64" width="24" height="66"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="140" id="A6q-g3-sVV"/>
+                                    <constraint firstAttribute="width" secondItem="VSI-QL-eER" secondAttribute="height" multiplier="1:1" id="xTg-rM-T1N"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="VMi-RO-rfr" id="afi-KL-T0I"/>
+                                </connections>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" fixedFrame="YES" image="compass.png" translatesAutoresizingMaskIntoConstraints="NO" id="OHw-Lt-ZsN">
-                                <rect key="frame" x="30" y="135" width="260" height="245"/>
+                                <rect key="frame" x="30" y="148" width="260" height="245"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -759,7 +759,7 @@
                             <constraint firstItem="XMP-0k-fHl" firstAttribute="top" secondItem="cVM-ce-Lwj" secondAttribute="bottom" constant="20" id="UKG-6m-9yU"/>
                             <constraint firstItem="BJ1-p9-fqk" firstAttribute="top" secondItem="fBe-JC-L71" secondAttribute="bottom" constant="8" id="cPz-Cz-o2D"/>
                             <constraint firstAttribute="trailing" secondItem="fBe-JC-L71" secondAttribute="trailing" id="cQN-FP-pe4"/>
-                            <constraint firstAttribute="centerY" secondItem="VSI-QL-eER" secondAttribute="centerY" constant="-11" id="eNc-bP-z1r"/>
+                            <constraint firstAttribute="centerY" secondItem="VSI-QL-eER" secondAttribute="centerY" constant="-24" id="eNc-bP-z1r"/>
                             <constraint firstItem="cVM-ce-Lwj" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leadingMargin" id="lW0-3k-0rm"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leading" id="lca-3j-yZm"/>
                             <constraint firstAttribute="centerX" secondItem="BJ1-p9-fqk" secondAttribute="centerX" id="zqI-F0-8NO"/>
@@ -876,11 +876,12 @@
     </scenes>
     <resources>
         <image name="arrowsPurple_0.png" width="500" height="200"/>
-        <image name="back_button.png" width="15" height="26"/>
+        <image name="back_button.png" width="16" height="19"/>
         <image name="compass.png" width="579" height="812"/>
         <image name="declineButton.png" width="104" height="31"/>
         <image name="facebookLoginButton_Active.png" width="360" height="73"/>
         <image name="facebookLoginButton_Pressed.png" width="360" height="73"/>
+        <image name="menu_icon.png" width="33" height="24"/>
         <image name="purpleButtonClicked.png" width="395" height="74"/>
         <image name="purpleButtonNormal.png" width="396" height="74"/>
         <image name="whiteButtonClicked.png" width="54" height="34"/>

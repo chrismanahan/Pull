@@ -59,6 +59,7 @@ NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedN
     PULLog(@"starting location observer for %@", self.fullName);
     
     _fireRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"location"];
+    PULLog(@"\t%@", _fireRef);
     
     _observerHandle = [_fireRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         

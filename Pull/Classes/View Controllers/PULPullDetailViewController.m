@@ -98,6 +98,7 @@
 {
     CGFloat convertedDistance;
     NSString *unit, *formatString;
+    BOOL showNearbyString = NO;
     // TODO: localize distance
     if (distance < kPULDistanceUnitCutoff)
     {
@@ -105,6 +106,11 @@
         convertedDistance = METERS_TO_FEET(distance);
         unit = @"ft";
         formatString = @"%i %@";
+        
+        if (convertedDistance <= 50)
+        {
+            showNearbyString = YES;
+        }
     }
     else
     {
@@ -114,7 +120,17 @@
         formatString = @"%.2f %@";
     }
     
-    NSString *string = [NSString stringWithFormat:@"%.2f %@", convertedDistance, unit];
+    NSString *string;
+    if (showNearbyString && NO)
+    {
+        string = @"Is Nearby\n(within 50 feet)";
+        _distanceLabel.numberOfLines = 2;
+    }
+    else
+    {
+        string = [NSString stringWithFormat:@"%.2f %@", convertedDistance, unit];
+        _distanceLabel.numberOfLines = 1;
+    }
     
     _distanceLabel.text = string;
 }
@@ -142,14 +158,10 @@
     // update direction of arrow
     CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
                                                 and:_user.location.coordinate];
+    CGFloat head = normalizeHead(heading.trueHeading);
     CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
     
-    CGPoint convertedCenter = [_directionArrowView convertPoint:_userImageViewContainer.center fromView:_userImageViewContainer ];
-
     CGSize offset = CGSizeMake(_userImageViewContainer.center.x - _directionArrowView.center.x, _userImageViewContainer.center.y - _directionArrowView.center.y);
-//    CGSize offset = CGSizeMake(_directionArrowView.center.x - convertedCenter.x, _directionArrowView.center.y - convertedCenter.y);
-    // I may have that backwards, try the one below if it offsets the rotation in the wrong direction..
-//    CGSize offset = CGSizeMake(convertedCenter.x -_directionArrowView.center.x , convertedCenter.y - _directionArrowView.center.y);
     CGFloat rotation = rads;
       
     CGAffineTransform tr = CGAffineTransformIdentity;
@@ -157,12 +169,24 @@
     tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
     tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
     
+    PULLog(@"rotation: %.2f", rotation);
+    PULLog(@"\thead: %.2f", heading.trueHeading);
+    PULLog(@"\tdegs: %.2f", degrees);
+//    PULLog(@"\thead: %.2f", head);
     
     [_directionArrowView setTransform:tr];
     
 //    _directionArrowView.transform = CGAffineTransformMakeRotation(rads);
     
     [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
+}
+
+double normalizeHead(double head)
+{
+    float mult = 360.0 / 32;
+    float x = head / mult;
+    
+    return (int)x * mult;
 }
 
 - (void)didUpdateUser:(NSNotification*)notif
@@ -177,8 +201,11 @@
 
 #pragma mark - Private
 -(CGFloat) p_calculateAngleBetween:(CLLocationCoordinate2D)coords0 and:(CLLocationCoordinate2D)coords1 {
-    double x = 0, y = 0 , deg = 0,deltaLon = 0;
+   /* double x = 0, y = 0 , deg = 0,deltaLon = 0;
     
+    // latitude is x
+    // longitude is y
+    // don't forget
     deltaLon = coords1.longitude - coords0.longitude;
     y = sin(deltaLon) * cos(coords1.latitude);
     x = cos(coords0.latitude) * sin(coords1.latitude) - sin(coords0.latitude) * cos(coords1.latitude) * cos(deltaLon);
@@ -194,6 +221,55 @@
     }
     
     return deg;
+    */
+    
+    
+    double myLat = coords0.latitude;
+    double myLon = coords0.longitude;
+    double yourLat = coords1.latitude;
+    double yourLon = coords1.longitude;
+    double dx = fabs(myLon - yourLon);
+    double dy = fabs(myLat - yourLat);
+    
+    double ø;
+    
+    // determine which quadrant we're in relative to other user
+    if (myLat > yourLat && myLon > yourLon) // quadrant 1
+    {
+        ø = atan2(dy, dx);
+        ø = 270 * ø;
+    }
+    else if (myLat < yourLat && myLon > yourLon) // quad 2
+    {
+        ø = atan2(dx, dy);
+        ø = 360 - ø;
+    }
+    else if (myLat < yourLat && myLon < yourLon) // quad 3
+    {
+        ø = atan2(dx, dy);
+    }
+    else if (myLat > yourLat && myLon < yourLon) // quad 4
+    {
+        ø = atan2(dy, dx);
+        ø = 90 + ø;
+    }
+    else if (myLat == yourLat && myLon > yourLon) // horizontal right
+    {
+        
+    }
+    else if (myLat == yourLat && myLon < yourLon) // horizontal left
+    {
+        
+    }
+    else if (myLon == yourLon && myLat > yourLat) // vertical top
+    {
+        
+    }
+    else if (myLon == yourLon && myLat < yourLat) // vertical bottom
+    {
+        
+    }
+    return RADIANS_TO_DEGREES( ø);
 }
 
 @end

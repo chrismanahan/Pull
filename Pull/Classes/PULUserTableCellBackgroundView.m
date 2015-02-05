@@ -146,6 +146,8 @@ IB_DESIGNABLE
             break;
         }
     }
+    
+    [super layoutSubviews];
 }
 
 // Only override drawRect: if you perform custom drawing.

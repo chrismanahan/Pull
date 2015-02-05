@@ -45,6 +45,8 @@ const CGFloat kPULInfoAlertDefaultDuration = 0.6;
     
     [alert addSubview:lbl];
     
+    alert.userInteractionEnabled = NO;
+    
     return alert;
 }
 

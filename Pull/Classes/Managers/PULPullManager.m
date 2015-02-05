@@ -67,6 +67,14 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         {
             __block NSInteger pullCount = pulls.count;
             
+            if (pullCount > 0 && [PULAccount currentUser].friendManager.allFriends.count == 0)
+            {
+                // we need to reload from the beginning
+                PULLog(@"-----RE-INITIALIZING ACCOUNT!-----");
+                [[PULAccount currentUser] initializeAccount];
+                return;
+            }
+            
             [pulls enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
                 NSString *pullId = (NSString*)key;
                 
@@ -199,7 +207,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         pull.delegate = self;
         
         // start observing
-        [pull startObservingStatus];
+        [pull startObserving];
     }
     return pull;
 }
@@ -218,6 +226,16 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     if ([_delegate respondsToSelector:@selector(pullManagerDidDetectPullStatusChange:)])
     {
         [_delegate pullManagerDidDetectPullStatusChange:pull];
+    }
+}
+
+- (void)pullDidDelete:(PULPull *)pull
+{
+    [_pulls removeObject:pull];
+    
+    if ([_delegate respondsToSelector:@selector(pullManagerDidRemovePull)])
+    {
+        [_delegate pullManagerDidRemovePull];
     }
 }
 
@@ -247,13 +265,13 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
                     {
                         PULLog(@"Added pull to my pulls");
                         // we're done, start observing pull's status
-                        [pull startObservingStatus];
+                        [pull startObserving];
                         
                         // add to pull array
                         [_pulls addObject:pull];
                         
                         pull.delegate = self;
-                        [pull startObservingStatus];
+                        [pull startObserving];
                         
                         // send push
                         [PULPush sendPushType:kPULPushTypeSendPull to:user from:[PULAccount currentUser]];
@@ -447,7 +465,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
 - (void)p_removePull:(PULPull*)pull
 {
     PULLog(@"Removing pull: %@", pull);
-    [pull stopObservingStatus];
+    [pull stopObserving];
     // remove from _pulls
     [_pulls removeObject:pull];
     

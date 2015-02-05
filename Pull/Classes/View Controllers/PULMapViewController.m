@@ -111,9 +111,9 @@
         annotationView.canShowCallout = NO;
         
         UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, 60, 60)];
-        lbl.font = [UIFont fontWithName:@"Avenir-Roman" size:40];
+        lbl.font = [UIFont fontWithName:@"Avenir-Black" size:30];
         lbl.textAlignment = NSTextAlignmentCenter;
-        lbl.textColor = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
+        lbl.textColor = [UIColor whiteColor];
         lbl.text = [annotation title];
         [lbl sizeToFit];
         // adjust label center
@@ -121,6 +121,11 @@
         CGFloat xOffset = abs(CGRectGetWidth(lbl.frame) - CGRectGetWidth(annotationView.frame));
         xOffset /= 2;
         center.x += xOffset;
+        
+        CGFloat yOffset = abs(CGRectGetHeight(lbl.frame) - CGRectGetHeight(annotationView.frame));
+        yOffset /= 4;
+        center.y += yOffset + 3;
+        
         lbl.center = center;
         
         [annotationView addSubview:lbl];

@@ -47,6 +47,7 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
 @required
 - (void)pull:(PULPull*)pull didUpdateStatus:(PULPullStatus)status;
 - (void)pull:(PULPull *)pull didUpdateExpiration:(NSDate*)date;
+- (void)pullDidDelete:(PULPull*)pull;
 
 @end
 
@@ -119,8 +120,8 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
  */
 - (BOOL)containsUser:(PULUser*)user;
 
-- (void)startObservingStatus;
+- (void)startObserving;
 
-- (void)stopObservingStatus;
+- (void)stopObserving;
 
 @end

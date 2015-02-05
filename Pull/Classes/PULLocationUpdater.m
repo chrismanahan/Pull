@@ -8,11 +8,14 @@
 
 #import "PULLocationUpdater.h"
 
+#import "Reachability.h"
+
+#import "PULConstants.h"
+
 #import <UIKit/UIKit.h>
 
-
 // constants
-const NSInteger kLocationForegroundDistanceFilter = 2;//20;    // meters
+const NSInteger kLocationForegroundDistanceFilter = 0;//20;    // meters
 const NSInteger kLocationBackgroundDistanceFilter = 5;//30;
 
 NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
@@ -43,28 +46,6 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     return shared;
 }
 
--(instancetype)init
-{
-    if (self = [super init])
-    {
-//        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized ||
-//            ![CLLocationManager locationServicesEnabled])
-//        {
-//            [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsNeededNotification object:self];
-//            
-//            // we're doing this so we can give the user a preemptive friendly message before the system message
-//            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_initializeLocationTracking) name:PULLocationPermissionsGrantedNotification object:nil];
-//        }
-//        else
-//        {
-//            [self p_initializeLocationTracking];
-//        }
-
-    }
-    
-    return self;
-}
-
 - (void)p_requestPermission
 {
     if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
@@ -85,6 +66,8 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_applicationDidEnterForeground) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+  //  Reachability *reach = [Reachability reachabilityWithHostName:]
 }
 
 /*!
@@ -133,8 +116,13 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [_locationManager startUpdatingLocation];
         
+        __block int count = 0;
         while (YES && _backgroundTask != UIBackgroundTaskInvalid) {
-            PULLog(@"Background time Remaining: %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+            if (count % 5 == 0)
+            {
+                 PULLog(@"Background time Remaining: %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+            }
+            count++;
             [NSThread sleepForTimeInterval:1];
         }
         

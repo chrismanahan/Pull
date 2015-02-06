@@ -24,6 +24,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *userImageView;
 @property (strong, nonatomic) IBOutlet UIView *userImageViewContainer;
 
+@property (strong, nonatomic) id locationNotification;
+
 @property (nonatomic) BOOL didSetUp;
 
 @end
@@ -77,7 +79,7 @@
                                                  name:kPULFriendUpdatedNotifcation
                                                object:_user];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountDidUpdateLocationNotification
+    _locationNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountDidUpdateLocationNotification
                                                       object:nil
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
@@ -90,8 +92,23 @@
                                                       [self updateDistanceLabel:distance];
                                                       
                                                   }];
+    
+}
 
-    }
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kPULAccountDidUpdateHeadingNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kPULFriendUpdatedNotifcation
+                                                  object:_user];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:_locationNotification];
+}
 
 #pragma mark - UI Setters
 - (void)updateDistanceLabel:(CGFloat)distance
@@ -237,12 +254,12 @@ double normalizeHead(double head)
     if (myLat > yourLat && myLon > yourLon) // quadrant 1
     {
         ø = atan2(dy, dx);
-        ø = 270 * ø;
+        return 270 + RADIANS_TO_DEGREES(ø);
     }
     else if (myLat < yourLat && myLon > yourLon) // quad 2
     {
         ø = atan2(dx, dy);
-        ø = 360 - ø;
+        return 360 - RADIANS_TO_DEGREES(ø);
     }
     else if (myLat < yourLat && myLon < yourLon) // quad 3
     {
@@ -251,7 +268,7 @@ double normalizeHead(double head)
     else if (myLat > yourLat && myLon < yourLon) // quad 4
     {
         ø = atan2(dy, dx);
-        ø = 90 + ø;
+        return 90 + RADIANS_TO_DEGREES(ø);
     }
     else if (myLat == yourLat && myLon > yourLon) // horizontal right
     {

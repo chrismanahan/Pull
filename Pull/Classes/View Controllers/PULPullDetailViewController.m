@@ -255,19 +255,19 @@ double normalizeHead(double head)
     }
     else if (myLat == yourLat && myLon > yourLon) // horizontal right
     {
-        
+        return 270;
     }
     else if (myLat == yourLat && myLon < yourLon) // horizontal left
     {
-        
+        return 90;
     }
     else if (myLon == yourLon && myLat > yourLat) // vertical top
     {
-        
+        return 180;
     }
     else if (myLon == yourLon && myLat < yourLat) // vertical bottom
     {
-        
+        return 0;
     }
     return RADIANS_TO_DEGREES( ø);
 }

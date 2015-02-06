@@ -152,6 +152,20 @@ NSString* machineName()
     
     cell.delegate = self;
     
+    // determine cell type
+    PULUserCellType cellType;
+    if ([tableView isEqual:_friendTableView])
+    {
+        switch (indexPath.section) {
+            case 0: cellType = PULUserCellTypePulled; break;
+            case 1: cellType = PULUserCellTypePending; break;
+            case 2: cellType = PULUserCellTypeWaiting; break;
+            case 3: cellType = PULUserCellTypeNearby; break;
+            default: break;
+        }
+    }
+    cell.type = cellType;
+    
     return cell;
 }
 

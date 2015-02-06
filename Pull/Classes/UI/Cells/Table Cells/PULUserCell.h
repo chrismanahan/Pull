@@ -15,6 +15,14 @@
 @class PULUserTableCellBackgroundView;
 @class PULUserCell;
 
+typedef NS_ENUM(NSInteger, PULUserCellType)
+{
+    PULUserCellTypeNearby,
+    PULUserCellTypeWaiting,
+    PULUserCellTypePending,
+    PULUserCellTypePulled
+};
+
 @protocol PULUserCellDelegate <NSObject>
 
 - (void)userCellDidBeginPulling:(PULUserCell*)cell;
@@ -30,6 +38,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *userDisplayNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *userDistanceLabel;
 @property (nonatomic, strong) IBOutlet PULUserTableCellBackgroundView *bgView;
+
+@property (nonatomic) PULUserCellType type;
 
 @property (nonatomic, strong) PULUser *user;
 

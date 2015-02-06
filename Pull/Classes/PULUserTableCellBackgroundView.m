@@ -28,37 +28,19 @@ IB_DESIGNABLE
     
     _arrowImageView.hidden = !pulling;
     
-    if (pulling)
-    {
-        NSString *prefix = _left ? @"arrowsRed" : @"arrowsPurple";
-            NSMutableArray *images = [[NSMutableArray alloc] init];
-            for (int i = 0; i <= 3; i++)
-            {
-                NSString *imageName = [NSString stringWithFormat:@"%@_%i", prefix, i];
-                UIImage *img = [UIImage imageNamed:imageName];
-                [images  addObject:img];
-            }
-            for (int i = 3; i >= 0; i--)
-            {
-                NSString *imageName = [NSString stringWithFormat:@"%@_%i", prefix, i];
-                UIImage *img = [UIImage imageNamed:imageName];
-                [images  addObject:img];
-            }
-
-            _arrowImageView.animationImages = images;
-            _arrowImageView.animationDuration = .8;
-            _arrowImageView.animationRepeatCount = 0;
-            
-            if (!_left)
-            {
-                // mirror arrows
-                CGAffineTransform t = CGAffineTransformIdentity;
-                t = CGAffineTransformMakeRotation(M_PI);
-                _arrowImageView.transform = t;
-            }
-        
-        [_arrowImageView startAnimating];
-    }
+//    if (pulling)
+//    {
+//        NSString *prefix = _left ? @"arrowsPurple" : @"arrowsRed";
+//      
+//        if (!_left)
+//        {
+//            // mirror arrows
+//            CGAffineTransform t = CGAffineTransformIdentity;
+//            t = CGAffineTransformMakeRotation(M_PI);
+//            _arrowImageView.transform = t;
+//        }
+//        
+//    }
     
     _accessoryImageViewContainer.hidden = !pulling;
 }
@@ -112,16 +94,16 @@ IB_DESIGNABLE
                 _accessoryImageViewContainer.hidden = YES;
                 
                 _accessoryImageViewContainer.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-                _accessoryImageViewContainer.imageView.contentMode = UIViewContentModeScaleAspectFit;
+                _accessoryImageViewContainer.imageView.contentMode = UIViewContentModeScaleAspectFill;
                 [_accessoryImageViewContainer addSubview:_accessoryImageViewContainer.imageView];
-                _accessoryImageViewContainer.imageView.image = [UIImage imageNamed: _left ? @"stopPlaceholder" : @"pullPlaceholder"];
+                _accessoryImageViewContainer.imageView.image = [UIImage imageNamed: !_left ? @"stop_icon" : @"pull_icon"];
                 
                 [self insertSubview:_accessoryImageViewContainer belowSubview:view];
             }
             
             _accessoryImageViewContainer.frame = _left ? _rightImageViewFrame : _leftImageViewFrame;
             
-            UIColor *color = _left ? [UIColor redColor] : [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
+            UIColor *color = _left ? [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000] : [UIColor redColor];
             
             _accessoryImageViewContainer.borderColor = color;
             _accessoryImageViewContainer.backgroundColor = [UIColor clearColor];
@@ -161,7 +143,7 @@ IB_DESIGNABLE
     CGContextSetFillColorWithColor(ref, [UIColor whiteColor].CGColor);
     
     UIColor *borderColor;
-    if (self.left)
+    if (!self.left)
     {
         borderColor = [UIColor redColor];
     }

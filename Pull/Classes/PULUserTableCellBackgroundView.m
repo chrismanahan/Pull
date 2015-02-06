@@ -90,8 +90,9 @@ IB_DESIGNABLE
             
             if (!_accessoryImageViewContainer)
             {
-                _accessoryImageViewContainer = [view copy];
+                _accessoryImageViewContainer = [[PULUserImageView alloc] initWithFrame:view.frame];
                 _accessoryImageViewContainer.hidden = YES;
+                _accessoryImageViewContainer.borderColor = [UIColor whiteColor];
                 
                 _accessoryImageViewContainer.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
                 _accessoryImageViewContainer.imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -103,9 +104,8 @@ IB_DESIGNABLE
             
             _accessoryImageViewContainer.frame = _left ? _rightImageViewFrame : _leftImageViewFrame;
             
-            UIColor *color = _left ? [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000] : [UIColor redColor];
             
-            _accessoryImageViewContainer.borderColor = color;
+            _accessoryImageViewContainer.borderColor = [UIColor whiteColor];
             _accessoryImageViewContainer.backgroundColor = [UIColor clearColor];
             
             center = _accessoryImageViewContainer.center;
@@ -142,29 +142,21 @@ IB_DESIGNABLE
     
     CGContextSetFillColorWithColor(ref, [UIColor whiteColor].CGColor);
     
-    UIColor *borderColor;
-    if (!self.left)
-    {
-        borderColor = [UIColor redColor];
-    }
-    else
-    {
-        borderColor =  [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
-    }
-    
-    
-    CGContextSetStrokeColorWithColor(ref, borderColor.CGColor);
-    
     CGRect innerRect = CGRectInset(rect, 2, 4);
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:innerRect cornerRadius:180];
     
     [path fill];
-    
-    if (_pulling)
-    {
-        path.lineWidth = 4.0;
-        [path stroke];
-    }
+//    
+//    if (_pulling)
+//    {
+//        UIColor *borderColor =  [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
+//        
+//        CGContextSetStrokeColorWithColor(ref, borderColor.CGColor);
+//
+//        
+//        path.lineWidth = 4.0;
+//        [path stroke];
+//    }
 }
 
 

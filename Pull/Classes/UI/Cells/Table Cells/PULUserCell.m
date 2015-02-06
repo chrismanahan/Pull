@@ -132,18 +132,18 @@
         self.bgView.pulling = YES;
         [self.bgView setNeedsDisplay];
         
-        UIColor *borderColor;
-        if (!self.bgView.left)
-        {
-            borderColor = [UIColor redColor];
-        }
-        else
-        {
-            borderColor =  [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
-        }
-        
-        _userImageViewContainer.borderColor = borderColor;
-        
+//        UIColor *borderColor;
+//        if (!self.bgView.left)
+//        {
+//            borderColor = [UIColor redColor];
+//        }
+//        else
+//        {
+//            borderColor =  [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
+//        }
+//        
+//        _userImageViewContainer.borderColor = borderColor;
+//        
         [_userImageViewContainer setNeedsDisplay];
         
         // hide some ui
@@ -237,7 +237,7 @@
             }
             
             self.bgView.pulling = NO;
-            _userImageViewContainer.borderColor = nil;
+//            _userImageViewContainer.borderColor = nil;
             [_userImageViewContainer setNeedsDisplay];
             
             // show hidden ui

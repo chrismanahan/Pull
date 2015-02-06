@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -141,6 +141,12 @@
                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MnD-wL-40h" customClass="PULUserTableCellBackgroundView">
                                                     <rect key="frame" x="0.0" y="2" width="320" height="115"/>
                                                     <subviews>
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stop_arrows.png" translatesAutoresizingMaskIntoConstraints="NO" id="XpF-hM-ick">
+                                                            <rect key="frame" x="115" y="33" width="90" height="50"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="50" id="Jhi-IA-fDB"/>
+                                                            </constraints>
+                                                        </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Feet" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXG-xB-s1B">
                                                             <rect key="frame" x="126" y="82" width="62" height="25"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
@@ -153,7 +159,7 @@
                                                             <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0rh-22-zXw" customClass="PULUserImageView">
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0rh-22-zXw" customClass="PULPulledUserImageView">
                                                             <rect key="frame" x="213" y="6" width="107" height="107"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BXE-Oy-GaD">
@@ -173,12 +179,6 @@
                                                                 <outlet property="imageView" destination="BXE-Oy-GaD" id="Tln-jz-9Qc"/>
                                                             </connections>
                                                         </view>
-                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pull_arrows.png" translatesAutoresizingMaskIntoConstraints="NO" id="XpF-hM-ick">
-                                                            <rect key="frame" x="115" y="33" width="90" height="50"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="50" id="Jhi-IA-fDB"/>
-                                                            </constraints>
-                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -226,23 +226,27 @@
                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PuO-EN-Sda" customClass="PULUserTableCellBackgroundView">
                                                     <rect key="frame" x="0.0" y="1" width="320" height="115"/>
                                                     <subviews>
-                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stop_arrows.png" translatesAutoresizingMaskIntoConstraints="NO" id="oTQ-nO-0jV">
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pull_arrows.png" translatesAutoresizingMaskIntoConstraints="NO" id="oTQ-nO-0jV">
                                                             <rect key="frame" x="115" y="33" width="90" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="UZU-1N-CvM"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bci-6L-Vnb" customClass="PULUserImageView">
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bci-6L-Vnb" customClass="PULPulledUserImageView">
                                                             <rect key="frame" x="0.0" y="9" width="100" height="100"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LoW-Ky-yyl">
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LoW-Ky-yyl">
                                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                                 </imageView>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="LoW-Ky-yyl" secondAttribute="bottom" id="Bna-2C-1s8"/>
+                                                                <constraint firstAttribute="trailing" secondItem="LoW-Ky-yyl" secondAttribute="trailing" id="ajW-6O-D6z"/>
                                                                 <constraint firstAttribute="height" constant="100" id="eC8-JQ-kCz"/>
+                                                                <constraint firstItem="LoW-Ky-yyl" firstAttribute="leading" secondItem="Bci-6L-Vnb" secondAttribute="leading" id="eLJ-M7-nYx"/>
                                                                 <constraint firstAttribute="width" constant="100" id="oUD-84-nVF"/>
+                                                                <constraint firstItem="LoW-Ky-yyl" firstAttribute="top" secondItem="Bci-6L-Vnb" secondAttribute="top" id="qfj-3N-wh6"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="imageView" destination="LoW-Ky-yyl" id="hWT-iO-1zb"/>
@@ -309,10 +313,10 @@
                                                             <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="34t-DH-OAq" customClass="PULUserImageView">
-                                                            <rect key="frame" x="220" y="16" width="100" height="100"/>
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="34t-DH-OAq" customClass="PULPulledUserImageView">
+                                                            <rect key="frame" x="213" y="16" width="107" height="107"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1cX-iB-Oy8">
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cX-iB-Oy8">
                                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                                 </imageView>
                                                             </subviews>
@@ -320,29 +324,39 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="100" id="0W8-kF-MAp"/>
                                                                 <constraint firstAttribute="height" constant="100" id="8OG-vd-t7m"/>
+                                                                <constraint firstItem="1cX-iB-Oy8" firstAttribute="top" secondItem="34t-DH-OAq" secondAttribute="top" id="XiV-a1-nQm"/>
+                                                                <constraint firstItem="1cX-iB-Oy8" firstAttribute="leading" secondItem="34t-DH-OAq" secondAttribute="leading" id="g2I-l8-BEN"/>
+                                                                <constraint firstAttribute="bottom" secondItem="1cX-iB-Oy8" secondAttribute="bottom" id="wLw-dE-AMy"/>
+                                                                <constraint firstAttribute="trailing" secondItem="1cX-iB-Oy8" secondAttribute="trailing" id="xN9-bM-9Iu"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="imageView" destination="1cX-iB-Oy8" id="lmM-Wl-dx1"/>
                                                             </connections>
                                                         </view>
-                                                        <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zMT-bA-dMo">
-                                                            <rect key="frame" x="40" y="2" width="60" height="115"/>
-                                                            <state key="normal" backgroundImage="decline_button.png">
+                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OlW-M7-RfQ">
+                                                            <rect key="frame" x="1" y="3" width="63" height="110"/>
+                                                            <state key="normal" image="Accept_button.png">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OlW-M7-RfQ">
-                                                            <rect key="frame" x="-6" y="1" width="60" height="115"/>
-                                                            <state key="normal" backgroundImage="Accept_button.png">
+                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zMT-bA-dMo">
+                                                            <rect key="frame" x="64" y="3" width="73" height="110"/>
+                                                            <state key="normal" image="decline_button.png">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="centerY" secondItem="OlW-M7-RfQ" secondAttribute="centerY" id="6QU-Qd-0dZ"/>
+                                                        <constraint firstItem="OlW-M7-RfQ" firstAttribute="height" secondItem="h3e-ju-fpA" secondAttribute="height" constant="-5" id="AP2-y2-OwC"/>
                                                         <constraint firstAttribute="bottom" secondItem="34t-DH-OAq" secondAttribute="bottom" id="HUm-GP-prg"/>
+                                                        <constraint firstItem="OlW-M7-RfQ" firstAttribute="leading" secondItem="h3e-ju-fpA" secondAttribute="leading" constant="1" id="QAv-u8-xc3"/>
                                                         <constraint firstItem="34t-DH-OAq" firstAttribute="leading" secondItem="3qQ-Ra-coD" secondAttribute="trailing" constant="10" id="RQD-Ck-40A"/>
+                                                        <constraint firstAttribute="centerY" secondItem="zMT-bA-dMo" secondAttribute="centerY" id="So1-Q0-zqX"/>
+                                                        <constraint firstItem="zMT-bA-dMo" firstAttribute="leading" secondItem="OlW-M7-RfQ" secondAttribute="trailing" id="Vxb-bX-wo4"/>
                                                         <constraint firstAttribute="centerY" secondItem="3qQ-Ra-coD" secondAttribute="centerY" constant="-7.5" id="d8I-cL-HUJ"/>
+                                                        <constraint firstItem="OlW-M7-RfQ" firstAttribute="height" secondItem="zMT-bA-dMo" secondAttribute="height" id="du3-gD-CHt"/>
                                                         <constraint firstAttribute="trailing" secondItem="34t-DH-OAq" secondAttribute="trailing" id="f84-Fq-OaC"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -386,7 +400,7 @@
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dih-Ik-pd9" customClass="PULUserImageView">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dih-Ik-pd9" customClass="PULPulledUserImageView">
                                                             <rect key="frame" x="1" y="14" width="100" height="100"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8G2-Pb-bMM">
@@ -840,7 +854,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Accept_button.png" width="81" height="134"/>
+        <image name="Accept_button.png" width="63" height="125"/>
         <image name="back_button.png" width="16" height="19"/>
         <image name="compass.png" width="579" height="812"/>
         <image name="decline_button.png" width="73" height="137"/>

@@ -57,6 +57,8 @@
 		952BDB9A1A0C504D00C67BB5 /* PULPullManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB991A0C504D00C67BB5 /* PULPullManager.m */; };
 		952BDB9D1A0C505C00C67BB5 /* PULFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB9C1A0C505C00C67BB5 /* PULFriendManager.m */; };
 		952BDBA01A0C50B300C67BB5 /* PULPull.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB9F1A0C50B300C67BB5 /* PULPull.m */; };
+		9531F8A11A8679E1003CBEDF /* PULUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9531F8A01A8679E1003CBEDF /* PULUserSettings.m */; };
+		9531F8A41A86803A003CBEDF /* PULSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9531F8A31A86803A003CBEDF /* PULSettingsViewController.m */; };
 		9532D4231A7ECC4300ADB840 /* PULInfoAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 9532D4221A7ECC4300ADB840 /* PULInfoAlert.m */; };
 		9532D4291A7ECF5000ADB840 /* map_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9532D4251A7ECF5000ADB840 /* map_pin.png */; };
 		9532D42A1A7ECF5000ADB840 /* map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9532D4261A7ECF5000ADB840 /* map_pin@2x.png */; };
@@ -199,6 +201,10 @@
 		952BDB9C1A0C505C00C67BB5 /* PULFriendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULFriendManager.m; sourceTree = "<group>"; };
 		952BDB9E1A0C50B300C67BB5 /* PULPull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPull.h; sourceTree = "<group>"; };
 		952BDB9F1A0C50B300C67BB5 /* PULPull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPull.m; sourceTree = "<group>"; };
+		9531F89F1A8679E1003CBEDF /* PULUserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUserSettings.h; sourceTree = "<group>"; };
+		9531F8A01A8679E1003CBEDF /* PULUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserSettings.m; sourceTree = "<group>"; };
+		9531F8A21A86803A003CBEDF /* PULSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULSettingsViewController.h; path = "View Controllers/PULSettingsViewController.h"; sourceTree = "<group>"; };
+		9531F8A31A86803A003CBEDF /* PULSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULSettingsViewController.m; path = "View Controllers/PULSettingsViewController.m"; sourceTree = "<group>"; };
 		9532D4211A7ECC4300ADB840 /* PULInfoAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULInfoAlert.h; path = UI/PULInfoAlert.h; sourceTree = "<group>"; };
 		9532D4221A7ECC4300ADB840 /* PULInfoAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULInfoAlert.m; path = UI/PULInfoAlert.m; sourceTree = "<group>"; };
 		9532D4251A7ECF5000ADB840 /* map_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin.png; sourceTree = "<group>"; };
@@ -327,6 +333,8 @@
 				3304995E1A182542003FEA42 /* PULPullDetailViewController.m */,
 				95D6661D1A7D6A42000FAD8D /* PULMapViewController.h */,
 				95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */,
+				9531F8A21A86803A003CBEDF /* PULSettingsViewController.h */,
+				9531F8A31A86803A003CBEDF /* PULSettingsViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -625,6 +633,8 @@
 				952BDB9F1A0C50B300C67BB5 /* PULPull.m */,
 				952BDB911A0C500C00C67BB5 /* PULUser.h */,
 				952BDB921A0C500C00C67BB5 /* PULUser.m */,
+				9531F89F1A8679E1003CBEDF /* PULUserSettings.h */,
+				9531F8A01A8679E1003CBEDF /* PULUserSettings.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -897,7 +907,9 @@
 				9532D4231A7ECC4300ADB840 /* PULInfoAlert.m in Sources */,
 				95D6661F1A7D6A42000FAD8D /* PULMapViewController.m in Sources */,
 				952BDB931A0C500C00C67BB5 /* PULUser.m in Sources */,
+				9531F8A11A8679E1003CBEDF /* PULUserSettings.m in Sources */,
 				334044C91A17FD6A00B00BC3 /* PULFriendFinder.m in Sources */,
+				9531F8A41A86803A003CBEDF /* PULSettingsViewController.m in Sources */,
 				33BD5AC41A0E9EE800F92414 /* PULLocationUpdater.m in Sources */,
 				952BDB671A0C4F0500C67BB5 /* main.m in Sources */,
 				334044C01A17F80C00B00BC3 /* PULSectionHeader.m in Sources */,

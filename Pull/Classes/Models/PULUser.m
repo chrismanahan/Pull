@@ -94,6 +94,7 @@ NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedN
     _firstName   = dict[@"firstName"];
     _lastName    = dict[@"lastName"];
     _isPrivate   = [dict[@"isPrivate"] boolValue];
+    _settings = [[PULUserSettings alloc] initFromFirebase:dict[@"settings"]];
     
     _deviceToken = dict[@"deviceToken"];
     
@@ -200,7 +201,13 @@ NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedN
              @"location":@{@"lat": @(_location.coordinate.latitude),
                       @"lon": @(_location.coordinate.longitude),
                       @"alt": @(_location.altitude)},
-             @"isPrivate": @(_isPrivate)};
+             @"isPrivate": @(_isPrivate),
+             @"settings": @{
+                     @"notification":@{
+                             @"invite": @(_settings.notifyInvite),
+                             @"accept": @(_settings.notifyAccept)
+                             }
+                     }};
     
 }
 

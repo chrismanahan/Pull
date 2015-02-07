@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "PULFirebaseProtocol.h"
+#import "PULUserSettings.h"
 
 #import <MapKit/MapKit.h>
 
@@ -57,6 +58,8 @@ extern NSString * const kPULFriendUpdatedNotifcation;
 @property (nonatomic, strong) CLLocation *location;
 
 @property (nonatomic, assign) BOOL isPrivate;
+
+@property (nonatomic, strong) PULUserSettings *settings;
 
 /*******************************
         Instance Methods

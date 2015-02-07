@@ -22,17 +22,31 @@ NSString * const kPULPushTypeAcceptPull          = @"acceptPull";
 + (void)sendPushType:(NSString*)pushType to:(PULUser*)toUser from:(PULUser*)fromUser;
 {
     PULLog(@"sending push (%@) to %@", pushType, toUser.firstName);
-    NSString *deviceToken = toUser.deviceToken;
+    BOOL sendPush = YES;
+    // check if other user wants this notifcation
+    if ([pushType isEqualToString:kPULPushTypeAcceptPull])
+    {
+        sendPush = toUser.settings.notifyAccept;
+    }
+    else if ([pushType isEqualToString:kPULPushTypeSendPull])
+    {
+        sendPush = toUser.settings.notifyInvite;
+    }
     
-    NSString *urlString = [NSString stringWithFormat:@"%@?type=%@&name=%@&deviceToken=%@", kPULPushServerURL, pushType, fromUser.firstName, deviceToken];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *req = [NSURLRequest requestWithURL:url];
-    
-    [NSURLConnection sendAsynchronousRequest:req
-                                       queue:[NSOperationQueue currentQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               PULLog(@"sent push: %@", [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
-                           }];
+    if (sendPush)
+    {
+        NSString *deviceToken = toUser.deviceToken;
+        
+        NSString *urlString = [NSString stringWithFormat:@"%@?type=%@&name=%@&deviceToken=%@", kPULPushServerURL, pushType, fromUser.firstName, deviceToken];
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *req = [NSURLRequest requestWithURL:url];
+        
+        [NSURLConnection sendAsynchronousRequest:req
+                                           queue:[NSOperationQueue currentQueue]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                   PULLog(@"sent push: %@", [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
+                               }];
+    }
 }
 
 @end

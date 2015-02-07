@@ -22,7 +22,6 @@
 		3340449D1A17D33A00B00BC3 /* PULPullListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3340449C1A17D33A00B00BC3 /* PULPullListViewController.m */; };
 		334044A41A17DFD200B00BC3 /* facebookLoginButton_Active.png in Resources */ = {isa = PBXBuildFile; fileRef = 334044A21A17DFD200B00BC3 /* facebookLoginButton_Active.png */; };
 		334044A51A17DFD200B00BC3 /* facebookLoginButton_Pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 334044A31A17DFD200B00BC3 /* facebookLoginButton_Pressed.png */; };
-		334044BC1A17E22900B00BC3 /* PULCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044BB1A17E22900B00BC3 /* PULCircleButton.m */; };
 		334044C01A17F80C00B00BC3 /* PULSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044BF1A17F80C00B00BC3 /* PULSectionHeader.m */; };
 		334044C61A17F9A100B00BC3 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044C51A17F9A100B00BC3 /* PULUserCell.m */; };
 		334044C91A17FD6A00B00BC3 /* PULFriendFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044C81A17FD6A00B00BC3 /* PULFriendFinder.m */; };
@@ -96,6 +95,12 @@
 		956F3B8A1A85D15400C571EA /* decline_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B811A85D15400C571EA /* decline_button.png */; };
 		956F3B8B1A85D15400C571EA /* decline_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B821A85D15400C571EA /* decline_button@2x.png */; };
 		956F3B8C1A85D15400C571EA /* decline_button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B831A85D15400C571EA /* decline_button@3x.png */; };
+		956F3B901A86569A00C571EA /* circleButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B8D1A86569A00C571EA /* circleButtonBackground.png */; };
+		956F3B911A86569A00C571EA /* circleButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B8E1A86569A00C571EA /* circleButtonBackground@2x.png */; };
+		956F3B921A86569A00C571EA /* circleButtonBackground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B8F1A86569A00C571EA /* circleButtonBackground@3x.png */; };
+		956F3B961A86576C00C571EA /* circleButtonBackgroundPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B931A86576C00C571EA /* circleButtonBackgroundPressed.png */; };
+		956F3B971A86576C00C571EA /* circleButtonBackgroundPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B941A86576C00C571EA /* circleButtonBackgroundPressed@2x.png */; };
+		956F3B981A86576C00C571EA /* circleButtonBackgroundPressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B951A86576C00C571EA /* circleButtonBackgroundPressed@3x.png */; };
 		95D6661C1A7C8EEE000FAD8D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D6661B1A7C8EEE000FAD8D /* MapKit.framework */; };
 		95D6661F1A7D6A42000FAD8D /* PULMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */; };
 		95D666221A7D6E1F000FAD8D /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95D666201A7D6E1F000FAD8D /* compass@2x.png */; };
@@ -137,8 +142,6 @@
 		3340449C1A17D33A00B00BC3 /* PULPullListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULPullListViewController.m; path = "View Controllers/PULPullListViewController.m"; sourceTree = "<group>"; };
 		334044A21A17DFD200B00BC3 /* facebookLoginButton_Active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookLoginButton_Active.png; sourceTree = "<group>"; };
 		334044A31A17DFD200B00BC3 /* facebookLoginButton_Pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookLoginButton_Pressed.png; sourceTree = "<group>"; };
-		334044BA1A17E22900B00BC3 /* PULCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULCircleButton.h; sourceTree = "<group>"; };
-		334044BB1A17E22900B00BC3 /* PULCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULCircleButton.m; sourceTree = "<group>"; };
 		334044BE1A17F80C00B00BC3 /* PULSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULSectionHeader.h; path = UI/Views/PULSectionHeader.h; sourceTree = "<group>"; };
 		334044BF1A17F80C00B00BC3 /* PULSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULSectionHeader.m; path = UI/Views/PULSectionHeader.m; sourceTree = "<group>"; };
 		334044C41A17F9A100B00BC3 /* PULUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULUserCell.h; path = "UI/Cells/Table Cells/PULUserCell.h"; sourceTree = "<group>"; };
@@ -236,6 +239,12 @@
 		956F3B811A85D15400C571EA /* decline_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decline_button.png; sourceTree = "<group>"; };
 		956F3B821A85D15400C571EA /* decline_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decline_button@2x.png"; sourceTree = "<group>"; };
 		956F3B831A85D15400C571EA /* decline_button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decline_button@3x.png"; sourceTree = "<group>"; };
+		956F3B8D1A86569A00C571EA /* circleButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleButtonBackground.png; sourceTree = "<group>"; };
+		956F3B8E1A86569A00C571EA /* circleButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circleButtonBackground@2x.png"; sourceTree = "<group>"; };
+		956F3B8F1A86569A00C571EA /* circleButtonBackground@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circleButtonBackground@3x.png"; sourceTree = "<group>"; };
+		956F3B931A86576C00C571EA /* circleButtonBackgroundPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleButtonBackgroundPressed.png; sourceTree = "<group>"; };
+		956F3B941A86576C00C571EA /* circleButtonBackgroundPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circleButtonBackgroundPressed@2x.png"; sourceTree = "<group>"; };
+		956F3B951A86576C00C571EA /* circleButtonBackgroundPressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circleButtonBackgroundPressed@3x.png"; sourceTree = "<group>"; };
 		95D6661B1A7C8EEE000FAD8D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		95D6661D1A7D6A42000FAD8D /* PULMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULMapViewController.h; path = "View Controllers/PULMapViewController.h"; sourceTree = "<group>"; };
 		95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULMapViewController.m; path = "View Controllers/PULMapViewController.m"; sourceTree = "<group>"; };
@@ -371,8 +380,6 @@
 		334044B91A17E21D00B00BC3 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				334044BA1A17E22900B00BC3 /* PULCircleButton.h */,
-				334044BB1A17E22900B00BC3 /* PULCircleButton.m */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -660,6 +667,12 @@
 		95D666241A7D87BB000FAD8D /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				956F3B931A86576C00C571EA /* circleButtonBackgroundPressed.png */,
+				956F3B941A86576C00C571EA /* circleButtonBackgroundPressed@2x.png */,
+				956F3B951A86576C00C571EA /* circleButtonBackgroundPressed@3x.png */,
+				956F3B8D1A86569A00C571EA /* circleButtonBackground.png */,
+				956F3B8E1A86569A00C571EA /* circleButtonBackground@2x.png */,
+				956F3B8F1A86569A00C571EA /* circleButtonBackground@3x.png */,
 				956F3B7B1A85D15400C571EA /* Accept_button.png */,
 				956F3B7C1A85D15400C571EA /* Accept_button@2x.png */,
 				956F3B7D1A85D15400C571EA /* Accept_button@3x.png */,
@@ -789,12 +802,16 @@
 				33FEA2381A6B0A5F002CA63D /* icon@2x.png in Resources */,
 				956F3B771A84595E00C571EA /* pull_icon@3x.png in Resources */,
 				956F3B891A85D15400C571EA /* Cancel_button@3x.png in Resources */,
+				956F3B901A86569A00C571EA /* circleButtonBackground.png in Resources */,
+				956F3B911A86569A00C571EA /* circleButtonBackground@2x.png in Resources */,
 				956F3B591A844E2B00C571EA /* pull_arrows@2x.png in Resources */,
 				956F3B781A84595E00C571EA /* stop_icon.png in Resources */,
 				33FEA2391A6B0A5F002CA63D /* icon@3x.png in Resources */,
 				956F3B5B1A844E2B00C571EA /* stop_arrows@2x.png in Resources */,
 				9532D43D1A7F016000ADB840 /* LICENCE.txt in Resources */,
 				950E1EBA1A7DD98E003B6FF9 /* back_button@2x.png in Resources */,
+				956F3B921A86569A00C571EA /* circleButtonBackground@3x.png in Resources */,
+				956F3B961A86576C00C571EA /* circleButtonBackgroundPressed.png in Resources */,
 				9532D4451A80691C00ADB840 /* menu_icon@3x.png in Resources */,
 				952BDB771A0C4F0500C67BB5 /* LaunchScreen.xib in Resources */,
 				33FEA2311A6AC6D1002CA63D /* debugButton.png in Resources */,
@@ -810,6 +827,7 @@
 				954DD8BD1A7DCC2300E4EE3F /* purpleButtonNormal@2x.png in Resources */,
 				950E1ED81A7DEC15003B6FF9 /* whiteButtonNormal@2x.png in Resources */,
 				956F3B5A1A844E2B00C571EA /* pull_arrows@3x.png in Resources */,
+				956F3B971A86576C00C571EA /* circleButtonBackgroundPressed@2x.png in Resources */,
 				954DD8BE1A7DCC2300E4EE3F /* purpleButtonNormalPressed@3x.png in Resources */,
 				950E1ED61A7DEC15003B6FF9 /* whiteButtonClicked@3x.png in Resources */,
 				9532D42E1A7ECF9300ADB840 /* map_pin@3x.png in Resources */,
@@ -823,6 +841,7 @@
 				956F3B841A85D15400C571EA /* Accept_button.png in Resources */,
 				33EE5F681A1D788700F5F343 /* compass.png in Resources */,
 				956F3B7A1A84595E00C571EA /* stop_icon@3x.png in Resources */,
+				956F3B981A86576C00C571EA /* circleButtonBackgroundPressed@3x.png in Resources */,
 				33FC5AB61A6C0B8F00255B84 /* compass2.png in Resources */,
 				954DD8BB1A7DCC2300E4EE3F /* purpleButtonClicked@2x.png in Resources */,
 				956F3B861A85D15400C571EA /* Accept_button@3x.png in Resources */,
@@ -874,7 +893,6 @@
 				952BDB9D1A0C505C00C67BB5 /* PULFriendManager.m in Sources */,
 				33BD5ACD1A0EB50C00F92414 /* PULConstants.m in Sources */,
 				9532D43F1A7F016000ADB840 /* README.md in Sources */,
-				334044BC1A17E22900B00BC3 /* PULCircleButton.m in Sources */,
 				330499561A18037D003FEA42 /* PULPulledUserImageView.m in Sources */,
 				9532D4231A7ECC4300ADB840 /* PULInfoAlert.m in Sources */,
 				95D6661F1A7D6A42000FAD8D /* PULMapViewController.m in Sources */,

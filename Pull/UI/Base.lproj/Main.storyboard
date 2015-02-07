@@ -189,6 +189,7 @@
                                                         <constraint firstAttribute="centerY" secondItem="ntx-0l-yTa" secondAttribute="centerY" constant="-1.5" id="AzJ-3d-H0B"/>
                                                         <constraint firstItem="0rh-22-zXw" firstAttribute="top" secondItem="MnD-wL-40h" secondAttribute="top" constant="8" id="Ea8-hV-F8J"/>
                                                         <constraint firstAttribute="trailing" secondItem="0rh-22-zXw" secondAttribute="trailing" id="FNa-qy-7Of"/>
+                                                        <constraint firstItem="ntx-0l-yTa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MnD-wL-40h" secondAttribute="leading" constant="15" id="KGx-9k-D01"/>
                                                         <constraint firstAttribute="trailing" secondItem="XpF-hM-ick" secondAttribute="trailing" constant="115" id="SDm-WS-HfS"/>
                                                         <constraint firstAttribute="bottom" secondItem="sXG-xB-s1B" secondAttribute="bottom" constant="8" id="VDq-ja-CQ7"/>
                                                         <constraint firstItem="0rh-22-zXw" firstAttribute="leading" secondItem="sXG-xB-s1B" secondAttribute="trailing" constant="32" id="WEP-wf-OcL"/>
@@ -235,7 +236,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bci-6L-Vnb" customClass="PULPulledUserImageView">
-                                                            <rect key="frame" x="0.0" y="9" width="100" height="100"/>
+                                                            <rect key="frame" x="0.0" y="9" width="107" height="107"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LoW-Ky-yyl">
                                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -270,6 +271,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="oTQ-nO-0jV" secondAttribute="trailing" constant="115" id="Siw-3f-tJF"/>
                                                         <constraint firstAttribute="centerY" secondItem="4uG-g2-khw" secondAttribute="centerY" constant="-0.5" id="amY-yO-kdd"/>
                                                         <constraint firstItem="4uG-g2-khw" firstAttribute="leading" secondItem="Bci-6L-Vnb" secondAttribute="trailing" constant="10" id="v9S-yp-IMJ"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4uG-g2-khw" secondAttribute="trailing" constant="15" id="w34-cB-Wsr"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="left" value="YES"/>
@@ -304,8 +306,8 @@
                                                     <rect key="frame" x="0.0" y="1" width="320" height="115"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull requested" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2p-4G-kTf">
-                                                            <rect key="frame" x="106" y="85" width="111" height="22"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
+                                                            <rect key="frame" x="106" y="87" width="111" height="20"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -352,7 +354,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Maggie Hill" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="3qQ-Ra-coD">
-                                                            <rect key="frame" x="121" y="45" width="93" height="25"/>
+                                                            <rect key="frame" x="106" y="45" width="108" height="25"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
                                                             <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -371,7 +373,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="34t-DH-OAq" secondAttribute="trailing" id="f84-Fq-OaC"/>
                                                         <constraint firstItem="zMT-bA-dMo" firstAttribute="centerY" secondItem="OlW-M7-RfQ" secondAttribute="centerY" id="jj0-fE-sU7"/>
                                                         <constraint firstItem="OlW-M7-RfQ" firstAttribute="leading" secondItem="h3e-ju-fpA" secondAttribute="leading" id="m6O-M5-VIp"/>
-                                                        <constraint firstItem="3qQ-Ra-coD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zMT-bA-dMo" secondAttribute="trailing" constant="4" id="oeo-iG-lsI"/>
+                                                        <constraint firstItem="3qQ-Ra-coD" firstAttribute="leading" secondItem="zMT-bA-dMo" secondAttribute="trailing" constant="6" id="oeo-iG-lsI"/>
                                                         <constraint firstItem="34t-DH-OAq" firstAttribute="leading" secondItem="c2p-4G-kTf" secondAttribute="trailing" constant="3" id="q5T-By-wYO"/>
                                                         <constraint firstItem="34t-DH-OAq" firstAttribute="leading" secondItem="3qQ-Ra-coD" secondAttribute="trailing" constant="6" id="wRc-B4-hU8"/>
                                                     </constraints>
@@ -401,17 +403,17 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0If-ku-7pk" id="vk5-zS-7Tg">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AhC-GP-aP4" customClass="PULUserTableCellBackgroundView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AhC-GP-aP4" customClass="PULUserTableCellBackgroundView">
+                                                    <rect key="frame" x="0.0" y="1" width="320" height="115"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" misplaced="YES" text="Brandon Smith" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Al5-4j-b6E">
-                                                            <rect key="frame" x="106" y="40" width="120" height="25"/>
+                                                            <rect key="frame" x="106" y="29" width="108" height="50"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
                                                             <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dih-Ik-pd9" customClass="PULPulledUserImageView">
-                                                            <rect key="frame" x="213" y="4" width="107" height="107"/>
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dih-Ik-pd9" customClass="PULPulledUserImageView">
+                                                            <rect key="frame" x="213" y="5" width="107" height="107"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8G2-Pb-bMM">
                                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="101"/>
@@ -430,8 +432,8 @@
                                                                 <outlet property="imageView" destination="8G2-Pb-bMM" id="oDs-ji-MLt"/>
                                                             </connections>
                                                         </view>
-                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VTG-R5-bxM" userLabel="decline button">
-                                                            <rect key="frame" x="50" y="4" width="50" height="108"/>
+                                                        <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VTG-R5-bxM" userLabel="decline button">
+                                                            <rect key="frame" x="50" y="5" width="50" height="108"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="108" id="0fB-oC-W9O"/>
                                                                 <constraint firstAttribute="width" constant="50" id="ShZ-Hv-3UF"/>
@@ -443,9 +445,9 @@
                                                                 <action selector="ibCancel:" destination="0If-ku-7pk" eventType="touchUpInside" id="tCY-iP-X97"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="pull request sent" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNg-WZ-NOz">
-                                                            <rect key="frame" x="99" y="78" width="123" height="29"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull request sent" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNg-WZ-NOz">
+                                                            <rect key="frame" x="106" y="87" width="111" height="20"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -453,11 +455,14 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="VTG-R5-bxM" firstAttribute="top" secondItem="AhC-GP-aP4" secondAttribute="top" constant="4" id="3f9-Vr-bwh"/>
+                                                        <constraint firstAttribute="centerY" secondItem="Al5-4j-b6E" secondAttribute="centerY" constant="5" id="Csw-XQ-ds6"/>
+                                                        <constraint firstAttribute="bottom" secondItem="dNg-WZ-NOz" secondAttribute="bottom" constant="8" id="D68-Bo-jaS"/>
+                                                        <constraint firstItem="dNg-WZ-NOz" firstAttribute="leading" secondItem="VTG-R5-bxM" secondAttribute="trailing" constant="6" id="dZg-ku-8aq"/>
                                                         <constraint firstItem="VTG-R5-bxM" firstAttribute="leading" secondItem="AhC-GP-aP4" secondAttribute="leading" constant="50" id="fzV-Tt-BvG"/>
                                                         <constraint firstAttribute="trailing" secondItem="dih-Ik-pd9" secondAttribute="trailing" id="h5a-QA-8TD"/>
-                                                        <constraint firstItem="Al5-4j-b6E" firstAttribute="top" secondItem="AhC-GP-aP4" secondAttribute="top" priority="250" constant="40" id="iH3-KM-FtN"/>
+                                                        <constraint firstItem="dih-Ik-pd9" firstAttribute="leading" secondItem="dNg-WZ-NOz" secondAttribute="trailing" constant="3" id="iEt-tJ-Xve"/>
                                                         <constraint firstAttribute="bottom" secondItem="dih-Ik-pd9" secondAttribute="bottom" id="mAN-IZ-FNB"/>
-                                                        <constraint firstItem="Al5-4j-b6E" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VTG-R5-bxM" secondAttribute="trailing" constant="6" id="pCU-Ns-pN4"/>
+                                                        <constraint firstItem="Al5-4j-b6E" firstAttribute="leading" secondItem="VTG-R5-bxM" secondAttribute="trailing" constant="6" id="pCU-Ns-pN4"/>
                                                         <constraint firstItem="dih-Ik-pd9" firstAttribute="leading" secondItem="Al5-4j-b6E" secondAttribute="trailing" constant="6" id="wwf-kw-nsG"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -666,7 +671,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PX-8q-Zmp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="968" y="417"/>
+            <point key="canvasLocation" x="968" y="415"/>
         </scene>
         <!--Pull Detail View Controller-->
         <scene sceneID="qhT-Rl-VQM">

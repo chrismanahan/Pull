@@ -334,8 +334,6 @@ NSString* machineName()
     
     PULUser *friend = cell.user;
     
-    NSString *alertTitle = nil;
-    
     PULFriendManager *friendMan = [PULAccount currentUser].friendManager;
     
     if ([friendMan.nearbyFriends containsObject:friend])
@@ -347,25 +345,11 @@ NSString* machineName()
     {
         [[PULAccount currentUser].pullManager unpullUser:friend];
         
-        if ([friendMan.pullPendingFriends containsObject:friend])
-        {
-            alertTitle = @"pull Declined";
-        }
-        else if ([friendMan.pullInvitedFriends containsObject:friend])
-        {
-            alertTitle = @"pull Canceled";
-        }
-        else if ([friendMan.pulledFriends containsObject:friend])
-        {
-            alertTitle = @"pull Stopped";
-        }
-            
-    }
-    
-    if (alertTitle)
-    {
-        PULInfoAlert *alert = [PULInfoAlert alertWithText:alertTitle onView:self.view];
-        [alert show];
+        [[[UIAlertView alloc] initWithTitle:@"Pull Stopped"
+                                    message:@"You are no longer sharing your location with this person"
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles: nil] show];
     }
     
     [_friendTableView reloadData];
@@ -375,10 +359,13 @@ NSString* machineName()
 {
      [[PULAccount currentUser].pullManager unpullUser:cell.user];
     
-    PULInfoAlert *alert = [PULInfoAlert alertWithText:@"pull Declined" onView:self.view];
-    [alert show];
-    
     [_friendTableView reloadData];
+    
+    [[[UIAlertView alloc] initWithTitle:@"Pull Request Declined"
+                                message:@"You are not sharing your location with this person"
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles: nil] show];
 }
 
 - (void)userCellDidAcceptPull:(PULUserCell *)cell
@@ -393,6 +380,12 @@ NSString* machineName()
     [[PULAccount currentUser].pullManager unpullUser:cell.user];
     
     [_friendTableView reloadData];
+    
+    [[[UIAlertView alloc] initWithTitle:@"Pull Request Canceled"
+                                message:@"You canceled your pull request with this person"
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles: nil] show];
 }
 
 #pragma mark - Private

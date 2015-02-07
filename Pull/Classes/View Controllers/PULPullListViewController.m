@@ -151,6 +151,7 @@ NSString* machineName()
     NSAssert(cell != nil, @"We need to have a cell");
     
     cell.delegate = self;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     // determine cell type
     PULUserCellType cellType;

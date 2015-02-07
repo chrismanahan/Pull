@@ -126,7 +126,7 @@
                                     <constraint firstAttribute="height" constant="64" id="ukk-Mp-ISw"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mIS-oU-QAh" userLabel="Pull table view">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mIS-oU-QAh" userLabel="Pull table view">
                                 <rect key="frame" x="0.0" y="123" width="320" height="445"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -484,7 +484,7 @@
                                     <outlet property="delegate" destination="VCg-LE-m1S" id="44v-HF-PDH"/>
                                 </connections>
                             </tableView>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4ix-rX-Q8x" userLabel="Friend request table view">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4ix-rX-Q8x" userLabel="Friend request table view">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" restorationIdentifier="FriendRequestCellID" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendRequestCellID" id="SV4-Tr-01B" userLabel="Friend request cell" customClass="PULUserCell">
@@ -643,15 +643,14 @@
                         <constraints>
                             <constraint firstItem="Col-68-KCe" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="4fp-cF-R2d"/>
                             <constraint firstAttribute="trailing" secondItem="mIS-oU-QAh" secondAttribute="trailing" id="Ft1-dg-6we"/>
-                            <constraint firstItem="4ix-rX-Q8x" firstAttribute="top" secondItem="mIS-oU-QAh" secondAttribute="bottom" id="O3R-2Z-KsM"/>
                             <constraint firstItem="Col-68-KCe" firstAttribute="top" secondItem="Fa8-lq-H52" secondAttribute="top" id="O8z-jo-wGS"/>
                             <constraint firstItem="oc5-Dr-gUN" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leadingMargin" constant="9" id="bMM-Es-LtN"/>
                             <constraint firstItem="4ix-rX-Q8x" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="ckv-2j-Pgs"/>
+                            <constraint firstItem="Tg6-Kr-yWv" firstAttribute="top" secondItem="mIS-oU-QAh" secondAttribute="bottom" id="dSQ-kD-IEm"/>
                             <constraint firstAttribute="trailing" secondItem="4ix-rX-Q8x" secondAttribute="trailing" id="fQP-vj-c1f"/>
                             <constraint firstAttribute="trailing" secondItem="Col-68-KCe" secondAttribute="trailing" id="g71-Iz-rbN"/>
                             <constraint firstItem="mIS-oU-QAh" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="gFo-Qg-zwN"/>
                             <constraint firstItem="oc5-Dr-gUN" firstAttribute="top" secondItem="1ww-bU-Xro" secondAttribute="bottom" constant="8" id="hxr-5Z-6IU"/>
-                            <constraint firstItem="4ix-rX-Q8x" firstAttribute="bottom" secondItem="mIS-oU-QAh" secondAttribute="bottom" id="lBH-K6-pnQ"/>
                             <constraint firstItem="mIS-oU-QAh" firstAttribute="top" secondItem="oc5-Dr-gUN" secondAttribute="bottom" constant="11" id="lWN-gW-Apl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="oc5-Dr-gUN" secondAttribute="trailing" constant="9" id="oK0-Wq-Geo"/>
                             <constraint firstAttribute="bottom" secondItem="4ix-rX-Q8x" secondAttribute="bottom" id="uxG-Q3-NVJ"/>

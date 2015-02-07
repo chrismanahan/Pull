@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2010-present Facebook.
  *
@@ -50,7 +49,11 @@ FBSDK_EXTERN NSString *const FBSessionDidBecomeClosedActiveSessionNotification;
 
  @abstract Passed to handler block each time a session state changes
 
- @discussion
+ @discussion A typical `FBSession` lifecycle will start with `FBSessionStateCreated`. If a cached
+  token is available, it will transition to `FBSessionStateCreatedTokenLoaded`. When attempting to
+  open a session, it will become `FBSessionStateCreatedOpening` internally before going to
+  `FBSessionStateOpen` or `FBSessionStateClosedLoginFailed`. From `FBSessionStateOpen` it can
+  go to `FBSessionStateOpenTokenExtended` (when more permissions were granted) or `FBSessionStateClosed`.
  */
 typedef NS_ENUM(NSUInteger, FBSessionState) {
     /*! One of two initial states indicating that no valid cached token was found */
@@ -215,7 +218,6 @@ typedef FBSessionRequestPermissionResultHandler FBSessionReauthorizeResultHandle
  @typedef
 
  @abstract Block type used to define blocks called for system credential renewals.
- @discussion
  */
 typedef void (^FBSessionRenewSystemCredentialsHandler)(ACAccountCredentialRenewResult result, NSError *error) ;
 

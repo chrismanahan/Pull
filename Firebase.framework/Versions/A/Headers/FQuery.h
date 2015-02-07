@@ -380,4 +380,15 @@ typedef NSUInteger FirebaseHandle;
  */
 - (FQuery *) queryEqualToValue:(id)value childKey:(NSString *)childKey;
 
+
+/** @name Properties */
+
+
+/**
+* Get a Firebase reference for the location that this data came from
+*
+* @return A Firebase instance for the location of this data
+*/
+@property (nonatomic, readonly, strong) Firebase* ref;
+
 @end

@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3302F30E1A73EBBE00E11F01 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3302F30C1A73EBBE00E11F01 /* Crashlytics.framework */; };
-		3302F30F1A73EBBE00E11F01 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3302F30D1A73EBBE00E11F01 /* Fabric.framework */; };
 		3302F3121A73EE2600E11F01 /* timeburner_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3302F3111A73EE2600E11F01 /* timeburner_regular.ttf */; };
 		330499551A18037D003FEA42 /* PULUserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 330499521A18037D003FEA42 /* PULUserImageView.m */; };
 		330499561A18037D003FEA42 /* PULPulledUserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 330499541A18037D003FEA42 /* PULPulledUserImageView.m */; };
@@ -26,9 +24,7 @@
 		334044C61A17F9A100B00BC3 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044C51A17F9A100B00BC3 /* PULUserCell.m */; };
 		334044C91A17FD6A00B00BC3 /* PULFriendFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044C81A17FD6A00B00BC3 /* PULFriendFinder.m */; };
 		33BD5AC41A0E9EE800F92414 /* PULLocationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */; };
-		33BD5ACA1A0EA25400F92414 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BD5AC91A0EA25400F92414 /* Firebase.framework */; };
 		33BD5ACD1A0EB50C00F92414 /* PULConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD5ACC1A0EB50C00F92414 /* PULConstants.m */; };
-		33EC2D861A100C6B0055E30B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33EC2D851A100C6B0055E30B /* FacebookSDK.framework */; };
 		33ECD35F1A26D3E300192BC8 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 33ECD35E1A26D3E300192BC8 /* NSData+Hex.m */; };
 		33EE0CB31A28ED48005E4E2E /* PULPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 33EE0CB21A28ED48005E4E2E /* PULPush.m */; };
 		33EE5F681A1D788700F5F343 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 33EE5F671A1D788700F5F343 /* compass.png */; };
@@ -101,6 +97,10 @@
 		956F3B961A86576C00C571EA /* circleButtonBackgroundPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B931A86576C00C571EA /* circleButtonBackgroundPressed.png */; };
 		956F3B971A86576C00C571EA /* circleButtonBackgroundPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B941A86576C00C571EA /* circleButtonBackgroundPressed@2x.png */; };
 		956F3B981A86576C00C571EA /* circleButtonBackgroundPressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 956F3B951A86576C00C571EA /* circleButtonBackgroundPressed@3x.png */; };
+		9589F5381A86705500EFF5BC /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9589F5371A86705400EFF5BC /* Firebase.framework */; };
+		9589F53A1A8670B500EFF5BC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9589F5391A8670B500EFF5BC /* FacebookSDK.framework */; };
+		9589F5411A86718700EFF5BC /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9589F53F1A86718700EFF5BC /* Crashlytics.framework */; };
+		9589F5421A86718700EFF5BC /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9589F5401A86718700EFF5BC /* Fabric.framework */; };
 		95D6661C1A7C8EEE000FAD8D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D6661B1A7C8EEE000FAD8D /* MapKit.framework */; };
 		95D6661F1A7D6A42000FAD8D /* PULMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */; };
 		95D666221A7D6E1F000FAD8D /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95D666201A7D6E1F000FAD8D /* compass@2x.png */; };
@@ -118,8 +118,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3302F30C1A73EBBE00E11F01 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		3302F30D1A73EBBE00E11F01 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		3302F3111A73EE2600E11F01 /* timeburner_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = timeburner_regular.ttf; sourceTree = "<group>"; };
 		330499511A18037D003FEA42 /* PULUserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUserImageView.h; sourceTree = "<group>"; };
 		330499521A18037D003FEA42 /* PULUserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserImageView.m; sourceTree = "<group>"; };
@@ -152,11 +150,9 @@
 		33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULLocationUpdater.m; sourceTree = "<group>"; };
 		33BD5AC61A0E9F8400F92414 /* PULMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PULMacros.h; sourceTree = "<group>"; };
 		33BD5AC81A0EA1C500F92414 /* Pull-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pull-Prefix.pch"; sourceTree = "<group>"; };
-		33BD5AC91A0EA25400F92414 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
 		33BD5ACB1A0EB50C00F92414 /* PULConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULConstants.h; sourceTree = "<group>"; };
 		33BD5ACC1A0EB50C00F92414 /* PULConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULConstants.m; sourceTree = "<group>"; };
 		33BD5ACF1A0EBDE400F92414 /* PULFirebaseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULFirebaseProtocol.h; sourceTree = "<group>"; };
-		33EC2D851A100C6B0055E30B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		33ECD35D1A26D3E300192BC8 /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hex.h"; sourceTree = "<group>"; };
 		33ECD35E1A26D3E300192BC8 /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hex.m"; sourceTree = "<group>"; };
 		33EE0CB11A28ED48005E4E2E /* PULPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPush.h; sourceTree = "<group>"; };
@@ -245,6 +241,10 @@
 		956F3B931A86576C00C571EA /* circleButtonBackgroundPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleButtonBackgroundPressed.png; sourceTree = "<group>"; };
 		956F3B941A86576C00C571EA /* circleButtonBackgroundPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circleButtonBackgroundPressed@2x.png"; sourceTree = "<group>"; };
 		956F3B951A86576C00C571EA /* circleButtonBackgroundPressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circleButtonBackgroundPressed@3x.png"; sourceTree = "<group>"; };
+		9589F5371A86705400EFF5BC /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
+		9589F5391A8670B500EFF5BC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		9589F53F1A86718700EFF5BC /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		9589F5401A86718700EFF5BC /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		95D6661B1A7C8EEE000FAD8D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		95D6661D1A7D6A42000FAD8D /* PULMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULMapViewController.h; path = "View Controllers/PULMapViewController.h"; sourceTree = "<group>"; };
 		95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULMapViewController.m; path = "View Controllers/PULMapViewController.m"; sourceTree = "<group>"; };
@@ -258,13 +258,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				95D6661C1A7C8EEE000FAD8D /* MapKit.framework in Frameworks */,
-				3302F30F1A73EBBE00E11F01 /* Fabric.framework in Frameworks */,
 				952BDB601A0C4F0500C67BB5 /* Security.framework in Frameworks */,
-				33EC2D861A100C6B0055E30B /* FacebookSDK.framework in Frameworks */,
 				952BDB621A0C4F0500C67BB5 /* SystemConfiguration.framework in Frameworks */,
+				9589F5421A86718700EFF5BC /* Fabric.framework in Frameworks */,
 				952BDB5E1A0C4F0500C67BB5 /* CFNetwork.framework in Frameworks */,
-				3302F30E1A73EBBE00E11F01 /* Crashlytics.framework in Frameworks */,
-				33BD5ACA1A0EA25400F92414 /* Firebase.framework in Frameworks */,
+				9589F53A1A8670B500EFF5BC /* FacebookSDK.framework in Frameworks */,
+				9589F5381A86705500EFF5BC /* Firebase.framework in Frameworks */,
+				9589F5411A86718700EFF5BC /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,11 +520,11 @@
 		952BDB5C1A0C4F0500C67BB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9589F53F1A86718700EFF5BC /* Crashlytics.framework */,
+				9589F5401A86718700EFF5BC /* Fabric.framework */,
+				9589F5391A8670B500EFF5BC /* FacebookSDK.framework */,
+				9589F5371A86705400EFF5BC /* Firebase.framework */,
 				95D6661B1A7C8EEE000FAD8D /* MapKit.framework */,
-				3302F30C1A73EBBE00E11F01 /* Crashlytics.framework */,
-				3302F30D1A73EBBE00E11F01 /* Fabric.framework */,
-				33EC2D851A100C6B0055E30B /* FacebookSDK.framework */,
-				33BD5AC91A0EA25400F92414 /* Firebase.framework */,
 				952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */,
 				952BDB5F1A0C4F0500C67BB5 /* Security.framework */,
 				952BDB611A0C4F0500C67BB5 /* SystemConfiguration.framework */,
@@ -970,6 +970,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -987,7 +988,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -1012,6 +1015,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1021,7 +1025,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1029,18 +1035,25 @@
 		952BDB871A0C4F0500C67BB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/**",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "Pull-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = "Pull/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-licucore",
@@ -1048,24 +1061,33 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9f412698-bdea-40cd-b470-07d69051620c";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		952BDB881A0C4F0500C67BB5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/**",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "Pull-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = "Pull/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-licucore",
@@ -1073,6 +1095,8 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9f412698-bdea-40cd-b470-07d69051620c";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

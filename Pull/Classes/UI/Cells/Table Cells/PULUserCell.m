@@ -118,6 +118,15 @@
     [_delegate userCellDidDeclinePull:self];
 }
 
+- (IBAction)ibAccept:(id)sender
+{
+    [_delegate userCellDidAcceptPull:self];
+}
+- (IBAction)ibCancel:(id)sender
+{
+    [_delegate userCellDidCancelPull:self];
+}
+
 
 #pragma mark - Touches
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

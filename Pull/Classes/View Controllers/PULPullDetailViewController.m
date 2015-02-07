@@ -175,7 +175,7 @@
     // update direction of arrow
     CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
                                                 and:_user.location.coordinate];
-    CGFloat head = normalizeHead(heading.trueHeading);
+//    CGFloat head = normalizeHead(heading.trueHeading);
     CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
     
     CGSize offset = CGSizeMake(_userImageViewContainer.center.x - _directionArrowView.center.x, _userImageViewContainer.center.y - _directionArrowView.center.y);
@@ -186,9 +186,9 @@
     tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
     tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
     
-    PULLog(@"rotation: %.2f", rotation);
-    PULLog(@"\thead: %.2f", heading.trueHeading);
-    PULLog(@"\tdegs: %.2f", degrees);
+//    PULLog(@"rotation: %.2f", rotation);
+//    PULLog(@"\thead: %.2f", heading.trueHeading);
+//    PULLog(@"\tdegs: %.2f", degrees);
 //    PULLog(@"\thead: %.2f", head);
     
     [_directionArrowView setTransform:tr];
@@ -197,14 +197,14 @@
     
     [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
 }
-
-double normalizeHead(double head)
-{
-    float mult = 360.0 / 32;
-    float x = head / mult;
-    
-    return (int)x * mult;
-}
+//
+//double normalizeHead(double head)
+//{
+//    float mult = 360.0 / 32;
+//    float x = head / mult;
+//    
+//    return (int)x * mult;
+//}
 
 - (void)didUpdateUser:(NSNotification*)notif
 {

@@ -381,6 +381,20 @@ NSString* machineName()
     [_friendTableView reloadData];
 }
 
+- (void)userCellDidAcceptPull:(PULUserCell *)cell
+{
+    [[PULAccount currentUser].pullManager acceptPullFromUser:cell.user];
+    
+    [_friendTableView reloadData];
+}
+
+- (void)userCellDidCancelPull:(PULUserCell *)cell
+{
+    [[PULAccount currentUser].pullManager unpullUser:cell.user];
+    
+    [_friendTableView reloadData];
+}
+
 #pragma mark - Private
 - (NSArray*)p_friendArrayForSection:(NSUInteger)index tableView:(UITableView*)tableView
 {

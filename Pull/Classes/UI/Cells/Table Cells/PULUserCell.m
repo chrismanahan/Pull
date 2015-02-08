@@ -22,8 +22,19 @@
 
 @implementation PULUserCell
 
+- (void)setType:(PULUserCellType)type
+{
+    if (type == PULUserCellTypePulled)
+    {
+        _userImageViewContainer.borderColor = [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:1.000];
+    }
+    
+    _type = type;
+}
+
 - (void)setUser:(PULUser *)user
 {
+    
     // set ui
     _userImageViewContainer.imageView.image = user.image;
     _userDisplayNameLabel.text = user.fullName;

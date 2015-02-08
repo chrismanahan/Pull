@@ -56,11 +56,27 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     _pendingFriends     = [[NSMutableArray alloc] init];
     _invitedFriends     = [[NSMutableArray alloc] init];
     
-    __block NSInteger arraysToFill = 3;
+    _blockedUsers = [[NSMutableArray alloc] init];
+    
+    __block NSInteger arraysToFill = 4;
     
     void (^completion)() = ^void(){
         if (--arraysToFill == 0)
         {
+            // mark off blocked users
+            if (_blockedUsers.count > 0)
+            {
+                PULLog(@"marking off blocked users");
+                for (PULUser *user in _allFriends)
+                {
+                    if ([_blockedUsers containsObject:user])
+                    {
+                        PULLog(@"\t%@ is blocked", user.fullName);
+                        user.blocked = YES;
+                    }
+                }
+            }
+            
             // done
             if ([_delegate respondsToSelector:@selector(friendManagerDidLoadFriends:)])
             {
@@ -75,6 +91,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         }
     };
     
+    
     [self p_usersFromEndpoint:@"friends" completion:^(NSArray *users) {
         if (users)
         {
@@ -84,6 +101,20 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         else
         {
             PULLog(@"added NO users to friends");
+        }
+        
+        completion();
+    }];
+    
+    [self p_usersFromEndpoint:@"blocked" completion:^(NSArray *users) {
+        if (users)
+        {
+            PULLog(@"added %i users to blocked", users.count);
+            _blockedUsers = [[NSMutableArray alloc] initWithArray:users];
+        }
+        else
+        {
+            PULLog(@"added NO users to blocked");
         }
         
         completion();
@@ -204,6 +235,13 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     
     for (PULUser *user in _allFriends)
     {
+        // don't add user if blocked
+        if (user.isBlocked)
+        {
+            PULLog(@"skipping %@ because blocked", user.fullName);
+            continue;
+        }
+        
         BOOL isAdded = NO;
         
         for (PULPull *pull in pulls)
@@ -426,6 +464,26 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key];
 }
 
+- (void)blockUser:(PULUser*)user
+{
+    [self p_addUser:user toMyEndpoint:@"blocked" completion:^{
+        if ([_delegate respondsToSelector:@selector(friendManager:didBlockUser:)])
+        {
+            [_delegate friendManager:self didBlockUser:user];
+        }
+    }];
+}
+
+- (void)unBlockUser:(PULUser *)user
+{
+    [self p_removeUser:user toMyEndpoint:@"blocked" completion:^{
+        if ([_delegate respondsToSelector:@selector(friendManager:didUnBlockUser:)])
+        {
+            [_delegate friendManager:self didUnBlockUser:user];
+        }
+    }];
+}
+
 #pragma mark - Private
 /**
  *  Starts observing account's pulls
@@ -519,12 +577,13 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 - (void)p_userFromUid:(NSString*)uid completion:(void(^)(PULUser *user))completion
 {
     Firebase *ref = [[_fireRef childByAppendingPath:@"users"] childByAppendingPath:uid];
+    Firebase *blockedRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:uid] childByAppendingPath:@"blocked"];
     
     [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSDictionary *data = snapshot.value;
         
         PULUser *user = nil;
-        if (![data isKindOfClass:[NSNull class]])
+        if (snapshot.exists)
         {
             user = [[PULUser alloc] initFromFirebaseData:data uid:snapshot.key];
         }
@@ -532,6 +591,21 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         if (completion)
         {
             completion(user);
+        }
+    }];
+    
+    // if we were blocked, the previuos block won't call back
+    // but we can still read their list of blocked users
+    [blockedRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        if (snapshot.exists)
+        {
+            NSDictionary *dict = snapshot.value;
+            if ([dict.allKeys containsObject:[PULAccount currentUser].uid])
+            {
+                // being we could read this, it means we are blocked
+                PULLog(@"someone blocked us");
+                completion(nil);
+            }
         }
     }];
 }
@@ -643,6 +717,29 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
     [self p_addRelationshipFromMeToYouWithEndpoints:@[@"friends", @"friends"] friend:friend completion:^{
         completion(friend);
+    }];
+}
+
+- (void)p_addUser:(PULUser*)user toMyEndpoint:(NSString*)endpoint completion:(void(^)())completion
+{
+    Firebase *myRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:endpoint] childByAppendingPath:user.uid];
+    [myRef setValue:@(YES) withCompletionBlock:^(NSError *error, Firebase *ref) {
+        if (![PULError handleError:error target:_delegate selector:@selector(friendManagerDidEncounterError:) object:error])
+        {
+            completion();
+        }
+
+    }];
+}
+
+- (void)p_removeUser:(PULUser*)user toMyEndpoint:(NSString*)endpoint completion:(void(^)())completion
+{
+    Firebase *myRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:endpoint] childByAppendingPath:user.uid];
+    [myRef removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
+        if (![PULError handleError:error target:_delegate selector:@selector(friendManagerDidEncounterError:) object:error])
+        {
+            completion();
+        }
     }];
 }
 

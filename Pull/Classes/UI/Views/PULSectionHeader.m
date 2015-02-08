@@ -14,15 +14,36 @@ const CGFloat kPULSectionHeaderHeight = 25;
 
 - (instancetype)initWithTitle:(NSString*)title width:(CGFloat)width
 {
-    if (self = [super initWithFrame:CGRectMake(0, 0, width, kPULSectionHeaderHeight)])
+    NSInteger padding = 12;
+
+    if (self = [super initWithFrame:CGRectMake(padding, 0, width - (2 * padding), kPULSectionHeaderHeight)])
     {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, kPULSectionHeaderHeight - 2)];
-        label.text = title;
-        label.textColor = [UIColor whiteColor];
-        label.font = [UIFont fontWithName:@"Avenir" size:16];
         
-        self.backgroundColor = [UIColor colorWithRed:0.455 green:0.000 blue:0.998 alpha:1.000];
+        UIColor *color;
+        if ([title isEqualToString:@"Pulled"])
+        {
+            color = [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:1.000];
+        }
+        else
+        {
+            color = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
+        }
+        
+        // line
+        NSInteger lineHeight = 4;
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(padding, kPULSectionHeaderHeight - lineHeight, width - (2 * padding), lineHeight)];
+        line.backgroundColor = color;
+        
+        // label
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(padding * 2, 0, width, kPULSectionHeaderHeight - 2)];
+        label.text = title;
+        label.textColor = color;
+        label.font = [UIFont fontWithName:@"Avenir" size:16];
+
+        self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.8];
+        
         [self addSubview:label];
+        [self addSubview:line];
     }
     
     return self;

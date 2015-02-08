@@ -303,13 +303,17 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     NSParameterAssert(user);
     
     PULPull *pull = [self p_pullWithUser:user];
-    [pull setExpiration:[NSDate dateWithHoursFromNow:kPULPullExirationHours]];
-    pull.status = PULPullStatusPulled;
     
-    [self p_updatePull:pull];
-    
-    // send push
-    [PULPush sendPushType:kPULPushTypeAcceptPull to:user from:[PULAccount currentUser]];
+    if (pull)
+    {
+        [pull setExpiration:[NSDate dateWithHoursFromNow:kPULPullExirationHours]];
+        pull.status = PULPullStatusPulled;
+        
+        [self p_updatePull:pull];
+        
+        // send push
+        [PULPush sendPushType:kPULPushTypeAcceptPull to:user from:[PULAccount currentUser]];
+    }
     
 }
 
@@ -319,7 +323,10 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     
     PULPull *pull = [self p_pullWithUser:user];
     
-    [self p_removePull:pull];
+    if (pull)
+    {
+        [self p_removePull:pull];
+    }
 }
 
 - (void)suspendPullWithUser:(PULUser*)user
@@ -327,9 +334,12 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     NSParameterAssert(user);
     
     PULPull *pull = [self p_pullWithUser:user];
-    pull.status = PULPullStatusSuspended;
-    
-    [self p_updatePull:pull];
+    if (pull)
+    {
+        pull.status = PULPullStatusSuspended;
+        
+        [self p_updatePull:pull];
+    }
 }
 
 - (void)resumePullWithUser:(PULUser*)user

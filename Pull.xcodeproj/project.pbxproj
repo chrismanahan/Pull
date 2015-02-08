@@ -44,6 +44,9 @@
 		950E1ED71A7DEC15003B6FF9 /* whiteButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 950E1ED21A7DEC15003B6FF9 /* whiteButtonNormal.png */; };
 		950E1ED81A7DEC15003B6FF9 /* whiteButtonNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 950E1ED31A7DEC15003B6FF9 /* whiteButtonNormal@2x.png */; };
 		950E1ED91A7DEC15003B6FF9 /* whiteButtonNormal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 950E1ED41A7DEC15003B6FF9 /* whiteButtonNormal@3x.png */; };
+		95169F301A86C08C006D3078 /* user_blocked.png in Resources */ = {isa = PBXBuildFile; fileRef = 95169F2D1A86C08C006D3078 /* user_blocked.png */; };
+		95169F311A86C08C006D3078 /* user_blocked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95169F2E1A86C08C006D3078 /* user_blocked@2x.png */; };
+		95169F321A86C08C006D3078 /* user_blocked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95169F2F1A86C08C006D3078 /* user_blocked@3x.png */; };
 		952BDB5E1A0C4F0500C67BB5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */; };
 		952BDB601A0C4F0500C67BB5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB5F1A0C4F0500C67BB5 /* Security.framework */; };
 		952BDB621A0C4F0500C67BB5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB611A0C4F0500C67BB5 /* SystemConfiguration.framework */; };
@@ -59,6 +62,7 @@
 		952BDBA01A0C50B300C67BB5 /* PULPull.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB9F1A0C50B300C67BB5 /* PULPull.m */; };
 		9531F8A11A8679E1003CBEDF /* PULUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9531F8A01A8679E1003CBEDF /* PULUserSettings.m */; };
 		9531F8A41A86803A003CBEDF /* PULSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9531F8A31A86803A003CBEDF /* PULSettingsViewController.m */; };
+		9531F8A71A86B028003CBEDF /* PULBlockingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9531F8A61A86B028003CBEDF /* PULBlockingViewController.m */; };
 		9532D4231A7ECC4300ADB840 /* PULInfoAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 9532D4221A7ECC4300ADB840 /* PULInfoAlert.m */; };
 		9532D4291A7ECF5000ADB840 /* map_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9532D4251A7ECF5000ADB840 /* map_pin.png */; };
 		9532D42A1A7ECF5000ADB840 /* map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9532D4261A7ECF5000ADB840 /* map_pin@2x.png */; };
@@ -178,6 +182,9 @@
 		950E1ED21A7DEC15003B6FF9 /* whiteButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteButtonNormal.png; sourceTree = "<group>"; };
 		950E1ED31A7DEC15003B6FF9 /* whiteButtonNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteButtonNormal@2x.png"; sourceTree = "<group>"; };
 		950E1ED41A7DEC15003B6FF9 /* whiteButtonNormal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteButtonNormal@3x.png"; sourceTree = "<group>"; };
+		95169F2D1A86C08C006D3078 /* user_blocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_blocked.png; sourceTree = "<group>"; };
+		95169F2E1A86C08C006D3078 /* user_blocked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_blocked@2x.png"; sourceTree = "<group>"; };
+		95169F2F1A86C08C006D3078 /* user_blocked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_blocked@3x.png"; sourceTree = "<group>"; };
 		952BDB5A1A0C4F0500C67BB5 /* Pull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		952BDB5F1A0C4F0500C67BB5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -205,6 +212,8 @@
 		9531F8A01A8679E1003CBEDF /* PULUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserSettings.m; sourceTree = "<group>"; };
 		9531F8A21A86803A003CBEDF /* PULSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULSettingsViewController.h; path = "View Controllers/PULSettingsViewController.h"; sourceTree = "<group>"; };
 		9531F8A31A86803A003CBEDF /* PULSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULSettingsViewController.m; path = "View Controllers/PULSettingsViewController.m"; sourceTree = "<group>"; };
+		9531F8A51A86B028003CBEDF /* PULBlockingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULBlockingViewController.h; path = "View Controllers/PULBlockingViewController.h"; sourceTree = "<group>"; };
+		9531F8A61A86B028003CBEDF /* PULBlockingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULBlockingViewController.m; path = "View Controllers/PULBlockingViewController.m"; sourceTree = "<group>"; };
 		9532D4211A7ECC4300ADB840 /* PULInfoAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULInfoAlert.h; path = UI/PULInfoAlert.h; sourceTree = "<group>"; };
 		9532D4221A7ECC4300ADB840 /* PULInfoAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULInfoAlert.m; path = UI/PULInfoAlert.m; sourceTree = "<group>"; };
 		9532D4251A7ECF5000ADB840 /* map_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin.png; sourceTree = "<group>"; };
@@ -335,6 +344,8 @@
 				95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */,
 				9531F8A21A86803A003CBEDF /* PULSettingsViewController.h */,
 				9531F8A31A86803A003CBEDF /* PULSettingsViewController.m */,
+				9531F8A51A86B028003CBEDF /* PULBlockingViewController.h */,
+				9531F8A61A86B028003CBEDF /* PULBlockingViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -342,6 +353,7 @@
 		3340449E1A17DC7900B00BC3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				95169F2C1A86C081006D3078 /* Icons */,
 				9532D4241A7ECF5000ADB840 /* map pins */,
 				950E1EDA1A7E8A07003B6FF9 /* pull/stop indicators */,
 				95D666241A7D87BB000FAD8D /* buttons */,
@@ -496,6 +508,16 @@
 			);
 			name = "pull/stop indicators";
 			path = images/placeholders;
+			sourceTree = "<group>";
+		};
+		95169F2C1A86C081006D3078 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				95169F2D1A86C08C006D3078 /* user_blocked.png */,
+				95169F2E1A86C08C006D3078 /* user_blocked@2x.png */,
+				95169F2F1A86C08C006D3078 /* user_blocked@3x.png */,
+			);
+			name = Icons;
 			sourceTree = "<group>";
 		};
 		952020EE1A786E90008CF41E /* Labels */ = {
@@ -843,13 +865,16 @@
 				9532D42E1A7ECF9300ADB840 /* map_pin@3x.png in Resources */,
 				956F3B8B1A85D15400C571EA /* decline_button@2x.png in Resources */,
 				3302F3121A73EE2600E11F01 /* timeburner_regular.ttf in Resources */,
+				95169F301A86C08C006D3078 /* user_blocked.png in Resources */,
 				95D666231A7D6E1F000FAD8D /* compass@3x.png in Resources */,
 				956F3B8A1A85D15400C571EA /* decline_button.png in Resources */,
 				956F3B751A84595E00C571EA /* pull_icon.png in Resources */,
 				9532D42C1A7ECF5000ADB840 /* map_pinx@2x.png in Resources */,
 				950E1ED51A7DEC15003B6FF9 /* whiteButtonClicked@2x.png in Resources */,
 				956F3B841A85D15400C571EA /* Accept_button.png in Resources */,
+				95169F321A86C08C006D3078 /* user_blocked@3x.png in Resources */,
 				33EE5F681A1D788700F5F343 /* compass.png in Resources */,
+				95169F311A86C08C006D3078 /* user_blocked@2x.png in Resources */,
 				956F3B7A1A84595E00C571EA /* stop_icon@3x.png in Resources */,
 				956F3B981A86576C00C571EA /* circleButtonBackgroundPressed@3x.png in Resources */,
 				33FC5AB61A6C0B8F00255B84 /* compass2.png in Resources */,
@@ -905,6 +930,7 @@
 				9532D43F1A7F016000ADB840 /* README.md in Sources */,
 				330499561A18037D003FEA42 /* PULPulledUserImageView.m in Sources */,
 				9532D4231A7ECC4300ADB840 /* PULInfoAlert.m in Sources */,
+				9531F8A71A86B028003CBEDF /* PULBlockingViewController.m in Sources */,
 				95D6661F1A7D6A42000FAD8D /* PULMapViewController.m in Sources */,
 				952BDB931A0C500C00C67BB5 /* PULUser.m in Sources */,
 				9531F8A11A8679E1003CBEDF /* PULUserSettings.m in Sources */,

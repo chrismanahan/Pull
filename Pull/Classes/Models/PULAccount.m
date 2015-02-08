@@ -86,6 +86,10 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
         [tokenRef updateChildValues:@{@"deviceToken": token}];
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_friendBlockedNotification:)
+                                                 name:kPULFriendBlockedSomeoneNotification
+                                               object:nil];
 }
 
 - (void)saveUser;
@@ -183,6 +187,17 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     [self saveUser];
 }
 
+- (void)_friendBlockedNotification:(NSNotification*)notif;
+{
+    NSString *blockedUid = [notif object];
+    if ([blockedUid isEqualToString:self.uid])
+    {
+        PULLog(@"we have been blocked!");
+        
+        [self initializeAccount];
+    }
+}
+
 #pragma mark - Properties
 - (void)setLocation:(CLLocation *)location
 {
@@ -233,12 +248,12 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     
     for (PULUser *friend in _friendManager.allFriends)
     {
-        [friend stopObservingLocationChanges];
+        [friend stopObservingChanges];
     }
     
     for (PULUser *friend in _friendManager.pulledFriends)
     {
-        [friend startObservingLocationChanges];
+        [friend startObservingChanges];
     }
     
     // send out notifcation that we have a different friend ordering                                    // 4. Everyone is in order, lets send out a notifcation
@@ -291,6 +306,19 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     
        // send out notifcation
     [[NSNotificationCenter defaultCenter] postNotificationName:kPULAccountFriendListUpdatedNotification object:self];
+}
+
+- (void)friendManager:(PULFriendManager *)friendManager didBlockUser:(PULUser *)user
+{
+    [self.pullManager unpullUser:user];
+    PULLog(@"friend manager did block user: %@", user.firstName);
+    [self initializeAccount];
+}
+
+- (void)friendManager:(PULFriendManager *)friendManager didUnBlockUser:(PULUser *)user
+{
+    PULLog(@"friend manager did unblock user: %@", user.firstName);
+    [self initializeAccount];
 }
 
 //- (void)friendManager:(PULFriendManager *)friendManager didDetectFriendChange:(PULUser *)user

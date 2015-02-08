@@ -22,6 +22,8 @@
  */
 extern NSString * const kPULFriendUpdatedNotifcation;
 
+extern NSString * const kPULFriendBlockedSomeoneNotification;
+
 //@protocol PULUserDelegate <NSObject>
 //
 ///**
@@ -58,6 +60,7 @@ extern NSString * const kPULFriendUpdatedNotifcation;
 @property (nonatomic, strong) CLLocation *location;
 
 @property (nonatomic, assign) BOOL isPrivate;
+@property (nonatomic, assign, getter=isBlocked) BOOL blocked;
 
 @property (nonatomic, strong) PULUserSettings *settings;
 
@@ -74,8 +77,8 @@ extern NSString * const kPULFriendUpdatedNotifcation;
  */
 - (instancetype)initFromFirebaseData:(NSDictionary*)dictionary uid:(NSString*)uid;
 
-- (void)startObservingLocationChanges;
-- (void)stopObservingLocationChanges;
+- (void)startObservingChanges;
+- (void)stopObservingChanges;
 
 
 @end

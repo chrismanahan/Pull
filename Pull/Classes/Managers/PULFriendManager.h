@@ -28,6 +28,8 @@
 - (void)friendManager:(PULFriendManager *)friendManager friendRequestWasAcceptedWithUser:(PULUser*)user;
 - (void)friendManager:(PULFriendManager *)friendManager didReceiveFriendRequestFromUser:(PULUser*)user;
 - (void)friendManager:(PULFriendManager*)friendManager didUnfriendUser:(PULUser*)user;
+- (void)friendManager:(PULFriendManager*)friendManager didBlockUser:(PULUser*)user;
+- (void)friendManager:(PULFriendManager*)friendManager didUnBlockUser:(PULUser*)user;
 //- (void)friendManager:(PULFriendManager*)friendManager didDetectFriendChange:(PULUser*)user;
 
 - (void)friendManagerDidEncounterError:(NSError*)error;
@@ -45,6 +47,8 @@
 @property (nonatomic, strong, readonly) NSMutableArray *allFriends;
 @property (nonatomic, strong, readonly) NSMutableArray *invitedFriends;
 @property (nonatomic, strong, readonly) NSMutableArray *pendingFriends;
+
+@property (nonatomic, strong, readonly) NSMutableArray *blockedUsers;
 
 @property (nonatomic, strong, readonly) NSMutableArray *pulledFriends;
 @property (nonatomic, strong, readonly) NSMutableArray *pullPendingFriends;
@@ -75,5 +79,7 @@
 - (void)sendFriendRequestToUser:(PULUser*)user;
 - (void)acceptFriendRequestFromUser:(PULUser*)user;
 - (void)unfriendUser:(PULUser*)user;
+- (void)blockUser:(PULUser*)user;
+- (void)unBlockUser:(PULUser*)user;
 
 @end

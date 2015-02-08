@@ -17,6 +17,7 @@
 
 typedef NS_ENUM(NSInteger, PULUserCellType)
 {
+    PULUserCellTypeNone,
     PULUserCellTypeNearby,
     PULUserCellTypeWaiting,
     PULUserCellTypePending,

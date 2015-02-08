@@ -19,10 +19,13 @@
 
 NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedNotifcation";
 
+NSString * const kPULFriendBlockedSomeoneNotification = @"kPULFriendBlockedSomeoneNotification";
+
 @interface PULUser ()
 
 @property (nonatomic, strong) Firebase *fireRef;
-@property (nonatomic) FirebaseHandle observerHandle;
+@property (nonatomic) FirebaseHandle locationObserverHandle;
+@property (nonatomic) FirebaseHandle blockObserverHandle;
 
 @end
 
@@ -40,28 +43,40 @@ NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedN
         
         // TODO: observing user changes does not seem to be working
 //        [self startObservingLocationChanges];
+        
+        PULLog(@"starting blocked observer for %@", self.fullName);
+        
+        _fireRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"blocked"];
+        PULLog(@"\t%@", _fireRef);
+        _blockObserverHandle = [_fireRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+            // check if this is me
+            if (snapshot.exists)
+            {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPULFriendBlockedSomeoneNotification object:snapshot.key];
+            }
+        }];
     }
     
     return self;
 }
 
-- (void)stopObservingLocationChanges
+- (void)stopObservingChanges
 {
-    if (_observerHandle)
+    if (_locationObserverHandle)
     {
         PULLog(@"stopping location observer for %@", self.fullName);
-        [_fireRef removeObserverWithHandle:_observerHandle];
+        [_fireRef removeObserverWithHandle:_locationObserverHandle];
     }
 }
 
-- (void)startObservingLocationChanges
+- (void)startObservingChanges
 {
     PULLog(@"starting location observer for %@", self.fullName);
     
     _fireRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"location"];
     PULLog(@"\t%@", _fireRef);
     
-    _observerHandle = [_fireRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+    _locationObserverHandle = [_fireRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         
         NSDictionary *loc = snapshot.value;
         

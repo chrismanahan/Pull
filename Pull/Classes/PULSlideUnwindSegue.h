@@ -1,5 +1,5 @@
 //
-//  PULProfileViewController.h
+//  PULSlideUnwindSegue.h
 //  Pull
 //
 //  Created by Chris Manahan on 2/7/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PULProfileViewController : UIViewController
+@interface PULSlideUnwindSegue : UIStoryboardSegue
 
 @end

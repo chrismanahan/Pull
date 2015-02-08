@@ -15,6 +15,8 @@
 
 #import "PULAccount.h"
 
+#import "PULSlideUnwindSegue.h"
+
 #import <MessageUI/MessageUI.h>
 #import <sys/utsname.h>
 
@@ -100,6 +102,9 @@ NSString* machineName()
     
     return [NSString stringWithCString:systemInfo.machine
                               encoding:NSUTF8StringEncoding];
+}
+
+- (IBAction)unwindFromViewController:(UIStoryboardSegue *)sender {
 }
 
 #pragma mark - mail delegate

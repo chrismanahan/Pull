@@ -234,7 +234,9 @@ NSString * const kPULFriendBlockedSomeoneNotification = @"kPULFriendBlockedSomeo
 
 - (NSString*)title
 {
-    NSString *initials = [NSString stringWithFormat:@"%@%@", [_firstName substringToIndex:1], [_lastName substringToIndex:1]];
+    NSString *fn = _firstName.length > 0 ? [_firstName substringToIndex:1] : @"";
+    NSString *ln = _lastName.length > 0 ? [_lastName substringToIndex:1] : @"";
+    NSString *initials = [NSString stringWithFormat:@"%@%@", fn, ln];
     return initials;
 }
 

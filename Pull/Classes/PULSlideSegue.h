@@ -10,4 +10,6 @@
 
 @interface PULSlideSegue : UIStoryboardSegue
 
+@property (nonatomic, assign) BOOL slideLeft;
+
 @end

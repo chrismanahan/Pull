@@ -16,6 +16,7 @@
 #import "PULAccount.h"
 
 #import "PULSlideUnwindSegue.h"
+#import "PULSlideSegue.h"
 
 #import <MessageUI/MessageUI.h>
 #import <sys/utsname.h>
@@ -105,6 +106,16 @@ NSString* machineName()
 }
 
 - (IBAction)unwindFromViewController:(UIStoryboardSegue *)sender {
+}
+
+- (UIStoryboardSegue *)segueForUnwindingToViewController:(UIViewController *)toViewController fromViewController:(UIViewController *)fromViewController identifier:(NSString *)identifier {
+    PULSlideUnwindSegue *segue = [[PULSlideUnwindSegue alloc] initWithIdentifier:identifier source:fromViewController destination:toViewController];
+    
+    if ([fromViewController isKindOfClass:[PULPullDetailViewController class]])
+    {
+        segue.slideRight = YES;
+    }
+    return segue;
 }
 
 #pragma mark - mail delegate
@@ -276,10 +287,16 @@ NSString* machineName()
             case 0: // pulled users
             {
                 PULPullDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullDetailViewController class])];
-                
-                [self.navigationController pushViewController:vc animated:YES];
-                
                 vc.user = friend;
+                
+                PULSlideSegue *segue = [PULSlideSegue segueWithIdentifier:@"SlideToRightSegue"
+                                                                       source:self
+                                                                  destination:vc
+                                                               performHandler:^{
+                                                               }];
+                segue.slideLeft = YES;
+                [segue perform];
+                
 
                 break;
             }

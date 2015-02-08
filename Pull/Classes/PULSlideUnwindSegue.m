@@ -20,27 +20,33 @@
     CGRect frame = destView.frame;
     CGRect origFrame = frame;
     frame.origin.x = CGRectGetWidth(sourceViewController.view.frame);
+    if (_slideRight)
+    {
+        frame.origin.x = -CGRectGetWidth(sourceViewController.view.frame);
+    }
     destView.frame = frame;
     [sourceViewController.view.superview insertSubview:destView atIndex:0];
     
     
     //    destinationViewController.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(sourceViewController.view.frame), 0);
     
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration:0.3
                           delay:0.0
-                        options:UIViewAnimationOptionCurveEaseInOut
+                        options:0
                      animations:^{
-                         sourceViewController.view.transform = CGAffineTransformMakeTranslation(-CGRectGetWidth(sourceViewController.view.frame), 0);
+                         CGFloat x = _slideRight ? CGRectGetWidth(sourceViewController.view.frame) : -CGRectGetWidth(sourceViewController.view.frame);
+                         sourceViewController.view.transform = CGAffineTransformMakeTranslation(x, 0);
                          
                          destView.transform = CGAffineTransformMakeTranslation(0, 0);
                      }
                      completion:^(BOOL finished){
-
-                         [destView removeFromSuperview]; // remove from temp super view
-                         destView.frame = origFrame;
                          
-                         [sourceViewController dismissViewControllerAnimated:NO completion:NULL];
-
+                         dispatch_async(dispatch_get_main_queue(), ^{
+                             [sourceViewController dismissViewControllerAnimated:NO completion:NULL];
+                         });
+                         
+//                         [destView removeFromSuperview]; // remove from temp super view
+//                         destView.frame = origFrame;
                      }];
 }
 

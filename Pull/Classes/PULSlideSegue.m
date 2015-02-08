@@ -16,29 +16,40 @@
     UIViewController *destinationViewController = self.destinationViewController;
     
     // Add the destination view as a subview, temporarily
-    UIView *destView = destinationViewController.view;
+    UIView *destView = [destinationViewController.view snapshotViewAfterScreenUpdates:YES];
     CGRect frame = destView.frame;
     CGRect origFrame = frame;
     frame.origin.x = -CGRectGetWidth(sourceViewController.view.frame);
+    if (_slideLeft)
+    {
+        frame.origin.x = CGRectGetWidth(sourceViewController.view.frame);
+    }
     destView.frame = frame;
     [sourceViewController.view addSubview:destView];
     
     
 //    destinationViewController.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(sourceViewController.view.frame), 0);
 
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration:0.3
                           delay:0.0
-                        options:UIViewAnimationOptionCurveEaseInOut
+                        options:0
                      animations:^{
-                         CGAffineTransform slide = CGAffineTransformMakeTranslation(CGRectGetWidth(sourceViewController.view.bounds), 0);
-//                         destView.transform = slide;
+                         CGFloat x = CGRectGetWidth(sourceViewController.view.bounds);
+                         if (_slideLeft)
+                         {
+                             x = -x;
+                         }
+                         CGAffineTransform slide = CGAffineTransformMakeTranslation(x, 0);
                          sourceViewController.view.transform = slide;
                      }
                      completion:^(BOOL finished){
-                         [destView removeFromSuperview]; // remove from temp super view
-                         [sourceViewController presentViewController:destinationViewController animated:NO completion:NULL]; // present VC
                          
-                         destView.frame = origFrame;
+                         dispatch_async(dispatch_get_main_queue(), ^{
+                             [sourceViewController presentViewController:destinationViewController animated:NO completion:NULL]; // present VC
+                         });
+                         
+//                         [destView removeFromSuperview]; // remove from temp super view
+//                         destView.frame = origFrame;
                      }];
 }
 

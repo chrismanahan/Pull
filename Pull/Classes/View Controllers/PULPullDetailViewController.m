@@ -36,39 +36,16 @@
 {
     [super viewWillAppear:animated];
     
+    // set ui based on loaded user
     CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:_user.location];
-    
     [self updateDistanceLabel:distance];
     
-    if (!_didSetUp)
-    {
-        _userImageView.image = _user.image;
-        [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
-        
-        CGFloat yOffset = CGRectGetMinY(_directionArrowView.frame) - CGRectGetMaxY(_distanceLabel.frame) - 8;
-        
-        CGPoint userCenter = _userImageViewContainer.center;
-        userCenter.x = self.view.center.x;
-        userCenter.y -= yOffset;
-        _userImageViewContainer.center = userCenter;
-        
-        CGPoint arrowCenter = _directionArrowView.center;
-        arrowCenter.x = self.view.center.x;
-        arrowCenter.y -= yOffset;
-        _directionArrowView.center = arrowCenter;
-        
-        _userImageViewContainer.translatesAutoresizingMaskIntoConstraints = YES;
-        _directionArrowView.translatesAutoresizingMaskIntoConstraints = YES;
-        
-        _userImageViewContainer.autoresizingMask = UIViewAutoresizingNone;
-        _directionArrowView.autoresizingMask = UIViewAutoresizingNone;
-        
-        _nameLabel.text = _user.fullName;
-
-        _didSetUp = YES;
-    }
+    _userImageView.image = _user.image;
+    _nameLabel.text = _user.fullName;
     
-    // TODO: remove observers when leaving detail view
+    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
+    
+    // subscribe to notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didUpdateHeading:)
                                                  name:kPULAccountDidUpdateHeadingNotification
@@ -80,18 +57,51 @@
                                                object:_user];
     
     _locationNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountDidUpdateLocationNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue currentQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      // update distance label
-                                                      
-                                                      CLLocation *loc = [note object];
-                                                      
-                                                      CGFloat distance = [loc distanceFromLocation:_user.location];
-                                                      
-                                                      [self updateDistanceLabel:distance];
-                                                      
-                                                  }];
+                                                                              object:nil
+                                                                               queue:[NSOperationQueue currentQueue]
+                                                                          usingBlock:^(NSNotification *note) {
+                                                                              // update distance label
+                                                                              
+                                                                              CLLocation *loc = [note object];
+                                                                              
+                                                                              CGFloat distance = [loc distanceFromLocation:_user.location];
+                                                                              
+                                                                              [self updateDistanceLabel:distance];
+                                                                              
+                                                                          }];
+//    
+//    NSArray *stack = [NSThread callStackSymbols];
+//    // don't set up if stack contains segue
+//    for (NSString* call in stack)
+//    {
+//        if ([call containsString:@"PULSlideSegue"])
+//        {
+//            return;
+//        }
+//    }
+    
+    if (!_didSetUp)
+    {
+//        CGFloat yOffset = CGRectGetMinY(_directionArrowView.frame) - CGRectGetMaxY(_distanceLabel.frame) - 8;
+//        
+//        CGPoint userCenter = _userImageViewContainer.center;
+//        userCenter.x = self.view.center.x;
+//        userCenter.y -= yOffset;
+//        _userImageViewContainer.center = userCenter;
+        
+//        CGPoint arrowCenter = _directionArrowView.center;
+//        arrowCenter.x = self.view.center.x;
+//        arrowCenter.y -= yOffset;
+//        _directionArrowView.center = arrowCenter;
+        
+        _userImageViewContainer.translatesAutoresizingMaskIntoConstraints = YES;
+        _directionArrowView.translatesAutoresizingMaskIntoConstraints = YES;
+        
+        _userImageViewContainer.autoresizingMask = UIViewAutoresizingNone;
+        _directionArrowView.autoresizingMask = UIViewAutoresizingNone;
+
+        _didSetUp = YES;
+    }
     
 }
 

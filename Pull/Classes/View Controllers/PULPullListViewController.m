@@ -9,7 +9,7 @@
 #import "PULPullListViewController.h"
 
 #import "PULSectionHeader.h"
-#import "PULInfoAlert.h"
+#import "PULLoadingIndicator.h"
 
 #import "PULPullDetailViewController.h"
 
@@ -28,6 +28,8 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 @property (nonatomic, strong) IBOutlet UITableView *friendTableView;
 @property (nonatomic, strong) IBOutlet UITableView *friendRequestTableView;
 @property (nonatomic, strong) IBOutlet UICollectionView *farFriendsCollectionView;
+
+@property (nonatomic, strong) PULLoadingIndicator *loadingIndicator;
 
 @end
 
@@ -51,8 +53,15 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     return self;
 }
 
+- (void)viewDidLoad
+{
+    _loadingIndicator = [PULLoadingIndicator indicatorOnView:self.view];
+    [_loadingIndicator show];
+}
+
 - (void)reload
 {
+    [_loadingIndicator hide];
     PULLog(@"reloading friends tables");
     [_friendTableView reloadData];
 //    [_friendRequestTableView reloadData];
@@ -353,6 +362,8 @@ NSString* machineName()
 
 - (void)userCellDidCompletePulling:(PULUserCell *)cell
 {
+    [_loadingIndicator show];
+    
     _friendTableView.scrollEnabled = YES;
     
     PULUser *friend = cell.user;
@@ -380,6 +391,8 @@ NSString* machineName()
 
 - (void)userCellDidDeclinePull:(PULUserCell *)cell
 {
+    [_loadingIndicator show];
+    
      [[PULAccount currentUser].pullManager unpullUser:cell.user];
     
     [_friendTableView reloadData];
@@ -393,6 +406,8 @@ NSString* machineName()
 
 - (void)userCellDidAcceptPull:(PULUserCell *)cell
 {
+    [_loadingIndicator show];
+    
     [[PULAccount currentUser].pullManager acceptPullFromUser:cell.user];
     
     [_friendTableView reloadData];
@@ -400,6 +415,8 @@ NSString* machineName()
 
 - (void)userCellDidCancelPull:(PULUserCell *)cell
 {
+    [_loadingIndicator show];
+    
     [[PULAccount currentUser].pullManager unpullUser:cell.user];
     
     [_friendTableView reloadData];

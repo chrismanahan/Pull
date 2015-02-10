@@ -67,6 +67,11 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 //    [_friendRequestTableView reloadData];
 }
 
+- (void)_refresh
+{
+    
+}
+
 #pragma mark - Actions
 - (IBAction)ibDebug:(id)sender
 {
@@ -426,6 +431,21 @@ NSString* machineName()
                                delegate:nil
                       cancelButtonTitle:@"OK"
                       otherButtonTitles: nil] show];
+}
+
+- (void)userCellDidTapUserImage:(PULUserCell*)cell;
+{
+    PULPullDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullDetailViewController class])];
+    vc.user = cell.user;
+    
+    PULSlideSegue *segue = [PULSlideSegue segueWithIdentifier:@"SlideToRightSegue"
+                                                       source:self
+                                                  destination:vc
+                                               performHandler:^{
+                                               }];
+    segue.slideLeft = YES;
+    [segue perform];
+
 }
 
 #pragma mark - Private

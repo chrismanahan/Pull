@@ -32,6 +32,7 @@ typedef NS_ENUM(NSInteger, PULUserCellType)
 - (void)userCellDidDeclinePull:(PULUserCell*)cell;
 - (void)userCellDidAcceptPull:(PULUserCell*)cell;
 - (void)userCellDidCancelPull:(PULUserCell*)cell;
+- (void)userCellDidTapUserImage:(PULUserCell*)cell;
 
 @end
 

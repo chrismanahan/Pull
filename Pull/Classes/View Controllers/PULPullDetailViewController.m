@@ -69,7 +69,7 @@
                                                                               [self updateDistanceLabel:distance];
                                                                               
                                                                           }];
-//    
+//
 //    NSArray *stack = [NSThread callStackSymbols];
 //    // don't set up if stack contains segue
 //    for (NSString* call in stack)
@@ -131,7 +131,7 @@
     {
         // distance as ft
         convertedDistance = METERS_TO_FEET(distance);
-        unit = @"ft";
+        unit = @"Feet";
         formatString = @"%i %@";
         
         if (convertedDistance <= 50)
@@ -143,12 +143,12 @@
     {
         // distance as miles
         convertedDistance = METERS_TO_MILES(distance);
-        unit = @"miles";
+        unit = @"Miles";
         formatString = @"%.2f %@";
     }
     
     NSString *string;
-    if (showNearbyString && NO)
+    if (showNearbyString)
     {
         string = @"Is Nearby\n(within 50 feet)";
         _distanceLabel.numberOfLines = 2;

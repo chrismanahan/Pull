@@ -27,9 +27,18 @@
     if (type == PULUserCellTypePulled)
     {
         _userImageViewContainer.borderColor = [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:1.000];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPulledUserImage:)];
+        tap.numberOfTapsRequired = 1;
+        [_userImageViewContainer addGestureRecognizer:tap];
     }
     
     _type = type;
+}
+
+- (void)didTapPulledUserImage:(UIGestureRecognizer*)gesture
+{
+    [_delegate userCellDidTapUserImage:self];
 }
 
 - (void)setUser:(PULUser *)user

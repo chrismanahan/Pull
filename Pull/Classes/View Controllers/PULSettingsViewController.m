@@ -10,6 +10,8 @@
 
 #import "PULAccount.h"
 
+#import "PULSlideUnwindSegue.h"
+
 @interface PULSettingsViewController ()
 
 @property (strong, nonatomic) IBOutlet UISwitch *notifInviteSwitch;
@@ -58,6 +60,10 @@
     }
     
     [_scrollView setContentSize:(CGSizeMake(CGRectGetWidth(_scrollView.frame), scrollViewHeight))];
+}
+
+#pragma mark - navigation
+- (IBAction)unwindFromViewController:(UIStoryboardSegue *)sender {
 }
 
 #pragma mark - actions

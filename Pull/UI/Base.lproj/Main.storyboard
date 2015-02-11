@@ -116,9 +116,16 @@
                                     <constraint firstAttribute="height" constant="64" id="ukk-Mp-ISw"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="compass_rotate_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="sTs-JU-t4g">
+                                <rect key="frame" x="135" y="72" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Gco-iA-V0C"/>
+                                    <constraint firstAttribute="width" constant="50" id="qOz-eQ-D8t"/>
+                                </constraints>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mIS-oU-QAh" userLabel="Pull table view">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -139,12 +146,12 @@
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="30 Feet" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXG-xB-s1B">
                                                             <rect key="frame" x="122" y="82" width="66" height="25"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="18"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Brandon Smith" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ntx-0l-yTa" customClass="PULRoundedLabel">
                                                             <rect key="frame" x="50" y="48" width="119" height="25"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
                                                             <color key="textColor" red="0.0" green="0.5568627451" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -244,7 +251,7 @@
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" placeholderIntrinsicWidth="166" placeholderIntrinsicHeight="28" text="Bob Corbet" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Wo9-KG-jA1">
                                                             <rect key="frame" x="110" y="44" width="166" height="28"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
                                                             <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -313,42 +320,38 @@
                                                             </connections>
                                                         </view>
                                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OlW-M7-RfQ" userLabel="accept button">
-                                                            <rect key="frame" x="38" y="75" width="85" height="37"/>
+                                                            <rect key="frame" x="50" y="63" width="45" height="45"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="85" id="Sde-dF-sDS"/>
-                                                                <constraint firstAttribute="width" secondItem="OlW-M7-RfQ" secondAttribute="height" multiplier="51:22" id="wgm-1p-2IO"/>
+                                                                <constraint firstAttribute="width" constant="45" id="Sde-dF-sDS"/>
+                                                                <constraint firstAttribute="width" secondItem="OlW-M7-RfQ" secondAttribute="height" multiplier="1:1" id="wgm-1p-2IO"/>
                                                             </constraints>
-                                                            <state key="normal" image="accept_button.png">
+                                                            <state key="normal" image="confirm_pull.png">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
-                                                            <state key="selected" image="accept_button_pressed.png"/>
-                                                            <state key="highlighted" image="accept_button_pressed.png"/>
                                                             <connections>
                                                                 <action selector="ibAccept:" destination="W2W-CC-O1c" eventType="touchUpInside" id="THs-gW-4cf"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Maggie Hill" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="3qQ-Ra-coD">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" misplaced="YES" text="Maggie Hill" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="3qQ-Ra-coD">
                                                             <rect key="frame" x="50" y="8" width="93" height="25"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
                                                             <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull requested" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2p-4G-kTf">
-                                                            <rect key="frame" x="47" y="48" width="104" height="22"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull requested" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2p-4G-kTf">
+                                                            <rect key="frame" x="50" y="41" width="104" height="22"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zMT-bA-dMo" userLabel="decline button">
-                                                            <rect key="frame" x="127" y="75" width="85" height="37"/>
+                                                            <rect key="frame" x="116" y="63" width="45" height="45"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" secondItem="zMT-bA-dMo" secondAttribute="height" multiplier="51:22" id="ZvZ-M7-fIg"/>
+                                                                <constraint firstAttribute="width" secondItem="zMT-bA-dMo" secondAttribute="height" multiplier="1:1" id="ZvZ-M7-fIg"/>
                                                             </constraints>
-                                                            <state key="normal" image="decline_button.png">
+                                                            <state key="normal" image="cancel_pull.png">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
-                                                            <state key="selected" image="decline_button_pressed.png"/>
-                                                            <state key="highlighted" image="decline_button_pressed.png"/>
                                                             <connections>
                                                                 <action selector="ibDecline:" destination="W2W-CC-O1c" eventType="touchUpInside" id="d7g-eK-Atd"/>
                                                             </connections>
@@ -361,14 +364,14 @@
                                                         <constraint firstAttribute="bottom" secondItem="34t-DH-OAq" secondAttribute="bottom" id="HUm-GP-prg"/>
                                                         <constraint firstItem="34t-DH-OAq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3qQ-Ra-coD" secondAttribute="trailing" constant="6" id="O9c-Q3-s8j"/>
                                                         <constraint firstItem="3qQ-Ra-coD" firstAttribute="leading" secondItem="h3e-ju-fpA" secondAttribute="leading" constant="50" id="Q7S-q4-T0r"/>
-                                                        <constraint firstAttribute="bottom" secondItem="zMT-bA-dMo" secondAttribute="bottom" constant="4" id="TBr-wM-52Q"/>
+                                                        <constraint firstAttribute="bottom" secondItem="zMT-bA-dMo" secondAttribute="bottom" constant="8" id="TBr-wM-52Q"/>
                                                         <constraint firstItem="zMT-bA-dMo" firstAttribute="centerY" secondItem="OlW-M7-RfQ" secondAttribute="centerY" id="Vvt-Im-KiR"/>
+                                                        <constraint firstItem="34t-DH-OAq" firstAttribute="leading" secondItem="zMT-bA-dMo" secondAttribute="trailing" constant="59" id="f2K-f3-rOh"/>
                                                         <constraint firstAttribute="trailing" secondItem="34t-DH-OAq" secondAttribute="trailing" id="f84-Fq-OaC"/>
-                                                        <constraint firstAttribute="centerY" secondItem="c2p-4G-kTf" secondAttribute="centerY" priority="250" id="fyC-SB-l5A"/>
-                                                        <constraint firstItem="zMT-bA-dMo" firstAttribute="leading" secondItem="OlW-M7-RfQ" secondAttribute="trailing" constant="4" id="tsE-jp-EHb"/>
-                                                        <constraint firstItem="34t-DH-OAq" firstAttribute="leading" secondItem="zMT-bA-dMo" secondAttribute="trailing" constant="8" id="vcp-Kf-r31"/>
-                                                        <constraint firstItem="c2p-4G-kTf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="3qQ-Ra-coD" secondAttribute="bottom" constant="4" id="w5n-fl-3Az"/>
-                                                        <constraint firstItem="3qQ-Ra-coD" firstAttribute="leading" secondItem="c2p-4G-kTf" secondAttribute="leading" constant="3" id="wux-aF-gym"/>
+                                                        <constraint firstItem="OlW-M7-RfQ" firstAttribute="top" secondItem="c2p-4G-kTf" secondAttribute="bottom" id="kwC-HC-1bs"/>
+                                                        <constraint firstItem="c2p-4G-kTf" firstAttribute="top" secondItem="3qQ-Ra-coD" secondAttribute="bottom" constant="8" id="w5n-fl-3Az"/>
+                                                        <constraint firstItem="3qQ-Ra-coD" firstAttribute="leading" secondItem="c2p-4G-kTf" secondAttribute="leading" id="wux-aF-gym"/>
+                                                        <constraint firstItem="c2p-4G-kTf" firstAttribute="leading" secondItem="OlW-M7-RfQ" secondAttribute="leading" id="y7t-K6-a1V"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="left" value="NO"/>
@@ -399,9 +402,9 @@
                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AhC-GP-aP4" customClass="PULUserTableCellBackgroundView">
                                                     <rect key="frame" x="0.0" y="1" width="320" height="115"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Brandon Smith" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Al5-4j-b6E">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" misplaced="YES" text="Brandon Smith" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Al5-4j-b6E">
                                                             <rect key="frame" x="50" y="8" width="119" height="25"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
                                                             <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -425,40 +428,37 @@
                                                                 <outlet property="imageView" destination="8G2-Pb-bMM" id="oDs-ji-MLt"/>
                                                             </connections>
                                                         </view>
-                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VTG-R5-bxM" userLabel="decline button">
-                                                            <rect key="frame" x="127" y="75" width="85" height="37"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="85" id="NaR-Ad-u9o"/>
-                                                                <constraint firstAttribute="width" secondItem="VTG-R5-bxM" secondAttribute="height" multiplier="51:22" id="vGH-cr-yI7"/>
-                                                            </constraints>
-                                                            <state key="normal" image="cancel_button.png">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="selected" image="cancel_button_pressed.png"/>
-                                                            <state key="highlighted" image="cancel_button_pressed.png"/>
-                                                            <connections>
-                                                                <action selector="ibCancel:" destination="0If-ku-7pk" eventType="touchUpInside" id="tCY-iP-X97"/>
-                                                            </connections>
-                                                        </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull request sent" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNg-WZ-NOz">
-                                                            <rect key="frame" x="50" y="51" width="120" height="22"/>
+                                                            <rect key="frame" x="61" y="48" width="120" height="22"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VTG-R5-bxM" userLabel="decline button">
+                                                            <rect key="frame" x="8" y="36" width="45" height="45"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="45" id="NaR-Ad-u9o"/>
+                                                                <constraint firstAttribute="width" secondItem="VTG-R5-bxM" secondAttribute="height" multiplier="1:1" id="vGH-cr-yI7"/>
+                                                            </constraints>
+                                                            <state key="normal" image="cancel_pull.png">
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="ibCancel:" destination="0If-ku-7pk" eventType="touchUpInside" id="tCY-iP-X97"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="VTG-R5-bxM" secondAttribute="bottom" constant="4" id="2gO-mC-28h"/>
                                                         <constraint firstItem="dih-Ik-pd9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Al5-4j-b6E" secondAttribute="trailing" constant="6" id="2xu-kj-t27"/>
+                                                        <constraint firstAttribute="centerY" secondItem="dNg-WZ-NOz" secondAttribute="centerY" id="5hu-3U-BtT"/>
                                                         <constraint firstItem="Al5-4j-b6E" firstAttribute="leading" secondItem="AhC-GP-aP4" secondAttribute="leading" constant="50" id="E38-ZZ-TBu"/>
-                                                        <constraint firstItem="dih-Ik-pd9" firstAttribute="leading" secondItem="VTG-R5-bxM" secondAttribute="trailing" constant="8" id="Qkm-Xb-F9a"/>
+                                                        <constraint firstItem="dNg-WZ-NOz" firstAttribute="leading" secondItem="VTG-R5-bxM" secondAttribute="trailing" constant="8" id="aXq-C8-Hck"/>
                                                         <constraint firstItem="Al5-4j-b6E" firstAttribute="top" secondItem="AhC-GP-aP4" secondAttribute="top" constant="8" id="cEz-Kb-5MQ"/>
+                                                        <constraint firstItem="VTG-R5-bxM" firstAttribute="leading" secondItem="AhC-GP-aP4" secondAttribute="leading" constant="8" id="eOW-2R-b3A"/>
+                                                        <constraint firstAttribute="centerY" secondItem="VTG-R5-bxM" secondAttribute="centerY" id="fJF-2O-c7y"/>
                                                         <constraint firstAttribute="trailing" secondItem="dih-Ik-pd9" secondAttribute="trailing" id="h5a-QA-8TD"/>
-                                                        <constraint firstItem="dih-Ik-pd9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dNg-WZ-NOz" secondAttribute="trailing" constant="6" id="kkM-LP-IZv"/>
                                                         <constraint firstAttribute="bottom" secondItem="dih-Ik-pd9" secondAttribute="bottom" id="mAN-IZ-FNB"/>
-                                                        <constraint firstAttribute="centerY" secondItem="dNg-WZ-NOz" secondAttribute="centerY" priority="750" id="mVm-TO-wOO"/>
-                                                        <constraint firstItem="Al5-4j-b6E" firstAttribute="leading" secondItem="dNg-WZ-NOz" secondAttribute="leading" id="nQ0-2J-HR3"/>
                                                         <constraint firstItem="dNg-WZ-NOz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Al5-4j-b6E" secondAttribute="bottom" constant="4" id="vJo-1B-af8"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -491,9 +491,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Col-68-KCe" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="4fp-cF-R2d"/>
+                            <constraint firstItem="sTs-JU-t4g" firstAttribute="top" secondItem="Col-68-KCe" secondAttribute="bottom" constant="8" id="6UE-Dg-PIu"/>
                             <constraint firstItem="mIS-oU-QAh" firstAttribute="top" secondItem="Col-68-KCe" secondAttribute="bottom" id="B0C-Fp-LiH"/>
                             <constraint firstAttribute="trailing" secondItem="mIS-oU-QAh" secondAttribute="trailing" id="Ft1-dg-6we"/>
                             <constraint firstItem="Col-68-KCe" firstAttribute="top" secondItem="Fa8-lq-H52" secondAttribute="top" id="O8z-jo-wGS"/>
+                            <constraint firstAttribute="centerX" secondItem="sTs-JU-t4g" secondAttribute="centerX" id="aaG-L2-yb5"/>
                             <constraint firstItem="Tg6-Kr-yWv" firstAttribute="top" secondItem="mIS-oU-QAh" secondAttribute="bottom" id="dSQ-kD-IEm"/>
                             <constraint firstAttribute="trailing" secondItem="Col-68-KCe" secondAttribute="trailing" id="g71-Iz-rbN"/>
                             <constraint firstItem="mIS-oU-QAh" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="gFo-Qg-zwN"/>
@@ -502,6 +504,7 @@
                     <navigationItem key="navigationItem" id="rxm-zt-ES9"/>
                     <connections>
                         <outlet property="friendTableView" destination="mIS-oU-QAh" id="iJX-d4-E7A"/>
+                        <outlet property="pullRefreshImageView" destination="sTs-JU-t4g" id="uqd-SU-249"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PX-8q-Zmp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1318,7 +1321,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fBe-JC-L71" userLabel="Header">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kimberly Blake" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="Leu-0A-WPX" userLabel="Title label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Kimberly Blake" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="Leu-0A-WPX" userLabel="Title label">
                                         <rect key="frame" x="77" y="24" width="167" height="36"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
                                         <color key="textColor" red="0.0" green="0.5568627451" blue="1" alpha="1" colorSpace="deviceRGB"/>
@@ -1375,9 +1378,9 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VSI-QL-eER" customClass="PULUserImageView">
-                                <rect key="frame" x="110" y="216" width="100" height="100"/>
+                                <rect key="frame" x="110" y="223" width="100" height="100"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-RO-rfr">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-RO-rfr">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
@@ -1409,7 +1412,7 @@
                             <constraint firstAttribute="trailing" secondItem="fBe-JC-L71" secondAttribute="trailing" id="cQN-FP-pe4"/>
                             <constraint firstItem="cVM-ce-Lwj" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leadingMargin" id="lW0-3k-0rm"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leading" id="lca-3j-yZm"/>
-                            <constraint firstItem="VSI-QL-eER" firstAttribute="top" secondItem="BJ1-p9-fqk" secondAttribute="bottom" constant="98" id="vLF-dN-HOM"/>
+                            <constraint firstItem="VSI-QL-eER" firstAttribute="top" secondItem="BJ1-p9-fqk" secondAttribute="bottom" constant="115" id="vLF-dN-HOM"/>
                             <constraint firstAttribute="centerX" secondItem="BJ1-p9-fqk" secondAttribute="centerX" id="zqI-F0-8NO"/>
                         </constraints>
                     </view>
@@ -1457,7 +1460,7 @@
                                             <action selector="ibClose:" destination="akf-Le-uIw" eventType="touchUpInside" id="1g6-Ql-JXh"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="Kimberly Blake" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="5VN-Kt-G7Q">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" misplaced="YES" text="Kimberly Blake" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="5VN-Kt-G7Q">
                                         <rect key="frame" x="75" y="25" width="171" height="28"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1523,17 +1526,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="accept_button.png" width="212" height="74"/>
-        <image name="accept_button_pressed.png" width="213" height="74"/>
         <image name="back_button.png" width="16" height="19"/>
         <image name="block_arrow.png" width="25" height="33"/>
-        <image name="cancel_button.png" width="213" height="74"/>
-        <image name="cancel_button_pressed.png" width="213" height="74"/>
+        <image name="cancel_pull.png" width="109" height="105"/>
         <image name="circleButtonBackground.png" width="100" height="100"/>
         <image name="circleButtonBackgroundPressed.png" width="50" height="50"/>
+        <image name="compass_rotate_1.png" width="110" height="131"/>
+        <image name="confirm_pull.png" width="109" height="105"/>
         <image name="contact_button.png" width="50" height="47"/>
-        <image name="decline_button.png" width="213" height="74"/>
-        <image name="decline_button_pressed.png" width="213" height="74"/>
         <image name="facebookLoginButton_Active.png" width="360" height="73"/>
         <image name="facebookLoginButton_Pressed.png" width="360" height="73"/>
         <image name="home_icon.png" width="37" height="45"/>
@@ -1541,7 +1541,7 @@
         <image name="pull_arrows.png" width="204" height="97"/>
         <image name="purpleButtonClicked.png" width="320" height="59"/>
         <image name="purpleButtonNormal.png" width="320" height="59"/>
-        <image name="round_compass.png" width="309" height="424"/>
+        <image name="round_compass.png" width="133" height="173"/>
         <image name="setting_button.png" width="50" height="47"/>
         <image name="share_button.png" width="50" height="47"/>
         <image name="stop_arrows.png" width="204" height="97"/>

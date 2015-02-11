@@ -83,7 +83,7 @@
     if (!_didSetUp)
     {
 //        CGFloat yOffset = CGRectGetMinY(_directionArrowView.frame) - CGRectGetMaxY(_distanceLabel.frame) - 8;
-//        
+//
 //        CGPoint userCenter = _userImageViewContainer.center;
 //        userCenter.x = self.view.center.x;
 //        userCenter.y -= yOffset;

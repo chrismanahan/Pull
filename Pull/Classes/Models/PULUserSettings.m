@@ -14,7 +14,7 @@
 {
     if (self = [super init])
     {
-        NSDictionary *notifs = dict[@"notifications"];
+        NSDictionary *notifs = dict[@"notification"];
         _notifyAccept = notifs ? [notifs[@"accept"] boolValue] : YES;   // set default values if not set
         _notifyInvite = notifs ? [notifs[@"invite"] boolValue] : YES;
     }

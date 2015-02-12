@@ -105,6 +105,39 @@
     
 }
 
+- (void)viewDidLoad
+{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_spinCompass:)];
+    tap.numberOfTapsRequired = 2;
+    [_userImageViewContainer addGestureRecognizer:tap];
+}
+
+- (void)_spinCompass:(UIGestureRecognizer*)gesture
+{
+    static int mult = 1;
+    CGSize offset = CGSizeMake(_userImageViewContainer.center.x - _directionArrowView.center.x, _userImageViewContainer.center.y - _directionArrowView.center.y);
+    __block CGFloat rotation = M_PI * mult++;
+    
+    __block CGAffineTransform tr = CGAffineTransformIdentity;
+    tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
+    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
+    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [_directionArrowView setTransform:tr];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 animations:^{
+            rotation = M_PI * mult++;
+            tr = CGAffineTransformIdentity;
+            tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
+            tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
+            tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
+
+            [_directionArrowView setTransform:tr];
+        }];
+    }];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -261,10 +294,26 @@
     double ø;
     
     // determine which quadrant we're in relative to other user
-    if (myLat > yourLat && myLon > yourLon) // quadrant 1
+    if (dy < 0.0001 && myLon > yourLon) // horizontal right
+    {
+        return 270;
+    }
+    else if (dy < 0.0001 && myLon < yourLon) // horizontal left
+    {
+        return 90;
+    }
+    else if (dx < 0.0001 && myLat > yourLat) // vertical top
+    {
+        return 180;
+    }
+    else if (dx < 0.0001 && myLat < yourLat) // vertical bottom
+    {
+        return 0;
+    }
+    else if (myLat > yourLat && myLon > yourLon) // quadrant 1
     {
         ø = atan2(dy, dx);
-        return 270 + RADIANS_TO_DEGREES(ø);
+        return 270 - RADIANS_TO_DEGREES(ø);
     }
     else if (myLat < yourLat && myLon > yourLon) // quad 2
     {
@@ -279,22 +328,6 @@
     {
         ø = atan2(dy, dx);
         return 90 + RADIANS_TO_DEGREES(ø);
-    }
-    else if (myLat == yourLat && myLon > yourLon) // horizontal right
-    {
-        return 270;
-    }
-    else if (myLat == yourLat && myLon < yourLon) // horizontal left
-    {
-        return 90;
-    }
-    else if (myLon == yourLon && myLat > yourLat) // vertical top
-    {
-        return 180;
-    }
-    else if (myLon == yourLon && myLat < yourLat) // vertical bottom
-    {
-        return 0;
     }
     return RADIANS_TO_DEGREES( ø);
 }

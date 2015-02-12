@@ -18,7 +18,6 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <Firebase/Firebase.h>
 #import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
 
@@ -28,8 +27,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    
+
+    [Fabric with:@[CrashlyticsKit]];
+
     // TODO: move registering for notifs somewhere better
     // register for remote notifications
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
@@ -90,7 +90,6 @@
         vcName = NSStringFromClass([PULLoginViewController class]);
     }
     
-    [Fabric with:@[CrashlyticsKit]];
     
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:vcName];
     

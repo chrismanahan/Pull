@@ -12,11 +12,12 @@
 /*****************************************
  Logging
  *****************************************/
+#define PULLog( s, ... ) CLS_LOG( @"%@", [NSString stringWithFormat:(s), ##__VA_ARGS__])
 #ifdef DEBUG
-    #define PULLog( s, ... ) NSLog( @"<%@:%d> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+//    #define PULLog( s, ... ) NSLog( @"<%@:%d> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  [NSString stringWithFormat:(s), ##__VA_ARGS__] )
     #define PULLogError( title, s, ... ) NSLog( @"!ERROR <%@> | <%@:%d> %@", title, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  [NSString stringWithFormat:(s), ##__VA_ARGS__] )
 #else
-    #define PULLog( s, ... )
+//    #define PULLog( s, ... )
     #define PULLogError( s, ... )
 #endif
 

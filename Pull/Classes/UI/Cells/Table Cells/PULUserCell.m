@@ -32,6 +32,10 @@
         tap.numberOfTapsRequired = 1;
         [_userImageViewContainer addGestureRecognizer:tap];
     }
+    else if (type == PULUserCellTypePending || type == PULUserCellTypeWaiting)
+    {
+        _userImageViewContainer.borderColor = [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:1.000];
+    }
     
     _type = type;
 }

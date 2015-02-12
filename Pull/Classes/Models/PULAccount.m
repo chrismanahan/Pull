@@ -17,6 +17,7 @@
 #import <Firebase/Firebase.h>
 #import <FacebookSDK/FacebookSDK.h>
 
+
 NSString * const kPULAccountFriendListUpdatedNotification = @"kPULAccountFriendListUpdatedNotification";
 
 NSString * const kPULAccountDidUpdateLocationNotification = @"kPULAccountDidUpdateLocationNotification";
@@ -111,6 +112,11 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     }];
 }
 
+- (void)logout
+{
+    [_fireRef unauth];
+}
+
 - (void)loginWithFacebookToken:(NSString*)accessToken completion:(PULAccountLoginCompletionBlock)completion;
 {
     PULLog(@"Logging in with facebook token");
@@ -131,6 +137,8 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
             [userExistsRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
                 BOOL isNewUser = !snapshot.hasChildren;
                 self.uid = snapshot.key;
+                
+                [CrashlyticsKit setUserIdentifier:self.uid];
                 
                 if (isNewUser)
                 {

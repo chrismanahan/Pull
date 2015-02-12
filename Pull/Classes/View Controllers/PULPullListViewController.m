@@ -21,6 +21,7 @@
 #import <MessageUI/MessageUI.h>
 #import <sys/utsname.h>
 
+
 const NSInteger kPULPullListNumberOfTableViewSections = 4;
 
 @interface PULPullListViewController () <MFMailComposeViewControllerDelegate>
@@ -73,6 +74,8 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
                                               [UIImage imageNamed:@"compass_rotate_8"]];
     _pullRefreshImageView.animationDuration = 0.8f;
     _pullRefreshImageView.animationRepeatCount = 0;
+    
+    
 }
 
 - (void)reload
@@ -190,11 +193,16 @@ NSString* machineName()
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *friendsArray = [self p_friendArrayForSection:indexPath.section tableView:tableView];
+    PULLog(@"using friends array for cell #%zd: %@", indexPath.row, friendsArray);
     
     PULUser *friend;
     if (indexPath.row < friendsArray.count)
     {
         friend = friendsArray[indexPath.row];
+    }
+    else
+    {
+        PULLog(@"cell row (%zd) out of bounds, friendsArray.count  = %zd", friendsArray.count);
     }
     
     
@@ -213,14 +221,14 @@ NSString* machineName()
         }
         
     }
-    else if ([tableView isEqual:_friendRequestTableView])
-    {
-        switch (indexPath.section) {
-            case 0: CellId = @"FriendRequestCellID"; break;
-            case 1: CellId = @"FriendInvitedCellID"; break;
-            default: break;
-        }
-    }
+//    else if ([tableView isEqual:_friendRequestTableView])
+//    {
+//        switch (indexPath.section) {
+//            case 0: CellId = @"FriendRequestCellID"; break;
+//            case 1: CellId = @"FriendInvitedCellID"; break;
+//            default: break;
+//        }
+//    }
     
     if (CellId)
     {
@@ -250,6 +258,11 @@ NSString* machineName()
         }
     }
     cell.type = cellType;
+    if (cellType == PULUserCellTypePending || cellType == PULUserCellTypeWaiting)
+    {
+        cell.bgView.bgColor = [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:1.000];
+        
+    }
     
     return cell;
 }
@@ -346,7 +359,12 @@ NSString* machineName()
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSArray *friendsArray = [self p_friendArrayForSection:indexPath.section tableView:tableView];
-    PULUser *friend = friendsArray[indexPath.row];
+    
+    if (indexPath.row > friendsArray.count - 1)
+    {
+        return;
+    }
+    
     
     if ([tableView isEqual:_friendTableView])
     {
@@ -354,6 +372,7 @@ NSString* machineName()
         {
             case 0: // pulled users
             {
+                PULUser *friend = friendsArray[indexPath.row];
                 PULPullDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullDetailViewController class])];
                 vc.user = friend;
                 
@@ -370,7 +389,7 @@ NSString* machineName()
             }
             case 1: // pending users
             {
-                [[PULAccount currentUser].pullManager acceptPullFromUser:friend];
+//                [[PULAccount currentUser].pullManager acceptPullFromUser:friend];
                 break;
             }
             case 2: // invited users
@@ -389,30 +408,28 @@ NSString* machineName()
             }
         }
     }
-    else if ([tableView isEqual:_friendRequestTableView])
-    {
-        switch (indexPath.section) {
-            case 0: // friend is pending
-            {
-                [[PULAccount currentUser].friendManager acceptFriendRequestFromUser:friend];
-                break;
-            }
-            case 1:  // friend is invited
-            {
-                [[PULAccount currentUser].friendManager unfriendUser:friend];
-                break;
-            }
-            default:
-                break;
-        }
-    }
+//    else if ([tableView isEqual:_friendRequestTableView])
+//    {
+//        switch (indexPath.section) {
+//            case 0: // friend is pending
+//            {
+//                [[PULAccount currentUser].friendManager acceptFriendRequestFromUser:friend];
+//                break;
+//            }
+//            case 1:  // friend is invited
+//            {
+//                [[PULAccount currentUser].friendManager unfriendUser:friend];
+//                break;
+//            }
+//            default:
+//                break;
+//        }
+//    }
 }
 
 #pragma mark  - scroll delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    PULLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
-    
     if (scrollView.contentOffset.y < -100 && !_refreshing && !_shouldRefresh)
     {
         _shouldRefresh = YES;

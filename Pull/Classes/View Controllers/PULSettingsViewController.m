@@ -7,10 +7,12 @@
 //
 
 #import "PULSettingsViewController.h"
+#import "PULLoginViewController.h"
 
 #import "PULAccount.h"
 
 #import "PULSlideUnwindSegue.h"
+#import "PULReverseModal.h"
 
 @interface PULSettingsViewController ()
 
@@ -89,6 +91,22 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)ibLogout:(id)sender
+{
+    [[PULAccount currentUser] logout];
+ 
+    UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
+    
+    PULReverseModal *seg = [PULReverseModal segueWithIdentifier:@"LoginSeg"
+                                                         source:self
+                                                    destination:login
+                                                 performHandler:^{
+                                                     ;
+                                                 }];
+    
+    [seg perform];
 }
 
 @end

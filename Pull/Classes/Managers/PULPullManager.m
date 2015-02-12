@@ -207,6 +207,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         pull.delegate = self;
         
         // start observing
+        PULLog(@"starting to observe pull: %@", pull.uid);
         [pull startObserving];
     }
     return pull;
@@ -361,6 +362,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         
         Firebase *newPullRef = [[_fireRef childByAppendingPath:@"pulls"]  childByAppendingPath:snapshot.key];
         [newPullRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+            PULLog(@"got pull data: %@", snapshot.value);
             PULPull *pull = [self p_pullFromFirebaseSnapshot:snapshot];
             
             if (pull)
@@ -371,6 +373,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
                 }
                 else
                 {
+                    PULLog(@"adding pull to pulls array");
                     [_pulls addObject:pull];
                     
                     if ([_delegate respondsToSelector:@selector(pullManagerDidReceivePull:)])

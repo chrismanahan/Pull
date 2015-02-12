@@ -302,6 +302,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
 - (void)updateOrganizationWithPull:(PULPull*)pull
 {
+    PULLog(@"updating organization with pull from %@ to %@. State (%zd)", pull.sendingUser, pull.receivingUser, pull.status);
     // find user we need to move
     PULUser *user;
     NSMutableArray *arrayToMoveTo;
@@ -317,6 +318,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     // determine which array this user needs to be in
     if (pull.status == PULPullStatusPulled || pull.status == PULPullStatusSuspended)
     {
+        PULLog(@"moving pull to pulledFriend");
         arrayToMoveTo = _pulledFriends;
     }
     else if (pull.status == PULPullStatusPending)
@@ -325,11 +327,13 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         if ([pull.sendingUser isEqual:user])
         {
             // other user sent to me
+            PULLog(@"moving pull to pendingFriends");
             arrayToMoveTo = _pullPendingFriends;
         }
         else
         {
             // we sent pull to this user
+            PULLog(@"moving pull to invitedFriends");
             arrayToMoveTo = _pullInvitedFriends;
         }
     }
@@ -340,10 +344,12 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         if (distance <= kPULMaxDistanceToBeNearby)
         {
             // we're nearby
+            PULLog(@"moving pull to nearbyFriends");
             arrayToMoveTo = _nearbyFriends;
         }
         else
         {
+            PULLog(@"moving pull to farAwayFriends");
             arrayToMoveTo = _farAwayFriends;
         }
     }
@@ -690,11 +696,13 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
 - (void)p_moveUser:(PULUser*)user toArray:(NSMutableArray*)array
 {
+    PULLog(@"moving user (%@) to array: (%@)", user.uid, array);
     // block to check if user is in an array and remove them if they are
     void (^removeUserFromArray)(PULUser *user, NSMutableArray *array) = ^void (PULUser *user, NSMutableArray *array)
     {
         if ([array containsObject:user])
         {
+            PULLog(@"removing user (%@) from array (%@)", user.uid, array);
             [array removeObject:user];
         }
     };

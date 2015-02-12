@@ -140,7 +140,8 @@ IB_DESIGNABLE
     
     CGContextSetShadow(ref, CGSizeMake(0, 3), 5.0);
     
-    CGContextSetFillColorWithColor(ref, [UIColor whiteColor].CGColor);
+    UIColor *color = _bgColor ?: [UIColor whiteColor];
+    CGContextSetFillColorWithColor(ref, color.CGColor);
     
     CGRect innerRect = CGRectInset(rect, 2, 4);
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:innerRect cornerRadius:180];

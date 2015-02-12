@@ -20,6 +20,8 @@
 @property (nonatomic, assign) CGRect leftImageViewFrame;
 @property (nonatomic, assign) CGRect originalRect;
 
+@property (nonatomic, strong) IBInspectable UIColor *bgColor;
+
 @property (nonatomic, strong) IBOutlet PULUserImageView *userImageContainerView;
 
 @property (nonatomic, strong) IBOutlet UIImageView *arrowImageView;

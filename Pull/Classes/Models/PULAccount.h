@@ -59,6 +59,8 @@ extern NSString * const kPULAccountDidUpdateHeadingNotification;
  */
 - (void)initializeAccount;
 
+- (void)logout;
+
 /**
  *  Authenticates the user with a token retreived from facebook
  *

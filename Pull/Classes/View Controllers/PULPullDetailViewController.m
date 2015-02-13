@@ -116,26 +116,36 @@
 {
     static int mult = 1;
     CGSize offset = CGSizeMake(_userImageViewContainer.center.x - _directionArrowView.center.x, _userImageViewContainer.center.y - _directionArrowView.center.y);
-    __block CGFloat rotation = M_PI * mult++;
+    __block CGFloat rotation = M_PI_2 * mult;
     
     __block CGAffineTransform tr = CGAffineTransformIdentity;
     tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
     tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
     tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
     
-    [UIView animateWithDuration:0.2 animations:^{
+    
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         [_directionArrowView setTransform:tr];
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.2 animations:^{
-            rotation = M_PI * mult++;
-            tr = CGAffineTransformIdentity;
-            tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
-            tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
-            tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
-
-            [_directionArrowView setTransform:tr];
-        }];
+        if (finished && !CGAffineTransformEqualToTransform(_directionArrowView.transform, CGAffineTransformIdentity)) {
+            [self _spinCompass:nil];
+        }
     }];
+    
+    
+//    [UIView animateWithDuration:0.2 animations:^{
+//        [_directionArrowView setTransform:tr];
+//    } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:0.2 animations:^{
+//            rotation = M_PI * mult++;
+//            tr = CGAffineTransformIdentity;
+//            tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
+//            tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
+//            tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
+//
+//            [_directionArrowView setTransform:tr];
+//        }];
+//    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

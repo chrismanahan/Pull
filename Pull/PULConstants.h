@@ -10,4 +10,9 @@ extern NSString * const kPULFirebaseURL;
 
 extern NSString * const kPULFacebookAppID;
 
+extern NSString * const kPULAppDownloadURL;
+extern NSString * const kPULAppReportIssueEmail;
+extern NSString * const kPULAppSuggestionEmail;
+extern NSString * const kPULAppPartnerEmail;
+
 extern const float kPULDistanceUnitCutoff;

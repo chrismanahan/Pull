@@ -16,10 +16,17 @@
 
 #import <Firebase/Firebase.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface PULLoginViewController ()
+@interface PULLoginViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) Firebase *fireRef;
+@property (strong, nonatomic) IBOutlet UIView *movieViewContainer;
+@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (nonatomic, strong) AVPlayer *moviePlayer;
 
 @end
 
@@ -32,6 +39,48 @@
         _fireRef = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
     }
     return self;
+}
+
+- (void)viewDidLoad
+{
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"intro" ofType:@"mov"];
+    NSURL *movieUrl = [NSURL fileURLWithPath:path];
+    
+    _moviePlayer = [[AVPlayer alloc] initWithURL:movieUrl];
+    _moviePlayer.muted = YES;
+    
+    _moviePlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerItemDidReachEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:[_moviePlayer currentItem]];
+    
+    AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:_moviePlayer];
+
+    layer.frame = self.view.bounds;
+    layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    
+    [_movieViewContainer.layer addSublayer:layer];
+    
+//    [_moviePlayer play];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [_moviePlayer play];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_moviePlayer pause];
+}
+
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+    AVPlayerItem *p = [notification object];
+    [p seekToTime:kCMTimeZero];
 }
 
 #pragma mark - Actions
@@ -67,6 +116,18 @@
                                           }];
                                       }
                                   }];
+}
+
+- (IBAction)ibLearnMore:(id)sender
+{
+    [_scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.view.frame), 0) animated:YES];
+}
+
+#pragma mark - scroll delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSInteger page = scrollView.contentOffset.x / CGRectGetWidth(self.view.frame);
+    _pageControl.currentPage = page;
 }
 
 @end

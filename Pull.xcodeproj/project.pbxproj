@@ -33,6 +33,8 @@
 		33FEA23D1A6B0A5F002CA63D /* launchImage5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33FEA2371A6B0A5F002CA63D /* launchImage5@2x.png */; };
 		33FEA23F1A6B0B26002CA63D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33FEA23E1A6B0B26002CA63D /* Images.xcassets */; };
 		8456E6201A8965FC00CF76AE /* PULSlideLeftSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456E61F1A8965FC00CF76AE /* PULSlideLeftSegue.m */; };
+		84AAC8D31A8E8E5100C302AD /* PULNoConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AAC8D21A8E8E5100C302AD /* PULNoConnectionView.m */; };
+		84AAC8D51A8E904A00C302AD /* PULNoConnectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AAC8D41A8E904A00C302AD /* PULNoConnectionView.xib */; };
 		84DC7FD51A8CF5FF00D07047 /* nearby_rounded_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DC7FD21A8CF5FF00D07047 /* nearby_rounded_arrow.png */; };
 		84DC7FD61A8CF5FF00D07047 /* nearby_rounded_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DC7FD31A8CF5FF00D07047 /* nearby_rounded_arrow@2x.png */; };
 		84DC7FD71A8CF5FF00D07047 /* nearby_rounded_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DC7FD41A8CF5FF00D07047 /* nearby_rounded_arrow@3x.png */; };
@@ -238,6 +240,9 @@
 		33FEA23E1A6B0B26002CA63D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8456E61E1A8965FC00CF76AE /* PULSlideLeftSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULSlideLeftSegue.h; sourceTree = "<group>"; };
 		8456E61F1A8965FC00CF76AE /* PULSlideLeftSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULSlideLeftSegue.m; sourceTree = "<group>"; };
+		84AAC8D11A8E8E5100C302AD /* PULNoConnectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULNoConnectionView.h; path = UI/Views/PULNoConnectionView.h; sourceTree = "<group>"; };
+		84AAC8D21A8E8E5100C302AD /* PULNoConnectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULNoConnectionView.m; path = UI/Views/PULNoConnectionView.m; sourceTree = "<group>"; };
+		84AAC8D41A8E904A00C302AD /* PULNoConnectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PULNoConnectionView.xib; sourceTree = "<group>"; };
 		84DC7FD21A8CF5FF00D07047 /* nearby_rounded_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nearby_rounded_arrow.png; sourceTree = "<group>"; };
 		84DC7FD31A8CF5FF00D07047 /* nearby_rounded_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_rounded_arrow@2x.png"; sourceTree = "<group>"; };
 		84DC7FD41A8CF5FF00D07047 /* nearby_rounded_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_rounded_arrow@3x.png"; sourceTree = "<group>"; };
@@ -560,6 +565,8 @@
 				3304995B1A1815F3003FEA42 /* PULPullDirectionArrowView.m */,
 				953B05C71A8803D9008235EB /* PULLoadingIndicator.h */,
 				953B05C81A8803D9008235EB /* PULLoadingIndicator.m */,
+				84AAC8D11A8E8E5100C302AD /* PULNoConnectionView.h */,
+				84AAC8D21A8E8E5100C302AD /* PULNoConnectionView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -837,6 +844,7 @@
 			children = (
 				952BDB6B1A0C4F0500C67BB5 /* Main.storyboard */,
 				952BDB751A0C4F0500C67BB5 /* LaunchScreen.xib */,
+				84AAC8D41A8E904A00C302AD /* PULNoConnectionView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1105,6 +1113,7 @@
 				953B05E71A899E18008235EB /* icon@3x.png in Resources */,
 				952BDB6D1A0C4F0500C67BB5 /* Main.storyboard in Resources */,
 				953B06071A8AF687008235EB /* compass_rotate_1.png in Resources */,
+				84AAC8D51A8E904A00C302AD /* PULNoConnectionView.xib in Resources */,
 				953B060E1A8AF687008235EB /* compass_rotate_3@2x.png in Resources */,
 				953B062A1A8C2DEE008235EB /* x_button.png in Resources */,
 				953B06141A8AF687008235EB /* compass_rotate_5@2x.png in Resources */,
@@ -1259,6 +1268,7 @@
 				95169F651A871F41006D3078 /* PULNavigationController.m in Sources */,
 				952BDB961A0C503200C67BB5 /* PULAccount.m in Sources */,
 				334044C61A17F9A100B00BC3 /* PULUserCell.m in Sources */,
+				84AAC8D31A8E8E5100C302AD /* PULNoConnectionView.m in Sources */,
 				330499551A18037D003FEA42 /* PULUserImageView.m in Sources */,
 				95169F351A86F7CD006D3078 /* PULMenuViewController.m in Sources */,
 				3304995C1A1815F3003FEA42 /* PULPullDirectionArrowView.m in Sources */,

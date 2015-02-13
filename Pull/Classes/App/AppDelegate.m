@@ -15,6 +15,8 @@
 #import "PULLoginViewController.h"
 #import "PULPullListViewController.h"
 
+#import "PULNoConnectionView.h"
+
 #import <FacebookSDK/FacebookSDK.h>
 #import <Firebase/Firebase.h>
 #import <Fabric/Fabric.h>
@@ -95,6 +97,8 @@
     
     [self.window setRootViewController:vc];
     [self.window makeKeyAndVisible];
+    
+    [PULNoConnectionView startMonitoringConnection];
     
     return YES;
 }

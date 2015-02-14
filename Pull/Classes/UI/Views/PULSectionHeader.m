@@ -30,20 +30,26 @@ const CGFloat kPULSectionHeaderHeight = 25;
         }
         
         // line
-        NSInteger lineHeight = 4;
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(padding, kPULSectionHeaderHeight - lineHeight, width - (2 * padding), lineHeight)];
-        line.backgroundColor = color;
+//        NSInteger lineHeight = 4;
+//        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(padding, kPULSectionHeaderHeight - lineHeight, width - (2 * padding), lineHeight)];
+//        line.backgroundColor = color;
         
         // label
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(padding * 2, 0, width, kPULSectionHeaderHeight - 2)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, kPULSectionHeaderHeight - 2)];
         label.text = title;
         label.textColor = color;
         label.font = [UIFont fontWithName:@"Avenir" size:16];
+        [label sizeToFit];
+        
+        CGPoint center = label.center;
+        center.x = CGRectGetMidX(self.frame);
+        label.center = center;
 
-        self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.8];
+        self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
         
         [self addSubview:label];
-        [self addSubview:line];
+//        [self addSubview:line];
+        
     }
     
     return self;

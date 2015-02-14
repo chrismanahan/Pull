@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString * const kPULConnectionRestoredNotification;
+
 @interface PULNoConnectionView : UIView
 
 + (void)startMonitoringConnection;

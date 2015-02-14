@@ -10,6 +10,7 @@
 
 #import "PULSectionHeader.h"
 #import "PULLoadingIndicator.h"
+#import "PULNoConnectionView.h"
 
 #import "PULPullDetailViewController.h"
 
@@ -72,7 +73,10 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     _pullRefreshImageView.animationDuration = 0.8f;
     _pullRefreshImageView.animationRepeatCount = 0;
     
-    
+//    [[NSNotificationCenter defaultCenter] addObserver:[PULAccount currentUser]
+//                                             selector:@selector(initializeAccount)
+//                                                 name:kPULConnectionRestoredNotification
+//                                               object:nil];
 }
 
 - (void)reload
@@ -82,6 +86,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     if (_refreshing)
     {
         [_friendTableView setScrollEnabled:YES];
+        _friendTableView.userInteractionEnabled = YES;
         [UIView animateWithDuration:0.2 animations:^{
             _friendTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
             _pullRefreshImageView.alpha = 0.0;
@@ -104,6 +109,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     PULLog(@"is refreshing");
     
     [_friendTableView setScrollEnabled:NO];
+    _friendTableView.userInteractionEnabled = NO;
    
     CGFloat height = CGRectGetHeight(_pullRefreshImageView.frame);
 

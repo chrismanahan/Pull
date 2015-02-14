@@ -25,8 +25,10 @@
 @property (strong, nonatomic) IBOutlet UIView *movieViewContainer;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UILabel *subtitleLabel;
+@property (strong, nonatomic) IBOutlet UIButton *learnMoreButton;
 
-@property (nonatomic, strong) AVPlayer *moviePlayer;
+@property (nonatomic, strong) AVQueuePlayer *moviePlayer;
 
 @end
 
@@ -43,21 +45,46 @@
 
 - (void)viewDidLoad
 {
+    NSDictionary *strokeAttributes = @{
+                                       NSStrokeWidthAttributeName: @(-1),
+                                       NSStrokeColorAttributeName:[UIColor blackColor],
+                                       NSForegroundColorAttributeName:[UIColor whiteColor]
+                                       };
+    // stroke subtitle label
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:_subtitleLabel.text
+                                                                attributes:strokeAttributes];
+    _subtitleLabel.attributedText = title;
+//
+//    // stroke learn more button
+//    title = [[NSAttributedString alloc] initWithString:_learnMoreButton.titleLabel.text attributes:strokeAttributes];
+//    [_learnMoreButton setAttributedTitle:title forState:UIControlStateNormal];
+    
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"intro" ofType:@"mov"];
-    NSURL *movieUrl = [NSURL fileURLWithPath:path];
+    NSMutableArray *vidItems = [[NSMutableArray alloc] init];
+    for (int i = 0; i < 5; i++)
+    {
+        NSString *fileName = [NSString stringWithFormat:@"intro%i", i];
+        NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"mov"];
+        NSURL *movieUrl = [NSURL fileURLWithPath:path];
+        
+        AVPlayerItem *item = [AVPlayerItem playerItemWithURL:movieUrl];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(playerItemDidReachEnd:)
+                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+                                                   object:item];
+        
+        [vidItems addObject:item];
+        
+        
+    }
     
-    _moviePlayer = [[AVPlayer alloc] initWithURL:movieUrl];
+    _moviePlayer = [AVQueuePlayer queuePlayerWithItems:vidItems];
     _moviePlayer.muted = YES;
     
     _moviePlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerItemDidReachEnd:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[_moviePlayer currentItem]];
-    
+
     AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:_moviePlayer];
 
     layer.frame = self.view.bounds;
@@ -80,7 +107,27 @@
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     AVPlayerItem *p = [notification object];
-    [p seekToTime:kCMTimeZero];
+
+    [_moviePlayer advanceToNextItem];
+    
+    if (_moviePlayer.items.count == 1)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            NSString *fileName = [NSString stringWithFormat:@"intro%i", i];
+            NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"mov"];
+            NSURL *movieUrl = [NSURL fileURLWithPath:path];
+            
+            AVPlayerItem *item = [AVPlayerItem playerItemWithURL:movieUrl];
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(playerItemDidReachEnd:)
+                                                         name:AVPlayerItemDidPlayToEndTimeNotification
+                                                       object:item];
+            
+            [_moviePlayer insertItem:item afterItem:[[_moviePlayer items] lastObject]];
+        }
+    }
 }
 
 #pragma mark - Actions
@@ -108,11 +155,23 @@
                                       {
                                           NSString *accessToken = session.accessTokenData.accessToken;
                                           [[PULAccount currentUser] loginWithFacebookToken:accessToken completion:^(PULAccount *account, NSError *error) {
-                                              UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullListViewController class])];
-                                              
-                                              [self presentViewController:vc animated:YES completion:^{
-                                                  ;
-                                              }];
+                                              if (!error)
+                                              {
+                                                  UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullListViewController class])];
+                                                  
+                                                  [self presentViewController:vc animated:YES completion:^{
+                                                      ;
+                                                  }];
+                                              }
+                                              else
+                                              {
+                                                  UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Authentication Error"
+                                                                                                       message:[NSString stringWithFormat:@"There was a problem logging in: (%li) %@", error.code, error.localizedDescription]
+                                                                                                      delegate:nil
+                                                                                             cancelButtonTitle:@"Ok"
+                                                                                             otherButtonTitles: nil];
+                                                  [errorAlert show];
+                                              }
                                           }];
                                       }
                                   }];

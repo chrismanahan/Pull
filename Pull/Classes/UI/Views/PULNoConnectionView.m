@@ -12,6 +12,8 @@
 
 #import "Reachability.h"
 
+NSString * const kPULConnectionRestoredNotification = @"kPULConnectionRestoredNotification";
+
 @interface PULNoConnectionView ()
 
 @property (nonatomic, strong) Reachability *reachability;
@@ -54,16 +56,18 @@
 {
     if ([_reachability isReachable])
     {
-        PULLog(@"reachable now");
-        
         if (self.superview)
         {
             [self removeFromSuperview];
+            
+            PULLog(@"restored connection");
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPULConnectionRestoredNotification
+                                                                object:self];
         }
     }
     else
     {
-        PULLog(@"unreachable");
+        PULLog(@"connection unreachable");
         if (!self.superview)
         {
             [[self topMostController].view addSubview:self];

@@ -27,6 +27,7 @@
 @property (strong, nonatomic) id locationNotification;
 
 @property (nonatomic) BOOL didSetUp;
+@property (nonatomic) BOOL didSetUp2;
 
 @end
 
@@ -80,19 +81,21 @@
 //        }
 //    }
     
-    if (!_didSetUp)
+    
+    
+    if (!_didSetUp2 && _didSetUp)
     {
-//        CGFloat yOffset = CGRectGetMinY(_directionArrowView.frame) - CGRectGetMaxY(_distanceLabel.frame) - 8;
-//
-//        CGPoint userCenter = _userImageViewContainer.center;
-//        userCenter.x = self.view.center.x;
-//        userCenter.y -= yOffset;
-//        _userImageViewContainer.center = userCenter;
+        CGFloat yOffset = CGRectGetMinY(_directionArrowView.frame) - CGRectGetMaxY(_distanceLabel.frame) - 8;
+
+        CGPoint userCenter = _userImageViewContainer.center;
+        userCenter.x = self.view.center.x;
+        userCenter.y -= yOffset;
+        _userImageViewContainer.center = userCenter;
         
-//        CGPoint arrowCenter = _directionArrowView.center;
-//        arrowCenter.x = self.view.center.x;
-//        arrowCenter.y -= yOffset;
-//        _directionArrowView.center = arrowCenter;
+        CGPoint arrowCenter = _directionArrowView.center;
+        arrowCenter.x = self.view.center.x;
+        arrowCenter.y -= yOffset;
+        _directionArrowView.center = arrowCenter;
         
         _userImageViewContainer.translatesAutoresizingMaskIntoConstraints = YES;
         _directionArrowView.translatesAutoresizingMaskIntoConstraints = YES;
@@ -103,6 +106,7 @@
         _didSetUp = YES;
     }
     
+    _didSetUp = YES;
 }
 
 - (void)viewDidLoad
@@ -114,23 +118,23 @@
 
 - (void)_spinCompass:(UIGestureRecognizer*)gesture
 {
-    static int mult = 1;
-    CGSize offset = CGSizeMake(_userImageViewContainer.center.x - _directionArrowView.center.x, _userImageViewContainer.center.y - _directionArrowView.center.y);
-    __block CGFloat rotation = M_PI_2 * mult;
-    
-    __block CGAffineTransform tr = CGAffineTransformIdentity;
-    tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
-    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
-    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
-    
-    
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [_directionArrowView setTransform:tr];
-    } completion:^(BOOL finished) {
-        if (finished && !CGAffineTransformEqualToTransform(_directionArrowView.transform, CGAffineTransformIdentity)) {
-            [self _spinCompass:nil];
-        }
-    }];
+//    static int mult = 1;
+//    CGSize offset = CGSizeMake(_userImageViewContainer.center.x - _directionArrowView.center.x, _userImageViewContainer.center.y - _directionArrowView.center.y);
+//    __block CGFloat rotation = M_PI_2 * mult;
+//    
+//    __block CGAffineTransform tr = CGAffineTransformIdentity;
+//    tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
+//    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
+//    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
+//    
+//    
+//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+//        [_directionArrowView setTransform:tr];
+//    } completion:^(BOOL finished) {
+//        if (finished && !CGAffineTransformEqualToTransform(_directionArrowView.transform, CGAffineTransformIdentity)) {
+//            [self _spinCompass:nil];
+//        }
+//    }];
     
     
 //    [UIView animateWithDuration:0.2 animations:^{

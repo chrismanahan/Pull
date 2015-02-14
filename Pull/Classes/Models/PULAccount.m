@@ -209,7 +209,7 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
 #pragma mark - Properties
 - (void)setLocation:(CLLocation *)location
 {
-    PULLog(@"account setting location");
+    CLSLog(@"account setting location");
     
     Firebase *locRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:self.uid] childByAppendingPath:@"location"];
     [locRef setValue:@{@"lat": @(location.coordinate.latitude),

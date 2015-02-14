@@ -47,7 +47,7 @@ NSString * const kPULFriendBlockedSomeoneNotification = @"kPULFriendBlockedSomeo
         PULLog(@"starting blocked observer for %@", self.fullName);
         
         _fireRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"blocked"];
-        PULLog(@"\t%@", _fireRef);
+//        PULLog(@"\t%@", _fireRef);
         _blockObserverHandle = [_fireRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
             // check if this is me
             if (snapshot.exists)
@@ -146,7 +146,7 @@ NSString * const kPULFriendBlockedSomeoneNotification = @"kPULFriendBlockedSomeo
     UIImage *cached = [[PULCache sharedCache] objectForKey:cacheKey];
     if (cached)
     {
-        PULLog(@"loading image from cache");
+        CLSLog(@"loading image from cache");
         _image = cached;
         return cached;
     }
@@ -154,7 +154,7 @@ NSString * const kPULFriendBlockedSomeoneNotification = @"kPULFriendBlockedSomeo
     // load image from firebase
     NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", self.fbId];
     
-    PULLog(@"Fetching image for user: %@", _uid);
+    CLSLog(@"Fetching image for user: %@", _uid);
     NSURL *url = [NSURL URLWithString:userImageURL];
     NSURLRequest *req = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:req
@@ -173,7 +173,7 @@ NSString * const kPULFriendBlockedSomeoneNotification = @"kPULFriendBlockedSomeo
                                    [[PULCache sharedCache] setObject:_image forKey:cacheKey];
                                }
                                
-                               PULLog(@"Updated user image");
+                               CLSLog(@"Updated user image");
                                [[NSNotificationCenter defaultCenter] postNotificationName:kPULFriendUpdatedNotifcation object:self];
                            }];
     return nil;

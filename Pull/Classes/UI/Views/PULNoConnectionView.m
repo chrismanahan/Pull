@@ -41,7 +41,7 @@ NSString * const kPULConnectionRestoredNotification = @"kPULConnectionRestoredNo
 - (void)initializeReachability
 {
     
-    _reachability = [Reachability reachabilityWithHostName:@"google.com"];
+    _reachability = [Reachability reachabilityForInternetConnection];
     
     PULLog(@"starting reachability notifier");
     [_reachability startNotifier];
@@ -54,23 +54,49 @@ NSString * const kPULConnectionRestoredNotification = @"kPULConnectionRestoredNo
 
 - (void)reachabilityChanged:(NSNotification*)note
 {
+    NetworkStatus netStatus = [_reachability currentReachabilityStatus];
+    
+    switch (netStatus)
+    {
+        case NotReachable:
+        {
+            PULLog(@"NETWORKCHECK: Not Connected");
+            break;
+        }
+        case ReachableViaWWAN:
+        {
+            PULLog(@"NETWORKCHECK: Connected Via WWAN");
+            break;
+        }
+        case ReachableViaWiFi:
+        {
+            PULLog(@"NETWORKCHECK: Connected Via WiFi");
+            break;
+        }
+    }
+    
     if ([_reachability isReachable])
     {
         if (self.superview)
         {
+            PULLog(@"removing no connection view");
             [self removeFromSuperview];
+
             
-            PULLog(@"restored connection");
             [[NSNotificationCenter defaultCenter] postNotificationName:kPULConnectionRestoredNotification
                                                                 object:self];
+            
         }
     }
     else
     {
-        PULLog(@"connection unreachable");
         if (!self.superview)
         {
-            [[self topMostController].view addSubview:self];
+            UIView *topView = [self topMostController].view;
+            self.frame = topView.bounds;
+            [topView addSubview:self];
+            
+            PULLog(@"adding no connection view");
         }
     }
 }

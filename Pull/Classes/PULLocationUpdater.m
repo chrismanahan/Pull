@@ -168,7 +168,7 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation* loc = locations[locations.count-1];
-    PULLog(@"Updated locations: %@", locations);
+    CLSLog(@"got new location");
 
     if ([_delegate respondsToSelector:@selector(locationUpdater:didUpdateLocation:)])
     {

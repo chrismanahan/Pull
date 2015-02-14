@@ -73,10 +73,19 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     _pullRefreshImageView.animationDuration = 0.8f;
     _pullRefreshImageView.animationRepeatCount = 0;
     
-//    [[NSNotificationCenter defaultCenter] addObserver:[PULAccount currentUser]
-//                                             selector:@selector(initializeAccount)
-//                                                 name:kPULConnectionRestoredNotification
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didRestoreConnection)
+                                                 name:kPULConnectionRestoredNotification
+                                               object:nil];
+}
+
+- (void)didRestoreConnection
+{
+//    if (_refreshing)
+//    {
+//        PULLog(@"was refreshing, trying again");
+//        [self _refresh];
+//    }
 }
 
 - (void)reload
@@ -144,16 +153,17 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *friendsArray = [self p_friendArrayForSection:indexPath.section tableView:tableView];
-    PULLog(@"using friends array for cell #%zd: %@", indexPath.row, friendsArray);
+//    PULLog(@"using friends array for cell #%zd: %@", indexPath.row, friendsArray);
     
     PULUser *friend;
     if (indexPath.row < friendsArray.count)
     {
         friend = friendsArray[indexPath.row];
+        CLSLog(@"using friend (%@) for cell", friend.uid);
     }
     else
     {
-        PULLog(@"cell row (%zd) out of bounds, friendsArray.count  = %zd", friendsArray.count);
+        CLSLog(@"cell row (%zd) out of bounds, friendsArray.count  = %zd", indexPath.row, friendsArray.count);
     }
     
     

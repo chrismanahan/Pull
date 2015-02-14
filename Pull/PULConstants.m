@@ -19,3 +19,4 @@ NSString * const kPULAppSuggestionEmail = @"debugpull@gmail.com";
 NSString * const kPULAppPartnerEmail = @"debugpull@gmail.com";
 
 const float kPULDistanceUnitCutoff = 1000;
+const float kPULNearbyDistance = 30.48; // meters = 100 ft

@@ -16,3 +16,4 @@ extern NSString * const kPULAppSuggestionEmail;
 extern NSString * const kPULAppPartnerEmail;
 
 extern const float kPULDistanceUnitCutoff;
+extern const float kPULNearbyDistance;

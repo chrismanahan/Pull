@@ -1497,7 +1497,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fBe-JC-L71" userLabel="Header">
+                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fBe-JC-L71" userLabel="Header">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Kimberly Blake" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="Leu-0A-WPX" userLabel="Title label">
@@ -1535,13 +1535,13 @@
                                     <constraint firstAttribute="height" constant="64" id="jsG-nq-eZD"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="174" placeholderIntrinsicHeight="36" text="220 Feet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJ1-p9-fqk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" misplaced="YES" text="220 Feet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="BJ1-p9-fqk">
                                 <rect key="frame" x="73" y="72" width="174" height="36"/>
                                 <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="22"/>
                                 <color key="textColor" red="0.0" green="0.5568627451" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVM-ce-Lwj">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVM-ce-Lwj">
                                 <rect key="frame" x="16" y="503" width="288" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1556,8 +1556,11 @@
                                     <action selector="ibMap:" destination="RUR-0i-DXW" eventType="touchUpInside" id="35l-Qo-DT0"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" fixedFrame="YES" image="round_compass.png" translatesAutoresizingMaskIntoConstraints="NO" id="OHw-Lt-ZsN">
-                                <rect key="frame" x="30" y="111" width="260" height="255"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="round_compass.png" translatesAutoresizingMaskIntoConstraints="NO" id="OHw-Lt-ZsN">
+                                <rect key="frame" x="32" y="111" width="256" height="256"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="OHw-Lt-ZsN" secondAttribute="height" multiplier="1:1" id="6SF-Vd-fwD"/>
+                                </constraints>
                             </imageView>
                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VSI-QL-eER" customClass="PULUserImageView">
                                 <rect key="frame" x="110" y="223" width="100" height="100"/>
@@ -1584,14 +1587,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="cVM-ce-Lwj" secondAttribute="trailing" id="0l6-01-gQF"/>
+                            <constraint firstItem="OHw-Lt-ZsN" firstAttribute="width" secondItem="PKI-rX-A2I" secondAttribute="width" multiplier="0.8" id="CAj-pA-aHL"/>
                             <constraint firstAttribute="centerX" secondItem="VSI-QL-eER" secondAttribute="centerX" id="I51-P2-SOD"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="top" secondItem="PKI-rX-A2I" secondAttribute="top" id="Ife-q0-DkG"/>
                             <constraint firstItem="XMP-0k-fHl" firstAttribute="top" secondItem="cVM-ce-Lwj" secondAttribute="bottom" constant="20" id="UKG-6m-9yU"/>
+                            <constraint firstAttribute="centerX" secondItem="OHw-Lt-ZsN" secondAttribute="centerX" id="ZxC-Sn-jbc"/>
+                            <constraint firstAttribute="centerY" secondItem="VSI-QL-eER" secondAttribute="centerY" constant="11" id="bQg-OT-Z6k"/>
                             <constraint firstItem="BJ1-p9-fqk" firstAttribute="top" secondItem="fBe-JC-L71" secondAttribute="bottom" constant="8" id="cPz-Cz-o2D"/>
                             <constraint firstAttribute="trailing" secondItem="fBe-JC-L71" secondAttribute="trailing" id="cQN-FP-pe4"/>
                             <constraint firstItem="cVM-ce-Lwj" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leadingMargin" id="lW0-3k-0rm"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leading" id="lca-3j-yZm"/>
-                            <constraint firstItem="VSI-QL-eER" firstAttribute="top" secondItem="BJ1-p9-fqk" secondAttribute="bottom" constant="115" id="vLF-dN-HOM"/>
+                            <constraint firstAttribute="centerY" secondItem="OHw-Lt-ZsN" secondAttribute="centerY" constant="45.5" id="tDw-Fj-9c8"/>
+                            <constraint firstItem="VSI-QL-eER" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BJ1-p9-fqk" secondAttribute="bottom" constant="115" id="vLF-dN-HOM"/>
                             <constraint firstAttribute="centerX" secondItem="BJ1-p9-fqk" secondAttribute="centerX" id="zqI-F0-8NO"/>
                         </constraints>
                     </view>

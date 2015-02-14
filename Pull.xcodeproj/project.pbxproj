@@ -182,6 +182,9 @@
 		95CEA2B51A8E2A9D000C2686 /* learn_more_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95CEA2B31A8E2A9D000C2686 /* learn_more_arrow@2x.png */; };
 		95CEA2B61A8E2A9D000C2686 /* learn_more_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95CEA2B41A8E2A9D000C2686 /* learn_more_arrow@3x.png */; };
 		95CEA2B81A8ED42F000C2686 /* pull_splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 95CEA2B71A8ED42F000C2686 /* pull_splash.png */; };
+		95CEA2BC1A8FABA4000C2686 /* nearby_compass_full.png in Resources */ = {isa = PBXBuildFile; fileRef = 95CEA2B91A8FABA4000C2686 /* nearby_compass_full.png */; };
+		95CEA2BD1A8FABA4000C2686 /* nearby_compass_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95CEA2BA1A8FABA4000C2686 /* nearby_compass_full@2x.png */; };
+		95CEA2BE1A8FABA4000C2686 /* nearby_compass_full@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95CEA2BB1A8FABA4000C2686 /* nearby_compass_full@3x.png */; };
 		95D6661C1A7C8EEE000FAD8D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D6661B1A7C8EEE000FAD8D /* MapKit.framework */; };
 		95D6661F1A7D6A42000FAD8D /* PULMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */; };
 /* End PBXBuildFile section */
@@ -416,6 +419,9 @@
 		95CEA2B31A8E2A9D000C2686 /* learn_more_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "learn_more_arrow@2x.png"; sourceTree = "<group>"; };
 		95CEA2B41A8E2A9D000C2686 /* learn_more_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "learn_more_arrow@3x.png"; sourceTree = "<group>"; };
 		95CEA2B71A8ED42F000C2686 /* pull_splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pull_splash.png; sourceTree = "<group>"; };
+		95CEA2B91A8FABA4000C2686 /* nearby_compass_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nearby_compass_full.png; sourceTree = "<group>"; };
+		95CEA2BA1A8FABA4000C2686 /* nearby_compass_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_compass_full@2x.png"; sourceTree = "<group>"; };
+		95CEA2BB1A8FABA4000C2686 /* nearby_compass_full@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_compass_full@3x.png"; sourceTree = "<group>"; };
 		95D6661B1A7C8EEE000FAD8D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		95D6661D1A7D6A42000FAD8D /* PULMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULMapViewController.h; path = "View Controllers/PULMapViewController.h"; sourceTree = "<group>"; };
 		95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULMapViewController.m; path = "View Controllers/PULMapViewController.m"; sourceTree = "<group>"; };
@@ -946,6 +952,9 @@
 		953B05E31A899861008235EB /* compass */ = {
 			isa = PBXGroup;
 			children = (
+				95CEA2B91A8FABA4000C2686 /* nearby_compass_full.png */,
+				95CEA2BA1A8FABA4000C2686 /* nearby_compass_full@2x.png */,
+				95CEA2BB1A8FABA4000C2686 /* nearby_compass_full@3x.png */,
 				84DC7FD21A8CF5FF00D07047 /* nearby_rounded_arrow.png */,
 				84DC7FD31A8CF5FF00D07047 /* nearby_rounded_arrow@2x.png */,
 				84DC7FD41A8CF5FF00D07047 /* nearby_rounded_arrow@3x.png */,
@@ -1153,6 +1162,7 @@
 				95CEA2B61A8E2A9D000C2686 /* learn_more_arrow@3x.png in Resources */,
 				84DC7FDD1A8CF61000D07047 /* no_connection@3x.png in Resources */,
 				953B06171A8AF687008235EB /* compass_rotate_6@2x.png in Resources */,
+				95CEA2BE1A8FABA4000C2686 /* nearby_compass_full@3x.png in Resources */,
 				9532D4431A8068B800ADB840 /* menu_icon@2x.png in Resources */,
 				95169F591A870E12006D3078 /* setting_button@3x.png in Resources */,
 				953B05C61A88023D008235EB /* block_arrow@3x.png in Resources */,
@@ -1192,6 +1202,7 @@
 				952BDB771A0C4F0500C67BB5 /* LaunchScreen.xib in Resources */,
 				84DC7FD51A8CF5FF00D07047 /* nearby_rounded_arrow.png in Resources */,
 				9532D42A1A7ECF5000ADB840 /* map_pin@2x.png in Resources */,
+				95CEA2BD1A8FABA4000C2686 /* nearby_compass_full@2x.png in Resources */,
 				953B064B1A8D8CFC008235EB /* intro.mov in Resources */,
 				953B061E1A8AF687008235EB /* compass_rotate_8@3x.png in Resources */,
 				953B06401A8D89DD008235EB /* Facebook_Button_clicked@2x.png in Resources */,
@@ -1241,6 +1252,7 @@
 				953B063D1A8D89DD008235EB /* Facebook_Button.png in Resources */,
 				953B06421A8D89DD008235EB /* intro_compass@2x.png in Resources */,
 				953B06181A8AF687008235EB /* compass_rotate_6@3x.png in Resources */,
+				95CEA2BC1A8FABA4000C2686 /* nearby_compass_full.png in Resources */,
 				953B06101A8AF687008235EB /* compass_rotate_4.png in Resources */,
 				95169F3B1A86F9D0006D3078 /* home_icon@2x.png in Resources */,
 				95169F5B1A870E12006D3078 /* share_button@3x.png in Resources */,

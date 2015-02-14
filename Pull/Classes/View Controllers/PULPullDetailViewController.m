@@ -29,6 +29,10 @@
 @property (nonatomic) BOOL didSetUp;
 @property (nonatomic) BOOL didSetUp2;
 
+@property (nonatomic, strong) NSTimer *nearbyRadarTimer;
+@property (nonatomic, getter=isNearby) BOOL nearby;
+@property (nonatomic) BOOL shouldRotate;
+
 @end
 
 @implementation PULPullDetailViewController
@@ -36,40 +40,43 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    _shouldRotate = YES;
+
     // set ui based on loaded user
     CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:_user.location];
-    [self updateDistanceLabel:distance];
+    [self distanceUpdated:distance];
     
     _userImageView.image = _user.image;
     _nameLabel.text = _user.fullName;
     
-    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
+//    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
     
-    // subscribe to notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didUpdateHeading:)
-                                                 name:kPULAccountDidUpdateHeadingNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didUpdateUser:)
-                                                 name:kPULFriendUpdatedNotifcation
-                                               object:_user];
-    
-    _locationNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountDidUpdateLocationNotification
-                                                                              object:nil
-                                                                               queue:[NSOperationQueue currentQueue]
-                                                                          usingBlock:^(NSNotification *note) {
-                                                                              // update distance label
-                                                                              
-                                                                              CLLocation *loc = [note object];
-                                                                              
-                                                                              CGFloat distance = [loc distanceFromLocation:_user.location];
-                                                                              
-                                                                              [self updateDistanceLabel:distance];
-                                                                              
-                                                                          }];
+    if (!_didSetUp2 && _didSetUp)
+    {
+        // subscribe to notifications
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(didUpdateHeading:)
+                                                     name:kPULAccountDidUpdateHeadingNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(didUpdateUser:)
+                                                     name:kPULFriendUpdatedNotifcation
+                                                   object:_user];
+        
+        _locationNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountDidUpdateLocationNotification
+                                                                                  object:nil
+                                                                                   queue:[NSOperationQueue currentQueue]
+                                                                              usingBlock:^(NSNotification *note) {
+                                                                                  // update distance label
+                                                                                  
+                                                                                  CLLocation *loc = [note object];
+                                                                                  
+                                                                                  CGFloat distance = [loc distanceFromLocation:_user.location];
+                                                                                  
+                                                                                  [self distanceUpdated:distance];
+                                                                                  
+                                                                              }];
 //
 //    NSArray *stack = [NSThread callStackSymbols];
 //    // don't set up if stack contains segue
@@ -80,27 +87,23 @@
 //            return;
 //        }
 //    }
-    
-    
-    
-    if (!_didSetUp2 && _didSetUp)
-    {
-        CGFloat yOffset = CGRectGetMinY(_directionArrowView.frame) - CGRectGetMaxY(_distanceLabel.frame) - 8;
 
-        CGPoint userCenter = _userImageViewContainer.center;
-        userCenter.x = self.view.center.x;
-        userCenter.y -= yOffset;
-        _userImageViewContainer.center = userCenter;
+//        CGFloat yOffset = CGRectGetMinY(_directionArrowView.frame) - CGRectGetMaxY(_distanceLabel.frame) - 8;
+//
+//        CGPoint userCenter = _userImageViewContainer.center;
+//        userCenter.x = self.view.center.x;
+//        userCenter.y -= yOffset;
+//        _userImageViewContainer.center = userCenter;
+//        
+//        CGPoint arrowCenter = _directionArrowView.center;
+//        arrowCenter.x = self.view.center.x;
+//        arrowCenter.y -= yOffset;
+//        _directionArrowView.center = arrowCenter;
         
-        CGPoint arrowCenter = _directionArrowView.center;
-        arrowCenter.x = self.view.center.x;
-        arrowCenter.y -= yOffset;
-        _directionArrowView.center = arrowCenter;
-        
-        _userImageViewContainer.translatesAutoresizingMaskIntoConstraints = YES;
+//        _userImageViewContainer.translatesAutoresizingMaskIntoConstraints = YES;
         _directionArrowView.translatesAutoresizingMaskIntoConstraints = YES;
         
-        _userImageViewContainer.autoresizingMask = UIViewAutoresizingNone;
+//        _userImageViewContainer.autoresizingMask = UIViewAutoresizingNone;
         _directionArrowView.autoresizingMask = UIViewAutoresizingNone;
 
         _didSetUp = YES;
@@ -167,6 +170,59 @@
     [[NSNotificationCenter defaultCenter] removeObserver:_locationNotification];
 }
 
+- (void)distanceUpdated:(CGFloat)distance
+{
+    [self updateDistanceLabel:distance];
+    
+    if (distance <= kPULNearbyDistance && !_nearby)
+    {
+        _directionArrowView.image = [UIImage imageNamed:@"nearby_compass_full"];
+        _nearby = YES;
+        _directionArrowView.alpha = 0.0;
+        
+        _nearbyRadarTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                             target:self
+                                                           selector:@selector(_flashCompass)
+                                                           userInfo:nil
+                                                            repeats:YES];
+    }
+    else if (_nearby && distance > kPULNearbyDistance)
+    {
+        _directionArrowView.image = [UIImage imageNamed:@"round_compass"];
+        _nearby = NO;
+        _shouldRotate = YES;
+        _directionArrowView.alpha = 1.0;
+        
+        if (_nearbyRadarTimer)
+        {
+            [_nearbyRadarTimer invalidate];
+            _nearbyRadarTimer = nil;
+        }
+    }
+}
+
+- (void)_flashCompass
+{
+    if (_nearby)
+    {
+        _shouldRotate = NO;
+        _directionArrowView.alpha = 1.0;
+        [UIView animateWithDuration:0.3
+                              delay:0.2
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             _directionArrowView.alpha = 0.0;
+                         } completion:^(BOOL finished) {
+                             if (!_nearby)
+                             {
+                                 _directionArrowView.alpha = 1.0;
+                             }
+                             
+                             _shouldRotate = YES;
+                         }];
+    }
+}
+
 #pragma mark - UI Setters
 - (void)updateDistanceLabel:(CGFloat)distance
 {
@@ -181,7 +237,7 @@
         unit = @"Feet";
         formatString = @"%i %@";
         
-        if (convertedDistance <= 50)
+        if (convertedDistance <= kPULNearbyDistance)
         {
             showNearbyString = YES;
         }
@@ -229,30 +285,33 @@
 {
     CLHeading *heading = [notif object];
     
-    // update direction of arrow
-    CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
-                                                and:_user.location.coordinate];
-//    CGFloat head = normalizeHead(heading.trueHeading);
-    CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
-    
-    CGSize offset = CGSizeMake(_userImageViewContainer.center.x - _directionArrowView.center.x, _userImageViewContainer.center.y - _directionArrowView.center.y);
-    CGFloat rotation = rads;
-      
-    CGAffineTransform tr = CGAffineTransformIdentity;
-    tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
-    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
-    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
-    
-//    PULLog(@"rotation: %.2f", rotation);
-//    PULLog(@"\thead: %.2f", heading.trueHeading);
-//    PULLog(@"\tdegs: %.2f", degrees);
-//    PULLog(@"\thead: %.2f", head);
-    
-    [_directionArrowView setTransform:tr];
-    
-//    _directionArrowView.transform = CGAffineTransformMakeRotation(rads);
-    
-    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
+    if (_shouldRotate)
+    {
+        // update direction of arrow
+        CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
+                                                    and:_user.location.coordinate];
+    //    CGFloat head = normalizeHead(heading.trueHeading);
+        CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
+        
+        CGSize offset = CGSizeMake(_userImageViewContainer.center.x - _directionArrowView.center.x, _userImageViewContainer.center.y - _directionArrowView.center.y);
+        CGFloat rotation = rads;
+          
+        CGAffineTransform tr = CGAffineTransformIdentity;
+        tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
+        tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
+        tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
+        
+    //    PULLog(@"rotation: %.2f", rotation);
+    //    PULLog(@"\thead: %.2f", heading.trueHeading);
+    //    PULLog(@"\tdegs: %.2f", degrees);
+    //    PULLog(@"\thead: %.2f", head);
+        
+        [_directionArrowView setTransform:tr];
+        
+    //    _directionArrowView.transform = CGAffineTransformMakeRotation(rads);
+        
+    //    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
+    }
 }
 //
 //double normalizeHead(double head)
@@ -270,7 +329,7 @@
     // find distance and update label
     CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:user.location];
     
-    [self updateDistanceLabel:distance];
+    [self distanceUpdated:distance];
 }
 
 #pragma mark - Private

@@ -18,15 +18,14 @@
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
-            condition = "retUser == nil"
             continueAfterRunningActions = "No"
-            filePath = "Pull/Classes/Managers/PULPullManager.m"
-            timestampString = "443387019.372007"
+            filePath = "Pull/Classes/View Controllers/PULPullListViewController.m"
+            timestampString = "445644416.553071"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
-            landmarkName = "-p_pullFromFirebaseSnapshot:"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
+            landmarkName = "-tableView:heightForHeaderInSection:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

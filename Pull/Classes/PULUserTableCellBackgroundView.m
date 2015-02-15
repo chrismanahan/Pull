@@ -27,7 +27,7 @@ IB_DESIGNABLE
     _pulling = pulling;;
     
     _arrowImageView.hidden = !pulling;
-    
+            
 //    if (pulling)
 //    {
 //        NSString *prefix = _left ? @"arrowsPurple" : @"arrowsRed";
@@ -98,7 +98,7 @@ IB_DESIGNABLE
                 _accessoryImageViewContainer.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
                 _accessoryImageViewContainer.imageView.contentMode = UIViewContentModeScaleAspectFill;
                 [_accessoryImageViewContainer addSubview:_accessoryImageViewContainer.imageView];
-                _accessoryImageViewContainer.imageView.image = [UIImage imageNamed: !_left ? @"stop_icon" : @"pull_icon"];
+                _accessoryImageViewContainer.imageView.image = [UIImage imageNamed: !_left ? @"stop_shadow" : @"pull_shadow"];
                 
                 [self insertSubview:_accessoryImageViewContainer belowSubview:view];
             }

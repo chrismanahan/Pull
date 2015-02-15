@@ -163,6 +163,7 @@
         (_type == PULUserCellTypeNearby || _type == PULUserCellTypePulled))
     {
         self.bgView.pulling = YES;
+        self.userImageViewContainer.selected = YES;
         [self.bgView setNeedsDisplay];
         
 //        UIColor *borderColor;
@@ -177,7 +178,7 @@
 //        
 //        _userImageViewContainer.borderColor = borderColor;
 //        
-        [_userImageViewContainer setNeedsDisplay];
+//        [_userImageViewContainer setNeedsDisplay];
         
         // hide some ui
         [self _hideLabels:YES];
@@ -271,7 +272,7 @@
             
             self.bgView.pulling = NO;
 //            _userImageViewContainer.borderColor = nil;
-            [_userImageViewContainer setNeedsDisplay];
+           self.userImageViewContainer.selected = NO;
             
             // show hidden ui
             [self _hideLabels:NO];

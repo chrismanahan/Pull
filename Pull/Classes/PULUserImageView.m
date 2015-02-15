@@ -16,6 +16,7 @@
 {
     _selected = selected;
     
+    [self setNeedsLayout];
     [self setNeedsDisplay];
 }
 
@@ -38,7 +39,7 @@
     self.imageView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
     self.imageView.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
     
-    NSInteger offset = _hasBorder ? 12 : 0;
+    NSInteger offset = _hasBorder ? 12 : _selected ? 1 : 0;
     CAShapeLayer *circle = [CAShapeLayer layer];
     // Make a circular shape
     UIBezierPath *circularPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(offset / 2, offset / 2, self.imageView.frame.size.width - offset, self.imageView.frame.size.height - offset) cornerRadius:MAX(self.imageView.frame.size.width, self.imageView.frame.size.height)];
@@ -62,7 +63,12 @@
     rect = CGRectInset(rect, 2, 2);
     CGContextRef ref = UIGraphicsGetCurrentContext();
     
-    CGContextSetShadow(ref, CGSizeMake(0, 2), 2);
+    CGContextSaveGState(ref);
+    
+    if (_selected || _hasBorder)
+    {
+        CGContextSetShadow(ref, CGSizeMake(0, 2), 2);
+    }
     
     CGColorRef color = [UIColor whiteColor].CGColor;
 //    if (!_selected)
@@ -77,6 +83,8 @@
     CGContextSetFillColorWithColor(ref, color);
     
     CGContextFillEllipseInRect(ref, rect);
+    
+    CGContextRestoreGState(ref);
 }
 
 #pragma mark - NSCopying

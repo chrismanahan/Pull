@@ -61,6 +61,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 - (void)viewDidLoad
 {
     _loadingIndicator = [PULLoadingIndicator indicatorOnView:self.view];
+    _loadingIndicator.title = @"Loading";
     [_loadingIndicator show];
     
     // inset the table view to give it the slide under header effect
@@ -377,7 +378,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
                         // looks like they were. lets tell them how to use pull
                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hmmm"
                                                                         message:@"To start a pull with a friend, hold and drag their picture to the right"
-                                                                       delegate:nil 
+                                                                       delegate:nil
                                                               cancelButtonTitle:@"Got it"
                                                               otherButtonTitles:nil];
                         [alert show];
@@ -446,8 +447,6 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 
 - (void)userCellDidCompletePulling:(PULUserCell *)cell
 {
-    [_loadingIndicator show];
-    
     _friendTableView.scrollEnabled = YES;
     
     PULUser *friend = cell.user;
@@ -456,11 +455,15 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     
     if ([friendMan.nearbyFriends containsObject:friend])
     {
+        _loadingIndicator.title = @"Pulling";
+        
         // pull friend
         [[PULAccount currentUser].pullManager sendPullToUser:friend];
     }
     else
     {
+        _loadingIndicator.title = @"Stopping Pull";
+        
         [[PULAccount currentUser].pullManager unpullUser:friend];
         
         [[[UIAlertView alloc] initWithTitle:@"Pull Stopped"
@@ -470,11 +473,14 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
                           otherButtonTitles: nil] show];
     }
     
+    [_loadingIndicator show];
+    
     [_friendTableView reloadData];
 }
 
 - (void)userCellDidDeclinePull:(PULUserCell *)cell
 {
+    _loadingIndicator.title = @"Declining Pull";
     [_loadingIndicator show];
     
      [[PULAccount currentUser].pullManager unpullUser:cell.user];
@@ -490,6 +496,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 
 - (void)userCellDidAcceptPull:(PULUserCell *)cell
 {
+    _loadingIndicator.title = @"Accepting Pull";
     [_loadingIndicator show];
     
     [[PULAccount currentUser].pullManager acceptPullFromUser:cell.user];
@@ -499,6 +506,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 
 - (void)userCellDidCancelPull:(PULUserCell *)cell
 {
+    _loadingIndicator.title = @"Canceling Pull";
     [_loadingIndicator show];
     
     [[PULAccount currentUser].pullManager unpullUser:cell.user];

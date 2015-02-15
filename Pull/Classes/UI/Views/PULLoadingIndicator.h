@@ -10,6 +10,8 @@
 
 @interface PULLoadingIndicator : UIView
 
+@property (nonatomic, strong) NSString *title;
+
 + (instancetype)indicatorOnView:(UIView*)onView;
 
 - (void)show;

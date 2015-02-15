@@ -70,13 +70,13 @@
 - (void)startAnimating {
     if (!self.isAnimating) {
         [self addCircles];
-        [self addImageView];
+        [self addLoadingBar];
         self.hidden = NO;
         self.isAnimating = YES;
     }
 }
 
-- (void)addImageView
+- (void)addLoadingBar
 {
 
     CGFloat padding = 20;
@@ -86,9 +86,17 @@
     CGFloat x= CGRectGetMinX(_container) + padding / 2;
     CGRect frame = CGRectMake(x, y, width, height);
     _imageView = [[UIImageView alloc] initWithFrame:frame];
-    _imageView.image = [UIImage imageNamed:@"loading_bar"];
+    _imageView.image = [UIImage imageNamed:@"loading_blank"];
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:_imageView];
+    
+    frame.origin = CGPointZero;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectInset(frame, 4, 2)];
+    label.text = _title;
+    label.textColor = [UIColor whiteColor];
+    label.font = [UIFont fontWithName:@"Avenir-Heavy" size:26.0];
+    label.textAlignment = NSTextAlignmentCenter;
+    [_imageView addSubview:label];
 }
 
 - (void)stopAnimating {

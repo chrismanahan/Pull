@@ -27,12 +27,14 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 @property (nonatomic, strong) IBOutlet UITableView *friendTableView;
 @property (nonatomic, strong) IBOutlet UITableView *friendRequestTableView;
 @property (nonatomic, strong) IBOutlet UICollectionView *farFriendsCollectionView;
-@property (strong, nonatomic) IBOutlet UIImageView *pullRefreshImageView;
+//@property (strong, nonatomic) IBOutlet UIImageView *pullRefreshImageView;
 
 @property (nonatomic, strong) PULLoadingIndicator *loadingIndicator;
 
-@property (nonatomic, assign) BOOL refreshing;
-@property (nonatomic, assign) BOOL shouldRefresh;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopContraint;
+
+//@property (nonatomic, assign) BOOL refreshing;
+//@property (nonatomic, assign) BOOL shouldRefresh;
 
 @end
 
@@ -61,51 +63,55 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     _loadingIndicator = [PULLoadingIndicator indicatorOnView:self.view];
     [_loadingIndicator show];
     
-    _pullRefreshImageView.hidden = YES;
-    _pullRefreshImageView.animationImages = @[[UIImage imageNamed:@"compass_rotate_1"],
-                                              [UIImage imageNamed:@"compass_rotate_2"],
-                                              [UIImage imageNamed:@"compass_rotate_3"],
-                                              [UIImage imageNamed:@"compass_rotate_4"],
-                                              [UIImage imageNamed:@"compass_rotate_5"],
-                                              [UIImage imageNamed:@"compass_rotate_6"],
-                                              [UIImage imageNamed:@"compass_rotate_7"],
-                                              [UIImage imageNamed:@"compass_rotate_8"]];
-    _pullRefreshImageView.animationDuration = 0.8f;
-    _pullRefreshImageView.animationRepeatCount = 0;
+    // inset the table view to give it the slide under header effect
+    _tableViewTopContraint.constant = -64;
+    _friendTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didRestoreConnection)
-                                                 name:kPULConnectionRestoredNotification
-                                               object:nil];
+//    _pullRefreshImageView.hidden = YES;
+//    _pullRefreshImageView.animationImages = @[[UIImage imageNamed:@"compass_rotate_1"],
+//                                              [UIImage imageNamed:@"compass_rotate_2"],
+//                                              [UIImage imageNamed:@"compass_rotate_3"],
+//                                              [UIImage imageNamed:@"compass_rotate_4"],
+//                                              [UIImage imageNamed:@"compass_rotate_5"],
+//                                              [UIImage imageNamed:@"compass_rotate_6"],
+//                                              [UIImage imageNamed:@"compass_rotate_7"],
+//                                              [UIImage imageNamed:@"compass_rotate_8"]];
+//    _pullRefreshImageView.animationDuration = 0.8f;
+//    _pullRefreshImageView.animationRepeatCount = 0;
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(didRestoreConnection)
+//                                                 name:kPULConnectionRestoredNotification
+//                                               object:nil];
 }
 
-- (void)didRestoreConnection
-{
-//    if (_refreshing)
-//    {
-//        PULLog(@"was refreshing, trying again");
-//        [self _refresh];
-//    }
-}
+//- (void)didRestoreConnection
+//{
+////    if (_refreshing)
+////    {
+////        PULLog(@"was refreshing, trying again");
+////        [self _refresh];
+////    }
+//}
 
 - (void)reload
 {
     [_loadingIndicator hide];
     
-    if (_refreshing)
-    {
-        [_friendTableView setScrollEnabled:YES];
-        _friendTableView.userInteractionEnabled = YES;
-        [UIView animateWithDuration:0.2 animations:^{
-            _friendTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-            _pullRefreshImageView.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            [_pullRefreshImageView stopAnimating];
-            _pullRefreshImageView.hidden = YES;
-        }];
-        
-        _refreshing = NO;
-    }
+//    if (_refreshing)
+//    {
+//        [_friendTableView setScrollEnabled:YES];
+//        _friendTableView.userInteractionEnabled = YES;
+//        [UIView animateWithDuration:0.2 animations:^{
+//            _friendTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//            _pullRefreshImageView.alpha = 0.0;
+//        } completion:^(BOOL finished) {
+//            [_pullRefreshImageView stopAnimating];
+//            _pullRefreshImageView.hidden = YES;
+//        }];
+//        
+//        _refreshing = NO;
+//    }
     
     
     PULLog(@"reloading friends tables");
@@ -113,27 +119,27 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 //    [_friendRequestTableView reloadData];
 }
 
-- (void)_refresh
-{
-    PULLog(@"is refreshing");
-    
-    [_friendTableView setScrollEnabled:NO];
-    _friendTableView.userInteractionEnabled = NO;
-   
-    CGFloat height = CGRectGetHeight(_pullRefreshImageView.frame);
-
-    _pullRefreshImageView.hidden = NO;
-    _pullRefreshImageView.alpha = 0.0;
-    [_pullRefreshImageView startAnimating];
-    [UIView animateWithDuration:0.2 animations:^{
-        _friendTableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
-        _pullRefreshImageView.alpha = 1.0;
-    }];
-    
-    [[PULAccount currentUser] initializeAccount];
-    
-    _refreshing = YES;
-}
+//- (void)_refresh
+//{
+//    PULLog(@"is refreshing");
+//    
+//    [_friendTableView setScrollEnabled:NO];
+//    _friendTableView.userInteractionEnabled = NO;
+//   
+//    CGFloat height = CGRectGetHeight(_pullRefreshImageView.frame);
+//
+//    _pullRefreshImageView.hidden = NO;
+//    _pullRefreshImageView.alpha = 0.0;
+//    [_pullRefreshImageView startAnimating];
+//    [UIView animateWithDuration:0.2 animations:^{
+//        _friendTableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
+//        _pullRefreshImageView.alpha = 1.0;
+//    }];
+//    
+//    [[PULAccount currentUser] initializeAccount];
+//    
+//    _refreshing = YES;
+//}
 
 #pragma mark - Actions
 - (IBAction)unwindFromViewController:(UIStoryboardSegue *)sender {
@@ -407,25 +413,25 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 //    }
 }
 
-#pragma mark  - scroll delegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView.contentOffset.y < -100 && !_refreshing && !_shouldRefresh)
-    {
-        _shouldRefresh = YES;
-    }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    if (_shouldRefresh)
-    {
-        [self _refresh];
-        
-        _shouldRefresh = NO;
-    }
-
-}
+//#pragma mark  - scroll delegate
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    if (scrollView.contentOffset.y < -100 && !_refreshing && !_shouldRefresh)
+//    {
+//        _shouldRefresh = YES;
+//    }
+//}
+//
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+//{
+//    if (_shouldRefresh)
+//    {
+//        [self _refresh];
+//        
+//        _shouldRefresh = NO;
+//    }
+//
+//}
 
 #pragma mark - User cell delegate
 - (void)userCellDidAbortPulling:(PULUserCell *)cell

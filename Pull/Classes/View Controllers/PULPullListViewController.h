@@ -10,6 +10,6 @@
 
 #import "PULUserCell.h"
 
-@interface PULPullListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, PULUserCellDelegate>
+@interface PULPullListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, PULUserCellDelegate>
 
 @end

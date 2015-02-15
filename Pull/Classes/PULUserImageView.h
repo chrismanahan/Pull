@@ -15,5 +15,6 @@
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
 
 @property (nonatomic, strong) UIColor *borderColor;
+@property (nonatomic, assign) BOOL hasBorder;
 
 @end

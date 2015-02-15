@@ -350,17 +350,36 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
             }
             case 1: // pending users
             {
-//                [[PULAccount currentUser].pullManager acceptPullFromUser:friend];
                 break;
             }
             case 2: // invited users
             {
-            //    [[PULAccount currentUser].pullManager unpullUser:friend];
                 break;
             }
             case 3:     // unpulled users
             {
-//                [[PULAccount currentUser].pullManager sendPullToUser:friend];
+                BOOL didAlert = [[NSUserDefaults standardUserDefaults] boolForKey:@"DidAlertHintKey"];
+                
+                if (!didAlert && [PULAccount currentUser].pullManager.pulls.count == 0)
+                {
+                    // we need to check if the user is just tapping around
+                    static int tapCount = 0;
+                    
+                    tapCount++;
+                    if (tapCount == 2)
+                    {
+                        // looks like they were. lets tell them how to use pull
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hmmm"
+                                                                        message:@"To start a pull with a friend, hold and drag their picture to the right"
+                                                                       delegate:nil 
+                                                              cancelButtonTitle:@"Got it"
+                                                              otherButtonTitles:nil];
+                        [alert show];
+                        
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DidAlertHintKey"];
+                    }
+                }
+                
                 break;
             }
                 default:

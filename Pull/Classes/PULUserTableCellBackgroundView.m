@@ -92,6 +92,7 @@ IB_DESIGNABLE
             {
                 _accessoryImageViewContainer = [[PULUserImageView alloc] initWithFrame:view.frame];
                 _accessoryImageViewContainer.hidden = YES;
+                _accessoryImageViewContainer.hasBorder = YES;
                 _accessoryImageViewContainer.borderColor = [UIColor whiteColor];
                 
                 _accessoryImageViewContainer.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];

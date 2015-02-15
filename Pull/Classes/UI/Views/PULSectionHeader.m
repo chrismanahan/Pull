@@ -38,11 +38,12 @@ const CGFloat kPULSectionHeaderHeight = 25;
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, kPULSectionHeaderHeight - 2)];
         label.text = title;
         label.textColor = color;
-        label.font = [UIFont fontWithName:@"Avenir" size:16];
+        label.font = [UIFont fontWithName:@"Avenir-Heavy" size:16];
         [label sizeToFit];
         
         CGPoint center = label.center;
         center.x = CGRectGetMidX(self.frame);
+        center.y += 1;
         label.center = center;
 
         self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];

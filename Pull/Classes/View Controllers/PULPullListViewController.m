@@ -251,39 +251,39 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     return 0;
 }
 
-- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSString *title = @"";
-    
-    if (tableView == _friendTableView)
-    {
-        switch (section)
-        {
-            case 0: title = @"Pulled"; break;
-            case 1: title = @"Pending Pulls"; break;
-            case 2: title = @"Waiting on Pulls"; break;
-            case 3: title = @"Nearby"; break;
-            case 4: title = @"Far Away"; break;
-                
-        }
-    }
-    else if (tableView == _friendRequestTableView)
-    {
-        switch (section)
-        {
-            case 0: title = @"Friend Requests"; break;
-            case 1: title = @"Waiting on Friends"; break;
-        }
-    }
-    
-    if ([self p_friendArrayForSection:section tableView:tableView].count == 0)
-    {
-        // don't show a title if nothing in section
-        title = nil;
-    }
-    
-    return title;
-}
+//- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    NSString *title = @"";
+//    
+//    if (tableView == _friendTableView)
+//    {
+//        switch (section)
+//        {
+//            case 0: title = @"Pulled"; break;
+//            case 1: title = @"Pending Pulls"; break;
+//            case 2: title = @"Requested Pulls"; break;
+//            case 3: title = @"Nearby"; break;
+//            case 4: title = @"Far Away"; break;
+//                
+//        }
+//    }
+//    else if (tableView == _friendRequestTableView)
+//    {
+//        switch (section)
+//        {
+//            case 0: title = @"Friend Requests"; break;
+//            case 1: title = @"Waiting on Friends"; break;
+//        }
+//    }
+//    
+//    if ([self p_friendArrayForSection:section tableView:tableView].count == 0)
+//    {
+//        // don't show a title if nothing in section
+//        title = nil;
+//    }
+//    
+//    return title;
+//}
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -294,7 +294,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     {
         case 0: title = @"Pulled"; break;
         case 1: title = @"Pending Pulls"; break;
-        case 2: title = @"Waiting on Pulls"; break;
+        case 2: title = @"Requested Pulls"; break;
         case 3: title = @"Nearby"; break;
         case 4: title = @"Far Away"; break;
     }

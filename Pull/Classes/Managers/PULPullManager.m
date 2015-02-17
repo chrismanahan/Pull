@@ -265,13 +265,12 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
                     if (--blocksToRun == 0)
                     {
                         PULLog(@"Added pull to my pulls");
-                        // we're done, start observing pull's status
-                        [pull startObserving];
                         
                         // add to pull array
                         [_pulls addObject:pull];
                         
                         pull.delegate = self;
+                        // we're done, start observing pull's status
                         [pull startObserving];
                         
                         // send push

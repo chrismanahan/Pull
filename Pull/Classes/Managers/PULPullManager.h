@@ -56,6 +56,7 @@
 - (void)sendPullToUser:(PULUser*)user;
 - (void)acceptPullFromUser:(PULUser*)user;
 - (void)unpullUser:(PULUser*)user;
+- (void)unpullEveryone;
 - (void)suspendPullWithUser:(PULUser*)user;
 - (void)resumePullWithUser:(PULUser*)user;
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -31,7 +31,18 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7kr-p3-cRz" userLabel="video container">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient_background.png" translatesAutoresizingMaskIntoConstraints="NO" id="rbk-yJ-y32">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                            </imageView>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="rbk-yJ-y32" firstAttribute="leading" secondItem="7kr-p3-cRz" secondAttribute="leading" id="BSh-Uy-mQF"/>
+                                            <constraint firstItem="rbk-yJ-y32" firstAttribute="top" secondItem="7kr-p3-cRz" secondAttribute="top" id="C5q-CL-5bt"/>
+                                            <constraint firstAttribute="trailing" secondItem="rbk-yJ-y32" secondAttribute="trailing" id="he1-RL-CqU"/>
+                                            <constraint firstAttribute="bottom" secondItem="rbk-yJ-y32" secondAttribute="bottom" id="oFB-hH-Ubb"/>
+                                        </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ot-Cb-IpS">
                                         <rect key="frame" x="72" y="335" width="176" height="33"/>
@@ -74,9 +85,9 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" misplaced="YES" image="intro_compass.png" translatesAutoresizingMaskIntoConstraints="NO" id="dJM-Dj-Mjc">
                                                 <rect key="frame" x="27" y="80" width="267" height="300"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull is a compass that guides you to friends (even in crowds)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzC-id-Xjj">
-                                                <rect key="frame" x="8" y="28" width="304" height="41"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull is a compass that guides you to friends" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzC-id-Xjj">
+                                                <rect key="frame" x="8" y="28" width="304" height="55"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -98,9 +109,9 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" misplaced="YES" image="intro_friends.png" translatesAutoresizingMaskIntoConstraints="NO" id="StD-sh-KL4">
                                                 <rect key="frame" x="27" y="80" width="267" height="300"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull shows you which Facebook friends are nearby" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bly-97-AlW">
-                                                <rect key="frame" x="8" y="28" width="304" height="41"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull shows you which Facebook friends are nearby" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bly-97-AlW">
+                                                <rect key="frame" x="8" y="28" width="304" height="55"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -119,12 +130,12 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0a-jZ-hLl" userLabel="view 4">
                                         <rect key="frame" x="960" y="0.0" width="320" height="568"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" misplaced="YES" image="intro_location.png" translatesAutoresizingMaskIntoConstraints="NO" id="W1Z-hW-cgd">
-                                                <rect key="frame" x="27" y="80" width="267" height="300"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="intro_location.png" translatesAutoresizingMaskIntoConstraints="NO" id="W1Z-hW-cgd">
+                                                <rect key="frame" x="8" y="118" width="304" height="259"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location sharing begins when both friends agree, and stops after 6 hours of inactivity" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5B4-oX-dKq">
-                                                <rect key="frame" x="8" y="28" width="304" height="41"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location sharing begins when both friends agree, and stops after 6 hours of inactivity" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrN-bB-PwP">
+                                                <rect key="frame" x="8" y="28" width="304" height="82"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -133,11 +144,11 @@
                                         <constraints>
                                             <constraint firstItem="W1Z-hW-cgd" firstAttribute="leading" secondItem="T0a-jZ-hLl" secondAttribute="leading" constant="8" id="1DW-fI-IZi"/>
                                             <constraint firstAttribute="trailing" secondItem="W1Z-hW-cgd" secondAttribute="trailing" constant="8" id="2zW-00-4Am"/>
-                                            <constraint firstItem="5B4-oX-dKq" firstAttribute="leading" secondItem="T0a-jZ-hLl" secondAttribute="leading" constant="8" id="H1G-S2-a53"/>
-                                            <constraint firstItem="5B4-oX-dKq" firstAttribute="top" secondItem="T0a-jZ-hLl" secondAttribute="top" constant="28" id="J0j-He-sNQ"/>
-                                            <constraint firstItem="W1Z-hW-cgd" firstAttribute="top" secondItem="5B4-oX-dKq" secondAttribute="bottom" constant="8" id="ffc-f8-ir5"/>
-                                            <constraint firstAttribute="trailing" secondItem="5B4-oX-dKq" secondAttribute="trailing" constant="8" id="hWO-RJ-1QJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="xrN-bB-PwP" secondAttribute="trailing" constant="8" id="4gO-DC-rEl"/>
+                                            <constraint firstItem="xrN-bB-PwP" firstAttribute="top" secondItem="T0a-jZ-hLl" secondAttribute="top" constant="28" id="c57-pC-G7w"/>
                                             <constraint firstAttribute="bottom" secondItem="W1Z-hW-cgd" secondAttribute="bottom" constant="191" id="qx5-Di-rI2"/>
+                                            <constraint firstItem="W1Z-hW-cgd" firstAttribute="top" secondItem="xrN-bB-PwP" secondAttribute="bottom" constant="8" id="rIL-zA-OgR"/>
+                                            <constraint firstItem="xrN-bB-PwP" firstAttribute="leading" secondItem="T0a-jZ-hLl" secondAttribute="leading" constant="8" id="uml-It-BbA"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -695,12 +706,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jTx-IR-N7O" userLabel="header view">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dau-8m-jM3">
-                                        <rect key="frame" x="134" y="23" width="52" height="28"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
-                                        <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bj2-eY-WpI">
                                         <rect key="frame" x="264" y="16" width="48" height="48"/>
                                         <constraints>
@@ -716,6 +721,12 @@
                                             <segue destination="OO3-Al-pkh" kind="unwind" unwindAction="unwindFromViewController:" id="is5-Th-xEk"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Menu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dau-8m-jM3">
+                                        <rect key="frame" x="132" y="24" width="57" height="31"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
+                                        <color key="textColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1080,12 +1091,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PG3-x9-rhX" userLabel="header">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0V-jB-dlA">
-                                        <rect key="frame" x="101" y="23" width="118" height="28"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6n5-P9-0XA">
                                         <rect key="frame" x="267" y="20" width="45" height="37"/>
                                         <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="18"/>
@@ -1097,6 +1102,12 @@
                                             <action selector="ibDone:" destination="5NZ-nN-ZGk" eventType="touchUpInside" id="iey-oX-o1O"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="App Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0V-jB-dlA">
+                                        <rect key="frame" x="101" y="24" width="118" height="28"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1148,8 +1159,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Block Users" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mlt-ZJ-tAc">
-                                        <rect key="frame" x="108" y="23" width="104" height="28"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
+                                        <rect key="frame" x="98" y="21" width="125" height="33"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1356,9 +1367,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YrZ-ED-PlS" userLabel="header">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms &amp; Conditions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwq-JR-Oop">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Terms &amp; Conditions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwq-JR-Oop">
                                         <rect key="frame" x="72" y="23" width="177" height="28"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1424,8 +1435,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0n-2M-a7A">
-                                        <rect key="frame" x="99" y="23" width="122" height="28"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
+                                        <rect key="frame" x="87" y="21" width="146" height="33"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1710,6 +1721,7 @@
         <image name="circleButtonBackground.png" width="100" height="100"/>
         <image name="circleButtonBackgroundPressed.png" width="50" height="50"/>
         <image name="contact_button.png" width="50" height="47"/>
+        <image name="gradient_background.png" width="1274" height="1899"/>
         <image name="home_icon.png" width="37" height="45"/>
         <image name="intro_compass.png" width="501" height="679"/>
         <image name="intro_friends.png" width="718" height="679"/>
@@ -1720,7 +1732,7 @@
         <image name="pull_text_white.png" width="475" height="474"/>
         <image name="purpleButtonClicked.png" width="320" height="59"/>
         <image name="purpleButtonNormal.png" width="320" height="59"/>
-        <image name="round_compass.png" width="133" height="173"/>
+        <image name="round_compass.png" width="237" height="311"/>
         <image name="setting_button.png" width="50" height="47"/>
         <image name="share_button.png" width="50" height="47"/>
         <image name="stop_arrow_shadow.png" width="86" height="30"/>

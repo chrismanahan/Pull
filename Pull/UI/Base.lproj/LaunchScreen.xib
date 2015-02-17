@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pul_splash.png" translatesAutoresizingMaskIntoConstraints="NO" id="Gk5-zY-Sek">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spalsh_6plus.png" translatesAutoresizingMaskIntoConstraints="NO" id="Gk5-zY-Sek">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
             </subviews>
@@ -28,7 +28,7 @@
         </view>
     </objects>
     <resources>
-        <image name="pul_splash.png" width="884" height="1320"/>
+        <image name="Spalsh_6plus.png" width="1251" height="2081"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

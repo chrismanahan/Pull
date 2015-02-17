@@ -14,6 +14,8 @@
 #import "PULConstants.h"
 #import "CGGeometry+Pull.h"
 
+#import "PULUserImageView.h"
+
 #import <CoreLocation/CoreLocation.h>
 
 @interface PULPullDetailViewController ()
@@ -22,7 +24,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *directionArrowView;
 @property (strong, nonatomic) IBOutlet UIImageView *userImageView;
-@property (strong, nonatomic) IBOutlet UIView *userImageViewContainer;
+@property (strong, nonatomic) IBOutlet PULUserImageView *userImageViewContainer;
 
 @property (strong, nonatomic) id locationNotification;
 
@@ -48,6 +50,8 @@
     
     _userImageView.image = _user.image;
     _nameLabel.text = _user.fullName;
+    
+    _userImageViewContainer.hasBorder = YES;
     
 //    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
     

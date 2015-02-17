@@ -139,7 +139,7 @@ IB_DESIGNABLE
     
     CGContextRef ref = UIGraphicsGetCurrentContext();
     
-    CGContextSetShadow(ref, CGSizeMake(0, 3), 5.0);
+    CGContextSetShadow(ref, CGSizeMake(0, 2), 3.5);
     
     UIColor *color = _bgColor ?: [UIColor whiteColor];
     CGContextSetFillColorWithColor(ref, color.CGColor);

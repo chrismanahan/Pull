@@ -330,6 +330,18 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     }
 }
 
+- (PULUser*)_otherUserInPull:(PULPull*)pull
+{
+    if ([pull.receivingUser isEqual:[PULAccount currentUser]])
+    {
+        return pull.sendingUser;
+    }
+    else
+    {
+        return pull.receivingUser;
+    }
+}
+
 - (void)suspendPullWithUser:(PULUser*)user
 {
     NSParameterAssert(user);
@@ -478,35 +490,45 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
 - (void)p_removePull:(PULPull*)pull
 {
     PULLog(@"Removing pull: %@", pull);
-    [pull stopObserving];
-    // remove from _pulls
-    [_pulls removeObject:pull];
     
-    __block NSInteger blocksToRun = 3;
-    void (^removeBlock)(NSError *error, Firebase *ref) = ^void(NSError *error, Firebase *ref){
-        if (![PULError handleError:error target:_delegate selector:@selector(pullManagerEncounteredError:) object:error])
-        {
-            PULLog(@"Removed pull");
-            
-            if (--blocksToRun == 0)
+    if ([_pulls containsObject:pull])
+    {
+        
+        [pull stopObserving];
+        // remove from _pulls
+        [_pulls removeObject:pull];
+        
+        __block NSInteger blocksToRun = 3;
+        void (^removeBlock)(NSError *error, Firebase *ref) = ^void(NSError *error, Firebase *ref){
+            if (![PULError handleError:error target:_delegate selector:@selector(pullManagerEncounteredError:) object:error])
             {
-                if ([_delegate respondsToSelector:@selector(pullManagerDidRemovePull)])
+                PULLog(@"Removed pull");
+                
+                if (--blocksToRun == 0)
                 {
-                    [_delegate pullManagerDidRemovePull];
+                    if ([_delegate respondsToSelector:@selector(pullManagerDidRemovePull)])
+                    {
+                        [_delegate pullManagerDidRemovePull];
+                    }
                 }
             }
-        }
-    };
+        };
 
-    
-    Firebase *pullsRef = [[_fireRef childByAppendingPath:@"pulls"] childByAppendingPath:pull.uid];
-    [pullsRef removeValueWithCompletionBlock:removeBlock];
-    
-    Firebase *sendRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:pull.sendingUser.uid] childByAppendingPath:@"pulls"] childByAppendingPath:pull.uid];
-    Firebase *recRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:pull.receivingUser.uid] childByAppendingPath:@"pulls"] childByAppendingPath:pull.uid];
-    
-    [sendRef removeValueWithCompletionBlock:removeBlock];
-    [recRef removeValueWithCompletionBlock:removeBlock];
+        
+        Firebase *pullsRef = [[_fireRef childByAppendingPath:@"pulls"] childByAppendingPath:pull.uid];
+        [pullsRef removeValueWithCompletionBlock:removeBlock];
+        
+        Firebase *sendRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:pull.sendingUser.uid] childByAppendingPath:@"pulls"] childByAppendingPath:pull.uid];
+        Firebase *recRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:pull.receivingUser.uid] childByAppendingPath:@"pulls"] childByAppendingPath:pull.uid];
+        
+        [sendRef removeValueWithCompletionBlock:removeBlock];
+        [recRef removeValueWithCompletionBlock:removeBlock];
+    }
+    else
+    {
+        PULLog(@"issue removing pull, leaving it for now: %@", pull);
+        PULLog(@"current pull array: %@", _pulls);
+    }
 }
 
 /**

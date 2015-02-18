@@ -12,6 +12,8 @@
 
 #import "PULConstants.h"
 
+//#import <Firebase/Firebase.h>
+
 #import <UIKit/UIKit.h>
 
 // constants
@@ -116,11 +118,15 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [_locationManager startUpdatingLocation];
         
+//        Firebase *fire = [[Firebase alloc] initWithUrl:@"https://pull.firebaseio.com/users/facebook:10152578194302952/debug"];
         __block int count = 0;
         while (YES && _backgroundTask != UIBackgroundTaskInvalid) {
             if (count % 5 == 0)
             {
                  PULLog(@"Background time Remaining: %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+                
+//                NSString *test = [NSString stringWithFormat:@"%i", count];
+//                [fire setValue:test];
             }
             count++;
             [NSThread sleepForTimeInterval:1];

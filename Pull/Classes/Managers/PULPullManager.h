@@ -20,6 +20,7 @@
 
 - (void)pullManagerDidLoadPulls:(NSArray*)pulls;
 - (void)pullManagerDidReceivePull:(PULPull*)pull;
+- (void)pullManagerDidTryToReceivePull;
 - (void)pullManagerDidSendPull:(PULPull*)pull;
 - (void)pullManagerDidRemovePull;
 - (void)pullManagerDidDetectPullStatusChange:(PULPull*)pull;

@@ -11,10 +11,12 @@
 
 #import "PULAccount.h"
 
+#import "PULLoadingIndicator.h"
+
 #import "PULSlideUnwindSegue.h"
 #import "PULReverseModal.h"
 
-@interface PULSettingsViewController ()
+@interface PULSettingsViewController () <UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UISwitch *notifInviteSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *notifAcceptSwitch;
@@ -107,6 +109,35 @@
                                                  }];
     
     [seg perform];
+}
+
+- (IBAction)ibDisableAccount:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Disable Account"
+                                message:@"Are you sure you want to disable your account? Your existing pulls will be stopped and your friends won't see you anymore. Your account will be enabled again next time you log in"
+                               delegate:self
+                      cancelButtonTitle:@"No!"
+                                          otherButtonTitles:@"I'm sure", nil];
+    alert.tag = 400;
+    [alert show];
+}
+
+#pragma mark - alert view delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        PULLoadingIndicator *ai = [PULLoadingIndicator indicatorOnView:self.view];
+        ai.title = @"Disabling";
+        [ai show];
+        // disable account
+        [[PULAccount currentUser].pullManager unpullEveryone];
+        [PULAccount currentUser].settings.disabled = YES;
+        [[PULAccount currentUser] saveUserCompletion:^{
+            [ai hide];
+            [self ibLogout:nil];
+        }];
+    }
 }
 
 @end

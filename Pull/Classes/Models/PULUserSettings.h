@@ -13,6 +13,8 @@
 @property (nonatomic, assign) BOOL notifyInvite;
 @property (nonatomic, assign) BOOL notifyAccept;
 
+@property (nonatomic, assign, getter=isDisabled) BOOL disabled;
+
 - (instancetype)initFromFirebase:(NSDictionary*)dict;
 
 @end

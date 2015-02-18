@@ -54,6 +54,8 @@ extern NSString * const kPULAccountDidUpdateHeadingNotification;
  */
 - (void)saveUser;
 
+- (void)saveUserCompletion:(void(^)())completion;
+
 /**
  *  Initializes account by getting friends from firebase and adding friends from facebook if they have not been added yet
  */

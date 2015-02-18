@@ -202,13 +202,21 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
             receivingUser = [PULAccount currentUser];
             sendingUser = findUserFromUid(sendingUserUid);
         }
-        
-        pull = [[PULPull alloc] initExistingPullWithUid:snapshot.key sender:sendingUser receiver:receivingUser status:status expiration:expiration];
-        pull.delegate = self;
-        
-        // start observing
-        PULLog(@"starting to observe pull: %@", pull.uid);
-        [pull startObserving];
+    
+        if (sendingUser && receivingUser)
+        {
+            pull = [[PULPull alloc] initExistingPullWithUid:snapshot.key sender:sendingUser receiver:receivingUser status:status expiration:expiration];
+            pull.delegate = self;
+            
+            // start observing
+            PULLog(@"starting to observe pull: %@", pull.uid);
+            [pull startObserving];
+        }
+        else
+        {
+            // something went wrong, probably missing a friend
+            return nil;
+        }
     }
     return pull;
 }
@@ -329,6 +337,21 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     }
 }
 
+- (void)unpullEveryone;
+{
+    NSMutableArray *friends = [[NSMutableArray alloc] initWithCapacity:_pulls.count];
+    for (PULPull *pull in _pulls)
+    {
+        PULUser *friend = [self _otherUserInPull:pull];
+        [friends addObject:friend];
+    }
+    
+    for (PULUser *friend in friends)
+    {
+        [self unpullUser:friend];
+    }
+}
+
 - (PULUser*)_otherUserInPull:(PULPull*)pull
 {
     if ([pull.receivingUser isEqual:[PULAccount currentUser]])
@@ -390,6 +413,19 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
                     if ([_delegate respondsToSelector:@selector(pullManagerDidReceivePull:)])
                     {
                         [_delegate pullManagerDidReceivePull:pull];
+                    }
+                }
+            }
+            else
+            {
+                static NSString *lastAttemptedPull = nil;
+                
+                if (!(lastAttemptedPull && [lastAttemptedPull isEqualToString:snapshot.key]))
+                {
+                    if ([_delegate respondsToSelector:@selector(pullManagerDidTryToReceivePull)])
+                    {
+                        lastAttemptedPull = snapshot.key;
+                        [_delegate pullManagerDidTryToReceivePull];
                     }
                 }
             }

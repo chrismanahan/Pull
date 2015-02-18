@@ -73,6 +73,23 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
 {
     PULLog(@"initializing account");
     
+    // remove old notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kPULFriendBlockedSomeoneNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kPULFriendEnabledAccountNotification
+                                                  object:nil];
+    
+    // check if user was previously disabled
+    if (self.settings.disabled)
+    {
+        // reactivate the user
+        self.settings.disabled = NO;
+        [self saveUser];
+    }
+    
     _needsAddFromFacebook = YES;
     [_friendManager initializeFriends];
     
@@ -91,9 +108,19 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
                                              selector:@selector(_friendBlockedNotification:)
                                                  name:kPULFriendBlockedSomeoneNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(initializeAccount)
+                                                 name:kPULFriendEnabledAccountNotification
+                                               object:nil];
 }
 
 - (void)saveUser;
+{
+    [self saveUserCompletion:nil];
+}
+
+- (void)saveUserCompletion:(void(^)())completion;
 {
     NSAssert(self.uid, @"UID is missing");
     
@@ -109,7 +136,13 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
         {
             PULLogError(@"Save account", @"%@", error.localizedDescription);
         }
+        
+        if (completion)
+        {
+            completion();
+        }
     }];
+
 }
 
 - (void)logout
@@ -256,12 +289,13 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     
     for (PULUser *friend in _friendManager.allFriends)
     {
-        [friend stopObservingChanges];
+        [friend stopObservingLocationChanges];
+        [friend startObservingAccount];
     }
     
     for (PULUser *friend in _friendManager.pulledFriends)
     {
-        [friend startObservingChanges];
+        [friend startObservingLocationChanges];
     }
     
     // send out notifcation that we have a different friend ordering                                    // 4. Everyone is in order, lets send out a notifcation
@@ -357,6 +391,13 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     PULLog(@"pull manager did receive pull");
     
     [_friendManager updateOrganizationWithPull:pull];
+}
+
+- (void)pullManagerDidTryToReceivePull
+{
+    PULLog(@"pull manager did try to receive pull");
+    
+    [self initializeAccount];
 }
 
 - (void)pullManagerDidSendPull:(PULPull*)pull

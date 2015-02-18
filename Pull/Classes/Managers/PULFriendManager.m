@@ -596,6 +596,10 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         
         if (completion)
         {
+            if (user.settings.isDisabled)
+            {
+                user = nil;
+            }
             completion(user);
         }
     }];

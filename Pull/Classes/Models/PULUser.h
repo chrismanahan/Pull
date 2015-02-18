@@ -23,6 +23,7 @@
 extern NSString * const kPULFriendUpdatedNotifcation;
 
 extern NSString * const kPULFriendBlockedSomeoneNotification;
+extern NSString * const kPULFriendEnabledAccountNotification;
 
 //@protocol PULUserDelegate <NSObject>
 //
@@ -77,8 +78,11 @@ extern NSString * const kPULFriendBlockedSomeoneNotification;
  */
 - (instancetype)initFromFirebaseData:(NSDictionary*)dictionary uid:(NSString*)uid;
 
-- (void)startObservingChanges;
-- (void)stopObservingChanges;
+- (void)startObservingAccount;
+- (void)stopObservingAccount;
+
+- (void)startObservingLocationChanges;
+- (void)stopObservingLocationChanges;
 
 
 @end

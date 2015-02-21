@@ -17,6 +17,8 @@
 
 #import "PULNoConnectionView.h"
 
+#import "PULUpdateChecker.h"
+
 #import <FacebookSDK/FacebookSDK.h>
 #import <Firebase/Firebase.h>
 #import <Fabric/Fabric.h>
@@ -94,11 +96,13 @@
     
     
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:vcName];
+
     
     [self.window setRootViewController:vc];
     [self.window makeKeyAndVisible];
     
     [PULNoConnectionView startMonitoringConnection];
+    [PULUpdateChecker checkForUpdate];
     
     return YES;
 }

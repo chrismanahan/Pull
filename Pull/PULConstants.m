@@ -12,8 +12,11 @@ NSString * const kPULFirebaseURL = @"https://pull.firebaseio.com";
 
 NSString * const kPULFacebookAppID = @"468309439970987";
 
+// urls
 NSString * const kPULAppDownloadURL = @"http://getpulled.com";
+NSString * const kPULAppUpdateURL = @"http://getpulled.com/app/version.json";
 
+// emails
 NSString * const kPULAppReportIssueEmail = @"support@getpulled.com";
 NSString * const kPULAppSuggestionEmail = @"support@getpulled.com";
 NSString * const kPULAppPartnerEmail = @"support@getpulled.com";

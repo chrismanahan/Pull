@@ -30,6 +30,7 @@
 - (void)friendManager:(PULFriendManager*)friendManager didUnfriendUser:(PULUser*)user;
 - (void)friendManager:(PULFriendManager*)friendManager didBlockUser:(PULUser*)user;
 - (void)friendManager:(PULFriendManager*)friendManager didUnBlockUser:(PULUser*)user;
+- (void)friendManager:(PULFriendManager*)friendManager didDetectNewFriend:(PULUser*)user;
 //- (void)friendManager:(PULFriendManager*)friendManager didDetectFriendChange:(PULUser*)user;
 
 - (void)friendManagerDidEncounterError:(NSError*)error;

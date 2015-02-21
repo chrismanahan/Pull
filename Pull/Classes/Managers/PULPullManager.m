@@ -405,6 +405,10 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
                 {
                     PULLog(@"pull already exists, not adding");
                 }
+                else if ([pull.sendingUser isEqual:[PULAccount currentUser]])
+                {
+                    PULLog(@"current user sent this pull");
+                }
                 else
                 {
                     PULLog(@"adding pull to pulls array");

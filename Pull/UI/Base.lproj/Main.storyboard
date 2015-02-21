@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -1505,12 +1505,6 @@
                             <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fBe-JC-L71" userLabel="Header">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Kimberly Blake" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="Leu-0A-WPX" userLabel="Title label">
-                                        <rect key="frame" x="77" y="24" width="167" height="36"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
-                                        <color key="textColor" red="0.0" green="0.5568627451" blue="1" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQq-dA-0Cz" userLabel="Left button">
                                         <rect key="frame" x="8" y="16" width="48" height="48"/>
                                         <constraints>
@@ -1527,6 +1521,12 @@
                                             <segue destination="5uv-VI-opS" kind="unwind" unwindAction="unwindFromViewController:" id="qbE-8h-UvZ"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Kimberly Blake" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="Leu-0A-WPX" userLabel="Title label">
+                                        <rect key="frame" x="77" y="25" width="167" height="36"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
+                                        <color key="textColor" red="0.0" green="0.5568627451" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1540,12 +1540,6 @@
                                     <constraint firstAttribute="height" constant="64" id="jsG-nq-eZD"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" misplaced="YES" text="220 Feet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="BJ1-p9-fqk">
-                                <rect key="frame" x="73" y="72" width="174" height="36"/>
-                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="22"/>
-                                <color key="textColor" red="0.0" green="0.5568627451" blue="1" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVM-ce-Lwj">
                                 <rect key="frame" x="16" y="503" width="288" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1562,16 +1556,16 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="round_compass.png" translatesAutoresizingMaskIntoConstraints="NO" id="OHw-Lt-ZsN">
-                                <rect key="frame" x="32" y="111" width="256" height="256"/>
+                                <rect key="frame" x="32" y="139" width="256" height="256"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="OHw-Lt-ZsN" secondAttribute="height" multiplier="1:1" id="6SF-Vd-fwD"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VSI-QL-eER" customClass="PULUserImageView">
-                                <rect key="frame" x="110" y="223" width="100" height="100"/>
+                                <rect key="frame" x="106" y="253" width="108" height="108"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-RO-rfr">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="108" height="108"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
@@ -1580,7 +1574,6 @@
                                     <constraint firstItem="VMi-RO-rfr" firstAttribute="top" secondItem="VSI-QL-eER" secondAttribute="top" id="0Qu-ka-9ry"/>
                                     <constraint firstAttribute="bottom" secondItem="VMi-RO-rfr" secondAttribute="bottom" id="CrQ-cB-l0C"/>
                                     <constraint firstAttribute="trailing" secondItem="VMi-RO-rfr" secondAttribute="trailing" id="Utu-WT-Pjj"/>
-                                    <constraint firstAttribute="width" constant="100" id="XOQ-cq-xU8"/>
                                     <constraint firstItem="VMi-RO-rfr" firstAttribute="leading" secondItem="VSI-QL-eER" secondAttribute="leading" id="xPu-8c-ioU"/>
                                     <constraint firstAttribute="width" secondItem="VSI-QL-eER" secondAttribute="height" multiplier="1:1" id="xTg-rM-T1N"/>
                                 </constraints>
@@ -1588,23 +1581,43 @@
                                     <outlet property="imageView" destination="VMi-RO-rfr" id="afi-KL-T0I"/>
                                 </connections>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="distance_cell" translatesAutoresizingMaskIntoConstraints="NO" id="Jxo-X7-uXV">
+                                <rect key="frame" x="37" y="64" width="246" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="M1a-Hl-Czp"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" misplaced="YES" text="220 Feet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="BJ1-p9-fqk">
+                                <rect key="frame" x="66" y="80" width="188" height="48"/>
+                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="cVM-ce-Lwj" secondAttribute="trailing" id="0l6-01-gQF"/>
+                            <constraint firstItem="VSI-QL-eER" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Jxo-X7-uXV" secondAttribute="bottom" constant="90" id="3un-Ze-Ys6"/>
+                            <constraint firstItem="Jxo-X7-uXV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PKI-rX-A2I" secondAttribute="leadingMargin" constant="6" id="AS1-qE-wkp"/>
+                            <constraint firstItem="Jxo-X7-uXV" firstAttribute="width" relation="greaterThanOrEqual" secondItem="BJ1-p9-fqk" secondAttribute="width" multiplier="1.3" id="AtH-43-fcg"/>
+                            <constraint firstItem="BJ1-p9-fqk" firstAttribute="height" secondItem="Jxo-X7-uXV" secondAttribute="height" multiplier="0.6" id="B49-Eb-IZf"/>
                             <constraint firstItem="OHw-Lt-ZsN" firstAttribute="width" secondItem="PKI-rX-A2I" secondAttribute="width" multiplier="0.8" id="CAj-pA-aHL"/>
+                            <constraint firstAttribute="centerX" secondItem="Jxo-X7-uXV" secondAttribute="centerX" id="GVe-lw-EFH"/>
                             <constraint firstAttribute="centerX" secondItem="VSI-QL-eER" secondAttribute="centerX" id="I51-P2-SOD"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="top" secondItem="PKI-rX-A2I" secondAttribute="top" id="Ife-q0-DkG"/>
+                            <constraint firstItem="Jxo-X7-uXV" firstAttribute="centerX" secondItem="BJ1-p9-fqk" secondAttribute="centerX" id="QSc-r6-BBM"/>
                             <constraint firstItem="XMP-0k-fHl" firstAttribute="top" secondItem="cVM-ce-Lwj" secondAttribute="bottom" constant="20" id="UKG-6m-9yU"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Jxo-X7-uXV" secondAttribute="trailing" constant="6" id="ZJ7-Sw-4cq"/>
                             <constraint firstAttribute="centerX" secondItem="OHw-Lt-ZsN" secondAttribute="centerX" id="ZxC-Sn-jbc"/>
-                            <constraint firstAttribute="centerY" secondItem="VSI-QL-eER" secondAttribute="centerY" constant="11" id="bQg-OT-Z6k"/>
-                            <constraint firstItem="BJ1-p9-fqk" firstAttribute="top" secondItem="fBe-JC-L71" secondAttribute="bottom" constant="8" id="cPz-Cz-o2D"/>
                             <constraint firstAttribute="trailing" secondItem="fBe-JC-L71" secondAttribute="trailing" id="cQN-FP-pe4"/>
+                            <constraint firstItem="Jxo-X7-uXV" firstAttribute="top" secondItem="fBe-JC-L71" secondAttribute="bottom" id="eBe-LE-saW"/>
+                            <constraint firstItem="VSI-QL-eER" firstAttribute="width" secondItem="OHw-Lt-ZsN" secondAttribute="width" multiplier="0.42" id="euW-ob-XJd"/>
+                            <constraint firstItem="Jxo-X7-uXV" firstAttribute="centerY" secondItem="BJ1-p9-fqk" secondAttribute="centerY" id="fTv-3b-M1K"/>
                             <constraint firstItem="cVM-ce-Lwj" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leadingMargin" id="lW0-3k-0rm"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leading" id="lca-3j-yZm"/>
-                            <constraint firstAttribute="centerY" secondItem="OHw-Lt-ZsN" secondAttribute="centerY" constant="45.5" id="tDw-Fj-9c8"/>
-                            <constraint firstItem="VSI-QL-eER" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BJ1-p9-fqk" secondAttribute="bottom" constant="115" id="vLF-dN-HOM"/>
-                            <constraint firstAttribute="centerX" secondItem="BJ1-p9-fqk" secondAttribute="centerX" id="zqI-F0-8NO"/>
+                            <constraint firstItem="OHw-Lt-ZsN" firstAttribute="centerY" secondItem="VSI-QL-eER" secondAttribute="centerY" constant="-40" id="pZW-cU-GGd"/>
+                            <constraint firstAttribute="centerY" secondItem="OHw-Lt-ZsN" secondAttribute="centerY" constant="17" id="tDw-Fj-9c8"/>
+                            <constraint firstAttribute="width" secondItem="Jxo-X7-uXV" secondAttribute="width" multiplier="1.3" id="vDw-ci-IId"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1617,7 +1630,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uOu-eW-nh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1523" y="126"/>
+            <point key="canvasLocation" x="1572" y="149"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="Wk2-XV-WiX">
@@ -1713,7 +1726,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WmQ-CQ-z4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1910" y="127"/>
+            <point key="canvasLocation" x="2004" y="97"/>
         </scene>
     </scenes>
     <resources>
@@ -1724,6 +1737,7 @@
         <image name="circleButtonBackground.png" width="100" height="100"/>
         <image name="circleButtonBackgroundPressed.png" width="50" height="50"/>
         <image name="contact_button.png" width="50" height="47"/>
+        <image name="distance_cell" width="231" height="86"/>
         <image name="gradient_background.png" width="1274" height="1899"/>
         <image name="home_icon.png" width="37" height="45"/>
         <image name="intro_compass.png" width="501" height="679"/>

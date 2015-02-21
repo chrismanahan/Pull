@@ -14,9 +14,13 @@ NSString * const kPULFacebookAppID = @"468309439970987";
 
 NSString * const kPULAppDownloadURL = @"http://getpulled.com";
 
-NSString * const kPULAppReportIssueEmail = @"debugpull@gmail.com";
-NSString * const kPULAppSuggestionEmail = @"debugpull@gmail.com";
-NSString * const kPULAppPartnerEmail = @"debugpull@gmail.com";
+NSString * const kPULAppReportIssueEmail = @"support@getpulled.com";
+NSString * const kPULAppSuggestionEmail = @"support@getpulled.com";
+NSString * const kPULAppPartnerEmail = @"support@getpulled.com";
 
 const float kPULDistanceUnitCutoff = 1000;
 const float kPULNearbyDistance = 30.48; // meters = 100 ft
+
+// location tracking
+const NSInteger kLocationForegroundDistanceFilter = 0;//20;    // meters
+const NSInteger kLocationBackgroundDistanceFilter = 5;//30;

@@ -204,6 +204,9 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     self.email = providerData[@"email"];
     self.isPrivate = NO;
     
+    // initialize settings
+    self.settings = [PULUserSettings defaultSettings];
+    
     NSString *displayName = providerData[@"displayName"];
     if (displayName)
     {
@@ -305,9 +308,9 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
 - (void)friendManager:(PULFriendManager*)friendManager didForceAddUser:(PULUser*)user;
 {
     PULLog(@"friend manager did force add user");
-    
+    [self.friendManager reorganizeWithPulls:_pullManager.pulls];
     // added new friend, send notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPULAccountFriendListUpdatedNotification object:self];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kPULAccountFriendListUpdatedNotification object:self];
 }
 
 - (void)friendManager:(PULFriendManager*)pullManager didSendFriendRequestToUser:(PULUser*)user
@@ -361,6 +364,13 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
 {
     PULLog(@"friend manager did unblock user: %@", user.firstName);
     [self initializeAccount];
+}
+
+- (void)friendManager:(PULFriendManager*)friendManager didDetectNewFriend:(PULUser*)user;
+{
+    PULLog(@"friend manager did detect new friend: %@", user.firstName);
+    [self.friendManager reorganizeWithPulls:self.pullManager.pulls];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kPULAccountFriendListUpdatedNotification object:self];
 }
 
 //- (void)friendManager:(PULFriendManager *)friendManager didDetectFriendChange:(PULUser *)user

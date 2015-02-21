@@ -18,6 +18,8 @@
 
 #import <CoreLocation/CoreLocation.h>
 
+const CGFloat kPULCompassFlashTime = 1.5;
+
 @interface PULPullDetailViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
@@ -180,11 +182,11 @@
     
     if (distance <= kPULNearbyDistance && !_nearby)
     {
-        _directionArrowView.image = [UIImage imageNamed:@"nearby_compass_full"];
+        _directionArrowView.image = [UIImage imageNamed:@"Nearby_arrow"];
         _nearby = YES;
         _directionArrowView.alpha = 0.0;
         
-        _nearbyRadarTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+        _nearbyRadarTimer = [NSTimer scheduledTimerWithTimeInterval:kPULCompassFlashTime
                                                              target:self
                                                            selector:@selector(_flashCompass)
                                                            userInfo:nil
@@ -262,6 +264,7 @@
     }
     else
     {
+    
         string = [NSString stringWithFormat:@"%.2f %@", convertedDistance, unit];
         _distanceLabel.numberOfLines = 1;
     }

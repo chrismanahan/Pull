@@ -24,4 +24,15 @@
     return self;
 }
 
++ (instancetype)defaultSettings;
+{
+    PULUserSettings *settings = [[PULUserSettings alloc] init];
+    
+    settings.notifyAccept = YES;
+    settings.notifyInvite = YES;
+    settings.disabled = YES;
+    
+    return settings;
+}
+
 @end

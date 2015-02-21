@@ -17,9 +17,6 @@
 #import <UIKit/UIKit.h>
 
 // constants
-const NSInteger kLocationForegroundDistanceFilter = 0;//20;    // meters
-const NSInteger kLocationBackgroundDistanceFilter = 5;//30;
-
 NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
 NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissionsNeededNotification";
 

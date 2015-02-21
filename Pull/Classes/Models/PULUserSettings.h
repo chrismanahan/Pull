@@ -17,4 +17,6 @@
 
 - (instancetype)initFromFirebase:(NSDictionary*)dict;
 
++ (instancetype)defaultSettings;
+
 @end

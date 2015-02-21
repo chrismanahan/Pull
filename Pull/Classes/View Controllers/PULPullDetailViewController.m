@@ -17,6 +17,7 @@
 #import "PULUserImageView.h"
 
 #import <CoreLocation/CoreLocation.h>
+#import <sys/utsname.h>
 
 const CGFloat kPULCompassFlashTime = 1.5;
 
@@ -182,7 +183,9 @@ const CGFloat kPULCompassFlashTime = 1.5;
     
     if (distance <= kPULNearbyDistance && !_nearby)
     {
-        _directionArrowView.image = [UIImage imageNamed:@"Nearby_arrow"];
+        NSString *imageName = @"Nearby_arrow4,5,6";
+        
+        _directionArrowView.image = [UIImage imageNamed:imageName];
         _nearby = YES;
         _directionArrowView.alpha = 0.0;
         
@@ -259,14 +262,11 @@ const CGFloat kPULCompassFlashTime = 1.5;
     NSString *string;
     if (showNearbyString)
     {
-        string = @"Is Nearby\n(within 50 feet)";
-        _distanceLabel.numberOfLines = 2;
+        string = @"Is Nearby";
     }
     else
     {
-    
         string = [NSString stringWithFormat:@"%.2f %@", convertedDistance, unit];
-        _distanceLabel.numberOfLines = 1;
     }
     
     _distanceLabel.text = string;

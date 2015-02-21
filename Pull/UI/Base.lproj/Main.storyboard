@@ -1582,13 +1582,10 @@
                                 </connections>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="distance_cell" translatesAutoresizingMaskIntoConstraints="NO" id="Jxo-X7-uXV">
-                                <rect key="frame" x="37" y="64" width="246" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="M1a-Hl-Czp"/>
-                                </constraints>
+                                <rect key="frame" x="60" y="64" width="200" height="52"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" misplaced="YES" text="220 Feet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="BJ1-p9-fqk">
-                                <rect key="frame" x="66" y="80" width="188" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="220 Feet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="BJ1-p9-fqk">
+                                <rect key="frame" x="116" y="74" width="88" height="31"/>
                                 <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1617,7 +1614,7 @@
                             <constraint firstItem="fBe-JC-L71" firstAttribute="leading" secondItem="PKI-rX-A2I" secondAttribute="leading" id="lca-3j-yZm"/>
                             <constraint firstItem="OHw-Lt-ZsN" firstAttribute="centerY" secondItem="VSI-QL-eER" secondAttribute="centerY" constant="-40" id="pZW-cU-GGd"/>
                             <constraint firstAttribute="centerY" secondItem="OHw-Lt-ZsN" secondAttribute="centerY" constant="17" id="tDw-Fj-9c8"/>
-                            <constraint firstAttribute="width" secondItem="Jxo-X7-uXV" secondAttribute="width" multiplier="1.3" id="vDw-ci-IId"/>
+                            <constraint firstAttribute="width" secondItem="Jxo-X7-uXV" secondAttribute="width" multiplier="1.6" id="vDw-ci-IId"/>
                         </constraints>
                     </view>
                     <connections>

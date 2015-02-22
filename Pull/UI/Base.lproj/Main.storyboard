@@ -1590,14 +1590,26 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7e-Ak-f5c">
+                                <rect key="frame" x="218" y="78" width="22" height="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="ibNearbyInfo:" destination="RUR-0i-DXW" eventType="touchUpInside" id="Qu3-el-NdK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="cVM-ce-Lwj" secondAttribute="trailing" id="0l6-01-gQF"/>
                             <constraint firstItem="VSI-QL-eER" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Jxo-X7-uXV" secondAttribute="bottom" constant="90" id="3un-Ze-Ys6"/>
+                            <constraint firstItem="BJ1-p9-fqk" firstAttribute="centerY" secondItem="H7e-Ak-f5c" secondAttribute="centerY" constant="1" id="4WX-qp-nv4"/>
                             <constraint firstItem="Jxo-X7-uXV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PKI-rX-A2I" secondAttribute="leadingMargin" constant="6" id="AS1-qE-wkp"/>
                             <constraint firstItem="Jxo-X7-uXV" firstAttribute="width" relation="greaterThanOrEqual" secondItem="BJ1-p9-fqk" secondAttribute="width" multiplier="1.3" id="AtH-43-fcg"/>
                             <constraint firstItem="BJ1-p9-fqk" firstAttribute="height" secondItem="Jxo-X7-uXV" secondAttribute="height" multiplier="0.6" id="B49-Eb-IZf"/>
+                            <constraint firstItem="H7e-Ak-f5c" firstAttribute="leading" secondItem="Jxo-X7-uXV" secondAttribute="trailing" constant="-42" id="BFn-6J-XGS"/>
                             <constraint firstItem="OHw-Lt-ZsN" firstAttribute="width" secondItem="PKI-rX-A2I" secondAttribute="width" multiplier="0.8" id="CAj-pA-aHL"/>
                             <constraint firstAttribute="centerX" secondItem="Jxo-X7-uXV" secondAttribute="centerX" id="GVe-lw-EFH"/>
                             <constraint firstAttribute="centerX" secondItem="VSI-QL-eER" secondAttribute="centerX" id="I51-P2-SOD"/>
@@ -1621,6 +1633,7 @@
                         <outlet property="directionArrowView" destination="OHw-Lt-ZsN" id="axy-q5-zg5"/>
                         <outlet property="distanceLabel" destination="BJ1-p9-fqk" id="QBS-YI-qtS"/>
                         <outlet property="nameLabel" destination="Leu-0A-WPX" id="QmP-Kj-kPb"/>
+                        <outlet property="nearbyInfoButton" destination="H7e-Ak-f5c" id="TMa-cw-cf1"/>
                         <outlet property="userImageView" destination="VMi-RO-rfr" id="NrI-aX-SdB"/>
                         <outlet property="userImageViewContainer" destination="VSI-QL-eER" id="dl3-Tz-SRX"/>
                     </connections>

@@ -23,6 +23,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
 
 @interface PULPullDetailViewController ()
 
+@property (strong, nonatomic) IBOutlet UIButton *nearbyInfoButton;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *directionArrowView;
@@ -126,42 +127,6 @@ const CGFloat kPULCompassFlashTime = 1.5;
     [_userImageViewContainer addGestureRecognizer:tap];
 }
 
-- (void)_spinCompass:(UIGestureRecognizer*)gesture
-{
-//    static int mult = 1;
-//    CGSize offset = CGSizeMake(_userImageViewContainer.center.x - _directionArrowView.center.x, _userImageViewContainer.center.y - _directionArrowView.center.y);
-//    __block CGFloat rotation = M_PI_2 * mult;
-//    
-//    __block CGAffineTransform tr = CGAffineTransformIdentity;
-//    tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
-//    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
-//    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
-//    
-//    
-//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-//        [_directionArrowView setTransform:tr];
-//    } completion:^(BOOL finished) {
-//        if (finished && !CGAffineTransformEqualToTransform(_directionArrowView.transform, CGAffineTransformIdentity)) {
-//            [self _spinCompass:nil];
-//        }
-//    }];
-    
-    
-//    [UIView animateWithDuration:0.2 animations:^{
-//        [_directionArrowView setTransform:tr];
-//    } completion:^(BOOL finished) {
-//        [UIView animateWithDuration:0.2 animations:^{
-//            rotation = M_PI * mult++;
-//            tr = CGAffineTransformIdentity;
-//            tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
-//            tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
-//            tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
-//
-//            [_directionArrowView setTransform:tr];
-//        }];
-//    }];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -187,6 +152,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
         
         _directionArrowView.image = [UIImage imageNamed:imageName];
         _nearby = YES;
+//        _nearbyInfoButton.hidden = NO;
         _directionArrowView.alpha = 0.0;
         
         _nearbyRadarTimer = [NSTimer scheduledTimerWithTimeInterval:kPULCompassFlashTime
@@ -199,6 +165,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
     {
         _directionArrowView.image = [UIImage imageNamed:@"round_compass"];
         _nearby = NO;
+//        _nearbyInfoButton.hidden = YES;
         _shouldRotate = YES;
         _directionArrowView.alpha = 1.0;
         
@@ -287,6 +254,15 @@ const CGFloat kPULCompassFlashTime = 1.5;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
+- (IBAction)ibNearbyInfo:(id)sender
+{
+    [[[UIAlertView alloc] initWithTitle:@"Nearby"
+                                message:@"When a friend is within 100 Feet, distance becomes inaccurate."
+                               delegate:nil
+                      cancelButtonTitle:@"Ok"
+                      otherButtonTitles:nil] show];
+}
+
 #pragma mark - Notifcation Selectors
 - (void)didUpdateHeading:(NSNotification*)notif
 {
@@ -297,37 +273,12 @@ const CGFloat kPULCompassFlashTime = 1.5;
         // update direction of arrow
         CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
                                                     and:_user.location.coordinate];
-    //    CGFloat head = normalizeHead(heading.trueHeading);
+
         CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
         
-        CGSize offset = CGSizeMake(_userImageViewContainer.center.x - _directionArrowView.center.x, _userImageViewContainer.center.y - _directionArrowView.center.y);
-        CGFloat rotation = rads;
-          
-        CGAffineTransform tr = CGAffineTransformIdentity;
-        tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
-        tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rotation) );
-        tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
-        
-    //    PULLog(@"rotation: %.2f", rotation);
-    //    PULLog(@"\thead: %.2f", heading.trueHeading);
-    //    PULLog(@"\tdegs: %.2f", degrees);
-    //    PULLog(@"\thead: %.2f", head);
-        
-        [_directionArrowView setTransform:tr];
-        
-    //    _directionArrowView.transform = CGAffineTransformMakeRotation(rads);
-        
-    //    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
+        [self _rotateCompassToRadians:rads];
     }
 }
-//
-//double normalizeHead(double head)
-//{
-//    float mult = 360.0 / 32;
-//    float x = head / mult;
-//    
-//    return (int)x * mult;
-//}
 
 - (void)didUpdateUser:(NSNotification*)notif
 {
@@ -340,30 +291,33 @@ const CGFloat kPULCompassFlashTime = 1.5;
 }
 
 #pragma mark - Private
--(CGFloat) p_calculateAngleBetween:(CLLocationCoordinate2D)coords0 and:(CLLocationCoordinate2D)coords1 {
-   /* double x = 0, y = 0 , deg = 0,deltaLon = 0;
+- (void)_rotateCompassToRadians:(CGFloat)rads
+{
+    [self _rotateCompassToRadians:rads animated:NO];
+}
+
+- (void)_rotateCompassToRadians:(CGFloat)rads animated:(BOOL)animated
+{
+    CGSize offset = CGSizeMake(_userImageViewContainer.center.x - _directionArrowView.center.x, _userImageViewContainer.center.y - _directionArrowView.center.y);
     
-    // latitude is x
-    // longitude is y
-    // don't forget
-    deltaLon = coords1.longitude - coords0.longitude;
-    y = sin(deltaLon) * cos(coords1.latitude);
-    x = cos(coords0.latitude) * sin(coords1.latitude) - sin(coords0.latitude) * cos(coords1.latitude) * cos(deltaLon);
-    deg = RADIANS_TO_DEGREES(atan2(y, x));
+    CGAffineTransform tr = CGAffineTransformIdentity;
+    tr = CGAffineTransformConcat(tr,CGAffineTransformMakeTranslation(-offset.width, -offset.height));
+    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(rads));
+    tr = CGAffineTransformConcat(tr, CGAffineTransformMakeTranslation(offset.width, offset.height) );
     
-    if(deg < 0)
+    if (animated)
     {
-        deg = -deg;
+        [UIView animateWithDuration:1.0 animations:^{
+            [_directionArrowView setTransform:tr];
+        }];
     }
     else
     {
-        deg = 360 - deg;
+        [_directionArrowView setTransform:tr];
     }
-    
-    return deg;
-    */
-    
-    
+}
+
+-(CGFloat) p_calculateAngleBetween:(CLLocationCoordinate2D)coords0 and:(CLLocationCoordinate2D)coords1 {
     double myLat = coords0.latitude;
     double myLon = coords0.longitude;
     double yourLat = coords1.latitude;
@@ -410,6 +364,29 @@ const CGFloat kPULCompassFlashTime = 1.5;
         return 90 + RADIANS_TO_DEGREES(ø);
     }
     return RADIANS_TO_DEGREES( ø);
+}
+
+- (void)_spinCompass:(UITapGestureRecognizer*)gesture
+{
+    [self _rotateCompassToRadians:M_PI animated:YES];
+    [self _rotateCompassToRadians:2 * M_PI animated:YES];
+    
+    static int sequenceNumber = 4;
+    
+    gesture.numberOfTapsRequired = fib(sequenceNumber);
+    PULLog(@"%i", gesture.numberOfTapsRequired);
+    
+    sequenceNumber++;
+}
+
+int fib(int sequenceNumber)
+{
+    if (sequenceNumber == 1 || sequenceNumber == 2)
+    {
+        return 1;
+    }
+    
+    return fib(sequenceNumber - 1) + fib(sequenceNumber - 2);
 }
 
 @end

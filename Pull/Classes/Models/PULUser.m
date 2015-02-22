@@ -136,7 +136,18 @@ NSString * const kPULFriendEnabledAccountNotification = @"kPULFriendEnabledAccou
     _firstName   = dict[@"firstName"];
     _lastName    = dict[@"lastName"];
     _isPrivate   = [dict[@"isPrivate"] boolValue];
-    _settings = [[PULUserSettings alloc] initFromFirebase:dict[@"settings"]];
+    
+    if ([dict.allKeys containsObject:@"isOnline"])
+    {
+        _online      = [dict[@"isOnline"] boolValue];
+    }
+    else
+    {
+        // TODO: remove defaulting online to yes when ready for production
+        _online = YES;
+    }
+    
+    _settings    = [[PULUserSettings alloc] initFromFirebase:dict[@"settings"]];
     
     _deviceToken = dict[@"deviceToken"];
     
@@ -244,6 +255,7 @@ NSString * const kPULFriendEnabledAccountNotification = @"kPULFriendEnabledAccou
                       @"lon": @(_location.coordinate.longitude),
                       @"alt": @(_location.altitude)},
              @"isPrivate": @(_isPrivate),
+             @"isOnline": @(_online),
              @"settings": @{
                      @"isDisabled":@(_settings.isDisabled),
                      @"notification":@{

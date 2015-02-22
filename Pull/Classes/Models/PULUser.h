@@ -25,17 +25,6 @@ extern NSString * const kPULFriendUpdatedNotifcation;
 extern NSString * const kPULFriendBlockedSomeoneNotification;
 extern NSString * const kPULFriendEnabledAccountNotification;
 
-//@protocol PULUserDelegate <NSObject>
-//
-///**
-// *  Called when something, usually location, is updated
-// *
-// *  @param user User
-// */
-//- (void)userDidRefresh:(PULUser*)user;
-//
-//@end
-
 @interface PULUser : NSObject <PULFirebaseProtocol, MKAnnotation>
 
 /*******************************
@@ -61,6 +50,7 @@ extern NSString * const kPULFriendEnabledAccountNotification;
 @property (nonatomic, strong) CLLocation *location;
 
 @property (nonatomic, assign) BOOL isPrivate;
+@property (nonatomic, assign, getter=isOnline) BOOL online;
 @property (nonatomic, assign, getter=isBlocked) BOOL blocked;
 
 @property (nonatomic, strong) PULUserSettings *settings;

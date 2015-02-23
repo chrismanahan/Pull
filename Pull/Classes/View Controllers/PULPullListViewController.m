@@ -44,15 +44,6 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 {
     self = [super initWithCoder:coder];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(reload)
-                                                     name:kPULAccountFriendListUpdatedNotification
-                                                   object:[PULAccount currentUser]];
-        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(reload)
-//                                                     name:kPULAccountFriendUpdatedNotifcation
-//                                                   object:[PULAccount currentUser]];
         
     }
     return self;
@@ -67,9 +58,21 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     // inset the table view to give it the slide under header effect
     _tableViewTopContraint.constant = -64;
     _friendTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+
+    // subcribe to updates that we need to reload friend table data
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reload)
+                                                 name:kPULAccountFriendListUpdatedNotification
+                                               object:[PULAccount currentUser]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reload)
+                                                 name:kPULFriendChangedPresence
+                                               object:nil];
+
     
 //    _pullRefreshImageView.hidden = YES;
-//    _pullRefreshImageView.animationImages = @[[UIImage imageNamed:@"compass_rotate_1"],
+//    _pullRefreshImageView.animationImages = @[[UIImage imageNamed:@"compas s_rotate_1"],
 //                                              [UIImage imageNamed:@"compass_rotate_2"],
 //                                              [UIImage imageNamed:@"compass_rotate_3"],
 //                                              [UIImage imageNamed:@"compass_rotate_4"],
@@ -229,7 +232,6 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     if (cellType == PULUserCellTypePending || cellType == PULUserCellTypeWaiting)
     {
         cell.bgView.bgColor = [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:1.000];
-        
     }
     
     return cell;

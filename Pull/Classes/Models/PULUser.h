@@ -24,6 +24,7 @@ extern NSString * const kPULFriendUpdatedNotifcation;
 
 extern NSString * const kPULFriendBlockedSomeoneNotification;
 extern NSString * const kPULFriendEnabledAccountNotification;
+extern NSString * const kPULFriendChangedPresence;
 
 @interface PULUser : NSObject <PULFirebaseProtocol, MKAnnotation>
 

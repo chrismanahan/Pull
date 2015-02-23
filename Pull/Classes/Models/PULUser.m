@@ -21,6 +21,7 @@ NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedN
 
 NSString * const kPULFriendBlockedSomeoneNotification = @"kPULFriendBlockedSomeoneNotification";
 NSString * const kPULFriendEnabledAccountNotification = @"kPULFriendEnabledAccountNotification";
+NSString * const kPULFriendChangedPresence            = @"kPULFriendChangedPresence";
 
 @interface PULUser ()
 
@@ -28,6 +29,7 @@ NSString * const kPULFriendEnabledAccountNotification = @"kPULFriendEnabledAccou
 @property (nonatomic) FirebaseHandle locationObserverHandle;
 @property (nonatomic) FirebaseHandle blockObserverHandle;
 @property (nonatomic) FirebaseHandle enableObserverHandle;
+@property (nonatomic) FirebaseHandle presenceObserverHandle;
 
 @end
 
@@ -59,8 +61,8 @@ NSString * const kPULFriendEnabledAccountNotification = @"kPULFriendEnabledAccou
     {
         PULLog(@"starting blocked observer for %@", self.uid);
         
-        _fireRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"blocked"];
-        _blockObserverHandle = [_fireRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+        Firebase *blockRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"blocked"];
+        _blockObserverHandle = [blockRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
             // check if this is me
             if (snapshot.exists)
             {
@@ -70,12 +72,24 @@ NSString * const kPULFriendEnabledAccountNotification = @"kPULFriendEnabledAccou
     }
     
     PULLog(@"starting enable/disable observer for %@", self.uid);
-    
-    _fireRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"settings"];
-    _enableObserverHandle = [_fireRef observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+    Firebase *settingsRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"settings"];
+    _enableObserverHandle = [settingsRef observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
         // user reenabled their account
         PULLog(@"friend enabled or disabled account");
         [[NSNotificationCenter defaultCenter] postNotificationName:kPULFriendEnabledAccountNotification object:snapshot.key];
+    }];
+    
+    PULLog(@"starting presence observer for %@", self.uid);
+    Firebase *presenceRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"isOnline"];
+    _presenceObserverHandle = [presenceRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        // user reenabled their account
+        if (snapshot.exists)
+        {
+            self.online = [snapshot.value boolValue];
+            
+            PULLog(@"friend is %@", self.online ? @"Online" : @"Offline");
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPULFriendChangedPresence object:snapshot.key];
+        }
     }];
 }
 
@@ -84,6 +98,7 @@ NSString * const kPULFriendEnabledAccountNotification = @"kPULFriendEnabledAccou
     PULLog(@"stopping observer on user account: %@", self.uid);
     [_fireRef removeObserverWithHandle:_blockObserverHandle];
     [_fireRef removeObserverWithHandle:_enableObserverHandle];
+    [_fireRef removeObserverWithHandle:_presenceObserverHandle];
 }
 
 #pragma mark - observing location

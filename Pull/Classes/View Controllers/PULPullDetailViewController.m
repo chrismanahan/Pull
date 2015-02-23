@@ -24,6 +24,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
 @interface PULPullDetailViewController ()
 
 @property (strong, nonatomic) IBOutlet UIButton *nearbyInfoButton;
+@property (strong, nonatomic) IBOutlet UIButton *mapViewButton;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *directionArrowView;
@@ -31,6 +32,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
 @property (strong, nonatomic) IBOutlet PULUserImageView *userImageViewContainer;
 
 @property (strong, nonatomic) id locationNotification;
+@property (strong, nonatomic) id presenceNotification;
 
 @property (nonatomic) BOOL didSetUp;
 @property (nonatomic) BOOL didSetUp2;
@@ -59,6 +61,14 @@ const CGFloat kPULCompassFlashTime = 1.5;
     
 //    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
     
+    if (!_user.isOnline)
+    {
+        _distanceLabel.text = @"Unavailable";
+    }
+    
+    _directionArrowView.hidden = !_user.isOnline;
+    _mapViewButton.hidden = !_user.isOnline;
+    
     if (!_didSetUp2 && _didSetUp)
     {
         // subscribe to notifications
@@ -85,36 +95,29 @@ const CGFloat kPULCompassFlashTime = 1.5;
                                                                                   [self distanceUpdated:distance];
                                                                                   
                                                                               }];
-//
-//    NSArray *stack = [NSThread callStackSymbols];
-//    // don't set up if stack contains segue
-//    for (NSString* call in stack)
-//    {
-//        if ([call containsString:@"PULSlideSegue"])
-//        {
-//            return;
-//        }
-//    }
 
-//        CGFloat yOffset = CGRectGetMinY(_directionArrowView.frame) - CGRectGetMaxY(_distanceLabel.frame) - 8;
-//
-//        CGPoint userCenter = _userImageViewContainer.center;
-//        userCenter.x = self.view.center.x;
-//        userCenter.y -= yOffset;
-//        _userImageViewContainer.center = userCenter;
-//        
-//        CGPoint arrowCenter = _directionArrowView.center;
-//        arrowCenter.x = self.view.center.x;
-//        arrowCenter.y -= yOffset;
-//        _directionArrowView.center = arrowCenter;
-        
-//        _userImageViewContainer.translatesAutoresizingMaskIntoConstraints = YES;
         _directionArrowView.translatesAutoresizingMaskIntoConstraints = YES;
         
-//        _userImageViewContainer.autoresizingMask = UIViewAutoresizingNone;
         _directionArrowView.autoresizingMask = UIViewAutoresizingNone;
 
         _didSetUp = YES;
+        
+       _presenceNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kPULFriendChangedPresence
+                                                          object:nil
+                                                           queue:[NSOperationQueue currentQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          PULLog(@"user presence changed");
+                                                          
+                                                          if (!_user.isOnline)
+                                                          {
+                                                              _distanceLabel.text = @"Unavailable";
+                                                          }
+                                                          
+                                                          _directionArrowView.hidden = !_user.isOnline;
+                                                          _mapViewButton.hidden = !_user.isOnline;
+                                                          
+                                                      }];
+
     }
     
     _didSetUp = YES;
@@ -125,11 +128,14 @@ const CGFloat kPULCompassFlashTime = 1.5;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_spinCompass:)];
     tap.numberOfTapsRequired = 2;
     [_userImageViewContainer addGestureRecognizer:tap];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:_presenceNotification];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kPULAccountDidUpdateHeadingNotification
@@ -202,49 +208,47 @@ const CGFloat kPULCompassFlashTime = 1.5;
 #pragma mark - UI Setters
 - (void)updateDistanceLabel:(CGFloat)distance
 {
-    CGFloat convertedDistance;
-    NSString *unit, *formatString;
-    BOOL showNearbyString = NO;
-    // TODO: localize distance
-    if (distance < kPULDistanceUnitCutoff)
+    if (_user.isOnline)
     {
-        // distance as ft
-        convertedDistance = METERS_TO_FEET(distance);
-        unit = @"Feet";
-        formatString = @"%i %@";
-        
-        if (convertedDistance <= kPULNearbyDistance)
+        CGFloat convertedDistance;
+        NSString *unit, *formatString;
+        BOOL showNearbyString = NO;
+        // TODO: localize distance
+        if (distance < kPULDistanceUnitCutoff)
         {
-            showNearbyString = YES;
+            // distance as ft
+            convertedDistance = METERS_TO_FEET(distance);
+            unit = @"Feet";
+            formatString = @"%i %@";
+            
+            if (convertedDistance <= kPULNearbyDistance)
+            {
+                showNearbyString = YES;
+            }
         }
+        else
+        {
+            // distance as miles
+            convertedDistance = METERS_TO_MILES(distance);
+            unit = @"Miles";
+            formatString = @"%.2f %@";
+        }
+        
+        NSString *string;
+        if (showNearbyString)
+        {
+            string = @"Is Nearby";
+        }
+        else
+        {
+            string = [NSString stringWithFormat:@"%.2f %@", convertedDistance, unit];
+        }
+        
+        _distanceLabel.text = string;
     }
-    else
-    {
-        // distance as miles
-        convertedDistance = METERS_TO_MILES(distance);
-        unit = @"Miles";
-        formatString = @"%.2f %@";
-    }
-    
-    NSString *string;
-    if (showNearbyString)
-    {
-        string = @"Is Nearby";
-    }
-    else
-    {
-        string = [NSString stringWithFormat:@"%.2f %@", convertedDistance, unit];
-    }
-    
-    _distanceLabel.text = string;
 }
 
 #pragma mark - Actions
-- (IBAction)ibBack:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)ibMap:(id)sender
 {
     PULMapViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier: NSStringFromClass([PULMapViewController class])];
@@ -368,15 +372,15 @@ const CGFloat kPULCompassFlashTime = 1.5;
 
 - (void)_spinCompass:(UITapGestureRecognizer*)gesture
 {
-    [self _rotateCompassToRadians:M_PI animated:YES];
-    [self _rotateCompassToRadians:2 * M_PI animated:YES];
-    
-    static int sequenceNumber = 4;
-    
-    gesture.numberOfTapsRequired = fib(sequenceNumber);
-    PULLog(@"%i", gesture.numberOfTapsRequired);
-    
-    sequenceNumber++;
+//    [self _rotateCompassToRadians:M_PI animated:YES];
+//    [self _rotateCompassToRadians:2 * M_PI animated:YES];
+//    
+//    static int sequenceNumber = 4;
+//    
+//    gesture.numberOfTapsRequired = fib(sequenceNumber);
+//    PULLog(@"%i", gesture.numberOfTapsRequired);
+//    
+//    sequenceNumber++;
 }
 
 int fib(int sequenceNumber)

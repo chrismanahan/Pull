@@ -149,17 +149,20 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
 
 - (void)goOnline
 {
-    [self _setPresenceOnline:YES];
-}
-
-- (void)goOffline
-{
-    [self _setPresenceOnline:NO];
+    Firebase *connectedref = [[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@".info/connected"];
+    [connectedref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        if ([snapshot.value boolValue])
+        {
+            Firebase *fire = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:@"isOnline"];
+            [fire setValue:@(YES)];
+            
+            [fire onDisconnectSetValue:@(NO)];
+        }
+    }];
 }
 
 - (void)logout
 {
-    [self goOffline];
     [_fireRef unauth];
 }
 
@@ -252,18 +255,6 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
         PULLog(@"we have been blocked!");
         
         [self initializeAccount];
-    }
-}
-
-#pragma mark - private
-- (void)_setPresenceOnline:(BOOL)online
-{
-    Firebase *fire = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:@"isOnline"];
-    [fire setValue:@(online)];
-    
-    if (online)
-    {
-        [fire onDisconnectSetValue:@(NO)];
     }
 }
 

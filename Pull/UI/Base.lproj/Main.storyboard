@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -1517,7 +1517,6 @@
                                         <state key="selected" backgroundImage="circleButtonBackgroundPressed.png"/>
                                         <state key="highlighted" backgroundImage="circleButtonBackgroundPressed.png"/>
                                         <connections>
-                                            <action selector="ibBack:" destination="RUR-0i-DXW" eventType="touchUpInside" id="w8J-fr-XdA"/>
                                             <segue destination="5uv-VI-opS" kind="unwind" unwindAction="unwindFromViewController:" id="qbE-8h-UvZ"/>
                                         </connections>
                                     </button>
@@ -1632,6 +1631,7 @@
                     <connections>
                         <outlet property="directionArrowView" destination="OHw-Lt-ZsN" id="axy-q5-zg5"/>
                         <outlet property="distanceLabel" destination="BJ1-p9-fqk" id="QBS-YI-qtS"/>
+                        <outlet property="mapViewButton" destination="cVM-ce-Lwj" id="KEw-8o-9hg"/>
                         <outlet property="nameLabel" destination="Leu-0A-WPX" id="QmP-Kj-kPb"/>
                         <outlet property="nearbyInfoButton" destination="H7e-Ak-f5c" id="TMa-cw-cf1"/>
                         <outlet property="userImageView" destination="VMi-RO-rfr" id="NrI-aX-SdB"/>

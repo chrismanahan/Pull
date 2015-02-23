@@ -62,7 +62,6 @@ extern NSString * const kPULAccountDidUpdateHeadingNotification;
 - (void)initializeAccount;
 
 - (void)goOnline;
-- (void)goOffline;
 
 /**
  *  Logs the user out

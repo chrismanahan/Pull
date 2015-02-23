@@ -57,6 +57,15 @@
         CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:user.location];
         
         [self p_updateDistanceLabel:distance];
+        
+        if (_user.isOnline)
+        {
+            _userImageViewContainer.imageView.alpha = 1.0;
+        }
+        else
+        {
+            _userImageViewContainer.imageView.alpha = 0.4;
+        }
     }
 
     _user = user;
@@ -102,27 +111,43 @@
 
 - (void)p_updateDistanceLabel:(CGFloat)distance
 {
-    CGFloat convertedDistance;
-    NSString *unit, *formatString;
-    // TODO: localize distance
-    if (distance < kPULDistanceUnitCutoff)
+    static UIColor *originalLabelColor = nil;
+    if (!originalLabelColor)
     {
-        // distance as ft
-        convertedDistance = METERS_TO_FEET(distance);
-        unit = @"Feet";
-        formatString = @"%i %@";
+        originalLabelColor = _userDistanceLabel.textColor;
+    }
+    if (_user.isOnline)
+    {
+        CGFloat convertedDistance;
+        NSString *unit, *formatString;
+        // TODO: localize distance
+        if (distance < kPULDistanceUnitCutoff)
+        {
+            // distance as ft
+            convertedDistance = METERS_TO_FEET(distance);
+            unit = @"Feet";
+            formatString = @"%i %@";
+        }
+        else
+        {
+            // distance as miles
+            convertedDistance = METERS_TO_MILES(distance);
+            unit = @"Miles";
+            formatString = @"%.2f %@";
+        }
+        
+        NSString *string = [NSString stringWithFormat:@"%.2f %@", convertedDistance, unit];
+        
+        _userDistanceLabel.text = string;
+        
+        _userDistanceLabel.textColor = originalLabelColor;
     }
     else
     {
-        // distance as miles
-        convertedDistance = METERS_TO_MILES(distance);
-        unit = @"Miles";
-        formatString = @"%.2f %@";
+        _userDistanceLabel.text = @"Unavailable";
+        
+        _userDistanceLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
     }
-    
-    NSString *string = [NSString stringWithFormat:@"%.2f %@", convertedDistance, unit];
-    
-    _userDistanceLabel.text = string;
 }
 
 - (void)_hideLabels:(BOOL)hide

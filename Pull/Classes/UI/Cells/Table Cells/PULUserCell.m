@@ -47,7 +47,8 @@
 
 - (void)setUser:(PULUser *)user
 {
-    
+    _user = user;
+
     // set ui
     _userImageViewContainer.imageView.image = user.image;
     _userDisplayNameLabel.text = user.fullName;
@@ -67,8 +68,6 @@
             _userImageViewContainer.imageView.alpha = 0.4;
         }
     }
-
-    _user = user;
     
     // subscribe to notifications
     if (_userUpdatedObserver)
@@ -180,7 +179,6 @@
 #pragma mark - Touches
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touches began");
     UITouch *touch = [touches allObjects][0];
     CGPoint point = [touch locationInView:_userImageViewContainer];
     
@@ -240,14 +238,12 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touches ended");
     [super touchesEnded:touches withEvent:event];
     [self _touchesStopped];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touches canceled");
     [super touchesCancelled:touches withEvent:event];
     
     [self _touchesStopped];

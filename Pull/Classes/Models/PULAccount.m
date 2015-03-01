@@ -14,6 +14,8 @@
 
 #import "NSData+Hex.h"
 
+#import "PULNoConnectionView.h"
+
 #import <Firebase/Firebase.h>
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -23,6 +25,8 @@ NSString * const kPULAccountFriendListUpdatedNotification = @"kPULAccountFriendL
 NSString * const kPULAccountDidUpdateLocationNotification = @"kPULAccountDidUpdateLocationNotification";
 
 NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdateHeadingNotification";
+
+NSString * const kPULAccountLoginFailedNotification = @"kPULAccountLoginFailedNotification";
 
 @interface PULAccount ()
 
@@ -63,6 +67,20 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
         _fireRef = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
         
         [PULLocationUpdater sharedUpdater].delegate = self;
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:kPULConnectionLostNotification
+                                                          object:nil
+                                                           queue:[NSOperationQueue currentQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          [Firebase goOffline];
+                                                      }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:kPULConnectionRestoredNotification
+                                                          object:nil
+                                                           queue:[NSOperationQueue currentQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          [Firebase goOnline];
+                                                      }];
     }
     return self;
 }
@@ -71,6 +89,7 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
 
 -(void)initializeAccount;                                                                   // 1. Grabs all of our friends from firebase
 {
+    _didLoad = NO;
     PULLog(@"initializing account");
     
     // remove old notifications
@@ -81,6 +100,7 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kPULFriendEnabledAccountNotification
                                                   object:nil];
+    
     
     // check if user was previously disabled
     if (self.settings.disabled)
@@ -94,15 +114,7 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     [_friendManager initializeFriends];
     
     // lets make sure our device token is uploaded
-    Firebase *tokenRef = [[_fireRef childByAppendingPath:@"users"] childByAppendingPath:self.uid];
-    NSData *tokenData = [[NSUserDefaults standardUserDefaults] objectForKey:@"DeviceToken"];
-    
-    if (tokenData)
-    {
-        NSString *token = [tokenData hexadecimalString];
-        PULLog(@"writing token: %@", tokenData);
-        [tokenRef updateChildValues:@{@"deviceToken": token}];
-    }
+    [self writePushToken];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_friendBlockedNotification:)
@@ -114,7 +126,19 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
                                                  name:kPULFriendEnabledAccountNotification
                                                object:nil];
     
-    [self goOnline];
+}
+
+- (void)writePushToken
+{
+    Firebase *tokenRef = [[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:self.uid];
+    NSData *tokenData = [[NSUserDefaults standardUserDefaults] objectForKey:@"DeviceToken"];
+    
+    if (tokenData)
+    {
+        NSString *token = [tokenData hexadecimalString];
+        PULLog(@"writing token: %@", tokenData);
+        [tokenRef updateChildValues:@{@"deviceToken": token}];
+    }
 }
 
 - (void)saveUser;
@@ -177,6 +201,8 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
             {
                 completion(nil, error);
             }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPULAccountLoginFailedNotification object:self];
         }
         else
         {
@@ -196,6 +222,7 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
                 else
                 {
                     [self p_loadPropertiesFromDictionary:snapshot.value];
+                    [self goOnline];
                 }
                 
                 
@@ -206,7 +233,10 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
                     completion(self, nil);
                 }
                 
-                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+                if ([[PULLocationUpdater sharedUpdater] hasPermission])
+                {
+                    [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+                }
             }];
         }
     }];
@@ -219,6 +249,7 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     self.fbId = providerData[@"id"];
     self.email = providerData[@"email"];
     self.isPrivate = NO;
+    self.online = YES;
     
     // initialize settings
     self.settings = [PULUserSettings defaultSettings];
@@ -319,6 +350,7 @@ NSString * const kPULAccountDidUpdateHeadingNotification = @"kPULAccountDidUpdat
     
     // send out notifcation that we have a different friend ordering                                    // 4. Everyone is in order, lets send out a notifcation
     [[NSNotificationCenter defaultCenter] postNotificationName:kPULAccountFriendListUpdatedNotification object:self];
+    _didLoad = YES;
 }
 
 - (void)friendManager:(PULFriendManager*)friendManager didForceAddUser:(PULUser*)user;

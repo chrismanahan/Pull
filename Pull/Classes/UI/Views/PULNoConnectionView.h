@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 extern NSString * const kPULConnectionRestoredNotification;
+extern NSString * const kPULConnectionLostNotification;
 
 @interface PULNoConnectionView : UIView
 

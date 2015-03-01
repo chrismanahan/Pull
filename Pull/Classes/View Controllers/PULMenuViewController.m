@@ -20,6 +20,7 @@
 @interface PULMenuViewController () <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet PULUserImageView *userImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 
 @property (nonatomic, strong) UIActivityViewController *shareActivityViewController;
@@ -42,6 +43,7 @@
 
 - (void)_populateUserInfo {
     _userImageView.imageView.image = [PULAccount currentUser].image;
+    _backgroundImageView.image = [PULAccount currentUser].image;
     _nameLabel.text = [PULAccount currentUser].fullName;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self

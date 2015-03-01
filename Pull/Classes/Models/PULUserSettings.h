@@ -15,6 +15,8 @@
 
 @property (nonatomic, assign, getter=isDisabled) BOOL disabled;
 
+@property (nonatomic, assign) BOOL resolveAddress;
+
 - (instancetype)initFromFirebase:(NSDictionary*)dict;
 
 + (instancetype)defaultSettings;

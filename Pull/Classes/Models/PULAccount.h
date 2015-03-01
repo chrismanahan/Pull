@@ -33,12 +33,16 @@ extern NSString * const kPULAccountDidUpdateLocationNotification;
  */
 extern NSString * const kPULAccountDidUpdateHeadingNotification;
 
+extern NSString * const kPULAccountLoginFailedNotification;
+
 @interface PULAccount : PULUser <PULFriendManagerDelegate, PULPullManagerDelegate, PULLocationUpdaterDelegate>
 
 @property (nonatomic, strong) PULPullManager *pullManager;
 @property (nonatomic, strong) PULFriendManager *friendManager;
 
 @property (nonatomic, strong) PULLocationUpdater *locationUpdater;
+
+@property (nonatomic, assign) BOOL didLoad;
 
 @property (nonatomic) NSString *authToken;
 
@@ -55,6 +59,8 @@ extern NSString * const kPULAccountDidUpdateHeadingNotification;
 - (void)saveUser;
 
 - (void)saveUserCompletion:(void(^)())completion;
+
+- (void)writePushToken;
 
 /**
  *  Initializes account by getting friends from firebase and adding friends from facebook if they have not been added yet

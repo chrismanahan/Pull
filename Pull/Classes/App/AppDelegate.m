@@ -34,18 +34,17 @@
 
     [Fabric with:@[CrashlyticsKit]];
 
-    // TODO: move registering for notifs somewhere better
-    // register for remote notifications
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge
-                                                                                             |UIRemoteNotificationTypeSound
-                                                                                             |UIRemoteNotificationTypeAlert) categories:nil];
-        [application registerUserNotificationSettings:settings];
-    } else {
-        // FIX: < iOS8 doesn't register for push
-        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-        [application registerForRemoteNotificationTypes:myTypes];
-    }
+//    // register for remote notifications
+//    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+//        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge
+//                                                                                             |UIRemoteNotificationTypeSound
+//                                                                                             |UIRemoteNotificationTypeAlert) categories:nil];
+//        [application registerUserNotificationSettings:settings];
+//    } else {
+//        // FIX: < iOS8 doesn't register for push
+//        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+//        [application registerForRemoteNotificationTypes:myTypes];
+//    }
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     NSString *vcName;
@@ -119,7 +118,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     
-    if ([PULAccount currentUser])
+    if ([PULAccount currentUser].uid)
     {
         [[PULAccount currentUser] goOnline];
     }
@@ -149,6 +148,11 @@
     NSLog(@"did register for remote notifs");
     
     [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:@"DeviceToken"];
+    
+    if ([PULAccount currentUser].uid)
+    {
+        [[PULAccount currentUser] writePushToken];
+    }
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

@@ -13,11 +13,13 @@
 #import "PULNoConnectionView.h"
 
 #import "PULPullDetailViewController.h"
+#import "PULLoginViewController.h"
 
 #import "PULAccount.h"
 
 #import "PULSlideUnwindSegue.h"
 #import "PULSlideSegue.h"
+#import "PULReverseModal.h"
 
 
 const NSInteger kPULPullListNumberOfTableViewSections = 4;
@@ -59,6 +61,8 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     _tableViewTopContraint.constant = -64;
     _friendTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
 
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     // subcribe to updates that we need to reload friend table data
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reload)
@@ -69,6 +73,28 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
                                              selector:@selector(reload)
                                                  name:kPULFriendChangedPresence
                                                object:nil];
+    
+    __block id loginNotif = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountLoginFailedNotification
+                                                      object:[PULAccount currentUser]
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [_loadingIndicator hide];
+                                                      
+                                                      [[PULAccount currentUser] logout];
+                                                      
+                                                      UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
+                                                      
+                                                      PULReverseModal *seg = [PULReverseModal segueWithIdentifier:@"LoginSeg"
+                                                                                                           source:self
+                                                                                                      destination:login
+                                                                                                   performHandler:^{
+                                                                                                       ;
+                                                                                                   }];
+                                                      
+                                                      [seg perform];
+                                                      
+                                                      [[NSNotificationCenter defaultCenter] removeObserver:loginNotif];
+                                                  }];
 
     
 //    _pullRefreshImageView.hidden = YES;
@@ -97,6 +123,23 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 ////        [self _refresh];
 ////    }
 //}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if ([PULAccount currentUser].didLoad)
+    {
+        [_loadingIndicator hide];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+}
 
 - (void)reload
 {

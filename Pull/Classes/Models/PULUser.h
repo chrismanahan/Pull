@@ -50,6 +50,9 @@ extern NSString * const kPULFriendChangedPresence;
 
 @property (nonatomic, strong) CLLocation *location;
 
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) CLPlacemark *placemark;
+
 @property (nonatomic, assign) BOOL isPrivate;
 @property (nonatomic, assign, getter=isOnline) BOOL online;
 @property (nonatomic, assign, getter=isBlocked) BOOL blocked;

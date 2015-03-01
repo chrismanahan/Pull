@@ -12,12 +12,14 @@
 
 #import <MapKit/MapKit.h>
 
-@interface PULMapViewController () <MKMapViewDelegate>
+@interface PULMapViewController () <MKMapViewDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) IBOutlet UIButton *orientButton;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *addressLabel;
 
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *mapTopConstraint;
 @property (strong, nonatomic) id <NSObject> locationUpdateNotif;
 
 @property (nonatomic, assign) BOOL isOriented;
@@ -46,6 +48,20 @@
     [_mapView addObserver:self forKeyPath:@"userTrackingMode" options:NSKeyValueObservingOptionNew context:NULL];
 
     _nameLabel.text = _user.fullName;
+    
+    if (_user.settings.resolveAddress)
+    {
+        _addressLabel.text = _user.address;
+        [_user addObserver:self
+                forKeyPath:@"address"
+                   options:NSKeyValueObservingOptionNew
+                   context:NULL];
+    }
+    else
+    {
+        _mapTopConstraint.constant = -CGRectGetHeight(_addressLabel.frame);
+        [self.view layoutSubviews];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -56,6 +72,10 @@
         {
             [self ibOrient:nil];
         }
+    }
+    else if (object == _user && [keyPath isEqualToString:@"address"])
+    {
+        _addressLabel.text = _user.address;
     }
 }
 
@@ -70,6 +90,74 @@
 - (IBAction)ibClose:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)ibDirections:(id)sender
+{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Get Directions"
+                                                    message:@"Open your friend's current address using..."
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Apple Maps", nil];
+    
+    UIApplication *app = [UIApplication sharedApplication];
+    if ([app canOpenURL:[self _googleMapUrl]])
+    {
+        [alert addButtonWithTitle:@"Google Maps"];
+    }
+    
+    if ([app canOpenURL:[self _wazeUrl]])
+    {
+        [alert addButtonWithTitle:@"Waze"];
+    }
+    
+    [alert show];
+}
+
+- (NSURL*)_appleMapUrl
+{
+    NSString *friendCoords = [NSString stringWithFormat:@"%.7f,%.7f", _user.location.coordinate.latitude, _user.location.coordinate.longitude];
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://maps.apple.com?daddr=%@", friendCoords];
+    //    NSString *urlString = [NSString stringWithFormat:@"comgooglemaps://?saddr=%@&daddr=%@", myCoords, friendCoords];
+    return [NSURL URLWithString:urlString];
+}
+
+
+- (NSURL*)_googleMapUrl
+{
+    NSString *friendCoords = [NSString stringWithFormat:@"%.7f,%.7f", _user.location.coordinate.latitude, _user.location.coordinate.longitude];
+    
+    NSString *urlString = [NSString stringWithFormat:@"comgooglemaps://?daddr=%@", friendCoords];
+//    NSString *urlString = [NSString stringWithFormat:@"comgooglemaps://?saddr=%@&daddr=%@", myCoords, friendCoords];
+    return [NSURL URLWithString:urlString];
+}
+
+- (NSURL*)_wazeUrl
+{
+    NSString *friendCoords = [NSString stringWithFormat:@"%.7f,%.7f", _user.location.coordinate.latitude, _user.location.coordinate.longitude];
+    
+    NSString *urlString = [NSString stringWithFormat:@"waze://?ll=%@&navigate=yes", friendCoords];
+    return [NSURL URLWithString:urlString];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    
+    UIApplication *app = [UIApplication sharedApplication];
+    if ([title isEqualToString:@"Apple Maps"])
+    {
+        [app openURL:[self _appleMapUrl]];
+    }
+    else if ([title isEqualToString:@"Waze"])
+    {
+     [app openURL:[self _wazeUrl]];
+    }
+    else if ([title isEqualToString:@"Google Maps"])
+    {
+     [app openURL:[self _googleMapUrl]];
+    }
 }
 
 - (IBAction)ibOrient:(id)sender

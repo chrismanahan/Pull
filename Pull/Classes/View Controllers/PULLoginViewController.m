@@ -7,12 +7,14 @@
 //
 
 #import "PULLoginViewController.h"
+#import "PULRequestLocationViewController.h"
+#import "PULPullListViewController.h"
+
+#import "PULSlideLeftSegue.h"
 
 #import "PULAccount.h"
 
 #import "PULConstants.h"
-
-#import "PULPullListViewController.h"
 
 #import <Firebase/Firebase.h>
 #import <FacebookSDK/FacebookSDK.h>
@@ -170,11 +172,28 @@
                                               {
                                                   if (!error)
                                                   {
-                                                      UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullListViewController class])];
+                                                      BOOL grantedPermissions = [[NSUserDefaults standardUserDefaults] boolForKey:@"DidGrantPermissions"];
                                                       
-                                                      [self presentViewController:vc animated:YES completion:^{
-                                                          ;
-                                                      }];
+                                                      if (!grantedPermissions)
+                                                      {
+                                                          UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULRequestLocationViewController class])];
+                                                          
+                                                          PULSlideLeftSegue *seg = [PULSlideLeftSegue segueWithIdentifier:@"RequestLocationSeg"
+                                                                                                                   source:self
+                                                                                                              destination:vc
+                                                                                                           performHandler:^{
+                                                                                                               ;
+                                                                                                           }];
+                                                          [seg perform];
+                                                      }
+                                                      else
+                                                      {
+                                                          UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullListViewController class])];
+                                                          
+                                                          [self presentViewController:vc animated:YES completion:^{
+                                                              ;
+                                                          }];
+                                                      }
                                                   }
                                                   else
                                                   {

@@ -14,6 +14,8 @@
 
 NSString * const kPULConnectionRestoredNotification = @"kPULConnectionRestoredNotification";
 
+NSString * const kPULConnectionLostNotification = @"kPULConnectionLostNotification;";
+
 @interface PULNoConnectionView ()
 
 @property (nonatomic, strong) Reachability *reachability;
@@ -97,6 +99,9 @@ NSString * const kPULConnectionRestoredNotification = @"kPULConnectionRestoredNo
             [topView addSubview:self];
             
             PULLog(@"adding no connection view");
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPULConnectionLostNotification
+                                                                object:self];
         }
     }
 }

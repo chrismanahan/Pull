@@ -18,7 +18,7 @@
 
 // constants
 NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
-NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissionsNeededNotification";
+NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissionsNeededNotification";
 
 
 // class continuation
@@ -67,6 +67,12 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_applicationDidEnterForeground) name:UIApplicationDidBecomeActiveNotification object:nil];
     
   //  Reachability *reach = [Reachability reachabilityWithHostName:]
+}
+
+- (BOOL)hasPermission
+{
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized ||
+    [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
 }
 
 /*!
@@ -152,10 +158,12 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
             [self p_initializeLocationTracking];
         }
         [self startUpdatingLocation];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsGrantedNotification object:self];
     }
     else
     {
-        PULLog(@"access denied");
+        PULLog(@"location access denied");
         
         if (!_locationManager)
         {
@@ -164,6 +172,8 @@ NSString* const PULLocationPermissionsNeededNotification = @"PULLocationPermissi
         else
         {
             [self p_requestPermission];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsDeniedNotification object:self];
         }
     }
 }

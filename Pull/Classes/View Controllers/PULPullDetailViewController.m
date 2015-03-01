@@ -117,6 +117,8 @@ const CGFloat kPULCompassFlashTime = 1.5;
                                                           _mapViewButton.hidden = !_user.isOnline;
                                                           
                                                       }];
+        
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     }
     

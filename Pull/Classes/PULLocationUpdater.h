@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 extern NSString* const PULLocationPermissionsGrantedNotification;
-extern NSString* const PULLocationPermissionsNeededNotification;
+extern NSString* const PULLocationPermissionsDeniedNotification;
 
 @class PULLocationUpdater;
 
@@ -29,6 +29,8 @@ extern NSString* const PULLocationPermissionsNeededNotification;
 @property (nonatomic, strong) id <PULLocationUpdaterDelegate> delegate;
 
 +(PULLocationUpdater*)sharedUpdater;
+
+- (BOOL)hasPermission;
 
 /*!
  *  Begins updating the user's location and sending it to the BE when it does

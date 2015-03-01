@@ -20,6 +20,8 @@
 
 @property (strong, nonatomic) IBOutlet UISwitch *notifInviteSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *notifAcceptSwitch;
+@property (strong, nonatomic) IBOutlet UISwitch *resolveAddressSwitch;
+
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (nonatomic, assign) BOOL dirty;
@@ -36,6 +38,7 @@
     PULUserSettings *settings = [PULAccount currentUser].settings;
     [_notifAcceptSwitch setOn:settings.notifyAccept];
     [_notifInviteSwitch setOn:settings.notifyInvite];
+    [_resolveAddressSwitch setOn:settings.resolveAddress];
     
 }
 
@@ -50,21 +53,21 @@
     _versionLabel.text = [NSString stringWithFormat:@"Version %@ (%@)", appVersion, buildNumber];
 }
 
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    CGFloat scrollViewHeight = 0.0f;
-    for (UIView* view in _scrollView.subviews)
-    {
-        CGFloat maxY = CGRectGetMinY(view.frame) + CGRectGetHeight(view.frame);
-        if (maxY > scrollViewHeight)
-        {
-            scrollViewHeight = maxY;
-        }
-    }
-    
-    [_scrollView setContentSize:(CGSizeMake(CGRectGetWidth(_scrollView.frame), scrollViewHeight))];
-}
+//- (void)viewDidLayoutSubviews
+//{
+//    [super viewDidLayoutSubviews];
+//    CGFloat scrollViewHeight = 0.0f;
+//    for (UIView* view in _scrollView.subviews)
+//    {
+//        CGFloat maxY = CGRectGetMinY(view.frame) + CGRectGetHeight(view.frame);
+//        if (maxY > scrollViewHeight)
+//        {
+//            scrollViewHeight = maxY;
+//        }
+//    }
+//    
+//    [_scrollView setContentSize:(CGSizeMake(CGRectGetWidth(_scrollView.frame), scrollViewHeight))];
+//}
 
 #pragma mark - navigation
 - (IBAction)unwindFromViewController:(UIStoryboardSegue *)sender {
@@ -83,6 +86,13 @@
     _dirty = YES;
     
     [PULAccount currentUser].settings.notifyAccept = _notifAcceptSwitch.isOn;
+}
+
+- (IBAction)ibResolveMap:(id)sender
+{
+    _dirty = YES;
+    
+    [PULAccount currentUser].settings.resolveAddress = _resolveAddressSwitch.isOn;
 }
 
 - (IBAction)ibDone:(id)sender

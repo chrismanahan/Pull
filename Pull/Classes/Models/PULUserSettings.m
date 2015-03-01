@@ -8,6 +8,8 @@
 
 #import "PULUserSettings.h"
 
+
+// TODO: make constants for default values
 @implementation PULUserSettings
 
 - (instancetype)initFromFirebase:(NSDictionary*)dict;
@@ -18,7 +20,9 @@
         _notifyAccept = notifs ? [notifs[@"accept"] boolValue] : YES;   // set default values if not set
         _notifyInvite = notifs ? [notifs[@"invite"] boolValue] : YES;
         
-        _disabled = [dict[@"isDisabled"] boolValue]; 
+        _disabled = [dict[@"isDisabled"] boolValue];
+        
+        _resolveAddress = [dict.allKeys containsObject:@"resolveAddress"] ? [dict[@"resolveAddress"] boolValue] : YES;
     }
     
     return self;
@@ -31,6 +35,7 @@
     settings.notifyAccept = YES;
     settings.notifyInvite = YES;
     settings.disabled = YES;
+    settings.resolveAddress = YES;
     
     return settings;
 }

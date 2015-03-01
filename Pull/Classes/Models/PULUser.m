@@ -13,7 +13,8 @@
 #import "PULConstants.h"
 
 #import <UIKit/UIKit.h>
-
+#import <AddressBookUI/AddressBookUI.h>
+#import <AddressBook/AddressBook.h>
 #import <Firebase/Firebase.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -182,9 +183,50 @@ NSString * const kPULFriendChangedPresence            = @"kPULFriendChangedPrese
 }
 
 #pragma mark - Properties
+- (NSString*)address
+{
+    BOOL needsRefresh = !_placemark && [_placemark.location distanceFromLocation:_location] < 5;
+    
+    if (needsRefresh)
+    {
+        PULLog(@"refreshing address");
+        CLGeocoder *geo = [[CLGeocoder alloc] init];
+        [geo reverseGeocodeLocation:_location
+                  completionHandler:^(NSArray *placemarks, NSError *error) {
+                      
+                      if (error)
+                      {
+                          PULLog(@"ERROR REVERSE GEOCODING %@", _location);
+                      }
+                      else
+                      {
+                          _placemark = placemarks[0];
+                          
+                          if (_placemark)
+                          {
+                              NSString *addy = _placemark.thoroughfare;
+                              NSString *city = _placemark.locality;
+                              NSString *st = _placemark.administrativeArea;
+                              
+                              NSString *fullAddy = [NSString stringWithFormat:@"%@ %@, %@, %@", _placemark.subThoroughfare, addy, city, st];
+                              [self setAddress:fullAddy];
+                          }
+                      }
+                  }];
+    }
+    
+    return _address;
+}
+
 - (NSString*)fullName
 {
     return [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
+}
+
+- (BOOL)isOnline
+{
+    // 
+    return YES;
 }
 
 - (UIImage*)image
@@ -276,7 +318,8 @@ NSString * const kPULFriendChangedPresence            = @"kPULFriendChangedPrese
                      @"notification":@{
                              @"invite": @(_settings.notifyInvite),
                              @"accept": @(_settings.notifyAccept)
-                             }
+                             },
+                     @"resolveAddress":@(_settings.resolveAddress)
                      }};
     
 }

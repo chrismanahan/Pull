@@ -123,6 +123,8 @@ const CGFloat kPULCompassFlashTime = 1.5;
     }
     
     _didSetUp = YES;
+    
+    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
 }
 
 - (void)viewDidLoad
@@ -156,7 +158,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
     
     if (distance <= kPULNearbyDistance && !_nearby)
     {
-        NSString *imageName = @"Nearby_arrow4,5,6";
+        NSString *imageName = @"nearby_compass";
         
         _directionArrowView.image = [UIImage imageNamed:imageName];
         _nearby = YES;

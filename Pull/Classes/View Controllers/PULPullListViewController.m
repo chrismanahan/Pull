@@ -283,10 +283,10 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     }
     else if (cellType == PULUserCellTypePulled)
     {
-        CGFloat alpha = (10 - indexPath.row) / 10.0;
-        if (alpha < 0.7)
+        CGFloat alpha = (10 - indexPath.row * 2) / 10.0;
+        if (indexPath.row >= 4)
         {
-            alpha = 0.7;
+            alpha = (10 - 3 * 2) / 10.0;
         }
         cell.bgView.backgroundColor = [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:alpha];
     }

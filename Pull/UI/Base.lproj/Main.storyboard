@@ -384,6 +384,10 @@
                                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgA-mE-sag" customClass="PULCellScrollView">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                                     <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qYs-ei-zMA" userLabel="white bg">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </view>
                                                         <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MnD-wL-40h" userLabel="background">
                                                             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                                             <color key="backgroundColor" red="0.053999999999999999" green="0.46400000000000002" blue="0.998" alpha="1" colorSpace="calibratedRGB"/>
@@ -392,10 +396,14 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="MnD-wL-40h" secondAttribute="bottom" id="3Xk-a1-1J3"/>
+                                                        <constraint firstItem="MnD-wL-40h" firstAttribute="height" secondItem="qYs-ei-zMA" secondAttribute="height" id="68G-0B-W5J"/>
                                                         <constraint firstItem="MnD-wL-40h" firstAttribute="leading" secondItem="JgA-mE-sag" secondAttribute="leading" id="GFm-Nz-UDG"/>
+                                                        <constraint firstItem="MnD-wL-40h" firstAttribute="leading" secondItem="qYs-ei-zMA" secondAttribute="leading" id="QKA-SZ-PHh"/>
                                                         <constraint firstAttribute="height" secondItem="MnD-wL-40h" secondAttribute="height" id="c2E-JL-1Tb"/>
                                                         <constraint firstItem="MnD-wL-40h" firstAttribute="top" secondItem="JgA-mE-sag" secondAttribute="top" id="dew-Qi-8zu"/>
                                                         <constraint firstAttribute="width" secondItem="MnD-wL-40h" secondAttribute="width" id="gXt-UB-zj8"/>
+                                                        <constraint firstItem="MnD-wL-40h" firstAttribute="width" secondItem="qYs-ei-zMA" secondAttribute="width" id="jaW-PD-ZTe"/>
+                                                        <constraint firstItem="MnD-wL-40h" firstAttribute="top" secondItem="qYs-ei-zMA" secondAttribute="top" id="n7A-sc-gEp"/>
                                                         <constraint firstAttribute="trailing" secondItem="MnD-wL-40h" secondAttribute="trailing" id="p3g-cE-lzr"/>
                                                     </constraints>
                                                     <connections>
@@ -456,7 +464,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="accessoryImageView" destination="PQE-O1-67g" id="9io-1z-DlC"/>
-                                            <outlet property="bgView" destination="MnD-wL-40h" id="82v-gu-32j"/>
+                                            <outlet property="bgView" destination="MnD-wL-40h" id="Sqw-2E-wgn"/>
                                             <outlet property="userDisplayNameLabel" destination="ntx-0l-yTa" id="PcX-Tb-3Te"/>
                                             <outlet property="userDistanceLabel" destination="sXG-xB-s1B" id="KPR-HM-CuL"/>
                                             <outlet property="userImageViewContainer" destination="0rh-22-zXw" id="QnF-kN-eyz"/>

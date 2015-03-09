@@ -1870,7 +1870,7 @@
         <image name="intro_friends.png" width="718" height="679"/>
         <image name="intro_location.png" width="857" height="436"/>
         <image name="learn_more_arrow.png" width="23" height="33"/>
-        <image name="menu_icon.png" width="125" height="81"/>
+        <image name="menu_icon.png" width="78" height="68"/>
         <image name="nav_blue_down.png" width="24" height="31"/>
         <image name="nav_blue_right.png" width="28" height="20"/>
         <image name="nav_white_down.png" width="19" height="28"/>

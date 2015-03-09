@@ -71,6 +71,12 @@ name:kPULFriendUpdatedNotifcation
     [self presentViewController:_shareActivityViewController animated:YES completion:nil];
 }
 
+- (IBAction)ibRate:(id)sender
+{
+    NSURL *url = [NSURL URLWithString:kPULAppDownloadURL];
+    [[UIApplication sharedApplication] openURL:url];
+}
+
 #pragma mark - action sheet delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
 {

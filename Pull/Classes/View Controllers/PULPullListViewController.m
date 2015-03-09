@@ -227,9 +227,9 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     if ([tableView isEqual:_friendTableView])
     {
         switch (indexPath.section) {
-            case 0: CellId = @"PulledCellID"; break;
-            case 1: CellId = @"PullPendingCellID"; break;
-            case 2: CellId = @"PullInvitedCellID"; break;
+            case 2: CellId = @"PulledCellID"; break;
+            case 0: CellId = @"PullPendingCellID"; break;
+            case 1: CellId = @"PullInvitedCellID"; break;
             case 3: CellId = @"UnPulledCellID"; break;
             default: break;
         }
@@ -264,17 +264,31 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     if ([tableView isEqual:_friendTableView])
     {
         switch (indexPath.section) {
-            case 0: cellType = PULUserCellTypePulled; break;
-            case 1: cellType = PULUserCellTypePending; break;
-            case 2: cellType = PULUserCellTypeWaiting; break;
+            case 2: cellType = PULUserCellTypePulled; break;
+            case 0: cellType = PULUserCellTypePending; break;
+            case 1: cellType = PULUserCellTypeWaiting; break;
             case 3: cellType = PULUserCellTypeNearby; break;
             default: break;
         }
     }
+    
     cell.type = cellType;
     if (cellType == PULUserCellTypePending || cellType == PULUserCellTypeWaiting)
     {
-        cell.bgView.bgColor = [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:1.000];
+        cell.bgView.backgroundColor = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:0.750];
+    }
+    else if (cellType == PULUserCellTypeNearby)
+    {
+        cell.bgView.backgroundColor = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.0];
+    }
+    else if (cellType == PULUserCellTypePulled)
+    {
+        CGFloat alpha = (10 - indexPath.row) / 10.0;
+        if (alpha < 0.7)
+        {
+            alpha = 0.7;
+        }
+        cell.bgView.backgroundColor = [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:alpha];
     }
     
     return cell;
@@ -338,9 +352,9 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     
     switch (section)
     {
-        case 0: title = @"Pulled"; break;
-        case 1: title = @"Pending Pulls"; break;
-        case 2: title = @"Requested Pulls"; break;
+        case 2: title = @"Pulled"; break;
+        case 0: title = @"Pending Pulls"; break;
+        case 1: title = @"Requested Pulls"; break;
         case 3: title = @"Nearby"; break;
         case 4: title = @"Far Away"; break;
     }
@@ -383,7 +397,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     {
         switch (indexPath.section)
         {
-            case 0: // pulled users
+            case 2: // pulled users
             {
                 PULUser *friend = friendsArray[indexPath.row];
                 PULPullDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullDetailViewController class])];
@@ -400,11 +414,11 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 
                 break;
             }
-            case 1: // pending users
+            case 0: // pending users
             {
                 break;
             }
-            case 2: // invited users
+            case 1: // invited users
             {
                 break;
             }
@@ -496,9 +510,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     
     PULUser *friend = cell.user;
     
-    PULFriendManager *friendMan = [PULAccount currentUser].friendManager;
-    
-    if ([friendMan.nearbyFriends containsObject:friend])
+    if (cell.type == PULUserCellTypeNearby)
     {
         _loadingIndicator.title = @"Pulling";
         
@@ -565,21 +577,6 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
                       otherButtonTitles: nil] show];
 }
 
-- (void)userCellDidTapUserImage:(PULUserCell*)cell;
-{
-    PULPullDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullDetailViewController class])];
-    vc.user = cell.user;
-    
-    PULSlideSegue *segue = [PULSlideSegue segueWithIdentifier:@"SlideToRightSegue"
-                                                       source:self
-                                                  destination:vc
-                                               performHandler:^{
-                                               }];
-    segue.slideLeft = YES;
-    [segue perform];
-
-}
-
 #pragma mark - Private
 - (NSArray*)p_friendArrayForSection:(NSUInteger)index tableView:(UITableView*)tableView
 {
@@ -591,17 +588,17 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     if ([tableView isEqual:_friendTableView])
     {
         switch (index) {
-            case 0:
+            case 2:
             {
                 retArray = friendManager.pulledFriends;
                 break;
             }
-            case 1:
+            case 0:
             {
                 retArray = friendManager.pullPendingFriends;
                 break;
             }
-            case 2:
+            case 1:
             {
                 retArray = friendManager.pullInvitedFriends;
                 break;

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import "PULUserImageView.h"
-#import "PULUserTableCellBackgroundView.h"
 
 @class PULUser;
 @class PULUserTableCellBackgroundView;
@@ -32,16 +31,16 @@ typedef NS_ENUM(NSInteger, PULUserCellType)
 - (void)userCellDidDeclinePull:(PULUserCell*)cell;
 - (void)userCellDidAcceptPull:(PULUserCell*)cell;
 - (void)userCellDidCancelPull:(PULUserCell*)cell;
-- (void)userCellDidTapUserImage:(PULUserCell*)cell;
 
 @end
 
-@interface PULUserCell : UITableViewCell
+@interface PULUserCell : UITableViewCell <UIScrollViewDelegate>
 
 @property (nonatomic, strong) IBOutlet PULUserImageView *userImageViewContainer;
 @property (nonatomic, strong) IBOutlet UILabel *userDisplayNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *userDistanceLabel;
-@property (nonatomic, strong) IBOutlet PULUserTableCellBackgroundView *bgView;
+@property (nonatomic, strong) IBOutlet UIView *bgView;
+@property (strong, nonatomic) IBOutlet UIImageView *accessoryImageView;
 
 @property (nonatomic) PULUserCellType type;
 

@@ -8,7 +8,7 @@
 
 #import "PULSectionHeader.h"
 
-const CGFloat kPULSectionHeaderHeight = 25;
+const CGFloat kPULSectionHeaderHeight = 20;
 
 @implementation PULSectionHeader
 

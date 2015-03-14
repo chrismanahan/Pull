@@ -12,9 +12,9 @@
 
 #import "Reachability.h"
 
-NSString * const kPULConnectionRestoredNotification = @"kPULConnectionRestoredNotification";
+NSString * const PULConnectionRestoredNotification = @"kPULConnectionRestoredNotification";
 
-NSString * const kPULConnectionLostNotification = @"kPULConnectionLostNotification;";
+NSString * const PULConnectionLostNotification = @"kPULConnectionLostNotification;";
 
 @interface PULNoConnectionView ()
 
@@ -79,42 +79,19 @@ NSString * const kPULConnectionLostNotification = @"kPULConnectionLostNotificati
     
     if ([_reachability isReachable])
     {
-        if (self.superview)
-        {
-            PULLog(@"removing no connection view");
-            [self removeFromSuperview];
-
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:kPULConnectionRestoredNotification
-                                                                object:self];
-            
-        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:PULConnectionRestoredNotification
+                                                            object:self];
+        
+        
     }
     else
     {
-        if (!self.superview)
-        {
-            UIView *topView = [self topMostController].view;
-            self.frame = topView.bounds;
-            [topView addSubview:self];
-            
-            PULLog(@"adding no connection view");
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:kPULConnectionLostNotification
-                                                                object:self];
-        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:PULConnectionLostNotification
+                                                            object:self];
+        
     }
-}
-
-- (UIViewController*) topMostController
-{
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    
-    while (topController.presentedViewController) {
-        topController = topController.presentedViewController;
-    }
-    
-    return topController;
 }
 
 @end

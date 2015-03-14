@@ -12,6 +12,9 @@ NSString * const kPULFirebaseURL = @"https://pull.firebaseio.com";
 
 NSString * const kPULFacebookAppID = @"468309439970987";
 
+// messages
+NSString * const kPULMessageFbInvite = @"Pull me on Pull!";
+
 // urls
 NSString * const kPULAppDownloadURL = @"http://getpulled.com";
 NSString * const kPULAppUpdateURL = @"http://getpulled.com/app/version.json";
@@ -25,5 +28,5 @@ const float kPULDistanceUnitCutoff = 1000;
 const float kPULNearbyDistance = 30.48; // meters = 100 ft
 
 // location tracking
-const NSInteger kLocationForegroundDistanceFilter = 0;//20;    // meters
-const NSInteger kLocationBackgroundDistanceFilter = 5;//30;
+const NSInteger kLocationForegroundDistanceFilter = 2;//20;    // meters
+const NSInteger kLocationBackgroundDistanceFilter = 6;//30;

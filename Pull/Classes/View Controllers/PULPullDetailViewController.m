@@ -12,16 +12,22 @@
 #import "PULAccount.h"
 
 #import "PULConstants.h"
+
 #import "CGGeometry+Pull.h"
+#import "UIVisualEffectView+PullBlur.h"
 
 #import "PULUserImageView.h"
 
+#import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <sys/utsname.h>
 
 const CGFloat kPULCompassFlashTime = 1.5;
 
 @interface PULPullDetailViewController ()
+
+@property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) UIView *mapOverlayView;
 
 @property (strong, nonatomic) IBOutlet UIButton *nearbyInfoButton;
 @property (strong, nonatomic) IBOutlet UIButton *mapViewButton;
@@ -30,6 +36,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
 @property (strong, nonatomic) IBOutlet UIImageView *directionArrowView;
 @property (strong, nonatomic) IBOutlet UIImageView *userImageView;
 @property (strong, nonatomic) IBOutlet PULUserImageView *userImageViewContainer;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *userImageViewTopConstraint;
 
 @property (strong, nonatomic) id locationNotification;
 @property (strong, nonatomic) id presenceNotification;
@@ -119,12 +126,33 @@ const CGFloat kPULCompassFlashTime = 1.5;
                                                       }];
         
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
+        
     }
     
     _didSetUp = YES;
     
     [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
+    
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    
+    span.latitudeDelta = 0.05;
+    span.longitudeDelta = 0.05;
+    
+    CLLocationCoordinate2D location = [PULAccount currentUser].location.coordinate;
+    region.span = span;
+    region.center = location;
+    
+    [_mapView setRegion:region];
+    [self.view insertSubview:_mapView atIndex:0];
+
+    if (_mapOverlayView)
+    {
+        [_mapOverlayView removeFromSuperview];
+    }
+    _mapOverlayView = [UIView pullVisualEffectViewWithFrame:_mapView.frame];
+    [self.view insertSubview:_mapOverlayView aboveSubview:_mapView];
+
 }
 
 - (void)viewDidLoad
@@ -133,6 +161,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
     tap.numberOfTapsRequired = 2;
     [_userImageViewContainer addGestureRecognizer:tap];
     
+//    _userImageViewTopConstraint.constant = 
 }
 
 - (void)viewWillDisappear:(BOOL)animated

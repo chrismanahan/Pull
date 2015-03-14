@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PULNoConnectionView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="539"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_connection.png" translatesAutoresizingMaskIntoConstraints="NO" id="Xuu-7H-d6x">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="8" y="8" width="304" height="302"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Xuu-7H-d6x" secondAttribute="trailing" id="LSF-SK-d13"/>
-                <constraint firstItem="Xuu-7H-d6x" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="kRA-os-SGk"/>
-                <constraint firstAttribute="bottom" secondItem="Xuu-7H-d6x" secondAttribute="bottom" id="mbU-nc-RDC"/>
-                <constraint firstItem="Xuu-7H-d6x" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ypt-Fw-YYE"/>
+                <constraint firstItem="Xuu-7H-d6x" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="6Pu-vX-BXw"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Xuu-7H-d6x" secondAttribute="trailing" constant="8" id="6Sd-B1-Ixt"/>
+                <constraint firstItem="Xuu-7H-d6x" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="R7P-7a-kuR"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Xuu-7H-d6x" secondAttribute="bottom" constant="8" id="kJS-a7-q8w"/>
+                <constraint firstAttribute="centerX" secondItem="Xuu-7H-d6x" secondAttribute="centerX" id="wf0-o5-hGY"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
-            <point key="canvasLocation" x="550" y="453"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="550" y="438.5"/>
         </view>
     </objects>
     <resources>
-        <image name="no_connection.png" width="210" height="158"/>
+        <image name="no_connection.png" width="367" height="302"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

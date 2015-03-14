@@ -170,16 +170,17 @@
     CGFloat width = 280;
     CGFloat height = 225;
     CGFloat y = CGRectGetHeight(_onView.frame) / 4;
-    
-    // draw background rect
-    rect = CGRectMake((CGRectGetWidth(_onView.frame) - width) / 2, y, width, height);
-    _container = rect;
-    // set color and shadow
+    CGContextSaveGState(ref);
+
+//    // draw background rect
+//    rect = CGRectMake((CGRectGetWidth(_onView.frame) - width) / 2, y, width, height);
+//    _container = rect;
+//    // set color and shadow
     CGContextSetShadow(ref, CGSizeMake(0, 2), 2.0);
-    CGContextSetFillColorWithColor(ref, [UIColor whiteColor].CGColor);
-    //draw rect
-    UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:10.0];
-    [roundedRect fill];
+//    CGContextSetFillColorWithColor(ref, [UIColor whiteColor].CGColor);
+//    //draw rect
+//    UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:10.0];
+//    [roundedRect fill];
     
     // draw circle
     CGFloat circleWidth = width / 3 + 10;
@@ -190,10 +191,8 @@
     
     _circleY = CGRectGetMidY(circleRect) - _circleRadius;
     
-    
-    
-    
-    
+    CGContextFillEllipseInRect(ref, CGRectInset(circleRect, 1, 1));
+
     CGFloat colors [] = {
         0.054, 0.464, 0.998, 1.0,
         0.537, 0.184, 1.0, 1.0
@@ -203,7 +202,6 @@
     CGGradientRef gradient = CGGradientCreateWithColorComponents(baseSpace, colors, NULL, 2);
     CGColorSpaceRelease(baseSpace), baseSpace = NULL;
     
-    CGContextSaveGState(ref);
     CGContextAddEllipseInRect(ref, circleRect);
     CGContextClip(ref);
     
@@ -216,12 +214,7 @@
     CGContextRestoreGState(ref);
     
     CGContextAddEllipseInRect(ref, circleRect);
-    
-    
-    
-    
-    
-    
+
     
 //    CGContextSetFillColorWithColor(ref, [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:1.000].CGColor);
 //    

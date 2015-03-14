@@ -68,14 +68,14 @@ NSString * const kPULAccountLoginFailedNotification = @"kPULAccountLoginFailedNo
         
         [PULLocationUpdater sharedUpdater].delegate = self;
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:kPULConnectionLostNotification
+        [[NSNotificationCenter defaultCenter] addObserverForName:PULConnectionLostNotification
                                                           object:nil
                                                            queue:[NSOperationQueue currentQueue]
                                                       usingBlock:^(NSNotification *note) {
                                                           [Firebase goOffline];
                                                       }];
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:kPULConnectionRestoredNotification
+        [[NSNotificationCenter defaultCenter] addObserverForName:PULConnectionRestoredNotification
                                                           object:nil
                                                            queue:[NSOperationQueue currentQueue]
                                                       usingBlock:^(NSNotification *note) {

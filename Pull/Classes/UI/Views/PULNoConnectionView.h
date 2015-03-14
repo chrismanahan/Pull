@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 Pull LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "PULOverlayView.h"
 
-extern NSString * const kPULConnectionRestoredNotification;
-extern NSString * const kPULConnectionLostNotification;
+extern NSString * const PULConnectionRestoredNotification;
+extern NSString * const PULConnectionLostNotification;
 
-@interface PULNoConnectionView : UIView
+@interface PULNoConnectionView : PULOverlayView
 
 + (void)startMonitoringConnection;
 

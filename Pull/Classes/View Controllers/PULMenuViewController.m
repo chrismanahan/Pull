@@ -14,6 +14,8 @@
 
 #import "PULConstants.h"
 
+#import "UIVisualEffectView+PullBlur.h"
+
 #import <MessageUI/MessageUI.h>
 #import <sys/utsname.h>
 
@@ -39,6 +41,8 @@
                                              selector:@selector(_populateUserInfo)
                                                  name:kPULFriendUpdatedNotifcation
                                                object:[PULAccount currentUser]];
+    
+    [self.view insertSubview:[UIView pullVisualEffectViewWithFrame:self.view.bounds] atIndex:0];
 }
 
 - (void)_populateUserInfo {

@@ -10,6 +10,8 @@ extern NSString * const kPULFirebaseURL;
 
 extern NSString * const kPULFacebookAppID;
 
+extern NSString * const kPULMessageFbInvite;
+
 extern NSString * const kPULAppDownloadURL;
 extern NSString * const kPULAppUpdateURL;
 

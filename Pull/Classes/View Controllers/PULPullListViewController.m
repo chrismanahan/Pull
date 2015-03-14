@@ -12,20 +12,34 @@
 #import "PULLoadingIndicator.h"
 #import "PULNoConnectionView.h"
 
+#import "PULLocationOverlay.h"
+#import "PULNoFriendsOverlay.h"
+
+#import "UIVisualEffectView+PullBlur.h"
+
 #import "PULPullDetailViewController.h"
 #import "PULLoginViewController.h"
 
 #import "PULAccount.h"
 
+#import "PULConstants.h"
+
 #import "PULSlideUnwindSegue.h"
 #import "PULSlideSegue.h"
 #import "PULReverseModal.h"
 
+#import <FacebookSDK/FacebookSDK.h>
 
 const NSInteger kPULPullListNumberOfTableViewSections = 4;
 
+const NSInteger kPULPulledSection = 1;
+const NSInteger kPULPendingSection = 0;
+const NSInteger kPULWaitingSection = 2;
+const NSInteger kPULNearbySection = 3;
+
 @interface PULPullListViewController ()
 
+@property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (nonatomic, strong) IBOutlet UITableView *friendTableView;
 @property (nonatomic, strong) IBOutlet UITableView *friendRequestTableView;
 @property (nonatomic, strong) IBOutlet UICollectionView *farFriendsCollectionView;
@@ -60,7 +74,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     // inset the table view to give it the slide under header effect
     _tableViewTopContraint.constant = -64;
     _friendTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     // subcribe to updates that we need to reload friend table data
@@ -75,45 +89,99 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
                                                object:nil];
     
     __block id loginNotif = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountLoginFailedNotification
-                                                      object:[PULAccount currentUser]
+                                                                              object:[PULAccount currentUser]
+                                                                               queue:[NSOperationQueue currentQueue]
+                                                                          usingBlock:^(NSNotification *note) {
+                                                                              [_loadingIndicator hide];
+                                                                              
+                                                                              [[PULAccount currentUser] logout];
+                                                                              
+                                                                              UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
+                                                                              
+                                                                              PULReverseModal *seg = [PULReverseModal segueWithIdentifier:@"LoginSeg"
+                                                                                                                                   source:self
+                                                                                                                              destination:login
+                                                                                                                           performHandler:^{
+                                                                                                                               ;
+                                                                                                                           }];
+                                                                              
+                                                                              [seg perform];
+                                                                              
+                                                                              [[NSNotificationCenter defaultCenter] removeObserver:loginNotif];
+                                                                          }];
+    
+    // subscribe to no friends button taps
+//    [[NSNotificationCenter defaultCenter] addObserverForName:PULNoFriendsOverlayButtonTappedSendInvite
+//                                                      object:nil
+//                                                       queue:[NSOperationQueue currentQueue]
+//                                                  usingBlock:^(NSNotification *note) {
+//                                                      PULLog(@"send invite tapped");
+//                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:PULNoFriendsOverlayButtonTappedCopyLink
+                                                      object:nil
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
-                                                      [_loadingIndicator hide];
+                                                      PULLog(@"copy link tapped");
                                                       
-                                                      [[PULAccount currentUser] logout];
-                                                      
-                                                      UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
-                                                      
-                                                      PULReverseModal *seg = [PULReverseModal segueWithIdentifier:@"LoginSeg"
-                                                                                                           source:self
-                                                                                                      destination:login
-                                                                                                   performHandler:^{
-                                                                                                       ;
-                                                                                                   }];
-                                                      
-                                                      [seg perform];
-                                                      
-                                                      [[NSNotificationCenter defaultCenter] removeObserver:loginNotif];
+                                                      [UIPasteboard generalPasteboard].string = kPULAppDownloadURL;
                                                   }];
-
     
-//    _pullRefreshImageView.hidden = YES;
-//    _pullRefreshImageView.animationImages = @[[UIImage imageNamed:@"compas s_rotate_1"],
-//                                              [UIImage imageNamed:@"compass_rotate_2"],
-//                                              [UIImage imageNamed:@"compass_rotate_3"],
-//                                              [UIImage imageNamed:@"compass_rotate_4"],
-//                                              [UIImage imageNamed:@"compass_rotate_5"],
-//                                              [UIImage imageNamed:@"compass_rotate_6"],
-//                                              [UIImage imageNamed:@"compass_rotate_7"],
-//                                              [UIImage imageNamed:@"compass_rotate_8"]];
-//    _pullRefreshImageView.animationDuration = 0.8f;
-//    _pullRefreshImageView.animationRepeatCount = 0;
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(didRestoreConnection)
-//                                                 name:kPULConnectionRestoredNotification
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserverForName:PULConnectionLostNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [PULNoConnectionView overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
+                                                      
+                                                      _friendTableView.scrollEnabled = NO;
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:PULConnectionRestoredNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      
+                                                      [PULNoConnectionView removeOverlayFromView:_friendTableView];
+                                                      _friendTableView.scrollEnabled = YES;
+                                                  }];
+    
+    // subscribe to disabled location updates
+    [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationPermissionsDeniedNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [PULLocationOverlay overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationPermissionsGrantedNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      
+                                                      [PULLocationOverlay removeOverlayFromView:_friendTableView];
+                                                      
+                                                  }];
+    
+    //    _pullRefreshImageView.hidden = YES;
+    //    _pullRefreshImageView.animationImages = @[[UIImage imageNamed:@"compas s_rotate_1"],
+    //                                              [UIImage imageNamed:@"compass_rotate_2"],
+    //                                              [UIImage imageNamed:@"compass_rotate_3"],
+    //                                              [UIImage imageNamed:@"compass_rotate_4"],
+    //                                              [UIImage imageNamed:@"compass_rotate_5"],
+    //                                              [UIImage imageNamed:@"compass_rotate_6"],
+    //                                              [UIImage imageNamed:@"compass_rotate_7"],
+    //                                              [UIImage imageNamed:@"compass_rotate_8"]];
+    //    _pullRefreshImageView.animationDuration = 0.8f;
+    //    _pullRefreshImageView.animationRepeatCount = 0;
+    
+    //    [[NSNotificationCenter defaultCenter] addObserver:self
+    //                                             selector:@selector(didRestoreConnection)
+    //                                                 name:kPULConnectionRestoredNotification
+    //                                               object:nil];
 }
+
+
 
 //- (void)didRestoreConnection
 //{
@@ -132,6 +200,8 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     {
         [_loadingIndicator hide];
     }
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -139,40 +209,79 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     [super viewWillAppear:animated];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    
+    if (![PULLocationUpdater sharedUpdater].hasPermission && ![PULLocationOverlay viewContainsOverlay:_friendTableView])
+    {
+        PULLog(@"adding location overlay");
+        [PULLocationOverlay overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
+        
+        id locObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                          object:nil
+                                                           queue:[NSOperationQueue currentQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          if ([PULLocationUpdater sharedUpdater].hasPermission)
+                                                          {
+                                                              [PULLocationOverlay removeOverlayFromView:_friendTableView];
+                                                              
+                                                              [[NSNotificationCenter defaultCenter] removeObserver:locObserver];
+                                                              
+                                                              [_friendTableView reloadData];
+                                                          }
+                                                      }];
+    }
+
 }
 
 - (void)reload
 {
     [_loadingIndicator hide];
     
-//    if (_refreshing)
-//    {
-//        [_friendTableView setScrollEnabled:YES];
-//        _friendTableView.userInteractionEnabled = YES;
-//        [UIView animateWithDuration:0.2 animations:^{
-//            _friendTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//            _pullRefreshImageView.alpha = 0.0;
-//        } completion:^(BOOL finished) {
-//            [_pullRefreshImageView stopAnimating];
-//            _pullRefreshImageView.hidden = YES;
-//        }];
-//        
-//        _refreshing = NO;
-//    }
+    //    if (_refreshing)
+    //    {
+    //        [_friendTableView setScrollEnabled:YES];
+    //        _friendTableView.userInteractionEnabled = YES;
+    //        [UIView animateWithDuration:0.2 animations:^{
+    //            _friendTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    //            _pullRefreshImageView.alpha = 0.0;
+    //        } completion:^(BOOL finished) {
+    //            [_pullRefreshImageView stopAnimating];
+    //            _pullRefreshImageView.hidden = YES;
+    //        }];
+    //
+    //        _refreshing = NO;
+    //    }
     
     
-    PULLog(@"reloading friends tables");
-    [_friendTableView reloadData];
-//    [_friendRequestTableView reloadData];
+    if ([PULLocationUpdater sharedUpdater].hasPermission)
+    {
+        PULLog(@"reloading friends tables");
+        
+        if ([PULAccount currentUser].friendManager.nearbyFriends.count > 0)
+        {
+            //[PULNoFriendsOverlay removeOverlayFromView:_friendTableView];
+            
+            [_friendTableView reloadData];
+        }
+        else
+        {
+            PULLog(@"no friends to display");
+            
+            [PULNoFriendsOverlay overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
+        }
+    }
+    else
+    {
+        PULLog(@"not reloading friends table, still need location permission");
+    }
 }
 
 //- (void)_refresh
 //{
 //    PULLog(@"is refreshing");
-//    
+//
 //    [_friendTableView setScrollEnabled:NO];
 //    _friendTableView.userInteractionEnabled = NO;
-//   
+//
 //    CGFloat height = CGRectGetHeight(_pullRefreshImageView.frame);
 //
 //    _pullRefreshImageView.hidden = NO;
@@ -182,9 +291,9 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 //        _friendTableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
 //        _pullRefreshImageView.alpha = 1.0;
 //    }];
-//    
+//
 //    [[PULAccount currentUser] initializeAccount];
-//    
+//
 //    _refreshing = YES;
 //}
 
@@ -206,7 +315,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *friendsArray = [self p_friendArrayForSection:indexPath.section tableView:tableView];
-//    PULLog(@"using friends array for cell #%zd: %@", indexPath.row, friendsArray);
+    //    PULLog(@"using friends array for cell #%zd: %@", indexPath.row, friendsArray);
     
     PULUser *friend;
     if (indexPath.row < friendsArray.count)
@@ -227,22 +336,22 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     if ([tableView isEqual:_friendTableView])
     {
         switch (indexPath.section) {
-            case 2: CellId = @"PulledCellID"; break;
-            case 0: CellId = @"PullPendingCellID"; break;
-            case 1: CellId = @"PullInvitedCellID"; break;
-            case 3: CellId = @"UnPulledCellID"; break;
+            case kPULPulledSection: CellId = @"PulledCellID"; break;
+            case kPULPendingSection: CellId = @"PullPendingCellID"; break;
+            case kPULWaitingSection: CellId = @"PullInvitedCellID"; break;
+            case kPULNearbySection: CellId = @"UnPulledCellID"; break;
             default: break;
         }
         
     }
-//    else if ([tableView isEqual:_friendRequestTableView])
-//    {
-//        switch (indexPath.section) {
-//            case 0: CellId = @"FriendRequestCellID"; break;
-//            case 1: CellId = @"FriendInvitedCellID"; break;
-//            default: break;
-//        }
-//    }
+    //    else if ([tableView isEqual:_friendRequestTableView])
+    //    {
+    //        switch (indexPath.section) {
+    //            case 0: CellId = @"FriendRequestCellID"; break;
+    //            case 1: CellId = @"FriendInvitedCellID"; break;
+    //            default: break;
+    //        }
+    //    }
     
     if (CellId)
     {
@@ -253,7 +362,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
         
         cell.user = friend;
     }
-
+    
     NSAssert(cell != nil, @"We need to have a cell");
     
     cell.delegate = self;
@@ -264,24 +373,24 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     if ([tableView isEqual:_friendTableView])
     {
         switch (indexPath.section) {
-            case 2: cellType = PULUserCellTypePulled; break;
-            case 0: cellType = PULUserCellTypePending; break;
-            case 1: cellType = PULUserCellTypeWaiting; break;
-            case 3: cellType = PULUserCellTypeNearby; break;
+            case kPULPulledSection: cellType = PULUserCellTypePulled; break;
+            case kPULPendingSection: cellType = PULUserCellTypePending; break;
+            case kPULWaitingSection: cellType = PULUserCellTypeWaiting; break;
+            case kPULNearbySection: cellType = PULUserCellTypeNearby; break;
             default: break;
         }
     }
     
     cell.type = cellType;
-    if (cellType == PULUserCellTypePending || cellType == PULUserCellTypeWaiting)
-    {
-        cell.bgView.backgroundColor = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:0.750];
-    }
-    else if (cellType == PULUserCellTypeNearby)
-    {
-        cell.bgView.backgroundColor = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.0];
-    }
-    else if (cellType == PULUserCellTypePulled)
+    //    if (cellType == PULUserCellTypePending || cellType == PULUserCellTypeWaiting)
+    //    {
+    //        cell.bgView.backgroundColor = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:0.750];
+    //    }
+    //    else if (cellType == PULUserCellTypeNearby)
+    //    {
+    //        cell.bgView.backgroundColor = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.0];
+    //    }
+    if (cellType == PULUserCellTypePulled)
     {
         CGFloat alpha = (10 - indexPath.row * 2) / 10.0;
         if (indexPath.row >= 4)
@@ -302,7 +411,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *array = [self p_friendArrayForSection:section tableView:tableView];
-
+    
     if (array)
     {
         return array.count;
@@ -314,7 +423,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 //- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 //{
 //    NSString *title = @"";
-//    
+//
 //    if (tableView == _friendTableView)
 //    {
 //        switch (section)
@@ -324,7 +433,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 //            case 2: title = @"Requested Pulls"; break;
 //            case 3: title = @"Nearby"; break;
 //            case 4: title = @"Far Away"; break;
-//                
+//
 //        }
 //    }
 //    else if (tableView == _friendRequestTableView)
@@ -335,13 +444,13 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 //            case 1: title = @"Waiting on Friends"; break;
 //        }
 //    }
-//    
+//
 //    if ([self p_friendArrayForSection:section tableView:tableView].count == 0)
 //    {
 //        // don't show a title if nothing in section
 //        title = nil;
 //    }
-//    
+//
 //    return title;
 //}
 
@@ -352,10 +461,10 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     
     switch (section)
     {
-        case 2: title = @"Pulled"; break;
-        case 0: title = @"Pending Pulls"; break;
-        case 1: title = @"Requested Pulls"; break;
-        case 3: title = @"Nearby"; break;
+        case kPULPulledSection: title = @"Pulled"; break;
+        case kPULPendingSection: title = @"Pending Pulls"; break;
+        case kPULWaitingSection: title = @"Requested Pulls"; break;
+        case kPULNearbySection: title = @"Nearby"; break;
         case 4: title = @"Far Away"; break;
     }
     
@@ -397,32 +506,32 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     {
         switch (indexPath.section)
         {
-            case 2: // pulled users
+            case kPULPulledSection: // pulled users
             {
                 PULUser *friend = friendsArray[indexPath.row];
                 PULPullDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullDetailViewController class])];
                 vc.user = friend;
                 
                 PULSlideSegue *segue = [PULSlideSegue segueWithIdentifier:@"SlideToRightSegue"
-                                                                       source:self
-                                                                  destination:vc
-                                                               performHandler:^{
-                                                               }];
+                                                                   source:self
+                                                              destination:vc
+                                                           performHandler:^{
+                                                           }];
                 segue.slideLeft = YES;
                 [segue perform];
                 
-
+                
                 break;
             }
-            case 0: // pending users
+            case kPULPendingSection: // pending users
             {
                 break;
             }
-            case 1: // invited users
+            case kPULWaitingSection: // invited users
             {
                 break;
             }
-            case 3:     // unpulled users
+            case kPULNearbySection:     // unpulled users
             {
                 BOOL didAlert = [[NSUserDefaults standardUserDefaults] boolForKey:@"DidAlertHintKey"];
                 
@@ -436,7 +545,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
                     {
                         // looks like they were. lets tell them how to use pull
                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hmmm"
-                                                                        message:@"To start a pull with a friend, hold and drag their picture to the right"
+                                                                        message:@"To start a pull with a friend, pull them to the right"
                                                                        delegate:nil
                                                               cancelButtonTitle:@"Got it"
                                                               otherButtonTitles:nil];
@@ -448,29 +557,29 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
                 
                 break;
             }
-                default:
+            default:
             {
                 break;
             }
         }
     }
-//    else if ([tableView isEqual:_friendRequestTableView])
-//    {
-//        switch (indexPath.section) {
-//            case 0: // friend is pending
-//            {
-//                [[PULAccount currentUser].friendManager acceptFriendRequestFromUser:friend];
-//                break;
-//            }
-//            case 1:  // friend is invited
-//            {
-//                [[PULAccount currentUser].friendManager unfriendUser:friend];
-//                break;
-//            }
-//            default:
-//                break;
-//        }
-//    }
+    //    else if ([tableView isEqual:_friendRequestTableView])
+    //    {
+    //        switch (indexPath.section) {
+    //            case 0: // friend is pending
+    //            {
+    //                [[PULAccount currentUser].friendManager acceptFriendRequestFromUser:friend];
+    //                break;
+    //            }
+    //            case 1:  // friend is invited
+    //            {
+    //                [[PULAccount currentUser].friendManager unfriendUser:friend];
+    //                break;
+    //            }
+    //            default:
+    //                break;
+    //        }
+    //    }
 }
 
 //#pragma mark  - scroll delegate
@@ -487,7 +596,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
 //    if (_shouldRefresh)
 //    {
 //        [self _refresh];
-//        
+//
 //        _shouldRefresh = NO;
 //    }
 //
@@ -540,7 +649,7 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     _loadingIndicator.title = @"Declining Pull";
     [_loadingIndicator show];
     
-     [[PULAccount currentUser].pullManager unpullUser:cell.user];
+    [[PULAccount currentUser].pullManager unpullUser:cell.user];
     
     [_friendTableView reloadData];
     
@@ -588,22 +697,22 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
     if ([tableView isEqual:_friendTableView])
     {
         switch (index) {
-            case 2:
+            case kPULPulledSection:
             {
                 retArray = friendManager.pulledFriends;
                 break;
             }
-            case 0:
+            case kPULPendingSection:
             {
                 retArray = friendManager.pullPendingFriends;
                 break;
             }
-            case 1:
+            case kPULWaitingSection:
             {
                 retArray = friendManager.pullInvitedFriends;
                 break;
             }
-            case 3:
+            case kPULNearbySection:
             {
                 retArray = friendManager.nearbyFriends;
                 break;
@@ -633,9 +742,9 @@ const NSInteger kPULPullListNumberOfTableViewSections = 4;
             default:
                 break;
         }
-
+        
     }
-
+    
     return retArray;
 }
 

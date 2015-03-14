@@ -95,7 +95,7 @@
     cell.userDisplayNameLabel.text = user.fullName;
     cell.type = PULUserCellTypeNone;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+    
     return cell;
 }
 

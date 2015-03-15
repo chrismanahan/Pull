@@ -10,6 +10,8 @@
 
 #import "PULAccount.h"
 
+#import "PULUserImageView.h"
+
 #import <MapKit/MapKit.h>
 
 @interface PULMapViewController () <MKMapViewDelegate, UIAlertViewDelegate>
@@ -198,25 +200,30 @@
         annotationView.contentMode = UIViewContentModeScaleAspectFit;
         annotationView.canShowCallout = NO;
         
-        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, 60, 60)];
-        lbl.font = [UIFont fontWithName:@"Avenir-Black" size:30];
-        lbl.textAlignment = NSTextAlignmentCenter;
-        lbl.textColor = [UIColor whiteColor];
-        lbl.text = [annotation title];
-        [lbl sizeToFit];
+//        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, 60, 60)];
+//        lbl.font = [UIFont fontWithName:@"Avenir-Black" size:30];
+//        lbl.textAlignment = NSTextAlignmentCenter;
+//        lbl.textColor = [UIColor whiteColor];
+//        lbl.text = [annotation title];
+//        [lbl sizeToFit];
+        PULUserImageView *imageView = [[PULUserImageView alloc] initWithFrame:CGRectMake(0, 0, 70, 70)];
+        imageView.backgroundColor = [UIColor clearColor];
+        imageView.hasBorder = NO;
+        imageView.imageView.image = ((PULUser*)annotation).image;
+
         // adjust label center
-        CGPoint center = lbl.center;
-        CGFloat xOffset = abs(CGRectGetWidth(lbl.frame) - CGRectGetWidth(annotationView.frame));
+        CGPoint center = imageView.center;
+        CGFloat xOffset = abs(CGRectGetWidth(imageView.frame) - CGRectGetWidth(annotationView.frame));
         xOffset /= 2;
         center.x += xOffset;
         
-        CGFloat yOffset = abs(CGRectGetHeight(lbl.frame) - CGRectGetHeight(annotationView.frame));
+        CGFloat yOffset = abs(CGRectGetHeight(imageView.frame) - CGRectGetHeight(annotationView.frame));
         yOffset /= 4;
-        center.y += yOffset + 3;
+        center.y += yOffset + 1;
         
-        lbl.center = center;
+        imageView.center = center;
         
-        [annotationView addSubview:lbl];
+        [annotationView addSubview:imageView];
         
         annotationView.centerOffset = CGPointMake(0, - annotationView.image.size.height / 2);
     

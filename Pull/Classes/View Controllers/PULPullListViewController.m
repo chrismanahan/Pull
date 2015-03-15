@@ -258,7 +258,7 @@ const NSInteger kPULNearbySection = 3;
         
         if ([PULAccount currentUser].friendManager.nearbyFriends.count > 0)
         {
-            //[PULNoFriendsOverlay removeOverlayFromView:_friendTableView];
+            [PULNoFriendsOverlay removeOverlayFromView:_friendTableView];
             
             [_friendTableView reloadData];
         }

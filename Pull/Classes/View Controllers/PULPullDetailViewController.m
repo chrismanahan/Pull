@@ -64,7 +64,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
     _userImageView.image = _user.image;
     _nameLabel.text = _user.fullName;
     
-    _userImageViewContainer.hasBorder = YES;
+//    _userImageViewContainer.hasBorder = YES;
     
 //    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
     
@@ -185,7 +185,8 @@ const CGFloat kPULCompassFlashTime = 1.5;
 {
     [self updateDistanceLabel:distance];
     
-    if (distance <= kPULNearbyDistance && !_nearby)
+    // TODO: remove NO to enable nearby compass again
+    if (distance <= kPULNearbyDistance && !_nearby && NO)
     {
         NSString *imageName = @"nearby_compass";
         
@@ -202,7 +203,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
     }
     else if (_nearby && distance > kPULNearbyDistance)
     {
-        _directionArrowView.image = [UIImage imageNamed:@"round_compass"];
+        _directionArrowView.image = [UIImage imageNamed:@"cascade_compass"];
         _nearby = NO;
 //        _nearbyInfoButton.hidden = YES;
         _shouldRotate = YES;

@@ -10,7 +10,17 @@
 
 @implementation PULUserImageView
 
-//IB_DESIGNABLE
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        UIImageView *iv = [[UIImageView alloc] initWithFrame:self.bounds];
+        
+        _imageView = iv;
+        [self addSubview:iv];
+    }
+    return self;
+}
 
 - (void)setSelected:(BOOL)selected
 {

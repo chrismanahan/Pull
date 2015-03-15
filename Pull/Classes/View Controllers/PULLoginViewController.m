@@ -185,6 +185,8 @@
                                                                                                                ;
                                                                                                            }];
                                                           [seg perform];
+                                                          
+                                                          [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DidGrantPermissions"];
                                                       }
                                                       else
                                                       {

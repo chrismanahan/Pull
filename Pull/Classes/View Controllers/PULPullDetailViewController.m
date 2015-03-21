@@ -161,8 +161,29 @@ const CGFloat kPULCompassFlashTime = 1.5;
     tap.numberOfTapsRequired = 2;
     [_userImageViewContainer addGestureRecognizer:tap];
     
-//    _userImageViewTopConstraint.constant = 
+    CGFloat offset = 0;
+    if ([deviceName() hasSuffix:@"7,1"])
+    {
+        // iphone 6 plus
+        offset = 7;
+    }
+    else if ([deviceName() hasSuffix:@"7,2"])
+    {
+        // iphone 6
+        offset = 6;
+    }
+    _userImageViewTopConstraint.constant += offset;
 }
+
+NSString* deviceName()
+{
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    
+    return [NSString stringWithCString:systemInfo.machine
+                              encoding:NSUTF8StringEncoding];
+}
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {

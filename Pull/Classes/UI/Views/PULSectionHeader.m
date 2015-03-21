@@ -22,7 +22,7 @@ const CGFloat kPULSectionHeaderHeight = 20;
         UIColor *color;
         if ([title isEqualToString:@"Pulled"])
         {
-            color = [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:1.000];
+            color = PUL_Blue;
         }
         else if ([title isEqualToString:@"Blocked"])
         {
@@ -34,14 +34,14 @@ const CGFloat kPULSectionHeaderHeight = 20;
         }
         else
         {
-            color = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
+            color = PUL_Purple;
         }
         
         // label
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, kPULSectionHeaderHeight - 2)];
         label.text = title;
         label.textColor = color;
-        label.font = [UIFont systemFontOfSize:16];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
         [label sizeToFit];
         
         CGPoint center = label.center;
@@ -49,7 +49,7 @@ const CGFloat kPULSectionHeaderHeight = 20;
         center.y += 1;
         label.center = center;
 
-        self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.8];
+        self.backgroundColor = [UIColor whiteColor];
         
         [self addSubview:label];
 //        [self addSubview:line];

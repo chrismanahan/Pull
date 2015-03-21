@@ -19,7 +19,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <CoreLocation/CoreLocation.h>
 
-const float kPULMaxDistanceToBeNearby = 99999999;// 48280.3;    // 30 miles
+const float kPULMaxDistanceToBeNearby = 99999999;// 16093.4;    // 10 miles
 
 NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
@@ -590,7 +590,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
         [self p_userFromUid:snapshot.key completion:^(PULUser *user) {
             
-            if (![_allFriends containsObject:user])
+            if (![_allFriends containsObject:user] && user)
             {
                 [_allFriends addObject:user];
                 

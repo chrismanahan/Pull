@@ -17,7 +17,7 @@ IB_DESIGNABLE
     UIColor *color = [super borderColor];
     if ([color isEqual:[UIColor whiteColor]])
     {
-        return [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000];
+        return PUL_Purple;
     }
     else
     {

@@ -45,11 +45,13 @@
 
 + (void)overlayOnView:(UIView*)view offset:(NSInteger)offset
 {
+    PULLog(@"WILL ADD OVERLAY TO VIEW");
     // remove existing overlay if any
     [self removeOverlayFromView:view];
     
     // add nib to view
     [self overlayOnView:view fromNib:NSStringFromClass([self class]) offset:offset];
+    PULLog(@"DID ADD OVERLAY TO VIEW");
 }
 
 + (void)overlayOnView:(UIView*)view
@@ -63,6 +65,7 @@
     {
         if ([sub isKindOfClass:[PULOverlayView class]])
         {
+            PULLog(@"REMOVING OVERLAY VIEW");
             [sub removeFromSuperview];
         }
         else if (sub.subviews.count)

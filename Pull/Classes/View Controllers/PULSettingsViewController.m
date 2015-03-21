@@ -40,6 +40,7 @@
     [_notifInviteSwitch setOn:settings.notifyInvite];
     [_resolveAddressSwitch setOn:settings.resolveAddress];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 

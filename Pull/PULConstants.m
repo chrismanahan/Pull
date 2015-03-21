@@ -28,5 +28,5 @@ const float kPULDistanceUnitCutoff = 1000;
 const float kPULNearbyDistance = 30.48; // meters = 100 ft
 
 // location tracking
-const NSInteger kLocationForegroundDistanceFilter = 2;//20;    // meters
-const NSInteger kLocationBackgroundDistanceFilter = 6;//30;
+const NSInteger kLocationForegroundDistanceFilter = 1;//20;    // meters
+const NSInteger kLocationBackgroundDistanceFilter = 4;//30;

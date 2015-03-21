@@ -45,6 +45,13 @@
     [self.view insertSubview:[UIView pullVisualEffectViewWithFrame:self.view.bounds] atIndex:0];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+
 - (void)_populateUserInfo {
     _userImageView.imageView.image = [PULAccount currentUser].image;
     _backgroundImageView.image = [PULAccount currentUser].image;

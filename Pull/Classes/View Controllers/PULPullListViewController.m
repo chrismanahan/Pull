@@ -37,7 +37,7 @@ const NSInteger kPULPendingSection = 0;
 const NSInteger kPULWaitingSection = 2;
 const NSInteger kPULNearbySection = 3;
 
-@interface PULPullListViewController ()
+@interface PULPullListViewController () <UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (nonatomic, strong) IBOutlet UITableView *friendTableView;
@@ -208,7 +208,7 @@ const NSInteger kPULNearbySection = 3;
 {
     [super viewWillAppear:animated];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     if (![PULLocationUpdater sharedUpdater].hasPermission && ![PULLocationOverlay viewContainsOverlay:_friendTableView])
     {
@@ -258,15 +258,15 @@ const NSInteger kPULNearbySection = 3;
         
         if ([PULAccount currentUser].friendManager.nearbyFriends.count > 0)
         {
-            [PULNoFriendsOverlay removeOverlayFromView:_friendTableView];
+//            [PULNoFriendsOverlay removeOverlayFromView:_friendTableView];
             
             [_friendTableView reloadData];
         }
         else
         {
-            PULLog(@"no friends to display");
+            PULLog(@"no friends to display, adding no friends overlay");
             
-            [PULNoFriendsOverlay overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
+//            [PULNoFriendsOverlay overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
         }
     }
     else
@@ -309,6 +309,23 @@ const NSInteger kPULNearbySection = 3;
         segue.slideRight = YES;
     }
     return segue;
+}
+
+- (IBAction)ibDebug:(id)sender
+{
+    [[[UIAlertView alloc] initWithTitle:@"We're Goin' Down!"
+                                message:@"Having a problem? Tapping Ok will crash Pull and send us a log of what's going on. None of your personal details will be sent. Thanks for helping us out :)"
+                               delegate:self
+                      cancelButtonTitle:@"Cancel"
+                      otherButtonTitles:@"Ok", nil] show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        [CrashlyticsKit crash];
+    }
 }
 
 #pragma mark - Table View Data Source

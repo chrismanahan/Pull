@@ -1868,17 +1868,49 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VRu-pK-pls">
                                 <rect key="frame" x="0.0" y="96" width="600" height="504"/>
                             </mapView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gfQ-U5-LZW" customClass="PULUserScrollView">
+                                <rect key="frame" x="0.0" y="525" width="600" height="75"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="qBf-24-5Fu"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="qBf-24-5Fu"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="dataSource" destination="akf-Le-uIw" id="myj-GT-8KU"/>
+                                </connections>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghH-tX-5nv">
+                                <rect key="frame" x="525" y="525" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ghH-tX-5nv" secondAttribute="height" multiplier="1:1" id="MWV-aV-Kea"/>
+                                    <constraint firstAttribute="height" constant="75" id="hqO-0E-xEY"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="check_confirm_blue.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.053999999999999999" green="0.46400000000000002" blue="0.998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="GjU-Om-ydg" secondAttribute="trailing" id="0qP-Kf-ACc"/>
+                            <constraint firstAttribute="trailing" secondItem="gfQ-U5-LZW" secondAttribute="trailing" id="1lk-TY-aSl"/>
                             <constraint firstItem="FSA-0t-m9R" firstAttribute="top" secondItem="VRu-pK-pls" secondAttribute="bottom" id="Cdi-IM-zAh"/>
                             <constraint firstItem="VRu-pK-pls" firstAttribute="leading" secondItem="BhN-XC-Tdc" secondAttribute="leading" id="HO8-cQ-qLR"/>
+                            <constraint firstItem="ghH-tX-5nv" firstAttribute="height" secondItem="gfQ-U5-LZW" secondAttribute="height" id="M8H-FF-dGM"/>
+                            <constraint firstItem="FSA-0t-m9R" firstAttribute="top" secondItem="gfQ-U5-LZW" secondAttribute="bottom" id="Mjt-cK-8oc"/>
                             <constraint firstItem="GjU-Om-ydg" firstAttribute="top" secondItem="BhN-XC-Tdc" secondAttribute="top" id="Nwi-Ss-FQu"/>
                             <constraint firstItem="GjU-Om-ydg" firstAttribute="leading" secondItem="BhN-XC-Tdc" secondAttribute="leading" id="QOg-HC-366"/>
+                            <constraint firstItem="gfQ-U5-LZW" firstAttribute="leading" secondItem="BhN-XC-Tdc" secondAttribute="leading" id="kcb-va-Po4"/>
                             <constraint firstItem="2pQ-KX-YWO" firstAttribute="top" secondItem="GjU-Om-ydg" secondAttribute="bottom" id="kz7-OP-UaO"/>
                             <constraint firstItem="2pQ-KX-YWO" firstAttribute="leading" secondItem="BhN-XC-Tdc" secondAttribute="leading" constant="4" id="nQm-bT-ABy"/>
+                            <constraint firstItem="ghH-tX-5nv" firstAttribute="trailing" secondItem="BhN-XC-Tdc" secondAttribute="trailing" id="rRV-RB-dVj"/>
                             <constraint firstItem="GjU-Om-ydg" firstAttribute="height" secondItem="2pQ-KX-YWO" secondAttribute="height" multiplier="2" id="sCx-qQ-ObL"/>
+                            <constraint firstItem="FSA-0t-m9R" firstAttribute="top" secondItem="ghH-tX-5nv" secondAttribute="bottom" id="xIH-EP-aT9"/>
                             <constraint firstItem="VRu-pK-pls" firstAttribute="top" secondItem="2pQ-KX-YWO" secondAttribute="bottom" id="xMx-O8-CF6"/>
                             <constraint firstAttribute="trailing" secondItem="VRu-pK-pls" secondAttribute="trailing" id="zKI-K6-XZO"/>
                         </constraints>
@@ -1889,11 +1921,13 @@
                         <outlet property="mapTopConstraint" destination="xMx-O8-CF6" id="RgL-9R-tPc"/>
                         <outlet property="mapView" destination="VRu-pK-pls" id="8XM-Ap-4pf"/>
                         <outlet property="nameLabel" destination="5VN-Kt-G7Q" id="ar3-FH-aVL"/>
+                        <outlet property="userLocationButton" destination="ghH-tX-5nv" id="apc-kM-yGi"/>
+                        <outlet property="userScrollView" destination="gfQ-U5-LZW" id="cZR-7q-Olg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WmQ-CQ-z4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3757.5" y="102.46478873239435"/>
+            <point key="canvasLocation" x="3757" y="102"/>
         </scene>
     </scenes>
     <resources>

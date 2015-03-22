@@ -70,6 +70,7 @@
 		33ABDE691AB4ABA100A047BF /* PULNoFriendsOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33ABDE681AB4ABA100A047BF /* PULNoFriendsOverlay.xib */; };
 		33BD5AC41A0E9EE800F92414 /* PULLocationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */; };
 		33BD5ACD1A0EB50C00F92414 /* PULConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD5ACC1A0EB50C00F92414 /* PULConstants.m */; };
+		33C099091ABDFF9100E5DE11 /* PULUserScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C099081ABDFF9100E5DE11 /* PULUserScrollView.m */; };
 		33D5C94C1AA2AEAA003EBD90 /* blue_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33D5C93F1AA2AEAA003EBD90 /* blue_arrow@3x.png */; };
 		33D5C94D1AA2AEAA003EBD90 /* blue_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33D5C9401AA2AEAA003EBD90 /* blue_arrow@2x.png */; };
 		33D5C94E1AA2AEAA003EBD90 /* blue_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 33D5C9411AA2AEAA003EBD90 /* blue_arrow.png */; };
@@ -295,6 +296,8 @@
 		33BD5ACB1A0EB50C00F92414 /* PULConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULConstants.h; sourceTree = "<group>"; };
 		33BD5ACC1A0EB50C00F92414 /* PULConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULConstants.m; sourceTree = "<group>"; };
 		33BD5ACF1A0EBDE400F92414 /* PULFirebaseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULFirebaseProtocol.h; sourceTree = "<group>"; };
+		33C099071ABDFF9100E5DE11 /* PULUserScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULUserScrollView.h; path = UI/Views/PULUserScrollView.h; sourceTree = "<group>"; };
+		33C099081ABDFF9100E5DE11 /* PULUserScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULUserScrollView.m; path = UI/Views/PULUserScrollView.m; sourceTree = "<group>"; };
 		33D5C93F1AA2AEAA003EBD90 /* blue_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blue_arrow@3x.png"; path = "images/buttons/blue_arrow@3x.png"; sourceTree = "<group>"; };
 		33D5C9401AA2AEAA003EBD90 /* blue_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blue_arrow@2x.png"; path = "images/buttons/blue_arrow@2x.png"; sourceTree = "<group>"; };
 		33D5C9411AA2AEAA003EBD90 /* blue_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blue_arrow.png; path = images/buttons/blue_arrow.png; sourceTree = "<group>"; };
@@ -618,6 +621,8 @@
 				84AAC8D11A8E8E5100C302AD /* PULNoConnectionView.h */,
 				33ABDE491AB4A1BF00A047BF /* Overlays */,
 				84AAC8D21A8E8E5100C302AD /* PULNoConnectionView.m */,
+				33C099071ABDFF9100E5DE11 /* PULUserScrollView.h */,
+				33C099081ABDFF9100E5DE11 /* PULUserScrollView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1401,6 +1406,7 @@
 				84AEEAA71AAE3F860006BCBF /* PULCellScrollView.m in Sources */,
 				33FB713D1AAD205B00B74C47 /* PULVerticallyCenteredButton.m in Sources */,
 				95169F621A8718AB006D3078 /* PULSlideUnwindSegue.m in Sources */,
+				33C099091ABDFF9100E5DE11 /* PULUserScrollView.m in Sources */,
 				33ABDE4C1AB4A20900A047BF /* PULOverlayView.m in Sources */,
 				3340449A1A17ACF900B00BC3 /* PULError.m in Sources */,
 				33324E931A0EEEE70073F1CA /* README.md in Sources */,

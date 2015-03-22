@@ -11,20 +11,21 @@
 #import "PULAccount.h"
 
 #import "PULUserImageView.h"
+#import "PULUserScrollView.h"
 
 #import <MapKit/MapKit.h>
 
-@interface PULMapViewController () <MKMapViewDelegate, UIAlertViewDelegate>
+@interface PULMapViewController () <MKMapViewDelegate, UIAlertViewDelegate, PULUserScrollViewDataSource>
 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
-@property (strong, nonatomic) IBOutlet UIButton *orientButton;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *addressLabel;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *mapTopConstraint;
 @property (strong, nonatomic) id <NSObject> locationUpdateNotif;
 
-@property (nonatomic, assign) BOOL isOriented;
+@property (nonatomic, strong) IBOutlet PULUserScrollView *userScrollView;
+@property (nonatomic, strong) IBOutlet UIButton *userLocationButton;
 
 @end
 
@@ -66,16 +67,15 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [_userScrollView reload];
+
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (object == _mapView && [keyPath isEqualToString:@"userTrackingMode"])
-    {
-        if (_mapView.userTrackingMode == MKUserTrackingModeNone && _isOriented)
-        {
-            [self ibOrient:nil];
-        }
-    }
-    else if (object == _user && [keyPath isEqualToString:@"address"])
+    if (object == _user && [keyPath isEqualToString:@"address"])
     {
         _addressLabel.text = _user.address;
     }
@@ -162,25 +162,6 @@
     }
 }
 
-- (IBAction)ibOrient:(id)sender
-{
-    _isOriented = !_isOriented;
-    
-    NSString *title;
-    if (_isOriented)
-    {
-        title = @"Stop Map Orientation";
-        [_mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
-    }
-    else
-    {
-        title = @"Orient The Map";
-        [_mapView setUserTrackingMode:MKUserTrackingModeNone animated:YES];
-    }
-    
-    [_orientButton setTitle:title forState:UIControlStateNormal];
-}
-
 #pragma mark MKMapView delegate
 - (MKAnnotationView *)mapView:(MKMapView *)mapview viewForAnnotation:(id <MKAnnotation>)annotation
 {
@@ -230,6 +211,23 @@
         return annotationView;
     }
     return nil;
+}
+
+#pragma mark - User scroll view data source
+- (NSInteger)numberOfUsersInUserScrollView:(PULUserScrollView *)userScrollView
+{
+    return [PULAccount currentUser].friendManager.pulledFriends.count;
+}
+
+- (PULUser*)userForIndex:(NSInteger)index userScrollView:(PULUserScrollView *)userScrollView
+{
+    NSInteger i = [PULAccount currentUser].friendManager.pulledFriends.count - index - 1;
+    return [PULAccount currentUser].friendManager.pulledFriends[i];
+}
+
+- (UIEdgeInsets)insetsForUserScrollView:(PULUserScrollView *)userScrollView
+{
+    return UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(_userLocationButton.frame) + kPULUserScrollViewPadding);
 }
 
 @end

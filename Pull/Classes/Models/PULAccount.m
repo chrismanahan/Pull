@@ -249,7 +249,7 @@ NSString * const kPULAccountLoginFailedNotification = @"kPULAccountLoginFailedNo
     self.fbId = providerData[@"id"];
     self.email = providerData[@"email"];
     self.isPrivate = NO;
-    self.online = YES;
+//    self.online = YES;
     
     // initialize settings
     self.settings = [PULUserSettings defaultSettings];
@@ -263,7 +263,7 @@ NSString * const kPULAccountLoginFailedNotification = @"kPULAccountLoginFailedNo
         
         // TODO: decide if we want to include middle names
         NSString *lastNameOnlyPattern = @"(?<= )(\\w+)$";
-        NSString *fullDisplayNameWithoutFirst = @"((?<= )\\w+)( \\w+)+$";
+//        NSString *fullDisplayNameWithoutFirst = @"((?<= )\\w+)( \\w+)+$";
         NSRegularExpression *lastRegex = [NSRegularExpression regularExpressionWithPattern:lastNameOnlyPattern
                                                                                     options:NSRegularExpressionCaseInsensitive
                                                                                       error:nil];

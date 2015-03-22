@@ -68,13 +68,13 @@ const CGFloat kPULCompassFlashTime = 1.5;
     
 //    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
     
-    if (!_user.isOnline)
-    {
-        _distanceLabel.text = @"Unavailable";
-    }
+//    if (!_user.isOnline)
+//    {
+//        _distanceLabel.text = @"Unavailable";
+//    }
     
-    _directionArrowView.hidden = !_user.isOnline;
-    _mapViewButton.hidden = !_user.isOnline;
+//    _directionArrowView.hidden = !_user.isOnline;
+//    _mapViewButton.hidden = !_user.isOnline;
     
     if (!_didSetUp2 && _didSetUp)
     {
@@ -109,21 +109,21 @@ const CGFloat kPULCompassFlashTime = 1.5;
 
         _didSetUp = YES;
         
-       _presenceNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kPULFriendChangedPresence
-                                                          object:nil
-                                                           queue:[NSOperationQueue currentQueue]
-                                                      usingBlock:^(NSNotification *note) {
-                                                          PULLog(@"user presence changed");
-                                                          
-                                                          if (!_user.isOnline)
-                                                          {
-                                                              _distanceLabel.text = @"Unavailable";
-                                                          }
-                                                          
-                                                          _directionArrowView.hidden = !_user.isOnline;
-                                                          _mapViewButton.hidden = !_user.isOnline;
-                                                          
-                                                      }];
+//       _presenceNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kPULFriendChangedPresence
+//                                                          object:nil
+//                                                           queue:[NSOperationQueue currentQueue]
+//                                                      usingBlock:^(NSNotification *note) {
+//                                                          PULLog(@"user presence changed");
+//                                                          
+//                                                          if (!_user.isOnline)
+//                                                          {
+//                                                              _distanceLabel.text = @"Unavailable";
+//                                                          }
+//                                                          
+//                                                          _directionArrowView.hidden = !_user.isOnline;
+//                                                          _mapViewButton.hidden = !_user.isOnline;
+//                                                          
+//                                                      }];
         
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         
@@ -263,8 +263,6 @@ NSString* deviceName()
 #pragma mark - UI Setters
 - (void)updateDistanceLabel:(CGFloat)distance
 {
-    if (_user.isOnline)
-    {
         CGFloat convertedDistance;
         NSString *unit, *formatString;
         BOOL showNearbyString = NO;
@@ -300,7 +298,6 @@ NSString* deviceName()
         }
         
         _distanceLabel.text = string;
-    }
 }
 
 #pragma mark - Actions

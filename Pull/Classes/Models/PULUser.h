@@ -24,7 +24,7 @@ extern NSString * const kPULFriendUpdatedNotifcation;
 
 extern NSString * const kPULFriendBlockedSomeoneNotification;
 extern NSString * const kPULFriendEnabledAccountNotification;
-extern NSString * const kPULFriendChangedPresence;
+//extern NSString * const kPULFriendChangedPresence;
 
 @interface PULUser : NSObject <PULFirebaseProtocol, MKAnnotation>
 
@@ -54,7 +54,7 @@ extern NSString * const kPULFriendChangedPresence;
 @property (nonatomic, strong) CLPlacemark *placemark;
 
 @property (nonatomic, assign) BOOL isPrivate;
-@property (nonatomic, assign, getter=isOnline) BOOL online;
+//@property (nonatomic, assign, getter=isOnline) BOOL online;
 @property (nonatomic, assign, getter=isBlocked) BOOL blocked;
 
 @property (nonatomic, strong) PULUserSettings *settings;

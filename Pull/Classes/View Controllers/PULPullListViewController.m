@@ -83,10 +83,10 @@ const NSInteger kPULNearbySection = 3;
                                                  name:kPULAccountFriendListUpdatedNotification
                                                object:[PULAccount currentUser]];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reload)
-                                                 name:kPULFriendChangedPresence
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(reload)
+//                                                 name:kPULFriendChangedPresence
+//                                               object:nil];
     
     __block id loginNotif = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountLoginFailedNotification
                                                                               object:[PULAccount currentUser]

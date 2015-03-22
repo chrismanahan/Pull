@@ -22,7 +22,7 @@ NSString * const kPULFriendUpdatedNotifcation      = @"kPULAccountFriendUpdatedN
 
 NSString * const kPULFriendBlockedSomeoneNotification = @"kPULFriendBlockedSomeoneNotification";
 NSString * const kPULFriendEnabledAccountNotification = @"kPULFriendEnabledAccountNotification";
-NSString * const kPULFriendChangedPresence            = @"kPULFriendChangedPresence";
+//NSString * const kPULFriendChangedPresence            = @"kPULFriendChangedPresence";
 
 @interface PULUser ()
 
@@ -30,7 +30,7 @@ NSString * const kPULFriendChangedPresence            = @"kPULFriendChangedPrese
 @property (nonatomic) FirebaseHandle locationObserverHandle;
 @property (nonatomic) FirebaseHandle blockObserverHandle;
 @property (nonatomic) FirebaseHandle enableObserverHandle;
-@property (nonatomic) FirebaseHandle presenceObserverHandle;
+//@property (nonatomic) FirebaseHandle presenceObserverHandle;
 
 @end
 
@@ -80,18 +80,18 @@ NSString * const kPULFriendChangedPresence            = @"kPULFriendChangedPrese
         [[NSNotificationCenter defaultCenter] postNotificationName:kPULFriendEnabledAccountNotification object:snapshot.key];
     }];
     
-    PULLog(@"starting presence observer for %@", self.uid);
-    Firebase *presenceRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"isOnline"];
-    _presenceObserverHandle = [presenceRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        // user reenabled their account
-        if (snapshot.exists)
-        {
-            self.online = [snapshot.value boolValue];
-            
-            PULLog(@"friend is %@", self.online ? @"Online" : @"Offline");
-            [[NSNotificationCenter defaultCenter] postNotificationName:kPULFriendChangedPresence object:snapshot.key];
-        }
-    }];
+//    PULLog(@"starting presence observer for %@", self.uid);
+//    Firebase *presenceRef = [[[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:_uid] childByAppendingPath:@"isOnline"];
+//    _presenceObserverHandle = [presenceRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+//        // user reenabled their account
+//        if (snapshot.exists)
+//        {
+//            self.online = [snapshot.value boolValue];
+//            
+//            PULLog(@"friend is %@", self.online ? @"Online" : @"Offline");
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kPULFriendChangedPresence object:snapshot.key];
+//        }
+//    }];
 }
 
 - (void)stopObservingAccount
@@ -99,7 +99,7 @@ NSString * const kPULFriendChangedPresence            = @"kPULFriendChangedPrese
     PULLog(@"stopping observer on user account: %@", self.uid);
     [_fireRef removeObserverWithHandle:_blockObserverHandle];
     [_fireRef removeObserverWithHandle:_enableObserverHandle];
-    [_fireRef removeObserverWithHandle:_presenceObserverHandle];
+//    [_fireRef removeObserverWithHandle:_presenceObserverHandle];
 }
 
 #pragma mark - observing location
@@ -153,15 +153,15 @@ NSString * const kPULFriendChangedPresence            = @"kPULFriendChangedPrese
     _lastName    = dict[@"lastName"];
     _isPrivate   = [dict[@"isPrivate"] boolValue];
     
-    if ([dict.allKeys containsObject:@"isOnline"])
-    {
-        _online      = [dict[@"isOnline"] boolValue];
-    }
-    else
-    {
-        // TODO: remove defaulting online to yes when ready for production
-        _online = YES;
-    }
+//    if ([dict.allKeys containsObject:@"isOnline"])
+//    {
+//        _online      = [dict[@"isOnline"] boolValue];
+//    }
+//    else
+//    {
+//        // TODO: remove defaulting online to yes when ready for production
+//        _online = YES;
+//    }
     
     _settings    = [[PULUserSettings alloc] initFromFirebase:dict[@"settings"]];
     
@@ -221,12 +221,6 @@ NSString * const kPULFriendChangedPresence            = @"kPULFriendChangedPrese
 - (NSString*)fullName
 {
     return [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
-}
-
-- (BOOL)isOnline
-{
-    // 
-    return YES;
 }
 
 - (UIImage*)image
@@ -312,7 +306,7 @@ NSString * const kPULFriendChangedPresence            = @"kPULFriendChangedPrese
                       @"lon": @(_location.coordinate.longitude),
                       @"alt": @(_location.altitude)},
              @"isPrivate": @(_isPrivate),
-             @"isOnline": @(_online),
+//             @"isOnline": @(_online),
              @"settings": @{
                      @"isDisabled":@(_settings.isDisabled),
                      @"notification":@{

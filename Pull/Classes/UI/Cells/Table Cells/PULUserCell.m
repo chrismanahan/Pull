@@ -36,14 +36,14 @@
         
         [self p_updateDistanceLabel:distance];
         
-        if (_user.isOnline)
-        {
-            _userImageViewContainer.imageView.alpha = 1.0;
-        }
-        else
-        {
-            _userImageViewContainer.imageView.alpha = 0.4;
-        }
+//        if (_user.isOnline)
+//        {
+//            _userImageViewContainer.imageView.alpha = 1.0;
+//        }
+//        else
+//        {
+//            _userImageViewContainer.imageView.alpha = 0.4;
+//        }
     }
     
     // subscribe to notifications
@@ -93,8 +93,8 @@
     {
         originalLabelColor = _userDistanceLabel.textColor;
     }
-    if (_user.isOnline)
-    {
+//    if (_user.isOnline)
+//    {
         CGFloat convertedDistance;
         NSString *unit, *formatString;
         // TODO: localize distance
@@ -118,13 +118,13 @@
         _userDistanceLabel.text = string;
         
         _userDistanceLabel.textColor = originalLabelColor;
-    }
-    else
-    {
-        _userDistanceLabel.text = @"Unavailable";
-        
-        _userDistanceLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
-    }
+//    }
+//    else
+//    {
+//        _userDistanceLabel.text = @"Unavailable";
+//        
+//        _userDistanceLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+//    }
 }
 
 - (void)_hideLabels:(BOOL)hide

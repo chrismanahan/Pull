@@ -33,11 +33,24 @@ const NSInteger kPULUserScrollViewPadding = 10;
     
     for (int i = 0; i < numUsers; i++)
     {
-        PULUser *user = [_dataSource userForIndex:i userScrollView:self];
+        BOOL active = NO;
+        PULUser *user = [_dataSource userForIndex:i isActive:&active userScrollView:self];
         
         PULUserImageView *iv = [[PULUserImageView alloc] initWithFrame:[self _frameForIndex:i]];
         iv.backgroundColor = [UIColor clearColor];
         iv.imageView.image = user.image;
+        iv.hasShadow = YES;
+        iv.hasBorder = YES;
+        
+        if (active)
+        {
+            
+            iv.borderColor = PUL_Blue;
+        }
+        else
+        {
+            iv.borderColor = [UIColor whiteColor];
+        }
         
         [self addSubview:iv];
     }
@@ -69,8 +82,7 @@ const NSInteger kPULUserScrollViewPadding = 10;
 
 - (CGSize)cellSize
 {
-    CGFloat height = CGRectGetHeight(self.frame) - kPULUserScrollViewPadding;
-    return CGSizeMake(height, height);
+    return [_dataSource cellSizeForUserScrollView:self];
 }
 
 #pragma mark - Private
@@ -80,7 +92,8 @@ const NSInteger kPULUserScrollViewPadding = 10;
     CGSize size = self.cellSize;
     
     CGFloat x = index * size.width + (index * kPULUserScrollViewPadding) + kPULUserScrollViewPadding;
-    frame = CGRectMake(x, 0, size.width, size.height);
+    CGFloat y = (CGRectGetHeight(self.frame) - size.height) / 2;
+    frame = CGRectMake(x, y, size.width, size.height);
     
     return frame;
 }

@@ -219,15 +219,25 @@
     return [PULAccount currentUser].friendManager.pulledFriends.count;
 }
 
-- (PULUser*)userForIndex:(NSInteger)index userScrollView:(PULUserScrollView *)userScrollView
+- (PULUser*)userForIndex:(NSInteger)index isActive:(BOOL*)active userScrollView:(PULUserScrollView *)userScrollView
 {
     NSInteger i = [PULAccount currentUser].friendManager.pulledFriends.count - index - 1;
-    return [PULAccount currentUser].friendManager.pulledFriends[i];
+    
+    PULUser *user = [PULAccount currentUser].friendManager.pulledFriends[i];
+    
+    *active = user == _user;
+    
+    return user;
 }
 
 - (UIEdgeInsets)insetsForUserScrollView:(PULUserScrollView *)userScrollView
 {
     return UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(_userLocationButton.frame) + kPULUserScrollViewPadding);
+}
+
+- (CGSize)cellSizeForUserScrollView:(PULUserScrollView *)userScrollView
+{
+    return CGRectInset(_userLocationButton.frame, kPULUserScrollViewPadding / 4, kPULUserScrollViewPadding / 4).size;
 }
 
 @end

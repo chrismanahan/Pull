@@ -75,12 +75,12 @@
     
     CGContextSaveGState(ref);
     
-    if (_selected || _hasBorder)
+    if (_selected || _hasBorder || _hasShadow)
     {
-        CGContextSetShadow(ref, CGSizeMake(0, 2), 2);
+        CGContextSetShadow(ref, CGSizeMake(0, 1), 2);
     }
     
-    CGColorRef color = [UIColor whiteColor].CGColor;
+    CGColorRef color = self.borderColor.CGColor;
 //    if (!_selected)
 //    {
 //        color = self.borderColor.CGColor;// [UIColor whiteColor].CGColor;

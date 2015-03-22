@@ -794,14 +794,25 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Col-68-KCe" userLabel="Header">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-bU-Xro" userLabel="Title label">
-                                        <rect key="frame" x="267" y="13" width="67" height="49"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-bU-Xro" userLabel="Title label">
+                                        <rect key="frame" x="269" y="10" width="63" height="55"/>
                                         <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="42"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0IB-vY-Nh3" userLabel="Left button">
-                                        <rect key="frame" x="21" y="16" width="45" height="45"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Loq-d8-ia1">
+                                        <rect key="frame" x="554" y="18" width="38" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Loq-d8-ia1" secondAttribute="height" multiplier="67:71" id="Nhz-hB-0ve"/>
+                                            <constraint firstAttribute="height" constant="40" id="plw-sa-sBh"/>
+                                        </constraints>
+                                        <state key="normal" image="message_white.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0IB-vY-Nh3" userLabel="Left button">
+                                        <rect key="frame" x="8" y="13" width="50" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="589-g3-gO0"/>
@@ -813,16 +824,6 @@
                                         </state>
                                         <connections>
                                             <segue destination="ybE-zO-cWY" kind="custom" identifier="PULSlideSegue" customClass="PULSlideSegue" id="HgX-he-Lzx"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Loq-d8-ia1">
-                                        <rect key="frame" x="546" y="23" width="46" height="30"/>
-                                        <state key="normal" title="Debug">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="ibDebug:" destination="VCg-LE-m1S" eventType="touchUpInside" id="ZmG-ef-Q7E"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -964,9 +965,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bj2-eY-WpI">
-                                        <rect key="frame" x="564" y="32" width="28" height="22"/>
+                                        <rect key="frame" x="554" y="23" width="38" height="40"/>
                                         <color key="backgroundColor" red="0.36470588240000001" green="0.38823529410000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="nav_white_right.png">
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="67:71" id="PrH-0T-Wwa"/>
+                                            <constraint firstAttribute="height" constant="40" id="fsG-Ae-Ens"/>
+                                        </constraints>
+                                        <state key="normal" image="home_white.png">
                                             <color key="titleColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1693,9 +1698,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQq-dA-0Cz" userLabel="Left button">
-                                        <rect key="frame" x="8" y="32" width="28" height="22"/>
+                                        <rect key="frame" x="8" y="23" width="38" height="40"/>
                                         <color key="backgroundColor" red="0.36470588240000001" green="0.38823529410000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="nav_white_left.png">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="66o-0P-CiC"/>
+                                            <constraint firstAttribute="width" secondItem="AQq-dA-0Cz" secondAttribute="height" multiplier="67:71" id="E2E-Hv-vAJ"/>
+                                        </constraints>
+                                        <state key="normal" image="home_white.png">
                                             <color key="titleColor" red="0.36470588240000001" green="0.38823529410000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1889,7 +1898,7 @@
                                     <constraint firstAttribute="width" secondItem="ghH-tX-5nv" secondAttribute="height" multiplier="1:1" id="MWV-aV-Kea"/>
                                     <constraint firstAttribute="height" constant="75" id="hqO-0E-xEY"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="check_confirm_blue.png">
+                                <state key="normal" image="my_location.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1937,15 +1946,16 @@
         <image name="continue_facebook.png" width="486" height="114"/>
         <image name="continue_facebook_pressed.png" width="486" height="114"/>
         <image name="gradient_background.png" width="1274" height="1899"/>
+        <image name="home_white.png" width="67" height="71"/>
         <image name="intro_compass.png" width="501" height="679"/>
         <image name="intro_friends.png" width="718" height="679"/>
         <image name="intro_location.png" width="857" height="436"/>
         <image name="learn_more_arrow.png" width="23" height="33"/>
         <image name="menu_icon.png" width="103" height="89"/>
+        <image name="message_white.png" width="67" height="71"/>
+        <image name="my_location.png" width="124" height="124"/>
         <image name="nav_blue_down.png" width="24" height="31"/>
         <image name="nav_white_down.png" width="19" height="28"/>
-        <image name="nav_white_left.png" width="28" height="17"/>
-        <image name="nav_white_right.png" width="28" height="17"/>
         <image name="permission_request_location.png" width="442" height="444"/>
         <image name="permission_request_notification.png" width="499" height="444"/>
         <image name="pull_text_white.png" width="475" height="474"/>

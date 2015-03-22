@@ -111,9 +111,15 @@
     }];
     
     _deleteObserverHandle = [_fireRef observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {
-        if ([_delegate respondsToSelector:@selector(pull:didUpdateStatus:)])
+        static BOOL didDelete = NO;
+        
+        if (!didDelete)
         {
-            [_delegate pullDidDelete:self];
+            if ([_delegate respondsToSelector:@selector(pull:didUpdateStatus:)])
+            {
+                [_delegate pullDidDelete:self];
+            }
+            didDelete = YES;
         }
     }];
 }
@@ -121,8 +127,10 @@
 - (void)stopObserving;
 {
     [_fireRef removeObserverWithHandle:_statusObserverHandle];
+    [_fireRef removeObserverWithHandle:_deleteObserverHandle];
     
     _statusObserverHandle = 0;
+    _deleteObserverHandle = 0;
 }
 
 #pragma mark - Overrides

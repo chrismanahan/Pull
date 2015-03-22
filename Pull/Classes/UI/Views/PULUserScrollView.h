@@ -17,7 +17,8 @@ extern const NSInteger kPULUserScrollViewPadding;
 
 @required
 - (NSInteger)numberOfUsersInUserScrollView:(PULUserScrollView*)userScrollView;
-- (PULUser*)userForIndex:(NSInteger)index userScrollView:(PULUserScrollView*)userScrollView;
+- (PULUser*)userForIndex:(NSInteger)index isActive:(BOOL*)active userScrollView:(PULUserScrollView*)userScrollView;
+- (CGSize)cellSizeForUserScrollView:(PULUserScrollView*)userScrollView;
 
 @optional
 - (UIEdgeInsets)insetsForUserScrollView:(PULUserScrollView*)userScrollView;

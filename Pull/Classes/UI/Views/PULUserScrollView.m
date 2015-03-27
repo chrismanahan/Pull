@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Pull LLC. All rights reserved.
 //
 
-#import "PULUser.h"
+#import "PULUserOld.h"
 
 #import "PULUserImageView.h"
 
@@ -34,7 +34,7 @@ const NSInteger kPULUserScrollViewPadding = 10;
     for (int i = 0; i < numUsers; i++)
     {
         BOOL active = NO;
-        PULUser *user = [_dataSource userForIndex:i isActive:&active userScrollView:self];
+        PULUserOld *user = [_dataSource userForIndex:i isActive:&active userScrollView:self];
         
         PULUserImageView *iv = [[PULUserImageView alloc] initWithFrame:[self _frameForIndex:i]];
         iv.backgroundColor = [UIColor clearColor];

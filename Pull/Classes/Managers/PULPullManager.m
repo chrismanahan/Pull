@@ -8,7 +8,7 @@
 
 #import "PULPullManager.h"
 
-#import "PULAccount.h"
+#import "PULAccountOld.h"
 #import "PULFriendManager.h"
 
 #import "PULPush.h"
@@ -51,13 +51,13 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
 
 - (void)initializePulls
 {
-    NSAssert([PULAccount currentUser].friendManager.allFriends != nil /*&& [PULAccount currentUser].friendManager.allFriends.count > 0*/, @"Need to have an array of friends to proceed");
+    NSAssert([PULAccountOld currentUser].friendManager.allFriends != nil /*&& [PULAccountOld currentUser].friendManager.allFriends.count > 0*/, @"Need to have an array of friends to proceed");
     
     PULLog(@"initializing pulls with friends");
     // initialize pulls array
     _pulls = [[NSMutableArray alloc] init];
     
-    Firebase *myPullRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:@"pulls"];
+    Firebase *myPullRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccountOld currentUser].uid] childByAppendingPath:@"pulls"];
     
     // get list of my pull uids
     [myPullRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
@@ -67,11 +67,11 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         {
             __block NSInteger pullCount = pulls.count;
             
-            if (pullCount > 0 && [PULAccount currentUser].friendManager.allFriends.count == 0)
+            if (pullCount > 0 && [PULAccountOld currentUser].friendManager.allFriends.count == 0)
             {
                 // we need to reload from the beginning
                 PULLog(@"-----RE-INITIALIZING ACCOUNT!-----");
-                [[PULAccount currentUser] initializeAccount];
+                [[PULAccountOld currentUser] initializeAccount];
                 return;
             }
             
@@ -90,7 +90,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
                     }
                     else
                     {
-                        PULPull *pull = [self p_pullFromFirebaseSnapshot:snapshot];
+                        PULPullOld *pull = [self p_pullFromFirebaseSnapshot:snapshot];
                         PULLog(@"adding pull: %@", pull);
                         
                         [_pulls addObject:pull];
@@ -150,12 +150,12 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
                                                   repeats:YES];
 }
 
-- (PULPull*)p_pullFromFirebaseSnapshot:(FDataSnapshot*)snapshot
+- (PULPullOld*)p_pullFromFirebaseSnapshot:(FDataSnapshot*)snapshot
 {
-    NSAssert([PULAccount currentUser].friendManager.allFriends != nil, @"need to initialize friends first");
+    NSAssert([PULAccountOld currentUser].friendManager.allFriends != nil, @"need to initialize friends first");
     
     NSDictionary *data = snapshot.value;
-    PULPull *pull = nil;
+    PULPullOld *pull = nil;
     
     if (![data isKindOfClass:[NSNull class]])
     {
@@ -172,14 +172,14 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         NSString *receivingUserUid = data[@"receivingUser"];
         
         // determine which user is which
-        PULUser *sendingUser   = nil;
-        PULUser *receivingUser = nil;
+        PULUserOld *sendingUser   = nil;
+        PULUserOld *receivingUser = nil;
         
         // block to find a user from the passed in array
-        PULUser* (^findUserFromUid)(NSString *uid) = ^PULUser* (NSString *uid) {
-            PULUser *retUser = nil;
-            NSArray *friends = [PULAccount currentUser].friendManager.allFriends;
-            for (PULUser *otherUser in friends)
+        PULUserOld* (^findUserFromUid)(NSString *uid) = ^PULUserOld* (NSString *uid) {
+            PULUserOld *retUser = nil;
+            NSArray *friends = [PULAccountOld currentUser].friendManager.allFriends;
+            for (PULUserOld *otherUser in friends)
             {
                 if ([otherUser.uid isEqualToString:uid])
                 {
@@ -192,20 +192,20 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         };
         
         // determine which user is which
-        if ([sendingUserUid isEqualToString:[PULAccount currentUser].uid])
+        if ([sendingUserUid isEqualToString:[PULAccountOld currentUser].uid])
         {
-            sendingUser = [PULAccount currentUser];
+            sendingUser = [PULAccountOld currentUser];
             receivingUser = findUserFromUid(receivingUserUid);
         }
         else
         {
-            receivingUser = [PULAccount currentUser];
+            receivingUser = [PULAccountOld currentUser];
             sendingUser = findUserFromUid(sendingUserUid);
         }
     
         if (sendingUser && receivingUser)
         {
-            pull = [[PULPull alloc] initExistingPullWithUid:snapshot.key sender:sendingUser receiver:receivingUser status:status expiration:expiration];
+            pull = [[PULPullOld alloc] initExistingPullWithUid:snapshot.key sender:sendingUser receiver:receivingUser status:status expiration:expiration];
             pull.delegate = self;
             
             // start observing
@@ -222,7 +222,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
 }
 
 #pragma mark - Pull Delegate
-- (void)pull:(PULPull *)pull didUpdateStatus:(PULPullStatus)status
+- (void)pull:(PULPullOld *)pull didUpdateStatus:(PULPullStatus)status
 {
     if ([_delegate respondsToSelector:@selector(pullManagerDidDetectPullStatusChange:)])
     {
@@ -230,7 +230,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     }
 }
 
-- (void)pull:(PULPull *)pull didUpdateExpiration:(NSDate *)date
+- (void)pull:(PULPullOld *)pull didUpdateExpiration:(NSDate *)date
 {
     if ([_delegate respondsToSelector:@selector(pullManagerDidDetectPullStatusChange:)])
     {
@@ -238,7 +238,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     }
 }
 
-- (void)pullDidDelete:(PULPull *)pull
+- (void)pullDidDelete:(PULPullOld *)pull
 {
     [_pulls removeObject:pull];
     
@@ -249,11 +249,11 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
 }
 
 #pragma mark - Public
-- (void)sendPullToUser:(PULUser*)user
+- (void)sendPullToUser:(PULUserOld*)user
 {
     PULLog(@"Sending pull to user: %@", user);
     // create new pull
-    PULPull *pull = [[PULPull alloc] initNewPullBetweenSender:[PULAccount currentUser] receiver:user];
+    PULPullOld *pull = [[PULPullOld alloc] initNewPullBetweenSender:[PULAccountOld currentUser] receiver:user];
     
     // save pull to firebase and get uid
     PULLog(@"Saving pull to firebase");
@@ -282,7 +282,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
                         [pull startObserving];
                         
                         // send push
-                        [PULPush sendPushType:kPULPushTypeSendPull to:user from:[PULAccount currentUser]];
+                        [PULPush sendPushType:kPULPushTypeSendPull to:user from:[PULAccountOld currentUser]];
                         
                         // notify delegate
                         if ([_delegate respondsToSelector:@selector(pullManagerDidSendPull:)])
@@ -295,7 +295,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
             };
             
             PULLog(@"Adding pull to my pulls");
-            Firebase *myPullRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:@"pulls"];
+            Firebase *myPullRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccountOld currentUser].uid] childByAppendingPath:@"pulls"];
             [myPullRef updateChildValues:@{pull.uid: @(YES)} withCompletionBlock:addToUsersPullsBlock];
             
             PULLog(@"Added pull to friend's pulls");
@@ -306,11 +306,11 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     
 }
 
-- (void)acceptPullFromUser:(PULUser*)user
+- (void)acceptPullFromUser:(PULUserOld*)user
 {
     NSParameterAssert(user);
     
-    PULPull *pull = [self p_pullWithUser:user];
+    PULPullOld *pull = [self p_pullWithUser:user];
     
     if (pull)
     {
@@ -320,16 +320,16 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         [self p_updatePull:pull];
         
         // send push
-        [PULPush sendPushType:kPULPushTypeAcceptPull to:user from:[PULAccount currentUser]];
+        [PULPush sendPushType:kPULPushTypeAcceptPull to:user from:[PULAccountOld currentUser]];
     }
     
 }
 
-- (void)unpullUser:(PULUser*)user
+- (void)unpullUser:(PULUserOld*)user
 {
     NSParameterAssert(user);
     
-    PULPull *pull = [self p_pullWithUser:user];
+    PULPullOld *pull = [self p_pullWithUser:user];
     
     if (pull)
     {
@@ -340,21 +340,21 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
 - (void)unpullEveryone;
 {
     NSMutableArray *friends = [[NSMutableArray alloc] initWithCapacity:_pulls.count];
-    for (PULPull *pull in _pulls)
+    for (PULPullOld *pull in _pulls)
     {
-        PULUser *friend = [self _otherUserInPull:pull];
+        PULUserOld *friend = [self _otherUserInPull:pull];
         [friends addObject:friend];
     }
     
-    for (PULUser *friend in friends)
+    for (PULUserOld *friend in friends)
     {
         [self unpullUser:friend];
     }
 }
 
-- (PULUser*)_otherUserInPull:(PULPull*)pull
+- (PULUserOld*)_otherUserInPull:(PULPullOld*)pull
 {
-    if ([pull.receivingUser isEqual:[PULAccount currentUser]])
+    if ([pull.receivingUser isEqual:[PULAccountOld currentUser]])
     {
         return pull.sendingUser;
     }
@@ -364,11 +364,11 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     }
 }
 
-- (void)suspendPullWithUser:(PULUser*)user
+- (void)suspendPullWithUser:(PULUserOld*)user
 {
     NSParameterAssert(user);
     
-    PULPull *pull = [self p_pullWithUser:user];
+    PULPullOld *pull = [self p_pullWithUser:user];
     if (pull)
     {
         pull.status = PULPullStatusSuspended;
@@ -377,7 +377,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     }
 }
 
-- (void)resumePullWithUser:(PULUser*)user
+- (void)resumePullWithUser:(PULUserOld*)user
 {
     // doing the same thing as accept
     [self acceptPullFromUser:user];
@@ -390,14 +390,14 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
 - (void)p_startObservingAccountPulls
 {
     PULLog(@"starting to observe my pulls");
-    Firebase *pullRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:@"pulls"];
+    Firebase *pullRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccountOld currentUser].uid] childByAppendingPath:@"pulls"];
     _accountPullAddObserver =  [pullRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         PULLog(@"observed added pull: %@", snapshot.key);
         
         Firebase *newPullRef = [[_fireRef childByAppendingPath:@"pulls"]  childByAppendingPath:snapshot.key];
         [newPullRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
             PULLog(@"got pull data: %@", snapshot.value);
-            PULPull *pull = [self p_pullFromFirebaseSnapshot:snapshot];
+            PULPullOld *pull = [self p_pullFromFirebaseSnapshot:snapshot];
             
             if (pull)
             {
@@ -405,7 +405,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
                 {
                     PULLog(@"pull already exists, not adding");
                 }
-                else if ([pull.sendingUser isEqual:[PULAccount currentUser]])
+                else if ([pull.sendingUser isEqual:[PULAccountOld currentUser]])
                 {
                     PULLog(@"current user sent this pull");
                 }
@@ -444,7 +444,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         // find which pull we need to remove
         for (int i = 0; i < _pulls.count; i++)
         {
-            PULPull *pull = _pulls[i];
+            PULPullOld *pull = _pulls[i];
             
             if ([pull.uid isEqualToString:snapshot.key])
             {
@@ -485,7 +485,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
  *  @param pull      PUll
  *  @param newStatus New status
  */
-- (void)p_updatePull:(PULPull*)pull
+- (void)p_updatePull:(PULPullOld*)pull
 {
     NSParameterAssert(pull);
     
@@ -505,12 +505,12 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
  *
  *  @return Pull
  */
-- (PULPull*)p_pullWithUser:(PULUser*)user
+- (PULPullOld*)p_pullWithUser:(PULUserOld*)user
 {
     NSParameterAssert(user);
     
-    PULPull *retPull = nil;
-    for (PULPull *pull in _pulls)
+    PULPullOld *retPull = nil;
+    for (PULPullOld *pull in _pulls)
     {
         if ([pull containsUser:user])
         {
@@ -526,7 +526,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
 /**
  *  Does everything necessary to remove a pull locally and remotely
  */
-- (void)p_removePull:(PULPull*)pull
+- (void)p_removePull:(PULPullOld*)pull
 {
     PULLog(@"Removing pull: %@", pull);
     
@@ -581,7 +581,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
     
     for (int i = 0; i < _pulls.count; i++)
     {
-        PULPull *pull = _pulls[i];
+        PULPullOld *pull = _pulls[i];
         
         // check expiration
         NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
@@ -605,7 +605,7 @@ const NSInteger kPULPullManagerPruneInterval = 30; //seconds
         }
         else
         {
-            PULPull *pull = _pulls[idx];
+            PULPullOld *pull = _pulls[idx];
             
             [self p_removePull:pull];
         }

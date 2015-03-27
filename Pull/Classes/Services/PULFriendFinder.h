@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class PULUser;
+@class PULUserOld;
 
 typedef void(^PULFriendFinderUserBlock)(NSArray *users);
 

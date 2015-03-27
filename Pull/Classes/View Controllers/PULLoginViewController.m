@@ -12,7 +12,7 @@
 
 #import "PULSlideLeftSegue.h"
 
-#import "PULAccount.h"
+#import "PULAccountOld.h"
 
 #import "PULConstants.h"
 
@@ -168,7 +168,7 @@
                                           // block for when login is successfull
                                           void (^loginCompletionBlock)(NSString *accessToken) = ^void(NSString *accessToken)
                                           {
-                                              [[PULAccount currentUser] loginWithFacebookToken:accessToken completion:^(PULAccount *account, NSError *error)
+                                              [[PULAccountOld currentUser] loginWithFacebookToken:accessToken completion:^(PULAccountOld *account, NSError *error)
                                               {
                                                   if (!error)
                                                   {

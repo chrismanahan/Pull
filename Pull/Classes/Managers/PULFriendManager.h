@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PULUser.h"
+#import "PULUserOld.h"
 
-@class PULPull;
+@class PULPullOld;
 @class PULFriendManager;
 
 /*****************************************
@@ -22,16 +22,16 @@
 @required
 - (void)friendManagerDidReorganize:(PULFriendManager*)friendManager;
 - (void)friendManagerDidLoadFriends:(PULFriendManager*)friendManager;
-- (void)friendManager:(PULFriendManager*)friendManager didForceAddUser:(PULUser*)user;
-- (void)friendManager:(PULFriendManager*)friendManager didSendFriendRequestToUser:(PULUser*)user;
-- (void)friendManager:(PULFriendManager*)friendManager didAcceptFriendRequestFromUser:(PULUser*)user;
-- (void)friendManager:(PULFriendManager *)friendManager friendRequestWasAcceptedWithUser:(PULUser*)user;
-- (void)friendManager:(PULFriendManager *)friendManager didReceiveFriendRequestFromUser:(PULUser*)user;
-- (void)friendManager:(PULFriendManager*)friendManager didUnfriendUser:(PULUser*)user;
-- (void)friendManager:(PULFriendManager*)friendManager didBlockUser:(PULUser*)user;
-- (void)friendManager:(PULFriendManager*)friendManager didUnBlockUser:(PULUser*)user;
-- (void)friendManager:(PULFriendManager*)friendManager didDetectNewFriend:(PULUser*)user;
-//- (void)friendManager:(PULFriendManager*)friendManager didDetectFriendChange:(PULUser*)user;
+- (void)friendManager:(PULFriendManager*)friendManager didForceAddUser:(PULUserOld*)user;
+- (void)friendManager:(PULFriendManager*)friendManager didSendFriendRequestToUser:(PULUserOld*)user;
+- (void)friendManager:(PULFriendManager*)friendManager didAcceptFriendRequestFromUser:(PULUserOld*)user;
+- (void)friendManager:(PULFriendManager *)friendManager friendRequestWasAcceptedWithUser:(PULUserOld*)user;
+- (void)friendManager:(PULFriendManager *)friendManager didReceiveFriendRequestFromUser:(PULUserOld*)user;
+- (void)friendManager:(PULFriendManager*)friendManager didUnfriendUser:(PULUserOld*)user;
+- (void)friendManager:(PULFriendManager*)friendManager didBlockUser:(PULUserOld*)user;
+- (void)friendManager:(PULFriendManager*)friendManager didUnBlockUser:(PULUserOld*)user;
+- (void)friendManager:(PULFriendManager*)friendManager didDetectNewFriend:(PULUserOld*)user;
+//- (void)friendManager:(PULFriendManager*)friendManager didDetectFriendChange:(PULUserOld*)user;
 
 - (void)friendManagerDidEncounterError:(NSError*)error;
 
@@ -69,18 +69,18 @@
 - (void)addFriendsFromFacebook;
 
 - (void)reorganizeWithPulls:(NSArray*)pulls;
-- (void)updateOrganizationWithPull:(PULPull*)pull;
+- (void)updateOrganizationWithPull:(PULPullOld*)pull;
 /**
  *  Updates the organization based on a specific friend. This really only changes things when the user's location changes significantly
  *
  *  @param user User to move
  */
-//- (void)updateOrganizationForUser:(PULUser*)user;
+//- (void)updateOrganizationForUser:(PULUserOld*)user;
 
-- (void)sendFriendRequestToUser:(PULUser*)user;
-- (void)acceptFriendRequestFromUser:(PULUser*)user;
-- (void)unfriendUser:(PULUser*)user;
-- (void)blockUser:(PULUser*)user;
-- (void)unBlockUser:(PULUser*)user;
+- (void)sendFriendRequestToUser:(PULUserOld*)user;
+- (void)acceptFriendRequestFromUser:(PULUserOld*)user;
+- (void)unfriendUser:(PULUserOld*)user;
+- (void)blockUser:(PULUserOld*)user;
+- (void)unBlockUser:(PULUserOld*)user;
 
 @end

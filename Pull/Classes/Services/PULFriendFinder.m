@@ -10,7 +10,7 @@
 
 #import "PULConstants.h"
 
-#import "PULUser.h"
+#import "PULUserOld.h"
 
 #import <Firebase/Firebase.h>
 
@@ -46,7 +46,7 @@
                 // we have a single user matching
                 NSString *userId = snapshot.value;
                 PULLog(@"Found user with user id: %@", userId);
-                [self p_userFromUid:userId completion:^(PULUser *user) {
+                [self p_userFromUid:userId completion:^(PULUserOld *user) {
                     completion(@[user]);
                 }];
             }
@@ -58,7 +58,7 @@
                 __block NSInteger count = userIds.count;
                 [userIds enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
                     NSString *uid = key;
-                    [self p_userFromUid:uid completion:^(PULUser *user) {
+                    [self p_userFromUid:uid completion:^(PULUserOld *user) {
                         [userArray addObject:user];
                         
                         // if we have all the users, call completion block
@@ -77,7 +77,7 @@
     }];
 }
 
-+ (void)p_userFromUid:(NSString*)uid completion:(void(^)(PULUser *user))completion
++ (void)p_userFromUid:(NSString*)uid completion:(void(^)(PULUserOld *user))completion
 {
     Firebase *ref = [[[[Firebase alloc] initWithUrl:kPULFirebaseURL] childByAppendingPath:@"users"] childByAppendingPath:uid];
     
@@ -89,7 +89,7 @@
             
             if (data)
             {
-                PULUser *user = [[PULUser alloc] initFromFirebaseData:data uid:snapshot.key];
+                PULUserOld *user = [[PULUserOld alloc] initFromFirebaseData:data uid:snapshot.key];
                 
                 completion(user);
             }

@@ -11,13 +11,13 @@
 extern const NSInteger kPULUserScrollViewPadding;
 
 @class PULUserScrollView;
-@class PULUser;
+@class PULUserOld;
 
 @protocol PULUserScrollViewDataSource <NSObject>
 
 @required
 - (NSInteger)numberOfUsersInUserScrollView:(PULUserScrollView*)userScrollView;
-- (PULUser*)userForIndex:(NSInteger)index isActive:(BOOL*)active userScrollView:(PULUserScrollView*)userScrollView;
+- (PULUserOld*)userForIndex:(NSInteger)index isActive:(BOOL*)active userScrollView:(PULUserScrollView*)userScrollView;
 - (CGSize)cellSizeForUserScrollView:(PULUserScrollView*)userScrollView;
 
 @optional

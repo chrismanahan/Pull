@@ -8,7 +8,7 @@
 
 #import "PULBlockingViewController.h"
 
-#import "PULAccount.h"
+#import "PULAccountOld.h"
 
 #import "PULUserCell.h"
 #import "PULSectionHeader.h"
@@ -20,7 +20,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, assign) BOOL dirty;
-@property (nonatomic, strong) PULUser *selectedUser;
+@property (nonatomic, strong) PULUserOld *selectedUser;
 
 @end
 
@@ -33,7 +33,7 @@
     _friends = [[NSMutableArray alloc] init];
     _blocked = [[NSMutableArray alloc] init];
     
-    for (PULUser *user in [PULAccount currentUser].friendManager.allFriends)
+    for (PULUserOld *user in [PULAccountOld currentUser].friendManager.allFriends)
     {
         if (user.isBlocked)
         {
@@ -52,7 +52,7 @@
 {
     if (_dirty)
     {
-        [[PULAccount currentUser] initializeAccount];
+        [[PULAccountOld currentUser] initializeAccount];
     }
 }
 
@@ -86,7 +86,7 @@
     NSString *cellId = indexPath.section == 0 ? @"FriendCell" : @"BlockedCell";
     NSArray *dataSource = indexPath.section == 0 ? _friends : _blocked;
     
-    PULUser *user = dataSource[indexPath.row];
+    PULUserOld *user = dataSource[indexPath.row];
     
     PULUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
@@ -138,7 +138,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
      NSArray *dataSource = indexPath.section == 0 ? _friends : _blocked;
-    PULUser *user = dataSource[indexPath.row];
+    PULUserOld *user = dataSource[indexPath.row];
     
     UIAlertView *alert;
     if (indexPath.section == 0)
@@ -174,7 +174,7 @@
         if (alertView.tag == 1000)
         {
             // block
-            [[PULAccount currentUser].friendManager blockUser:_selectedUser];
+            [[PULAccountOld currentUser].friendManager blockUser:_selectedUser];
             
             [_friends removeObject:_selectedUser];
             [_blocked addObject:_selectedUser];
@@ -184,7 +184,7 @@
         else if (alertView.tag == 1001)
         {
             // unblock
-            [[PULAccount currentUser].friendManager unBlockUser:_selectedUser];
+            [[PULAccountOld currentUser].friendManager unBlockUser:_selectedUser];
             
             [_blocked removeObject:_selectedUser];
             [_friends addObject:_selectedUser];

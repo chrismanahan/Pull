@@ -8,7 +8,7 @@
 
 #import "PULUserCell.h"
 
-#import "PULAccount.h"
+#import "PULAccountOld.h"
 
 #import "PULConstants.h"
 
@@ -22,7 +22,7 @@
 
 @implementation PULUserCell
 
-- (void)setUser:(PULUser *)user
+- (void)setUser:(PULUserOld *)user
 {
     _user = user;
 
@@ -32,7 +32,7 @@
     
     if (_userDistanceLabel)
     {
-        CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:user.location];
+        CGFloat distance = [[PULAccountOld currentUser].location distanceFromLocation:user.location];
         
         [self p_updateDistanceLabel:distance];
         
@@ -69,7 +69,7 @@
     
     if (_userDistanceLabel)
     {
-        _accountLocationUpdatedObserver = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountDidUpdateLocationNotification
+        _accountLocationUpdatedObserver = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountOldDidUpdateLocationNotification
                                                                                           object:nil
                                                                                            queue:[NSOperationQueue mainQueue]
                                                                                       usingBlock:^(NSNotification *note) {

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "PULAccount.h"
+#import "PULAccountOld.h"
 
 #import "PULConstants.h"
 
@@ -61,7 +61,7 @@
             // i don't think this will actually ever get called. one day i'll figure out the whole fb login flow. just not now
             PULLog(@"logging in with existing session");
 //            [ref authWithOAuthProvider:@"facebook" token:ref.authData.token withCompletionBlock:^(NSError *error, FAuthData *authData) {
-                [[PULAccount currentUser] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken completion:nil];
+                [[PULAccountOld currentUser] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken completion:nil];
 //            }];
         }
         else if (fbSesh.state == FBSessionStateCreatedTokenLoaded)
@@ -75,7 +75,7 @@
                                               {
                                                   // TODO: validate that session is open and valid
                                                   PULLog(@"opened session");
-                                                  [[PULAccount currentUser] loginWithFacebookToken:session.accessTokenData.accessToken completion:nil];
+                                                  [[PULAccountOld currentUser] loginWithFacebookToken:session.accessTokenData.accessToken completion:nil];
                                               }
                                               else
                                               {
@@ -118,9 +118,9 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     
-    if ([PULAccount currentUser].uid)
+    if ([PULAccountOld currentUser].uid)
     {
-        [[PULAccount currentUser] goOnline];
+        [[PULAccountOld currentUser] goOnline];
     }
 }
 
@@ -149,9 +149,9 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:@"DeviceToken"];
     
-    if ([PULAccount currentUser].uid)
+    if ([PULAccountOld currentUser].uid)
     {
-        [[PULAccount currentUser] writePushToken];
+        [[PULAccountOld currentUser] writePushToken];
     }
 }
 

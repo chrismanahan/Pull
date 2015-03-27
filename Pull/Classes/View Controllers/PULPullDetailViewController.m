@@ -9,7 +9,7 @@
 #import "PULPullDetailViewController.h"
 #import "PULMapViewController.h"
 
-#import "PULAccount.h"
+#import "PULAccountOld.h"
 
 #import "PULConstants.h"
 
@@ -58,7 +58,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
     _shouldRotate = YES;
 
     // set ui based on loaded user
-    CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:_user.location];
+    CGFloat distance = [[PULAccountOld currentUser].location distanceFromLocation:_user.location];
     [self distanceUpdated:distance];
     
     _userImageView.image = _user.image;
@@ -81,7 +81,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
         // subscribe to notifications
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didUpdateHeading:)
-                                                     name:kPULAccountDidUpdateHeadingNotification
+                                                     name:kPULAccountOldDidUpdateHeadingNotification
                                                    object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -89,7 +89,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
                                                      name:kPULFriendUpdatedNotifcation
                                                    object:_user];
         
-        _locationNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountDidUpdateLocationNotification
+        _locationNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountOldDidUpdateLocationNotification
                                                                                   object:nil
                                                                                    queue:[NSOperationQueue currentQueue]
                                                                               usingBlock:^(NSNotification *note) {
@@ -139,7 +139,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
     span.latitudeDelta = 0.05;
     span.longitudeDelta = 0.05;
     
-    CLLocationCoordinate2D location = [PULAccount currentUser].location.coordinate;
+    CLLocationCoordinate2D location = [PULAccountOld currentUser].location.coordinate;
     region.span = span;
     region.center = location;
     
@@ -192,7 +192,7 @@ NSString* deviceName()
     [[NSNotificationCenter defaultCenter] removeObserver:_presenceNotification];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:kPULAccountDidUpdateHeadingNotification
+                                                    name:kPULAccountOldDidUpdateHeadingNotification
                                                   object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -327,7 +327,7 @@ NSString* deviceName()
     if (_shouldRotate)
     {
         // update direction of arrow
-        CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
+        CGFloat degrees = [self p_calculateAngleBetween:[PULAccountOld currentUser].location.coordinate
                                                     and:_user.location.coordinate];
 
         CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
@@ -338,10 +338,10 @@ NSString* deviceName()
 
 - (void)didUpdateUser:(NSNotification*)notif
 {
-    PULUser *user = [notif object];
+    PULUserOld *user = [notif object];
     
     // find distance and update label
-    CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:user.location];
+    CGFloat distance = [[PULAccountOld currentUser].location distanceFromLocation:user.location];
     
     [self distanceUpdated:distance];
 }

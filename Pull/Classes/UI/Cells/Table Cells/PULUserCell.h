@@ -10,7 +10,7 @@
 
 #import "PULUserImageView.h"
 
-@class PULUser;
+@class PULUserOld;
 @class PULUserTableCellBackgroundView;
 @class PULUserCell;
 
@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, PULUserCellType)
 
 @property (nonatomic) PULUserCellType type;
 
-@property (nonatomic, strong) PULUser *user;
+@property (nonatomic, strong) PULUserOld *user;
 
 @property (nonatomic, weak) id <PULUserCellDelegate> delegate;
 

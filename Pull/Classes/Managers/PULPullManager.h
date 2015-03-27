@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PULPull.h"
+#import "PULPullOld.h"
 
-@class PULUser;
+@class PULUserOld;
 
 /*****************************************
         Delegate Protocol
@@ -19,11 +19,11 @@
 @protocol PULPullManagerDelegate <NSObject>
 
 - (void)pullManagerDidLoadPulls:(NSArray*)pulls;
-- (void)pullManagerDidReceivePull:(PULPull*)pull;
+- (void)pullManagerDidReceivePull:(PULPullOld*)pull;
 - (void)pullManagerDidTryToReceivePull;
-- (void)pullManagerDidSendPull:(PULPull*)pull;
+- (void)pullManagerDidSendPull:(PULPullOld*)pull;
 - (void)pullManagerDidRemovePull;
-- (void)pullManagerDidDetectPullStatusChange:(PULPull*)pull;
+- (void)pullManagerDidDetectPullStatusChange:(PULPullOld*)pull;
 
 - (void)pullManagerEncounteredError:(NSError*)error;
 
@@ -54,13 +54,13 @@
  */
 - (void)initializePulls;
 
-- (void)sendPullToUser:(PULUser*)user;
-- (void)acceptPullFromUser:(PULUser*)user;
-- (void)unpullUser:(PULUser*)user;
+- (void)sendPullToUser:(PULUserOld*)user;
+- (void)acceptPullFromUser:(PULUserOld*)user;
+- (void)unpullUser:(PULUserOld*)user;
 - (void)unpullEveryone;
-- (void)suspendPullWithUser:(PULUser*)user;
-- (void)resumePullWithUser:(PULUser*)user;
+- (void)suspendPullWithUser:(PULUserOld*)user;
+- (void)resumePullWithUser:(PULUserOld*)user;
 
-- (PULPullStatus)pullStatusWithUser:(PULUser*)user;
+- (PULPullStatus)pullStatusWithUser:(PULUserOld*)user;
 
 @end

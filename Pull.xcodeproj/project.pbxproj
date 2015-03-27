@@ -134,11 +134,11 @@
 		952BDB6D1A0C4F0500C67BB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 952BDB6B1A0C4F0500C67BB5 /* Main.storyboard */; };
 		952BDB771A0C4F0500C67BB5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 952BDB751A0C4F0500C67BB5 /* LaunchScreen.xib */; };
 		952BDB831A0C4F0500C67BB5 /* PullTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB821A0C4F0500C67BB5 /* PullTests.m */; };
-		952BDB931A0C500C00C67BB5 /* PULUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB921A0C500C00C67BB5 /* PULUser.m */; };
-		952BDB961A0C503200C67BB5 /* PULAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB951A0C503200C67BB5 /* PULAccount.m */; };
+		952BDB931A0C500C00C67BB5 /* PULUserOld.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB921A0C500C00C67BB5 /* PULUserOld.m */; };
+		952BDB961A0C503200C67BB5 /* PULAccountOld.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB951A0C503200C67BB5 /* PULAccountOld.m */; };
 		952BDB9A1A0C504D00C67BB5 /* PULPullManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB991A0C504D00C67BB5 /* PULPullManager.m */; };
 		952BDB9D1A0C505C00C67BB5 /* PULFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB9C1A0C505C00C67BB5 /* PULFriendManager.m */; };
-		952BDBA01A0C50B300C67BB5 /* PULPull.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB9F1A0C50B300C67BB5 /* PULPull.m */; };
+		952BDBA01A0C50B300C67BB5 /* PULPullOld.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB9F1A0C50B300C67BB5 /* PULPullOld.m */; };
 		9531F8A11A8679E1003CBEDF /* PULUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9531F8A01A8679E1003CBEDF /* PULUserSettings.m */; };
 		9531F8A41A86803A003CBEDF /* PULSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9531F8A31A86803A003CBEDF /* PULSettingsViewController.m */; };
 		9531F8A71A86B028003CBEDF /* PULBlockingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9531F8A61A86B028003CBEDF /* PULBlockingViewController.m */; };
@@ -222,6 +222,12 @@
 		95CEA2B81A8ED42F000C2686 /* pull_splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 95CEA2B71A8ED42F000C2686 /* pull_splash.png */; };
 		95D6661C1A7C8EEE000FAD8D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D6661B1A7C8EEE000FAD8D /* MapKit.framework */; };
 		95D6661F1A7D6A42000FAD8D /* PULMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */; };
+		95E517631AC1984B00C8B32E /* FireObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E517621AC1984B00C8B32E /* FireObject.m */; };
+		95E517661AC19A8500C8B32E /* FireSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E517651AC19A8500C8B32E /* FireSync.m */; };
+		95E5176B1AC19B2200C8B32E /* PULAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E5176A1AC19B2200C8B32E /* PULAccount.m */; };
+		95E5176E1AC385E700C8B32E /* PULUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E5176D1AC385E700C8B32E /* PULUser.m */; };
+		95E517711AC385FF00C8B32E /* PULPull.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E517701AC385FF00C8B32E /* PULPull.m */; };
+		95E517731AC3884600C8B32E /* FireSyncTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E517721AC3884600C8B32E /* FireSyncTest.m */; };
 		95EF21D01A916A3F000B48B8 /* gradient_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EF21CF1A916A3F000B48B8 /* gradient_background.png */; };
 		95EF21D51A92E113000B48B8 /* Spalsh_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EF21D31A92E113000B48B8 /* Spalsh_6.png */; };
 		95EF21D61A92E113000B48B8 /* Spalsh_6plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EF21D41A92E113000B48B8 /* Spalsh_6plus.png */; };
@@ -405,16 +411,16 @@
 		952BDB7C1A0C4F0500C67BB5 /* PullTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PullTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		952BDB811A0C4F0500C67BB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		952BDB821A0C4F0500C67BB5 /* PullTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullTests.m; sourceTree = "<group>"; };
-		952BDB911A0C500C00C67BB5 /* PULUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUser.h; sourceTree = "<group>"; };
-		952BDB921A0C500C00C67BB5 /* PULUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUser.m; sourceTree = "<group>"; };
-		952BDB941A0C503200C67BB5 /* PULAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULAccount.h; sourceTree = "<group>"; };
-		952BDB951A0C503200C67BB5 /* PULAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULAccount.m; sourceTree = "<group>"; };
+		952BDB911A0C500C00C67BB5 /* PULUserOld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUserOld.h; sourceTree = "<group>"; };
+		952BDB921A0C500C00C67BB5 /* PULUserOld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserOld.m; sourceTree = "<group>"; };
+		952BDB941A0C503200C67BB5 /* PULAccountOld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULAccountOld.h; sourceTree = "<group>"; };
+		952BDB951A0C503200C67BB5 /* PULAccountOld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULAccountOld.m; sourceTree = "<group>"; };
 		952BDB981A0C504D00C67BB5 /* PULPullManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullManager.h; sourceTree = "<group>"; };
 		952BDB991A0C504D00C67BB5 /* PULPullManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPullManager.m; sourceTree = "<group>"; };
 		952BDB9B1A0C505C00C67BB5 /* PULFriendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULFriendManager.h; sourceTree = "<group>"; };
 		952BDB9C1A0C505C00C67BB5 /* PULFriendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULFriendManager.m; sourceTree = "<group>"; };
-		952BDB9E1A0C50B300C67BB5 /* PULPull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPull.h; sourceTree = "<group>"; };
-		952BDB9F1A0C50B300C67BB5 /* PULPull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPull.m; sourceTree = "<group>"; };
+		952BDB9E1A0C50B300C67BB5 /* PULPullOld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullOld.h; sourceTree = "<group>"; };
+		952BDB9F1A0C50B300C67BB5 /* PULPullOld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPullOld.m; sourceTree = "<group>"; };
 		9531F89F1A8679E1003CBEDF /* PULUserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUserSettings.h; sourceTree = "<group>"; };
 		9531F8A01A8679E1003CBEDF /* PULUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserSettings.m; sourceTree = "<group>"; };
 		9531F8A21A86803A003CBEDF /* PULSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULSettingsViewController.h; path = "View Controllers/PULSettingsViewController.h"; sourceTree = "<group>"; };
@@ -507,6 +513,17 @@
 		95D6661B1A7C8EEE000FAD8D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		95D6661D1A7D6A42000FAD8D /* PULMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULMapViewController.h; path = "View Controllers/PULMapViewController.h"; sourceTree = "<group>"; };
 		95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULMapViewController.m; path = "View Controllers/PULMapViewController.m"; sourceTree = "<group>"; };
+		95E517611AC1984B00C8B32E /* FireObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FireObject.h; path = Firebase/FireObject.h; sourceTree = "<group>"; };
+		95E517621AC1984B00C8B32E /* FireObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FireObject.m; path = Firebase/FireObject.m; sourceTree = "<group>"; };
+		95E517641AC19A8500C8B32E /* FireSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FireSync.h; path = Firebase/FireSync.h; sourceTree = "<group>"; };
+		95E517651AC19A8500C8B32E /* FireSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FireSync.m; path = Firebase/FireSync.m; sourceTree = "<group>"; };
+		95E517691AC19B2200C8B32E /* PULAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULAccount.h; sourceTree = "<group>"; };
+		95E5176A1AC19B2200C8B32E /* PULAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULAccount.m; sourceTree = "<group>"; };
+		95E5176C1AC385E700C8B32E /* PULUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUser.h; sourceTree = "<group>"; };
+		95E5176D1AC385E700C8B32E /* PULUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUser.m; sourceTree = "<group>"; };
+		95E5176F1AC385FF00C8B32E /* PULPull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPull.h; sourceTree = "<group>"; };
+		95E517701AC385FF00C8B32E /* PULPull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPull.m; sourceTree = "<group>"; };
+		95E517721AC3884600C8B32E /* FireSyncTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireSyncTest.m; sourceTree = "<group>"; };
 		95EF21CF1A916A3F000B48B8 /* gradient_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gradient_background.png; path = images/gradient_background.png; sourceTree = "<group>"; };
 		95EF21D31A92E113000B48B8 /* Spalsh_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spalsh_6.png; sourceTree = "<group>"; };
 		95EF21D41A92E113000B48B8 /* Spalsh_6plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spalsh_6plus.png; sourceTree = "<group>"; };
@@ -977,6 +994,7 @@
 			children = (
 				952BDB821A0C4F0500C67BB5 /* PullTests.m */,
 				952BDB801A0C4F0500C67BB5 /* Supporting Files */,
+				95E517721AC3884600C8B32E /* FireSyncTest.m */,
 			);
 			path = PullTests;
 			sourceTree = "<group>";
@@ -992,6 +1010,7 @@
 		952BDB8C1A0C4F4D00C67BB5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				95E517601AC1983300C8B32E /* Firebase */,
 				95169F5C1A8714EA006D3078 /* Segues */,
 				33ECD35C1A26D3D000192BC8 /* Categories */,
 				952BDB8D1A0C4F5500C67BB5 /* App */,
@@ -1044,14 +1063,13 @@
 		952BDB901A0C4FA400C67BB5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				952BDB941A0C503200C67BB5 /* PULAccount.h */,
-				952BDB951A0C503200C67BB5 /* PULAccount.m */,
-				952BDB9E1A0C50B300C67BB5 /* PULPull.h */,
-				952BDB9F1A0C50B300C67BB5 /* PULPull.m */,
-				952BDB911A0C500C00C67BB5 /* PULUser.h */,
-				952BDB921A0C500C00C67BB5 /* PULUser.m */,
-				9531F89F1A8679E1003CBEDF /* PULUserSettings.h */,
-				9531F8A01A8679E1003CBEDF /* PULUserSettings.m */,
+				95E517681AC19AFD00C8B32E /* Old Models */,
+				95E517691AC19B2200C8B32E /* PULAccount.h */,
+				95E5176A1AC19B2200C8B32E /* PULAccount.m */,
+				95E5176C1AC385E700C8B32E /* PULUser.h */,
+				95E5176D1AC385E700C8B32E /* PULUser.m */,
+				95E5176F1AC385FF00C8B32E /* PULPull.h */,
+				95E517701AC385FF00C8B32E /* PULPull.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1193,6 +1211,40 @@
 			);
 			name = buttons;
 			path = images/buttons;
+			sourceTree = "<group>";
+		};
+		95E517601AC1983300C8B32E /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				95E517671AC19AB200C8B32E /* Models */,
+				95E517611AC1984B00C8B32E /* FireObject.h */,
+				95E517621AC1984B00C8B32E /* FireObject.m */,
+				95E517641AC19A8500C8B32E /* FireSync.h */,
+				95E517651AC19A8500C8B32E /* FireSync.m */,
+			);
+			name = Firebase;
+			sourceTree = "<group>";
+		};
+		95E517671AC19AB200C8B32E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		95E517681AC19AFD00C8B32E /* Old Models */ = {
+			isa = PBXGroup;
+			children = (
+				952BDB941A0C503200C67BB5 /* PULAccountOld.h */,
+				952BDB951A0C503200C67BB5 /* PULAccountOld.m */,
+				952BDB9E1A0C50B300C67BB5 /* PULPullOld.h */,
+				952BDB9F1A0C50B300C67BB5 /* PULPullOld.m */,
+				952BDB911A0C500C00C67BB5 /* PULUserOld.h */,
+				952BDB921A0C500C00C67BB5 /* PULUserOld.m */,
+				9531F89F1A8679E1003CBEDF /* PULUserSettings.h */,
+				9531F8A01A8679E1003CBEDF /* PULUserSettings.m */,
+			);
+			name = "Old Models";
 			sourceTree = "<group>";
 		};
 		95EF21D21A92E0CF000B48B8 /* System */ = {
@@ -1486,12 +1538,14 @@
 				334044971A17AC3A00B00BC3 /* PULLoginViewController.m in Sources */,
 				84261A481A9E263A001DD052 /* PULRequestNotificationsViewController.m in Sources */,
 				952BDB6A1A0C4F0500C67BB5 /* AppDelegate.m in Sources */,
-				952BDBA01A0C50B300C67BB5 /* PULPull.m in Sources */,
+				952BDBA01A0C50B300C67BB5 /* PULPullOld.m in Sources */,
 				33ECD35F1A26D3E300192BC8 /* NSData+Hex.m in Sources */,
 				3340449D1A17D33A00B00BC3 /* PULPullListViewController.m in Sources */,
 				953B05C91A8803D9008235EB /* PULLoadingIndicator.m in Sources */,
 				95169F651A871F41006D3078 /* PULNavigationController.m in Sources */,
-				952BDB961A0C503200C67BB5 /* PULAccount.m in Sources */,
+				952BDB961A0C503200C67BB5 /* PULAccountOld.m in Sources */,
+				95E5176E1AC385E700C8B32E /* PULUser.m in Sources */,
+				95E517711AC385FF00C8B32E /* PULPull.m in Sources */,
 				950D5D9A1AAFB84A00CDAC65 /* UIVisualEffectView+PullBlur.m in Sources */,
 				334044C61A17F9A100B00BC3 /* PULUserCell.m in Sources */,
 				84AAC8D31A8E8E5100C302AD /* PULNoConnectionView.m in Sources */,
@@ -1505,11 +1559,14 @@
 				9532D43F1A7F016000ADB840 /* README.md in Sources */,
 				330499561A18037D003FEA42 /* PULPulledUserImageView.m in Sources */,
 				8456E6201A8965FC00CF76AE /* PULSlideLeftSegue.m in Sources */,
+				95E517631AC1984B00C8B32E /* FireObject.m in Sources */,
 				9532D4231A7ECC4300ADB840 /* PULInfoAlert.m in Sources */,
 				9531F8A71A86B028003CBEDF /* PULBlockingViewController.m in Sources */,
+				95E5176B1AC19B2200C8B32E /* PULAccount.m in Sources */,
 				95D6661F1A7D6A42000FAD8D /* PULMapViewController.m in Sources */,
-				952BDB931A0C500C00C67BB5 /* PULUser.m in Sources */,
+				952BDB931A0C500C00C67BB5 /* PULUserOld.m in Sources */,
 				9531F8A11A8679E1003CBEDF /* PULUserSettings.m in Sources */,
+				95E517661AC19A8500C8B32E /* FireSync.m in Sources */,
 				33ABDE521AB4A74F00A047BF /* PULNoFriendsOverlay.m in Sources */,
 				334044C91A17FD6A00B00BC3 /* PULFriendFinder.m in Sources */,
 				9531F8A41A86803A003CBEDF /* PULSettingsViewController.m in Sources */,
@@ -1539,6 +1596,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95E517731AC3884600C8B32E /* FireSyncTest.m in Sources */,
 				952BDB831A0C4F0500C67BB5 /* PullTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

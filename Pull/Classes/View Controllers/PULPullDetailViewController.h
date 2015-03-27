@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PULUser.h"
+#import "PULUserOld.h"
 
 @interface PULPullDetailViewController : UIViewController
 
-@property (nonatomic, strong) PULUser *user;
+@property (nonatomic, strong) PULUserOld *user;
 
 @end

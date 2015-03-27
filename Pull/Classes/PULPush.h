@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class PULUser;
+@class PULUserOld;
 
 extern NSString * const kPULPushTypeSendFriendRequest;
 extern NSString * const kPULPushTypeAcceptFriendRequest;
@@ -17,6 +17,6 @@ extern NSString * const kPULPushTypeAcceptPull;
 
 @interface PULPush : NSObject
 
-+ (void)sendPushType:(NSString*)pushType to:(PULUser*)toUser from:(PULUser*)fromUser;
++ (void)sendPushType:(NSString*)pushType to:(PULUserOld*)toUser from:(PULUserOld*)fromUser;
 
 @end

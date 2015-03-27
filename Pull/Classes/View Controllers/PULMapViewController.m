@@ -8,7 +8,7 @@
 
 #import "PULMapViewController.h"
 
-#import "PULAccount.h"
+#import "PULAccountOld.h"
 
 #import "PULUserImageView.h"
 #import "PULUserScrollView.h"
@@ -190,7 +190,7 @@
         PULUserImageView *imageView = [[PULUserImageView alloc] initWithFrame:CGRectMake(0, 0, 70, 70)];
         imageView.backgroundColor = [UIColor clearColor];
         imageView.hasBorder = NO;
-        imageView.imageView.image = ((PULUser*)annotation).image;
+        imageView.imageView.image = ((PULUserOld*)annotation).image;
 
         // adjust label center
         CGPoint center = imageView.center;
@@ -216,14 +216,14 @@
 #pragma mark - User scroll view data source
 - (NSInteger)numberOfUsersInUserScrollView:(PULUserScrollView *)userScrollView
 {
-    return [PULAccount currentUser].friendManager.pulledFriends.count;
+    return [PULAccountOld currentUser].friendManager.pulledFriends.count;
 }
 
-- (PULUser*)userForIndex:(NSInteger)index isActive:(BOOL*)active userScrollView:(PULUserScrollView *)userScrollView
+- (PULUserOld*)userForIndex:(NSInteger)index isActive:(BOOL*)active userScrollView:(PULUserScrollView *)userScrollView
 {
-    NSInteger i = [PULAccount currentUser].friendManager.pulledFriends.count - index - 1;
+    NSInteger i = [PULAccountOld currentUser].friendManager.pulledFriends.count - index - 1;
     
-    PULUser *user = [PULAccount currentUser].friendManager.pulledFriends[i];
+    PULUserOld *user = [PULAccountOld currentUser].friendManager.pulledFriends[i];
     
     *active = user == _user;
     

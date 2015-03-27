@@ -8,8 +8,8 @@
 
 #import "PULFriendManager.h"
 
-#import "PULAccount.h"
-#import "PULPull.h"
+#import "PULAccountOld.h"
+#import "PULPullOld.h"
 
 #import "PULPush.h"
 
@@ -68,7 +68,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
             if (_blockedUsers.count > 0)
             {
                 PULLog(@"marking off blocked users");
-                for (PULUser *user in _allFriends)
+                for (PULUserOld *user in _allFriends)
                 {
                     if ([_blockedUsers containsObject:user])
                     {
@@ -174,7 +174,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
                     BOOL needToAdd = YES;
                     NSString *userUID = [NSString stringWithFormat:@"facebook:%@", fbId];
                     
-                    for (PULUser *user in _allFriends)
+                    for (PULUserOld *user in _allFriends)
                     {
                         if ([user.uid isEqualToString:userUID])
                         {
@@ -188,11 +188,11 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
                         // found a user we need to add
                         // create a user out of the fbId
                         PULLog(@"force adding %@", fbId);
-                        [self p_userFromUid:userUID completion:^(PULUser *user) {
+                        [self p_userFromUid:userUID completion:^(PULUserOld *user) {
                             
                             if (user)
                             {
-                                [self p_forceAddUserAsFriend:user completion:^(PULUser *friend) {
+                                [self p_forceAddUserAsFriend:user completion:^(PULUserOld *friend) {
                                     if (![PULError handleError:error target:_delegate selector:@selector(friendManagerDidEncounterError:) object:error])
                                     {
                                         if (![_allFriends containsObject:friend])
@@ -236,7 +236,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     _nearbyFriends      = [[NSMutableArray alloc] init];
     _farAwayFriends     = [[NSMutableArray alloc] init];
     
-    for (PULUser *user in _allFriends)
+    for (PULUserOld *user in _allFriends)
     {
         // don't add user if blocked
         if (user.isBlocked)
@@ -247,7 +247,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         
         BOOL isAdded = NO;
         
-        for (PULPull *pull in pulls)
+        for (PULPullOld *pull in pulls)
         {
             if ([pull containsUser:user])
             {
@@ -281,7 +281,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         // if user hasn't been added yet, we need to determine if they are nearby or faraway
         if (!isAdded)
         {
-            CLLocationDistance distance = [user.location distanceFromLocation:[PULAccount currentUser].location];
+            CLLocationDistance distance = [user.location distanceFromLocation:[PULAccountOld currentUser].location];
             
             if (distance <= kPULMaxDistanceToBeNearby)
             {
@@ -303,13 +303,13 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     }
 }
 
-- (void)updateOrganizationWithPull:(PULPull*)pull
+- (void)updateOrganizationWithPull:(PULPullOld*)pull
 {
     PULLog(@"updating organization with pull from %@ to %@. State (%zd)", pull.sendingUser, pull.receivingUser, pull.status);
     // find user we need to move
-    PULUser *user;
+    PULUserOld *user;
     NSMutableArray *arrayToMoveTo;
-    if ([pull.sendingUser isEqual:[PULAccount currentUser]])
+    if ([pull.sendingUser isEqual:[PULAccountOld currentUser]])
     {
         user = pull.receivingUser;
     }
@@ -342,7 +342,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     }
     else
     {
-        CLLocationDistance distance = [user.location distanceFromLocation:[PULAccount currentUser].location];
+        CLLocationDistance distance = [user.location distanceFromLocation:[PULAccountOld currentUser].location];
         
         if (distance <= kPULMaxDistanceToBeNearby)
         {
@@ -368,19 +368,19 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
 }
 
-//- (void)updateOrganizationForUser:(PULUser*)user;
+//- (void)updateOrganizationForUser:(PULUserOld*)user;
 //{
 //    PULLog(@"updating organization with user: %@", user.fullName);
 //    // verify we're still friends with this person
 //    if ([_allFriends containsObject:user])
 //    {
-//        BOOL haveLocation = (BOOL)[PULAccount currentUser].location;
+//        BOOL haveLocation = (BOOL)[PULAccountOld currentUser].location;
 //
 //        if (([_nearbyFriends containsObject:user] || [_farAwayFriends containsObject:user]) && haveLocation)
 //        {
 //            BOOL didChange = NO;
 //            
-//            CLLocationDistance distance = [user.location distanceFromLocation:[PULAccount currentUser].location];
+//            CLLocationDistance distance = [user.location distanceFromLocation:[PULAccountOld currentUser].location];
 //            
 //            if (distance <= kPULMaxDistanceToBeNearby && ![_nearbyFriends containsObject:user])
 //            {
@@ -417,7 +417,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 //    }
 //}
 
-- (void)sendFriendRequestToUser:(PULUser*)user
+- (void)sendFriendRequestToUser:(PULUserOld*)user
 {
     
     [self p_addRelationshipFromMeToYouWithEndpoints:@[@"invited", @"pending"] friend:user completion:^{
@@ -429,11 +429,11 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         }
         
         // push
-        [PULPush sendPushType:kPULPushTypeSendFriendRequest to:user from:[PULAccount currentUser]];
+        [PULPush sendPushType:kPULPushTypeSendFriendRequest to:user from:[PULAccountOld currentUser]];
     }];
 }
 
-- (void)acceptFriendRequestFromUser:(PULUser*)user
+- (void)acceptFriendRequestFromUser:(PULUserOld*)user
 {
     
     [self p_removeRelationshipFromMeToYouWithEndpoints:@[@"pending", @"invited"] friend:user completion:^{
@@ -451,11 +451,11 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         }
         
         // push
-        [PULPush sendPushType:kPULPushTypeAcceptFriendRequest to:user from:[PULAccount currentUser]];
+        [PULPush sendPushType:kPULPushTypeAcceptFriendRequest to:user from:[PULAccountOld currentUser]];
     }];
 }
 
-- (void)unfriendUser:(PULUser*)user
+- (void)unfriendUser:(PULUserOld*)user
 {
     
     [self p_removeRelationshipFromMeToYouWithEndpoints:@[@"friends", @"friends"] friend:user completion:^{
@@ -473,7 +473,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key];
 }
 
-- (void)blockUser:(PULUser*)user
+- (void)blockUser:(PULUserOld*)user
 {
     [self p_addUser:user toMyEndpoint:@"blocked" completion:^{
         if ([_delegate respondsToSelector:@selector(friendManager:didBlockUser:)])
@@ -483,7 +483,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     }];
 }
 
-- (void)unBlockUser:(PULUser *)user
+- (void)unBlockUser:(PULUserOld *)user
 {
     [self p_removeUser:user toMyEndpoint:@"blocked" completion:^{
         if ([_delegate respondsToSelector:@selector(friendManager:didUnBlockUser:)])
@@ -497,7 +497,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 //- (void)p_startObservingFriendsPending
 //{
 //    PULLog(@"starting to observe pending friends");
-//    Firebase *pendingRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:@"pending"];
+//    Firebase *pendingRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccountOld currentUser].uid] childByAppendingPath:@"pending"];
 //    _pendingFriendsObserver =  [pendingRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
 //        PULLog(@"observed added pending friend: %@", snapshot.key);
 //        
@@ -541,7 +541,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 //- (void)p_startObservingFriendsInvited
 //{
 //    PULLog(@"starting to observe invited friends");
-//    Firebase *pendingRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:@"invited"];
+//    Firebase *pendingRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccountOld currentUser].uid] childByAppendingPath:@"invited"];
 //    _invitedFriendsObserver =  [pendingRef observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {
 //        PULLog(@"observed removal of invited friend: %@", snapshot.key);
 //        
@@ -584,11 +584,11 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     [_fireRef removeObserverWithHandle:_friendAddedObserver];
     
     PULLog(@"starting to observe friends");
-    Firebase *friendRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:@"friends"];
+    Firebase *friendRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccountOld currentUser].uid] childByAppendingPath:@"friends"];
     _friendAddedObserver = [friendRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         PULLog(@"observed added new friend: %@", snapshot.key);
 
-        [self p_userFromUid:snapshot.key completion:^(PULUser *user) {
+        [self p_userFromUid:snapshot.key completion:^(PULUserOld *user) {
             
             if (![_allFriends containsObject:user] && user)
             {
@@ -604,7 +604,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
 }
 
-- (void)p_userFromUid:(NSString*)uid completion:(void(^)(PULUser *user))completion
+- (void)p_userFromUid:(NSString*)uid completion:(void(^)(PULUserOld *user))completion
 {
     Firebase *ref = [[_fireRef childByAppendingPath:@"users"] childByAppendingPath:uid];
     Firebase *blockedRef = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:uid] childByAppendingPath:@"blocked"];
@@ -612,10 +612,10 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSDictionary *data = snapshot.value;
         
-        PULUser *user = nil;
+        PULUserOld *user = nil;
         if (snapshot.exists)
         {
-            user = [[PULUser alloc] initFromFirebaseData:data uid:snapshot.key];
+            user = [[PULUserOld alloc] initFromFirebaseData:data uid:snapshot.key];
         }
         
         if (completion)
@@ -634,7 +634,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
         if (snapshot.exists)
         {
             NSDictionary *dict = snapshot.value;
-            if ([dict.allKeys containsObject:[PULAccount currentUser].uid])
+            if ([dict.allKeys containsObject:[PULAccountOld currentUser].uid])
             {
                 // being we could read this, it means we are blocked
                 PULLog(@"someone blocked us");
@@ -646,7 +646,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 
 - (void)p_usersFromEndpoint:(NSString*)endpoint completion:(void(^)(NSArray *users))completion
 {
-    Firebase *ref = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:endpoint];
+    Firebase *ref = [[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccountOld currentUser].uid] childByAppendingPath:endpoint];
     
     // get uids at this point
     [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
@@ -662,7 +662,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
                 NSString *uid = key;
                 
                 // create user and add to array
-                [self p_userFromUid:uid completion:^(PULUser *user) {
+                [self p_userFromUid:uid completion:^(PULUserOld *user) {
                     
                     if (user)
                     {
@@ -699,8 +699,8 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     NSParameterAssert(array);
     
     [array sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        PULUser *user1 = obj1;
-        PULUser *user2 = obj2;
+        PULUserOld *user1 = obj1;
+        PULUserOld *user2 = obj2;
 
         return [user1.firstName localizedCaseInsensitiveCompare:user2.firstName];
 
@@ -712,11 +712,11 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     NSParameterAssert(array);
     
     [array sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        PULUser *user1 = obj1;
-        PULUser *user2 = obj2;
+        PULUserOld *user1 = obj1;
+        PULUserOld *user2 = obj2;
         
-        CLLocationDistance dist1 = [user1.location distanceFromLocation:[PULAccount currentUser].location];
-        CLLocationDistance dist2 = [user2.location distanceFromLocation:[PULAccount currentUser].location];
+        CLLocationDistance dist1 = [user1.location distanceFromLocation:[PULAccountOld currentUser].location];
+        CLLocationDistance dist2 = [user2.location distanceFromLocation:[PULAccountOld currentUser].location];
         
         NSComparisonResult result;
         
@@ -737,11 +737,11 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     }];
 }
 
-- (void)p_moveUser:(PULUser*)user toArray:(NSMutableArray*)array
+- (void)p_moveUser:(PULUserOld*)user toArray:(NSMutableArray*)array
 {
     PULLog(@"moving user (%@) to array: (%@)", user.uid, array);
     // block to check if user is in an array and remove them if they are
-    void (^removeUserFromArray)(PULUser *user, NSMutableArray *array) = ^void (PULUser *user, NSMutableArray *array)
+    void (^removeUserFromArray)(PULUserOld *user, NSMutableArray *array) = ^void (PULUserOld *user, NSMutableArray *array)
     {
         if ([array containsObject:user])
         {
@@ -762,7 +762,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     }
 }
 
-- (void)p_forceAddUserAsFriend:(PULUser*)friend completion:(void (^)(PULUser* friend))completion
+- (void)p_forceAddUserAsFriend:(PULUserOld*)friend completion:(void (^)(PULUserOld* friend))completion
 {
     PULLog(@"Force adding friend: %@", friend);
 
@@ -771,9 +771,9 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     }];
 }
 
-- (void)p_addUser:(PULUser*)user toMyEndpoint:(NSString*)endpoint completion:(void(^)())completion
+- (void)p_addUser:(PULUserOld*)user toMyEndpoint:(NSString*)endpoint completion:(void(^)())completion
 {
-    Firebase *myRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:endpoint] childByAppendingPath:user.uid];
+    Firebase *myRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccountOld currentUser].uid] childByAppendingPath:endpoint] childByAppendingPath:user.uid];
     [myRef setValue:@(YES) withCompletionBlock:^(NSError *error, Firebase *ref) {
         if (error)
         {
@@ -788,9 +788,9 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     }];
 }
 
-- (void)p_removeUser:(PULUser*)user toMyEndpoint:(NSString*)endpoint completion:(void(^)())completion
+- (void)p_removeUser:(PULUserOld*)user toMyEndpoint:(NSString*)endpoint completion:(void(^)())completion
 {
-    Firebase *myRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:endpoint] childByAppendingPath:user.uid];
+    Firebase *myRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccountOld currentUser].uid] childByAppendingPath:endpoint] childByAppendingPath:user.uid];
     [myRef removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
 
         if (error)
@@ -804,7 +804,7 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
     }];
 }
 
-- (void)p_addRelationshipFromMeToYouWithEndpoints:(NSArray*)endpoints friend:(PULUser*)friend completion:(void(^)())completion;
+- (void)p_addRelationshipFromMeToYouWithEndpoints:(NSArray*)endpoints friend:(PULUserOld*)friend completion:(void(^)())completion;
 {
     NSString *myEndpoint = endpoints[0];
     NSString *friendEndpoint = endpoints[1];
@@ -825,14 +825,14 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 //        }
     };
     
-    Firebase *myRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:myEndpoint] childByAppendingPath:friend.uid];
+    Firebase *myRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccountOld currentUser].uid] childByAppendingPath:myEndpoint] childByAppendingPath:friend.uid];
     [myRef setValue:@(YES) withCompletionBlock:friendAddCompletion];
     
-    Firebase *friendRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:friend.uid] childByAppendingPath:friendEndpoint] childByAppendingPath:[PULAccount currentUser].uid];
+    Firebase *friendRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:friend.uid] childByAppendingPath:friendEndpoint] childByAppendingPath:[PULAccountOld currentUser].uid];
     [friendRef setValue:@(YES) withCompletionBlock:friendAddCompletion];
 }
 
-- (void)p_removeRelationshipFromMeToYouWithEndpoints:(NSArray*)endpoints friend:(PULUser*)friend completion:(void(^)())completion;
+- (void)p_removeRelationshipFromMeToYouWithEndpoints:(NSArray*)endpoints friend:(PULUserOld*)friend completion:(void(^)())completion;
 {
     NSString *myEndpoint = endpoints[0];
     NSString *friendEndpoint = endpoints[1];
@@ -853,10 +853,10 @@ NSString * const kPULFriendRemovedKey = @"kPULFriendRemovedKey";
 //        }
     };
     
-    Firebase *myRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccount currentUser].uid] childByAppendingPath:myEndpoint] childByAppendingPath:friend.uid];
+    Firebase *myRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:[PULAccountOld currentUser].uid] childByAppendingPath:myEndpoint] childByAppendingPath:friend.uid];
     [myRef removeValueWithCompletionBlock:friendRemoveCompletion];
     
-    Firebase *friendRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:friend.uid] childByAppendingPath:friendEndpoint] childByAppendingPath:[PULAccount currentUser].uid];
+    Firebase *friendRef = [[[[_fireRef childByAppendingPath:@"users"] childByAppendingPath:friend.uid] childByAppendingPath:friendEndpoint] childByAppendingPath:[PULAccountOld currentUser].uid];
     [friendRef removeValueWithCompletionBlock:friendRemoveCompletion];
 
 }

@@ -20,7 +20,7 @@
 #import "PULPullDetailViewController.h"
 #import "PULLoginViewController.h"
 
-#import "PULAccount.h"
+#import "PULAccountOld.h"
 
 #import "PULConstants.h"
 
@@ -80,21 +80,21 @@ const NSInteger kPULNearbySection = 3;
     // subcribe to updates that we need to reload friend table data
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reload)
-                                                 name:kPULAccountFriendListUpdatedNotification
-                                               object:[PULAccount currentUser]];
+                                                 name:kPULAccountOldFriendListUpdatedNotification
+                                               object:[PULAccountOld currentUser]];
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self
 //                                             selector:@selector(reload)
 //                                                 name:kPULFriendChangedPresence
 //                                               object:nil];
     
-    __block id loginNotif = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountLoginFailedNotification
-                                                                              object:[PULAccount currentUser]
+    __block id loginNotif = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountOldLoginFailedNotification
+                                                                              object:[PULAccountOld currentUser]
                                                                                queue:[NSOperationQueue currentQueue]
                                                                           usingBlock:^(NSNotification *note) {
                                                                               [_loadingIndicator hide];
                                                                               
-                                                                              [[PULAccount currentUser] logout];
+                                                                              [[PULAccountOld currentUser] logout];
                                                                               
                                                                               UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
                                                                               
@@ -196,7 +196,7 @@ const NSInteger kPULNearbySection = 3;
 {
     [super viewDidAppear:animated];
     
-    if ([PULAccount currentUser].didLoad)
+    if ([PULAccountOld currentUser].didLoad)
     {
         [_loadingIndicator hide];
     }
@@ -256,7 +256,7 @@ const NSInteger kPULNearbySection = 3;
     {
         PULLog(@"reloading friends tables");
         
-        if ([PULAccount currentUser].friendManager.nearbyFriends.count > 0)
+        if ([PULAccountOld currentUser].friendManager.nearbyFriends.count > 0)
         {
 //            [PULNoFriendsOverlay removeOverlayFromView:_friendTableView];
             
@@ -292,7 +292,7 @@ const NSInteger kPULNearbySection = 3;
 //        _pullRefreshImageView.alpha = 1.0;
 //    }];
 //
-//    [[PULAccount currentUser] initializeAccount];
+//    [[PULAccountOld currentUser] initializeAccount];
 //
 //    _refreshing = YES;
 //}
@@ -334,7 +334,7 @@ const NSInteger kPULNearbySection = 3;
     NSArray *friendsArray = [self p_friendArrayForSection:indexPath.section tableView:tableView];
     //    PULLog(@"using friends array for cell #%zd: %@", indexPath.row, friendsArray);
     
-    PULUser *friend;
+    PULUserOld *friend;
     if (indexPath.row < friendsArray.count)
     {
         friend = friendsArray[indexPath.row];
@@ -525,7 +525,7 @@ const NSInteger kPULNearbySection = 3;
         {
             case kPULPulledSection: // pulled users
             {
-                PULUser *friend = friendsArray[indexPath.row];
+                PULUserOld *friend = friendsArray[indexPath.row];
                 PULPullDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullDetailViewController class])];
                 vc.user = friend;
                 
@@ -552,7 +552,7 @@ const NSInteger kPULNearbySection = 3;
             {
                 BOOL didAlert = [[NSUserDefaults standardUserDefaults] boolForKey:@"DidAlertHintKey"];
                 
-                if (!didAlert && [PULAccount currentUser].pullManager.pulls.count == 0)
+                if (!didAlert && [PULAccountOld currentUser].pullManager.pulls.count == 0)
                 {
                     // we need to check if the user is just tapping around
                     static int tapCount = 0;
@@ -585,12 +585,12 @@ const NSInteger kPULNearbySection = 3;
     //        switch (indexPath.section) {
     //            case 0: // friend is pending
     //            {
-    //                [[PULAccount currentUser].friendManager acceptFriendRequestFromUser:friend];
+    //                [[PULAccountOld currentUser].friendManager acceptFriendRequestFromUser:friend];
     //                break;
     //            }
     //            case 1:  // friend is invited
     //            {
-    //                [[PULAccount currentUser].friendManager unfriendUser:friend];
+    //                [[PULAccountOld currentUser].friendManager unfriendUser:friend];
     //                break;
     //            }
     //            default:
@@ -634,20 +634,20 @@ const NSInteger kPULNearbySection = 3;
 {
     _friendTableView.scrollEnabled = YES;
     
-    PULUser *friend = cell.user;
+    PULUserOld *friend = cell.user;
     
     if (cell.type == PULUserCellTypeNearby)
     {
         _loadingIndicator.title = @"Pulling";
         
         // pull friend
-        [[PULAccount currentUser].pullManager sendPullToUser:friend];
+        [[PULAccountOld currentUser].pullManager sendPullToUser:friend];
     }
     else
     {
         _loadingIndicator.title = @"Stopping Pull";
         
-        [[PULAccount currentUser].pullManager unpullUser:friend];
+        [[PULAccountOld currentUser].pullManager unpullUser:friend];
         
         [[[UIAlertView alloc] initWithTitle:@"Pull Stopped"
                                     message:@"You are no longer sharing your location with this person"
@@ -666,7 +666,7 @@ const NSInteger kPULNearbySection = 3;
     _loadingIndicator.title = @"Declining Pull";
     [_loadingIndicator show];
     
-    [[PULAccount currentUser].pullManager unpullUser:cell.user];
+    [[PULAccountOld currentUser].pullManager unpullUser:cell.user];
     
     [_friendTableView reloadData];
     
@@ -682,7 +682,7 @@ const NSInteger kPULNearbySection = 3;
     _loadingIndicator.title = @"Accepting Pull";
     [_loadingIndicator show];
     
-    [[PULAccount currentUser].pullManager acceptPullFromUser:cell.user];
+    [[PULAccountOld currentUser].pullManager acceptPullFromUser:cell.user];
     
     [_friendTableView reloadData];
 }
@@ -692,7 +692,7 @@ const NSInteger kPULNearbySection = 3;
     _loadingIndicator.title = @"Canceling Pull";
     [_loadingIndicator show];
     
-    [[PULAccount currentUser].pullManager unpullUser:cell.user];
+    [[PULAccountOld currentUser].pullManager unpullUser:cell.user];
     
     [_friendTableView reloadData];
     
@@ -709,7 +709,7 @@ const NSInteger kPULNearbySection = 3;
     NSAssert(index < kPULPullListNumberOfTableViewSections, @"Index out of bounds");
     
     NSArray *retArray = nil;
-    PULFriendManager *friendManager = [[PULAccount currentUser] friendManager];
+    PULFriendManager *friendManager = [[PULAccountOld currentUser] friendManager];
     
     if ([tableView isEqual:_friendTableView])
     {

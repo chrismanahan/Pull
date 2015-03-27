@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -1845,11 +1845,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgF-US-7yD">
-                                        <rect key="frame" x="8" y="29" width="19" height="28"/>
+                                        <rect key="frame" x="8" y="27" width="39" height="32"/>
                                         <color key="backgroundColor" red="0.36470588240000001" green="0.38823529410000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" image="nav_white_down.png">
-                                            <color key="titleColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1867,8 +1867,8 @@
                                     <constraint firstAttribute="centerX" secondItem="5VN-Kt-G7Q" secondAttribute="centerX" id="pnw-fZ-wzH"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" text="Address" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="2pQ-KX-YWO">
-                                <rect key="frame" x="4" y="64" width="240" height="32"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="Address" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="2pQ-KX-YWO">
+                                <rect key="frame" x="4" y="64" width="56" height="32"/>
                                 <color key="backgroundColor" red="0.053999999999999999" green="0.46400000000000002" blue="0.998" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1898,22 +1898,43 @@
                                     <constraint firstAttribute="width" secondItem="ghH-tX-5nv" secondAttribute="height" multiplier="1:1" id="MWV-aV-Kea"/>
                                     <constraint firstAttribute="height" constant="75" id="hqO-0E-xEY"/>
                                 </constraints>
-                                <state key="normal" image="my_location.png">
+                                <state key="normal" image="my_location_arrow.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="directions_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="Re0-mi-G30">
+                                <rect key="frame" x="564" y="64" width="36" height="32"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dxd-Gy-U1w">
+                                <rect key="frame" x="0.0" y="64" width="600" height="32"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="ibDirections:" destination="akf-Le-uIw" eventType="touchUpInside" id="Ugp-cR-WXQ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.053999999999999999" green="0.46400000000000002" blue="0.998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="GjU-Om-ydg" secondAttribute="trailing" id="0qP-Kf-ACc"/>
                             <constraint firstAttribute="trailing" secondItem="gfQ-U5-LZW" secondAttribute="trailing" id="1lk-TY-aSl"/>
+                            <constraint firstAttribute="trailing" secondItem="dxd-Gy-U1w" secondAttribute="trailing" id="2gw-kJ-cae"/>
                             <constraint firstItem="FSA-0t-m9R" firstAttribute="top" secondItem="VRu-pK-pls" secondAttribute="bottom" id="Cdi-IM-zAh"/>
+                            <constraint firstItem="Re0-mi-G30" firstAttribute="top" secondItem="GjU-Om-ydg" secondAttribute="bottom" id="FzJ-OL-eKk"/>
                             <constraint firstItem="VRu-pK-pls" firstAttribute="leading" secondItem="BhN-XC-Tdc" secondAttribute="leading" id="HO8-cQ-qLR"/>
+                            <constraint firstItem="VRu-pK-pls" firstAttribute="top" secondItem="dxd-Gy-U1w" secondAttribute="bottom" id="K3i-0j-Gdv"/>
+                            <constraint firstAttribute="trailing" secondItem="Re0-mi-G30" secondAttribute="trailing" id="KeK-jT-8WP"/>
                             <constraint firstItem="ghH-tX-5nv" firstAttribute="height" secondItem="gfQ-U5-LZW" secondAttribute="height" id="M8H-FF-dGM"/>
                             <constraint firstItem="FSA-0t-m9R" firstAttribute="top" secondItem="gfQ-U5-LZW" secondAttribute="bottom" id="Mjt-cK-8oc"/>
                             <constraint firstItem="GjU-Om-ydg" firstAttribute="top" secondItem="BhN-XC-Tdc" secondAttribute="top" id="Nwi-Ss-FQu"/>
                             <constraint firstItem="GjU-Om-ydg" firstAttribute="leading" secondItem="BhN-XC-Tdc" secondAttribute="leading" id="QOg-HC-366"/>
+                            <constraint firstItem="VRu-pK-pls" firstAttribute="top" secondItem="Re0-mi-G30" secondAttribute="bottom" id="cdA-G0-hMx"/>
+                            <constraint firstItem="Re0-mi-G30" firstAttribute="leading" secondItem="dxd-Gy-U1w" secondAttribute="trailing" id="chW-VL-n4B"/>
+                            <constraint firstItem="dxd-Gy-U1w" firstAttribute="top" secondItem="GjU-Om-ydg" secondAttribute="bottom" id="fzX-ww-D6L"/>
+                            <constraint firstItem="dxd-Gy-U1w" firstAttribute="leading" secondItem="BhN-XC-Tdc" secondAttribute="leading" id="hYR-uc-SuW"/>
+                            <constraint firstItem="Re0-mi-G30" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2pQ-KX-YWO" secondAttribute="trailing" constant="8" id="jGK-5R-8OY"/>
                             <constraint firstItem="gfQ-U5-LZW" firstAttribute="leading" secondItem="BhN-XC-Tdc" secondAttribute="leading" id="kcb-va-Po4"/>
                             <constraint firstItem="2pQ-KX-YWO" firstAttribute="top" secondItem="GjU-Om-ydg" secondAttribute="bottom" id="kz7-OP-UaO"/>
                             <constraint firstItem="2pQ-KX-YWO" firstAttribute="leading" secondItem="BhN-XC-Tdc" secondAttribute="leading" constant="4" id="nQm-bT-ABy"/>
@@ -1923,6 +1944,11 @@
                             <constraint firstItem="VRu-pK-pls" firstAttribute="top" secondItem="2pQ-KX-YWO" secondAttribute="bottom" id="xMx-O8-CF6"/>
                             <constraint firstAttribute="trailing" secondItem="VRu-pK-pls" secondAttribute="trailing" id="zKI-K6-XZO"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="chW-VL-n4B"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
@@ -1936,7 +1962,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WmQ-CQ-z4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3757" y="102"/>
+            <point key="canvasLocation" x="3480" y="196"/>
         </scene>
     </scenes>
     <resources>
@@ -1945,6 +1971,7 @@
         <image name="check_confirm_white.png" width="51" height="49"/>
         <image name="continue_facebook.png" width="486" height="114"/>
         <image name="continue_facebook_pressed.png" width="486" height="114"/>
+        <image name="directions_white.png" width="36" height="38"/>
         <image name="gradient_background.png" width="1274" height="1899"/>
         <image name="home_white.png" width="67" height="71"/>
         <image name="intro_compass.png" width="501" height="679"/>
@@ -1953,9 +1980,8 @@
         <image name="learn_more_arrow.png" width="23" height="33"/>
         <image name="menu_icon.png" width="103" height="89"/>
         <image name="message_white.png" width="67" height="71"/>
-        <image name="my_location.png" width="124" height="124"/>
+        <image name="my_location_arrow.png" width="126" height="121"/>
         <image name="nav_blue_down.png" width="24" height="31"/>
-        <image name="nav_white_down.png" width="19" height="28"/>
         <image name="permission_request_location.png" width="442" height="444"/>
         <image name="permission_request_notification.png" width="499" height="444"/>
         <image name="pull_text_white.png" width="475" height="474"/>

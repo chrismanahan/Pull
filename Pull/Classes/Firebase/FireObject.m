@@ -22,7 +22,7 @@ NSString * const kFireObjectExceptionName = @"FireObjectException";
         _uid = uid;
         
         // if a cached object comes back, we want to return that instead of the new object so we don't create duplicate objects at different memaddrs
-        FireObject *cached = [[FireSync sharedSync] loadObject:self];
+        FireObject *cached = [self load];
         
         if (cached)
         {
@@ -33,6 +33,53 @@ NSString * const kFireObjectExceptionName = @"FireObjectException";
     return self;
 }
 
+- (instancetype)initEmptyWithUid:(NSString*)uid;
+{
+    if (self = [super init])
+    {
+        _uid = uid;
+    }
+    
+    return self;
+}
+
+- (instancetype)initNew;
+{
+    return [super init];
+}
+
+#pragma mark - Subclass
+- (BOOL)isEqual:(id)object
+{
+    if ([object isKindOfClass:[FireObject class]])
+    {
+        return [self.uid isEqualToString:((FireObject*)object).uid];
+    }
+    return NO;
+}
+
+#pragma mark - Public
+- (FireObject*)load
+{
+    return [[FireSync sharedSync] loadObject:self];
+}
+
+- (void)saveAll;
+{
+    [[FireSync sharedSync] saveObject:self];
+}
+
+- (void)saveKeys:(NSArray*)keys;
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keys.count];
+    
+    for (NSString *key in keys)
+    {
+        dict[key] = self.firebaseRepresentation[key];
+    }
+    
+    [[FireSync sharedSync] saveKeyVals:dict forObject:self];
+}
 
 #pragma mark - Fireable Protocol
 - (NSString*)rootName

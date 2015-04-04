@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PULUserSettings : NSObject
+#import "FireObject.h"
+
+@interface PULUserSettings : NSObject <Fireable>
 
 @property (nonatomic, assign) BOOL notifyInvite;
 @property (nonatomic, assign) BOOL notifyAccept;
+@property (nonatomic, assign) BOOL notifyDeparture;
+@property (nonatomic, assign) BOOL notifyArrival;
 
 @property (nonatomic, assign, getter=isDisabled) BOOL disabled;
 

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "PULAccountOld.h"
+#import "PULAccount.h"
 
 #import "PULConstants.h"
 
@@ -61,7 +61,7 @@
             // i don't think this will actually ever get called. one day i'll figure out the whole fb login flow. just not now
             PULLog(@"logging in with existing session");
 //            [ref authWithOAuthProvider:@"facebook" token:ref.authData.token withCompletionBlock:^(NSError *error, FAuthData *authData) {
-                [[PULAccountOld currentUser] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken completion:nil];
+                [PULAccount loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken completion:nil];
 //            }];
         }
         else if (fbSesh.state == FBSessionStateCreatedTokenLoaded)
@@ -75,7 +75,7 @@
                                               {
                                                   // TODO: validate that session is open and valid
                                                   PULLog(@"opened session");
-                                                  [[PULAccountOld currentUser] loginWithFacebookToken:session.accessTokenData.accessToken completion:nil];
+                                                  [PULAccount loginWithFacebookToken:session.accessTokenData.accessToken completion:nil];
                                               }
                                               else
                                               {
@@ -118,10 +118,10 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     
-    if ([PULAccountOld currentUser].uid)
-    {
-        [[PULAccountOld currentUser] goOnline];
-    }
+//    if ([PULAccountOld currentUser].uid)
+//    {
+//        [[PULAccountOld currentUser] goOnline];
+//    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -149,9 +149,10 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:@"DeviceToken"];
     
-    if ([PULAccountOld currentUser].uid)
+    if ([PULAccount currentUser].uid)
     {
-        [[PULAccountOld currentUser] writePushToken];
+        [PULAccount currentUser].deviceToken = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
+        [[PULAccount currentUser] saveKeys:@[@"deviceToken"]];
     }
 }
 

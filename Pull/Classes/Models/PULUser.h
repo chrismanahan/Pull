@@ -8,6 +8,8 @@
 
 #import "FireObject.h"
 
+#import "PULUserSettings.h"
+
 @class CLLocation;
 @class CLPlacemark;
 @class UIImage;
@@ -29,5 +31,16 @@
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) CLPlacemark *placemark;
+// friends
+@property (nonatomic, strong) NSArray *allFriends;
+@property (nonatomic, strong) NSArray *nearbyFriends;
+@property (nonatomic, strong) NSArray *pulledFriends;
+@property (nonatomic, strong) NSArray *pullInvitedFriends;
+@property (nonatomic, strong) NSArray *pullPendingFriends;
+@property (nonatomic, strong) NSArray *blockedUsers;
+// pulls
+@property (nonatomic, strong) NSArray *pulls;
+// settings
+@property (nonatomic, strong) PULUserSettings *settings;
 
 @end

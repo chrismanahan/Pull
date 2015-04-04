@@ -12,13 +12,15 @@
 
 @interface PULAccount : PULUser
 
-@property (nonatomic, strong) NSArray *allFriends;
-@property (nonatomic, strong) NSArray *nearbyFriends;
-@property (nonatomic, strong) NSArray *pulledFriends;
-@property (nonatomic, strong) NSArray *pullInvitedFriends;
-@property (nonatomic, strong) NSArray *pullPendingFriends;
-@property (nonatomic, strong) NSArray *blockedUsers;
++ (void)loginWithFacebookToken:(NSString*)accessToken completion:(void(^)(PULAccount *account, NSError *error))completion;
 
-@property (nonatomic, strong) NSArray *pulls;
++ (instancetype)initializeCurrentUser:(NSString*)uid;
+
++ (instancetype)currentUser;
+
+- (void)sendPullToUser:(PULUser*)user;
+- (void)acceptPull:(PULPull*)pull;
+- (void)cancelPull:(PULPull*)pull;
+
 
 @end

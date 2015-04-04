@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class FireObject;
+@class FAuthData;
 
 @interface FireSync : NSObject
 
@@ -29,5 +30,9 @@
  *  @param object <#object description#>
  */
 - (void)saveObject:(FireObject*)object;
+
+- (void)saveKeyVals:(NSDictionary*)keyVals forObject:(FireObject*)object;
+
+- (void)loginToProvider:(NSString*)provider accessToken:(NSString*)token completion:(void(^)(NSError *error, FAuthData *authData))completion;
 
 @end

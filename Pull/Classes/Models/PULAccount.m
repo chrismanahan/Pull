@@ -8,57 +8,179 @@
 
 #import "PULAccount.h"
 
+#import "FireSync.h"
+
+#import <Firebase/Firebase.h>
+#import <FacebookSDK/FacebookSDK.h>
+
 @implementation PULAccount
+
+static PULAccount *account = nil;
+
++ (instancetype)initializeCurrentUser:(NSString*)uid withAuthData:(FAuthData*)authData
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        account = [[PULAccount alloc] initEmptyWithUid:uid];
+        
+        NSDictionary *providerData = authData.providerData;
+        
+        NSString *displayName = providerData[@"displayName"];
+        if (displayName)
+        {
+            NSRegularExpression *firstRegex = [NSRegularExpression regularExpressionWithPattern:@"^(\\w+)"
+                                                                                        options:NSRegularExpressionCaseInsensitive
+                                                                                          error:nil];
+            
+            // TODO: decide if we want to include middle names
+            NSString *lastNameOnlyPattern = @"(?<= )(\\w+)$";
+            //        NSString *fullDisplayNameWithoutFirst = @"((?<= )\\w+)( \\w+)+$";
+            NSRegularExpression *lastRegex = [NSRegularExpression regularExpressionWithPattern:lastNameOnlyPattern
+                                                                                       options:NSRegularExpressionCaseInsensitive
+                                                                                         error:nil];
+            
+            NSRange firstRange = [[firstRegex firstMatchInString:displayName options:0 range:NSMakeRange(0, displayName.length)] range];
+            NSRange lastRange = [[lastRegex firstMatchInString:displayName options:0 range:NSMakeRange(0, displayName.length)] range];
+            
+            account.firstName = [displayName substringWithRange:firstRange];
+            account.lastName = [displayName substringWithRange:lastRange];
+        }
+        
+        // find friends on pull
+        [FBRequestConnection startForMyFriendsWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+            if (error)
+            {
+                PULLog(@"ERROR: %@", error.localizedDescription);
+            }
+            else
+            {
+                
+                NSArray *friends = ((NSDictionary*)result)[@"data"];
+                NSMutableArray *users = [[NSMutableArray alloc] initWithCapacity:friends.count];
+                PULLog(@"got %zd friends from facebook", friends.count);
+                
+                for (NSDictionary *friend in friends)
+                {
+                    NSString *fbId = friend[@"id"];
+                    NSString *userUID = [NSString stringWithFormat:@"facebook:%@", fbId];
+                    
+                    PULUser *user = [[PULUser alloc] initWithUid:userUID];
+                    
+                    [users addObject:user];
+                }
+                
+                [PULAccount currentUser].allFriends = users;
+            }
+            // check if this is the first registration
+            BOOL newUser = [[NSUserDefaults standardUserDefaults] boolForKey:@"UserIsRegisteredKey"];
+            if (newUser)
+            {
+                account.fbId = providerData[@"id"];
+                account.email = providerData[@"email"];
+                
+                // initialize settings
+                account.settings = [PULUserSettings defaultSettings];
+                
+                [account saveAll];
+                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UserIsRegisteredKey"];
+            }
+            else
+            {
+                [account saveKeys:@[@"firstName", @"lastName"]];
+                
+                [PULAccount initializeCurrentUser:uid];
+            }
+        }];
+        
+        [CrashlyticsKit setUserIdentifier:uid];
+    });
+    
+    return account;
+}
+
++ (instancetype)initializeCurrentUser:(NSString*)uid
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        account = [[PULAccount alloc] initWithUid:uid];
+        
+        [CrashlyticsKit setUserIdentifier:uid];
+    });
+    
+    return account;
+}
+
++ (instancetype)currentUser;
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!account)
+        {
+            account = [[PULAccount alloc] init];
+        }
+    });
+    
+    return account;
+}
+
++ (void)loginWithFacebookToken:(NSString*)accessToken completion:(void(^)(PULAccount *account, NSError *error))completion;
+{
+    PULLog(@"Logging in with facebook token");
+    
+    [[FireSync sharedSync] loginToProvider:@"facebook"
+                               accessToken:accessToken
+                                completion:^(NSError *error, FAuthData *authData) {
+                                    if (error)
+                                    {
+                                        PULLog(@"error logging in: %@", error.localizedDescription);
+                                        if (completion)
+                                        {
+                                            completion(nil, error);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PULLog(@"logged in with facebook");
+                                        
+                                        [PULAccount initializeCurrentUser:authData.uid];
+                                        
+                                        if (completion)
+                                        {
+                                            completion([PULAccount currentUser], nil);
+                                        }
+                                    }
+                                }];
+    
+}
+
+#pragma mark - Public
+- (void)sendPullToUser:(PULUser*)user;
+{
+    
+}
+
+- (void)acceptPull:(PULPull*)pull;
+{
+    pull.status = PULPullStatusPulled;
+    [pull saveKeys:@[@"status", @"expiration"]];
+}
+
+- (void)cancelPull:(PULPull*)pull;
+{
+    
+}
 
 #pragma mark - Fireable Protocol
 
 - (NSDictionary*)firebaseRepresentation
 {
-    return nil;
+    return [super firebaseRepresentation];
 }
 
 - (void)loadFromFirebaseRepresentation:(NSDictionary *)repr
 {
     [super loadFromFirebaseRepresentation:repr];
-    
-    if (repr[@"friends"])
-    {
-        NSMutableArray *friends = [[NSMutableArray alloc] init];
-        for (NSString *uid in repr[@"friends"])
-        {
-            PULUser *user = [[PULUser alloc] initWithUid:uid];
-            [friends addObject:user];
-        }
-        
-        self.allFriends = [[NSArray alloc] initWithArray:friends];
-    }
-    
-    if (repr[@"pulls"])
-    {
-        NSMutableArray *pulls = [[NSMutableArray alloc] init];
-        for (NSString *uid in repr[@"pulls"])
-        {
-            PULPull *pull = [[PULPull alloc] initWithUid:uid];
-            [pulls addObject:pull];
-        }
-        
-        self.pulls = [[NSArray alloc] initWithArray:pulls];
-    }
-}
-
-#pragma mark - Properties
-- (void)setAllFriends:(NSArray *)allFriends
-{
-    [self willChangeValueForKey:NSStringFromSelector(@selector(allFriends))];
-    _allFriends = allFriends;
-    [self didChangeValueForKey:NSStringFromSelector(@selector(allFriends))];
-}
-
-- (void)setPulls:(NSArray *)pulls
-{
-    [self willChangeValueForKey:NSStringFromSelector(@selector(pulls))];
-    _pulls = pulls;
-    [self didChangeValueForKey:NSStringFromSelector(@selector(pulls))];
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "PULSlideLeftSegue.h"
 
 #import "PULAccountOld.h"
+#import "PULAccount.h"
 
 #import "PULConstants.h"
 
@@ -23,7 +24,6 @@
 
 @interface PULLoginViewController () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) Firebase *fireRef;
 @property (strong, nonatomic) IBOutlet UIView *movieViewContainer;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -41,7 +41,6 @@
 {
     self = [super initWithCoder:coder];
     if (self) {
-        _fireRef = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
     }
     return self;
 }
@@ -168,8 +167,7 @@
                                           // block for when login is successfull
                                           void (^loginCompletionBlock)(NSString *accessToken) = ^void(NSString *accessToken)
                                           {
-                                              [[PULAccountOld currentUser] loginWithFacebookToken:accessToken completion:^(PULAccountOld *account, NSError *error)
-                                              {
+                                              [PULAccount loginWithFacebookToken:accessToken completion:^(PULAccount *account, NSError *error) {
                                                   if (!error)
                                                   {
                                                       BOOL grantedPermissions = [[NSUserDefaults standardUserDefaults] boolForKey:@"DidGrantPermissions"];
@@ -207,6 +205,7 @@
                                                       [errorAlert show];
                                                   }
                                               }];
+                                              
                                           };
                                           
                                           // check if we have a token

@@ -20,7 +20,8 @@
 #import "PULPullDetailViewController.h"
 #import "PULLoginViewController.h"
 
-#import "PULAccountOld.h"
+#import "PULAccount.h"
+#import "PULLocationUpdater.h"
 
 #import "PULConstants.h"
 
@@ -43,14 +44,10 @@ const NSInteger kPULNearbySection = 3;
 @property (nonatomic, strong) IBOutlet UITableView *friendTableView;
 @property (nonatomic, strong) IBOutlet UITableView *friendRequestTableView;
 @property (nonatomic, strong) IBOutlet UICollectionView *farFriendsCollectionView;
-//@property (strong, nonatomic) IBOutlet UIImageView *pullRefreshImageView;
 
 @property (nonatomic, strong) PULLoadingIndicator *loadingIndicator;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopContraint;
-
-//@property (nonatomic, assign) BOOL refreshing;
-//@property (nonatomic, assign) BOOL shouldRefresh;
 
 @end
 
@@ -76,47 +73,36 @@ const NSInteger kPULNearbySection = 3;
     _friendTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    // subcribe to updates that we need to reload friend table data
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reload)
-                                                 name:kPULAccountOldFriendListUpdatedNotification
-                                               object:[PULAccountOld currentUser]];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(reload)
-//                                                 name:kPULFriendChangedPresence
-//                                               object:nil];
-    
-    __block id loginNotif = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountOldLoginFailedNotification
-                                                                              object:[PULAccountOld currentUser]
-                                                                               queue:[NSOperationQueue currentQueue]
-                                                                          usingBlock:^(NSNotification *note) {
-                                                                              [_loadingIndicator hide];
-                                                                              
-                                                                              [[PULAccountOld currentUser] logout];
-                                                                              
-                                                                              UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
-                                                                              
-                                                                              PULReverseModal *seg = [PULReverseModal segueWithIdentifier:@"LoginSeg"
-                                                                                                                                   source:self
-                                                                                                                              destination:login
-                                                                                                                           performHandler:^{
-                                                                                                                               ;
-                                                                                                                           }];
-                                                                              
-                                                                              [seg perform];
-                                                                              
-                                                                              [[NSNotificationCenter defaultCenter] removeObserver:loginNotif];
-                                                                          }];
+//    
+//    __block id loginNotif = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountOldLoginFailedNotification
+//                                                                              object:[PULAccountOld currentUser]
+//                                                                               queue:[NSOperationQueue currentQueue]
+//                                                                          usingBlock:^(NSNotification *note) {
+//                                                                              [_loadingIndicator hide];
+//                                                                              
+//                                                                              [[PULAccountOld currentUser] logout];
+//                                                                              
+//                                                                              UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
+//                                                                              
+//                                                                              PULReverseModal *seg = [PULReverseModal segueWithIdentifier:@"LoginSeg"
+//                                                                                                                                   source:self
+//                                                                                                                              destination:login
+//                                                                                                                           performHandler:^{
+//                                                                                                                               ;
+//                                                                                                                           }];
+//                                                                              
+//                                                                              [seg perform];
+//                                                                              
+//                                                                              [[NSNotificationCenter defaultCenter] removeObserver:loginNotif];
+//                                                                          }];
     
     // subscribe to no friends button taps
-//    [[NSNotificationCenter defaultCenter] addObserverForName:PULNoFriendsOverlayButtonTappedSendInvite
-//                                                      object:nil
-//                                                       queue:[NSOperationQueue currentQueue]
-//                                                  usingBlock:^(NSNotification *note) {
-//                                                      PULLog(@"send invite tapped");
-//                                                  }];
+    //    [[NSNotificationCenter defaultCenter] addObserverForName:PULNoFriendsOverlayButtonTappedSendInvite
+    //                                                      object:nil
+    //                                                       queue:[NSOperationQueue currentQueue]
+    //                                                  usingBlock:^(NSNotification *note) {
+    //                                                      PULLog(@"send invite tapped");
+    //                                                  }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:PULNoFriendsOverlayButtonTappedCopyLink
                                                       object:nil
@@ -163,45 +149,18 @@ const NSInteger kPULNearbySection = 3;
                                                       
                                                   }];
     
-    //    _pullRefreshImageView.hidden = YES;
-    //    _pullRefreshImageView.animationImages = @[[UIImage imageNamed:@"compas s_rotate_1"],
-    //                                              [UIImage imageNamed:@"compass_rotate_2"],
-    //                                              [UIImage imageNamed:@"compass_rotate_3"],
-    //                                              [UIImage imageNamed:@"compass_rotate_4"],
-    //                                              [UIImage imageNamed:@"compass_rotate_5"],
-    //                                              [UIImage imageNamed:@"compass_rotate_6"],
-    //                                              [UIImage imageNamed:@"compass_rotate_7"],
-    //                                              [UIImage imageNamed:@"compass_rotate_8"]];
-    //    _pullRefreshImageView.animationDuration = 0.8f;
-    //    _pullRefreshImageView.animationRepeatCount = 0;
-    
-    //    [[NSNotificationCenter defaultCenter] addObserver:self
-    //                                             selector:@selector(didRestoreConnection)
-    //                                                 name:kPULConnectionRestoredNotification
-    //                                               object:nil];
 }
-
-
-
-//- (void)didRestoreConnection
-//{
-////    if (_refreshing)
-////    {
-////        PULLog(@"was refreshing, trying again");
-////        [self _refresh];
-////    }
-//}
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    if ([PULAccountOld currentUser].didLoad)
-    {
-        [_loadingIndicator hide];
-    }
-    
-    
+//    
+//    if ([PULAccountOld currentUser].didLoad)
+//    {
+//        [_loadingIndicator hide];
+//    }
+//    
+//    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -216,49 +175,33 @@ const NSInteger kPULNearbySection = 3;
         [PULLocationOverlay overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
         
         id locObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                          object:nil
-                                                           queue:[NSOperationQueue currentQueue]
-                                                      usingBlock:^(NSNotification *note) {
-                                                          if ([PULLocationUpdater sharedUpdater].hasPermission)
-                                                          {
-                                                              [PULLocationOverlay removeOverlayFromView:_friendTableView];
-                                                              
-                                                              [[NSNotificationCenter defaultCenter] removeObserver:locObserver];
-                                                              
-                                                              [_friendTableView reloadData];
-                                                          }
-                                                      }];
+                                                                           object:nil
+                                                                            queue:[NSOperationQueue currentQueue]
+                                                                       usingBlock:^(NSNotification *note) {
+                                                                           if ([PULLocationUpdater sharedUpdater].hasPermission)
+                                                                           {
+                                                                               [PULLocationOverlay removeOverlayFromView:_friendTableView];
+                                                                               
+                                                                               [[NSNotificationCenter defaultCenter] removeObserver:locObserver];
+                                                                               
+                                                                               [_friendTableView reloadData];
+                                                                           }
+                                                                       }];
     }
-
+    
 }
 
 - (void)reload
 {
     [_loadingIndicator hide];
-    
-    //    if (_refreshing)
-    //    {
-    //        [_friendTableView setScrollEnabled:YES];
-    //        _friendTableView.userInteractionEnabled = YES;
-    //        [UIView animateWithDuration:0.2 animations:^{
-    //            _friendTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    //            _pullRefreshImageView.alpha = 0.0;
-    //        } completion:^(BOOL finished) {
-    //            [_pullRefreshImageView stopAnimating];
-    //            _pullRefreshImageView.hidden = YES;
-    //        }];
-    //
-    //        _refreshing = NO;
-    //    }
-    
-    
+
     if ([PULLocationUpdater sharedUpdater].hasPermission)
     {
         PULLog(@"reloading friends tables");
         
-        if ([PULAccountOld currentUser].friendManager.nearbyFriends.count > 0)
+        if ([PULAccount currentUser].nearbyFriends)
         {
-//            [PULNoFriendsOverlay removeOverlayFromView:_friendTableView];
+            //            [PULNoFriendsOverlay removeOverlayFromView:_friendTableView];
             
             [_friendTableView reloadData];
         }
@@ -266,7 +209,7 @@ const NSInteger kPULNearbySection = 3;
         {
             PULLog(@"no friends to display, adding no friends overlay");
             
-//            [PULNoFriendsOverlay overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
+            //            [PULNoFriendsOverlay overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
         }
     }
     else
@@ -550,27 +493,7 @@ const NSInteger kPULNearbySection = 3;
             }
             case kPULNearbySection:     // unpulled users
             {
-                BOOL didAlert = [[NSUserDefaults standardUserDefaults] boolForKey:@"DidAlertHintKey"];
                 
-                if (!didAlert && [PULAccountOld currentUser].pullManager.pulls.count == 0)
-                {
-                    // we need to check if the user is just tapping around
-                    static int tapCount = 0;
-                    
-                    tapCount++;
-                    if (tapCount == 2)
-                    {
-                        // looks like they were. lets tell them how to use pull
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hmmm"
-                                                                        message:@"To start a pull with a friend, pull them to the right"
-                                                                       delegate:nil
-                                                              cancelButtonTitle:@"Got it"
-                                                              otherButtonTitles:nil];
-                        [alert show];
-                        
-                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DidAlertHintKey"];
-                    }
-                }
                 
                 break;
             }
@@ -580,44 +503,7 @@ const NSInteger kPULNearbySection = 3;
             }
         }
     }
-    //    else if ([tableView isEqual:_friendRequestTableView])
-    //    {
-    //        switch (indexPath.section) {
-    //            case 0: // friend is pending
-    //            {
-    //                [[PULAccountOld currentUser].friendManager acceptFriendRequestFromUser:friend];
-    //                break;
-    //            }
-    //            case 1:  // friend is invited
-    //            {
-    //                [[PULAccountOld currentUser].friendManager unfriendUser:friend];
-    //                break;
-    //            }
-    //            default:
-    //                break;
-    //        }
-    //    }
 }
-
-//#pragma mark  - scroll delegate
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    if (scrollView.contentOffset.y < -100 && !_refreshing && !_shouldRefresh)
-//    {
-//        _shouldRefresh = YES;
-//    }
-//}
-//
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-//{
-//    if (_shouldRefresh)
-//    {
-//        [self _refresh];
-//
-//        _shouldRefresh = NO;
-//    }
-//
-//}
 
 #pragma mark - User cell delegate
 - (void)userCellDidAbortPulling:(PULUserCell *)cell
@@ -641,13 +527,13 @@ const NSInteger kPULNearbySection = 3;
         _loadingIndicator.title = @"Pulling";
         
         // pull friend
-        [[PULAccountOld currentUser].pullManager sendPullToUser:friend];
+        [[PULAccount currentUser].pullManager sendPullToUser:friend];
     }
     else
     {
         _loadingIndicator.title = @"Stopping Pull";
         
-        [[PULAccountOld currentUser].pullManager unpullUser:friend];
+        [[PULAccount currentUser].pullManager unpullUser:friend];
         
         [[[UIAlertView alloc] initWithTitle:@"Pull Stopped"
                                     message:@"You are no longer sharing your location with this person"

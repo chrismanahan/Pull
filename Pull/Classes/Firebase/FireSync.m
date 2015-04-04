@@ -67,9 +67,7 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
     }
     else
     {
-        PULLog(@"loading object from firebase %@ - %@", object.rootName, object.uid);
-        
-        Firebase *ref = [self _fireRefForObject:object];
+        PULLog(@"loading object from firebase or cache %@ - %@", object.rootName, object.uid);
         
         // store in cache
         NSString *key = [self _cacheKeyForObject:object];
@@ -83,46 +81,31 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
     return nil;
 }
 
-- (void)_startObservingObject:(FireObject*)object
+- (void)saveObject:(FireObject*)object;
 {
-    // ensure we don't create a duplicate observer. that would get real messy
-    [self _stopObservingObject:object];
-    
-    PULLog(@"starting observer for object: %@", object);
     Firebase *ref = [self _fireRefForObject:object];
     
-    FirebaseHandle handle = [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        if (![snapshot isKindOfClass:[NSNull class]])
-        {
-            NSDictionary *dict = snapshot.value;
-            PULLog(@"Observed snapshot from firebase: %@", dict);
-            
-            [object loadFromFirebaseRepresentation:dict];
-
-        }
-        else
-        {
-            PULLog(@"ERROR OBSERVING FROM FIREBASE.\n\tRoot:\t%@\n\tUID:%@", object.rootName, object.uid);
-        }
-    }];
-    
-    // add handle to cache
-    NSString *key = [self _cacheKeyForObject:object];
-    _cachedObjects[key][@"handler"] = @(handle);
+    [ref setValuesForKeysWithDictionary:object.firebaseRepresentation];
 }
 
-- (void)_stopObservingObject:(FireObject*)object
+- (void)saveKeyVals:(NSDictionary*)keyVals forObject:(FireObject*)object;
 {
-    NSString *key = [self _cacheKeyForObject:object];
-    FireThrow(_cachedObjects[key] != nil, @"object not found in cache");
+    Firebase *ref = [self _fireRefForObject:object];
+    
+    [ref updateChildValues:keyVals];
+}
 
-    FirebaseHandle handle = [_cachedObjects[key][@"handler"] integerValue];
-    if (handle != 0)
-    {
-        PULLog(@"removing observer handler for obj: %@", object);
-        Firebase *ref = [self _fireRefForObject:_cachedObjects[key][@"object"]];
-        [ref removeObserverWithHandle:handle];
-    }
+- (void)loginToProvider:(NSString*)provider accessToken:(NSString*)token completion:(void(^)(NSError *error, FAuthData *authData))completion;
+{
+    Firebase *ref = [self firebase];
+    [ref authWithOAuthProvider:provider
+                         token:token
+           withCompletionBlock:^(NSError *error, FAuthData *authData) {
+               if (completion)
+               {
+                   completion(error, authData);
+               }
+           }];
 }
 
 #pragma mark - Private
@@ -140,6 +123,49 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
     
     return ref;
 }
+
+- (void)_startObservingObject:(FireObject*)object
+{
+    // ensure we don't create a duplicate observer. that would get real messy
+    [self _stopObservingObject:object];
+    
+    PULLog(@"starting observer for object: %@", object);
+    Firebase *ref = [self _fireRefForObject:object];
+    
+    FirebaseHandle handle = [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        if (![snapshot isKindOfClass:[NSNull class]])
+        {
+            NSDictionary *dict = snapshot.value;
+            PULLog(@"Observed snapshot from firebase: %@", dict);
+            
+            [object loadFromFirebaseRepresentation:dict];
+            
+        }
+        else
+        {
+            PULLog(@"ERROR OBSERVING FROM FIREBASE.\n\tRoot:\t%@\n\tUID:%@", object.rootName, object.uid);
+        }
+    }];
+    
+    // add handle to cache
+    NSString *key = [self _cacheKeyForObject:object];
+    _cachedObjects[key][@"handler"] = @(handle);
+}
+
+- (void)_stopObservingObject:(FireObject*)object
+{
+    NSString *key = [self _cacheKeyForObject:object];
+    FireThrow(_cachedObjects[key] != nil, @"object not found in cache");
+    
+    FirebaseHandle handle = [_cachedObjects[key][@"handler"] integerValue];
+    if (handle != 0)
+    {
+        PULLog(@"removing observer handler for obj: %@", object);
+        Firebase *ref = [self _fireRefForObject:_cachedObjects[key][@"object"]];
+        [ref removeObserverWithHandle:handle];
+    }
+}
+
 
 /*!
  *  Attempts to load a fireobject from the cache. If there is a hit, this loads up

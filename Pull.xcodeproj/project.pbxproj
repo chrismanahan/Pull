@@ -222,6 +222,10 @@
 		95CEA2B81A8ED42F000C2686 /* pull_splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 95CEA2B71A8ED42F000C2686 /* pull_splash.png */; };
 		95D6661C1A7C8EEE000FAD8D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D6661B1A7C8EEE000FAD8D /* MapKit.framework */; };
 		95D6661F1A7D6A42000FAD8D /* PULMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */; };
+		95DFC6E81ACCBD09008E4A18 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 95DFC6E11ACCBD09008E4A18 /* LICENSE */; };
+		95DFC6E91ACCBD09008E4A18 /* ReadMe.md in Sources */ = {isa = PBXBuildFile; fileRef = 95DFC6E21ACCBD09008E4A18 /* ReadMe.md */; };
+		95DFC6EA1ACCBD09008E4A18 /* THBinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 95DFC6E41ACCBD09008E4A18 /* THBinder.m */; };
+		95DFC6EB1ACCBD09008E4A18 /* THObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 95DFC6E61ACCBD09008E4A18 /* THObserver.m */; };
 		95E517631AC1984B00C8B32E /* FireObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E517621AC1984B00C8B32E /* FireObject.m */; };
 		95E517661AC19A8500C8B32E /* FireSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E517651AC19A8500C8B32E /* FireSync.m */; };
 		95E5176B1AC19B2200C8B32E /* PULAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E5176A1AC19B2200C8B32E /* PULAccount.m */; };
@@ -513,6 +517,13 @@
 		95D6661B1A7C8EEE000FAD8D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		95D6661D1A7D6A42000FAD8D /* PULMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULMapViewController.h; path = "View Controllers/PULMapViewController.h"; sourceTree = "<group>"; };
 		95D6661E1A7D6A42000FAD8D /* PULMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULMapViewController.m; path = "View Controllers/PULMapViewController.m"; sourceTree = "<group>"; };
+		95DFC6E11ACCBD09008E4A18 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		95DFC6E21ACCBD09008E4A18 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
+		95DFC6E31ACCBD09008E4A18 /* THBinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THBinder.h; sourceTree = "<group>"; };
+		95DFC6E41ACCBD09008E4A18 /* THBinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THBinder.m; sourceTree = "<group>"; };
+		95DFC6E51ACCBD09008E4A18 /* THObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THObserver.h; sourceTree = "<group>"; };
+		95DFC6E61ACCBD09008E4A18 /* THObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THObserver.m; sourceTree = "<group>"; };
+		95DFC6E71ACCBD09008E4A18 /* THObserversAndBinders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THObserversAndBinders.h; sourceTree = "<group>"; };
 		95E517611AC1984B00C8B32E /* FireObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FireObject.h; path = Firebase/FireObject.h; sourceTree = "<group>"; };
 		95E517621AC1984B00C8B32E /* FireObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FireObject.m; path = Firebase/FireObject.m; sourceTree = "<group>"; };
 		95E517641AC19A8500C8B32E /* FireSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FireSync.h; path = Firebase/FireSync.h; sourceTree = "<group>"; };
@@ -578,6 +589,7 @@
 		33324E8B1A0EEED40073F1CA /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				95DFC6E01ACCBD09008E4A18 /* THObserversAndBinders */,
 				9532D4311A7F013D00ADB840 /* Reachability */,
 				33324E8C1A0EEEE70073F1CA /* NSDate-Extensions-master */,
 			);
@@ -1213,6 +1225,20 @@
 			path = images/buttons;
 			sourceTree = "<group>";
 		};
+		95DFC6E01ACCBD09008E4A18 /* THObserversAndBinders */ = {
+			isa = PBXGroup;
+			children = (
+				95DFC6E11ACCBD09008E4A18 /* LICENSE */,
+				95DFC6E21ACCBD09008E4A18 /* ReadMe.md */,
+				95DFC6E31ACCBD09008E4A18 /* THBinder.h */,
+				95DFC6E41ACCBD09008E4A18 /* THBinder.m */,
+				95DFC6E51ACCBD09008E4A18 /* THObserver.h */,
+				95DFC6E61ACCBD09008E4A18 /* THObserver.m */,
+				95DFC6E71ACCBD09008E4A18 /* THObserversAndBinders.h */,
+			);
+			path = THObserversAndBinders;
+			sourceTree = "<group>";
+		};
 		95E517601AC1983300C8B32E /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
@@ -1417,6 +1443,7 @@
 				334730671AA3CCD700B64144 /* nav_blue_right@3x.png in Resources */,
 				953B06471A8D89DD008235EB /* pull_text_white.png in Resources */,
 				337A980F1AB6097600999401 /* cascade_compass@3x.png in Resources */,
+				95DFC6E81ACCBD09008E4A18 /* LICENSE in Resources */,
 				333764801A9134650057E3DB /* loading_blank@2x.png in Resources */,
 				33FCE4D51ABF2A8600177468 /* home_white@3x.png in Resources */,
 				953B061A1A8AF687008235EB /* compass_rotate_7@2x.png in Resources */,
@@ -1540,6 +1567,7 @@
 				952BDB6A1A0C4F0500C67BB5 /* AppDelegate.m in Sources */,
 				952BDBA01A0C50B300C67BB5 /* PULPullOld.m in Sources */,
 				33ECD35F1A26D3E300192BC8 /* NSData+Hex.m in Sources */,
+				95DFC6EA1ACCBD09008E4A18 /* THBinder.m in Sources */,
 				3340449D1A17D33A00B00BC3 /* PULPullListViewController.m in Sources */,
 				953B05C91A8803D9008235EB /* PULLoadingIndicator.m in Sources */,
 				95169F651A871F41006D3078 /* PULNavigationController.m in Sources */,
@@ -1569,6 +1597,7 @@
 				95E517661AC19A8500C8B32E /* FireSync.m in Sources */,
 				33ABDE521AB4A74F00A047BF /* PULNoFriendsOverlay.m in Sources */,
 				334044C91A17FD6A00B00BC3 /* PULFriendFinder.m in Sources */,
+				95DFC6E91ACCBD09008E4A18 /* ReadMe.md in Sources */,
 				9531F8A41A86803A003CBEDF /* PULSettingsViewController.m in Sources */,
 				953B062F1A8CDDE3008235EB /* PULReverseModal.m in Sources */,
 				9590B5611A98D2110057EA6A /* PULUpdateChecker.m in Sources */,
@@ -1580,6 +1609,7 @@
 				33EFBCA21A229E0200345A14 /* PULCache.m in Sources */,
 				3304995F1A182542003FEA42 /* PULPullDetailViewController.m in Sources */,
 				9532D43E1A7F016000ADB840 /* Reachability.m in Sources */,
+				95DFC6EB1ACCBD09008E4A18 /* THObserver.m in Sources */,
 				84AEEAA71AAE3F860006BCBF /* PULCellScrollView.m in Sources */,
 				33FB713D1AAD205B00B74C47 /* PULVerticallyCenteredButton.m in Sources */,
 				95169F621A8718AB006D3078 /* PULSlideUnwindSegue.m in Sources */,

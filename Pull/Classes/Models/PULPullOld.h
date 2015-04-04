@@ -13,35 +13,6 @@
 @class PULUserOld;
 @class PULPullOld;
 
-
-/*!
- *  Pull status
- */
-typedef NS_ENUM(NSInteger, PULPullStatus)
-{
-    /*!
-     *  Pull has either expired, been rejected, or is invalid
-     */
-    PULPullStatusNone = 0,
-    /**
-     *  One user involved in pull has momentarily suspended the pull
-     */
-    PULPullStatusSuspended = 1,
-    /*!
-     *  Pull is waiting for acceptance from receving user
-     */
-    PULPullStatusPending = 2,
-    /*!
-     *  Pull is valid and active
-     */
-    PULPullStatusPulled = 3,
-    /**
-     *  Pull is expired
-     */
-    PULPullStatusExpired = 4
-};
-
-
 @protocol PULPullDelegate <NSObject>
 
 @required

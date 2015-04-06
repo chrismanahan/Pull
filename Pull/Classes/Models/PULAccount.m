@@ -155,20 +155,39 @@ static PULAccount *account = nil;
 }
 
 #pragma mark - Public
-- (void)sendPullToUser:(PULUser*)user;
+- (void)logout;
 {
+    [[FireSync sharedSync] unauth];
+}
+
+- (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration;
+{
+    PULPull *pull = [[PULPull alloc] initNew];
+    pull.sendingUser = self;
+    pull.receivingUser = user;
+    pull.status = PULPullStatusPending;
+    pull.duration = duration;
+    [pull resetExpiration];
+    [pull saveAll];
     
+    [self willChangeValueForKey:@"pulls"];
+    [self.pulls addObject:pull];
+    [self didChangeValueForKey:@"pulls"];
+    
+    [user.pulls addObject:pull];
 }
 
 - (void)acceptPull:(PULPull*)pull;
 {
     pull.status = PULPullStatusPulled;
+    [pull resetExpiration];
     [pull saveKeys:@[@"status", @"expiration"]];
 }
 
 - (void)cancelPull:(PULPull*)pull;
 {
-    
+    pull.status = PULPullStatusExpired;
+    [pull saveKeys:@[@"status"]];
 }
 
 #pragma mark - Fireable Protocol

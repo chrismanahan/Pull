@@ -27,12 +27,14 @@
 /*!
  *  Saves an entire object to firebase
  *
- *  @param object <#object description#>
+ *  @param object Object to save
  */
 - (void)saveObject:(FireObject*)object;
 
 - (void)saveKeyVals:(NSDictionary*)keyVals forObject:(FireObject*)object;
 
 - (void)loginToProvider:(NSString*)provider accessToken:(NSString*)token completion:(void(^)(NSError *error, FAuthData *authData))completion;
+
+- (void)unauth;
 
 @end

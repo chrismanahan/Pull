@@ -45,14 +45,14 @@
 
 - (void)loadFromFirebaseRepresentation:(NSDictionary *)repr
 {
-    self.notifyInvite    = repr[@"notifications"][@"invite"];
-    self.notifyAccept    = repr[@"notifications"][@"accept"];
-    self.notifyDeparture = repr[@"notifications"][@"departure"];
-    self.notifyArrival   = repr[@"notifications"][@"arrival"];
+    self.notifyInvite    = [repr[@"notifications"][@"invite"] boolValue];
+    self.notifyAccept    = [repr[@"notifications"][@"accept"] boolValue];
+    self.notifyDeparture = [repr[@"notifications"][@"departure"] boolValue];
+    self.notifyArrival   = [repr[@"notifications"][@"arrival"] boolValue];
 
-    self.disabled        = repr[@"disabled"];
+    self.disabled        = [repr[@"disabled"] boolValue];
 
-    self.resolveAddress  = repr[@"resolveAddress"];
+    self.resolveAddress  = [repr[@"resolveAddress"] boolValue];
 }
 
 @end

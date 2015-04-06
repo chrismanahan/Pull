@@ -18,7 +18,9 @@
 
 + (instancetype)currentUser;
 
-- (void)sendPullToUser:(PULUser*)user;
+- (void)logout;
+
+- (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration;
 - (void)acceptPull:(PULPull*)pull;
 - (void)cancelPull:(PULPull*)pull;
 

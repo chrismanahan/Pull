@@ -107,4 +107,21 @@
  */
 - (void)saveKeys:(NSArray*)keys;
 
+/*!
+ *  Gets an array of this object's properties as strings. This method is used when saving an object to firebase. 
+ 
+ @note If your subclass of FireObject has properties that you do not want to save to firebase, override this method as seen below
+ 
+ @code
+ - (NSArray*)allKeys
+ {
+    NSMutableArray *keys = [[super allKeys] mutableCopy];
+    [keys removeObject:@"nameOfLocalProperty"];
+    ...
+    return keys;
+ }
+ @endcode
+ */
+- (NSArray*)allKeys;
+
 @end

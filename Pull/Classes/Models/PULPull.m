@@ -83,7 +83,12 @@ const NSTimeInterval kPullDurationAlways  = 0;
     
     if (repr[@"expiration"] && [repr[@"expiration"] integerValue] != _expiration.timeIntervalSince1970)
     {
-        self.expiration = [NSDate dateWithTimeIntervalSince1970:[repr[@"expiration"] integerValue]];
+        _expiration = [NSDate dateWithTimeIntervalSince1970:[repr[@"expiration"] integerValue]];
+    }
+    
+    if (repr[@"duration"])
+    {
+        _duration = [repr[@"duration"] integerValue];
     }
 }
 

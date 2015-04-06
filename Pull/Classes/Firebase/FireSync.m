@@ -83,9 +83,18 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
 
 - (void)saveObject:(FireObject*)object;
 {
-    Firebase *ref = [self _fireRefForObject:object];
+    NSArray *props = [object allKeys];
+    NSMutableDictionary *keyVals = [[NSMutableDictionary alloc] initWithCapacity:props.count];
+    for (NSString *prop in props)
+    {
+        SEL selector = NSSelectorFromString(prop);
+
+        FireThrow([object respondsToSelector:selector], [NSString stringWithFormat:@"Class (%@) properties must match firebase properties", NSStringFromClass([object class])]);
+
+        keyVals[prop] = [object performSelector:selector];
+    }
     
-    [ref setValuesForKeysWithDictionary:object.firebaseRepresentation];
+    [self saveKeyVals:keyVals forObject:object];
 }
 
 - (void)saveKeyVals:(NSDictionary*)keyVals forObject:(FireObject*)object;
@@ -106,6 +115,12 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
                    completion(error, authData);
                }
            }];
+}
+
+- (void)unauth;
+{
+    Firebase *ref = [self firebase];
+    [ref unauth];
 }
 
 #pragma mark - Private

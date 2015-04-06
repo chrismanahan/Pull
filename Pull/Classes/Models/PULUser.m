@@ -120,32 +120,22 @@
     }
 }
 
-#pragma mark - Private
-- (NSArray*)_friendKeys
+#pragma mark - Subclass
+- (NSArray*)allKeys
 {
-    return [self _keysForFireObjects:self.allFriends];
-}
-
-- (NSArray*)_pullKeys
-{
-    return [self _keysForFireObjects:self.pulls];
-}
-
-- (NSArray*)_blockedKeys
-{
-    return [self _keysForFireObjects:self.blockedUsers];
-}
-
-- (NSArray*)_keysForFireObjects:(NSArray*)objects
-{
-    NSMutableArray *keys = [[NSMutableArray alloc] initWithCapacity:objects.count];
+    NSMutableArray *keys = [[super allKeys] mutableCopy];
     
-    for (FireObject *obj in objects)
-    {
-        [keys addObject:obj.uid];
-    }
+    [keys removeObjectsInArray:@[@"fullName",
+                                 @"image",
+                                 @"address",
+                                 @"placemark",
+                                 @"nearbyFriends",
+                                 @"pulledFriends",
+                                 @"pullInvitedFriends",
+                                 @"pullPendingFriends"
+                                 ]];
     
-    return (NSArray*)keys;
+    return keys;
 }
 
 #pragma mark - Properties
@@ -156,14 +146,14 @@
     [self didChangeValueForKey:NSStringFromSelector(@selector(settings))];
 }
 
-- (void)setAllFriends:(NSArray *)allFriends
+- (void)setAllFriends:(NSMutableArray *)allFriends
 {
     [self willChangeValueForKey:NSStringFromSelector(@selector(allFriends))];
     _allFriends = allFriends;
     [self didChangeValueForKey:NSStringFromSelector(@selector(allFriends))];
 }
 
-- (void)setPulls:(NSArray *)pulls
+- (void)setPulls:(NSMutableArray *)pulls
 {
     [self willChangeValueForKey:NSStringFromSelector(@selector(pulls))];
     _pulls = pulls;
@@ -232,5 +222,33 @@
     }
     return (NSArray*)friends;
 }
+
+- (NSArray*)_friendKeys
+{
+    return [self _keysForFireObjects:self.allFriends];
+}
+
+- (NSArray*)_pullKeys
+{
+    return [self _keysForFireObjects:self.pulls];
+}
+
+- (NSArray*)_blockedKeys
+{
+    return [self _keysForFireObjects:self.blockedUsers];
+}
+
+- (NSArray*)_keysForFireObjects:(NSArray*)objects
+{
+    NSMutableArray *keys = [[NSMutableArray alloc] initWithCapacity:objects.count];
+    
+    for (FireObject *obj in objects)
+    {
+        [keys addObject:obj.uid];
+    }
+    
+    return (NSArray*)keys;
+}
+
 
 @end

@@ -32,14 +32,14 @@
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) CLPlacemark *placemark;
 // friends
-@property (nonatomic, strong) NSArray *allFriends;
+@property (nonatomic, strong) NSMutableArray *allFriends;
 @property (nonatomic, strong) NSArray *nearbyFriends;
 @property (nonatomic, strong) NSArray *pulledFriends;
 @property (nonatomic, strong) NSArray *pullInvitedFriends;
 @property (nonatomic, strong) NSArray *pullPendingFriends;
-@property (nonatomic, strong) NSArray *blockedUsers;
+@property (nonatomic, strong) NSMutableArray *blockedUsers;
 // pulls
-@property (nonatomic, strong) NSArray *pulls;
+@property (nonatomic, strong) NSMutableArray *pulls;
 // settings
 @property (nonatomic, strong) PULUserSettings *settings;
 

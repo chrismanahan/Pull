@@ -21,8 +21,6 @@
 
 @property (nonatomic, assign) BOOL resolveAddress;
 
-- (instancetype)initFromFirebase:(NSDictionary*)dict;
-
 + (instancetype)defaultSettings;
 
 @end

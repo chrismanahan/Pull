@@ -10,6 +10,8 @@
 
 #import "FireSync.h"
 
+#import <objc/runtime.h>
+
 NSString * const kFireObjectExceptionName = @"FireObjectException";
 
 @implementation FireObject
@@ -79,6 +81,22 @@ NSString * const kFireObjectExceptionName = @"FireObjectException";
     }
     
     [[FireSync sharedSync] saveKeyVals:dict forObject:self];
+}
+
+- (NSArray*)allKeys
+{
+    unsigned int numProperties;
+    objc_property_t *propertyArray = class_copyPropertyList([self class], &numProperties);
+    NSMutableArray *propertyStringArray = [[NSMutableArray alloc] init];
+    for (NSUInteger i = 0; i < numProperties; i++)
+    {
+        objc_property_t property = propertyArray[i];
+//        const char *attributes = property_getAttributes(property);
+        NSString *name = [[NSString alloc] initWithUTF8String:property_getName(property)];
+        [propertyStringArray addObject:name];
+    }
+    
+    return propertyStringArray;
 }
 
 #pragma mark - Fireable Protocol

@@ -9,6 +9,7 @@
 #import "FireSync.h"
 
 #import "FireObject.h"
+#import "FireMutableArray.h"
 
 #import "PULConstants.h"
 
@@ -54,7 +55,7 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
     return shared;
 }
 
-#pragma mark - Public
+#pragma mark - Loading
 - (FireObject*)loadObject:(FireObject*)object;
 {
     FireThrow(object.uid != nil, @"object uid cannot be nil");
@@ -67,7 +68,7 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
     }
     else
     {
-        PULLog(@"loading object from firebase or cache %@ - %@", object.rootName, object.uid);
+        PULLog(@"loading object from firebase %@ - %@", object.rootName, object.uid);
         
         // store in cache
         NSString *key = [self _cacheKeyForObject:object];
@@ -81,35 +82,82 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
     return nil;
 }
 
+#pragma mark - Saving
 - (void)saveObject:(FireObject*)object;
 {
-    NSArray *props = [object allKeys];
-    NSMutableDictionary *keyVals = [[NSMutableDictionary alloc] initWithCapacity:props.count];
-    for (NSString *prop in props)
-    {
-        SEL selector = NSSelectorFromString(prop);
-
-        FireThrow([object respondsToSelector:selector], [NSString stringWithFormat:@"Class (%@) properties must match firebase properties", NSStringFromClass([object class])]);
-
-        keyVals[prop] = [object performSelector:selector];
-    }
-    
-    [self saveKeyVals:keyVals forObject:object];
+    Firebase *ref = [self _fireRefForObject:object];
+    [ref updateChildValues:object.firebaseRepresentation];
 }
 
 - (void)saveKeyVals:(NSDictionary*)keyVals forObject:(FireObject*)object;
 {
     Firebase *ref = [self _fireRefForObject:object];
     
+    // we need to make sure any instance of NSDate is converted to a timestamp
+    NSMutableSet *flaggedKeys = [[NSMutableSet alloc] initWithCapacity:keyVals.count];
+    [keyVals enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([obj isKindOfClass:[NSDate class]])
+        {
+            [flaggedKeys addObject:(NSString*)key];
+        }
+    }];
+    
+    if (flaggedKeys.count > 0)
+    {
+        NSMutableDictionary *kvs = [keyVals mutableCopy];
+        
+        for (NSString *key in flaggedKeys)
+        {
+            NSDate *date = keyVals[key];
+            NSInteger timestamp = [date timeIntervalSince1970];
+            kvs[key] = @(timestamp);
+        }
+        
+        keyVals = [[NSDictionary alloc] initWithDictionary:kvs];
+    }
+    
     [ref updateChildValues:keyVals];
 }
 
+- (void)addObject:(FireObject*)object toArray:(FireMutableArray*)array forObject:(FireObject*)parentObject;
+{
+    PULLog(@"adding object (%@) to %@'s array (%@)", object, parentObject, array.rootName);
+    Firebase *ref = [[self _fireRefForObject:parentObject] childByAppendingPath:array.rootName];
+    
+    [ref updateChildValues:@{object.uid: @(YES)}];
+}
+
+#pragma mark - Deleting
+- (void)deleteObject:(FireObject*)object;
+{
+    [self _stopObservingObject:object];
+    
+    Firebase *ref = [self _fireRefForObject:object];
+    
+    [ref removeValue];
+}
+
+- (void)removeObject:(FireObject*)object fromArray:(FireMutableArray*)array forObject:(FireObject*)parentObject;
+{
+    PULLog(@"removing object (%@) from %@'s array (%@)", object, parentObject, array.rootName);
+    Firebase *ref = [self _fireRefForObject:parentObject];
+    ref = [[ref childByAppendingPath:array.rootName] childByAppendingPath:object.uid];
+    
+    [ref removeValue];
+}
+
+#pragma mark - Auth
 - (void)loginToProvider:(NSString*)provider accessToken:(NSString*)token completion:(void(^)(NSError *error, FAuthData *authData))completion;
 {
     Firebase *ref = [self firebase];
     [ref authWithOAuthProvider:provider
                          token:token
            withCompletionBlock:^(NSError *error, FAuthData *authData) {
+               if (error)
+               {
+                   PULLog(@"ERROR logging in to provider (%@): %@", provider, error);
+               }
+               
                if (completion)
                {
                    completion(error, authData);
@@ -123,6 +171,12 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
     [ref unauth];
 }
 
+#pragma mark - Properties
+- (BOOL)isAuthed
+{
+    return [self firebase].authData != nil;
+}
+
 #pragma mark - Private
 - (Firebase*)firebase
 {
@@ -134,7 +188,18 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
     NSString *root = object.rootName;
     NSString *uid = object.uid;
     
-    Firebase *ref = [[[self firebase] childByAppendingPath:root] childByAppendingPath:uid];
+    Firebase *ref = [[self firebase] childByAppendingPath:root];
+    
+    // if object does not have a uid, it is new and needs one
+    if (!uid)
+    {
+        ref = [ref childByAutoId];
+        object.uid = ref.key;
+    }
+    else
+    {
+        ref = [ref childByAppendingPath:uid];
+    }
     
     return ref;
 }
@@ -148,17 +213,13 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
     Firebase *ref = [self _fireRefForObject:object];
     
     FirebaseHandle handle = [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        if (![snapshot isKindOfClass:[NSNull class]])
+        if (![snapshot.value isKindOfClass:[NSNull class]])
         {
             NSDictionary *dict = snapshot.value;
-            PULLog(@"Observed snapshot from firebase: %@", dict);
+            PULLog(@"Observed snapshot from firebase: %@", snapshot.key);
             
             [object loadFromFirebaseRepresentation:dict];
             
-        }
-        else
-        {
-            PULLog(@"ERROR OBSERVING FROM FIREBASE.\n\tRoot:\t%@\n\tUID:%@", object.rootName, object.uid);
         }
     }];
     
@@ -218,6 +279,31 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
     NSString *uid = object.uid;
     NSString *key = [NSString stringWithFormat:@"%@-%@", root, uid];
     return key;
+}
+
+- (BOOL)_returnTypeIsPrimitive:(const char*)type
+{
+    
+    if (strcmp(type, "c") == 0 || strcmp(type, "i") == 0 || strcmp(type, "s") == 0 ||
+        strcmp(type, "l") == 0 || strcmp(type, "q") == 0 || strcmp(type, "C") == 0 ||
+        strcmp(type, "I") == 0 || strcmp(type, "S") == 0 || strcmp(type, "L") == 0 ||
+        strcmp(type, "Q") == 0 || strcmp(type, "f") == 0 || strcmp(type, "d") == 0 ||
+        strcmp(type, "B") == 0)
+    {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)_returnTypeIsDouble:(const char*)type
+{
+    if (strcmp(type, "f") == 0 || strcmp(type, "d") == 0)
+    {
+        return YES;
+    }
+    
+    return NO;
 }
 
 #pragma mark - c funcs

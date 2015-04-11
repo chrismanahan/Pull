@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @class FireObject;
+@class FireMutableArray;
 @class FAuthData;
 
 @interface FireSync : NSObject
+
+@property (nonatomic, getter=isAuthed, readonly) BOOL authed;
 
 + (instancetype)sharedSync;
 
@@ -32,6 +35,11 @@
 - (void)saveObject:(FireObject*)object;
 
 - (void)saveKeyVals:(NSDictionary*)keyVals forObject:(FireObject*)object;
+
+- (void)addObject:(FireObject*)object toArray:(FireMutableArray*)array forObject:(FireObject*)parentObject;
+- (void)removeObject:(FireObject*)object fromArray:(FireMutableArray*)array forObject:(FireObject*)parentObject;
+
+- (void)deleteObject:(FireObject*)object;
 
 - (void)loginToProvider:(NSString*)provider accessToken:(NSString*)token completion:(void(^)(NSError *error, FAuthData *authData))completion;
 

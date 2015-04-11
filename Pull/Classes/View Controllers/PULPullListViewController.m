@@ -8,7 +8,6 @@
 
 #import "PULPullListViewController.h"
 
-#import "PULSectionHeader.h"
 #import "PULLoadingIndicator.h"
 #import "PULNoConnectionView.h"
 

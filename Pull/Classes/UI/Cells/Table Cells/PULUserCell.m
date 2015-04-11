@@ -8,7 +8,7 @@
 
 #import "PULUserCell.h"
 
-#import "PULAccountOld.h"
+#import "PULAccount.h"
 
 #import "PULConstants.h"
 
@@ -22,7 +22,7 @@
 
 @implementation PULUserCell
 
-- (void)setUser:(PULUserOld *)user
+- (void)setUser:(PULUser*)user
 {
     _user = user;
 
@@ -32,7 +32,7 @@
     
     if (_userDistanceLabel)
     {
-        CGFloat distance = [[PULAccountOld currentUser].location distanceFromLocation:user.location];
+        CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:user.location];
         
         [self p_updateDistanceLabel:distance];
         
@@ -57,32 +57,7 @@
         [[NSNotificationCenter defaultCenter] removeObserver:_accountLocationUpdatedObserver];
         _accountLocationUpdatedObserver = nil;
     }
-    
-    // start observing updates from this user
-    _userUpdatedObserver = [[NSNotificationCenter defaultCenter] addObserverForName:kPULFriendUpdatedNotifcation
-                                                                             object:user
-                                                                              queue:[NSOperationQueue currentQueue]
-                                                                         usingBlock:^(NSNotification *note) {
-                                                                             // set updated user
-                                                                             self.user = [note object];
-                                                                         }];
-    
-    if (_userDistanceLabel)
-    {
-        _accountLocationUpdatedObserver = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountOldDidUpdateLocationNotification
-                                                                                          object:nil
-                                                                                           queue:[NSOperationQueue mainQueue]
-                                                                                      usingBlock:^(NSNotification *note) {
-                                                                                          // update distance label
-                                                                                          
-                                                                                          CLLocation *loc = [note object];
-                                                 
-                                                                                          CGFloat distance = [loc distanceFromLocation:_user.location];
-                                                                                          
-                                                                                          [self p_updateDistanceLabel:distance];
-                                                                                          
-                                                                                      }];
-    }
+
 }
 
 #pragma mark - private

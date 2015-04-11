@@ -85,33 +85,33 @@
 //    _moviePlayer = [AVQueuePlayer queuePlayerWithItems:vidItems];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"intro2" ofType:@"mov"];
     NSURL *movieUrl = [NSURL fileURLWithPath:path];
-    _moviePlayer = [AVPlayer playerWithURL:movieUrl];
-    _moviePlayer.muted = YES;
-    
-    _moviePlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                                      selector:@selector(playerItemDidReachEnd:)
-                                                          name:AVPlayerItemDidPlayToEndTimeNotification
-                                                        object:[_moviePlayer currentItem]];
-
-    AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:_moviePlayer];
-
-    layer.frame = self.view.bounds;
-    layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    
-    [_movieViewContainer.layer addSublayer:layer];
+//    _moviePlayer = [AVPlayer playerWithURL:movieUrl];
+//    _moviePlayer.muted = YES;
+//    
+//    _moviePlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                      selector:@selector(playerItemDidReachEnd:)
+//                                                          name:AVPlayerItemDidPlayToEndTimeNotification
+//                                                        object:[_moviePlayer currentItem]];
+//
+//    AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:_moviePlayer];
+//
+//    layer.frame = self.view.bounds;
+//    layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+//    
+//    [_movieViewContainer.layer addSublayer:layer];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [_moviePlayer play];
+//    [_moviePlayer play];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [_moviePlayer pause];
+//    [_moviePlayer pause];
 }
 
 #pragma mark - avplayer notifications

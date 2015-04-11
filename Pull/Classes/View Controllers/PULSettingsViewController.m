@@ -9,7 +9,7 @@
 #import "PULSettingsViewController.h"
 #import "PULLoginViewController.h"
 
-#import "PULAccountOld.h"
+#import "PULAccount.h"
 
 #import "PULLoadingIndicator.h"
 
@@ -35,7 +35,7 @@
 {
     [super viewWillAppear:animated];
     
-    PULUserSettings *settings = [PULAccountOld currentUser].settings;
+    PULUserSettings *settings = [PULAccount currentUser].settings;
     [_notifAcceptSwitch setOn:settings.notifyAccept];
     [_notifInviteSwitch setOn:settings.notifyInvite];
     [_resolveAddressSwitch setOn:settings.resolveAddress];
@@ -79,28 +79,21 @@
 {
     _dirty = YES;
     
-     [PULAccountOld currentUser].settings.notifyInvite = _notifInviteSwitch.isOn;
+     [PULAccount currentUser].settings.notifyInvite = _notifInviteSwitch.isOn;
 }
 
 - (IBAction)ibAccept:(id)sender
 {
     _dirty = YES;
     
-    [PULAccountOld currentUser].settings.notifyAccept = _notifAcceptSwitch.isOn;
-}
-
-- (IBAction)ibResolveMap:(id)sender
-{
-    _dirty = YES;
-    
-    [PULAccountOld currentUser].settings.resolveAddress = _resolveAddressSwitch.isOn;
+    [PULAccount currentUser].settings.notifyAccept = _notifAcceptSwitch.isOn;
 }
 
 - (IBAction)ibDone:(id)sender
 {
     if (_dirty)
     {
-        [[PULAccountOld currentUser] saveUser];
+        [[PULAccount currentUser] saveKeys:@"settings"];
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -108,7 +101,7 @@
 
 - (IBAction)ibLogout:(id)sender
 {
-    [[PULAccountOld currentUser] logout];
+    [[PULAccount currentUser] logout];
  
     UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
     
@@ -142,12 +135,12 @@
         ai.title = @"Disabling";
         [ai show];
         // disable account
-        [[PULAccountOld currentUser].pullManager unpullEveryone];
-        [PULAccountOld currentUser].settings.disabled = YES;
-        [[PULAccountOld currentUser] saveUserCompletion:^{
-            [ai hide];
-            [self ibLogout:nil];
-        }];
+//        [[PULAccount currentUser].pullManager unpullEveryone];
+        [PULAccount currentUser].settings.disabled = YES;
+        [[PULAccount currentUser] saveAll];
+        [ai hide];
+        [self ibLogout:nil];
+
     }
 }
 

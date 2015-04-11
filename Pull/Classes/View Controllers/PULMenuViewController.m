@@ -10,7 +10,7 @@
 
 #import "PULUserImageView.h"
 
-#import "PULAccountOld.h"
+#import "PULAccount.h"
 
 #import "PULConstants.h"
 
@@ -37,11 +37,6 @@
     
     [self _populateUserInfo];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_populateUserInfo)
-                                                 name:kPULFriendUpdatedNotifcation
-                                               object:[PULAccountOld currentUser]];
-    
     [self.view insertSubview:[UIView pullVisualEffectViewWithFrame:self.view.bounds] atIndex:0];
 }
 
@@ -53,13 +48,10 @@
 }
 
 - (void)_populateUserInfo {
-    _userImageView.imageView.image = [PULAccountOld currentUser].image;
-    _backgroundImageView.image = [PULAccountOld currentUser].image;
-    _nameLabel.text = [PULAccountOld currentUser].fullName;
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-name:kPULFriendUpdatedNotifcation
-                                                  object:[PULAccountOld currentUser]];
+    _userImageView.imageView.image = [PULAccount currentUser].image;
+    _backgroundImageView.image = [PULAccount currentUser].image;
+    _nameLabel.text = [PULAccount currentUser].fullName;
+
 }
 
 #pragma mark - actions

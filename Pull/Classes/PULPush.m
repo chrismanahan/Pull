@@ -8,7 +8,7 @@
 
 #import "PULPush.h"
 
-#import "PULUserOld.h"
+#import "PULUser.h"
 
 NSString * const kPULPushServerURL = @"http://chrismanahan.com/pull/push.php";
 
@@ -19,7 +19,7 @@ NSString * const kPULPushTypeAcceptPull          = @"acceptPull";
 
 @implementation PULPush
 
-+ (void)sendPushType:(NSString*)pushType to:(PULUserOld*)toUser from:(PULUserOld*)fromUser;
++ (void)sendPushType:(NSString*)pushType to:(PULUser*)toUser from:(PULUser*)fromUser;
 {
     PULLog(@"sending push (%@) to %@", pushType, toUser.firstName);
     BOOL sendPush = YES;

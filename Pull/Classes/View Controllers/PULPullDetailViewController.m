@@ -7,9 +7,8 @@
 //
 
 #import "PULPullDetailViewController.h"
-#import "PULMapViewController.h"
 
-#import "PULAccountOld.h"
+#import "PULAccount.h"
 
 #import "PULConstants.h"
 
@@ -29,7 +28,6 @@ const CGFloat kPULCompassFlashTime = 1.5;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) UIView *mapOverlayView;
 
-@property (strong, nonatomic) IBOutlet UIButton *nearbyInfoButton;
 @property (strong, nonatomic) IBOutlet UIButton *mapViewButton;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
@@ -58,72 +56,20 @@ const CGFloat kPULCompassFlashTime = 1.5;
     _shouldRotate = YES;
 
     // set ui based on loaded user
-    CGFloat distance = [[PULAccountOld currentUser].location distanceFromLocation:_user.location];
+    CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:_user.location];
     [self distanceUpdated:distance];
     
     _userImageView.image = _user.image;
     _nameLabel.text = _user.fullName;
     
-//    _userImageViewContainer.hasBorder = YES;
-    
-//    [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
-    
-//    if (!_user.isOnline)
-//    {
-//        _distanceLabel.text = @"Unavailable";
-//    }
-    
-//    _directionArrowView.hidden = !_user.isOnline;
-//    _mapViewButton.hidden = !_user.isOnline;
-    
     if (!_didSetUp2 && _didSetUp)
     {
-        // subscribe to notifications
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(didUpdateHeading:)
-                                                     name:kPULAccountOldDidUpdateHeadingNotification
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(didUpdateUser:)
-                                                     name:kPULFriendUpdatedNotifcation
-                                                   object:_user];
-        
-        _locationNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kPULAccountOldDidUpdateLocationNotification
-                                                                                  object:nil
-                                                                                   queue:[NSOperationQueue currentQueue]
-                                                                              usingBlock:^(NSNotification *note) {
-                                                                                  // update distance label
-                                                                                  
-                                                                                  CLLocation *loc = [note object];
-                                                                                  
-                                                                                  CGFloat distance = [loc distanceFromLocation:_user.location];
-                                                                                  
-                                                                                  [self distanceUpdated:distance];
-                                                                                  
-                                                                              }];
-
         _directionArrowView.translatesAutoresizingMaskIntoConstraints = YES;
         
         _directionArrowView.autoresizingMask = UIViewAutoresizingNone;
 
         _didSetUp = YES;
         
-//       _presenceNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kPULFriendChangedPresence
-//                                                          object:nil
-//                                                           queue:[NSOperationQueue currentQueue]
-//                                                      usingBlock:^(NSNotification *note) {
-//                                                          PULLog(@"user presence changed");
-//                                                          
-//                                                          if (!_user.isOnline)
-//                                                          {
-//                                                              _distanceLabel.text = @"Unavailable";
-//                                                          }
-//                                                          
-//                                                          _directionArrowView.hidden = !_user.isOnline;
-//                                                          _mapViewButton.hidden = !_user.isOnline;
-//                                                          
-//                                                      }];
         
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         
@@ -139,7 +85,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
     span.latitudeDelta = 0.05;
     span.longitudeDelta = 0.05;
     
-    CLLocationCoordinate2D location = [PULAccountOld currentUser].location.coordinate;
+    CLLocationCoordinate2D location = [PULAccount currentUser].location.coordinate;
     region.span = span;
     region.center = location;
     
@@ -184,23 +130,6 @@ NSString* deviceName()
                               encoding:NSUTF8StringEncoding];
 }
 
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:_presenceNotification];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:kPULAccountOldDidUpdateHeadingNotification
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:kPULFriendUpdatedNotifcation
-                                                  object:_user];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:_locationNotification];
-}
 
 - (void)distanceUpdated:(CGFloat)distance
 {
@@ -300,25 +229,6 @@ NSString* deviceName()
         _distanceLabel.text = string;
 }
 
-#pragma mark - Actions
-- (IBAction)ibMap:(id)sender
-{
-    PULMapViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier: NSStringFromClass([PULMapViewController class])];
-    
-    vc.user = _user;
-    
-    [self presentViewController:vc animated:YES completion:nil];
-}
-
-- (IBAction)ibNearbyInfo:(id)sender
-{
-    [[[UIAlertView alloc] initWithTitle:@"Nearby"
-                                message:@"When a friend is within 100 Feet, distance becomes inaccurate."
-                               delegate:nil
-                      cancelButtonTitle:@"Ok"
-                      otherButtonTitles:nil] show];
-}
-
 #pragma mark - Notifcation Selectors
 - (void)didUpdateHeading:(NSNotification*)notif
 {
@@ -327,7 +237,7 @@ NSString* deviceName()
     if (_shouldRotate)
     {
         // update direction of arrow
-        CGFloat degrees = [self p_calculateAngleBetween:[PULAccountOld currentUser].location.coordinate
+        CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
                                                     and:_user.location.coordinate];
 
         CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
@@ -338,10 +248,10 @@ NSString* deviceName()
 
 - (void)didUpdateUser:(NSNotification*)notif
 {
-    PULUserOld *user = [notif object];
+    PULUser *user = [notif object];
     
     // find distance and update label
-    CGFloat distance = [[PULAccountOld currentUser].location distanceFromLocation:user.location];
+    CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:user.location];
     
     [self distanceUpdated:distance];
 }

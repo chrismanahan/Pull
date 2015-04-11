@@ -59,6 +59,11 @@
  */
 @property (nonatomic, copy) NSString *uid;
 
+/*!
+ *  Flag indicating that this object has loaded
+ */
+@property (nonatomic, readonly, getter=hasLoaded) BOOL loaded;
+
 /*****************************************
  Instance Methods
  *****************************************/
@@ -123,5 +128,10 @@
  @endcode
  */
 - (NSArray*)allKeys;
+
+/**
+ *  Deletes this object from firebase
+ */
+- (void)deleteObject;
 
 @end

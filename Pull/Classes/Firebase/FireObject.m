@@ -14,6 +14,12 @@
 
 NSString * const kFireObjectExceptionName = @"FireObjectException";
 
+@interface FireObject ()
+
+@property (nonatomic, readwrite, getter=hasLoaded) BOOL loaded;
+
+@end
+
 @implementation FireObject
 
 #pragma mark - Initialization
@@ -60,6 +66,11 @@ NSString * const kFireObjectExceptionName = @"FireObjectException";
     return NO;
 }
 
+- (NSString*)description
+{
+    return [NSString stringWithFormat:@"(%@) %@", NSStringFromClass([self class]), _uid];
+}
+
 #pragma mark - Public
 - (FireObject*)load
 {
@@ -74,13 +85,19 @@ NSString * const kFireObjectExceptionName = @"FireObjectException";
 - (void)saveKeys:(NSArray*)keys;
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keys.count];
+    NSDictionary *rep = [self firebaseRepresentation];
     
     for (NSString *key in keys)
     {
-        dict[key] = self.firebaseRepresentation[key];
+        dict[key] = rep[key];
     }
     
     [[FireSync sharedSync] saveKeyVals:dict forObject:self];
+}
+
+- (void)deleteObject;
+{
+    [[FireSync sharedSync] deleteObject:self];
 }
 
 - (NSArray*)allKeys
@@ -91,7 +108,6 @@ NSString * const kFireObjectExceptionName = @"FireObjectException";
     for (NSUInteger i = 0; i < numProperties; i++)
     {
         objc_property_t property = propertyArray[i];
-//        const char *attributes = property_getAttributes(property);
         NSString *name = [[NSString alloc] initWithUTF8String:property_getName(property)];
         [propertyStringArray addObject:name];
     }
@@ -120,10 +136,10 @@ NSString * const kFireObjectExceptionName = @"FireObjectException";
 
 - (void)loadFromFirebaseRepresentation:(NSDictionary*)repr;
 {
-    NSString *reason = [NSString stringWithFormat:@"%@ must be implemented by a subclass", NSStringFromSelector(_cmd)];
-    @throw [NSException exceptionWithName:kFireObjectExceptionName
-                                   reason:reason
-                                 userInfo:nil];
+    if (!self.loaded)
+    {
+        self.loaded = YES;
+    }
 }
 
 @end

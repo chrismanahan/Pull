@@ -15,7 +15,28 @@ const NSTimeInterval kPullDurationHalfDay = 3600 * 12;
 const NSTimeInterval kPullDurationDay     = 3600 * 24;
 const NSTimeInterval kPullDurationAlways  = 0;
 
+@interface PULPull ()
+
+@property (nonatomic, strong, readwrite) NSDate *expiration;
+
+@end
+
 @implementation PULPull
+
+#pragma mark - Initialization
+- (instancetype)initNewBetween:(PULUser*)sender and:(PULUser*)receiver duration:(NSTimeInterval)duration;
+{
+    if (self = [super initNew])
+    {
+        _sendingUser = sender;
+        _receivingUser = receiver;
+        _duration = duration;
+        _status = PULPullStatusPending;
+        [self resetExpiration];
+    }
+    
+    return self;
+}
 
 #pragma mark - Public
 - (BOOL)containsUser:(PULUser*)user;
@@ -48,6 +69,24 @@ const NSTimeInterval kPullDurationAlways  = 0;
     }
 }
 
+- (PULUser*)otherUser:(PULUser*)thisUser;
+{
+    PULUser *other = nil;
+    if ([self containsUser:thisUser])
+    {
+        if ([self initiatedBy:thisUser])
+        {
+            other = _receivingUser;
+        }
+        else
+        {
+            other = _sendingUser;
+        }
+    }
+    
+    return other;
+}
+
 #pragma mark - Fireable Protocol
 - (NSString*)rootName
 {
@@ -59,8 +98,9 @@ const NSTimeInterval kPullDurationAlways  = 0;
     return @{
              @"sendingUser": _sendingUser.uid,
              @"receivingUser": _receivingUser.uid,
-             @"expiration": @(_expiration.timeIntervalSince1970),
-             @"status": @(_status)
+             @"expiration": @([_expiration timeIntervalSince1970]),
+             @"status": @(_status),
+             @"duration": @(_duration)
              };
 }
 
@@ -83,13 +123,15 @@ const NSTimeInterval kPullDurationAlways  = 0;
     
     if (repr[@"expiration"] && [repr[@"expiration"] integerValue] != _expiration.timeIntervalSince1970)
     {
-        _expiration = [NSDate dateWithTimeIntervalSince1970:[repr[@"expiration"] integerValue]];
+        self.expiration = [NSDate dateWithTimeIntervalSince1970:[repr[@"expiration"] integerValue]];
     }
     
     if (repr[@"duration"])
     {
-        _duration = [repr[@"duration"] integerValue];
+        self.duration = [repr[@"duration"] integerValue];
     }
+    
+    [super loadFromFirebaseRepresentation:repr];
 }
 
 

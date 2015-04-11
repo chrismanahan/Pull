@@ -8,9 +8,11 @@
 
 #import "FireObject.h"
 
+#import "FireMutableArray.h"
 #import "PULUserSettings.h"
 
-@class CLLocation;
+@import CoreLocation;
+
 @class CLPlacemark;
 @class UIImage;
 
@@ -32,14 +34,14 @@
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) CLPlacemark *placemark;
 // friends
-@property (nonatomic, strong) NSMutableArray *allFriends;
+@property (nonatomic, strong) FireMutableArray *friends;
 @property (nonatomic, strong) NSArray *nearbyFriends;
 @property (nonatomic, strong) NSArray *pulledFriends;
 @property (nonatomic, strong) NSArray *pullInvitedFriends;
 @property (nonatomic, strong) NSArray *pullPendingFriends;
-@property (nonatomic, strong) NSMutableArray *blockedUsers;
+@property (nonatomic, strong) FireMutableArray *blocked;
 // pulls
-@property (nonatomic, strong) NSMutableArray *pulls;
+@property (nonatomic, strong) FireMutableArray *pulls;
 // settings
 @property (nonatomic, strong) PULUserSettings *settings;
 

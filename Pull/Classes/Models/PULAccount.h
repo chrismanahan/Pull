@@ -20,9 +20,15 @@
 
 - (void)logout;
 
+// Pulling
 - (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration;
 - (void)acceptPull:(PULPull*)pull;
 - (void)cancelPull:(PULPull*)pull;
 
+// User management
+- (void)blockUser:(PULUser*)user;
+- (void)unblockUser:(PULUser*)user;
+- (void)addUser:(PULUser*)user;
+- (void)addNewFriendsFromFacebook;
 
 @end

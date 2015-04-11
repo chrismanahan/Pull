@@ -13,6 +13,12 @@
 #import <Firebase/Firebase.h>
 #import <FacebookSDK/FacebookSDK.h>
 
+@interface PULAccount ()
+
+@property (nonatomic, strong) NSMutableArray *observers;
+
+@end
+
 @implementation PULAccount
 
 static PULAccount *account = nil;
@@ -22,6 +28,7 @@ static PULAccount *account = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         account = [[PULAccount alloc] initEmptyWithUid:uid];
+        account.observers = [[NSMutableArray alloc] init];
         
         NSDictionary *providerData = authData.providerData;
         
@@ -56,7 +63,6 @@ static PULAccount *account = nil;
             {
                 
                 NSArray *friends = ((NSDictionary*)result)[@"data"];
-                NSMutableArray *users = [[NSMutableArray alloc] initWithCapacity:friends.count];
                 PULLog(@"got %zd friends from facebook", friends.count);
                 
                 for (NSDictionary *friend in friends)
@@ -66,10 +72,8 @@ static PULAccount *account = nil;
                     
                     PULUser *user = [[PULUser alloc] initWithUid:userUID];
                     
-                    [users addObject:user];
+                    [[PULAccount currentUser].friends addAndSaveObject:user];
                 }
-                
-                [PULAccount currentUser].allFriends = users;
             }
             // check if this is the first registration
             BOOL newUser = [[NSUserDefaults standardUserDefaults] boolForKey:@"UserIsRegisteredKey"];
@@ -104,6 +108,7 @@ static PULAccount *account = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         account = [[PULAccount alloc] initWithUid:uid];
+        account.observers = [[NSMutableArray alloc] init];
         
         [CrashlyticsKit setUserIdentifier:uid];
     });
@@ -122,6 +127,12 @@ static PULAccount *account = nil;
     });
     
     return account;
+}
+
+#pragma mark - Authentication
+- (void)logout;
+{
+    [[FireSync sharedSync] unauth];
 }
 
 + (void)loginWithFacebookToken:(NSString*)accessToken completion:(void(^)(PULAccount *account, NSError *error))completion;
@@ -154,31 +165,27 @@ static PULAccount *account = nil;
     
 }
 
-#pragma mark - Public
-- (void)logout;
-{
-    [[FireSync sharedSync] unauth];
-}
+#pragma mark - Pulling
 
 - (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration;
 {
-    PULPull *pull = [[PULPull alloc] initNew];
-    pull.sendingUser = self;
-    pull.receivingUser = user;
-    pull.status = PULPullStatusPending;
-    pull.duration = duration;
-    [pull resetExpiration];
+    PULLog(@"sending pull to: %@", user);
+    // create pull
+    PULPull *pull = [[PULPull alloc] initNewBetween:self and:user duration:duration];
     [pull saveAll];
-    
+
+    // add pull to my pulls
     [self willChangeValueForKey:@"pulls"];
-    [self.pulls addObject:pull];
+    [self.pulls addAndSaveObject:pull];
     [self didChangeValueForKey:@"pulls"];
     
-    [user.pulls addObject:pull];
+    // add pull to friend's pulls
+    [user.pulls addAndSaveObject:pull];
 }
 
 - (void)acceptPull:(PULPull*)pull;
 {
+    PULLog(@"accepting pull: %@", pull);
     pull.status = PULPullStatusPulled;
     [pull resetExpiration];
     [pull saveKeys:@[@"status", @"expiration"]];
@@ -186,8 +193,115 @@ static PULAccount *account = nil;
 
 - (void)cancelPull:(PULPull*)pull;
 {
-    pull.status = PULPullStatusExpired;
-    [pull saveKeys:@[@"status"]];
+    PULLog(@"canceling/removing pull: %@", pull);
+    
+    // remove pull from my pulls
+    [self willChangeValueForKey:@"pulls"];
+    [self.pulls removeAndSaveObject:pull];
+    [self didChangeValueForKey:@"pulls"];
+    
+    // remove pull from friend's pulls
+    if (pull.hasLoaded)
+    {
+        PULUser *friend = [pull otherUser:self];
+        
+        if (friend.hasLoaded)
+        {
+            [friend willChangeValueForKey:@"pulls"];
+            [friend.pulls removeAndSaveObject:pull];
+            [friend didChangeValueForKey:@"pulls"];
+            
+            [pull deleteObject];
+        }
+    }
+    else
+    {
+        id obs = [THObserver observerForObject:pull keyPath:@"loaded" oldAndNewBlock:^(id oldValue, id newValue) {
+            PULUser *friend = [pull otherUser:self];
+            if (friend)
+            {
+                [friend willChangeValueForKey:@"pulls"];
+                [friend.pulls removeAndSaveObject:pull];
+                [friend didChangeValueForKey:@"pulls"];
+                [pull deleteObject];
+                
+                [_observers removeObject:obs];
+            }
+        }];
+        
+        [_observers addObject:obs];
+    }
+}
+
+#pragma mark - Friend Management
+- (void)blockUser:(PULUser*)user;
+{
+    NSAssert(![self.blocked containsObject:user], @"blocked users already contains this user");
+    
+    PULLog(@"blocking user: %@", user);
+    
+    [self willChangeValueForKey:@"blocked"];
+    [self.blocked addAndSaveObject:user];
+    [self didChangeValueForKey:@"blocked"];
+
+}
+
+- (void)unblockUser:(PULUser*)user;
+{
+    NSAssert([self.blocked containsObject:user], @"blocked users already contains this user");
+    
+    PULLog(@"unblocking user: %@", user);
+    
+    [self willChangeValueForKey:@"blocked"];
+    [self.blocked removeAndSaveObject:user];
+    [self didChangeValueForKey:@"blocked"];
+}
+
+- (void)addUser:(PULUser*)user;
+{
+    if (![self.friends containsObject:user])
+    {
+        PULLog(@"adding user: %@", user);
+        
+        // add friend to friend list
+        [self willChangeValueForKey:@"friends"];
+        [self.friends addAndSaveObject:user];
+        [self didChangeValueForKey:@"friends"];
+        
+        // TODO: BUG: not saving to friend's array because friend has not fully loaded yet so the array is nil
+        // add self to friend's friends list
+        [user willChangeValueForKey:@"friends"];
+        [user.friends addAndSaveObject:self];
+        [user didChangeValueForKey:@"friends"];
+    }
+}
+
+- (void)addNewFriendsFromFacebook;
+{
+    [FBRequestConnection startForMyFriendsWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (error)
+        {
+            PULLog(@"ERROR requesting friends from facebook: %@", error.localizedDescription);
+        }
+        else
+        {
+            NSArray *friends = ((NSDictionary*)result)[@"data"];
+            PULLog(@"got %zd friends from facebook", friends.count);
+            
+            for (NSDictionary *friend in friends)
+            {
+                NSString *fbId = friend[@"id"];
+                NSString *uid = [NSString stringWithFormat:@"facebook:%@", fbId];
+                
+                PULUser *user = [[PULUser alloc] initWithUid:uid];
+                if (![self.friends containsObject:user])
+                {
+                    [self addUser:user];
+                }
+            }
+        }
+    }];
+
 }
 
 #pragma mark - Fireable Protocol

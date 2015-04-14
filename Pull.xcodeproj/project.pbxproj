@@ -99,6 +99,8 @@
 		33FCE4FD1ABF2AFA00177468 /* settings_share.png in Resources */ = {isa = PBXBuildFile; fileRef = 33FCE4F11ABF2AF900177468 /* settings_share.png */; };
 		33FCE4FE1ABF2AFA00177468 /* settings_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33FCE4F21ABF2AF900177468 /* settings_share@2x.png */; };
 		33FCE4FF1ABF2AFA00177468 /* settings_share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33FCE4F31ABF2AF900177468 /* settings_share@3x.png */; };
+		33FD492B1AD9671B00E76EF4 /* XCTestCase+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FD492A1AD9671B00E76EF4 /* XCTestCase+Auth.m */; };
+		33FD492D1AD967CF00E76EF4 /* AccountTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FD492C1AD967CF00E76EF4 /* AccountTests.m */; };
 		33FEA23B1A6B0A5F002CA63D /* launchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 33FEA2351A6B0A5F002CA63D /* launchImage.png */; };
 		33FEA23C1A6B0A5F002CA63D /* launchImage4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33FEA2361A6B0A5F002CA63D /* launchImage4@2x.png */; };
 		33FEA23D1A6B0A5F002CA63D /* launchImage5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33FEA2371A6B0A5F002CA63D /* launchImage5@2x.png */; };
@@ -221,7 +223,7 @@
 		95E5176B1AC19B2200C8B32E /* PULAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E5176A1AC19B2200C8B32E /* PULAccount.m */; };
 		95E5176E1AC385E700C8B32E /* PULUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E5176D1AC385E700C8B32E /* PULUser.m */; };
 		95E517711AC385FF00C8B32E /* PULPull.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E517701AC385FF00C8B32E /* PULPull.m */; };
-		95E517731AC3884600C8B32E /* FireSyncTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E517721AC3884600C8B32E /* FireSyncTest.m */; };
+		95E517731AC3884600C8B32E /* PullingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E517721AC3884600C8B32E /* PullingTests.m */; };
 		95E517771AC5CB0100C8B32E /* my_location_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E517741AC5CB0100C8B32E /* my_location_arrow.png */; };
 		95E517781AC5CB0100C8B32E /* my_location_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E517751AC5CB0100C8B32E /* my_location_arrow@2x.png */; };
 		95E517791AC5CB0100C8B32E /* my_location_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E517761AC5CB0100C8B32E /* my_location_arrow@3x.png */; };
@@ -357,6 +359,9 @@
 		33FCE4F11ABF2AF900177468 /* settings_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_share.png; sourceTree = "<group>"; };
 		33FCE4F21ABF2AF900177468 /* settings_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_share@2x.png"; sourceTree = "<group>"; };
 		33FCE4F31ABF2AF900177468 /* settings_share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_share@3x.png"; sourceTree = "<group>"; };
+		33FD49291AD9671B00E76EF4 /* XCTestCase+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "XCTestCase+Auth.h"; path = "Categories/XCTestCase+Auth.h"; sourceTree = "<group>"; };
+		33FD492A1AD9671B00E76EF4 /* XCTestCase+Auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XCTestCase+Auth.m"; path = "Categories/XCTestCase+Auth.m"; sourceTree = "<group>"; };
+		33FD492C1AD967CF00E76EF4 /* AccountTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTests.m; sourceTree = "<group>"; };
 		33FEA2351A6B0A5F002CA63D /* launchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchImage.png; sourceTree = "<group>"; };
 		33FEA2361A6B0A5F002CA63D /* launchImage4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchImage4@2x.png"; sourceTree = "<group>"; };
 		33FEA2371A6B0A5F002CA63D /* launchImage5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchImage5@2x.png"; sourceTree = "<group>"; };
@@ -511,7 +516,7 @@
 		95E5176D1AC385E700C8B32E /* PULUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUser.m; sourceTree = "<group>"; };
 		95E5176F1AC385FF00C8B32E /* PULPull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPull.h; sourceTree = "<group>"; };
 		95E517701AC385FF00C8B32E /* PULPull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPull.m; sourceTree = "<group>"; };
-		95E517721AC3884600C8B32E /* FireSyncTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireSyncTest.m; sourceTree = "<group>"; };
+		95E517721AC3884600C8B32E /* PullingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullingTests.m; sourceTree = "<group>"; };
 		95E517741AC5CB0100C8B32E /* my_location_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = my_location_arrow.png; sourceTree = "<group>"; };
 		95E517751AC5CB0100C8B32E /* my_location_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_location_arrow@2x.png"; sourceTree = "<group>"; };
 		95E517761AC5CB0100C8B32E /* my_location_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_location_arrow@3x.png"; sourceTree = "<group>"; };
@@ -847,6 +852,15 @@
 			name = menu;
 			sourceTree = "<group>";
 		};
+		33FD49281AD966F500E76EF4 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				33FD49291AD9671B00E76EF4 /* XCTestCase+Auth.h */,
+				33FD492A1AD9671B00E76EF4 /* XCTestCase+Auth.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		950E1EDA1A7E8A07003B6FF9 /* pull cell buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -955,9 +969,11 @@
 		952BDB7F1A0C4F0500C67BB5 /* PullTests */ = {
 			isa = PBXGroup;
 			children = (
+				33FD49281AD966F500E76EF4 /* Categories */,
 				952BDB821A0C4F0500C67BB5 /* PullTests.m */,
 				952BDB801A0C4F0500C67BB5 /* Supporting Files */,
-				95E517721AC3884600C8B32E /* FireSyncTest.m */,
+				95E517721AC3884600C8B32E /* PullingTests.m */,
+				33FD492C1AD967CF00E76EF4 /* AccountTests.m */,
 			);
 			path = PullTests;
 			sourceTree = "<group>";
@@ -1552,8 +1568,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95E517731AC3884600C8B32E /* FireSyncTest.m in Sources */,
+				95E517731AC3884600C8B32E /* PullingTests.m in Sources */,
+				33FD492D1AD967CF00E76EF4 /* AccountTests.m in Sources */,
 				952BDB831A0C4F0500C67BB5 /* PullTests.m in Sources */,
+				33FD492B1AD9671B00E76EF4 /* XCTestCase+Auth.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

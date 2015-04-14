@@ -7,71 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <XCTest/XCTest.h>
 
-#import "THObserversAndBinders.h"
+#import "XCTestCase+Auth.h"
 
-#import "FireSync.h"
-#import "PULAccount.h"
-
-#import <FacebookSDK/FacebookSDK.h>
-
-@interface FireSyncTest :XCTestCase
+@interface PullingTests : XCTestCase
 
 @property (nonatomic, strong) NSMutableArray *observers;
 
 @end
 
-@implementation FireSyncTest
+@implementation PullingTests
 
-- (void)setUp {
+- (void)setUp
+{
     [super setUp];
+    
     _observers = [[NSMutableArray alloc] init];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
-}
-
-- (void)login:(void(^)())completion
-{
-    [FBSession openActiveSessionWithReadPermissions:@[@"email", @"public_profile", @"user_friends"]
-                                       allowLoginUI:NO
-                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                                      if (!error)
-                                      {
-                                          PULLog(@"opened session");
-                                          [PULAccount loginWithFacebookToken:session.accessTokenData.accessToken completion:^(PULAccount *account, NSError *error) {
-                                              
-                                              completion();
-                                          }];
-                                      }
-                                      else
-                                      {
-                                          PULLog(@"%@", error.localizedDescription);
-                                      }
-                                  }];
-
-}
-
-- (void)testLoadAccount
-{
-    XCTestExpectation *ex = [self expectationWithDescription:@"acct"];
-    
-    [self login:^{
-        [[PULAccount currentUser] addNewFriendsFromFacebook];
-        [self observeValueForKeyPath:@"friends" ofObject:[PULAccount currentUser] change:nil context:NULL];
-        THObserver *obs = [THObserver observerForObject:[PULAccount currentUser] keyPath:@"friends" oldAndNewBlock:^(id oldValue, id newValue) {
-            PULLog(@"loaded all friends");
-            [ex fulfill];
-        }];
-        [_observers addObject:obs];
-    }];
-    
-    [self waitForExpectationsWithTimeout:10 handler:nil];
-    
 }
 
 - (void)testAcceptPull

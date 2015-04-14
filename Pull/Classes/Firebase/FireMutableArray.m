@@ -104,6 +104,29 @@
     return _path;
 }
 
+#pragma mark - Properties
+- (NSUInteger)loadedCount
+{
+    return [self loadedObjects].count;
+}
+
+- (NSArray*)loadedObjects
+{
+    FireMutableArray *arr = [[FireMutableArray alloc] initForClass:_fireClass
+                                                     relatedObject:_relatedObject
+                                                              path:_path];
+    for (FireObject *obj in _backingStore)
+    {
+        if (obj.hasLoaded)
+        {
+            [arr addObject:obj];
+        }
+    }
+    
+    return arr;
+}
+
+#pragma mark -
 #pragma mark NSArray
 
 -(NSUInteger)count

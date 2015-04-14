@@ -33,6 +33,16 @@
  */
 @property (nonatomic, assign) BOOL allowDuplicates;
 
+/**
+ *  Similar to count, but only returns the count of objects that have been loaded
+ */
+@property (nonatomic, readonly) NSUInteger loadedCount;
+
+/**
+ *  Creates a copy of this array that only includes objects that have been loaded
+ */
+@property (nonatomic, readonly) FireMutableArray *loadedObjects;
+
 - (instancetype)initForClass:(Class)fireClass relatedObject:(FireObject*)relatedObject path:(NSString*)path;
 
 - (void)addAndSaveObject:(FireObject*)anObject;

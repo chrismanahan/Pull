@@ -47,8 +47,8 @@
 //    }
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    NSString *vcName;
-    
+    NSString *vcName = NSStringFromClass([PULLoginViewController class]);
+    /*
     // check if we are logged in
     Firebase *ref = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
     if (ref.authData)
@@ -92,7 +92,7 @@
     {
         vcName = NSStringFromClass([PULLoginViewController class]);
     }
-    
+    */
     
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:vcName];
 

@@ -240,9 +240,15 @@ static PULAccount *account = nil;
     
     PULLog(@"blocking user: %@", user);
     
+    // add this user to blocked
     [self willChangeValueForKey:@"blocked"];
     [self.blocked addAndSaveObject:user];
     [self didChangeValueForKey:@"blocked"];
+    
+    // remove this user from friends
+    [self willChangeValueForKey:@"friends"];
+    [self.friends removeAndSaveObject:user];
+    [self didChangeValueForKey:@"friends"];
 
 }
 
@@ -252,14 +258,20 @@ static PULAccount *account = nil;
     
     PULLog(@"unblocking user: %@", user);
     
+    // remove this user from blocked
     [self willChangeValueForKey:@"blocked"];
     [self.blocked removeAndSaveObject:user];
     [self didChangeValueForKey:@"blocked"];
+    
+    // add user back to friends
+    [self willChangeValueForKey:@"friends"];
+    [self.friends addAndSaveObject:user];
+    [self didChangeValueForKey:@"friends"];
 }
 
 - (void)addUser:(PULUser*)user;
 {
-    if (![self.friends containsObject:user])
+    if (![self.friends containsObject:user] && ![self.blocked containsObject:user])
     {
         PULLog(@"adding user: %@", user);
         
@@ -273,6 +285,10 @@ static PULAccount *account = nil;
         [user willChangeValueForKey:@"friends"];
         [user.friends addAndSaveObject:self];
         [user didChangeValueForKey:@"friends"];
+    }
+    else
+    {
+        PULLog(@"tried to add user %@, but user already exists in friends or blocked array", user);
     }
 }
 
@@ -294,7 +310,7 @@ static PULAccount *account = nil;
                 NSString *uid = [NSString stringWithFormat:@"facebook:%@", fbId];
                 
                 PULUser *user = [[PULUser alloc] initWithUid:uid];
-                if (![self.friends containsObject:user])
+                if (![self.friends containsObject:user] && ![self.blocked containsObject:user])
                 {
                     [self addUser:user];
                 }

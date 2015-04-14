@@ -24,10 +24,6 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
      *  Pull has either expired, been rejected, or is invalid
      */
     PULPullStatusNone = 0,
-    /**
-     *  One user involved in pull has momentarily suspended the pull
-     */
-    PULPullStatusSuspended = 1,
     /*!
      *  Pull is waiting for acceptance from receving user
      */
@@ -56,6 +52,10 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
  *  The duration that this pull is good for
 */
 @property (nonatomic) NSTimeInterval duration;
+/**
+ *  The duration that this pull is good for converted to hours
+ */
+@property (nonatomic, readonly) NSInteger durationHours;
 /*!
  *  The time at which this pull expires and goes out for pruning. -resetExpiration should be called to set the expiration based on the set duration and current time
  */

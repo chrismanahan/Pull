@@ -21,7 +21,7 @@
 		334044971A17AC3A00B00BC3 /* PULLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044961A17AC3A00B00BC3 /* PULLoginViewController.m */; };
 		3340449A1A17ACF900B00BC3 /* PULError.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044991A17ACF900B00BC3 /* PULError.m */; };
 		3340449D1A17D33A00B00BC3 /* PULPullListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3340449C1A17D33A00B00BC3 /* PULPullListViewController.m */; };
-		334044C61A17F9A100B00BC3 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044C51A17F9A100B00BC3 /* PULUserCell.m */; };
+		334044C61A17F9A100B00BC3 /* PULUserCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044C51A17F9A100B00BC3 /* PULUserCardCell.m */; };
 		334730671AA3CCD700B64144 /* nav_blue_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3347305B1AA3CCD700B64144 /* nav_blue_right@3x.png */; };
 		334730681AA3CCD700B64144 /* nav_blue_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3347305C1AA3CCD700B64144 /* nav_blue_right@2x.png */; };
 		334730691AA3CCD700B64144 /* nav_blue_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 3347305D1AA3CCD700B64144 /* nav_blue_right.png */; };
@@ -268,8 +268,8 @@
 		334044991A17ACF900B00BC3 /* PULError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULError.m; sourceTree = "<group>"; };
 		3340449B1A17D33A00B00BC3 /* PULPullListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULPullListViewController.h; path = "View Controllers/PULPullListViewController.h"; sourceTree = "<group>"; };
 		3340449C1A17D33A00B00BC3 /* PULPullListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULPullListViewController.m; path = "View Controllers/PULPullListViewController.m"; sourceTree = "<group>"; };
-		334044C41A17F9A100B00BC3 /* PULUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULUserCell.h; path = "UI/Cells/Table Cells/PULUserCell.h"; sourceTree = "<group>"; };
-		334044C51A17F9A100B00BC3 /* PULUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULUserCell.m; path = "UI/Cells/Table Cells/PULUserCell.m"; sourceTree = "<group>"; };
+		334044C41A17F9A100B00BC3 /* PULUserCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULUserCardCell.h; path = "UI/Cells/Table Cells/PULUserCardCell.h"; sourceTree = "<group>"; };
+		334044C51A17F9A100B00BC3 /* PULUserCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULUserCardCell.m; path = "UI/Cells/Table Cells/PULUserCardCell.m"; sourceTree = "<group>"; };
 		3347305B1AA3CCD700B64144 /* nav_blue_right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_blue_right@3x.png"; sourceTree = "<group>"; };
 		3347305C1AA3CCD700B64144 /* nav_blue_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_blue_right@2x.png"; sourceTree = "<group>"; };
 		3347305D1AA3CCD700B64144 /* nav_blue_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_blue_right.png; sourceTree = "<group>"; };
@@ -697,8 +697,8 @@
 		334044C21A17F97400B00BC3 /* Table Cells */ = {
 			isa = PBXGroup;
 			children = (
-				334044C41A17F9A100B00BC3 /* PULUserCell.h */,
-				334044C51A17F9A100B00BC3 /* PULUserCell.m */,
+				334044C41A17F9A100B00BC3 /* PULUserCardCell.h */,
+				334044C51A17F9A100B00BC3 /* PULUserCardCell.m */,
 			);
 			name = "Table Cells";
 			sourceTree = "<group>";
@@ -1523,7 +1523,7 @@
 				95E5176E1AC385E700C8B32E /* PULUser.m in Sources */,
 				95E517711AC385FF00C8B32E /* PULPull.m in Sources */,
 				950D5D9A1AAFB84A00CDAC65 /* UIVisualEffectView+PullBlur.m in Sources */,
-				334044C61A17F9A100B00BC3 /* PULUserCell.m in Sources */,
+				334044C61A17F9A100B00BC3 /* PULUserCardCell.m in Sources */,
 				84AAC8D31A8E8E5100C302AD /* PULNoConnectionView.m in Sources */,
 				330499551A18037D003FEA42 /* PULUserImageView.m in Sources */,
 				95169F351A86F7CD006D3078 /* PULMenuViewController.m in Sources */,

@@ -87,6 +87,12 @@ const NSTimeInterval kPullDurationAlways  = 0;
     return other;
 }
 
+#pragma mark - Public
+- (NSInteger)durationHours
+{
+    return _duration / 60 / 60;
+}
+
 #pragma mark - Fireable Protocol
 - (NSString*)rootName
 {

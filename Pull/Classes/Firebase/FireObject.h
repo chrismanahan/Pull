@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 
 /*****************************************
+ Notifications
+ *****************************************/
+extern NSString * const FireObjectDidLoadNotification;
+extern NSString * const FireObjectDidUpdateNotification;
+
+/*****************************************
  Protocol
  *****************************************/
 

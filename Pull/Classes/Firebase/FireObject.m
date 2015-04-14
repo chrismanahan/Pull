@@ -14,6 +14,9 @@
 
 NSString * const kFireObjectExceptionName = @"FireObjectException";
 
+NSString * const FireObjectDidLoadNotification = @"FireObjectDidLoadNotification";
+NSString * const FireObjectDidUpdateNotification = @"FireObjectDidUpdateNotification";
+
 @interface FireObject ()
 
 @property (nonatomic, readwrite, getter=hasLoaded) BOOL loaded;
@@ -139,6 +142,12 @@ NSString * const kFireObjectExceptionName = @"FireObjectException";
     if (!self.loaded)
     {
         self.loaded = YES;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:FireObjectDidLoadNotification object:self];
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:FireObjectDidUpdateNotification object:self];
     }
 }
 

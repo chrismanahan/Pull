@@ -12,6 +12,8 @@
 
 #import "PULConstants.h"
 
+@import QuartzCore;
+
 @interface PULUserCardCell ()
 
 @property (nonatomic, strong) id userUpdatedObserver;
@@ -20,9 +22,22 @@
 
 @property (nonatomic, strong) PULUser *user;
 
+@property (strong, nonatomic) IBOutlet UIView *bottomButtonContainer;
+@property (weak, nonatomic) IBOutlet UIView *mainContainer;
+
 @end
 
 @implementation PULUserCardCell
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    _mainContainer.layer.shadowOffset = CGSizeMake(0, 1);
+    _mainContainer.layer.shadowRadius = 2.0;
+    _mainContainer.layer.shadowOpacity = 1.0;
+    _mainContainer.layer.masksToBounds = NO;
+}
 
 - (void)setPull:(PULPull *)pull
 {
@@ -50,28 +65,42 @@
     switch (_pull.status) {
         case PULPullStatusPending:
         {
+            _durationButton.hidden = YES;
             // who sent the pull?
             if ([_pull initiatedBy:[PULAccount currentUser]])
             {
                 // we sent this pull
                 _accessoryLabel.text = @"Pending...";
+                _accentLine.backgroundColor = [UIColor colorWithWhite:0.721 alpha:1.000];
+                
+                _cancelButton.hidden = NO;
+                _bottomButtonContainer.hidden = YES;
+                _durationButton.hidden = YES;
             }
             else
             {
                 // the other user sent this pull
                 if (_pull.duration != kPullDurationAlways)
                 {
-                    _accessoryLabel.text = [NSString stringWithFormat:@"Would like to pull you for %i hours", _pull.durationHours];
+                    _accessoryLabel.text = [NSString stringWithFormat:@"Would like to pull you for %li hours", (long)_pull.durationHours];
                 }
                 else
                 {
                     _accessoryLabel.text = @"Would like to always be pulled with you";
                 }
+                
+                _accentLine.backgroundColor = PUL_Purple;
+                
+                _bottomButtonContainer.hidden = NO;
+                _cancelButton.hidden = YES;
             }
             break;
         }
         case PULPullStatusPulled:
         {
+            _cancelButton.hidden = YES;
+            _bottomButtonContainer.hidden = YES;
+            _durationButton.hidden = NO;
             // is the user nearby?
             CGFloat distance = [_user.location distanceFromLocation:[PULAccount currentUser].location];
             
@@ -79,11 +108,13 @@
             {
                 CGFloat convertedDistance = METERS_TO_FEET(distance);
                 _accessoryLabel.text = [NSString stringWithFormat:@"%.2f Feet", convertedDistance];
+                _accentLine.backgroundColor = PUL_Blue;
                 
             }
             else
             {
                 _accessoryLabel.text = @"Not nearby";
+                _accentLine.backgroundColor = [UIColor redColor];
             }
             
             // title for duration button
@@ -111,7 +142,7 @@
     // basic user info
     _nameLabel.text = _user.fullName;
     
-    
+    [_userImageViewContainer setImage:_user.image forObject:_user];
 }
 
 

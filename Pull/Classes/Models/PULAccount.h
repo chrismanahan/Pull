@@ -10,6 +10,8 @@
 
 #import "PULPull.h"
 
+extern NSString * const PULAccountDidLoginNotification;
+
 @interface PULAccount : PULUser
 
 + (void)loginWithFacebookToken:(NSString*)accessToken completion:(void(^)(PULAccount *account, NSError *error))completion;
@@ -30,5 +32,11 @@
 - (void)unblockUser:(PULUser*)user;
 - (void)addUser:(PULUser*)user;
 - (void)addNewFriendsFromFacebook;
+
+// helpers
+- (NSArray*)pullsPending;
+- (NSArray*)pullsWaiting;
+- (NSArray*)pullsPulledNearby;
+- (NSArray*)pullsPulledFar;
 
 @end

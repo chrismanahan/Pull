@@ -12,6 +12,11 @@
 
 #import "PULAccount.h"
 
+#import "PULCache.h"
+#import "PULUserImageView.h"
+
+@import UIKit;
+
 @import CoreLocation;
 
 @implementation PULUser
@@ -49,14 +54,17 @@
 
 - (void)initialize
 {
-    BOOL isAcct = [self isMemberOfClass:[PULAccount class]];
-    
-    _friends = [[FireMutableArray alloc] initForClass:[PULUser class] relatedObject:self path:@"friends"];
-    _pulls = [[FireMutableArray alloc] initForClass:[PULPull class] relatedObject:self path:@"pulls"];
-    _blocked = [[FireMutableArray alloc] initForClass:[PULUser class] relatedObject:self path:@"blocked"];
-    
-    _friends.emptyObjects = !isAcct;
-    _blocked.emptyObjects = !isAcct;
+    if (!_friends)
+    {
+        BOOL isAcct = [self isMemberOfClass:[PULAccount class]];
+        
+        _friends = [[FireMutableArray alloc] initForClass:[PULUser class] relatedObject:self path:@"friends"];
+        _pulls = [[FireMutableArray alloc] initForClass:[PULPull class] relatedObject:self path:@"pulls"];
+        _blocked = [[FireMutableArray alloc] initForClass:[PULUser class] relatedObject:self path:@"blocked"];
+        
+        _friends.emptyObjects = !isAcct;
+        _blocked.emptyObjects = !isAcct;
+    }
 }
 
 #pragma mark - Fireable Protocol
@@ -114,32 +122,47 @@
         self.lastName = repr[@"lastName"];
     }
     
+    // update friends
+    [self willChangeValueForKey:@"friends"];
     if (repr[@"friends"])
     {
-        [self willChangeValueForKey:@"friends"];
         [self.friends loadFromFirebaseRepresentation:repr[@"friends"]];
-        [self didChangeValueForKey:@"friends"];
     }
+    else
+    {
+        _friends = [[FireMutableArray alloc] initForClass:[PULUser class] relatedObject:self path:@"friends"];
+    }
+    [self didChangeValueForKey:@"friends"];
     
+    // update pulls
+    [self willChangeValueForKey:@"pulls"];
     if (repr[@"pulls"])
     {
-        [self willChangeValueForKey:@"pulls"];
         [self.pulls loadFromFirebaseRepresentation:repr[@"pulls"]];
-        [self didChangeValueForKey:@"pulls"];
     }
+    else
+    {
+        _pulls = [[FireMutableArray alloc] initForClass:[PULPull class] relatedObject:self path:@"pulls"];
+    }
+    [self didChangeValueForKey:@"pulls"];
     
+    // update blocked
+    [self willChangeValueForKey:@"blocked"];
     if (repr[@"blocked"])
     {
-        [self willChangeValueForKey:@"blocked"];
         [self.blocked loadFromFirebaseRepresentation:repr[@"blocked"]];
-        [self didChangeValueForKey:@"blocked"];
     }
+    else
+    {
+        _blocked = [[FireMutableArray alloc] initForClass:[PULUser class] relatedObject:self path:@"blocked"];
+    }
+    [self didChangeValueForKey:@"blocked"];
     
     if (repr[@"location"])
     {
         double lat = [repr[@"location"][@"lat"] doubleValue];
         double lon = [repr[@"location"][@"lon"] doubleValue];
-    //    double alt = [repr[@"location"][@"alt"] doubleValue];
+        //    double alt = [repr[@"location"][@"alt"] doubleValue];
         self.location = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
     }
     
@@ -172,6 +195,57 @@
 }
 
 #pragma mark - Properties
+- (NSString*)fullName
+{
+    return [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
+}
+
+- (UIImage*)image
+{
+    if (_image)
+    {
+        return _image;
+    }
+    
+    // check cache
+    NSString *cacheKey = [NSString stringWithFormat:@"UserImage%@", self.uid];
+    UIImage *cached = [[PULCache sharedCache] objectForKey:cacheKey];
+    if (cached)
+    {
+        CLSLog(@"loading image from cache");
+        _image = cached;
+        return cached;
+    }
+    
+    // load image from firebase
+    NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", self.fbId];
+    
+    CLSLog(@"Fetching image for user: %@", self.uid);
+    NSURL *url = [NSURL URLWithString:userImageURL];
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:req
+                                       queue:[NSOperationQueue currentQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               _image = [UIImage imageWithData:data];
+                               
+                               if (!_image)
+                               {
+                                   _image = [UIImage imageNamed:@"userPlaceholder.png"];
+                               }
+                               
+                               // set cache
+                               if (_image)
+                               {
+                                   [[PULCache sharedCache] setObject:_image forKey:cacheKey];
+                               }
+                               
+                               CLSLog(@"Updated user image");
+                               // not the cleanest solution posting to userImageView class
+                               [[NSNotificationCenter defaultCenter] postNotificationName:PULImageUpdatedNotification object:self];
+                           }];
+    return nil;
+}
+
 - (void)setSettings:(PULUserSettings *)settings
 {
     [self willChangeValueForKey:NSStringFromSelector(@selector(settings))];
@@ -192,62 +266,5 @@
     _pulls = pulls;
     [self didChangeValueForKey:NSStringFromSelector(@selector(pulls))];
 }
-
-
-- (NSArray*)pulledFriends
-{
-    return [self _friendsWithPullStatus:PULPullStatusPulled];
-}
-
-- (NSArray*)pullInvitedFriends
-{
-    return [self _friendsWithPullStatus:PULPullStatusPending initiateBySelf:YES];
-}
-
-- (NSArray*)pullPendingFriends
-{
-    return [self _friendsWithPullStatus:PULPullStatusPending initiateBySelf:NO];
-}
-
-
-
-#pragma mark - Private
-- (NSArray*)_friendsWithPullStatus:(PULPullStatus)status
-{
-    NSMutableArray *friends = [[NSMutableArray alloc] initWithCapacity:_friends.count];
-    
-    for (PULUser *friend in self.friends)
-    {
-        for (PULPull *pull in self.pulls)
-        {
-            if ([pull containsUser:friend] && pull.status == status)
-            {
-                [friends addObject:friend];
-                break;
-            }
-        }
-    }
-    return (NSArray*)friends;
-}
-
-- (NSArray*)_friendsWithPullStatus:(PULPullStatus)status initiateBySelf:(BOOL)startedBySelf
-{
-    NSMutableArray *friends = [[NSMutableArray alloc] initWithCapacity:_friends.count];
-    
-    for (PULUser *friend in self.friends)
-    {
-        for (PULPull *pull in self.pulls)
-        {
-            if (([pull containsUser:friend] && pull.status == status &&
-                ((startedBySelf && [pull initiatedBy:self]) || (!startedBySelf && ![pull initiatedBy:self]))))
-            {
-                [friends addObject:friend];
-                break;
-            }
-        }
-    }
-    return (NSArray*)friends;
-}
-
 
 @end

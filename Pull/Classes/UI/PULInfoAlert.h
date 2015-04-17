@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-IB_DESIGNABLE
-
 @class UIView;
 
 @interface PULInfoAlert : UIView

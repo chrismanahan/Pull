@@ -8,6 +8,14 @@
 
 #import "PULUserImageView.h"
 
+NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
+
+@interface PULUserImageView ()
+
+@property (nonatomic, strong) id imageObserver;
+
+@end
+
 @implementation PULUserImageView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -20,6 +28,23 @@
         [self addSubview:iv];
     }
     return self;
+}
+
+- (void)setImage:(UIImage*)image forObject:(id)obj;
+{
+    self.imageView.image = image;
+    
+    if (_imageObserver)
+    {
+        [[NSNotificationCenter defaultCenter] removeObserver:_imageObserver];
+    }
+    _imageObserver = [[NSNotificationCenter defaultCenter] addObserverForName:PULImageUpdatedNotification
+                                                                  object:obj
+                                                                   queue:[NSOperationQueue currentQueue]
+                                                              usingBlock:^(NSNotification *note) {
+                                                                  NSAssert([[note object] respondsToSelector:@selector(image)], @"note obj must respond to -image");
+                                                                  self.imageView.image = [[note object] image];
+                                                              }];
 }
 
 - (void)setSelected:(BOOL)selected
@@ -62,7 +87,7 @@
     circle.lineWidth = 0;
     
     self.imageView.layer.mask = circle;
- 
+    
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -81,14 +106,14 @@
     }
     
     CGColorRef color = self.borderColor.CGColor;
-//    if (!_selected)
-//    {
-//        color = self.borderColor.CGColor;// [UIColor whiteColor].CGColor;
-//    }
-//    else
-//    {
-//        color = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000].CGColor;
-//    }
+    //    if (!_selected)
+    //    {
+    //        color = self.borderColor.CGColor;// [UIColor whiteColor].CGColor;
+    //    }
+    //    else
+    //    {
+    //        color = [UIColor colorWithRed:0.537 green:0.184 blue:1.000 alpha:1.000].CGColor;
+    //    }
     
     CGContextSetFillColorWithColor(ref, color);
     

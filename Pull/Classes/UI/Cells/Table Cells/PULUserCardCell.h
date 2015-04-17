@@ -47,6 +47,10 @@
  *  Button that displays the duration of a pull
  */
 @property (nonatomic, strong) IBOutlet UIButton *durationButton;
+/**
+ *  Accent line on left of cell
+ */
+@property (strong, nonatomic) IBOutlet UIView *accentLine;
 
 /**
  *  Pull associated with this cell

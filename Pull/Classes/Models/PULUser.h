@@ -35,10 +35,6 @@
 @property (nonatomic, strong) CLPlacemark *placemark;
 // friends
 @property (nonatomic, strong) FireMutableArray *friends;
-@property (nonatomic, strong) NSArray *nearbyFriends;
-@property (nonatomic, strong) NSArray *pulledFriends;
-@property (nonatomic, strong) NSArray *pullInvitedFriends;
-@property (nonatomic, strong) NSArray *pullPendingFriends;
 @property (nonatomic, strong) FireMutableArray *blocked;
 // pulls
 @property (nonatomic, strong) FireMutableArray *pulls;

@@ -11,7 +11,7 @@
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>D84630A57B6B6C95FC53BEE4171FB7ABD89C956B</key>
-		<string>chrismanahan.com:/home/git/pull.git</string>
+		<string>https://github.com/chrismanahan/Pull.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Pull.xcodeproj</string>
@@ -21,7 +21,7 @@
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>chrismanahan.com:/home/git/pull.git</string>
+	<string>https://github.com/chrismanahan/Pull.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>

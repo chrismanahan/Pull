@@ -10,8 +10,12 @@
 
 #import "FireSync.h"
 
+#import "PULConstants.h"
+
 #import <Firebase/Firebase.h>
 #import <FacebookSDK/FacebookSDK.h>
+
+NSString * const PULAccountDidLoginNotification = @"PULAccountDidLoginNotification";
 
 @interface PULAccount ()
 
@@ -160,6 +164,8 @@ static PULAccount *account = nil;
                                         {
                                             completion([PULAccount currentUser], nil);
                                         }
+                                        
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:PULAccountDidLoginNotification object:self];
                                     }
                                 }];
     
@@ -317,6 +323,82 @@ static PULAccount *account = nil;
             }
         }
     }];
+
+}
+
+#pragma mark - Helpers
+- (NSArray*)pullsPending;
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:self.pulls.count];
+    
+    for (PULPull *pull in self.pulls)
+    {
+        if (pull.status == PULPullStatusPending && ![pull initiatedBy:self])
+        {
+            [arr addObject:pull];
+        }
+    }
+    
+    return arr;
+}
+
+- (NSArray*)pullsWaiting;
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:self.pulls.count];
+    
+    for (PULPull *pull in self.pulls)
+    {
+        if (pull.status == PULPullStatusPending && [pull initiatedBy:self])
+        {
+            [arr addObject:pull];
+        }
+    }
+    
+    return arr;
+
+}
+
+- (NSArray*)pullsPulledNearby;
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:self.pulls.count];
+    
+    for (PULPull *pull in self.pulls)
+    {
+        if (pull.status == PULPullStatusPulled)
+        {
+            PULUser *friend = [pull otherUser:self];
+            CGFloat distance = [friend.location distanceFromLocation:self.location];
+            
+            if (distance <= kPULNearbyDistance)
+            {
+                [arr addObject:pull];
+            }
+        }
+    }
+    
+    return arr;
+
+}
+
+- (NSArray*)pullsPulledFar;
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:self.pulls.count];
+    
+    for (PULPull *pull in self.pulls)
+    {
+        if (pull.status == PULPullStatusPulled)
+        {
+            PULUser *friend = [pull otherUser:self];
+            CGFloat distance = [friend.location distanceFromLocation:self.location];
+            
+            if (distance > kPULNearbyDistance)
+            {
+                [arr addObject:pull];
+            }
+        }
+    }
+    
+    return arr;
 
 }
 

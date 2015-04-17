@@ -8,8 +8,6 @@
 
 #import "PULPulledUserImageView.h"
 
-IB_DESIGNABLE
-
 @implementation PULPulledUserImageView
 
 - (UIColor*)borderColor

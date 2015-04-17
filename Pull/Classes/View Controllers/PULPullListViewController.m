@@ -24,6 +24,8 @@
 
 #import "PULConstants.h"
 
+#import "PULUserCardCell.h"
+
 #import "PULSlideUnwindSegue.h"
 #import "PULSlideSegue.h"
 #import "PULReverseModal.h"
@@ -32,10 +34,10 @@
 
 const NSInteger kPULPullListNumberOfTableViewSections = 4;
 
-const NSInteger kPULPulledSection = 1;
+const NSInteger kPULPulledNearbySection = 1;
 const NSInteger kPULPendingSection = 0;
-const NSInteger kPULWaitingSection = 2;
-const NSInteger kPULNearbySection = 3;
+const NSInteger kPULWaitingSection = 3;
+const NSInteger kPULPulledFarSection = 2;
 
 @interface PULPullListViewController () <UIAlertViewDelegate>
 
@@ -45,6 +47,8 @@ const NSInteger kPULNearbySection = 3;
 //@property (nonatomic, strong) PULLoadingIndicator *loadingIndicator;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopContraint;
+
+@property (nonatomic, strong) NSMutableArray *observers;
 
 @end
 
@@ -61,29 +65,62 @@ const NSInteger kPULNearbySection = 3;
 
 - (void)viewDidLoad
 {
+    _observers = [[NSMutableArray alloc] init];
     // inset the table view to give it the slide under header effect
     _tableViewTopContraint.constant = -64;
     _friendTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     
-
+    id loginObs = [[NSNotificationCenter defaultCenter] addObserverForName:PULAccountDidLoginNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      id pullObs = [THObserver observerForObject:[PULAccount currentUser] keyPath:@"pulls" block:^{
+                                                          
+                                                          for (PULPull *pull in [PULAccount currentUser].pulls)
+                                                          {
+                                                                id pObs = [THObserver observerForObject:pull keyPath:@"status" block:^{
+                                                                    PULLog(@"pull status changed. reloading pulls");
+                                                                    [_friendTableView reloadData];
+                                                                }];
+                                                              
+                                                              [_observers addObject:pObs];
+                                                          }
+                                                          
+                                                          
+                                                      }];
+                                                      
+                                                      id pullsObs = [THObserver observerForObject:[PULAccount currentUser] keyPath:@"pulls" block:^{
+                                                          PULLog(@"pulls array changed, reloading");
+                                                          [_friendTableView reloadData];
+                                                      }];
+                                                      
+                                                      
+                                                      [_observers addObject:pullObs];
+                                                      [_observers addObject:pullsObs];
+                                                      
+                                                      [[NSNotificationCenter defaultCenter] removeObserver:loginObs];
+                                                  }];
     
-//    [[NSNotificationCenter defaultCenter] addObserverForName:PULConnectionLostNotification
-//                                                      object:nil
-//                                                       queue:[NSOperationQueue currentQueue]
-//                                                  usingBlock:^(NSNotification *note) {
-//                                                      [PULNoConnectionView overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
-//                                                      
-//                                                      _friendTableView.scrollEnabled = NO;
-//                                                  }];
     
-//    [[NSNotificationCenter defaultCenter] addObserverForName:PULConnectionRestoredNotification
-//                                                      object:nil
-//                                                       queue:[NSOperationQueue currentQueue]
-//                                                  usingBlock:^(NSNotification *note) {
-//                                                      
-//                                                      [PULNoConnectionView removeOverlayFromView:_friendTableView];
-//                                                      _friendTableView.scrollEnabled = YES;
-//                                                  }];
+    
+    
+    //    [[NSNotificationCenter defaultCenter] addObserverForName:PULConnectionLostNotification
+    //                                                      object:nil
+    //                                                       queue:[NSOperationQueue currentQueue]
+    //                                                  usingBlock:^(NSNotification *note) {
+    //                                                      [PULNoConnectionView overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
+    //
+    //                                                      _friendTableView.scrollEnabled = NO;
+    //                                                  }];
+    
+    //    [[NSNotificationCenter defaultCenter] addObserverForName:PULConnectionRestoredNotification
+    //                                                      object:nil
+    //                                                       queue:[NSOperationQueue currentQueue]
+    //                                                  usingBlock:^(NSNotification *note) {
+    //
+    //                                                      [PULNoConnectionView removeOverlayFromView:_friendTableView];
+    //                                                      _friendTableView.scrollEnabled = YES;
+    //                                                  }];
     
     // subscribe to disabled location updates
     [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationPermissionsDeniedNotification
@@ -162,7 +199,39 @@ const NSInteger kPULNearbySection = 3;
 #pragma mark - Table View Data Source
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    NSArray *datasource = [self _pullsForSection:indexPath.section];
+    
+    NSString *cellId = @"PullCardCell";
+    /*
+    switch (indexPath.section) {
+        case kPULPulledNearbySection:
+        {
+            cellId = @"PulledNearbyCell";
+            break;
+        }
+        case kPULPulledFarSection:
+        {
+            cellId = @"PulledFarCell";
+            break;
+        }
+        case kPULPendingSection:
+        {
+            cellId = @"PullPendingCell";
+            break;
+        }
+        case kPULWaitingSection:
+        {
+            cellId = @"PullWaitingCell";
+        }
+    }*/
+    
+    PULUserCardCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    PULPull *pull = datasource[indexPath.row];
+    
+    cell.pull = pull;
+    [cell loadUI];
+    
+    return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -172,7 +241,31 @@ const NSInteger kPULNearbySection = 3;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [self _pullsForSection:section].count;
+}
+
+- (NSArray*)_pullsForSection:(NSInteger)section
+{
+    switch (section) {
+        case kPULPulledNearbySection:
+        {
+            return [[PULAccount currentUser] pullsPulledNearby];
+        }
+        case kPULPulledFarSection:
+        {
+            return [[PULAccount currentUser] pullsPulledFar];
+        }
+        case kPULPendingSection:
+        {
+            return [[PULAccount currentUser] pullsPending];
+        }
+        case kPULWaitingSection:
+        {
+            return [[PULAccount currentUser] pullsWaiting];
+        }
+    }
+    
+    return nil;
 }
 
 #pragma mark - Table View Delegate

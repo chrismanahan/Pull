@@ -8,8 +8,6 @@
 
 #import "PULPullDirectionArrowView.h"
 
-IB_DESIGNABLE
-
 @implementation PULPullDirectionArrowView
 
 - (void)drawRect:(CGRect)rect

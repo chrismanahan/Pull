@@ -79,6 +79,7 @@
 
 - (void)loadFromFirebaseRepresentation:(NSDictionary *)repr
 {
+    NSMutableArray *store = [[NSMutableArray alloc] initWithCapacity:repr.count];
     [repr enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         NSString *uid = (NSString*)key;
         
@@ -92,11 +93,13 @@
             fireObj = [[_fireClass alloc] initWithUid:uid];
         }
         
-        if (![_backingStore containsObject:fireObj] || _allowDuplicates)
+        if (![store containsObject:fireObj] || _allowDuplicates)
         {
-            [_backingStore addObject:fireObj];
+            [store addObject:fireObj];
         }
     }];
+    
+    _backingStore = [[NSMutableArray alloc] initWithArray:store];
 }
 
 - (NSString*)rootName

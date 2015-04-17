@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
      */
     PULPullStatusNone = 0,
     /*!
-     *  Pull is waiting for acceptance from receving user
+     *  Pull is waiting for acceptance from receving user. When used relative to current account, pending means the pull is pending on this account to accept
      */
     PULPullStatusPending = 2,
     /*!

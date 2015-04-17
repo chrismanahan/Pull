@@ -25,6 +25,7 @@ NSString * const kPULAppSuggestionEmail = @"support@getpulled.com";
 NSString * const kPULAppPartnerEmail = @"support@getpulled.com";
 
 const float kPULNearbyDistance = 304.8; // 1000 feet
+const float kPULDistanceUnitCutoff = 100;
 
 // location tracking
 const NSInteger kLocationForegroundDistanceFilter = 1;//20;    // meters

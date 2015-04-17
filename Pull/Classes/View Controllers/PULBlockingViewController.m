@@ -10,7 +10,6 @@
 
 #import "PULAccount.h"
 
-#import "PULUserCell.h"
 
 @interface PULBlockingViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
@@ -19,7 +18,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, assign) BOOL dirty;
-@property (nonatomic, strong) PULUserOld *selectedUser;
+@property (nonatomic, strong) PULUser *selectedUser;
 
 @end
 
@@ -67,7 +66,7 @@
     
     PULUser *user = dataSource[indexPath.row];
     
-    PULUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+//    PULUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
 //    cell.user = user;
 //    cell.userImageViewContainer.imageView.image = user.image;
@@ -75,7 +74,7 @@
 //    cell.type = PULUserCellTypeNone;
 //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    return cell;
+    return nil;
 }
 
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -109,7 +108,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
      NSArray *dataSource = indexPath.section == 0 ? _friends : _blocked;
-    PULUserOld *user = dataSource[indexPath.row];
+//PULUserOld *user = dataSource[indexPath.row];
     
 //    UIAlertView *alert;
 //    if (indexPath.section == 0)

@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PULUserCell.h"
-
-@interface PULPullListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, PULUserCellDelegate>
+@interface PULPullListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

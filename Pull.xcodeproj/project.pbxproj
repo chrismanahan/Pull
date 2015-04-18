@@ -224,6 +224,14 @@
 		95EF21D01A916A3F000B48B8 /* gradient_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EF21CF1A916A3F000B48B8 /* gradient_background.png */; };
 		95EF21D51A92E113000B48B8 /* Spalsh_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EF21D31A92E113000B48B8 /* Spalsh_6.png */; };
 		95EF21D61A92E113000B48B8 /* Spalsh_6plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EF21D41A92E113000B48B8 /* Spalsh_6plus.png */; };
+		9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */; };
+		9B9724221AE2034500EEC3AB /* pull_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B97241C1AE2034500EEC3AB /* pull_button.png */; };
+		9B9724231AE2034500EEC3AB /* pull_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B97241D1AE2034500EEC3AB /* pull_button@2x.png */; };
+		9B9724241AE2034500EEC3AB /* pull_button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B97241E1AE2034500EEC3AB /* pull_button@3x.png */; };
+		9B9724251AE2034500EEC3AB /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B97241F1AE2034500EEC3AB /* settings_icon.png */; };
+		9B9724261AE2034500EEC3AB /* settings_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B9724201AE2034500EEC3AB /* settings_icon@2x.png */; };
+		9B9724271AE2034500EEC3AB /* settings_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B9724211AE2034500EEC3AB /* settings_icon@3x.png */; };
+		9B97242A1AE20BD500EEC3AB /* PULUserSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9724291AE20BD500EEC3AB /* PULUserSelectViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -508,6 +516,16 @@
 		95EF21CF1A916A3F000B48B8 /* gradient_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gradient_background.png; path = images/gradient_background.png; sourceTree = "<group>"; };
 		95EF21D31A92E113000B48B8 /* Spalsh_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spalsh_6.png; sourceTree = "<group>"; };
 		95EF21D41A92E113000B48B8 /* Spalsh_6plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spalsh_6plus.png; sourceTree = "<group>"; };
+		9B5EFA581AE28F8600EFCCD5 /* PULUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULUserCell.h; path = UI/Cells/PULUserCell.h; sourceTree = "<group>"; };
+		9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULUserCell.m; path = UI/Cells/PULUserCell.m; sourceTree = "<group>"; };
+		9B97241C1AE2034500EEC3AB /* pull_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pull_button.png; sourceTree = "<group>"; };
+		9B97241D1AE2034500EEC3AB /* pull_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pull_button@2x.png"; sourceTree = "<group>"; };
+		9B97241E1AE2034500EEC3AB /* pull_button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pull_button@3x.png"; sourceTree = "<group>"; };
+		9B97241F1AE2034500EEC3AB /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
+		9B9724201AE2034500EEC3AB /* settings_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@2x.png"; sourceTree = "<group>"; };
+		9B9724211AE2034500EEC3AB /* settings_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@3x.png"; sourceTree = "<group>"; };
+		9B9724281AE20BD500EEC3AB /* PULUserSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULUserSelectViewController.h; path = "View Controllers/PULUserSelectViewController.h"; sourceTree = "<group>"; };
+		9B9724291AE20BD500EEC3AB /* PULUserSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULUserSelectViewController.m; path = "View Controllers/PULUserSelectViewController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -599,6 +617,8 @@
 				84261A441A9E2628001DD052 /* PULRequestLocationViewController.m */,
 				84261A461A9E263A001DD052 /* PULRequestNotificationsViewController.h */,
 				84261A471A9E263A001DD052 /* PULRequestNotificationsViewController.m */,
+				9B9724281AE20BD500EEC3AB /* PULUserSelectViewController.h */,
+				9B9724291AE20BD500EEC3AB /* PULUserSelectViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -671,18 +691,12 @@
 		334044C11A17F96600B00BC3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				334044C21A17F97400B00BC3 /* Table Cells */,
-			);
-			name = Cells;
-			sourceTree = "<group>";
-		};
-		334044C21A17F97400B00BC3 /* Table Cells */ = {
-			isa = PBXGroup;
-			children = (
 				334044C41A17F9A100B00BC3 /* PULUserCardCell.h */,
 				334044C51A17F9A100B00BC3 /* PULUserCardCell.m */,
+				9B5EFA581AE28F8600EFCCD5 /* PULUserCell.h */,
+				9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */,
 			);
-			name = "Table Cells";
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		334730791AA3E71500B64144 /* permission requesting */ = {
@@ -1147,6 +1161,12 @@
 		95D666241A7D87BB000FAD8D /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				9B97241C1AE2034500EEC3AB /* pull_button.png */,
+				9B97241D1AE2034500EEC3AB /* pull_button@2x.png */,
+				9B97241E1AE2034500EEC3AB /* pull_button@3x.png */,
+				9B97241F1AE2034500EEC3AB /* settings_icon.png */,
+				9B9724201AE2034500EEC3AB /* settings_icon@2x.png */,
+				9B9724211AE2034500EEC3AB /* settings_icon@3x.png */,
 				33D5C9591AA2AEB0003EBD90 /* Navivation */,
 			);
 			name = buttons;
@@ -1340,7 +1360,9 @@
 				95E5177E1AC5CB6A00C8B32E /* map_pin@2x.png in Resources */,
 				95E517781AC5CB0100C8B32E /* my_location_arrow@2x.png in Resources */,
 				33FCE4F81ABF2AFA00177468 /* settings_contact@2x.png in Resources */,
+				9B9724251AE2034500EEC3AB /* settings_icon.png in Resources */,
 				953B060C1A8AF687008235EB /* compass_rotate_2@3x.png in Resources */,
+				9B9724241AE2034500EEC3AB /* pull_button@3x.png in Resources */,
 				33ABDE5F1AB4A7E600A047BF /* no_friends@3x.png in Resources */,
 				337A98111AB6097600999401 /* cascade_compass.png in Resources */,
 				953B060A1A8AF687008235EB /* compass_rotate_2.png in Resources */,
@@ -1363,6 +1385,7 @@
 				333764801A9134650057E3DB /* loading_blank@2x.png in Resources */,
 				33FCE4D51ABF2A8600177468 /* home_white@3x.png in Resources */,
 				953B061A1A8AF687008235EB /* compass_rotate_7@2x.png in Resources */,
+				9B9724221AE2034500EEC3AB /* pull_button.png in Resources */,
 				3347306D1AA3CCD700B64144 /* nav_white_left@3x.png in Resources */,
 				334730781AA3E5C500B64144 /* nearby_compass.png in Resources */,
 				953B06091A8AF687008235EB /* compass_rotate_1@3x.png in Resources */,
@@ -1399,7 +1422,9 @@
 				33FEA23F1A6B0B26002CA63D /* Images.xcassets in Resources */,
 				953B06481A8D89DD008235EB /* pull_text_white@2x.png in Resources */,
 				33FCE4E31ABF2ACB00177468 /* directions_white@3x.png in Resources */,
+				9B9724271AE2034500EEC3AB /* settings_icon@3x.png in Resources */,
 				953B05DB1A88ED11008235EB /* loading_bar@2x.png in Resources */,
+				9B9724261AE2034500EEC3AB /* settings_icon@2x.png in Resources */,
 				95E517771AC5CB0100C8B32E /* my_location_arrow.png in Resources */,
 				953B06121A8AF687008235EB /* compass_rotate_4@3x.png in Resources */,
 				337A982C1AB6191D00999401 /* continue_facebook_pressed@2x.png in Resources */,
@@ -1427,6 +1452,7 @@
 				337A982A1AB6191D00999401 /* continue_facebook.png in Resources */,
 				953B06421A8D89DD008235EB /* intro_compass@2x.png in Resources */,
 				33ABDE661AB4A7E600A047BF /* enable_location@2x.png in Resources */,
+				9B9724231AE2034500EEC3AB /* pull_button@2x.png in Resources */,
 				953B06181A8AF687008235EB /* compass_rotate_6@3x.png in Resources */,
 				953B06101A8AF687008235EB /* compass_rotate_4.png in Resources */,
 				33ABDE611AB4A7E600A047BF /* no_friends.png in Resources */,
@@ -1512,10 +1538,12 @@
 				84261A451A9E2628001DD052 /* PULRequestLocationViewController.m in Sources */,
 				33BD5AC41A0E9EE800F92414 /* PULLocationUpdater.m in Sources */,
 				952BDB671A0C4F0500C67BB5 /* main.m in Sources */,
+				9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */,
 				33EFBCA21A229E0200345A14 /* PULCache.m in Sources */,
 				3304995F1A182542003FEA42 /* PULPullDetailViewController.m in Sources */,
 				9532D43E1A7F016000ADB840 /* Reachability.m in Sources */,
 				95DFC6EB1ACCBD09008E4A18 /* THObserver.m in Sources */,
+				9B97242A1AE20BD500EEC3AB /* PULUserSelectViewController.m in Sources */,
 				33FB713D1AAD205B00B74C47 /* PULVerticallyCenteredButton.m in Sources */,
 				95169F621A8718AB006D3078 /* PULSlideUnwindSegue.m in Sources */,
 				33ABDE4C1AB4A20900A047BF /* PULOverlayView.m in Sources */,

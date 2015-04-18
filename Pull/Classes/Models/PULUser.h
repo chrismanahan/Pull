@@ -36,6 +36,8 @@
 // friends
 @property (nonatomic, strong) FireMutableArray *friends;
 @property (nonatomic, strong) FireMutableArray *blocked;
+@property (nonatomic, strong) NSArray *unpulledFriends;
+@property (nonatomic, strong) NSArray *pulledFriends;
 // pulls
 @property (nonatomic, strong) FireMutableArray *pulls;
 // settings

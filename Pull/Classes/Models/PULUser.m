@@ -200,6 +200,38 @@
     return [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
 }
 
+- (NSArray*)unpulledFriends
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:self.friends.count];
+    NSArray *pulledFriends = self.pulledFriends;
+    
+    for (PULUser *user in self.friends)
+    {
+        if (![pulledFriends containsObject:user])
+        {
+            [arr addObject:user];
+        }
+    }
+    
+    return arr;
+}
+
+- (NSArray*)pulledFriends
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:self.friends.count];
+    
+    for (PULPull *pull in self.pulls)
+    {
+        PULUser *user = [pull otherUser:self];
+        if (![arr containsObject:user])
+        {
+            [arr addObject:user];
+        }
+    }
+    
+    return (NSArray*)arr;
+}
+
 - (UIImage*)image
 {
     if (_image)

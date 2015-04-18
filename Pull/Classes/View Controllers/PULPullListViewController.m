@@ -18,6 +18,7 @@
 
 #import "PULPullDetailViewController.h"
 #import "PULLoginViewController.h"
+#import "PULUserSelectViewController.h"
 
 #import "PULAccount.h"
 #import "PULLocationUpdater.h"
@@ -183,6 +184,13 @@ const NSInteger kPULPulledFarSection = 2;
 }
 
 #pragma mark - Actions
+- (IBAction)ibSendPull:(id)sender
+{
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULUserSelectViewController class])];
+    
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 - (IBAction)unwindFromViewController:(UIStoryboardSegue *)sender {}
 
 - (UIStoryboardSegue *)segueForUnwindingToViewController:(UIViewController *)toViewController fromViewController:(UIViewController *)fromViewController identifier:(NSString *)identifier {

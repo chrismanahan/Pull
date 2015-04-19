@@ -10,6 +10,11 @@
 
 #import "FireObject.h"
 
+@class FireMutableArray;
+
+typedef void(^FireArrayLoadedBlock)(FireMutableArray *objects);
+typedef void(^FireArrayObjectChangedBlock)(FireMutableArray *array, FireObject *object);
+
 @interface FireMutableArray : NSMutableArray <Fireable>
 
 /**
@@ -43,10 +48,26 @@
  */
 @property (nonatomic, readonly) FireMutableArray *loadedObjects;
 
+@property (nonatomic, readonly, getter=isLoaded) BOOL loaded;
+
+@property (nonatomic, readonly) BOOL hasLoadBlock;
+
 - (instancetype)initForClass:(Class)fireClass relatedObject:(FireObject*)relatedObject path:(NSString*)path;
 
 - (void)addAndSaveObject:(FireObject*)anObject;
 
 - (void)removeAndSaveObject:(FireObject*)anObject;
+
+- (void)registerLoadedBlock:(FireArrayLoadedBlock)block;
+
+- (void)unregisterLoadedBlock;
+
+- (void)registerForKeyChange:(NSString*)key onAllObjectsWithBlock:(FireArrayObjectChangedBlock)block;
+
+- (void)unregisterForKeyChange:(NSString*)key;
+
+- (void)unregisterForAllKeyChanges;
+
+- (BOOL)isRegisteredForKeyChange:(NSString*)key;
 
 @end

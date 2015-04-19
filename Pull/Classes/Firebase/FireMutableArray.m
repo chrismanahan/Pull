@@ -12,11 +12,41 @@
 
 #import "FireSync.h"
 
+@interface _FireKeyChange : NSObject
+
+@property (nonatomic, copy) NSString *key;
+@property (nonatomic, copy) FireArrayObjectChangedBlock block;
+@property (nonatomic, strong) NSMutableArray *observers;
+
+@end
+
+@implementation _FireKeyChange
+
+- (instancetype)initForKey:(NSString*)key block:(FireArrayObjectChangedBlock)block
+{
+    self = [super init];
+    if (self) {
+        
+        _key = [key copy];
+        _block = [block copy];
+        _observers = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
+@end
+
 @interface FireMutableArray ()
 
 @property (nonatomic, strong) Class fireClass;
 
 @property (nonatomic, strong) NSMutableArray *backingStore;
+
+@property (nonatomic, strong) NSMutableArray *observers;
+
+@property (nonatomic, copy) FireArrayLoadedBlock loadedBlock;
+
+@property (nonatomic, strong) NSMutableArray *keyChangeBlocks;
 
 @end
 
@@ -41,6 +71,8 @@
     _path = path;
     
     _backingStore = [[NSMutableArray alloc] init];
+    _observers = [[NSMutableArray alloc] init];
+    _keyChangeBlocks = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - Management
@@ -53,6 +85,9 @@
         [_backingStore addObject:anObject];
         
         [[FireSync sharedSync] addObject:anObject toArray:self forObject:_relatedObject];
+        
+        // check if we need to add an observer for this object
+        [self _addObserversIfNeededForObject:anObject];
     }
 }
 
@@ -62,6 +97,80 @@
     [_backingStore removeObject:anObject];
     
     [[FireSync sharedSync] removeObject:anObject fromArray:self forObject:_relatedObject];
+    
+    // check if we need to remove this object from being observed
+    [self _removeObserversIfNeededForObject:anObject];
+}
+
+#pragma mark - Block running
+#pragma mark Loading
+- (void)registerLoadedBlock:(FireArrayLoadedBlock)block;
+{
+    PULLog(@"registered loaded block to %@", NSStringFromClass([self class]));
+    _loadedBlock = [block copy];
+    
+    if (self.isLoaded)
+    {
+        _loadedBlock(self);
+    }
+}
+
+- (void)unregisterLoadedBlock;
+{
+    PULLog(@"unregisted loaded block from %@", NSStringFromClass([self class]));
+    _loadedBlock = nil;
+}
+
+#pragma mark Keys
+- (void)registerForKeyChange:(NSString*)key onAllObjectsWithBlock:(FireArrayObjectChangedBlock)block;
+{
+    _FireKeyChange *keyChange = [[_FireKeyChange alloc] initForKey:key block:block];
+    
+    for (FireObject *obj in _backingStore)
+    {
+        id obs = [THObserver observerForObject:obj keyPath:key block:^{
+            keyChange.block(self, obj);
+        }];
+        
+        [keyChange.observers addObject:@{obj.uid: obs}];
+    }
+    
+    [_keyChangeBlocks addObject:keyChange];
+}
+
+- (void)unregisterForKeyChange:(NSString*)key;
+{
+    NSMutableIndexSet *indices = [[NSMutableIndexSet alloc] init];
+    for (_FireKeyChange *change in _keyChangeBlocks)
+    {
+        if ([change.key isEqualToString:key])
+        {
+            [indices addIndex:[_keyChangeBlocks indexOfObject:change]];
+        }
+    }
+    
+    [_keyChangeBlocks removeObjectsAtIndexes:indices];
+}
+
+- (void)unregisterForAllKeyChanges;
+{
+    [_keyChangeBlocks removeAllObjects];
+}
+
+- (BOOL)isRegisteredForKeyChange:(NSString*)key;
+{
+    BOOL isRegistered = NO;
+    
+    for (_FireKeyChange *change in _keyChangeBlocks)
+    {
+        if ([change.key isEqualToString:key])
+        {
+            isRegistered = YES;
+            break;
+        }
+    }
+    
+    return isRegistered;
 }
 
 #pragma mark - Fireable Protocol
@@ -79,27 +188,53 @@
 
 - (void)loadFromFirebaseRepresentation:(NSDictionary *)repr
 {
-    NSMutableArray *store = [[NSMutableArray alloc] initWithCapacity:repr.count];
-    [repr enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        NSString *uid = (NSString*)key;
-        
-        FireObject *fireObj;
-        if (_emptyObjects)
-        {
-            fireObj = [[_fireClass alloc] initEmptyWithUid:uid];
-        }
-        else
-        {
-            fireObj = [[_fireClass alloc] initWithUid:uid];
-        }
-        
-        if (![store containsObject:fireObj] || _allowDuplicates)
-        {
-            [store addObject:fireObj];
-        }
-    }];
+    NSMutableArray *store = [[NSMutableArray alloc] init];
+    if (repr)
+    {
+        [repr enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            NSString *uid = (NSString*)key;
+            
+            FireObject *fireObj;
+            if (_emptyObjects)
+            {
+                fireObj = [[_fireClass alloc] initEmptyWithUid:uid];
+            }
+            else
+            {
+                fireObj = [[_fireClass alloc] initWithUid:uid];
+                
+                if (!fireObj.hasLoaded)
+                {
+                    __block id obs = [THObserver observerForObject:fireObj keyPath:@"loaded" block:^{
+                        [_observers removeObject:obs];
+                        
+                        if (_observers.count == 0 && _loadedBlock)
+                        {
+                            _loadedBlock(self);
+                        }
+                    }];
+                    
+                    [_observers addObject:obs];
+                }
+            }
+            
+            if (![store containsObject:fireObj] || _allowDuplicates)
+            {
+                [store addObject:fireObj];
+                [self _addObserversIfNeededForObject:fireObj];
+            }
+        }];
+    }
     
     _backingStore = [[NSMutableArray alloc] initWithArray:store];
+    
+    NSAssert(!(self.isLoaded && _observers.count != 0) , @"why do we have observers if we're not loaded?");
+    
+    if (_loadedBlock && ((!_emptyObjects && self.isLoaded) || (_backingStore.count == 0)))
+    {
+        _loadedBlock(self);
+    }
+    
 }
 
 - (NSString*)rootName
@@ -107,7 +242,70 @@
     return _path;
 }
 
+#pragma mark - Private
+- (void)_addObserversIfNeededForObject:(FireObject*)anObject
+{
+    if (_keyChangeBlocks.count)
+    {
+        for (_FireKeyChange *change in _keyChangeBlocks)
+        {
+            id obs = [THObserver observerForObject:anObject keyPath:change.key block:^{
+                change.block(self, anObject);
+            }];
+            
+            [change.observers addObject:@{anObject.uid: obs}];
+        }
+    }
+}
+
+- (void)_removeObserversIfNeededForObject:(FireObject*)anObject
+{
+    if (_keyChangeBlocks.count)
+    {
+        for (_FireKeyChange *change in _keyChangeBlocks)
+        {
+            NSMutableIndexSet *indices = [[NSMutableIndexSet alloc] init];
+            [change.observers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                NSString *key = [obj allKeys][0];
+                if ([key isEqualToString:anObject.uid])
+                {
+                    [indices addIndex:idx];
+                }
+            }];
+            [change.observers removeObjectsAtIndexes:indices];
+        }
+    }
+}
+
 #pragma mark - Properties
+- (BOOL)hasLoadBlock
+{
+    return (BOOL)_loadedBlock;
+}
+
+- (BOOL)isLoaded
+{
+    BOOL loaded = YES;
+    
+    if (_backingStore.count)
+    {
+        for (FireObject *obj in _backingStore)
+        {
+            if (obj.hasLoaded)
+            {
+                loaded = YES;
+            }
+            else
+            {
+                loaded = NO;
+                break;
+            }
+        }
+    }
+    
+    return loaded;
+}
+
 - (NSUInteger)loadedCount
 {
     return [self loadedObjects].count;
@@ -146,26 +344,43 @@
 
 -(void)insertObject:(id)anObject atIndex:(NSUInteger)index
 {
+    [self _addObserversIfNeededForObject:anObject];
     [_backingStore insertObject:anObject atIndex:index];
 }
 
 -(void)removeObjectAtIndex:(NSUInteger)index
 {
+    [self _removeObserversIfNeededForObject:_backingStore[index]];
     [_backingStore removeObjectAtIndex:index];
 }
 
 -(void)addObject:(id)anObject
 {
     [_backingStore addObject:anObject];
+    
+    [self _addObserversIfNeededForObject:anObject];
+}
+
+- (void)removeAllObjects
+{
+    for (FireObject *obj in _backingStore)
+    {
+        [self _removeObserversIfNeededForObject:obj];
+    }
+    [_backingStore removeAllObjects];
 }
 
 -(void)removeLastObject
 {
+    [self _removeObserversIfNeededForObject:[_backingStore lastObject]];
     [_backingStore removeLastObject];
 }
 
 -(void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject
 {
+    [self _removeObserversIfNeededForObject:_backingStore[index]];
+    [self _addObserversIfNeededForObject:anObject];
+    
     [_backingStore replaceObjectAtIndex:index withObject:anObject];
 }
 

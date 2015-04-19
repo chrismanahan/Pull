@@ -43,4 +43,6 @@
 // settings
 @property (nonatomic, strong) PULUserSettings *settings;
 
+- (id)sortedArray:(NSArray*)array;
+
 @end

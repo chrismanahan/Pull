@@ -19,6 +19,12 @@
 
 @import CoreLocation;
 
+@interface PULUser ()
+
+@property (nonatomic, strong) NSMutableArray *observers;
+
+@end
+
 @implementation PULUser
 
 #pragma mark - Initialization
@@ -64,6 +70,8 @@
         
         _friends.emptyObjects = !isAcct;
         _blocked.emptyObjects = !isAcct;
+        
+        _observers = [[NSMutableArray alloc] init];
     }
 }
 
@@ -124,38 +132,17 @@
     
     // update friends
     [self willChangeValueForKey:@"friends"];
-    if (repr[@"friends"])
-    {
-        [self.friends loadFromFirebaseRepresentation:repr[@"friends"]];
-    }
-    else
-    {
-        _friends = [[FireMutableArray alloc] initForClass:[PULUser class] relatedObject:self path:@"friends"];
-    }
+    [self.friends loadFromFirebaseRepresentation:repr[@"friends"]];
     [self didChangeValueForKey:@"friends"];
     
     // update pulls
     [self willChangeValueForKey:@"pulls"];
-    if (repr[@"pulls"])
-    {
-        [self.pulls loadFromFirebaseRepresentation:repr[@"pulls"]];
-    }
-    else
-    {
-        _pulls = [[FireMutableArray alloc] initForClass:[PULPull class] relatedObject:self path:@"pulls"];
-    }
+    [self.pulls loadFromFirebaseRepresentation:repr[@"pulls"]];
     [self didChangeValueForKey:@"pulls"];
     
     // update blocked
     [self willChangeValueForKey:@"blocked"];
-    if (repr[@"blocked"])
-    {
-        [self.blocked loadFromFirebaseRepresentation:repr[@"blocked"]];
-    }
-    else
-    {
-        _blocked = [[FireMutableArray alloc] initForClass:[PULUser class] relatedObject:self path:@"blocked"];
-    }
+    [self.blocked loadFromFirebaseRepresentation:repr[@"blocked"]];
     [self didChangeValueForKey:@"blocked"];
     
     if (repr[@"location"])
@@ -298,5 +285,24 @@
     _pulls = pulls;
     [self didChangeValueForKey:NSStringFromSelector(@selector(pulls))];
 }
+
+#pragma mark - Public
+- (id)sortedArray:(NSArray*)array;
+{
+    return [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        if ([obj1 isKindOfClass:[PULUser class]])
+        {
+            return [[obj1 firstName] compare:[obj2 firstName]];
+        }
+        else if ([obj1 isKindOfClass:[PULPull class]])
+        {
+            return [[obj1 expiration] compare:[obj2 expiration]];
+        }
+        else
+        {
+            return NSOrderedSame;
+        }
+    }];
+    }
 
 @end

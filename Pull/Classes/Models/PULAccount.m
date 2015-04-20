@@ -175,11 +175,20 @@ static PULAccount *account = nil;
 
 - (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration;
 {
+    [self sendPullToUser:user duration:duration caption:nil];
+}
+
+- (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration caption:(NSString*)caption;
+{
     PULLog(@"sending pull to: %@", user);
     // create pull
     PULPull *pull = [[PULPull alloc] initNewBetween:self and:user duration:duration];
+    if (caption)
+    {
+        pull.caption = caption;
+    
     [pull saveAll];
-
+    
     // add pull to my pulls
     [self willChangeValueForKey:@"pulls"];
     [self.pulls addAndSaveObject:pull];

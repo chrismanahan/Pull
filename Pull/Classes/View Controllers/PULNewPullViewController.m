@@ -128,8 +128,9 @@
 
 - (IBAction)ibSendInvite:(id)sender
 {
+    // TODO: validate caption text view
     // send pull
-    [[PULAccount currentUser] sendPullToUser:_user duration:_requestedDuration];
+    [[PULAccount currentUser] sendPullToUser:_user duration:_requestedDuration caption:_captionTextView.text];
     
     // dismiss vc
     UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullListViewController class])];

@@ -106,7 +106,8 @@ const NSTimeInterval kPullDurationAlways  = 0;
              @"receivingUser": _receivingUser.uid,
              @"expiration": @([_expiration timeIntervalSince1970]),
              @"status": @(_status),
-             @"duration": @(_duration)
+             @"duration": @(_duration),
+             @"caption": _caption ?: @""
              };
 }
 
@@ -135,6 +136,11 @@ const NSTimeInterval kPullDurationAlways  = 0;
     if (repr[@"duration"])
     {
         self.duration = [repr[@"duration"] integerValue];
+    }
+    
+    if (repr[@"caption"])
+    {
+        self.caption = repr[@"caption"];
     }
     
     [super loadFromFirebaseRepresentation:repr];

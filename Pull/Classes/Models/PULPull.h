@@ -65,6 +65,8 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
  */
 @property (nonatomic) PULPullStatus status;
 
+@property (nonatomic, strong) NSString *caption;
+
 - (instancetype)initNewBetween:(PULUser*)sender and:(PULUser*)receiver duration:(NSTimeInterval)duration;
 
 - (BOOL)containsUser:(PULUser*)user;

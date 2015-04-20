@@ -10,6 +10,10 @@
 
 #import "PULUserImageView.h"
 
+#import "PULReverseModal.h"
+
+#import "PULPullListViewController.h"
+
 #import "PULAccount.h"
 #import "PULPull.h"
 
@@ -128,7 +132,12 @@
     [[PULAccount currentUser] sendPullToUser:_user duration:_requestedDuration];
     
     // dismiss vc
-    [self dismissViewControllerAnimated:YES completion:nil];
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullListViewController class])];
+    PULReverseModal *seg = [PULReverseModal segueWithIdentifier:@"rev" source:self destination:vc performHandler:^{
+        ;
+    }];
+    
+    [seg perform];
 }
 
 #pragma mark - Private

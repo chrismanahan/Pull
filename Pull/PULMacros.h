@@ -31,8 +31,10 @@
 
 #define PUL_rgba(r,g,b,a)				[UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
 #define PUL_rgb(r,g,b)					PUL_rgba(r, g, b, 1.0f)
+
 #define PUL_Purple [UIColor colorWithRed:0.290 green:0.271 blue:0.998 alpha:1.000];
 #define PUL_Blue  [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:1.000]
+#define PUL_LightGray    [UIColor colorWithWhite:0.877 alpha:1.000];
 
 /*****************************************
  Misc.

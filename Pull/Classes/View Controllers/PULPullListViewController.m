@@ -75,29 +75,7 @@ const NSInteger kPULPulledFarSection = 2;
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
-                                                      id pullObs = [THObserver observerForObject:[PULAccount currentUser] keyPath:@"pulls" block:^{
-                                                          
-                                                          for (PULPull *pull in [PULAccount currentUser].pulls)
-                                                          {
-                                                                id pObs = [THObserver observerForObject:pull keyPath:@"status" block:^{
-                                                                    PULLog(@"pull status changed. reloading pulls");
-                                                                    [_friendTableView reloadData];
-                                                                }];
-                                                              
-                                                              [_observers addObject:pObs];
-                                                          }
-                                                          
-                                                          
-                                                      }];
-                                                      
-                                                      id pullsObs = [THObserver observerForObject:[PULAccount currentUser] keyPath:@"pulls" block:^{
-                                                          PULLog(@"pulls array changed, reloading");
-                                                          [_friendTableView reloadData];
-                                                      }];
-                                                      
-                                                      
-                                                      [_observers addObject:pullObs];
-                                                      [_observers addObject:pullsObs];
+                                                      [self _observePulls];
                                                       
                                                       [[NSNotificationCenter defaultCenter] removeObserver:loginObs];
                                                   }];
@@ -142,11 +120,33 @@ const NSInteger kPULPulledFarSection = 2;
     
 }
 
+- (void)_observePulls
+{
+    if (![[PULAccount currentUser].pulls hasLoadBlock])
+    {
+        [[PULAccount currentUser].pulls registerLoadedBlock:^(FireMutableArray *objects) {
+            [self reload];
+        }];
+    }
+    
+    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"pulls"])
+    {
+        [[PULAccount currentUser].pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+            [self reload];
+        }];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [_friendTableView reloadData];
+    
+    if ([PULAccount currentUser])
+    {
+        [self _observePulls];
+    }
     
     // add overlay requesting location if we are missing it
     if (![PULLocationUpdater sharedUpdater].hasPermission && ![PULLocationOverlay viewContainsOverlay:_friendTableView])
@@ -171,11 +171,19 @@ const NSInteger kPULPulledFarSection = 2;
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[PULAccount currentUser].pulls unregisterLoadedBlock];
+    [[PULAccount currentUser].pulls unregisterForAllKeyChanges];
+}
+
 - (void)reload
 {
     if ([PULLocationUpdater sharedUpdater].hasPermission)
     {
-        // reload friends
+        [_friendTableView reloadData];
     }
     else
     {

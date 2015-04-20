@@ -186,7 +186,7 @@ static PULAccount *account = nil;
     if (caption)
     {
         pull.caption = caption;
-    
+    }
     [pull saveAll];
     
     // add pull to my pulls

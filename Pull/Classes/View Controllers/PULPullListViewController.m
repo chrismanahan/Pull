@@ -44,6 +44,7 @@ const NSInteger kPULPulledFarSection = 2;
 
 @property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (nonatomic, strong) IBOutlet UITableView *friendTableView;
+@property (strong, nonatomic) IBOutlet UIView *noActivityOverlay;
 
 //@property (nonatomic, strong) PULLoadingIndicator *loadingIndicator;
 
@@ -184,6 +185,15 @@ const NSInteger kPULPulledFarSection = 2;
     if ([PULLocationUpdater sharedUpdater].hasPermission)
     {
         [_friendTableView reloadData];
+
+        if ([PULAccount currentUser].pulls.count > 0)
+        {
+            _noActivityOverlay.hidden = YES;
+        }
+        else
+        {
+            _noActivityOverlay.hidden = NO;
+        }
     }
     else
     {
@@ -288,6 +298,27 @@ const NSInteger kPULPulledFarSection = 2;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSInteger section = indexPath.section;
+    
+    if (section == kPULPulledNearbySection)
+    {
+        PULPull *pull = [self _pullsForSection:section][indexPath.row];
+        
+        PULPullDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullDetailViewController class])];
+        vc.user = [pull otherUser:[PULAccount currentUser]];
+        
+        PULSlideSegue *seg = [PULSlideSegue segueWithIdentifier:@"DetailSeg"
+                                                         source:self
+                                                    destination:vc
+                                                 performHandler:^{
+                                                     ;
+                                                 }];
+        
+        seg.slideLeft = YES;
+        
+        [seg perform];
+    }
     
 }
 

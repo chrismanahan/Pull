@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -439,7 +439,7 @@
                                                             <color key="textColor" red="0.59426294191919193" green="0.59426294191919193" blue="0.59426294191919193" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uj8-PO-zDI">
+                                                        <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uj8-PO-zDI">
                                                             <rect key="frame" x="21" y="133" width="129" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="qpt-F5-LCk"/>
@@ -450,7 +450,7 @@
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gAD-wH-GnX">
+                                                        <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gAD-wH-GnX">
                                                             <rect key="frame" x="394" y="133" width="198" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="93v-g6-Vsp"/>
@@ -608,15 +608,15 @@
                                         <color key="textColor" red="0.69361584595959602" green="0.69361584595959602" blue="0.69361584595959602" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="alr-qd-N3V">
-                                        <rect key="frame" x="375" y="430" width="100" height="90"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_pulls_arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="alr-qd-N3V">
+                                        <rect key="frame" x="375" y="414" width="100" height="90"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="90" id="sc0-iE-pPI"/>
                                             <constraint firstAttribute="width" constant="100" id="xpe-dO-YZC"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap here to start a pull" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zoq-eS-STr">
-                                        <rect key="frame" x="327" y="398" width="196" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap here to start a pull" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zoq-eS-STr">
+                                        <rect key="frame" x="333" y="382" width="184" height="24"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -632,7 +632,7 @@
                                     <constraint firstAttribute="centerY" secondItem="yms-cy-X84" secondAttribute="centerY" constant="50" id="WZU-NO-lj3"/>
                                     <constraint firstItem="alr-qd-N3V" firstAttribute="top" secondItem="Zoq-eS-STr" secondAttribute="bottom" constant="8" id="kTB-fq-l8h"/>
                                     <constraint firstItem="Zoq-eS-STr" firstAttribute="centerX" secondItem="alr-qd-N3V" secondAttribute="centerX" id="mum-WY-iFh"/>
-                                    <constraint firstAttribute="bottom" secondItem="alr-qd-N3V" secondAttribute="bottom" constant="16" id="qen-tE-6Jv"/>
+                                    <constraint firstAttribute="bottom" secondItem="alr-qd-N3V" secondAttribute="bottom" constant="32" id="qen-tE-6Jv"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -742,8 +742,9 @@
                                         <rect key="frame" x="0.0" y="78" width="600" height="77"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
-                                        <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Contact">
+                                        <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Contact" image="settings_contact.png">
                                             <color key="titleColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -755,8 +756,9 @@
                                         <rect key="frame" x="0.0" y="156" width="600" height="77"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
-                                        <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Share">
+                                        <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Share" image="settings_share.png">
                                             <color key="titleColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -768,8 +770,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="77"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
-                                        <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="App Settings">
+                                        <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="App Settings" image="settings_gear.png">
                                             <color key="titleColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -811,27 +814,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jTx-IR-N7O" userLabel="header view">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bj2-eY-WpI">
-                                        <rect key="frame" x="546" y="20" width="46" height="34"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="67:71" id="PrH-0T-Wwa"/>
-                                            <constraint firstAttribute="height" constant="40" id="fsG-Ae-Ens"/>
-                                        </constraints>
-                                        <state key="normal" title="home">
-                                            <color key="titleColor" red="0.87707149620000002" green="0.87707149620000002" blue="0.87707149620000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="PrH-0T-Wwa"/>
-                                                <exclude reference="fsG-Ae-Ens"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <segue destination="OO3-Al-pkh" kind="unwind" unwindAction="unwindFromViewController:" id="is5-Th-xEk"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUb-Gs-udA">
                                         <rect key="frame" x="275" y="14" width="50" height="46"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -852,6 +834,29 @@
                                             </mask>
                                         </variation>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bj2-eY-WpI">
+                                        <rect key="frame" x="547" y="18" width="45" height="45"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="45" id="4ND-fX-Hlr"/>
+                                            <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="67:71" id="PrH-0T-Wwa"/>
+                                            <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="50:51" id="Xe4-H6-j2M"/>
+                                            <constraint firstAttribute="height" constant="40" id="fsG-Ae-Ens"/>
+                                        </constraints>
+                                        <state key="normal" image="home_icon.png">
+                                            <color key="titleColor" red="0.87707149620000002" green="0.87707149620000002" blue="0.87707149620000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="PrH-0T-Wwa"/>
+                                                <exclude reference="fsG-Ae-Ens"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <segue destination="OO3-Al-pkh" kind="unwind" unwindAction="unwindFromViewController:" id="is5-Th-xEk"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -859,7 +864,7 @@
                                     <constraint firstItem="mUb-Gs-udA" firstAttribute="top" secondItem="jTx-IR-N7O" secondAttribute="top" constant="16" id="ODG-5h-WRg"/>
                                     <constraint firstAttribute="centerY" secondItem="mUb-Gs-udA" secondAttribute="centerY" constant="-5" id="Obe-w3-Ar9"/>
                                     <constraint firstAttribute="centerX" secondItem="mUb-Gs-udA" secondAttribute="centerX" id="d9e-72-TyK"/>
-                                    <constraint firstItem="Bj2-eY-WpI" firstAttribute="centerY" secondItem="mUb-Gs-udA" secondAttribute="centerY" id="hvh-Ap-UdR"/>
+                                    <constraint firstItem="Bj2-eY-WpI" firstAttribute="centerY" secondItem="mUb-Gs-udA" secondAttribute="centerY" constant="3" id="hvh-Ap-UdR"/>
                                     <constraint firstAttribute="height" constant="64" id="iSG-ji-V7t"/>
                                     <constraint firstAttribute="trailing" secondItem="Bj2-eY-WpI" secondAttribute="trailing" constant="8" id="mG6-Xa-eZu"/>
                                 </constraints>
@@ -1079,19 +1084,19 @@
                                             <action selector="ibLogout:" destination="5NZ-nN-ZGk" eventType="touchUpInside" id="Et0-xO-X9m"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGf-n6-iwk" userLabel="pull label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGf-n6-iwk" userLabel="pull label">
                                         <rect key="frame" x="282" y="451" width="36" height="32"/>
                                         <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="24"/>
                                         <color key="textColor" red="0.36470588240000001" green="0.38823529410000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 0.1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vq-SW-ezb" userLabel="version label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Version 0.1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vq-SW-ezb" userLabel="version label">
                                         <rect key="frame" x="258" y="486" width="84" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzy-aj-0Ap">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzy-aj-0Ap">
                                         <rect key="frame" x="0.0" y="511" width="600" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
@@ -2214,20 +2219,25 @@
         </scene>
     </scenes>
     <resources>
-        <image name="clock_icon.png" width="71" height="64"/>
+        <image name="clock_icon.png" width="36" height="33"/>
         <image name="compass_small.png" width="275" height="371"/>
         <image name="continue_facebook.png" width="486" height="114"/>
         <image name="continue_facebook_pressed.png" width="486" height="114"/>
         <image name="gradient_background.png" width="1274" height="1899"/>
+        <image name="home_icon.png" width="50" height="51"/>
         <image name="intro_compass.png" width="501" height="679"/>
         <image name="intro_friends.png" width="718" height="679"/>
         <image name="intro_location.png" width="857" height="436"/>
         <image name="learn_more_arrow.png" width="23" height="33"/>
         <image name="nav_blue_down.png" width="24" height="31"/>
+        <image name="no_pulls_arrow.png" width="95" height="102"/>
         <image name="permission_request_location.png" width="442" height="444"/>
         <image name="permission_request_notification.png" width="499" height="444"/>
         <image name="pull_button.png" width="176" height="164"/>
         <image name="pull_text_white.png" width="475" height="474"/>
+        <image name="settings_contact.png" width="73" height="82"/>
+        <image name="settings_gear.png" width="68" height="65"/>
         <image name="settings_icon.png" width="77" height="70"/>
+        <image name="settings_share.png" width="67" height="90"/>
     </resources>
 </document>

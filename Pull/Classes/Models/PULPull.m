@@ -10,6 +10,8 @@
 
 #import "PULUser.h"
 
+#import "PULConstants.h"
+
 const NSTimeInterval kPullDurationHour    = 3600;
 const NSTimeInterval kPullDurationHalfDay = 3600 * 12;
 const NSTimeInterval kPullDurationDay     = 3600 * 24;
@@ -87,10 +89,48 @@ const NSTimeInterval kPullDurationAlways  = 0;
     return other;
 }
 
-#pragma mark - Public
+#pragma mark - Properties
 - (NSInteger)durationHours
 {
     return _duration / 60 / 60;
+}
+
+#pragma mark - Private
+- (void)_observeUsersLocation:(PULUser*)user
+{
+    static NSMutableDictionary *observers = nil;
+    if (!observers)
+    {
+        observers = [[NSMutableDictionary alloc] init];
+    }
+    
+    if (observers[user.uid] == nil)
+    {
+        id obs = [THObserver observerForObject:user keyPath:@"location" oldAndNewBlock:^(id oldValue, id newValue) {
+            PULUser *otherUser = [self otherUser:user];
+            
+            if ([user.location distanceFromLocation:otherUser.location] <= kPULNearbyDistance)
+            {
+                if (!_nearby)
+                {
+                    [self willChangeValueForKey:@"nearby"];
+                    _nearby = YES;
+                    [self didChangeValueForKey:@"nearby"];
+                }
+            }
+            else
+            {
+                if (_nearby)
+                {
+                    [self willChangeValueForKey:@"nearby"];
+                    _nearby = NO;
+                    [self didChangeValueForKey:@"nearby"];
+                }
+            }
+        }];
+        
+        observers[user.uid] = obs;
+    }
 }
 
 #pragma mark - Fireable Protocol

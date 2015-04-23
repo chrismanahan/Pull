@@ -67,6 +67,8 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
 
 @property (nonatomic, strong) NSString *caption;
 
+@property (nonatomic, readonly, getter=isNearby) BOOL nearby;
+
 - (instancetype)initNewBetween:(PULUser*)sender and:(PULUser*)receiver duration:(NSTimeInterval)duration;
 
 - (BOOL)containsUser:(PULUser*)user;

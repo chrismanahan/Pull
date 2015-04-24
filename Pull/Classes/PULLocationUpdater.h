@@ -26,7 +26,7 @@ extern NSString* const PULLocationPermissionsDeniedNotification;
  */
 @interface PULLocationUpdater : NSObject <CLLocationManagerDelegate>
 
-@property (nonatomic, strong) id <PULLocationUpdaterDelegate> delegate;
+//@property (nonatomic, strong) id <PULLocationUpdaterDelegate> delegate;
 
 +(PULLocationUpdater*)sharedUpdater;
 

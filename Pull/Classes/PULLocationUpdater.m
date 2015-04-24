@@ -12,7 +12,7 @@
 
 #import "PULConstants.h"
 
-//#import <Firebase/Firebase.h>
+#import "PULAccount.h"
 
 #import <UIKit/UIKit.h>
 
@@ -183,18 +183,16 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
     CLLocation* loc = locations[locations.count-1];
     CLSLog(@"got new location");
 
-    if ([_delegate respondsToSelector:@selector(locationUpdater:didUpdateLocation:)])
-    {
-        [_delegate locationUpdater:self didUpdateLocation:loc];
-    }
+    [PULAccount currentUser].location = loc;
+    [[PULAccount currentUser] saveKeys:@[@"location"]];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
-    if ([_delegate respondsToSelector:@selector(locationUpdater:didUpdateHeading:)])
-    {
-        [_delegate locationUpdater:self didUpdateHeading:newHeading];
-    }
+//    if ([_delegate respondsToSelector:@selector(locationUpdater:didUpdateHeading:)])
+//    {
+//        [_delegate locationUpdater:self didUpdateHeading:newHeading];
+//    }
 }
 
 #pragma mark - Application notifications

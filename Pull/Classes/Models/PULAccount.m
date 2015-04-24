@@ -122,13 +122,15 @@ static PULAccount *account = nil;
 
 + (instancetype)currentUser;
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (!account)
-        {
-            account = [[PULAccount alloc] init];
-        }
-    });
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        if (!account)
+//        {
+//            account = [[PULAccount alloc] init];
+//        }
+//    });
+//    
+//    return account;
     
     return account;
 }

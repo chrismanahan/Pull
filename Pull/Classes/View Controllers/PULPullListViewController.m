@@ -119,6 +119,8 @@ const NSInteger kPULPulledFarSection = 2;
                                                       
                                                   }];
     
+    [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+    
 }
 
 - (void)_observePulls

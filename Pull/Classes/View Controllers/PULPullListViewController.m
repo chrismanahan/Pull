@@ -130,9 +130,16 @@ const NSInteger kPULPulledFarSection = 2;
         }];
     }
     
-    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"pulls"])
+    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"status"])
     {
         [[PULAccount currentUser].pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+            [self reload];
+        }];
+    }
+    
+    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"nearby"])
+    {
+        [[PULAccount currentUser].pulls registerForKeyChange:@"nearby" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
             [self reload];
         }];
     }
@@ -297,7 +304,7 @@ const NSInteger kPULPulledFarSection = 2;
 #pragma mark - Table View Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     NSInteger section = indexPath.section;
     

@@ -21,6 +21,8 @@ const NSTimeInterval kPullDurationAlways  = 0;
 
 @property (nonatomic, strong, readwrite) NSDate *expiration;
 
+@property (nonatomic, strong) NSMutableDictionary *locationObservers;
+
 @end
 
 @implementation PULPull
@@ -35,6 +37,9 @@ const NSTimeInterval kPullDurationAlways  = 0;
         _duration = duration;
         _status = PULPullStatusPending;
         [self resetExpiration];
+        
+        [self _observeUsersLocation:_sendingUser];
+        [self _observeUsersLocation:_receivingUser];
     }
     
     return self;
@@ -98,13 +103,12 @@ const NSTimeInterval kPullDurationAlways  = 0;
 #pragma mark - Private
 - (void)_observeUsersLocation:(PULUser*)user
 {
-    static NSMutableDictionary *observers = nil;
-    if (!observers)
+    if (!_locationObservers)
     {
-        observers = [[NSMutableDictionary alloc] init];
+        _locationObservers = [[NSMutableDictionary alloc] init];
     }
     
-    if (observers[user.uid] == nil)
+    if (_locationObservers[user.uid] == nil)
     {
         id obs = [THObserver observerForObject:user keyPath:@"location" oldAndNewBlock:^(id oldValue, id newValue) {
             PULUser *otherUser = [self otherUser:user];
@@ -129,7 +133,7 @@ const NSTimeInterval kPullDurationAlways  = 0;
             }
         }];
         
-        observers[user.uid] = obs;
+        _locationObservers[user.uid] = obs;
     }
 }
 
@@ -156,11 +160,13 @@ const NSTimeInterval kPullDurationAlways  = 0;
     if (repr[@"sendingUser"])
     {
         self.sendingUser = [[PULUser alloc] initWithUid:repr[@"sendingUser"]];
+        [self _observeUsersLocation:self.sendingUser];
     }
     
     if (repr[@"receivingUser"])
     {
         self.receivingUser = [[PULUser alloc] initWithUid:repr[@"receivingUser"]];
+        [self _observeUsersLocation:self.receivingUser];
     }
     
     if (repr[@"status"] && [repr[@"status"] integerValue] != self.status)

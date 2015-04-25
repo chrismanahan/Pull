@@ -183,8 +183,12 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
     CLLocation* loc = locations[locations.count-1];
     CLSLog(@"got new location");
 
-    [PULAccount currentUser].location = loc;
-    [[PULAccount currentUser] saveKeys:@[@"location"]];
+    PULAccount *acct = [PULAccount currentUser];
+    if (acct.hasLoaded)
+    {
+        acct.location = loc;
+        [acct saveKeys:@[@"location"]];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading

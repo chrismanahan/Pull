@@ -14,6 +14,8 @@
 
 #import "PULConstants.h"
 
+#import "PULInviteViewController.h"
+
 #import "UIVisualEffectView+PullBlur.h"
 
 #import <MessageUI/MessageUI.h>
@@ -26,6 +28,10 @@
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 
 @property (nonatomic, strong) UIActivityViewController *shareActivityViewController;
+@property (strong, nonatomic) IBOutlet UILabel *inviteLabel;
+@property (strong, nonatomic) IBOutlet UIButton *inviteButtonLeft;
+@property (strong, nonatomic) IBOutlet UIButton *inviteButtonCenter;
+@property (strong, nonatomic) IBOutlet UIButton *inviteButtonRight;
 
 @end
 
@@ -48,10 +54,19 @@
 }
 
 - (void)_populateUserInfo {
-    _userImageView.imageView.image = [PULAccount currentUser].image;
+    [_userImageView setImage:[PULAccount currentUser].image forObject:[PULAccount currentUser].image];
     _backgroundImageView.image = [PULAccount currentUser].image;
     _nameLabel.text = [PULAccount currentUser].fullName;
-
+    
+    if (!_backgroundImageView.image)
+    {
+        [[NSNotificationCenter defaultCenter] addObserverForName:PULImageUpdatedNotification
+                                                          object:[PULAccount currentUser]
+                                                           queue:[NSOperationQueue currentQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          _backgroundImageView.image = [[note object] image];
+                                                      }];
+    }
 }
 
 #pragma mark - actions
@@ -78,6 +93,13 @@
 {
     NSURL *url = [NSURL URLWithString:kPULAppDownloadURL];
     [[UIApplication sharedApplication] openURL:url];
+}
+
+- (IBAction)ibInvite:(id)sender
+{
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULInviteViewController class])];
+    
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 #pragma mark - action sheet delegate
@@ -129,11 +151,11 @@
     NSString *version = dev.systemVersion;
     
     NSString *body = [NSString stringWithFormat:@"\n\n\n\n-----------------\nDevice Information\n \
-OS version: %@\n\
-Model: %@\n\
-Version: %@\n\
-Build: %@\n\
------------------", version, model, appVersion, buildNumber];
+                      OS version: %@\n\
+                      Model: %@\n\
+                      Version: %@\n\
+                      Build: %@\n\
+                      -----------------", version, model, appVersion, buildNumber];
     
     [self _showMailWithSubject:@"Report Issue" to:kPULAppReportIssueEmail body:body];
 }

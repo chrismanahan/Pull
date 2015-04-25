@@ -22,6 +22,8 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
+@property (strong, nonatomic) IBOutlet UIView *noFriendsOverlay;
+
 @property (nonatomic, strong) NSArray *dataSource;
 
 @property (strong, nonatomic) id obsPullCount;
@@ -33,17 +35,35 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    PULAccount *account = [PULAccount currentUser];
     
-    if (([PULAccount currentUser].pulls.isLoaded && [PULAccount currentUser].pulls.count > 0) || [PULAccount currentUser].pulls.count == 0)
+    void (^loadBlock)() = ^void(){
+        if (account.friends.count == 0 && account.friends.isLoaded)
+        {
+            _noFriendsOverlay.hidden = NO;
+        }
+        else
+        {
+            if (!_noFriendsOverlay.hidden)
+            {
+                _noFriendsOverlay.hidden = YES;
+            }
+            
+            _dataSource = [account sortedArray:[PULAccount currentUser].unpulledFriends];
+            [_tableView reloadData];
+        }
+    };
+    
+    if ((account.pulls.isLoaded && account.pulls.count > 0) || account.pulls.count == 0)
     {
-        _dataSource = [[PULAccount currentUser] sortedArray:[PULAccount currentUser].unpulledFriends];
-        [_tableView reloadData];
+        loadBlock();
     }
     
-    [[PULAccount currentUser].pulls registerLoadedBlock:^(FireMutableArray *objects) {
-        _dataSource = [[PULAccount currentUser] sortedArray:[PULAccount currentUser].unpulledFriends];
-        [_tableView reloadData];
+    [account.pulls registerLoadedBlock:^(FireMutableArray *objects) {
+        loadBlock();
     }];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated

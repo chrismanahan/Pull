@@ -845,33 +845,40 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jTx-IR-N7O" userLabel="header view">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUb-Gs-udA">
-                                        <rect key="frame" x="275" y="14" width="50" height="46"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUb-Gs-udA">
+                                        <rect key="frame" x="287" y="22" width="28" height="27"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="mUb-Gs-udA" secondAttribute="height" multiplier="67:71" id="Ec0-kl-kTn"/>
+                                            <constraint firstAttribute="width" constant="45" id="Jwp-h9-n3s"/>
                                             <constraint firstAttribute="width" secondItem="mUb-Gs-udA" secondAttribute="height" multiplier="11:10" id="lqy-bF-mA3"/>
+                                            <constraint firstAttribute="width" secondItem="mUb-Gs-udA" secondAttribute="height" multiplier="54:53" id="ltJ-xL-wnP"/>
                                             <constraint firstAttribute="height" constant="40" id="utO-Mk-wuI"/>
                                             <constraint firstAttribute="width" constant="50" id="y3z-cr-5sJ"/>
                                         </constraints>
-                                        <state key="normal" image="settings_icon.png">
+                                        <state key="normal" image="settings_icon_purple.png">
                                             <color key="titleColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="Ec0-kl-kTn"/>
+                                                <exclude reference="Jwp-h9-n3s"/>
+                                                <exclude reference="lqy-bF-mA3"/>
+                                                <exclude reference="ltJ-xL-wnP"/>
                                                 <exclude reference="utO-Mk-wuI"/>
+                                                <exclude reference="y3z-cr-5sJ"/>
                                             </mask>
                                         </variation>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bj2-eY-WpI">
-                                        <rect key="frame" x="547" y="18" width="45" height="45"/>
+                                        <rect key="frame" x="562" y="24" width="30" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="4ND-fX-Hlr"/>
                                             <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="67:71" id="PrH-0T-Wwa"/>
                                             <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="50:51" id="Xe4-H6-j2M"/>
+                                            <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="50:51" id="YIt-Cu-oNI"/>
                                             <constraint firstAttribute="height" constant="40" id="fsG-Ae-Ens"/>
                                         </constraints>
                                         <state key="normal" image="home_icon.png">
@@ -880,7 +887,10 @@
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
+                                                <exclude reference="4ND-fX-Hlr"/>
                                                 <exclude reference="PrH-0T-Wwa"/>
+                                                <exclude reference="Xe4-H6-j2M"/>
+                                                <exclude reference="YIt-Cu-oNI"/>
                                                 <exclude reference="fsG-Ae-Ens"/>
                                             </mask>
                                         </variation>
@@ -893,7 +903,8 @@
                                 <constraints>
                                     <constraint firstItem="mUb-Gs-udA" firstAttribute="width" secondItem="mUb-Gs-udA" secondAttribute="height" multiplier="67:71" id="EZa-eC-5Xi"/>
                                     <constraint firstItem="mUb-Gs-udA" firstAttribute="top" secondItem="jTx-IR-N7O" secondAttribute="top" constant="16" id="ODG-5h-WRg"/>
-                                    <constraint firstAttribute="centerY" secondItem="mUb-Gs-udA" secondAttribute="centerY" constant="-5" id="Obe-w3-Ar9"/>
+                                    <constraint firstAttribute="centerY" secondItem="mUb-Gs-udA" secondAttribute="centerY" constant="-3" id="Obe-w3-Ar9"/>
+                                    <constraint firstItem="Bj2-eY-WpI" firstAttribute="width" secondItem="mUb-Gs-udA" secondAttribute="width" id="VPq-Cw-cpj"/>
                                     <constraint firstAttribute="centerX" secondItem="mUb-Gs-udA" secondAttribute="centerX" id="d9e-72-TyK"/>
                                     <constraint firstItem="Bj2-eY-WpI" firstAttribute="centerY" secondItem="mUb-Gs-udA" secondAttribute="centerY" constant="3" id="hvh-Ap-UdR"/>
                                     <constraint firstAttribute="height" constant="64" id="iSG-ji-V7t"/>
@@ -903,6 +914,7 @@
                                     <mask key="constraints">
                                         <exclude reference="EZa-eC-5Xi"/>
                                         <exclude reference="ODG-5h-WRg"/>
+                                        <exclude reference="VPq-Cw-cpj"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -2609,7 +2621,7 @@
         <image name="golden_ticket_large_upright.png" width="55" height="88"/>
         <image name="golden_ticket_small.png" width="35" height="32"/>
         <image name="gradient_background.png" width="1274" height="1899"/>
-        <image name="home_icon.png" width="50" height="51"/>
+        <image name="home_icon.png" width="30" height="30"/>
         <image name="intro_compass.png" width="501" height="679"/>
         <image name="intro_friends.png" width="718" height="679"/>
         <image name="intro_location.png" width="857" height="436"/>
@@ -2620,10 +2632,11 @@
         <image name="permission_request_notification.png" width="499" height="444"/>
         <image name="pull_button.png" width="176" height="164"/>
         <image name="pull_text_white.png" width="475" height="474"/>
-        <image name="settings_contact.png" width="73" height="82"/>
-        <image name="settings_gear.png" width="68" height="65"/>
+        <image name="settings_contact.png" width="35" height="37"/>
+        <image name="settings_gear.png" width="34" height="32"/>
         <image name="settings_icon.png" width="77" height="70"/>
-        <image name="settings_share.png" width="67" height="90"/>
+        <image name="settings_icon_purple.png" width="28" height="27"/>
+        <image name="settings_share.png" width="33" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fUs-SP-spM"/>

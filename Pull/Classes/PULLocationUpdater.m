@@ -17,8 +17,8 @@
 #import <UIKit/UIKit.h>
 
 // constants
-NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
-NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissionsNeededNotification";
+//NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
+//NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissionsNeededNotification";
 
 
 // class continuation
@@ -124,7 +124,7 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
 //        Firebase *fire = [[Firebase alloc] initWithUrl:@"https://pull.firebaseio.com/users/facebook:10152578194302952/debug"];
         __block int count = 0;
         while (YES && _backgroundTask != UIBackgroundTaskInvalid) {
-            if (count % 5 == 0)
+            if (count % 20 == 0)
             {
                  PULLog(@"Background time Remaining: %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
                 
@@ -159,7 +159,7 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
         }
         [self startUpdatingLocation];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsGrantedNotification object:self];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsGrantedNotification object:self];
     }
     else
     {
@@ -173,7 +173,7 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
         {
             [self p_requestPermission];
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsDeniedNotification object:self];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsDeniedNotification object:self];
         }
     }
 }

@@ -239,6 +239,9 @@
 		9B97242A1AE20BD500EEC3AB /* PULUserSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9724291AE20BD500EEC3AB /* PULUserSelectViewController.m */; };
 		9BB82DF81AEB392C004447FA /* PULInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82DF71AEB392C004447FA /* PULInviteViewController.m */; };
 		9BCB08BA1AE9BF7400B523E9 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCB08B91AE9BF7400B523E9 /* Firebase.framework */; };
+		9BCB7D0D1AEC29A5002636E8 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCB7D081AEC29A5002636E8 /* LocationTracker.m */; };
+		9BCB7D0E1AEC29A5002636E8 /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCB7D0A1AEC29A5002636E8 /* BackgroundTaskManager.m */; };
+		9BCB7D0F1AEC29A5002636E8 /* LocationShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCB7D0C1AEC29A5002636E8 /* LocationShareModel.m */; };
 		9BD2C3661AE454930030527F /* PULNewPullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD2C3651AE454930030527F /* PULNewPullViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -544,6 +547,12 @@
 		9BB82DF61AEB392C004447FA /* PULInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULInviteViewController.h; path = "View Controllers/PULInviteViewController.h"; sourceTree = "<group>"; };
 		9BB82DF71AEB392C004447FA /* PULInviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULInviteViewController.m; path = "View Controllers/PULInviteViewController.m"; sourceTree = "<group>"; };
 		9BCB08B91AE9BF7400B523E9 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
+		9BCB7D071AEC29A5002636E8 /* LocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTracker.h; sourceTree = "<group>"; };
+		9BCB7D081AEC29A5002636E8 /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
+		9BCB7D091AEC29A5002636E8 /* BackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundTaskManager.h; sourceTree = "<group>"; };
+		9BCB7D0A1AEC29A5002636E8 /* BackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTaskManager.m; sourceTree = "<group>"; };
+		9BCB7D0B1AEC29A5002636E8 /* LocationShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationShareModel.h; sourceTree = "<group>"; };
+		9BCB7D0C1AEC29A5002636E8 /* LocationShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationShareModel.m; sourceTree = "<group>"; };
 		9BD2C3641AE454930030527F /* PULNewPullViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULNewPullViewController.h; path = "View Controllers/PULNewPullViewController.h"; sourceTree = "<group>"; };
 		9BD2C3651AE454930030527F /* PULNewPullViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULNewPullViewController.m; path = "View Controllers/PULNewPullViewController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1028,6 +1037,7 @@
 		952BDB8C1A0C4F4D00C67BB5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9BCB7D061AEC2998002636E8 /* Location */,
 				95E517601AC1983300C8B32E /* FireSync */,
 				95169F5C1A8714EA006D3078 /* Segues */,
 				33ECD35C1A26D3D000192BC8 /* Categories */,
@@ -1267,6 +1277,19 @@
 				95EF21D41A92E113000B48B8 /* Spalsh_6plus.png */,
 			);
 			name = System;
+			sourceTree = "<group>";
+		};
+		9BCB7D061AEC2998002636E8 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				9BCB7D071AEC29A5002636E8 /* LocationTracker.h */,
+				9BCB7D081AEC29A5002636E8 /* LocationTracker.m */,
+				9BCB7D091AEC29A5002636E8 /* BackgroundTaskManager.h */,
+				9BCB7D0A1AEC29A5002636E8 /* BackgroundTaskManager.m */,
+				9BCB7D0B1AEC29A5002636E8 /* LocationShareModel.h */,
+				9BCB7D0C1AEC29A5002636E8 /* LocationShareModel.m */,
+			);
+			name = Location;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1555,9 +1578,11 @@
 				334044971A17AC3A00B00BC3 /* PULLoginViewController.m in Sources */,
 				84261A481A9E263A001DD052 /* PULRequestNotificationsViewController.m in Sources */,
 				952BDB6A1A0C4F0500C67BB5 /* AppDelegate.m in Sources */,
+				9BCB7D0F1AEC29A5002636E8 /* LocationShareModel.m in Sources */,
 				952BDBA01A0C50B300C67BB5 /* PULPullOld.m in Sources */,
 				9B86B6281AE73CD100C4F1D9 /* PULPassthroughView.m in Sources */,
 				33ECD35F1A26D3E300192BC8 /* NSData+Hex.m in Sources */,
+				9BCB7D0E1AEC29A5002636E8 /* BackgroundTaskManager.m in Sources */,
 				95DFC6EA1ACCBD09008E4A18 /* THBinder.m in Sources */,
 				3340449D1A17D33A00B00BC3 /* PULPullListViewController.m in Sources */,
 				953B05C91A8803D9008235EB /* PULLoadingIndicator.m in Sources */,
@@ -1587,6 +1612,7 @@
 				33ABDE521AB4A74F00A047BF /* PULNoFriendsOverlay.m in Sources */,
 				95DFC6E91ACCBD09008E4A18 /* ReadMe.md in Sources */,
 				9531F8A41A86803A003CBEDF /* PULSettingsViewController.m in Sources */,
+				9BCB7D0D1AEC29A5002636E8 /* LocationTracker.m in Sources */,
 				9BB82DF81AEB392C004447FA /* PULInviteViewController.m in Sources */,
 				953B062F1A8CDDE3008235EB /* PULReverseModal.m in Sources */,
 				9590B5611A98D2110057EA6A /* PULUpdateChecker.m in Sources */,

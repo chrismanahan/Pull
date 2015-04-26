@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-extern NSString* const PULLocationPermissionsGrantedNotification;
-extern NSString* const PULLocationPermissionsDeniedNotification;
+//extern NSString* const PULLocationPermissionsGrantedNotification;
+//extern NSString* const PULLocationPermissionsDeniedNotification;
 
 @class PULLocationUpdater;
 

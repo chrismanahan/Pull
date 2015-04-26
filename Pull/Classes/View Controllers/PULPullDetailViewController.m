@@ -17,6 +17,8 @@
 
 #import "PULUserImageView.h"
 
+#import "LocationTracker.h"
+
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <sys/utsname.h>
@@ -99,6 +101,22 @@ const CGFloat kPULCompassFlashTime = 1.5;
     _mapOverlayView = [UIView pullVisualEffectViewWithFrame:_mapView.frame];
     [self.view insertSubview:_mapOverlayView aboveSubview:_mapView];
 
+    [[LocationTracker sharedLocationTracker] registerHeadingChangeBlock:^(CLHeading *heading) {
+            // update direction of arrow
+            CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
+                                                        and:_user.location.coordinate];
+            
+            CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
+            
+            [self _rotateCompassToRadians:rads];
+    }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [[LocationTracker sharedLocationTracker] unregisterHeadingChangeBlock];
 }
 
 - (void)viewDidLoad

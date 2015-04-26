@@ -13,6 +13,8 @@
 extern NSString* const PULLocationPermissionsGrantedNotification;
 extern NSString* const PULLocationPermissionsDeniedNotification;
 
+typedef void(^LocationHeadingBlock)(CLHeading *heading);
+
 @interface LocationTracker : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic) CLLocationCoordinate2D myLastLocation;
@@ -33,5 +35,7 @@ extern NSString* const PULLocationPermissionsDeniedNotification;
 - (void)stopLocationTracking;
 - (void)updateLocationToServer;
 
+- (void)registerHeadingChangeBlock:(LocationHeadingBlock)block;
+- (void)unregisterHeadingChangeBlock;
 
 @end

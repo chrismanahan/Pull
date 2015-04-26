@@ -27,6 +27,8 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
 
 @property (nonatomic) NSTimer* locationUpdateTimer;
 
+@property (nonatomic, copy) LocationHeadingBlock headingChangeBlock;
+
 @end
 
 @implementation LocationTracker
@@ -164,6 +166,20 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
     [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
 }
 
+- (void)registerHeadingChangeBlock:(LocationHeadingBlock)block;
+{
+    _headingChangeBlock = [block copy];
+    
+    [[LocationTracker sharedLocationManager] startUpdatingHeading];
+}
+
+- (void)unregisterHeadingChangeBlock;
+{
+    _headingChangeBlock = nil;
+    
+    [[LocationTracker sharedLocationManager] stopUpdatingHeading];
+}
+
 #pragma mark - CLLocationManagerDelegate Methods
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
@@ -282,6 +298,14 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
             
             [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsDeniedNotification object:self];
         
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+{
+    if (_headingChangeBlock)
+    {
+        _headingChangeBlock(newHeading);
     }
 }
 

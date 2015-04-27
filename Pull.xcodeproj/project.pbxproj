@@ -212,6 +212,7 @@
 		95EF21D51A92E113000B48B8 /* Spalsh_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EF21D31A92E113000B48B8 /* Spalsh_6.png */; };
 		95EF21D61A92E113000B48B8 /* Spalsh_6plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EF21D41A92E113000B48B8 /* Spalsh_6plus.png */; };
 		9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */; };
+		9B823B151AEEFFD400264DB5 /* PULRightAlignedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B823B141AEEFFD400264DB5 /* PULRightAlignedButton.m */; };
 		9B86B6281AE73CD100C4F1D9 /* PULPassthroughView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B86B6271AE73CD100C4F1D9 /* PULPassthroughView.m */; };
 		9B91051E1AED776700596BEC /* settings_icon_purple.png.old in Resources */ = {isa = PBXBuildFile; fileRef = 9B91051B1AED776700596BEC /* settings_icon_purple.png.old */; };
 		9B91051F1AED776700596BEC /* settings_icon_purple@2x.png.old in Resources */ = {isa = PBXBuildFile; fileRef = 9B91051C1AED776700596BEC /* settings_icon_purple@2x.png.old */; };
@@ -522,6 +523,8 @@
 		95EF21D41A92E113000B48B8 /* Spalsh_6plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spalsh_6plus.png; sourceTree = "<group>"; };
 		9B5EFA581AE28F8600EFCCD5 /* PULUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULUserCell.h; path = UI/Cells/PULUserCell.h; sourceTree = "<group>"; };
 		9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULUserCell.m; path = UI/Cells/PULUserCell.m; sourceTree = "<group>"; };
+		9B823B131AEEFFD400264DB5 /* PULRightAlignedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULRightAlignedButton.h; path = UI/PULRightAlignedButton.h; sourceTree = "<group>"; };
+		9B823B141AEEFFD400264DB5 /* PULRightAlignedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULRightAlignedButton.m; path = UI/PULRightAlignedButton.m; sourceTree = "<group>"; };
 		9B86B6261AE73CD100C4F1D9 /* PULPassthroughView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPassthroughView.h; sourceTree = "<group>"; };
 		9B86B6271AE73CD100C4F1D9 /* PULPassthroughView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPassthroughView.m; sourceTree = "<group>"; };
 		9B91051B1AED776700596BEC /* settings_icon_purple.png.old */ = {isa = PBXFileReference; lastKnownFileType = file; path = settings_icon_purple.png.old; sourceTree = "<group>"; };
@@ -712,6 +715,8 @@
 			children = (
 				33FB713B1AAD205B00B74C47 /* PULVerticallyCenteredButton.h */,
 				33FB713C1AAD205B00B74C47 /* PULVerticallyCenteredButton.m */,
+				9B823B131AEEFFD400264DB5 /* PULRightAlignedButton.h */,
+				9B823B141AEEFFD400264DB5 /* PULRightAlignedButton.m */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -1602,6 +1607,7 @@
 			files = (
 				334044971A17AC3A00B00BC3 /* PULLoginViewController.m in Sources */,
 				84261A481A9E263A001DD052 /* PULRequestNotificationsViewController.m in Sources */,
+				9B823B151AEEFFD400264DB5 /* PULRightAlignedButton.m in Sources */,
 				952BDB6A1A0C4F0500C67BB5 /* AppDelegate.m in Sources */,
 				9BCB7D0F1AEC29A5002636E8 /* LocationShareModel.m in Sources */,
 				952BDBA01A0C50B300C67BB5 /* PULPullOld.m in Sources */,

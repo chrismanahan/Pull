@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -439,10 +439,10 @@
                                                             <color key="textColor" red="0.59426294191919193" green="0.59426294191919193" blue="0.59426294191919193" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uj8-PO-zDI">
-                                                            <rect key="frame" x="21" y="133" width="129" height="30"/>
+                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uj8-PO-zDI">
+                                                            <rect key="frame" x="21" y="123" width="286" height="40"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="qpt-F5-LCk"/>
+                                                                <constraint firstAttribute="height" constant="40" id="qpt-F5-LCk"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                             <state key="normal" title="12 hours" image="clock_icon.png">
@@ -450,20 +450,25 @@
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gAD-wH-GnX">
-                                                            <rect key="frame" x="394" y="133" width="198" height="30"/>
+                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="gAD-wH-GnX" customClass="PULRightAlignedButton">
+                                                            <rect key="frame" x="307" y="123" width="285" height="40"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="93v-g6-Vsp"/>
+                                                                <constraint firstAttribute="height" constant="40" id="93v-g6-Vsp"/>
+                                                                <constraint firstAttribute="width" constant="160" id="N1M-KA-f4v"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                                                            <inset key="titleEdgeInsets" minX="-130" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                            <inset key="imageEdgeInsets" minX="130" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                            <state key="normal" title="Facebook Message" image="clock_icon.png">
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                                            <state key="normal" title="Message" image="messenger_icon.png">
                                                                 <color key="titleColor" red="0.59426294189999995" green="0.59426294189999995" blue="0.59426294189999995" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <variation key="default">
+                                                                <mask key="constraints">
+                                                                    <exclude reference="93v-g6-Vsp"/>
+                                                                    <exclude reference="N1M-KA-f4v"/>
+                                                                </mask>
+                                                            </variation>
                                                         </button>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GnI-DT-27I" userLabel="bottom button container">
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GnI-DT-27I" userLabel="bottom button container">
                                                             <rect key="frame" x="13" y="116" width="587" height="47"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHL-DB-7fz">
@@ -524,6 +529,7 @@
                                                         <constraint firstItem="lF3-Qu-hHy" firstAttribute="leading" secondItem="BNS-5y-wkb" secondAttribute="trailing" constant="8" id="1RK-Rw-67R"/>
                                                         <constraint firstItem="Uj8-PO-zDI" firstAttribute="leading" secondItem="lF3-Qu-hHy" secondAttribute="leading" id="45N-v0-cuR"/>
                                                         <constraint firstItem="jWa-0k-uVv" firstAttribute="top" secondItem="SpE-dl-FnM" secondAttribute="top" constant="8" id="DW3-EK-gKi"/>
+                                                        <constraint firstItem="gAD-wH-GnX" firstAttribute="width" secondItem="Uj8-PO-zDI" secondAttribute="width" id="Dx9-SM-ccw"/>
                                                         <constraint firstItem="GnI-DT-27I" firstAttribute="leading" secondItem="BNS-5y-wkb" secondAttribute="trailing" id="LYa-nL-fBa"/>
                                                         <constraint firstAttribute="trailing" secondItem="GnI-DT-27I" secondAttribute="trailing" id="MCe-ol-kEN"/>
                                                         <constraint firstItem="Uj8-PO-zDI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="y51-HN-rp5" secondAttribute="bottom" constant="16" id="NzZ-ON-EEK"/>
@@ -534,7 +540,9 @@
                                                         <constraint firstItem="jWa-0k-uVv" firstAttribute="leading" secondItem="lF3-Qu-hHy" secondAttribute="trailing" constant="16" id="euC-zA-tlB"/>
                                                         <constraint firstItem="BNS-5y-wkb" firstAttribute="top" secondItem="SpE-dl-FnM" secondAttribute="top" id="gIi-fh-1xf"/>
                                                         <constraint firstItem="lF3-Qu-hHy" firstAttribute="top" secondItem="SpE-dl-FnM" secondAttribute="top" constant="8" id="gQ8-ba-HIt"/>
+                                                        <constraint firstItem="gAD-wH-GnX" firstAttribute="leading" secondItem="Uj8-PO-zDI" secondAttribute="trailing" id="hcX-5U-zqz"/>
                                                         <constraint firstAttribute="trailing" secondItem="gAD-wH-GnX" secondAttribute="trailing" constant="8" id="jns-Qp-v0J"/>
+                                                        <constraint firstItem="Uj8-PO-zDI" firstAttribute="height" secondItem="gAD-wH-GnX" secondAttribute="height" id="mRb-ZR-dOd"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="y51-HN-rp5" secondAttribute="trailing" constant="16" id="mac-xy-WxD"/>
                                                         <constraint firstAttribute="bottom" secondItem="Uj8-PO-zDI" secondAttribute="bottom" id="sBF-O9-YsP"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jWa-0k-uVv" secondAttribute="trailing" constant="16" id="th5-ja-pLY"/>
@@ -2626,6 +2634,7 @@
         <image name="intro_friends.png" width="718" height="679"/>
         <image name="intro_location.png" width="857" height="436"/>
         <image name="learn_more_arrow.png" width="23" height="33"/>
+        <image name="messenger_icon.png" width="42" height="39"/>
         <image name="nav_blue_down.png" width="24" height="31"/>
         <image name="no_pulls_arrow.png" width="95" height="102"/>
         <image name="permission_request_location.png" width="442" height="444"/>

@@ -62,6 +62,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
     [self distanceUpdated:distance];
     
     _userImageView.image = _user.image;
+    _userImageViewContainer.hasBorder = YES;
     _nameLabel.text = _user.fullName;
     
     if (!_didSetUp2 && _didSetUp)

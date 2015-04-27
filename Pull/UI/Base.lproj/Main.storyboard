@@ -1736,10 +1736,10 @@
                                 </variation>
                             </imageView>
                             <view contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="VSI-QL-eER" customClass="PULUserImageView">
-                                <rect key="frame" x="253" y="281" width="94" height="94"/>
+                                <rect key="frame" x="236" y="264" width="129" height="129"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-RO-rfr">
-                                        <rect key="frame" x="1" y="0.0" width="94" height="94"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-RO-rfr">
+                                        <rect key="frame" x="0.0" y="0.0" width="129" height="129"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <variation key="widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="1" y="1" width="81" height="81"/>
@@ -1777,7 +1777,7 @@
                             <constraint firstItem="BA3-4s-Miz" firstAttribute="top" secondItem="BJ1-p9-fqk" secondAttribute="bottom" id="aR1-ut-Q8w"/>
                             <constraint firstAttribute="trailing" secondItem="fBe-JC-L71" secondAttribute="trailing" id="cQN-FP-pe4"/>
                             <constraint firstItem="VSI-QL-eER" firstAttribute="centerY" secondItem="OHw-Lt-ZsN" secondAttribute="centerY" constant="32" id="cwm-VK-sBA"/>
-                            <constraint firstItem="VSI-QL-eER" firstAttribute="width" secondItem="OHw-Lt-ZsN" secondAttribute="width" multiplier="0.32" constant="8" id="euW-ob-XJd">
+                            <constraint firstItem="VSI-QL-eER" firstAttribute="width" secondItem="OHw-Lt-ZsN" secondAttribute="width" multiplier="0.45" constant="8" id="euW-ob-XJd">
                                 <variation key="widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstAttribute="centerX" secondItem="BJ1-p9-fqk" secondAttribute="centerX" id="f8S-1G-n0E"/>

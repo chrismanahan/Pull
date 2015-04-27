@@ -95,12 +95,12 @@ const CGFloat kPULCompassFlashTime = 1.5;
     [_mapView setRegion:region];
     [self.view insertSubview:_mapView atIndex:0];
 
-    if (_mapOverlayView)
-    {
-        [_mapOverlayView removeFromSuperview];
-    }
-    _mapOverlayView = [UIView pullVisualEffectViewWithFrame:_mapView.frame];
-    [self.view insertSubview:_mapOverlayView aboveSubview:_mapView];
+//    if (_mapOverlayView)
+//    {
+//        [_mapOverlayView removeFromSuperview];
+//    }
+//    _mapOverlayView = [UIView pullVisualEffectViewWithFrame:_mapView.frame];
+//    [self.view insertSubview:_mapOverlayView aboveSubview:_mapView];
 
     [[LocationTracker sharedLocationTracker] registerHeadingChangeBlock:^(CLHeading *heading) {
             // update direction of arrow

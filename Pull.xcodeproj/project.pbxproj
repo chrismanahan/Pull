@@ -79,6 +79,7 @@
 		84261A481A9E263A001DD052 /* PULRequestNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84261A471A9E263A001DD052 /* PULRequestNotificationsViewController.m */; };
 		8456E6201A8965FC00CF76AE /* PULSlideLeftSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456E61F1A8965FC00CF76AE /* PULSlideLeftSegue.m */; };
 		8478A6081AD5C4A80082B984 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9589F5391A8670B500EFF5BC /* FacebookSDK.framework */; };
+		84A201A71AEEBE5000A8A965 /* PULRoundedMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A201A61AEEBE5000A8A965 /* PULRoundedMapView.m */; };
 		84AAC8D31A8E8E5100C302AD /* PULNoConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AAC8D21A8E8E5100C302AD /* PULNoConnectionView.m */; };
 		84AAC8D51A8E904A00C302AD /* PULNoConnectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AAC8D41A8E904A00C302AD /* PULNoConnectionView.xib */; };
 		84DBE2E61AE94FCB00115C59 /* compass_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DBE2E31AE94FCA00115C59 /* compass_small.png */; };
@@ -355,6 +356,8 @@
 		84261A471A9E263A001DD052 /* PULRequestNotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULRequestNotificationsViewController.m; path = "View Controllers/PULRequestNotificationsViewController.m"; sourceTree = "<group>"; };
 		8456E61E1A8965FC00CF76AE /* PULSlideLeftSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULSlideLeftSegue.h; sourceTree = "<group>"; };
 		8456E61F1A8965FC00CF76AE /* PULSlideLeftSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULSlideLeftSegue.m; sourceTree = "<group>"; };
+		84A201A51AEEBE5000A8A965 /* PULRoundedMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULRoundedMapView.h; path = UI/Views/PULRoundedMapView.h; sourceTree = "<group>"; };
+		84A201A61AEEBE5000A8A965 /* PULRoundedMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULRoundedMapView.m; path = UI/Views/PULRoundedMapView.m; sourceTree = "<group>"; };
 		84AAC8D11A8E8E5100C302AD /* PULNoConnectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULNoConnectionView.h; path = UI/Views/PULNoConnectionView.h; sourceTree = "<group>"; };
 		84AAC8D21A8E8E5100C302AD /* PULNoConnectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULNoConnectionView.m; path = UI/Views/PULNoConnectionView.m; sourceTree = "<group>"; };
 		84AAC8D41A8E904A00C302AD /* PULNoConnectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PULNoConnectionView.xib; sourceTree = "<group>"; };
@@ -723,6 +726,8 @@
 				84AAC8D11A8E8E5100C302AD /* PULNoConnectionView.h */,
 				33ABDE491AB4A1BF00A047BF /* Overlays */,
 				84AAC8D21A8E8E5100C302AD /* PULNoConnectionView.m */,
+				84A201A51AEEBE5000A8A965 /* PULRoundedMapView.h */,
+				84A201A61AEEBE5000A8A965 /* PULRoundedMapView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1628,6 +1633,7 @@
 				95E5176B1AC19B2200C8B32E /* PULAccount.m in Sources */,
 				952BDB931A0C500C00C67BB5 /* PULUserOld.m in Sources */,
 				9531F8A11A8679E1003CBEDF /* PULUserSettings.m in Sources */,
+				84A201A71AEEBE5000A8A965 /* PULRoundedMapView.m in Sources */,
 				95E517661AC19A8500C8B32E /* FireSync.m in Sources */,
 				33ABDE521AB4A74F00A047BF /* PULNoFriendsOverlay.m in Sources */,
 				95DFC6E91ACCBD09008E4A18 /* ReadMe.md in Sources */,

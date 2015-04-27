@@ -1772,14 +1772,24 @@
                                     <constraint firstAttribute="width" secondItem="BA3-4s-Miz" secondAttribute="height" multiplier="1:1" id="giN-UT-Na3"/>
                                 </constraints>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gu0-5S-fjy" customClass="PULRightAlignedButton">
+                                <rect key="frame" x="219" y="553" width="163" height="39"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
+                                <state key="normal" title="Send Message" image="messenger_icon.png">
+                                    <color key="titleColor" red="0.053999999999999999" green="0.46400000000000002" blue="0.998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="VSI-QL-eER" firstAttribute="centerY" secondItem="BA3-4s-Miz" secondAttribute="centerY" id="5QT-j1-YND"/>
                             <constraint firstItem="BJ1-p9-fqk" firstAttribute="top" secondItem="fBe-JC-L71" secondAttribute="bottom" id="6l5-y8-EIL"/>
                             <constraint firstItem="OHw-Lt-ZsN" firstAttribute="width" secondItem="PKI-rX-A2I" secondAttribute="width" multiplier="0.77" id="CAj-pA-aHL"/>
+                            <constraint firstItem="XMP-0k-fHl" firstAttribute="top" secondItem="Gu0-5S-fjy" secondAttribute="bottom" constant="8" id="Ier-zK-h5e"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="top" secondItem="PKI-rX-A2I" secondAttribute="top" id="Ife-q0-DkG"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="trailing" secondItem="BJ1-p9-fqk" secondAttribute="trailing" id="Kwd-zP-gyA"/>
+                            <constraint firstAttribute="centerX" secondItem="Gu0-5S-fjy" secondAttribute="centerX" id="MFe-qk-8LR"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="leading" secondItem="BJ1-p9-fqk" secondAttribute="leading" id="VWF-YY-1Eh"/>
                             <constraint firstAttribute="centerX" secondItem="OHw-Lt-ZsN" secondAttribute="centerX" id="ZxC-Sn-jbc"/>
                             <constraint firstItem="BA3-4s-Miz" firstAttribute="top" secondItem="BJ1-p9-fqk" secondAttribute="bottom" id="aR1-ut-Q8w"/>

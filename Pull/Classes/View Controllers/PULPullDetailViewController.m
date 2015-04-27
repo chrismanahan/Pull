@@ -73,9 +73,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
 
         _didSetUp = YES;
         
-        
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        
+                
     }
     
     _didSetUp = YES;

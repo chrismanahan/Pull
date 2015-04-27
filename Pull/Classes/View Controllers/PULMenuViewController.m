@@ -50,7 +50,6 @@
 {
     [super viewWillAppear:animated];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)_populateUserInfo {

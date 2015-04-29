@@ -648,7 +648,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Col-68-KCe" userLabel="Header">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Col-68-KCe" userLabel="Header" customClass="PULHeaderView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-bU-Xro" userLabel="Title label">
@@ -1352,7 +1352,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVa-3V-2X0">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVa-3V-2X0" customClass="PULHeaderView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Block Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mlt-ZJ-tAc">
@@ -1683,7 +1683,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fBe-JC-L71" userLabel="Header">
+                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fBe-JC-L71" userLabel="Header" customClass="PULHeaderView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQq-dA-0Cz" userLabel="Left button">
@@ -1850,43 +1850,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2YE-Ky-WYy" userLabel="Header">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ycw-dO-RlJ" userLabel="Left button">
-                                        <rect key="frame" x="8" y="12" width="50" height="50"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Ycw-dO-RlJ" secondAttribute="height" multiplier="1:1" id="M38-7D-CiF"/>
-                                            <constraint firstAttribute="width" constant="50" id="gcc-2O-dXU"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                        <inset key="imageEdgeInsets" minX="5" minY="8" maxX="5" maxY="8"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="ibCancel:" destination="Wp0-jD-mqd" eventType="touchUpInside" id="VQY-Fq-fuY"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSJ-NB-YA9" userLabel="Title label">
-                                        <rect key="frame" x="246" y="19" width="109" height="36"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="30"/>
-                                        <color key="textColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="Ycw-dO-RlJ" firstAttribute="centerY" secondItem="zSJ-NB-YA9" secondAttribute="centerY" id="2Vf-Uw-e93"/>
-                                    <constraint firstItem="Ycw-dO-RlJ" firstAttribute="leading" secondItem="2YE-Ky-WYy" secondAttribute="leadingMargin" id="W4Z-4L-pep"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="YNf-ID-MD8"/>
-                                    <constraint firstAttribute="centerX" secondItem="zSJ-NB-YA9" secondAttribute="centerX" id="cna-fe-Cfw"/>
-                                    <constraint firstAttribute="centerY" secondItem="zSJ-NB-YA9" secondAttribute="centerY" constant="-5" id="go8-qs-dq4"/>
-                                    <constraint firstAttribute="height" constant="64" id="omi-PO-JTn"/>
-                                </constraints>
-                            </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Search" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1k-V9-CyO">
                                 <rect key="frame" x="16" y="72" width="568" height="30"/>
                                 <color key="backgroundColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2051,6 +2014,43 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2YE-Ky-WYy" userLabel="Header" customClass="PULHeaderView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ycw-dO-RlJ" userLabel="Left button">
+                                        <rect key="frame" x="8" y="12" width="50" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Ycw-dO-RlJ" secondAttribute="height" multiplier="1:1" id="M38-7D-CiF"/>
+                                            <constraint firstAttribute="width" constant="50" id="gcc-2O-dXU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                        <inset key="imageEdgeInsets" minX="5" minY="8" maxX="5" maxY="8"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="ibCancel:" destination="Wp0-jD-mqd" eventType="touchUpInside" id="VQY-Fq-fuY"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSJ-NB-YA9" userLabel="Title label">
+                                        <rect key="frame" x="246" y="19" width="109" height="36"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="30"/>
+                                        <color key="textColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Ycw-dO-RlJ" firstAttribute="centerY" secondItem="zSJ-NB-YA9" secondAttribute="centerY" id="2Vf-Uw-e93"/>
+                                    <constraint firstItem="Ycw-dO-RlJ" firstAttribute="leading" secondItem="2YE-Ky-WYy" secondAttribute="leadingMargin" id="W4Z-4L-pep"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="YNf-ID-MD8"/>
+                                    <constraint firstAttribute="centerX" secondItem="zSJ-NB-YA9" secondAttribute="centerX" id="cna-fe-Cfw"/>
+                                    <constraint firstAttribute="centerY" secondItem="zSJ-NB-YA9" secondAttribute="centerY" constant="-5" id="go8-qs-dq4"/>
+                                    <constraint firstAttribute="height" constant="64" id="omi-PO-JTn"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -2093,7 +2093,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zm0-fd-get" userLabel="Header">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zm0-fd-get" userLabel="Header" customClass="PULHeaderView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uaW-OJ-OlM" userLabel="Left button">
@@ -2461,7 +2461,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FPw-uf-M4N" userLabel="Header">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FPw-uf-M4N" userLabel="Header" customClass="PULHeaderView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cSc-Fn-PMl" userLabel="Left button">

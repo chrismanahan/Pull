@@ -84,6 +84,7 @@
 		840D7BEB1AF16F4B002268D5 /* learn_more_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 840D7BE21AF16F4B002268D5 /* learn_more_3.png */; };
 		840D7BEC1AF16F4B002268D5 /* learn_more_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840D7BE31AF16F4B002268D5 /* learn_more_3@2x.png */; };
 		840D7BED1AF16F4B002268D5 /* learn_more_3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840D7BE41AF16F4B002268D5 /* learn_more_3@3x.png */; };
+		840D7BF61AF17674002268D5 /* PULHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D7BF51AF17674002268D5 /* PULHeaderView.m */; };
 		84261A451A9E2628001DD052 /* PULRequestLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84261A441A9E2628001DD052 /* PULRequestLocationViewController.m */; };
 		84261A481A9E263A001DD052 /* PULRequestNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84261A471A9E263A001DD052 /* PULRequestNotificationsViewController.m */; };
 		8456E6201A8965FC00CF76AE /* PULSlideLeftSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456E61F1A8965FC00CF76AE /* PULSlideLeftSegue.m */; };
@@ -364,6 +365,8 @@
 		840D7BE21AF16F4B002268D5 /* learn_more_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = learn_more_3.png; sourceTree = "<group>"; };
 		840D7BE31AF16F4B002268D5 /* learn_more_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "learn_more_3@2x.png"; sourceTree = "<group>"; };
 		840D7BE41AF16F4B002268D5 /* learn_more_3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "learn_more_3@3x.png"; sourceTree = "<group>"; };
+		840D7BF41AF17674002268D5 /* PULHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULHeaderView.h; path = UI/Views/PULHeaderView.h; sourceTree = "<group>"; };
+		840D7BF51AF17674002268D5 /* PULHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULHeaderView.m; path = UI/Views/PULHeaderView.m; sourceTree = "<group>"; };
 		84261A431A9E2628001DD052 /* PULRequestLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULRequestLocationViewController.h; path = "View Controllers/PULRequestLocationViewController.h"; sourceTree = "<group>"; };
 		84261A441A9E2628001DD052 /* PULRequestLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULRequestLocationViewController.m; path = "View Controllers/PULRequestLocationViewController.m"; sourceTree = "<group>"; };
 		84261A461A9E263A001DD052 /* PULRequestNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULRequestNotificationsViewController.h; path = "View Controllers/PULRequestNotificationsViewController.h"; sourceTree = "<group>"; };
@@ -741,6 +744,8 @@
 				84AAC8D21A8E8E5100C302AD /* PULNoConnectionView.m */,
 				84A201A51AEEBE5000A8A965 /* PULRoundedMapView.h */,
 				84A201A61AEEBE5000A8A965 /* PULRoundedMapView.m */,
+				840D7BF41AF17674002268D5 /* PULHeaderView.h */,
+				840D7BF51AF17674002268D5 /* PULHeaderView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1632,6 +1637,7 @@
 				9BCB7D0E1AEC29A5002636E8 /* BackgroundTaskManager.m in Sources */,
 				95DFC6EA1ACCBD09008E4A18 /* THBinder.m in Sources */,
 				3340449D1A17D33A00B00BC3 /* PULPullListViewController.m in Sources */,
+				840D7BF61AF17674002268D5 /* PULHeaderView.m in Sources */,
 				953B05C91A8803D9008235EB /* PULLoadingIndicator.m in Sources */,
 				95169F651A871F41006D3078 /* PULNavigationController.m in Sources */,
 				952BDB961A0C503200C67BB5 /* PULAccountOld.m in Sources */,

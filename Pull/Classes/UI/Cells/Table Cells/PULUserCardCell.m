@@ -119,15 +119,19 @@
             
             // title for duration button
             NSString *durationTitle;
+            NSString *durationButtonName;
             if (_pull.duration == kPullDurationAlways)
             {
                 durationTitle = @"Always";
+                durationButtonName = @"star_icon";
             }
             else
             {
                 durationTitle = [NSString stringWithFormat:@"%zd hours", _pull.durationHours];
+                durationButtonName = @"clock_icon";
             }
             
+            [_durationButton setImage:[UIImage imageNamed:durationButtonName] forState:UIControlStateNormal];
             [_durationButton setTitle:durationTitle forState:UIControlStateNormal];
             
             break;

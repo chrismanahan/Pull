@@ -26,7 +26,7 @@
     return NO;
 }
 
-+ (void)overlayOnView:(UIView*)view fromNib:(NSString*)nib offset:(NSInteger)offset;
++ (UIView*)overlayOnView:(UIView*)view fromNib:(NSString*)nib offset:(NSInteger)offset;
 {
     UIView *overlay = [[NSBundle mainBundle] loadNibNamed:nib owner:self options:nil][0];
     
@@ -41,6 +41,8 @@
     overlay.frame = frame;
     
     [view addSubview:overlay];
+    
+    return overlay;
 }
 
 + (void)overlayOnView:(UIView*)view offset:(NSInteger)offset

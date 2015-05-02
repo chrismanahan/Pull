@@ -12,6 +12,8 @@
 
 #import "PULConstants.h"
 
+#import "PULPullOptionsOverlay.h"
+
 @import QuartzCore;
 
 @interface PULUserCardCell ()
@@ -163,6 +165,17 @@
 - (IBAction)ibCancel:(id)sender
 {
     [[PULAccount currentUser] cancelPull:_pull];
+}
+
+- (IBAction)ibOptions:(id)sender
+{
+    UIView *v = self;
+    while (v && ![v isKindOfClass:[UITableView class]])
+    {
+        v = v.superview;
+    }
+    
+    [PULPullOptionsOverlay overlayOnView:v withPull:_pull];
 }
 
 @end

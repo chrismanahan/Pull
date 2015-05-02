@@ -12,6 +12,7 @@
 
 + (BOOL)viewContainsOverlay:(UIView*)view;
 
++ (UIView*)overlayOnView:(UIView*)view fromNib:(NSString*)nib offset:(NSInteger)offset;
 + (void)overlayOnView:(UIView*)view offset:(NSInteger)offset;
 + (void)overlayOnView:(UIView*)view;
 

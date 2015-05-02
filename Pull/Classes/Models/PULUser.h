@@ -45,4 +45,6 @@
 
 - (id)sortedArray:(NSArray*)array;
 
+- (void)initialize;
+
 @end

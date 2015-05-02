@@ -12,14 +12,20 @@
 
 #import "PULConstants.h"
 
+#import "NSDate+Utilities.h"
+
 #import <Firebase/Firebase.h>
 #import <FacebookSDK/FacebookSDK.h>
 
 NSString * const PULAccountDidLoginNotification = @"PULAccountDidLoginNotification";
 
+const NSTimeInterval kPruneTimerInterval = 5.0;
+
 @interface PULAccount ()
 
 @property (nonatomic, strong) NSMutableArray *observers;
+
+@property (nonatomic, strong) NSTimer *pruneTimer;
 
 @end
 
@@ -32,7 +38,7 @@ static PULAccount *account = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         account = [[PULAccount alloc] initEmptyWithUid:uid];
-        account.observers = [[NSMutableArray alloc] init];
+        [account initialize];
         
         NSDictionary *providerData = authData.providerData;
         
@@ -112,7 +118,7 @@ static PULAccount *account = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         account = [[PULAccount alloc] initWithUid:uid];
-        account.observers = [[NSMutableArray alloc] init];
+        [account initialize];
         
         [CrashlyticsKit setUserIdentifier:uid];
     });
@@ -133,6 +139,43 @@ static PULAccount *account = nil;
 //    return account;
     
     return account;
+}
+
+- (void)initialize
+{
+    [super initialize];
+    if (!_pruneTimer)
+    {
+        _pruneTimer = [NSTimer scheduledTimerWithTimeInterval:kPruneTimerInterval
+                                                       target:self
+                                                     selector:@selector(pruneExpiredPulls)
+                                                     userInfo:nil
+                                                      repeats:YES];
+        
+
+    }
+    
+    if (!_observers)
+    {
+        _observers = [[NSMutableArray alloc] init];
+    }
+}
+
+- (void)pruneExpiredPulls
+{
+    PULLog(@"Checking for expired pulls");
+    if (self.pulls.count > 0 && self.pulls.isLoaded)
+    {
+        [self.pulls enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            PULPull *pull = obj;
+            
+            if ([pull.expiration isInPast] && pull.duration != kPullDurationAlways)
+            {
+                PULLog(@"pruning pull: %@", pull);
+                [self cancelPull:pull];
+            }
+        }];
+    }
 }
 
 #pragma mark - Authentication

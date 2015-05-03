@@ -18,7 +18,8 @@
 #import "PULConstants.h"
 
 #import <Firebase/Firebase.h>
-#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -148,102 +149,56 @@
     
     NSArray *permissions = @[@"email", @"public_profile", @"user_friends"];
     
-    [FBSession openActiveSessionWithReadPermissions:permissions
-                                       allowLoginUI:YES
-                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                                      PULLog(@"opened active session");
-                                      if (error)
-                                      {
-                                          [PULError handleError:error];
-                                          UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Authentication Error"
-                                                                                               message:[NSString stringWithFormat:@"There was a problem authenticating: (%li) %@", (long)error.code, error.localizedDescription]
-                                                                                              delegate:nil  
-                                                                                     cancelButtonTitle:@"Ok"
-                                                                                     otherButtonTitles: nil];
-                                          [errorAlert show];
-                                      }
-                                      else
-                                      {
-                                          // block for when login is successfull
-                                          void (^loginCompletionBlock)(NSString *accessToken) = ^void(NSString *accessToken)
-                                          {
-                                              [PULAccount loginWithFacebookToken:accessToken completion:^(PULAccount *account, NSError *error) {
-                                                  if (!error)
-                                                  {
-                                                      BOOL grantedPermissions = [[NSUserDefaults standardUserDefaults] boolForKey:@"DidGrantPermissions"];
-                                                      
-                                                      if (!grantedPermissions)
-                                                      {
-                                                          UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULRequestLocationViewController class])];
-                                                          
-                                                          PULSlideLeftSegue *seg = [PULSlideLeftSegue segueWithIdentifier:@"RequestLocationSeg"
-                                                                                                                   source:self
-                                                                                                              destination:vc
-                                                                                                           performHandler:^{
-                                                                                                               ;
-                                                                                                           }];
-                                                          [seg perform];
-                                                          
-                                                          [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DidGrantPermissions"];
-                                                      }
-                                                      else
-                                                      {
-                                                          UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullListViewController class])];
-                                                          
-                                                          [self presentViewController:vc animated:YES completion:^{
-                                                              ;
-                                                          }];
-                                                      }
-                                                  }
-                                                  else
-                                                  {
-                                                      UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Authentication Error"
-                                                                                                           message:[NSString stringWithFormat:@"There was a problem logging in: (%li) %@", (long)error.code, error.localizedDescription]
-                                                                                                          delegate:nil
-                                                                                                 cancelButtonTitle:@"Ok"
-                                                                                                 otherButtonTitles: nil];
-                                                      [errorAlert show];
-                                                  }
-                                              }];
-                                              
-                                          };
-                                          
-                                          // check if we have a token
-                                          if (!session.accessTokenData.accessToken)
-                                          {
-                                              PULLog(@"no token!!!");
-                                              
-                                              // need to refresh token
-                                              ACAccountStore *accountStore;
-                                              ACAccountType *accountTypeFB;
-                                              if ((accountStore = [[ACAccountStore alloc] init]) && (accountTypeFB = [accountStore accountTypeWithAccountTypeIdentifier: ACAccountTypeIdentifierFacebook]) )
-                                              {
-                                                  
-                                                  NSArray *fbAccounts = [accountStore accountsWithAccountType:accountTypeFB];
-                                                  id account;
-                                                  if (fbAccounts && [fbAccounts count] > 0 && (account = [fbAccounts objectAtIndex:0]))
-                                                  {
-                                                      
-                                                      [accountStore renewCredentialsForAccount:account completion:^(ACAccountCredentialRenewResult renewResult, NSError *error)
-                                                      {
-                                                          if (error)
-                                                          {
-                                                              PULLog(@"error renewing credentials");
-                                                          }
-                                                          else
-                                                          {
-                                                              loginCompletionBlock([FBSession activeSession].accessTokenData.accessToken);
-                                                          }
-                                                      }];
-                                                  }
-                                              }
-                                          }
-                                          else
-                                          {
-                                              loginCompletionBlock(session.accessTokenData.accessToken);
-                                          }
-                                      }
-                                  }];
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    login.loginBehavior = FBSDKLoginBehaviorSystemAccount;
+    [login logInWithReadPermissions:permissions
+                            handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+                                if (error)
+                                {
+                                    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Authentication Error"
+                                                                                         message:[NSString stringWithFormat:@"There was a problem authenticating: (%li) %@", (long)error.code, error.localizedDescription]
+                                                                                        delegate:nil
+                                                                               cancelButtonTitle:@"Ok"
+                                                                               otherButtonTitles: nil];
+                                    [errorAlert show];
+                                }
+                                else if (result.isCancelled)
+                                {
+                                    // login canceled, can't do anything
+                                    ;
+                                }
+                                else
+                                {
+                                    [PULAccount loginWithFacebookToken:result.token completion:nil];
+                                    // check if we already have location/notifcation permissions
+                                    BOOL grantedPermissions = [[NSUserDefaults standardUserDefaults] boolForKey:@"DidGrantPermissions"];
+                                    
+                                    if (!grantedPermissions)
+                                    {
+                                        // show permission request vc
+                                        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULRequestLocationViewController class])];
+                                        
+                                        PULSlideLeftSegue *seg = [PULSlideLeftSegue segueWithIdentifier:@"RequestLocationSeg"
+                                                                                                 source:self
+                                                                                            destination:vc
+                                                                                         performHandler:^{
+                                                                                             ;
+                                                                                         }];
+                                        [seg perform];
+                                        
+                                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DidGrantPermissions"];
+                                    }
+                                    else
+                                    {
+                                        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullListViewController class])];
+                                        
+                                        [self presentViewController:vc animated:YES completion:^{
+                                            ;
+                                        }];
+                                    }
+
+                                }
+                            }];
 }
 
 - (IBAction)ibLearnMore:(id)sender

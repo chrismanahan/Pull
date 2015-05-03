@@ -19,7 +19,8 @@
 
 #import "PULUpdateChecker.h"
 
-#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <Firebase/Firebase.h>
 #import <Fabric/Fabric.h>
 
@@ -46,47 +47,19 @@
 //        [application registerForRemoteNotificationTypes:myTypes];
 //    }
     
+    
+    [[FBSDKApplicationDelegate sharedInstance] loadCache];
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     NSString *vcName = NSStringFromClass([PULLoginViewController class]);
     
     // check if we are logged in
-    Firebase *ref = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
-    if (ref.authData)
+//    Firebase *ref = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
+    FBSDKAccessToken *facebookAccessToken = [FBSDKAccessToken currentAccessToken];
+    if (facebookAccessToken)
     {
         vcName = NSStringFromClass([PULPullListViewController class]);
-        FBSession *fbSesh = [FBSession activeSession];
-        
-        if (fbSesh.accessTokenData.accessToken && fbSesh.state == FBSessionStateOpen )
-        {
-            // i don't think this will actually ever get called. one day i'll figure out the whole fb login flow. just not now
-            PULLog(@"logging in with existing session");
-//            [ref authWithOAuthProvider:@"facebook" token:ref.authData.token withCompletionBlock:^(NSError *error, FAuthData *authData) {
-                [PULAccount loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken completion:nil];
-//            }];
-        }
-        else if (fbSesh.state == FBSessionStateCreatedTokenLoaded)
-        {
-            
-            PULLog(@"opening active fb session");
-            [FBSession openActiveSessionWithReadPermissions:@[@"email", @"public_profile", @"user_friends"]
-                                               allowLoginUI:NO
-                                          completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                                              if (!error)
-                                              {
-                                                  // TODO: validate that session is open and valid
-                                                  PULLog(@"opened session");
-                                                  [PULAccount loginWithFacebookToken:session.accessTokenData.accessToken completion:nil];
-                                              }
-                                              else
-                                              {
-                                                  PULLog(@"%@", error.localizedDescription);
-                                              }
-                                          }];
-        }
-        else
-        {
-            vcName = NSStringFromClass([PULLoginViewController class]);
-        }
+        [PULAccount loginWithFacebookToken:facebookAccessToken completion:nil];
     }
     else
     {
@@ -103,7 +76,8 @@
     [PULNoConnectionView startMonitoringConnection];
     [PULUpdateChecker checkForUpdate];
     
-    return YES;
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                    didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -125,9 +99,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    
-    [[FBSession activeSession] handleDidBecomeActive];
+    [FBSDKAppEvents activateApp];
     
     application.applicationIconBadgeNumber = 0;
 }
@@ -139,7 +111,10 @@
 #pragma mark - Facebook
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
 }
 
 #pragma mark - Push notifications

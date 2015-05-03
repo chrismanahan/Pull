@@ -12,9 +12,11 @@
 
 extern NSString * const PULAccountDidLoginNotification;
 
+@class FBSDKAccessToken;
+
 @interface PULAccount : PULUser
 
-+ (void)loginWithFacebookToken:(NSString*)accessToken completion:(void(^)(PULAccount *account, NSError *error))completion;
++ (void)loginWithFacebookToken:(FBSDKAccessToken*)accessToken completion:(void(^)(PULAccount *account, NSError *error))completion;
 
 + (instancetype)initializeCurrentUser:(NSString*)uid;
 

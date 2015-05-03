@@ -15,7 +15,8 @@
 #import "NSDate+Utilities.h"
 
 #import <Firebase/Firebase.h>
-#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 NSString * const PULAccountDidLoginNotification = @"PULAccountDidLoginNotification";
 
@@ -62,9 +63,10 @@ static PULAccount *account = nil;
             account.firstName = [displayName substringWithRange:firstRange];
             account.lastName = [displayName substringWithRange:lastRange];
         }
-        
+    
         // find friends on pull
-        [FBRequestConnection startForMyFriendsWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me?fields=friends" parameters:nil];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error)
             {
                 PULLog(@"ERROR: %@", error.localizedDescription);
@@ -72,7 +74,7 @@ static PULAccount *account = nil;
             else
             {
                 
-                NSArray *friends = ((NSDictionary*)result)[@"data"];
+                NSArray *friends = ((NSDictionary*)result)[@"friends"][@"data"];
                 PULLog(@"got %zd friends from facebook", friends.count);
                 
                 for (NSDictionary *friend in friends)
@@ -106,10 +108,9 @@ static PULAccount *account = nil;
                 [PULAccount initializeCurrentUser:uid];
             }
         }];
-        
+    
         [CrashlyticsKit setUserIdentifier:uid];
     });
-    
     return account;
 }
 
@@ -159,6 +160,8 @@ static PULAccount *account = nil;
     {
         _observers = [[NSMutableArray alloc] init];
     }
+    
+    [self addNewFriendsFromFacebook];
 }
 
 - (void)pruneExpiredPulls
@@ -184,12 +187,12 @@ static PULAccount *account = nil;
     [[FireSync sharedSync] unauth];
 }
 
-+ (void)loginWithFacebookToken:(NSString*)accessToken completion:(void(^)(PULAccount *account, NSError *error))completion;
++ (void)loginWithFacebookToken:(FBSDKAccessToken*)accessToken completion:(void(^)(PULAccount *account, NSError *error))completion;
 {
     PULLog(@"Logging in with facebook token");
     
     [[FireSync sharedSync] loginToProvider:@"facebook"
-                               accessToken:accessToken
+                               accessToken:accessToken.tokenString
                                 completion:^(NSError *error, FAuthData *authData) {
                                     if (error)
                                     {
@@ -354,14 +357,15 @@ static PULAccount *account = nil;
 
 - (void)addNewFriendsFromFacebook;
 {
-    [FBRequestConnection startForMyFriendsWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me?fields=friends" parameters:nil];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if (error)
         {
             PULLog(@"ERROR requesting friends from facebook: %@", error.localizedDescription);
         }
         else
         {
-            NSArray *friends = ((NSDictionary*)result)[@"data"];
+            NSArray *friends = ((NSDictionary*)result)[@"friends"][@"data"];
             PULLog(@"got %zd friends from facebook", friends.count);
             
             for (NSDictionary *friend in friends)
@@ -372,11 +376,13 @@ static PULAccount *account = nil;
                 PULUser *user = [[PULUser alloc] initWithUid:uid];
                 if (![self.friends containsObject:user] && ![self.blocked containsObject:user])
                 {
+                    PULLog(@"adding new friend: %@", user);
                     [self addUser:user];
                 }
             }
         }
     }];
+    
 
 }
 

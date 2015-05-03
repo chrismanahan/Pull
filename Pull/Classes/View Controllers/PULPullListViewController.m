@@ -31,7 +31,7 @@
 #import "PULSlideSegue.h"
 #import "PULReverseModal.h"
 
-#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 const NSInteger kPULPullListNumberOfTableViewSections = 4;
 
@@ -117,6 +117,14 @@ const NSInteger kPULPulledFarSection = 2;
                                                       
                                                       [PULLocationOverlay removeOverlayFromView:_friendTableView];
                                                       
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:FBSDKAccessTokenDidChangeNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      PULLog(@"received access token change notif, reloading table");
+                                                      [self reload];
                                                   }];
     
     [[LocationTracker sharedLocationTracker] startLocationTracking];

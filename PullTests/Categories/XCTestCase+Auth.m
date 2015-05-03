@@ -12,22 +12,22 @@
 
 - (void)login:(void(^)())completion
 {
-    [FBSession openActiveSessionWithReadPermissions:@[@"email", @"public_profile", @"user_friends"]
-                                       allowLoginUI:NO
-                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                                      if (!error)
-                                      {
-                                          PULLog(@"opened session");
-                                          [PULAccount loginWithFacebookToken:session.accessTokenData.accessToken completion:^(PULAccount *account, NSError *error) {
-                                              
-                                              completion();
-                                          }];
-                                      }
-                                      else
-                                      {
-                                          PULLog(@"%@", error.localizedDescription);
-                                      }
-                                  }];
+//    [FBSession openActiveSessionWithReadPermissions:@[@"email", @"public_profile", @"user_friends"]
+//                                       allowLoginUI:NO
+//                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+//                                      if (!error)
+//                                      {
+//                                          PULLog(@"opened session");
+//                                          [PULAccount loginWithFacebookToken:session.accessTokenData.accessToken completion:^(PULAccount *account, NSError *error) {
+//                                              
+//                                              completion();
+//                                          }];
+//                                      }
+//                                      else
+//                                      {
+//                                          PULLog(@"%@", error.localizedDescription);
+//                                      }
+//                                  }];
     
 }
 

@@ -180,6 +180,7 @@
     {
         v = v.superview;
     }
+    v = v.superview;
     
     [PULPullOptionsOverlay overlayOnView:v withPull:_pull];
 }

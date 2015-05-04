@@ -30,34 +30,17 @@
     _keepActiveButton.layer.cornerRadius = corners;
 }
 
-+ (UIView*)overlayOnView:(UIView*)view fromNib:(NSString*)nib offset:(NSInteger)offset pull:(PULPull*)pull
-{
-    PULPullOptionsOverlay *overlay = (PULPullOptionsOverlay*)[super overlayOnView:view fromNib:nib offset:offset];
-    
-    overlay.pull = pull;
-    
-    return overlay;
-}
-
-+ (void)overlayOnView:(UIView*)view withPull:(PULPull*)pull;
-{
-    // remove existing overlay if any
-    [self removeOverlayFromView:view];
-    
-    // add nib to view
-    [self overlayOnView:view fromNib:NSStringFromClass([self class]) offset:0 pull:pull];
-}
 
 - (void)setPull:(PULPull *)pull
 {
-    _pull = pull;
+    [super setPull:pull];
     // TODO: set expiration text label
 //    _expirationLabel.text = [[NSString stringWithFormat:@"This pull wil end in %zd hours]
 }
 
 - (IBAction)ibEndNow:(id)sender
 {
-    [[PULAccount currentUser] cancelPull:_pull];
+    [[PULAccount currentUser] cancelPull:self.pull];
     
     [PULOverlayView removeOverlayFromView:self.superview];
 }

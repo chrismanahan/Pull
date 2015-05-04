@@ -6,6 +6,7 @@ target 'Pull' do
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
+pod 'FBSDKMessengerShareKit'
 pod 'Firebase'
 
 end

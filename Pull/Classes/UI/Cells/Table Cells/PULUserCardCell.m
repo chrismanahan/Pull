@@ -14,6 +14,9 @@
 
 #import "PULPullOptionsOverlay.h"
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKMessengerShareKit/FBSDKMessengerShareKit.h>
+
 @import QuartzCore;
 
 @interface PULUserCardCell ()
@@ -165,6 +168,9 @@
 - (IBAction)ibCancel:(id)sender
 {
     [[PULAccount currentUser] cancelPull:_pull];
+}
+- (IBAction)ibMessage:(id)sender {
+    
 }
 
 - (IBAction)ibOptions:(id)sender

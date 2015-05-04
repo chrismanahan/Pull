@@ -6,14 +6,8 @@
 //  Copyright (c) 2015 Pull LLC. All rights reserved.
 //
 
-#import "PULOverlayView.h"
+#import "PULPullOverlayView.h"
 
-@class PULPull;
-
-@interface PULPullOptionsOverlay : PULOverlayView
-
-@property (nonatomic, strong) PULPull *pull;
-
-+ (void)overlayOnView:(UIView*)view withPull:(PULPull*)pull;
+@interface PULPullOptionsOverlay : PULPullOverlayView
 
 @end

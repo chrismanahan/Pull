@@ -31,6 +31,8 @@
 #import "PULSlideSegue.h"
 #import "PULReverseModal.h"
 
+#import "PULPullNotNearbyOverlay.h"
+
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 const NSInteger kPULPullListNumberOfTableViewSections = 4;
@@ -318,10 +320,9 @@ const NSInteger kPULPulledFarSection = 2;
     
     NSInteger section = indexPath.section;
     
+    PULPull *pull = [self _pullsForSection:section][indexPath.row];
     if (section == kPULPulledNearbySection)
     {
-        PULPull *pull = [self _pullsForSection:section][indexPath.row];
-        
         PULPullDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullDetailViewController class])];
         vc.user = [pull otherUser:[PULAccount currentUser]];
         
@@ -335,6 +336,10 @@ const NSInteger kPULPulledFarSection = 2;
         seg.slideLeft = YES;
         
         [seg perform];
+    }
+    else if (section == kPULPulledFarSection)
+    {
+        [PULPullNotNearbyOverlay overlayOnView:self.view withPull:pull];
     }
     
 }

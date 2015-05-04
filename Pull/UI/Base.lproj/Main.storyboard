@@ -470,6 +470,9 @@
                                                                     <exclude reference="N1M-KA-f4v"/>
                                                                 </mask>
                                                             </variation>
+                                                            <connections>
+                                                                <action selector="ibMessage:" destination="Gk0-t9-CDW" eventType="touchUpInside" id="RZb-G3-Nfo"/>
+                                                            </connections>
                                                         </button>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GnI-DT-27I" userLabel="bottom button container">
                                                             <rect key="frame" x="13" y="116" width="587" height="47"/>

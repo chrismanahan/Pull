@@ -274,6 +274,7 @@ const NSInteger kPULPulledFarSection = 2;
     PULPull *pull = datasource[indexPath.row];
     
     cell.pull = pull;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell loadUI];
     
     return cell;

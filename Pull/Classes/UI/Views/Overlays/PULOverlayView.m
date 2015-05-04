@@ -39,8 +39,12 @@
     }
     
     overlay.frame = frame;
-    
+   
+    overlay.alpha = 0.0;
     [view addSubview:overlay];
+    [UIView animateWithDuration:0.2 animations:^{
+        overlay.alpha = 1.0;
+    }];
     
     return overlay;
 }
@@ -49,7 +53,7 @@
 {
     PULLog(@"WILL ADD OVERLAY TO VIEW");
     // remove existing overlay if any
-    [self removeOverlayFromView:view];
+    [self removeOverlayFromView:view animated:NO];
     
     // add nib to view
     [self overlayOnView:view fromNib:NSStringFromClass([self class]) offset:offset];
@@ -61,20 +65,29 @@
     [self overlayOnView:view offset:0];
 }
 
-+ (void)removeOverlayFromView:(UIView*)view;
++ (void)removeOverlayFromView:(UIView*)view animated:(BOOL)animated;
 {
     for (UIView *sub in view.subviews)
     {
         if ([sub isKindOfClass:[PULOverlayView class]])
         {
-            PULLog(@"REMOVING OVERLAY VIEW");
-            [sub removeFromSuperview];
+            [UIView animateWithDuration:animated ? 0.2 : 0.0 animations:^{
+                sub.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                [sub removeFromSuperview];
+            }];
+            
         }
         else if (sub.subviews.count)
         {
             [self removeOverlayFromView:sub];
         }
     }
+}
+
++ (void)removeOverlayFromView:(UIView*)view;
+{
+    [self removeOverlayFromView:view animated:YES];
 }
 
 @end

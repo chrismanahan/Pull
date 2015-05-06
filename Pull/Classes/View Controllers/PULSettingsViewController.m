@@ -20,7 +20,6 @@
 
 @property (strong, nonatomic) IBOutlet UISwitch *notifInviteSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *notifAcceptSwitch;
-@property (strong, nonatomic) IBOutlet UISwitch *resolveAddressSwitch;
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -38,7 +37,6 @@
     PULUserSettings *settings = [PULAccount currentUser].settings;
     [_notifAcceptSwitch setOn:settings.notifyAccept];
     [_notifInviteSwitch setOn:settings.notifyInvite];
-    [_resolveAddressSwitch setOn:settings.resolveAddress];
     
 }
 

@@ -8,6 +8,8 @@
 
 #import "PULInviteViewController.h"
 
+#import "PULInviteService.h"
+
 @interface PULInviteViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *scrollViewTopConstraint;
 
@@ -29,7 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillShowNotification
                                                       object:nil
                                                        queue:[NSOperationQueue currentQueue]
@@ -47,21 +49,42 @@
                                                       
                                                       _scrollViewTopConstraint.constant = -CGRectGetHeight(_ticketImageView.frame);
                                                       PULLog(@"top: %.2f", _scrollViewTopConstraint.constant);
-           
+                                                      
                                                       [UIView animateWithDuration:0.2 animations:^{
                                                           [self.view layoutIfNeeded];
                                                       }];
-                                                          
+                                                      
                                                       
                                                   }];
-
+    
 }
 
 #pragma mark - Actions
 - (IBAction)ibInvite:(id)sender
 {
-    // TODO: implement invitations
-    [self dismissViewControllerAnimated:YES completion:nil];
+    // TODO: validate email
+    NSString *email = _emailTextField.text;
+    
+    PULInviteService *invite = [[PULInviteService alloc] init];
+    [invite sendInviteToEmail:email
+                   completion:^(BOOL success, NSInteger remaining) {
+                       if (success)
+                       {
+                           [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasSentInviteKey"];
+                           [[NSUserDefaults standardUserDefaults] setInteger:remaining forKey:@"InvitesRemainingKey"];
+                           [self dismissViewControllerAnimated:YES completion:nil];
+                       }
+                       else
+                       {
+                           [[[UIAlertView alloc] initWithTitle:@"Error"
+                                                       message:@"We had trouble inviting your friend. If this continues to happen, report the issue in the contact menu option"
+                                                      delegate:nil
+                                             cancelButtonTitle:@"Ok"
+                                             otherButtonTitles: nil] show];
+                       }
+                   }];
+    
+    
 }
 - (IBAction)ibBack:(id)sender
 {

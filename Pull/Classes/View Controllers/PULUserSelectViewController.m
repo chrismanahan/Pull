@@ -28,6 +28,10 @@
 
 @property (strong, nonatomic) id obsPullCount;
 
+@property (strong, nonatomic) IBOutlet UIButton *inviteButtonCenter;
+@property (strong, nonatomic) IBOutlet UIButton *inviteButtonRight;
+@property (strong, nonatomic) IBOutlet UIButton *inviteButtonLeft;
+
 @end
 
 @implementation PULUserSelectViewController
@@ -42,6 +46,24 @@
         if (account.friends.count == 0 && account.friends.isLoaded)
         {
             _noFriendsOverlay.hidden = NO;
+            
+            // determine how many invite buttons should be shown
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasSentInviteKey"])
+            {
+                NSInteger remaining = [[NSUserDefaults standardUserDefaults] integerForKey:@"InvitesRemainingKey"];
+                if (remaining < 3)
+                {
+                    _inviteButtonRight.hidden = YES;
+                }
+                if (remaining < 2)
+                {
+                    _inviteButtonCenter.hidden = YES;
+                }
+                if (remaining < 1)
+                {
+                    _inviteButtonLeft.hidden = YES;
+                }
+            }
         }
         else
         {

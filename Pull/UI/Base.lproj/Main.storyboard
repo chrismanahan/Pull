@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -2078,6 +2078,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="inviteButtonCenter" destination="hes-9s-WaM" id="cT2-M6-MCA"/>
+                        <outlet property="inviteButtonLeft" destination="JeX-eJ-rci" id="pLb-Ht-bxW"/>
+                        <outlet property="inviteButtonRight" destination="mNc-dW-EnB" id="Y0j-pB-cDJ"/>
                         <outlet property="noFriendsOverlay" destination="woB-1u-c5R" id="D3j-Wa-5cD"/>
                         <outlet property="searchTextField" destination="Z1k-V9-CyO" id="3QE-Z5-Sty"/>
                         <outlet property="tableView" destination="zQa-Fr-qkB" id="2Rc-wk-6OW"/>
@@ -2085,7 +2088,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vuv-u1-nBM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2630" y="702"/>
+            <point key="canvasLocation" x="2570" y="692"/>
         </scene>
         <!--New Pull View Controller-->
         <scene sceneID="QC0-oQ-66b">

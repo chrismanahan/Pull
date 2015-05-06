@@ -247,6 +247,7 @@
 		9B9724261AE2034500EEC3AB /* settings_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B9724201AE2034500EEC3AB /* settings_icon@2x.png */; };
 		9B9724271AE2034500EEC3AB /* settings_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B9724211AE2034500EEC3AB /* settings_icon@3x.png */; };
 		9B97242A1AE20BD500EEC3AB /* PULUserSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9724291AE20BD500EEC3AB /* PULUserSelectViewController.m */; };
+		9B9B3F491AF836F1000470D7 /* PULInviteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9B3F481AF836F1000470D7 /* PULInviteService.m */; };
 		9BB82DF81AEB392C004447FA /* PULInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82DF71AEB392C004447FA /* PULInviteViewController.m */; };
 		9BC487CF1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC487CE1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.m */; };
 		9BC487D31AF6D256008BF2E9 /* PULPullOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC487D21AF6D256008BF2E9 /* PULPullOverlayView.m */; };
@@ -586,6 +587,8 @@
 		9B9724211AE2034500EEC3AB /* settings_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@3x.png"; sourceTree = "<group>"; };
 		9B9724281AE20BD500EEC3AB /* PULUserSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULUserSelectViewController.h; path = "View Controllers/PULUserSelectViewController.h"; sourceTree = "<group>"; };
 		9B9724291AE20BD500EEC3AB /* PULUserSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULUserSelectViewController.m; path = "View Controllers/PULUserSelectViewController.m"; sourceTree = "<group>"; };
+		9B9B3F471AF836F1000470D7 /* PULInviteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULInviteService.h; path = "View Controllers/PULInviteService.h"; sourceTree = "<group>"; };
+		9B9B3F481AF836F1000470D7 /* PULInviteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULInviteService.m; path = "View Controllers/PULInviteService.m"; sourceTree = "<group>"; };
 		9BB82DF61AEB392C004447FA /* PULInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULInviteViewController.h; path = "View Controllers/PULInviteViewController.h"; sourceTree = "<group>"; };
 		9BB82DF71AEB392C004447FA /* PULInviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULInviteViewController.m; path = "View Controllers/PULInviteViewController.m"; sourceTree = "<group>"; };
 		9BC487CD1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULPullNotNearbyOverlay.h; path = UI/Views/Overlays/PULPullNotNearbyOverlay.h; sourceTree = "<group>"; };
@@ -862,6 +865,8 @@
 				33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */,
 				33EE0CB11A28ED48005E4E2E /* PULPush.h */,
 				33EE0CB21A28ED48005E4E2E /* PULPush.m */,
+				9B9B3F471AF836F1000470D7 /* PULInviteService.h */,
+				9B9B3F481AF836F1000470D7 /* PULInviteService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1823,6 +1828,7 @@
 				33FB713D1AAD205B00B74C47 /* PULVerticallyCenteredButton.m in Sources */,
 				95169F621A8718AB006D3078 /* PULSlideUnwindSegue.m in Sources */,
 				33ABDE4C1AB4A20900A047BF /* PULOverlayView.m in Sources */,
+				9B9B3F491AF836F1000470D7 /* PULInviteService.m in Sources */,
 				3340449A1A17ACF900B00BC3 /* PULError.m in Sources */,
 				33324E931A0EEEE70073F1CA /* README.md in Sources */,
 				33324E921A0EEEE70073F1CA /* NSDate+Utilities.m in Sources */,

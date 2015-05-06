@@ -49,7 +49,24 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
+    // determine how many invite buttons should be shown
+   if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasSentInviteKey"])
+   {
+       NSInteger remaining = [[NSUserDefaults standardUserDefaults] integerForKey:@"InvitesRemainingKey"];
+       if (remaining < 3)
+       {
+           _inviteButtonRight.hidden = YES;
+       }
+       if (remaining < 2)
+       {
+           _inviteButtonCenter.hidden = YES;
+       }
+       if (remaining < 1)
+       {
+           _inviteButtonLeft.hidden = YES;
+       }
+   }
 }
 
 - (void)_populateUserInfo {

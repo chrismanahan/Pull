@@ -19,7 +19,7 @@ NSString * const FireObjectDidUpdateNotification = @"FireObjectDidUpdateNotifica
 
 @interface FireObject ()
 
-@property (nonatomic, readwrite, getter=hasLoaded) BOOL loaded;
+@property (nonatomic, readwrite, getter=isLoaded) BOOL loaded;
 
 @end
 

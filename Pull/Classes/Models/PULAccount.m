@@ -264,11 +264,11 @@ static PULAccount *account = nil;
     [self didChangeValueForKey:@"pulls"];
     
     // remove pull from friend's pulls
-    if (pull.hasLoaded)
+    if (pull.isLoaded)
     {
         PULUser *friend = [pull otherUser:self];
         
-        if (friend.hasLoaded)
+        if (friend.isLoaded)
         {
             [friend willChangeValueForKey:@"pulls"];
             [friend.pulls removeAndSaveObject:pull];

@@ -184,7 +184,7 @@
     CLSLog(@"got new location");
 
     PULAccount *acct = [PULAccount currentUser];
-    if (acct.hasLoaded)
+    if (acct.isLoaded)
     {
         acct.location = loc;
         [acct saveKeys:@[@"location"]];

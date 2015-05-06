@@ -68,7 +68,7 @@ extern NSString * const FireObjectDidUpdateNotification;
 /*!
  *  Flag indicating that this object has loaded
  */
-@property (nonatomic, readonly, getter=hasLoaded) BOOL loaded;
+@property (nonatomic, readonly, getter=isLoaded) BOOL loaded;
 
 /*****************************************
  Instance Methods

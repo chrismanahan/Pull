@@ -203,7 +203,7 @@
             {
                 fireObj = [[_fireClass alloc] initWithUid:uid];
                 
-                if (!fireObj.hasLoaded)
+                if (!fireObj.isLoaded)
                 {
                     __block id obs = [THObserver observerForObject:fireObj keyPath:@"loaded" block:^{
                         [_observers removeObject:obs];
@@ -291,7 +291,7 @@
     {
         for (FireObject *obj in _backingStore)
         {
-            if (obj.hasLoaded)
+            if (obj.isLoaded)
             {
                 loaded = YES;
             }
@@ -318,7 +318,7 @@
                                                               path:_path];
     for (FireObject *obj in _backingStore)
     {
-        if (obj.hasLoaded)
+        if (obj.isLoaded)
         {
             [arr addObject:obj];
         }

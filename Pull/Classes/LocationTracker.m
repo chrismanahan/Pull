@@ -350,7 +350,7 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
     PULLog(@"Send to Server: Latitude(%f) Longitude(%f) Accuracy(%f)",self.myLocation.latitude, self.myLocation.longitude,self.myLocationAccuracy);
     
     //TODO: Your code to send the self.myLocation and self.myLocationAccuracy to your server
-    if ([PULAccount currentUser].hasLoaded)
+    if ([PULAccount currentUser].isLoaded)
     {
         [PULAccount currentUser].location = self.currentLocation;
         [[PULAccount currentUser] saveKeys:@[@"location"]];

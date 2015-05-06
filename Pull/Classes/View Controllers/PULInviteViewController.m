@@ -10,6 +10,8 @@
 
 #import "PULInviteService.h"
 
+#import "PULLoadingIndicator.h"
+
 @interface PULInviteViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *scrollViewTopConstraint;
 
@@ -59,31 +61,60 @@
     
 }
 
+- (BOOL)_validateEmail:(NSString*)email;
+{
+    NSString *pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:nil];
+    
+    if ([regex numberOfMatchesInString:email options:0 range:NSMakeRange(0, email.length)])
+    {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - Actions
 - (IBAction)ibInvite:(id)sender
 {
-    // TODO: validate email
     NSString *email = _emailTextField.text;
     
-    PULInviteService *invite = [[PULInviteService alloc] init];
-    [invite sendInviteToEmail:email
-                   completion:^(BOOL success, NSInteger remaining) {
-                       if (success)
-                       {
-                           [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasSentInviteKey"];
-                           [[NSUserDefaults standardUserDefaults] setInteger:remaining forKey:@"InvitesRemainingKey"];
-                           [self dismissViewControllerAnimated:YES completion:nil];
-                       }
-                       else
-                       {
-                           [[[UIAlertView alloc] initWithTitle:@"Error"
-                                                       message:@"We had trouble inviting your friend. If this continues to happen, report the issue in the contact menu option"
-                                                      delegate:nil
-                                             cancelButtonTitle:@"Ok"
-                                             otherButtonTitles: nil] show];
-                       }
-                   }];
-    
+    if ([self _validateEmail:email])
+    {
+        PULLoadingIndicator *ai = [PULLoadingIndicator indicatorOnView:self.view];
+        ai.title = @"Inviting...";
+        [ai show];
+        
+        PULInviteService *invite = [[PULInviteService alloc] init];
+        [invite sendInviteToEmail:email
+                       completion:^(BOOL success, NSInteger remaining) {
+                           [ai hide];
+                           
+                           if (success)
+                           {
+                               [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasSentInviteKey"];
+                               [[NSUserDefaults standardUserDefaults] setInteger:remaining forKey:@"InvitesRemainingKey"];
+                               [self dismissViewControllerAnimated:YES completion:nil];
+                           }
+                           else
+                           {
+                               [[[UIAlertView alloc] initWithTitle:@"Uh Oh"
+                                                           message:@"We had trouble inviting your friend. If this continues to happen, report the issue in the contact menu option"
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"Ok"
+                                                 otherButtonTitles: nil] show];
+                           }
+                       }];
+    }
+    else
+    {
+        [[[UIAlertView alloc] initWithTitle:@"Woops"
+                                    message:@"We had trouble validating the email you entered."
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles: nil] show];
+    }
     
 }
 - (IBAction)ibBack:(id)sender

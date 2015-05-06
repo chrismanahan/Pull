@@ -90,7 +90,7 @@
 {
     if (_dirty)
     {
-        [[PULAccount currentUser] saveKeys:@"settings"];
+        [[PULAccount currentUser] saveKeys:@[@"settings"]];
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];

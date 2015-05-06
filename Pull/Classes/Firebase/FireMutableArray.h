@@ -52,7 +52,10 @@ typedef void(^FireArrayObjectChangedBlock)(FireMutableArray *array, FireObject *
 
 @property (nonatomic, readonly) BOOL hasLoadBlock;
 
-- (instancetype)initForClass:(Class)fireClass relatedObject:(FireObject*)relatedObject path:(NSString*)path;
+- (instancetype)initForClass:(Class)fireClass
+               relatedObject:(FireObject*)relatedObject
+                        path:(NSString*)path
+NS_DESIGNATED_INITIALIZER;
 
 - (void)addAndSaveObject:(FireObject*)anObject;
 

@@ -159,6 +159,10 @@
         [settings loadFromFirebaseRepresentation:repr];
         self.settings = settings;
     }
+    else
+    {
+        self.settings = [PULUserSettings defaultSettings];
+    }
     
     [super loadFromFirebaseRepresentation:repr];
 }

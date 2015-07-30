@@ -10,7 +10,7 @@
 #import "PULAccount.h"
 
 
-NSString * const kPULInviteServiceUrl = @"http://getpulled.com/Invite/Invites.php";
+NSString * const kPULInviteServiceUrl = @"http://getpulled.com/Invite/invite.php";
 
 typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
 

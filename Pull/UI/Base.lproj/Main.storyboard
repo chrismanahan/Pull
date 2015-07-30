@@ -595,15 +595,24 @@
                                     <outlet property="delegate" destination="VCg-LE-m1S" id="44v-HF-PDH"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQD-C5-lgL">
-                                <rect key="frame" x="509" y="509" width="75" height="75"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQD-C5-lgL" userLabel="new pull button">
+                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
+                                <color key="backgroundColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="75" id="fb4-km-WeX"/>
+                                    <constraint firstAttribute="height" constant="60" id="ldO-DW-9DW"/>
                                     <constraint firstAttribute="width" secondItem="rQD-C5-lgL" secondAttribute="height" multiplier="1:1" id="nIC-Wc-UuX"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="pull_button.png">
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                <state key="normal" title="New Pull">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="fb4-km-WeX"/>
+                                        <exclude reference="nIC-Wc-UuX"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="ibSendPull:" destination="VCg-LE-m1S" eventType="touchUpInside" id="UA5-d2-eCR"/>
                                 </connections>
@@ -622,15 +631,8 @@
                                         <color key="textColor" red="0.5570943813" green="0.5570943813" blue="0.5570943813" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_pulls_arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="alr-qd-N3V">
-                                        <rect key="frame" x="375" y="414" width="100" height="90"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="90" id="sc0-iE-pPI"/>
-                                            <constraint firstAttribute="width" constant="100" id="xpe-dO-YZC"/>
-                                        </constraints>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap here to start a pull" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zoq-eS-STr">
-                                        <rect key="frame" x="333" y="382" width="184" height="24"/>
+                                        <rect key="frame" x="208" y="444" width="184" height="24"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -643,10 +645,8 @@
                                     <constraint firstItem="sry-JK-Wrg" firstAttribute="top" secondItem="yms-cy-X84" secondAttribute="bottom" constant="8" id="Bju-vQ-vLK"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sry-JK-Wrg" secondAttribute="trailing" constant="8" id="Gt5-Sb-3ed"/>
                                     <constraint firstItem="sry-JK-Wrg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ol3-F0-98G" secondAttribute="leading" constant="8" id="Hre-QC-5Bk"/>
+                                    <constraint firstAttribute="centerX" secondItem="Zoq-eS-STr" secondAttribute="centerX" id="ID3-vW-cnu"/>
                                     <constraint firstAttribute="centerY" secondItem="yms-cy-X84" secondAttribute="centerY" constant="100" id="WZU-NO-lj3"/>
-                                    <constraint firstItem="alr-qd-N3V" firstAttribute="top" secondItem="Zoq-eS-STr" secondAttribute="bottom" constant="8" id="kTB-fq-l8h"/>
-                                    <constraint firstItem="Zoq-eS-STr" firstAttribute="centerX" secondItem="alr-qd-N3V" secondAttribute="centerX" id="mum-WY-iFh"/>
-                                    <constraint firstAttribute="bottom" secondItem="alr-qd-N3V" secondAttribute="bottom" constant="32" id="qen-tE-6Jv"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -699,14 +699,17 @@
                             <constraint firstAttribute="trailing" secondItem="mIS-oU-QAh" secondAttribute="trailing" id="Ft1-dg-6we"/>
                             <constraint firstItem="Col-68-KCe" firstAttribute="top" secondItem="Fa8-lq-H52" secondAttribute="top" id="O8z-jo-wGS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rQD-C5-lgL" secondAttribute="trailing" id="P1P-kY-Zx9"/>
-                            <constraint firstItem="rQD-C5-lgL" firstAttribute="leading" secondItem="alr-qd-N3V" secondAttribute="trailing" constant="34" id="PCY-Ce-6zL"/>
+                            <constraint firstItem="rQD-C5-lgL" firstAttribute="top" secondItem="Zoq-eS-STr" secondAttribute="bottom" constant="8" id="RK6-F2-8gG"/>
                             <constraint firstItem="Tg6-Kr-yWv" firstAttribute="top" secondItem="rQD-C5-lgL" secondAttribute="bottom" constant="16" id="VeX-yX-nmX"/>
+                            <constraint firstItem="rQD-C5-lgL" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="YMb-6H-xHk"/>
                             <constraint firstItem="Ol3-F0-98G" firstAttribute="bottom" secondItem="mIS-oU-QAh" secondAttribute="bottom" constant="-150" id="Yq8-bZ-oou"/>
+                            <constraint firstItem="Tg6-Kr-yWv" firstAttribute="top" secondItem="rQD-C5-lgL" secondAttribute="bottom" id="dJy-qz-NN8"/>
                             <constraint firstItem="Tg6-Kr-yWv" firstAttribute="top" secondItem="mIS-oU-QAh" secondAttribute="bottom" id="dSQ-kD-IEm"/>
                             <constraint firstAttribute="trailing" secondItem="Col-68-KCe" secondAttribute="trailing" id="g71-Iz-rbN"/>
                             <constraint firstItem="mIS-oU-QAh" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="gFo-Qg-zwN"/>
                             <constraint firstAttribute="trailing" secondItem="Ol3-F0-98G" secondAttribute="trailing" id="iDr-9y-en4"/>
                             <constraint firstItem="Ol3-F0-98G" firstAttribute="leading" secondItem="mIS-oU-QAh" secondAttribute="leading" constant="150" id="iUa-GU-j15"/>
+                            <constraint firstAttribute="trailing" secondItem="rQD-C5-lgL" secondAttribute="trailing" id="rDZ-Qb-lTH"/>
                             <constraint firstItem="Ol3-F0-98G" firstAttribute="top" secondItem="Col-68-KCe" secondAttribute="bottom" id="tic-wG-Tsr"/>
                         </constraints>
                         <variation key="default">
@@ -714,6 +717,8 @@
                                 <exclude reference="9zS-Pn-eSY"/>
                                 <exclude reference="Yq8-bZ-oou"/>
                                 <exclude reference="iUa-GU-j15"/>
+                                <exclude reference="P1P-kY-Zx9"/>
+                                <exclude reference="VeX-yX-nmX"/>
                             </mask>
                         </variation>
                     </view>
@@ -762,7 +767,7 @@
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLK-VI-Xsa">
                                         <rect key="frame" x="0.0" y="73" width="600" height="72"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="26"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
                                         <inset key="titleEdgeInsets" minX="26" minY="-20" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Contact" image="settings_contact.png">
@@ -773,16 +778,16 @@
                                             <action selector="ibContact:" destination="ybE-zO-cWY" eventType="touchUpInside" id="yIA-qO-1LG"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Any questions or concerns" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="qtH-eq-bi4">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Any questions or concerns" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="qtH-eq-bi4">
                                         <rect key="frame" x="90" y="118" width="179" height="19"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" red="0.5570943813" green="0.5570943813" blue="0.5570943813" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C41-e2-ydq">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="72"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="26"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
                                         <inset key="titleEdgeInsets" minX="31" minY="-20" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="App Settings" image="settings_gear.png">
@@ -793,16 +798,16 @@
                                             <segue destination="5NZ-nN-ZGk" kind="presentation" id="Ajb-mj-FLK"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications, account and more" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="XCW-9H-oc1">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Notifications, account and more" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="XCW-9H-oc1">
                                         <rect key="frame" x="90" y="45" width="212" height="19"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" red="0.5570943813" green="0.5570943813" blue="0.5570943813" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lp-0Z-BQm">
                                         <rect key="frame" x="0.0" y="146" width="600" height="71"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="26"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
                                         <inset key="titleEdgeInsets" minX="31" minY="-20" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Share" image="settings_share.png">
@@ -815,7 +820,7 @@
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Share us with friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="m0r-v6-iqs">
                                         <rect key="frame" x="90" y="190" width="139" height="19"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" red="0.5570943813" green="0.5570943813" blue="0.5570943813" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1839,10 +1844,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgQ-vj-afe" userLabel="user image" customClass="PULUserImageView">
-                                                    <rect key="frame" x="8" y="8" width="83" height="83"/>
+                                                    <rect key="frame" x="8" y="12" width="75" height="75"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fQt-TQ-D4Z">
-                                                            <rect key="frame" x="0.0" y="0.0" width="83" height="83"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1857,21 +1862,22 @@
                                                         <outlet property="imageView" destination="fQt-TQ-D4Z" id="Kc0-cw-Mae"/>
                                                     </connections>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brandon Murin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yV7-uA-1Ya" userLabel="Title label">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Brandon Murin" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yV7-uA-1Ya" userLabel="Title label">
                                                     <rect key="frame" x="107" y="32" width="183" height="36"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="30"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                                     <color key="textColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="yV7-uA-1Ya" secondAttribute="centerY" constant="-0.5" id="2hV-DT-rnv"/>
-                                                <constraint firstItem="xgQ-vj-afe" firstAttribute="top" secondItem="hAq-8B-VyS" secondAttribute="topMargin" id="9mH-cA-5UH"/>
+                                                <constraint firstAttribute="centerY" secondItem="yV7-uA-1Ya" secondAttribute="centerY" id="2hV-DT-rnv"/>
+                                                <constraint firstItem="xgQ-vj-afe" firstAttribute="top" secondItem="hAq-8B-VyS" secondAttribute="topMargin" constant="4" id="9mH-cA-5UH"/>
                                                 <constraint firstItem="xgQ-vj-afe" firstAttribute="leading" secondItem="hAq-8B-VyS" secondAttribute="leadingMargin" id="BpZ-Id-ceB"/>
                                                 <constraint firstItem="yV7-uA-1Ya" firstAttribute="leading" secondItem="xgQ-vj-afe" secondAttribute="trailing" constant="16" id="JBz-KA-a24"/>
                                                 <constraint firstAttribute="centerY" secondItem="xgQ-vj-afe" secondAttribute="centerY" id="PQA-3f-yWc"/>
                                                 <constraint firstItem="xgQ-vj-afe" firstAttribute="leading" secondItem="hAq-8B-VyS" secondAttribute="leadingMargin" id="ZVX-rn-Wvh"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="xgQ-vj-afe" secondAttribute="bottom" id="gyT-Aa-4N0"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="yV7-uA-1Ya" secondAttribute="trailing" constant="8" id="fIE-Dr-ifd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="xgQ-vj-afe" secondAttribute="bottom" constant="4" id="gyT-Aa-4N0"/>
                                                 <constraint firstItem="xgQ-vj-afe" firstAttribute="width" secondItem="xgQ-vj-afe" secondAttribute="height" multiplier="1:1" id="tNY-gp-qw0"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -2001,9 +2007,9 @@
                                             <action selector="ibCancel:" destination="Wp0-jD-mqd" eventType="touchUpInside" id="VQY-Fq-fuY"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSJ-NB-YA9" userLabel="Title label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New Pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSJ-NB-YA9" userLabel="Title label">
                                         <rect key="frame" x="246" y="19" width="109" height="36"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="30"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                         <color key="textColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -2616,10 +2622,8 @@
         <image name="learn_more_arrow.png" width="23" height="33"/>
         <image name="messenger_icon.png" width="42" height="39"/>
         <image name="nav_blue_down.png" width="24" height="31"/>
-        <image name="no_pulls_arrow.png" width="95" height="102"/>
         <image name="permission_request_location.png" width="442" height="444"/>
         <image name="permission_request_notification.png" width="499" height="444"/>
-        <image name="pull_button.png" width="176" height="164"/>
         <image name="pull_text_white.png" width="475" height="474"/>
         <image name="settings_contact.png" width="35" height="37"/>
         <image name="settings_gear.png" width="34" height="32"/>

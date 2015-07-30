@@ -21,7 +21,7 @@
 #import "PULUserSelectViewController.h"
 
 #import "PULAccount.h"
-#import "LocationTracker.h"
+#import "PULLocationUpdater.h"
 
 #import "PULConstants.h"
 
@@ -129,7 +129,7 @@ const NSInteger kPULPulledFarSection = 2;
                                                       [self reload];
                                                   }];
     
-    [[LocationTracker sharedLocationTracker] startLocationTracking];
+    [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
     
 }
 
@@ -169,7 +169,7 @@ const NSInteger kPULPulledFarSection = 2;
     }
     
     // add overlay requesting location if we are missing it
-    if (![LocationTracker sharedLocationTracker].hasPermission && ![PULLocationOverlay viewContainsOverlay:_friendTableView])
+    if (![PULLocationUpdater sharedUpdater].hasPermission && ![PULLocationOverlay viewContainsOverlay:_friendTableView])
     {
         PULLog(@"adding location overlay");
         [PULLocationOverlay overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
@@ -178,7 +178,7 @@ const NSInteger kPULPulledFarSection = 2;
                                                                            object:nil
                                                                             queue:[NSOperationQueue currentQueue]
                                                                        usingBlock:^(NSNotification *note) {
-                                                                           if ([LocationTracker sharedLocationTracker].hasPermission)
+                                                                           if ([PULLocationUpdater sharedUpdater].hasPermission)
                                                                            {
                                                                                [PULLocationOverlay removeOverlayFromView:_friendTableView];
                                                                                
@@ -201,7 +201,7 @@ const NSInteger kPULPulledFarSection = 2;
 
 - (void)reload
 {
-    if ([LocationTracker sharedLocationTracker].hasPermission)
+    if ([PULLocationUpdater sharedUpdater].hasPermission)
     {
         [_friendTableView reloadData];
 

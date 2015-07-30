@@ -11,22 +11,36 @@
 
 #import "PULSlideLeftSegue.h"
 
-#import "LocationTracker.h"
+#import "PULLocationUpdater.h"
 
 @implementation PULRequestLocationViewController
 
 #pragma mark - actions
 - (IBAction)ibNext:(id)sender
 {
-    [[LocationTracker sharedLocationTracker] startLocationTracking];
+    [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
     
-    [self next];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(next)
+                                                 name:PULLocationPermissionsGrantedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(next)
+                                                 name:PULLocationPermissionsDeniedNotification
+                                               object:nil];
+    
+    // just in case some how we already have permission
+    if ([PULLocationUpdater sharedUpdater].hasPermission)
+    {
+        [self next];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)next

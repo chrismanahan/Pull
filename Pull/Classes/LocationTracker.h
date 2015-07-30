@@ -10,8 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "LocationShareModel.h"
 
-extern NSString* const PULLocationPermissionsGrantedNotification;
-extern NSString* const PULLocationPermissionsDeniedNotification;
+//extern NSString* const PULLocationPermissionsGrantedNotification;
+//extern NSString* const PULLocationPermissionsDeniedNotification;
 
 typedef void(^LocationHeadingBlock)(CLHeading *heading);
 

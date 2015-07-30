@@ -20,8 +20,8 @@
 
 #define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 
-NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
-NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissionsNeededNotification";
+//NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
+//NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissionsNeededNotification";
 
 @interface LocationTracker ()
 
@@ -289,14 +289,14 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
         PULLog(@"location permission granted");
         [self startLocationTracking];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsGrantedNotification object:self];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsGrantedNotification object:self];
     }
     else if (status == kCLAuthorizationStatusDenied)
     {
         PULLog(@"location access denied");
         
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsDeniedNotification object:self];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsDeniedNotification object:self];
         
     }
 }

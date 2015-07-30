@@ -48,7 +48,7 @@
 //    }
     
     
-    [[FBSDKApplicationDelegate sharedInstance] loadCache];
+//    [[FBSDKApplicationDelegate sharedInstance] loadCache];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     NSString *vcName = NSStringFromClass([PULLoginViewController class]);

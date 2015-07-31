@@ -34,7 +34,7 @@
     return @{
              @"disabled": @(_disabled),
              @"resolveAddress": @(_resolveAddress),
-             @"notifications":@{
+             @"notification":@{
                      @"accept": @(_notifyAccept),
                      @"invite": @(_notifyInvite),
                      @"arrival": @(_notifyArrival),
@@ -45,10 +45,10 @@
 
 - (void)loadFromFirebaseRepresentation:(NSDictionary *)repr
 {
-    self.notifyInvite    = [repr[@"notifications"][@"invite"] boolValue];
-    self.notifyAccept    = [repr[@"notifications"][@"accept"] boolValue];
-    self.notifyDeparture = [repr[@"notifications"][@"departure"] boolValue];
-    self.notifyArrival   = [repr[@"notifications"][@"arrival"] boolValue];
+    self.notifyInvite    = [repr[@"notification"][@"invite"] boolValue];
+    self.notifyAccept    = [repr[@"notification"][@"accept"] boolValue];
+    self.notifyDeparture = [repr[@"notification"][@"departure"] boolValue];
+    self.notifyArrival   = [repr[@"notification"][@"arrival"] boolValue];
 
     self.disabled        = [repr[@"disabled"] boolValue];
 

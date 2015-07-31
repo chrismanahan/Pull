@@ -156,7 +156,7 @@
     if (repr[@"settings"])
     {
         PULUserSettings *settings = [[PULUserSettings alloc] init];
-        [settings loadFromFirebaseRepresentation:repr];
+        [settings loadFromFirebaseRepresentation:repr[@"settings"]];
         self.settings = settings;
     }
     else

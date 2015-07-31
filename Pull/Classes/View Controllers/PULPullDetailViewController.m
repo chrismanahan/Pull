@@ -17,7 +17,7 @@
 
 #import "PULUserImageView.h"
 
-#import "LocationTracker.h"
+#import "PULLocationUpdater.h"
 
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
@@ -56,7 +56,7 @@ const CGFloat kPULCompassFlashTime = 1.5;
 {
     [super viewWillAppear:animated];
     _shouldRotate = YES;
-
+    
     // set ui based on loaded user
     CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:_user.location];
     [self distanceUpdated:distance];
@@ -70,10 +70,10 @@ const CGFloat kPULCompassFlashTime = 1.5;
         _directionArrowView.translatesAutoresizingMaskIntoConstraints = YES;
         
         _directionArrowView.autoresizingMask = UIViewAutoresizingNone;
-
+        
         _didSetUp = YES;
         
-                
+        
     }
     
     _didSetUp = YES;
@@ -92,30 +92,37 @@ const CGFloat kPULCompassFlashTime = 1.5;
     
     [_mapView setRegion:region];
     [self.view insertSubview:_mapView atIndex:0];
-
-//    if (_mapOverlayView)
-//    {
-//        [_mapOverlayView removeFromSuperview];
-//    }
-//    _mapOverlayView = [UIView pullVisualEffectViewWithFrame:_mapView.frame];
-//    [self.view insertSubview:_mapOverlayView aboveSubview:_mapView];
-
-    [[LocationTracker sharedLocationTracker] registerHeadingChangeBlock:^(CLHeading *heading) {
-            // update direction of arrow
-            CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
-                                                        and:_user.location.coordinate];
-            
-            CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
-            
-            [self _rotateCompassToRadians:rads];
-    }];
+    
+    //    if (_mapOverlayView)
+    //    {
+    //        [_mapOverlayView removeFromSuperview];
+    //    }
+    //    _mapOverlayView = [UIView pullVisualEffectViewWithFrame:_mapView.frame];
+    //    [self.view insertSubview:_mapOverlayView aboveSubview:_mapView];
+    
+//    [[LocationTracker sharedLocationTracker] registerHeadingChangeBlock:^(CLHeading *heading) {
+//        // update direction of arrow
+//        CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
+//                                                    and:_user.location.coordinate];
+//        
+//        CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
+//        
+//        [self _rotateCompassToRadians:rads];
+//    }];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didUpdateHeading:)
+                                                 name:PULLocationHeadingUpdatedNotification
+                                               object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     
-    [[LocationTracker sharedLocationTracker] unregisterHeadingChangeBlock];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [[LocationTracker sharedLocationTracker] unregisterHeadingChangeBlock];
 }
 
 - (void)viewDidLoad
@@ -159,7 +166,7 @@ NSString* deviceName()
         
         _directionArrowView.image = [UIImage imageNamed:imageName];
         _nearby = YES;
-//        _nearbyInfoButton.hidden = NO;
+        //        _nearbyInfoButton.hidden = NO;
         _directionArrowView.alpha = 0.0;
         
         _nearbyRadarTimer = [NSTimer scheduledTimerWithTimeInterval:kPULCompassFlashTime
@@ -172,7 +179,7 @@ NSString* deviceName()
     {
         _directionArrowView.image = [UIImage imageNamed:@"cascade_compass"];
         _nearby = NO;
-//        _nearbyInfoButton.hidden = YES;
+        //        _nearbyInfoButton.hidden = YES;
         _shouldRotate = YES;
         _directionArrowView.alpha = 1.0;
         
@@ -209,41 +216,41 @@ NSString* deviceName()
 #pragma mark - UI Setters
 - (void)updateDistanceLabel:(CGFloat)distance
 {
-        CGFloat convertedDistance;
-        NSString *unit, *formatString;
-        BOOL showNearbyString = NO;
-        // TODO: localize distance
-        if (distance < kPULDistanceUnitCutoff)
-        {
-            // distance as ft
-            convertedDistance = METERS_TO_FEET(distance);
-            unit = @"Feet";
-            formatString = @"%i %@";
-            
-            if (convertedDistance <= kPULNearbyDistance)
-            {
-                showNearbyString = YES;
-            }
-        }
-        else
-        {
-            // distance as miles
-            convertedDistance = METERS_TO_MILES(distance);
-            unit = @"Miles";
-            formatString = @"%.2f %@";
-        }
+    CGFloat convertedDistance;
+    NSString *unit, *formatString;
+    BOOL showNearbyString = NO;
+    // TODO: localize distance
+    if (distance < kPULDistanceUnitCutoff)
+    {
+        // distance as ft
+        convertedDistance = METERS_TO_FEET(distance);
+        unit = @"Feet";
+        formatString = @"%i %@";
         
-        NSString *string;
-        if (showNearbyString)
+        if (convertedDistance <= kPULNearbyDistance)
         {
-            string = @"Is Nearby";
+            showNearbyString = YES;
         }
-        else
-        {
-            string = [NSString stringWithFormat:@"%.2f %@", convertedDistance, unit];
-        }
-        
-        _distanceLabel.text = string;
+    }
+    else
+    {
+        // distance as miles
+        convertedDistance = METERS_TO_MILES(distance);
+        unit = @"Miles";
+        formatString = @"%.2f %@";
+    }
+    
+    NSString *string;
+    if (showNearbyString)
+    {
+        string = @"Is Nearby";
+    }
+    else
+    {
+        string = [NSString stringWithFormat:@"%.2f %@", convertedDistance, unit];
+    }
+    
+    _distanceLabel.text = string;
 }
 
 #pragma mark - Notifcation Selectors
@@ -256,7 +263,7 @@ NSString* deviceName()
         // update direction of arrow
         CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
                                                     and:_user.location.coordinate];
-
+        
         CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
         
         [self _rotateCompassToRadians:rads];
@@ -351,15 +358,15 @@ NSString* deviceName()
 
 - (void)_spinCompass:(UITapGestureRecognizer*)gesture
 {
-//    [self _rotateCompassToRadians:M_PI animated:YES];
-//    [self _rotateCompassToRadians:2 * M_PI animated:YES];
-//    
-//    static int sequenceNumber = 4;
-//    
-//    gesture.numberOfTapsRequired = fib(sequenceNumber);
-//    PULLog(@"%i", gesture.numberOfTapsRequired);
-//    
-//    sequenceNumber++;
+    //    [self _rotateCompassToRadians:M_PI animated:YES];
+    //    [self _rotateCompassToRadians:2 * M_PI animated:YES];
+    //
+    //    static int sequenceNumber = 4;
+    //
+    //    gesture.numberOfTapsRequired = fib(sequenceNumber);
+    //    PULLog(@"%i", gesture.numberOfTapsRequired);
+    //
+    //    sequenceNumber++;
 }
 
 int fib(int sequenceNumber)

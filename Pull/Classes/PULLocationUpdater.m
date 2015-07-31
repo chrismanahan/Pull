@@ -16,19 +16,16 @@
 
 #import <UIKit/UIKit.h>
 
-// constants
 NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
 NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissionsNeededNotification";
+NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpdatedNotification";
 
-
-// class continuation
 @interface PULLocationUpdater ()
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
 
 @end
 
-// implementation
 @implementation PULLocationUpdater
 {
     UIBackgroundTaskIdentifier _backgroundTask;
@@ -45,30 +42,6 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
     return shared;
 }
 
-- (void)p_requestPermission
-{
-    if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
-    {
-        [_locationManager requestAlwaysAuthorization];
-    }
-}
-
--(void)p_initializeLocationTracking
-{
-    _locationManager = [[CLLocationManager alloc] init];
-    _locationManager.delegate = self;
-    _locationManager.distanceFilter = kLocationForegroundDistanceFilter;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [_locationManager startUpdatingHeading];
-    
-    [self p_requestPermission];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_applicationDidEnterForeground) name:UIApplicationDidBecomeActiveNotification object:nil];
-    
-  //  Reachability *reach = [Reachability reachabilityWithHostName:]
-}
-
 - (BOOL)hasPermission
 {
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized ||
@@ -82,7 +55,7 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
 {
     if (!_locationManager)
     {
-        [self p_initializeLocationTracking];   
+        [self _initializeLocationTracking];   
     }
     
     _locationManager.distanceFilter = kLocationForegroundDistanceFilter;
@@ -105,7 +78,7 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
 {
     if (!_locationManager)
     {
-        [self p_initializeLocationTracking];
+        [self _initializeLocationTracking];
     }
     
     PULLog(@"Starting background location update");
@@ -155,7 +128,7 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
         PULLog(@"location permission granted");
         if (!_locationManager)
         {
-            [self p_initializeLocationTracking];
+            [self _initializeLocationTracking];
         }
         [self startUpdatingLocation];
         
@@ -167,11 +140,11 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
         
         if (!_locationManager)
         {
-            [self p_initializeLocationTracking];
+            [self _initializeLocationTracking];
         }
         else
         {
-            [self p_requestPermission];
+            [self _requestPermission];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsDeniedNotification object:self];
         }
@@ -193,21 +166,49 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationHeadingUpdatedNotification
+                                                        object:newHeading];
+    
 //    if ([_delegate respondsToSelector:@selector(locationUpdater:didUpdateHeading:)])
 //    {
 //        [_delegate locationUpdater:self didUpdateHeading:newHeading];
 //    }
 }
 
-#pragma mark - Application notifications
--(void)p_applicationDidEnterBackground
+#pragma mark - Private
+- (void)_requestPermission
+{
+    if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
+    {
+        [_locationManager requestAlwaysAuthorization];
+    }
+}
+
+-(void)_initializeLocationTracking
+{
+    _locationManager = [[CLLocationManager alloc] init];
+    _locationManager.delegate = self;
+    _locationManager.distanceFilter = kLocationForegroundDistanceFilter;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [_locationManager startUpdatingHeading];
+    
+    [self _requestPermission];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_applicationDidEnterForeground) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    //  Reachability *reach = [Reachability reachabilityWithHostName:]
+}
+
+#pragma mark Application notifications
+-(void)_applicationDidEnterBackground
 {
     PULLog(@"entered background");
     [self stopUpdatingLocation];
     [self startBackgroundUpdatingLocation];
 }
 
--(void)p_applicationDidEnterForeground
+-(void)_applicationDidEnterForeground
 {
     PULLog(@"entered foreground");
     [self stopBackgroundUpdatingLocation];

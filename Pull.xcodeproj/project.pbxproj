@@ -861,8 +861,7 @@
 			children = (
 				33EFBCA01A229E0200345A14 /* PULCache.h */,
 				33EFBCA11A229E0200345A14 /* PULCache.m */,
-				33BD5AC21A0E9EE800F92414 /* PULLocationUpdater.h */,
-				33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */,
+				9B8961141B6B17B200F58D32 /* Location */,
 				33EE0CB11A28ED48005E4E2E /* PULPush.h */,
 				33EE0CB21A28ED48005E4E2E /* PULPush.m */,
 				9B9B3F471AF836F1000470D7 /* PULInviteService.h */,
@@ -1390,6 +1389,19 @@
 			path = "card background";
 			sourceTree = "<group>";
 		};
+		9B8961141B6B17B200F58D32 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				9BCB7D0B1AEC29A5002636E8 /* LocationShareModel.h */,
+				9BCB7D0C1AEC29A5002636E8 /* LocationShareModel.m */,
+				9BCB7D091AEC29A5002636E8 /* BackgroundTaskManager.h */,
+				9BCB7D0A1AEC29A5002636E8 /* BackgroundTaskManager.m */,
+				33BD5AC21A0E9EE800F92414 /* PULLocationUpdater.h */,
+				33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */,
+			);
+			name = Location;
+			sourceTree = "<group>";
+		};
 		9B9105271AED782000596BEC /* old icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1421,10 +1433,6 @@
 			children = (
 				9BCB7D071AEC29A5002636E8 /* LocationTracker.h */,
 				9BCB7D081AEC29A5002636E8 /* LocationTracker.m */,
-				9BCB7D091AEC29A5002636E8 /* BackgroundTaskManager.h */,
-				9BCB7D0A1AEC29A5002636E8 /* BackgroundTaskManager.m */,
-				9BCB7D0B1AEC29A5002636E8 /* LocationShareModel.h */,
-				9BCB7D0C1AEC29A5002636E8 /* LocationShareModel.m */,
 			);
 			name = Location;
 			sourceTree = "<group>";

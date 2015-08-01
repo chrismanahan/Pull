@@ -9,31 +9,38 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+#import "LocationShareModel.h"
+
 extern NSString* const PULLocationPermissionsGrantedNotification;
 extern NSString* const PULLocationPermissionsDeniedNotification;
 extern NSString* const PULLocationHeadingUpdatedNotification;
 
 @class PULLocationUpdater;
-//
-//@protocol PULLocationUpdaterDelegate <NSObject>
-//
-//- (void)locationUpdater:(PULLocationUpdater*)updater didUpdateLocation:(CLLocation*)location;
-//- (void)locationUpdater:(PULLocationUpdater*)updater didUpdateHeading:(CLHeading*)heading;
-//
-//@end
-//
+
 /*!
  *  This singleton is responsible for keeping track of the user's location and posting it to the BE
  */
 @interface PULLocationUpdater : NSObject <CLLocationManagerDelegate>
 
 /****************************************************
+ Properties
+ ****************************************************/
+
+@property (nonatomic) CLLocationCoordinate2D myLastLocation;
+@property (nonatomic) CLLocationAccuracy myLastLocationAccuracy;
+
+@property (strong,nonatomic) LocationShareModel * shareModel;
+
+@property (nonatomic, strong) CLLocation *currentLocation;
+@property (nonatomic) CLLocationCoordinate2D myLocation;
+@property (nonatomic) CLLocationAccuracy myLocationAccuracy;
+
+/****************************************************
  Class Methods
  ****************************************************/
 
-//@property (nonatomic, strong) id <PULLocationUpdaterDelegate> delegate;
-
-+(PULLocationUpdater*)sharedUpdater;
++(instancetype)sharedUpdater;
++ (CLLocationManager*)sharedLocationManager;
 
 /****************************************************
  Instance Methods
@@ -49,13 +56,13 @@ extern NSString* const PULLocationHeadingUpdatedNotification;
  *  Stops updating and posting location
  */
 -(void)stopUpdatingLocation;
-/*!
- *  Begins updating the user's location and sending it to the BE when the app is in the background
- */
--(void)startBackgroundUpdatingLocation;
-/*!
- *  Stops background update
- */
--(void)stopBackgroundUpdatingLocation;
+///*!
+// *  Begins updating the user's location and sending it to the BE when the app is in the background
+// */
+//-(void)startBackgroundUpdatingLocation;
+///*!
+// *  Stops background update
+// */
+//-(void)stopBackgroundUpdatingLocation;
 
 @end

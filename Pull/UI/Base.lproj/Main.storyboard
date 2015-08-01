@@ -1368,7 +1368,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PuO-EN-Sda">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bci-6L-Vnb" customClass="PULPulledUserImageView">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bci-6L-Vnb" customClass="PULUserImageView">
                                                             <rect key="frame" x="16" y="7" width="65" height="65"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LoW-Ky-yyl">
@@ -1429,7 +1429,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fCz-7K-9u7">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1F-vg-sfr" customClass="PULPulledUserImageView">
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1F-vg-sfr" customClass="PULUserImageView">
                                                             <rect key="frame" x="16" y="8" width="65" height="65"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Egd-Dj-Qqi">

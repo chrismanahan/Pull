@@ -16,9 +16,9 @@
 #import "PULSlideLeftSegue.h"
 #import "PULSlideUnwindSegue.h"
 
-@interface PULUserSelectViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface PULUserSelectViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITextField *searchTextField;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
@@ -40,6 +40,8 @@
 {
     [super viewWillAppear:animated];
 
+    _searchBar.text = @"";
+    
     PULAccount *account = [PULAccount currentUser];
     
     void (^loadBlock)() = ^void(){
@@ -72,8 +74,7 @@
                 _noFriendsOverlay.hidden = YES;
             }
             
-            _dataSource = [account sortedArray:[PULAccount currentUser].unpulledFriends];
-            [_tableView reloadData];
+            [self _reloadDatasource];
         }
     };
     
@@ -83,7 +84,10 @@
     }
     
     [account.pulls registerLoadedBlock:^(FireMutableArray *objects) {
-        loadBlock();
+        if (!_dataSource)
+        {
+            loadBlock();
+        }
     }];
 
 }
@@ -93,6 +97,13 @@
     [super viewWillDisappear:animated];
     
     [[PULAccount currentUser].pulls unregisterLoadedBlock];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    _searchBar.tintColor = PUL_Purple;
 }
 
 #pragma mark - Actions
@@ -108,6 +119,47 @@
     
     segue.slideRight = YES;
     return segue;
+}
+
+#pragma mark - Private
+- (void)_reloadDatasource
+{
+    [self _reloadDatasourceForSearch:nil];
+}
+
+- (void)_reloadDatasourceForSearch:(NSString*)search
+{
+    if (!search || search.length == 0)
+    {
+        _dataSource = [[PULAccount currentUser] sortedArray:[PULAccount currentUser].unpulledFriends];
+    }
+    else
+    {
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
+        for (PULUser *user in [PULAccount currentUser].unpulledFriends)
+        {
+            search = search.lowercaseString;
+            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
+                [user.fullName.lowercaseString hasPrefix:search])
+            {
+                [temp addObject:user];
+            }
+        }
+        _dataSource = [[NSArray alloc] initWithArray:temp];
+    }
+    
+    [_tableView reloadData];
+}
+
+#pragma mark - UISearchBar Delgate
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self _reloadDatasourceForSearch:searchText];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
 }
 
 #pragma mark -
@@ -143,6 +195,15 @@
         ;
     }];
     [seg perform];
+}
+
+#pragma mark - UIScrollView Delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if ([_searchBar isFirstResponder])
+    {
+        [_searchBar resignFirstResponder];
+    }
 }
 
 @end

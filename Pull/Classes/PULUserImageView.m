@@ -7,6 +7,7 @@
 //
 
 #import "PULUserImageView.h"
+#import "PULSquareUserImageView.h"
 
 NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
 
@@ -70,16 +71,26 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+   
     self.imageView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
     self.imageView.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
     
     NSInteger offset = _hasBorder ? 12 : _selected ? 1 : 0;
     CAShapeLayer *circle = [CAShapeLayer layer];
-    // Make a circular shape
-    UIBezierPath *circularPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(offset / 2, offset / 2, self.imageView.frame.size.width - offset, self.imageView.frame.size.height - offset) cornerRadius:MAX(self.imageView.frame.size.width, self.imageView.frame.size.height)];
+   
+    CGFloat cornerRadius;
     
-    circle.path = circularPath.CGPath;
+    if ([self isMemberOfClass:[PULSquareUserImageView class]])
+    {
+        cornerRadius = 20;
+    }
+    else
+    {
+        cornerRadius = MAX(self.imageView.frame.size.width, self.imageView.frame.size.height);
+    }
+    
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(offset / 2, offset / 2, self.imageView.frame.size.width - offset, self.imageView.frame.size.height - offset) cornerRadius:cornerRadius];
+    circle.path = maskPath.CGPath;
     
     // Configure the apperence of the circle
     circle.fillColor = [UIColor blackColor].CGColor;

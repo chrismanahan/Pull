@@ -10,7 +10,7 @@
 
 #import "PULUser.h"
 
-NSString * const kPULPushServerURL = @"http://chrismanahan.com/pull/push.php";
+NSString * const kPULPushServerURL = @"http://getpulled.com/push/push.php";
 
 NSString * const kPULPushTypeSendFriendRequest   = @"sendFriendRequest";
 NSString * const kPULPushTypeAcceptFriendRequest = @"acceptFriendRequest";
@@ -37,6 +37,11 @@ NSString * const kPULPushTypeAcceptPull          = @"acceptPull";
     {
         NSString *deviceToken = toUser.deviceToken;
         
+        if (!deviceToken)
+        {
+            PULLog(@"don't have a device token, can't send push");
+            return;
+        }
         NSString *urlString = [NSString stringWithFormat:@"%@?type=%@&name=%@&deviceToken=%@", kPULPushServerURL, pushType, fromUser.firstName, deviceToken];
         NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *req = [NSURLRequest requestWithURL:url];
@@ -46,6 +51,10 @@ NSString * const kPULPushTypeAcceptPull          = @"acceptPull";
                                completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                    PULLog(@"sent push: %@", [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
                                }];
+    }
+    else
+    {
+        PULLog(@"not sending push. receiving user doesn't want it");
     }
 }
 

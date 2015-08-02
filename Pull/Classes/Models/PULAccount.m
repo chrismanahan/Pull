@@ -12,6 +12,8 @@
 
 #import "PULConstants.h"
 
+#import "PULPush.h"
+
 #import "NSDate+Utilities.h"
 
 #import <Firebase/Firebase.h>
@@ -244,6 +246,12 @@ static PULAccount *account = nil;
     
     // add pull to friend's pulls
     [user.pulls addAndSaveObject:pull];
+    
+    // send push
+    [PULPush sendPushType:kPULPushTypeSendPull
+                       to:user
+                     from:self];
+    
 }
 
 - (void)acceptPull:(PULPull*)pull;
@@ -252,6 +260,12 @@ static PULAccount *account = nil;
     pull.status = PULPullStatusPulled;
     [pull resetExpiration];
     [pull saveKeys:@[@"status", @"expiration"]];
+    
+    PULUser *friend = pull.sendingUser;
+    [PULPush sendPushType:kPULPushTypeAcceptPull
+                           to:friend
+                         from:self];
+    
 }
 
 - (void)cancelPull:(PULPull*)pull;

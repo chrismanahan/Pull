@@ -15,6 +15,7 @@
 #import "PULPush.h"
 
 #import "NSDate+Utilities.h"
+#import "NSData+Hex.h"
 
 #import <Firebase/Firebase.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -65,7 +66,7 @@ static PULAccount *account = nil;
             account.firstName = [displayName substringWithRange:firstRange];
             account.lastName = [displayName substringWithRange:lastRange];
         }
-    
+        
         // find friends on pull
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me?fields=friends" parameters:nil];
         [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -106,7 +107,6 @@ static PULAccount *account = nil;
             else
             {
                 [account saveKeys:@[@"firstName", @"lastName"]];
-                
                 [PULAccount initializeCurrentUser:uid];
             }
         }];
@@ -480,7 +480,10 @@ static PULAccount *account = nil;
 
 - (NSDictionary*)firebaseRepresentation
 {
-    return [super firebaseRepresentation];
+    NSMutableDictionary *dict = [[super firebaseRepresentation] mutableCopy];
+    // FIXME: this should be constantly set
+    dict[@"deviceToken"] = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DeviceToken"] hexadecimalString];
+    return (NSDictionary*)dict;
 }
 
 - (void)loadFromFirebaseRepresentation:(NSDictionary *)repr

@@ -17,6 +17,8 @@
 
 #import "PULNoConnectionView.h"
 
+#import "NSData+Hex.h"
+
 #import "PULUpdateChecker.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -126,7 +128,8 @@
     
     if ([PULAccount currentUser].uid)
     {
-        [PULAccount currentUser].deviceToken = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
+        PULLog(@"saving device token");
+        [PULAccount currentUser].deviceToken = [deviceToken hexadecimalString];
         [[PULAccount currentUser] saveKeys:@[@"deviceToken"]];
     }
 }

@@ -28,6 +28,10 @@
     
     CGFloat corners = 4.0;
     _messengerButton.layer.cornerRadius = corners;
+    
+    // hide fb messenger button if it won't work
+    NSURL *url = [NSURL URLWithString:@"fb-messenger://"];
+    _messengerButton.hidden = ![[UIApplication sharedApplication] canOpenURL:url];
 }
 
 - (void)setPull:(PULPull *)pull

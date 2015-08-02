@@ -53,15 +53,27 @@
 //    [[FBSDKApplicationDelegate sharedInstance] loadCache];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    NSString *vcName = NSStringFromClass([PULLoginViewController class]);
+    __block NSString *vcName = NSStringFromClass([PULLoginViewController class]);
     
     // check if we are logged in
 //    Firebase *ref = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
-    FBSDKAccessToken *facebookAccessToken = [FBSDKAccessToken currentAccessToken];
+    NSData *tokenData = [[NSUserDefaults standardUserDefaults] objectForKey:@"FBToken"];
+    FBSDKAccessToken *facebookAccessToken = [NSKeyedUnarchiver unarchiveObjectWithData:tokenData];;// [FBSDKAccessToken currentAccessToken];
     if (facebookAccessToken)
     {
         vcName = NSStringFromClass([PULPullListViewController class]);
-        [PULAccount loginWithFacebookToken:facebookAccessToken completion:nil];
+        [PULAccount loginWithFacebookToken:facebookAccessToken completion:^(PULAccount *account, NSError *error) {
+            if (error)
+            {
+                vcName = NSStringFromClass([PULLoginViewController class]);
+                
+                UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:vcName];
+                
+                
+                [self.window setRootViewController:vc];
+                [self.window makeKeyAndVisible];
+            }
+        }];
     }
     else
     {

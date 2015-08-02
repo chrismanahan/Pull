@@ -169,6 +169,9 @@
                                 }
                                 else
                                 {
+                                    NSData *tokenData = [NSKeyedArchiver archivedDataWithRootObject:result.token];
+                                    
+                                    [[NSUserDefaults standardUserDefaults] setObject:tokenData forKey:@"FBToken"];
                                     [PULAccount loginWithFacebookToken:result.token completion:nil];
                                     // check if we already have location/notifcation permissions
                                     BOOL grantedPermissions = [[NSUserDefaults standardUserDefaults] boolForKey:@"DidGrantPermissions"];

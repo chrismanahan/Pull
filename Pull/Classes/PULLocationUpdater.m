@@ -14,6 +14,7 @@
 
 #import "PULAccount.h"
 
+#import <parkour/parkour.h>
 #import <UIKit/UIKit.h>
 
 #define LATITUDE @"latitude"
@@ -55,7 +56,7 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
     @synchronized(self) {
         if (_locationManager == nil) {
             _locationManager = [[CLLocationManager alloc] init];
-            _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//            _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         }
     }
     return _locationManager;
@@ -64,10 +65,10 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
 - (instancetype)init {
     if (self==[super init]) {
         //Get the share model and also initialize myLocationArray
-        self.shareModel = [LocationShareModel sharedModel];
-        self.shareModel.myLocationArray = [[NSMutableArray alloc]init];
+//        self.shareModel = [LocationShareModel sharedModel];
+//        self.shareModel.myLocationArray = [[NSMutableArray alloc]init];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
     return self;
 }
@@ -76,13 +77,13 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
 {
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
-    _locationManager.distanceFilter = kLocationForegroundDistanceFilter;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//    _locationManager.distanceFilter = kLocationForegroundDistanceFilter;
+//    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [_locationManager startUpdatingHeading];
     
     [self _requestPermission];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_applicationDidEnterForeground) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     //  Reachability *reach = [Reachability reachabilityWithHostName:]
@@ -101,42 +102,78 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
  */
 -(void)startUpdatingLocation;
 {
-    PULLog(@"startLocationTracking");
+    BOOL disableParkour = [[NSUserDefaults standardUserDefaults] boolForKey:@"Debug-DisableParkour"];
     
-    if (self.locationUpdateTimer)
+    if (!disableParkour)
     {
-        [self.locationUpdateTimer invalidate];
-        self.locationUpdateTimer = nil;
-    }
-    self.locationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
-                                                                target:self
-                                                              selector:@selector(updateLocationToServer)
-                                                              userInfo:nil
-                                                               repeats:YES];
-    
-    if ([CLLocationManager locationServicesEnabled] == NO) {
-        PULLog(@"locationServicesEnabled false");
-        UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Services Disabled" message:@"You need to enable your location services for Pull to work" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [servicesDisabledAlert show];
-    } else {
-        CLAuthorizationStatus authorizationStatus= [CLLocationManager authorizationStatus];
+        // wanna make sure we update the server at least once for the case of initial update
+        __block BOOL hasUpdated = NO;
         
-        if(authorizationStatus == kCLAuthorizationStatusDenied || authorizationStatus == kCLAuthorizationStatusRestricted){
-            PULLog(@"authorizationStatus failed");
-            
-            UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Need Location Services Permission" message:@"You need to enable your location services for Pull to work" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [parkour start];
+        [parkour setMinPositionUpdateRate:3];
+        [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
+
+            if (motionType != NotMoving || !hasUpdated)
+            {
+                CLS_LOG(@"received location: %@ of type %zd : $zd", position, motionType);
+                
+                PULAccount *acct = [PULAccount currentUser];
+                if (acct.isLoaded)
+                {
+                    acct.location = position;
+                    [acct saveKeys:@[@"location"]];
+                    
+                    if (!hasUpdated)
+                    {
+                        hasUpdated = YES;
+                    }
+                }
+                
+               
+            }
+
+        }];
+        [parkour setTrackPositionMode:Pedestrian];
+    }
+    else
+    {
+        PULLog(@"startLocationTracking");
+        
+        if (self.locationUpdateTimer)
+        {
+            [self.locationUpdateTimer invalidate];
+            self.locationUpdateTimer = nil;
+        }
+        self.locationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+                                                                    target:self
+                                                                  selector:@selector(updateLocationToServer)
+                                                                  userInfo:nil
+                                                                   repeats:YES];
+        
+        if ([CLLocationManager locationServicesEnabled] == NO) {
+            PULLog(@"locationServicesEnabled false");
+            UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Services Disabled" message:@"You need to enable your location services for Pull to work" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [servicesDisabledAlert show];
         } else {
-            PULLog(@"authorizationStatus authorized");
-            CLLocationManager *locationManager = [PULLocationUpdater sharedLocationManager];
-            locationManager.delegate = self;
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-            locationManager.distanceFilter = kLocationForegroundDistanceFilter;
+            CLAuthorizationStatus authorizationStatus= [CLLocationManager authorizationStatus];
             
-            if([locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-                [locationManager requestAlwaysAuthorization];
+            if(authorizationStatus == kCLAuthorizationStatusDenied || authorizationStatus == kCLAuthorizationStatusRestricted){
+                PULLog(@"authorizationStatus failed");
+                
+                UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Need Location Services Permission" message:@"You need to enable your location services for Pull to work" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [servicesDisabledAlert show];
+            } else {
+                PULLog(@"authorizationStatus authorized");
+                CLLocationManager *locationManager = [PULLocationUpdater sharedLocationManager];
+                locationManager.delegate = self;
+                locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+                locationManager.distanceFilter = kLocationForegroundDistanceFilter;
+                
+                if([locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+                    [locationManager requestAlwaysAuthorization];
+                }
+                [locationManager startUpdatingLocation];
             }
-            [locationManager startUpdatingLocation];
         }
     }
     
@@ -156,17 +193,26 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
  */
 -(void)stopUpdatingLocation;
 {
-    [_locationManager stopUpdatingLocation];
-
-    PULLog(@"stopLocationTracking");
+    BOOL disableParkour = [[NSUserDefaults standardUserDefaults] boolForKey:@"Debug-DisableParkour"];
     
-    if (self.shareModel.timer) {
-        [self.shareModel.timer invalidate];
-        self.shareModel.timer = nil;
+    if (!disableParkour)
+    {
+        [parkour stopTrackPosition];
     }
-    
-    CLLocationManager *locationManager = [PULLocationUpdater sharedLocationManager];
-    [locationManager stopUpdatingLocation];
+    else
+    {
+        [_locationManager stopUpdatingLocation];
+
+        PULLog(@"stopLocationTracking");
+        
+        if (self.shareModel.timer) {
+            [self.shareModel.timer invalidate];
+            self.shareModel.timer = nil;
+        }
+        
+        CLLocationManager *locationManager = [PULLocationUpdater sharedLocationManager];
+        [locationManager stopUpdatingLocation];
+    }
 }
 ///*!
 // *  Begins updating the user's location and sending it to the BE when the app is in the background

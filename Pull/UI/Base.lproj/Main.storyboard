@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -824,29 +824,11 @@
                                         <color key="textColor" red="0.5570943813" green="0.5570943813" blue="0.5570943813" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxM-oL-Shz">
-                                        <rect key="frame" x="0.0" y="219" width="600" height="36"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
-                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                                        <inset key="titleEdgeInsets" minX="31" minY="-20" maxX="0.0" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Parkour Enabled">
-                                            <color key="titleColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="ibDebugParkour:" destination="ybE-zO-cWY" eventType="touchUpInside" id="BOE-dR-E8j"/>
-                                            <action selector="ibShare:" destination="ybE-zO-cWY" eventType="touchUpInside" id="PP0-g3-t17"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="C41-e2-ydq" firstAttribute="height" secondItem="7lp-0Z-BQm" secondAttribute="height" id="9Mq-zv-PG0"/>
-                                    <constraint firstItem="yxM-oL-Shz" firstAttribute="height" secondItem="7lp-0Z-BQm" secondAttribute="height" multiplier="0.5" id="Aao-Sh-VZX"/>
                                     <constraint firstItem="C41-e2-ydq" firstAttribute="top" secondItem="ar4-8d-lsp" secondAttribute="top" id="Bfr-u8-gxB"/>
-                                    <constraint firstItem="yxM-oL-Shz" firstAttribute="leading" secondItem="7lp-0Z-BQm" secondAttribute="leading" id="Gxm-dT-37C"/>
                                     <constraint firstAttribute="trailing" secondItem="C41-e2-ydq" secondAttribute="trailing" id="HSE-wL-Pd4"/>
                                     <constraint firstItem="C41-e2-ydq" firstAttribute="height" secondItem="GLK-VI-Xsa" secondAttribute="height" id="Jee-3y-W8l"/>
                                     <constraint firstAttribute="trailing" secondItem="GLK-VI-Xsa" secondAttribute="trailing" id="Mdo-ah-dn7"/>
@@ -854,14 +836,12 @@
                                     <constraint firstItem="C41-e2-ydq" firstAttribute="top" secondItem="ar4-8d-lsp" secondAttribute="top" id="OCm-vL-4ji"/>
                                     <constraint firstItem="m0r-v6-iqs" firstAttribute="leading" secondItem="Hyn-Yo-6z5" secondAttribute="leading" id="Oxr-Lx-P93"/>
                                     <constraint firstAttribute="trailing" secondItem="7lp-0Z-BQm" secondAttribute="trailing" id="Qse-15-YWW"/>
-                                    <constraint firstItem="yxM-oL-Shz" firstAttribute="trailing" secondItem="7lp-0Z-BQm" secondAttribute="trailing" id="UMg-Wt-fIA"/>
                                     <constraint firstItem="Hyn-Yo-6z5" firstAttribute="bottom" secondItem="7lp-0Z-BQm" secondAttribute="bottom" constant="1" id="Ud0-lH-PdP"/>
                                     <constraint firstItem="m0r-v6-iqs" firstAttribute="bottom" secondItem="7lp-0Z-BQm" secondAttribute="bottom" constant="-8" id="VkG-fv-AIa"/>
                                     <constraint firstItem="Hyn-Yo-6z5" firstAttribute="leading" secondItem="XCW-9H-oc1" secondAttribute="leading" id="Zp2-u7-tzX"/>
                                     <constraint firstAttribute="height" secondItem="C41-e2-ydq" secondAttribute="height" multiplier="7/32" id="cXc-ey-5W7"/>
                                     <constraint firstAttribute="trailing" secondItem="Hyn-Yo-6z5" secondAttribute="trailing" id="ddr-Gl-Eml"/>
                                     <constraint firstItem="7lp-0Z-BQm" firstAttribute="leading" secondItem="ar4-8d-lsp" secondAttribute="leading" id="eTv-yY-1RS"/>
-                                    <constraint firstItem="yxM-oL-Shz" firstAttribute="top" secondItem="7lp-0Z-BQm" secondAttribute="bottom" constant="1" id="ek1-BF-xXf"/>
                                     <constraint firstItem="qtH-eq-bi4" firstAttribute="leading" secondItem="Hyn-Yo-6z5" secondAttribute="leading" id="hqr-E2-7Xs"/>
                                     <constraint firstItem="C41-e2-ydq" firstAttribute="height" secondItem="ar4-8d-lsp" secondAttribute="height" multiplier="0.27" id="mBs-sJ-fNn"/>
                                     <constraint firstItem="GLK-VI-Xsa" firstAttribute="top" secondItem="C41-e2-ydq" secondAttribute="bottom" constant="1" id="sJd-Gu-n7X"/>
@@ -1070,7 +1050,6 @@
                     </view>
                     <connections>
                         <outlet property="backgroundImageView" destination="2Pw-Cl-vCV" id="A8j-nb-Yzx"/>
-                        <outlet property="debugParkourButton" destination="yxM-oL-Shz" id="rha-FJ-xBe"/>
                         <outlet property="inviteButtonCenter" destination="Wlk-SR-5RU" id="DPB-sU-GoP"/>
                         <outlet property="inviteButtonLeft" destination="8hE-Ro-TD5" id="cLN-Gb-0fT"/>
                         <outlet property="inviteButtonRight" destination="XPE-ny-MyS" id="p4N-De-ENq"/>

@@ -32,7 +32,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *inviteButtonLeft;
 @property (strong, nonatomic) IBOutlet UIButton *inviteButtonCenter;
 @property (strong, nonatomic) IBOutlet UIButton *inviteButtonRight;
-@property (strong, nonatomic) IBOutlet UIButton *debugParkourButton;
 
 @end
 
@@ -45,16 +44,6 @@
     [self _populateUserInfo];
     
     [self.view insertSubview:[UIView pullVisualEffectViewWithFrame:self.view.bounds] atIndex:0];
-    
-    BOOL disableParkour = [[NSUserDefaults standardUserDefaults] boolForKey:@"Debug-DisableParkour"];
-    if (disableParkour)
-    {
-        [_debugParkourButton setTitle:@"Parkour Disabled" forState:UIControlStateNormal];
-    }
-    else
-    {
-        [_debugParkourButton setTitle:@"Parkour Enabled" forState:UIControlStateNormal];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -129,27 +118,6 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-- (IBAction)ibDebugParkour:(id)sender
-{
-    BOOL disableParkour = [[NSUserDefaults standardUserDefaults] boolForKey:@"Debug-DisableParkour"];
-    
-    if (disableParkour)
-    {
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Debug-DisableParkour"];
-        [sender setTitle:@"Parkour Enabled" forState:UIControlStateNormal];
-    }
-    else
-    {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Debug-DisableParkour"];
-        [sender setTitle:@"Parkour Disabled" forState:UIControlStateNormal];
-    }
-    
-    [[[UIAlertView alloc] initWithTitle:@"Restart"
-                                message:@"Close and restart Pull for change to take effect"
-                               delegate:nil
-                      cancelButtonTitle:@"Ok"
-                      otherButtonTitles:nil]show];
-}
 #pragma mark - action sheet delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
 {

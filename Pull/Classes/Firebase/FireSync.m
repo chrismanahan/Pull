@@ -259,7 +259,7 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
     if (cachedDict)
     {
         cachedObj = cachedDict[@"object"];
-        PULLog(@"loading object from cache (%@)", key);
+//        PULLog(@"loading object from cache (%@)", key);
 
     }
     

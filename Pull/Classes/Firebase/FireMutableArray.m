@@ -12,6 +12,11 @@
 
 #import "FireSync.h"
 
+NSString * const FireArrayObjectAddedNotification = @"FireArrayObjectAddedNotification";
+NSString * const FireArrayObjectRemovedNotification = @"FireArrayObjectRemovedNotification";
+NSString * const FireArrayEmptyNotification = @"FireArrayEmptyNotification";
+NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNotification";
+
 @interface _FireKeyChange : NSObject
 
 @property (nonatomic, copy) NSString *key;
@@ -88,6 +93,15 @@
         
         // check if we need to add an observer for this object
         [self _addObserversIfNeededForObject:anObject];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:FireArrayObjectAddedNotification
+                                                            object:self];
+        
+        if (_backingStore.count == 1)
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:FireArrayNoLongerEmptyNotification
+                                                                object:self];
+        }
     }
 }
 
@@ -100,6 +114,15 @@
     
     // check if we need to remove this object from being observed
     [self _removeObserversIfNeededForObject:anObject];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:FireArrayObjectRemovedNotification
+                                                        object:self];
+    
+    if (_backingStore.count == 0)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:FireArrayEmptyNotification
+                                                            object:self];
+    }
 }
 
 #pragma mark - Block running

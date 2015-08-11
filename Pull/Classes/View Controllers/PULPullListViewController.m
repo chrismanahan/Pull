@@ -146,6 +146,11 @@ const NSInteger kPULPulledFarSection = 2;
     {
         [[PULAccount currentUser].pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
             [self reload];
+            
+            if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
+            {
+                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+            }
         }];
     }
     

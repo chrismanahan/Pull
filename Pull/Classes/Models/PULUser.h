@@ -33,6 +33,8 @@
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) CLPlacemark *placemark;
+@property (nonatomic, assign) NSInteger currentMotionType;
+@property (nonatomic, assign) NSInteger currentPositionType;
 // friends
 @property (nonatomic, strong) FireMutableArray *friends;
 @property (nonatomic, strong) FireMutableArray *blocked;

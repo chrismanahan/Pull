@@ -15,6 +15,11 @@
 typedef void(^FireArrayLoadedBlock)(FireMutableArray *objects);
 typedef void(^FireArrayObjectChangedBlock)(FireMutableArray *array, FireObject *object);
 
+extern NSString * const FireArrayObjectAddedNotification;
+extern NSString * const FireArrayObjectRemovedNotification;
+extern NSString * const FireArrayEmptyNotification;
+extern NSString * const FireArrayNoLongerEmptyNotification;
+
 @interface FireMutableArray : NSMutableArray <Fireable>
 
 /**

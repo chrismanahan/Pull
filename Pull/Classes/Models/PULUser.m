@@ -92,7 +92,9 @@
                           @"location": @{
                                   @"lat": @(_location.coordinate.latitude),
                                   @"lon": @(_location.coordinate.longitude),
-                                  @"alt": @(_location.altitude)
+                                  @"alt": @(_location.altitude),
+                                  @"currPosType": @(_currentPositionType),
+                                  @"currMoveType":@(_currentMotionType)
                                   },
                           @"friends": [_friends firebaseRepresentation],
                           @"pulls": [_pulls firebaseRepresentation],
@@ -151,6 +153,9 @@
         double lon = [repr[@"location"][@"lon"] doubleValue];
         //    double alt = [repr[@"location"][@"alt"] doubleValue];
         self.location = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+        
+        _currentMotionType = [repr[@"currMoveType"] integerValue];
+        _currentPositionType = [repr[@"currPosType"] integerValue];
     }
     
     if (repr[@"settings"])

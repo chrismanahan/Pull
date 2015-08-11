@@ -47,6 +47,41 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
     return shared;
 }
 
+- (id)init
+{
+    if (self = [super init])
+    {
+        [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayObjectAddedNotification
+                                                          object:[PULAccount currentUser].pulls
+                                                           queue:[NSOperationQueue currentQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          // start location up if we have any pulled friends
+                                                          if ([self _shouldUpdateLocation])
+                                                          {
+                                                              [self startUpdatingLocation];
+                                                          }
+                                                      }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayObjectRemovedNotification
+                                                          object:[PULAccount currentUser].pulls
+                                                           queue:[NSOperationQueue currentQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          // start location up if we have any pulled friends
+                                                          if (![self _shouldUpdateLocation])
+                                                          {
+                                                              [self stopUpdatingLocation];
+                                                          }
+                                                      }];
+    }
+    
+    return self;
+}
+
+- (BOOL)_shouldUpdateLocation
+{
+    return ([[PULAccount currentUser] pullsPulledNearby].count > 0 || [[PULAccount currentUser] pullsPulledFar].count > 0) && !_tracking;
+}
+
 -(void)_initializeLocationTracking
 {
     _locationManager = [[CLLocationManager alloc] init];
@@ -69,38 +104,43 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
  */
 -(void)startUpdatingLocation;
 {
-    _tracking = YES;
-    
+    // verify we should be starting location
+    if ([self _shouldUpdateLocation])
+    {
+        PULLog(@"starting location updater");
+        _tracking = YES;
 
-    [parkour start];
-    [parkour setMinPositionUpdateRate:3];
-    [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
+        [parkour start];
+        [parkour setMinPositionUpdateRate:3];
+        [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
 
-            CLS_LOG(@"received location: %@ of type %zd : $zd", position, motionType);
-            
-            PULAccount *acct = [PULAccount currentUser];
-            if (acct.isLoaded)
-            {
-                // check if we haven't been walking
-                if (!(acct.currentMotionType == NotMoving && motionType == NotMoving))
+                CLS_LOG(@"received location: %@ of type %zd : $zd", position, motionType);
+                
+                PULAccount *acct = [PULAccount currentUser];
+                if (acct.isLoaded)
                 {
-                    acct.currentMotionType = motionType;
-                    acct.location = position;
-                    acct.currentPositionType = positionType;
-                    
-                    [acct saveKeys:@[@"location"]];
-                }
-        }
+                    // check if we haven't been walking
+    //                if (!(acct.currentMotionType == NotMoving && motionType == NotMoving))
+    //                {
+                        acct.currentMotionType = motionType;
+                        acct.location = position;
+                        acct.currentPositionType = positionType;
+                        
+                        [acct saveKeys:@[@"location"]];
+    //                }
+            }
 
-    }];
-    [parkour setTrackPositionMode:Pedestrian];
-    
+        }];
+        [parkour setTrackPositionMode:Pedestrian];
+    }
 }
 /*!
  *  Stops updating and posting location
  */
 -(void)stopUpdatingLocation;
 {
+    PULLog(@"starting location updater");
+    
     _tracking = NO;
     
     [parkour stopTrackPosition];

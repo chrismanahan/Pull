@@ -23,7 +23,7 @@
 
 NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
 NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissionsNeededNotification";
-NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpdatedNotification";
+//NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpdatedNotification";
 
 @interface PULLocationUpdater ()
 
@@ -72,6 +72,10 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
                                                               [self stopUpdatingLocation];
                                                           }
                                                       }];
+        
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+        [_locationManager startUpdatingHeading];
     }
     
     return self;
@@ -82,21 +86,24 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
     return ([[PULAccount currentUser] pullsPulledNearby].count > 0 || [[PULAccount currentUser] pullsPulledFar].count > 0) && !_tracking;
 }
 
--(void)_initializeLocationTracking
-{
-    _locationManager = [[CLLocationManager alloc] init];
-    _locationManager.delegate = self;
-    [_locationManager startUpdatingHeading];
-    
-    [self _requestPermission];
-}
-
-
 #pragma mark - Public
 - (BOOL)hasPermission
 {
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized ||
     [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
+}
+
+- (void)startUpdatingHeadingWithBlock:(PULHeadingBlock)block;
+{
+    [_locationManager startUpdatingHeading];
+    
+    _headingChangeBlock = [block copy];
+}
+
+- (void)stopUpdatingHeading;
+{
+    [_locationManager stopUpdatingHeading];
+    _headingChangeBlock = nil;
 }
 
 /*!
@@ -114,20 +121,16 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
         [parkour setMinPositionUpdateRate:3];
         [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
 
-                CLS_LOG(@"received location: %@ of type %zd : $zd", position, motionType);
+            CLS_LOG(@"received location: %@ of type %zd : $zd", position, motionType);
+            
+            PULAccount *acct = [PULAccount currentUser];
+            if (acct.isLoaded)
+            {
+                acct.currentMotionType = motionType;
+                acct.location = position;
+                acct.currentPositionType = positionType;
                 
-                PULAccount *acct = [PULAccount currentUser];
-                if (acct.isLoaded)
-                {
-                    // check if we haven't been walking
-    //                if (!(acct.currentMotionType == NotMoving && motionType == NotMoving))
-    //                {
-                        acct.currentMotionType = motionType;
-                        acct.location = position;
-                        acct.currentPositionType = positionType;
-                        
-                        [acct saveKeys:@[@"location"]];
-    //                }
+                [acct saveKeys:@[@"location"]];
             }
 
         }];
@@ -152,11 +155,11 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
     if (status == kCLAuthorizationStatusAuthorized)
     {
         PULLog(@"location permission granted");
-        if (!_locationManager)
+
+        if ([self _shouldUpdateLocation])
         {
-            [self _initializeLocationTracking];
+            [self startUpdatingLocation];
         }
-        [self startUpdatingLocation];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsGrantedNotification object:self];
     }
@@ -164,24 +167,18 @@ NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpda
     {
         PULLog(@"location access denied");
         
-        if (!_locationManager)
-        {
-            [self _initializeLocationTracking];
-        }
-        else
-        {
-            [self _requestPermission];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsDeniedNotification object:self];
-        }
+        [self _requestPermission];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationPermissionsDeniedNotification object:self];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationHeadingUpdatedNotification
-                                                        object:newHeading];
-
+    if (_headingChangeBlock)
+    {
+        _headingChangeBlock(newHeading);
+    }
 }
 
 #pragma mark - Private

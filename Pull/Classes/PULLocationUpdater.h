@@ -11,7 +11,8 @@
 
 extern NSString* const PULLocationPermissionsGrantedNotification;
 extern NSString* const PULLocationPermissionsDeniedNotification;
-extern NSString* const PULLocationHeadingUpdatedNotification;
+
+typedef void(^PULHeadingBlock)(CLHeading *heading);
 
 /*!
  *  This singleton is responsible for keeping track of the user's location and posting it to the BE
@@ -24,6 +25,8 @@ extern NSString* const PULLocationHeadingUpdatedNotification;
 
 @property (nonatomic, assign, getter=isTracking) BOOL tracking;
 
+@property (nonatomic, copy) PULHeadingBlock headingChangeBlock;
+
 /****************************************************
  Class Methods
  ****************************************************/
@@ -33,6 +36,9 @@ extern NSString* const PULLocationHeadingUpdatedNotification;
 /****************************************************
  Instance Methods
  ****************************************************/
+
+- (void)startUpdatingHeadingWithBlock:(PULHeadingBlock)block;
+- (void)stopUpdatingHeading;
 
 - (BOOL)hasPermission;
 

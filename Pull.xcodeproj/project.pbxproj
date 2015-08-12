@@ -90,6 +90,7 @@
 		84A201A71AEEBE5000A8A965 /* PULRoundedMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A201A61AEEBE5000A8A965 /* PULRoundedMapView.m */; };
 		84AAC8D31A8E8E5100C302AD /* PULNoConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AAC8D21A8E8E5100C302AD /* PULNoConnectionView.m */; };
 		84AAC8D51A8E904A00C302AD /* PULNoConnectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AAC8D41A8E904A00C302AD /* PULNoConnectionView.xib */; };
+		84D81D711B7A83EB00075860 /* parkour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D81D701B7A83EB00075860 /* parkour.framework */; };
 		84DBE2E61AE94FCB00115C59 /* compass_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DBE2E31AE94FCA00115C59 /* compass_small.png */; };
 		84DBE2E71AE94FCB00115C59 /* compass_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DBE2E41AE94FCB00115C59 /* compass_small@2x.png */; };
 		84DBE2E81AE94FCB00115C59 /* compass_small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DBE2E51AE94FCB00115C59 /* compass_small@3x.png */; };
@@ -262,7 +263,6 @@
 		9BE5B5601AED768A00544D57 /* settings_contact@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE5B5571AED768A00544D57 /* settings_contact@3x.png */; };
 		9BE5B5611AED768A00544D57 /* settings_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE5B5581AED768A00544D57 /* settings_contact@2x.png */; };
 		9BE5B5621AED768A00544D57 /* settings_contact.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE5B5591AED768A00544D57 /* settings_contact.png */; };
-		9BF9BEC31B742D310020981E /* parkour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BF9BEC21B742D310020981E /* parkour.framework */; };
 		9BF9BEC51B742D380020981E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BF9BEC41B742D380020981E /* AdSupport.framework */; };
 		9BFE6F3A1AF30D8E000D00FF /* PULPullOptionsOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFE6F391AF30D8E000D00FF /* PULPullOptionsOverlay.m */; };
 		9BFE6F3C1AF30D9D000D00FF /* PULPullOptionsOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F3B1AF30D9D000D00FF /* PULPullOptionsOverlay.xib */; };
@@ -396,6 +396,7 @@
 		84AAC8D11A8E8E5100C302AD /* PULNoConnectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULNoConnectionView.h; path = UI/Views/PULNoConnectionView.h; sourceTree = "<group>"; };
 		84AAC8D21A8E8E5100C302AD /* PULNoConnectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULNoConnectionView.m; path = UI/Views/PULNoConnectionView.m; sourceTree = "<group>"; };
 		84AAC8D41A8E904A00C302AD /* PULNoConnectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PULNoConnectionView.xib; sourceTree = "<group>"; };
+		84D81D701B7A83EB00075860 /* parkour.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = parkour.framework; path = Frameworks/parkour.framework; sourceTree = "<group>"; };
 		84DBE2E31AE94FCA00115C59 /* compass_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass_small.png; sourceTree = "<group>"; };
 		84DBE2E41AE94FCB00115C59 /* compass_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass_small@2x.png"; sourceTree = "<group>"; };
 		84DBE2E51AE94FCB00115C59 /* compass_small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass_small@3x.png"; sourceTree = "<group>"; };
@@ -608,7 +609,6 @@
 		9BE5B5571AED768A00544D57 /* settings_contact@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_contact@3x.png"; sourceTree = "<group>"; };
 		9BE5B5581AED768A00544D57 /* settings_contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_contact@2x.png"; sourceTree = "<group>"; };
 		9BE5B5591AED768A00544D57 /* settings_contact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_contact.png; sourceTree = "<group>"; };
-		9BF9BEC21B742D310020981E /* parkour.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = parkour.framework; path = ../../../Downloads/parkour.framework; sourceTree = "<group>"; };
 		9BF9BEC41B742D380020981E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		9BFE6F381AF30D8E000D00FF /* PULPullOptionsOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULPullOptionsOverlay.h; path = UI/Views/Overlays/PULPullOptionsOverlay.h; sourceTree = "<group>"; };
 		9BFE6F391AF30D8E000D00FF /* PULPullOptionsOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULPullOptionsOverlay.m; path = UI/Views/Overlays/PULPullOptionsOverlay.m; sourceTree = "<group>"; };
@@ -631,12 +631,12 @@
 				9BF9BEC51B742D380020981E /* AdSupport.framework in Frameworks */,
 				953B064D1A8D9021008235EB /* MediaPlayer.framework in Frameworks */,
 				95D6661C1A7C8EEE000FAD8D /* MapKit.framework in Frameworks */,
+				84D81D711B7A83EB00075860 /* parkour.framework in Frameworks */,
 				952BDB601A0C4F0500C67BB5 /* Security.framework in Frameworks */,
 				952BDB621A0C4F0500C67BB5 /* SystemConfiguration.framework in Frameworks */,
 				9589F5421A86718700EFF5BC /* Fabric.framework in Frameworks */,
 				952BDB5E1A0C4F0500C67BB5 /* CFNetwork.framework in Frameworks */,
 				9589F5411A86718700EFF5BC /* Crashlytics.framework in Frameworks */,
-				9BF9BEC31B742D310020981E /* parkour.framework in Frameworks */,
 				8561C6B8988A590CF0A83166 /* libPods-Pull.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1069,8 +1069,8 @@
 		952BDB5C1A0C4F0500C67BB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84D81D701B7A83EB00075860 /* parkour.framework */,
 				9BF9BEC41B742D380020981E /* AdSupport.framework */,
-				9BF9BEC21B742D310020981E /* parkour.framework */,
 				953B064C1A8D9021008235EB /* MediaPlayer.framework */,
 				9589F53F1A86718700EFF5BC /* Crashlytics.framework */,
 				9589F5401A86718700EFF5BC /* Fabric.framework */,
@@ -1973,6 +1973,7 @@
 					"$(PROJECT_DIR)",
 					/Users/chrism/Dropbox/pull,
 					/Users/chrism/Downloads,
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PREFIX_HEADER = "Pull-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2011,6 +2012,7 @@
 					"$(PROJECT_DIR)",
 					/Users/chrism/Dropbox/pull,
 					/Users/chrism/Downloads,
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PREFIX_HEADER = "Pull-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

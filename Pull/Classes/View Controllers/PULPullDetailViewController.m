@@ -99,30 +99,32 @@ const CGFloat kPULCompassFlashTime = 1.5;
     //    }
     //    _mapOverlayView = [UIView pullVisualEffectViewWithFrame:_mapView.frame];
     //    [self.view insertSubview:_mapOverlayView aboveSubview:_mapView];
-    
-//    [[LocationTracker sharedLocationTracker] registerHeadingChangeBlock:^(CLHeading *heading) {
-//        // update direction of arrow
-//        CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
-//                                                    and:_user.location.coordinate];
-//        
-//        CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
-//        
-//        [self _rotateCompassToRadians:rads];
-//    }];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didUpdateHeading:)
-                                                 name:PULLocationHeadingUpdatedNotification
-                                               object:nil];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+
+    [[PULLocationUpdater sharedUpdater] stopUpdatingHeading];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//    [[LocationTracker sharedLocationTracker] unregisterHeadingChangeBlock];
+    [[PULLocationUpdater sharedUpdater] startUpdatingHeadingWithBlock:^(CLHeading *heading) {
+        if (_shouldRotate)
+        {
+            // update direction of arrow
+            CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
+                                                        and:_user.location.coordinate];
+            
+            CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
+            
+            [self _rotateCompassToRadians:rads];
+        }
+    }];
 }
 
 - (void)viewDidLoad
@@ -254,22 +256,6 @@ NSString* deviceName()
 }
 
 #pragma mark - Notifcation Selectors
-- (void)didUpdateHeading:(NSNotification*)notif
-{
-    CLHeading *heading = [notif object];
-    
-    if (_shouldRotate)
-    {
-        // update direction of arrow
-        CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
-                                                    and:_user.location.coordinate];
-        
-        CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
-        
-        [self _rotateCompassToRadians:rads];
-    }
-}
-
 - (void)didUpdateUser:(NSNotification*)notif
 {
     PULUser *user = [notif object];

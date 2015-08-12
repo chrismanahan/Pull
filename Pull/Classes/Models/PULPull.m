@@ -8,9 +8,13 @@
 
 #import "PULPull.h"
 
-#import "PULUser.h"
+#import "PULAccount.h"
 
 #import "PULConstants.h"
+
+#import "NSDate+Utilities.h"
+
+#import <UIKit/UIKit.h>
 
 const NSTimeInterval kPullDurationHour    = 3600;
 const NSTimeInterval kPullDurationHalfDay = 3600 * 12;
@@ -22,6 +26,8 @@ const NSTimeInterval kPullDurationAlways  = 0;
 @property (nonatomic, strong, readwrite) NSDate *expiration;
 
 @property (nonatomic, strong) NSMutableDictionary *locationObservers;
+
+@property (nonatomic, strong) NSDate *lastNearbyNotification;
 
 @end
 
@@ -120,6 +126,37 @@ const NSTimeInterval kPullDurationAlways  = 0;
                     [self willChangeValueForKey:@"nearby"];
                     _nearby = YES;
                     [self didChangeValueForKey:@"nearby"];
+                    
+                    // notify user that friend is nearby if we're in the background
+                    UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
+                    if (appState != UIApplicationStateActive)
+                    {
+                        BOOL shouldNotify = NO;
+                        if (_lastNearbyNotification)
+                        {
+                            // check if it's been long enough since the last notification
+                            NSDate *now = [NSDate dateWithMinutesFromNow:0];
+                            NSInteger minutesPassed = [now minutesAfterDate:_lastNearbyNotification];
+                            shouldNotify = minutesPassed > kPULPullLocalNotificationDelayMinutes;
+                        }
+                        else
+                        {
+                            shouldNotify = YES;
+                        }
+                        
+                        if (shouldNotify)
+                        {
+                            NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [self otherUser:[PULAccount currentUser]].firstName];
+                            
+                            UILocalNotification *notif = [[UILocalNotification alloc] init];
+                            notif.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+                            notif.soundName = UILocalNotificationDefaultSoundName;
+                            notif.alertBody = alertMessage;
+                            [[UIApplication sharedApplication] scheduleLocalNotification:notif];
+                            
+                            _lastNearbyNotification = [NSDate dateWithMinutesFromNow:0];
+                        }
+                    }
                 }
             }
             else

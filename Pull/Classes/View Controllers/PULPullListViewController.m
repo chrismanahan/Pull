@@ -157,23 +157,7 @@ const NSInteger kPULPulledFarSection = 2;
     if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"nearby"])
     {
         [[PULAccount currentUser].pulls registerForKeyChange:@"nearby" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
-            
-            if (((PULPull*)object).isNearby)
-            {
-                UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
-                if (appState == UIApplicationStateActive)
-                {
-                    [self reload];
-                }
-                else
-                {
-                    UILocalNotification *notif = [[UILocalNotification alloc] init];
-                    notif.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
-                    notif.soundName = UILocalNotificationDefaultSoundName;
-                    notif.alertBody = @"A friend is nearby!";
-                    [[UIApplication sharedApplication] scheduleLocalNotification:notif];
-                }
-            }
+                [self reload];
         }];
     }
 }

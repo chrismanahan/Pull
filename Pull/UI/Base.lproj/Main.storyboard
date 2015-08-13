@@ -439,7 +439,7 @@
                                                             <color key="textColor" red="0.59426294191919193" green="0.59426294191919193" blue="0.59426294191919193" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uj8-PO-zDI">
+                                                        <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uj8-PO-zDI">
                                                             <rect key="frame" x="21" y="118" width="282" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="qpt-F5-LCk"/>
@@ -451,27 +451,6 @@
                                                             </state>
                                                             <connections>
                                                                 <action selector="ibOptions:" destination="Gk0-t9-CDW" eventType="touchUpInside" id="Rch-o1-UBX"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="gAD-wH-GnX" customClass="PULRightAlignedButton">
-                                                            <rect key="frame" x="303" y="118" width="281" height="40"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="40" id="93v-g6-Vsp"/>
-                                                                <constraint firstAttribute="width" constant="160" id="N1M-KA-f4v"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                                                            <state key="normal" title="Message" image="messenger_icon.png">
-                                                                <color key="titleColor" red="0.59426294189999995" green="0.59426294189999995" blue="0.59426294189999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <variation key="default">
-                                                                <mask key="constraints">
-                                                                    <exclude reference="93v-g6-Vsp"/>
-                                                                    <exclude reference="N1M-KA-f4v"/>
-                                                                </mask>
-                                                            </variation>
-                                                            <connections>
-                                                                <action selector="ibMessage:" destination="Gk0-t9-CDW" eventType="touchUpInside" id="RZb-G3-Nfo"/>
                                                             </connections>
                                                         </button>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GnI-DT-27I" userLabel="bottom button container">
@@ -535,20 +514,15 @@
                                                         <constraint firstItem="lF3-Qu-hHy" firstAttribute="leading" secondItem="BNS-5y-wkb" secondAttribute="trailing" constant="8" id="1RK-Rw-67R"/>
                                                         <constraint firstItem="Uj8-PO-zDI" firstAttribute="leading" secondItem="lF3-Qu-hHy" secondAttribute="leading" id="45N-v0-cuR"/>
                                                         <constraint firstItem="jWa-0k-uVv" firstAttribute="top" secondItem="SpE-dl-FnM" secondAttribute="top" constant="8" id="DW3-EK-gKi"/>
-                                                        <constraint firstItem="gAD-wH-GnX" firstAttribute="width" secondItem="Uj8-PO-zDI" secondAttribute="width" id="Dx9-SM-ccw"/>
                                                         <constraint firstItem="GnI-DT-27I" firstAttribute="leading" secondItem="BNS-5y-wkb" secondAttribute="trailing" id="LYa-nL-fBa"/>
                                                         <constraint firstAttribute="trailing" secondItem="GnI-DT-27I" secondAttribute="trailing" id="MCe-ol-kEN"/>
                                                         <constraint firstItem="Uj8-PO-zDI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="y51-HN-rp5" secondAttribute="bottom" constant="16" id="NzZ-ON-EEK"/>
                                                         <constraint firstAttribute="bottom" secondItem="GnI-DT-27I" secondAttribute="bottom" id="O15-ze-X4B"/>
                                                         <constraint firstItem="eI9-yk-LpW" firstAttribute="centerY" secondItem="y51-HN-rp5" secondAttribute="centerY" constant="0.5" id="OvF-jV-VAJ"/>
-                                                        <constraint firstItem="Uj8-PO-zDI" firstAttribute="bottom" secondItem="gAD-wH-GnX" secondAttribute="bottom" id="U2M-vc-aEy"/>
                                                         <constraint firstItem="BNS-5y-wkb" firstAttribute="leading" secondItem="SpE-dl-FnM" secondAttribute="leading" id="WQ5-je-jI1"/>
                                                         <constraint firstItem="jWa-0k-uVv" firstAttribute="leading" secondItem="lF3-Qu-hHy" secondAttribute="trailing" constant="16" id="euC-zA-tlB"/>
                                                         <constraint firstItem="BNS-5y-wkb" firstAttribute="top" secondItem="SpE-dl-FnM" secondAttribute="top" id="gIi-fh-1xf"/>
                                                         <constraint firstItem="lF3-Qu-hHy" firstAttribute="top" secondItem="SpE-dl-FnM" secondAttribute="top" constant="8" id="gQ8-ba-HIt"/>
-                                                        <constraint firstItem="gAD-wH-GnX" firstAttribute="leading" secondItem="Uj8-PO-zDI" secondAttribute="trailing" id="hcX-5U-zqz"/>
-                                                        <constraint firstAttribute="trailing" secondItem="gAD-wH-GnX" secondAttribute="trailing" constant="8" id="jns-Qp-v0J"/>
-                                                        <constraint firstItem="Uj8-PO-zDI" firstAttribute="height" secondItem="gAD-wH-GnX" secondAttribute="height" id="mRb-ZR-dOd"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="y51-HN-rp5" secondAttribute="trailing" constant="16" id="mac-xy-WxD"/>
                                                         <constraint firstAttribute="bottom" secondItem="Uj8-PO-zDI" secondAttribute="bottom" id="sBF-O9-YsP"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jWa-0k-uVv" secondAttribute="trailing" constant="16" id="th5-ja-pLY"/>
@@ -584,7 +558,6 @@
                                             <outlet property="declineButton" destination="hHL-DB-7fz" id="cAj-bx-aDI"/>
                                             <outlet property="durationButton" destination="Uj8-PO-zDI" id="An4-ib-QG0"/>
                                             <outlet property="mainContainer" destination="SpE-dl-FnM" id="RCZ-4i-IgM"/>
-                                            <outlet property="messengerButton" destination="gAD-wH-GnX" id="lxm-gS-G8F"/>
                                             <outlet property="nameLabel" destination="jWa-0k-uVv" id="q53-1f-cmH"/>
                                             <outlet property="userImageViewContainer" destination="lF3-Qu-hHy" id="JdG-Vm-SOQ"/>
                                         </connections>
@@ -1744,24 +1717,14 @@
                                     <constraint firstAttribute="width" secondItem="BA3-4s-Miz" secondAttribute="height" multiplier="1:1" id="giN-UT-Na3"/>
                                 </constraints>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gu0-5S-fjy" customClass="PULRightAlignedButton">
-                                <rect key="frame" x="219" y="553" width="163" height="39"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Send Message" image="messenger_icon.png">
-                                    <color key="titleColor" red="0.053999999999999999" green="0.46400000000000002" blue="0.998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="VSI-QL-eER" firstAttribute="centerY" secondItem="BA3-4s-Miz" secondAttribute="centerY" id="5QT-j1-YND"/>
                             <constraint firstItem="BJ1-p9-fqk" firstAttribute="top" secondItem="fBe-JC-L71" secondAttribute="bottom" id="6l5-y8-EIL"/>
                             <constraint firstItem="OHw-Lt-ZsN" firstAttribute="width" secondItem="PKI-rX-A2I" secondAttribute="width" multiplier="0.77" id="CAj-pA-aHL"/>
-                            <constraint firstItem="XMP-0k-fHl" firstAttribute="top" secondItem="Gu0-5S-fjy" secondAttribute="bottom" constant="8" id="Ier-zK-h5e"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="top" secondItem="PKI-rX-A2I" secondAttribute="top" id="Ife-q0-DkG"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="trailing" secondItem="BJ1-p9-fqk" secondAttribute="trailing" id="Kwd-zP-gyA"/>
-                            <constraint firstAttribute="centerX" secondItem="Gu0-5S-fjy" secondAttribute="centerX" id="MFe-qk-8LR"/>
                             <constraint firstItem="fBe-JC-L71" firstAttribute="leading" secondItem="BJ1-p9-fqk" secondAttribute="leading" id="VWF-YY-1Eh"/>
                             <constraint firstAttribute="centerX" secondItem="OHw-Lt-ZsN" secondAttribute="centerX" id="ZxC-Sn-jbc"/>
                             <constraint firstItem="BA3-4s-Miz" firstAttribute="top" secondItem="BJ1-p9-fqk" secondAttribute="bottom" id="aR1-ut-Q8w"/>
@@ -2616,7 +2579,6 @@
         <image name="learn_more_2.png" width="575" height="431"/>
         <image name="learn_more_3.png" width="642" height="290"/>
         <image name="learn_more_arrow.png" width="23" height="33"/>
-        <image name="messenger_icon.png" width="42" height="39"/>
         <image name="nav_blue_down.png" width="24" height="31"/>
         <image name="permission_request_location.png" width="442" height="444"/>
         <image name="permission_request_notification.png" width="499" height="444"/>

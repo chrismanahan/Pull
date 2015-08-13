@@ -28,10 +28,6 @@
  */
 @property (nonatomic, strong) IBOutlet UILabel *accessoryLabel;
 /**
- *  Button to open facebook messenger with user
- */
-@property (nonatomic, strong) IBOutlet UIButton *messengerButton;
-/**
  *  Button to decline a requested pull
  */
 @property (nonatomic, strong) IBOutlet UIButton *declineButton;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -27,13 +27,13 @@
                     <rect key="frame" x="8" y="35" width="304" height="75"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="white_card_bottom.png" translatesAutoresizingMaskIntoConstraints="NO" id="fYy-le-M8q">
-                    <rect key="frame" x="8" y="327" width="304" height="21"/>
+                    <rect key="frame" x="8" y="257" width="304" height="21"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="white_card_middle.png" translatesAutoresizingMaskIntoConstraints="NO" id="qon-HP-okX">
-                    <rect key="frame" x="8" y="108" width="304" height="220"/>
+                    <rect key="frame" x="8" y="108" width="304" height="150"/>
                     <rect key="contentStretch" x="0.0" y="0.49999999999999994" width="1" height="0.49999999999999961"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="220" id="zj4-ok-CkE"/>
+                        <constraint firstAttribute="height" constant="150" id="zj4-ok-CkE"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Vincent Gilliam" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="a0x-1T-6sf">
@@ -48,18 +48,6 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kel-1Q-egw">
-                    <rect key="frame" x="33" y="259" width="254" height="60"/>
-                    <color key="backgroundColor" red="0.053999999999999999" green="0.46400000000000002" blue="0.998" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                    <state key="normal" title="Facebook Messenger">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="ibMessenger:" destination="iN0-l3-epB" eventType="touchUpInside" id="yif-or-11q"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="We will notify you when Vincent is within 1000 ft" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tij-ne-Hhn">
                     <rect key="frame" x="37" y="212" width="247" height="15"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
@@ -89,12 +77,9 @@
             <color key="backgroundColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="lfi-tC-Q4Y" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="16D-Yc-ZXx"/>
-                <constraint firstItem="fYy-le-M8q" firstAttribute="top" secondItem="Kel-1Q-egw" secondAttribute="bottom" constant="8" id="2gR-Cd-uLx"/>
                 <constraint firstItem="fYy-le-M8q" firstAttribute="top" secondItem="qon-HP-okX" secondAttribute="bottom" constant="-1" id="3no-0X-9qS"/>
                 <constraint firstItem="LZ1-8N-683" firstAttribute="centerX" secondItem="lfi-tC-Q4Y" secondAttribute="centerX" id="46p-Uq-EBX"/>
-                <constraint firstAttribute="centerX" secondItem="Kel-1Q-egw" secondAttribute="centerX" id="8aD-fM-rJ8"/>
                 <constraint firstAttribute="centerX" secondItem="a0x-1T-6sf" secondAttribute="centerX" id="9Xk-zU-BKU"/>
-                <constraint firstItem="Kel-1Q-egw" firstAttribute="top" secondItem="tij-ne-Hhn" secondAttribute="bottom" constant="32" id="J94-zc-TkB"/>
                 <constraint firstItem="fYy-le-M8q" firstAttribute="trailing" secondItem="qon-HP-okX" secondAttribute="trailing" id="KJt-fk-8Cg"/>
                 <constraint firstAttribute="centerX" secondItem="gMj-wX-tOf" secondAttribute="centerX" id="Kkz-47-MCL"/>
                 <constraint firstItem="a0x-1T-6sf" firstAttribute="top" secondItem="LZ1-8N-683" secondAttribute="bottom" constant="8" id="KnG-ho-Mml"/>
@@ -109,14 +94,12 @@
                 <constraint firstItem="LZ1-8N-683" firstAttribute="width" secondItem="lfi-tC-Q4Y" secondAttribute="width" multiplier="0.3" id="dyj-oe-nHf"/>
                 <constraint firstItem="tij-ne-Hhn" firstAttribute="top" secondItem="gMj-wX-tOf" secondAttribute="bottom" id="nZJ-5v-H0d"/>
                 <constraint firstItem="gMj-wX-tOf" firstAttribute="top" secondItem="a0x-1T-6sf" secondAttribute="bottom" constant="16" id="pTX-G7-Bn2"/>
-                <constraint firstItem="qon-HP-okX" firstAttribute="width" secondItem="Kel-1Q-egw" secondAttribute="width" multiplier="1.2" id="qlg-gH-UNj"/>
                 <constraint firstItem="WiP-S7-F9s" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="sGI-aR-dNl"/>
                 <constraint firstItem="fYy-le-M8q" firstAttribute="trailing" secondItem="lfi-tC-Q4Y" secondAttribute="trailing" id="x0e-yx-EOW"/>
                 <constraint firstItem="WiP-S7-F9s" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xd6-4Y-Fq9"/>
                 <constraint firstItem="LZ1-8N-683" firstAttribute="top" secondItem="lfi-tC-Q4Y" secondAttribute="top" constant="10" id="yAP-ne-QUv"/>
             </constraints>
             <connections>
-                <outlet property="messengerButton" destination="Kel-1Q-egw" id="raq-Na-1F4"/>
                 <outlet property="nameLabel" destination="a0x-1T-6sf" id="UKZ-9k-UCv"/>
                 <outlet property="subTitleLabel" destination="tij-ne-Hhn" id="azc-gw-v0B"/>
                 <outlet property="userImageView" destination="LZ1-8N-683" id="7ca-Dp-gJd"/>

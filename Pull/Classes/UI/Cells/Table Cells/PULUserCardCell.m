@@ -153,10 +153,6 @@
     _nameLabel.text = _user.fullName;
     
     [_userImageViewContainer setImage:_user.image forObject:_user];
-    
-    // hide fb messenger button if it won't work
-    NSURL *url = [NSURL URLWithString:@"fb-messenger://"];
-    _messengerButton.hidden = ![[UIApplication sharedApplication] canOpenURL:url];
 }
 
 
@@ -173,25 +169,6 @@
 - (IBAction)ibCancel:(id)sender
 {
     [[PULAccount currentUser] cancelPull:_pull];
-}
-- (IBAction)ibMessage:(id)sender {
-    
-//    if (!([FBSDKMessengerSharer messengerPlatformCapabilities] & FBSDKMessengerPlatformCapabilityOpen)) {
-//        return;
-//    }
-//
-//    UIImage *image = [UIImage imageNamed:@"pull_splash.png"];
-//    [FBSDKMessengerSharer shareImage:image withOptions:nil];
-    
-//    NSString *urlStr = [NSString stringWithFormat:@"fb-messenger-platform-%@://user-thread/%@", [FBSDKMessengerSharer currentlyInstalledMessengerVersion], _user.fbId];
-//    
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-    
-//    
-    NSURL *fbURL = [NSURL URLWithString:[NSString stringWithFormat:@"fb://messaging/compose/new?id=%@", _user.fbId]];
-    if ([[UIApplication sharedApplication] canOpenURL: fbURL]) {
-        [[UIApplication sharedApplication] openURL: fbURL];
-    }
 }
 
 - (IBAction)ibOptions:(id)sender

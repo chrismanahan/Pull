@@ -16,6 +16,7 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKMessengerShareKit/FBSDKMessengerShareKit.h>
+#import <FBSDKMessengerShareKit/FBSDKMessengerSharer+Internal.h>
 
 @import QuartzCore;
 
@@ -174,7 +175,20 @@
     [[PULAccount currentUser] cancelPull:_pull];
 }
 - (IBAction)ibMessage:(id)sender {
-    NSURL *fbURL = [NSURL URLWithString:[NSString stringWithFormat:@"fb-messenger://user-thread/%@", @"10204259836958353"]];
+    
+//    if (!([FBSDKMessengerSharer messengerPlatformCapabilities] & FBSDKMessengerPlatformCapabilityOpen)) {
+//        return;
+//    }
+//
+//    UIImage *image = [UIImage imageNamed:@"pull_splash.png"];
+//    [FBSDKMessengerSharer shareImage:image withOptions:nil];
+    
+//    NSString *urlStr = [NSString stringWithFormat:@"fb-messenger-platform-%@://user-thread/%@", [FBSDKMessengerSharer currentlyInstalledMessengerVersion], _user.fbId];
+//    
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+    
+//    
+    NSURL *fbURL = [NSURL URLWithString:[NSString stringWithFormat:@"fb://messaging/compose/new?id=%@", _user.fbId]];
     if ([[UIApplication sharedApplication] canOpenURL: fbURL]) {
         [[UIApplication sharedApplication] openURL: fbURL];
     }

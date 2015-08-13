@@ -10,6 +10,8 @@
 
 @class PULUser;
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern const NSTimeInterval kPullDurationHour;
 extern const NSTimeInterval kPullDurationHalfDay;
 extern const NSTimeInterval kPullDurationDay;
@@ -75,5 +77,7 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
 - (BOOL)initiatedBy:(PULUser*)user;
 - (PULUser*)otherUser:(PULUser*)thisUser;
 - (void)resetExpiration;
+
+NS_ASSUME_NONNULL_END
 
 @end

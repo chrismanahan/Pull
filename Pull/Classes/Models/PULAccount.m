@@ -189,7 +189,7 @@ static PULAccount *account = nil;
     [[FireSync sharedSync] unauth];
 }
 
-+ (void)loginWithFacebookToken:(FBSDKAccessToken*)accessToken completion:(void(^)(PULAccount *account, NSError *error))completion;
++ (void)loginWithFacebookToken:(FBSDKAccessToken*)accessToken completion:(nullable void(^)(PULAccount *account, NSError *error))completion;
 {
     PULLog(@"Logging in with facebook token");
     
@@ -228,7 +228,7 @@ static PULAccount *account = nil;
     [self sendPullToUser:user duration:duration caption:nil];
 }
 
-- (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration caption:(NSString*)caption;
+- (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration caption:(nullable NSString*)caption;
 {
     PULLog(@"sending pull to: %@", user);
     // create pull

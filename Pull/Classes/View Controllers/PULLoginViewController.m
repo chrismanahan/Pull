@@ -12,7 +12,6 @@
 
 #import "PULSlideLeftSegue.h"
 
-#import "PULAccountOld.h"
 #import "PULAccount.h"
 
 #import "PULConstants.h"

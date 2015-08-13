@@ -32,6 +32,10 @@ NSString * const kPULPushTypeAcceptPull          = @"acceptPull";
     {
         sendPush = toUser.settings.notifyInvite;
     }
+    else
+    {
+        NSAssert(YES, @"push type is not supported!!! %@", pushType);
+    }
     
     if (sendPush)
     {

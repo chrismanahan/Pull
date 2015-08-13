@@ -10,6 +10,8 @@
 
 #import "FireObject.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface PULUserSettings : NSObject <Fireable>
 
 @property (nonatomic, assign) BOOL notifyInvite;
@@ -22,5 +24,7 @@
 @property (nonatomic, assign) BOOL resolveAddress;
 
 + (instancetype)defaultSettings;
+
+NS_ASSUME_NONNULL_END
 
 @end

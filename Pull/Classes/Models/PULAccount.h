@@ -10,13 +10,15 @@
 
 #import "PULPull.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString * const PULAccountDidLoginNotification;
 
 @class FBSDKAccessToken;
 
 @interface PULAccount : PULUser
 
-+ (void)loginWithFacebookToken:(FBSDKAccessToken*)accessToken completion:(void(^)(PULAccount *account, NSError *error))completion;
++ (void)loginWithFacebookToken:(FBSDKAccessToken*)accessToken completion:(nullable void(^)(PULAccount *account, NSError *error))completion;
 
 + (instancetype)initializeCurrentUser:(NSString*)uid;
 
@@ -26,7 +28,7 @@ extern NSString * const PULAccountDidLoginNotification;
 
 // Pulling
 - (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration;
-- (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration caption:(NSString*)caption;
+- (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration caption:(nullable NSString*)caption;
 - (void)acceptPull:(PULPull*)pull;
 - (void)cancelPull:(PULPull*)pull;
 
@@ -41,5 +43,7 @@ extern NSString * const PULAccountDidLoginNotification;
 - (NSArray*)pullsWaiting;
 - (NSArray*)pullsPulledNearby;
 - (NSArray*)pullsPulledFar;
+
+NS_ASSUME_NONNULL_END
 
 @end

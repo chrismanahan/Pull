@@ -16,6 +16,8 @@
 @class CLPlacemark;
 @class UIImage;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface PULUser : FireObject
 
 // identifiers
@@ -45,8 +47,11 @@
 // settings
 @property (nonatomic, strong) PULUserSettings *settings;
 
+//TODO: -sortedArray: doesn't belong here
 - (id)sortedArray:(NSArray*)array;
 
 - (void)initialize;
+
+NS_ASSUME_NONNULL_END
 
 @end

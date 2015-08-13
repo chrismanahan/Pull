@@ -14,6 +14,8 @@
 
 #import "PULPullListViewController.h"
 
+#import "PULConstants.h"
+
 #import "PULAccount.h"
 #import "PULPull.h"
 
@@ -48,7 +50,7 @@
     [super viewWillAppear:animated];
     
     _captionTextView.layer.cornerRadius = 5.0;
-    _disclaimerLabel.text = [NSString stringWithFormat:@"%@ will only see you when you are within 1000 ft", _user.firstName];
+    _disclaimerLabel.text = [NSString stringWithFormat:@"%@ will only see you when you are within %zd ft", _user.firstName, kPULNearbyDistanceFeet];
     
     _nameLabel.text = _user.fullName;
     [_userImageView setImage:_user.image forObject:_user];

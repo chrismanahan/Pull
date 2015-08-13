@@ -12,6 +12,8 @@
 
 #import "PULAccount.h"
 
+#import "PULConstants.h"
+
 @interface PULPullNotNearbyOverlay ()
 @property (strong, nonatomic) IBOutlet PULUserImageView *userImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
@@ -28,7 +30,7 @@
     PULUser *friend = [self.pull otherUser:[PULAccount currentUser]];
     
     _nameLabel.text = friend.fullName;
-    _subTitleLabel.text = [NSString stringWithFormat:@"We will notify you when %@ is within 1000 ft",  friend.firstName];
+    _subTitleLabel.text = [NSString stringWithFormat:@"We will notify you when %@ is within %zd ft",  friend.firstName, kPULNearbyDistanceFeet];
     [_userImageView setImage:friend.image forObject:friend];
 }
 - (IBAction)ibDismiss:(id)sender

@@ -81,11 +81,6 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
     return self;
 }
 
-- (BOOL)_shouldUpdateLocation
-{
-    return ([[PULAccount currentUser] pullsPulledNearby].count > 0 || [[PULAccount currentUser] pullsPulledFar].count > 0) && !_tracking;
-}
-
 #pragma mark - Public
 - (BOOL)hasPermission
 {
@@ -134,7 +129,6 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
             }
 
         }];
-        [parkour setTrackPositionMode:Pedestrian];
     }
 }
 /*!
@@ -147,6 +141,7 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
     _tracking = NO;
     
     [parkour stopTrackPosition];
+    [parkour stop];
 }
 
 #pragma mark - Location Manager delegate
@@ -190,5 +185,11 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
         [_locationManager requestAlwaysAuthorization];
     }
 }
+
+- (BOOL)_shouldUpdateLocation
+{
+    return ([[PULAccount currentUser] pullsPulledNearby].count > 0 || [[PULAccount currentUser] pullsPulledFar].count > 0) && !_tracking;
+}
+
 
 @end

@@ -310,6 +310,22 @@ static PULAccount *account = nil;
     }
 }
 
+- (void)cancelPullWithUser:(PULUser*)user;
+{
+    if ([self.pulledFriends containsObject:user])
+    {
+        for (PULPull *pull in self.pulls)
+        {
+            if ([pull containsUser:user])
+            {
+                [self cancelPull:pull];
+                break;
+            }
+        }
+    }
+
+}
+
 #pragma mark - Friend Management
 - (void)blockUser:(PULUser*)user;
 {
@@ -327,6 +343,7 @@ static PULAccount *account = nil;
     [self.friends removeAndSaveObject:user];
     [self didChangeValueForKey:@"friends"];
 
+    [self cancelPullWithUser:user];
 }
 
 - (void)unblockUser:(PULUser*)user;

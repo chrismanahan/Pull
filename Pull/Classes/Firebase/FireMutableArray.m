@@ -85,8 +85,10 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
 {
     NSAssert([anObject isKindOfClass:[FireObject class]], @"object must be a subclass of FireObject");
     
+    PULLog(@"will add and save object: %@", anObject);
     if (![_backingStore containsObject:anObject] || _allowDuplicates)
     {
+        PULLog(@"\tadding object to backing store");
         [_backingStore addObject:anObject];
         
         [[FireSync sharedSync] addObject:anObject toArray:self forObject:_relatedObject];
@@ -94,20 +96,28 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
         // check if we need to add an observer for this object
         [self _addObserversIfNeededForObject:anObject];
         
+        PULLogNotif(FireArrayObjectAddedNotification);
         [[NSNotificationCenter defaultCenter] postNotificationName:FireArrayObjectAddedNotification
                                                             object:self];
         
         if (_backingStore.count == 1)
         {
+            PULLogNotif(FireArrayNoLongerEmptyNotification);
             [[NSNotificationCenter defaultCenter] postNotificationName:FireArrayNoLongerEmptyNotification
                                                                 object:self];
         }
+    }
+    else
+    {
+        PULLog(@"object exists already, not adding");
     }
 }
 
 - (void)removeAndSaveObject:(FireObject*)anObject;
 {
     NSAssert([anObject isKindOfClass:[FireObject class]], @"object must be a subclass of FireObject");
+    
+    PULLog(@"removing object: %@", anObject);
     [_backingStore removeObject:anObject];
     
     [[FireSync sharedSync] removeObject:anObject fromArray:self forObject:_relatedObject];
@@ -115,11 +125,13 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
     // check if we need to remove this object from being observed
     [self _removeObserversIfNeededForObject:anObject];
     
+    PULLogNotif(FireArrayObjectRemovedNotification);
     [[NSNotificationCenter defaultCenter] postNotificationName:FireArrayObjectRemovedNotification
                                                         object:self];
     
     if (_backingStore.count == 0)
     {
+        PULLogNotif(FireArrayEmptyNotification);
         [[NSNotificationCenter defaultCenter] postNotificationName:FireArrayEmptyNotification
                                                             object:self];
     }
@@ -268,6 +280,7 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
 #pragma mark - Private
 - (void)_addObserversIfNeededForObject:(FireObject*)anObject
 {
+    PULLog(@"adding observers if need for object: %@", anObject);
     if (_keyChangeBlocks.count)
     {
         for (_FireKeyChange *change in _keyChangeBlocks)
@@ -276,6 +289,7 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
                 change.block(self, anObject);
             }];
             
+            PULLog(@"\tadding observer");
             [change.observers addObject:@{anObject.uid: obs}];
         }
     }
@@ -283,6 +297,7 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
 
 - (void)_removeObserversIfNeededForObject:(FireObject*)anObject
 {
+    PULLog(@"removing observers if need for object: %@", anObject);
     if (_keyChangeBlocks.count)
     {
         for (_FireKeyChange *change in _keyChangeBlocks)
@@ -292,6 +307,7 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
                 NSString *key = [obj allKeys][0];
                 if ([key isEqualToString:anObject.uid])
                 {
+                    PULLog(@"\tremoving observer");
                     [indices addIndex:idx];
                 }
             }];

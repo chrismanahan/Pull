@@ -10,14 +10,13 @@
 
 #import "PULAccount.h"
 
+#import "PULUserCell.h"
+
 
 @interface PULBlockingViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *friends;
-@property (nonatomic, strong) NSMutableArray *blocked;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, assign) BOOL dirty;
 @property (nonatomic, strong) PULUser *selectedUser;
 
 @end
@@ -28,9 +27,6 @@
 {
     [super viewWillAppear:animated];
     
-    _friends = [[NSMutableArray alloc] init];
-    _blocked = [[NSMutableArray alloc] init];
-
     [_tableView reloadData];
 }
 
@@ -51,30 +47,27 @@
 {
     if (section == 0)
     {
-        return _friends.count;
+        return [PULAccount currentUser].friends.count;
     }
     else
     {
-        return _blocked.count;
+        return [PULAccount currentUser].blocked.count;
     }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellId = indexPath.section == 0 ? @"FriendCell" : @"BlockedCell";
-    NSArray *dataSource = indexPath.section == 0 ? _friends : _blocked;
+    FireMutableArray *dataSource = indexPath.section == 0 ? [PULAccount currentUser].friends : [PULAccount currentUser].blocked;
     
     PULUser *user = dataSource[indexPath.row];
     
-//    PULUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    PULUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
-//    cell.user = user;
-//    cell.userImageViewContainer.imageView.image = user.image;
-//    cell.userDisplayNameLabel.text = user.fullName;
-//    cell.type = PULUserCellTypeNone;
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.user = user;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    return nil;
+    return cell;
 }
 
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -92,7 +85,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    NSArray *dataSource = section == 0 ? _friends : _blocked;
+    NSArray *dataSource = section == 0 ? [PULAccount currentUser].friends : [PULAccount currentUser].blocked;
     
     if (dataSource.count != 0)
     {
@@ -107,33 +100,33 @@
 #pragma mark - table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     NSArray *dataSource = indexPath.section == 0 ? _friends : _blocked;
-//PULUserOld *user = dataSource[indexPath.row];
+     NSArray *dataSource = indexPath.section == 0 ? [PULAccount currentUser].friends : [PULAccount currentUser].blocked;
+    PULUser *user = dataSource[indexPath.row];
     
-//    UIAlertView *alert;
-//    if (indexPath.section == 0)
-//    {
-//        alert = [[UIAlertView alloc] initWithTitle:@"Block"
-//                                    message:[NSString stringWithFormat:@"Are you sure you want to block %@ on pull?", user.firstName]
-//                                   delegate:self
-//                          cancelButtonTitle:@"No"
-//                          otherButtonTitles: @"Block", nil];
-//        
-//        alert.tag = 1000;
-//    }
-//    else
-//    {
-//        alert = [[UIAlertView alloc] initWithTitle:@"Unblock"
-//                                    message:[NSString stringWithFormat:@"Are you sure you want to unblock %@ on pull?", user.firstName]
-//                                   delegate:self
-//                          cancelButtonTitle:@"No"
-//                          otherButtonTitles: @"Unblock", nil] ;
-//        alert.tag = 1001;
-//    }
-//    
-//    _selectedUser = user;
-//    
-//    [alert show];
+    UIAlertView *alert;
+    if (indexPath.section == 0)
+    {
+        alert = [[UIAlertView alloc] initWithTitle:@"Block"
+                                    message:[NSString stringWithFormat:@"Are you sure you want to block %@ on pull?", user.firstName]
+                                   delegate:self
+                          cancelButtonTitle:@"No"
+                          otherButtonTitles: @"Block", nil];
+        
+        alert.tag = 1000;
+    }
+    else
+    {
+        alert = [[UIAlertView alloc] initWithTitle:@"Unblock"
+                                    message:[NSString stringWithFormat:@"Are you sure you want to unblock %@ on pull?", user.firstName]
+                                   delegate:self
+                          cancelButtonTitle:@"No"
+                          otherButtonTitles: @"Unblock", nil] ;
+        alert.tag = 1001;
+    }
+    
+    _selectedUser = user;
+    
+    [alert show];
 }
 
 #pragma mark - alert view delegat
@@ -141,28 +134,21 @@
 {
     if (buttonIndex == 1)
     {
-//        if (alertView.tag == 1000)
-//        {
-//            // block
-//            [[PULAccount currentUser].friendManager blockUser:_selectedUser];
-//            
-//            [_friends removeObject:_selectedUser];
-//            [_blocked addObject:_selectedUser];
-//            
-//            _dirty = YES;
-//        }
-//        else if (alertView.tag == 1001)
-//        {
-//            // unblock
-//            [[PULAccount currentUser].friendManager unBlockUser:_selectedUser];
-//            
-//            [_blocked removeObject:_selectedUser];
-//            [_friends addObject:_selectedUser];
-//            
-//            _dirty = YES;
-//        }
-//        
-//        [_tableView reloadData];
+        if (alertView.tag == 1000)
+        {
+            // block
+            [[PULAccount currentUser] blockUser:_selectedUser];
+        }
+        else if (alertView.tag == 1001)
+        {
+            // unblock
+            [[PULAccount currentUser] unblockUser:_selectedUser];
+        }
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_tableView reloadData];
+        });
+
     }
     
     _selectedUser = nil;

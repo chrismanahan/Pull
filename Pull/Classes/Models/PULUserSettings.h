@@ -16,8 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL notifyInvite;
 @property (nonatomic, assign) BOOL notifyAccept;
-@property (nonatomic, assign) BOOL notifyDeparture;
-@property (nonatomic, assign) BOOL notifyArrival;
+@property (nonatomic, assign) BOOL notifyNearby;
 
 @property (nonatomic, assign, getter=isDisabled) BOOL disabled;
 

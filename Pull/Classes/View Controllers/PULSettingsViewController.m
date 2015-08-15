@@ -20,6 +20,7 @@
 
 @property (strong, nonatomic) IBOutlet UISwitch *notifInviteSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *notifAcceptSwitch;
+@property (strong, nonatomic) IBOutlet UISwitch *notifyNearbySwitch;
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -37,6 +38,7 @@
     PULUserSettings *settings = [PULAccount currentUser].settings;
     [_notifAcceptSwitch setOn:settings.notifyAccept];
     [_notifInviteSwitch setOn:settings.notifyInvite];
+    [_notifyNearbySwitch setOn:settings.notifyNearby];
     
 }
 
@@ -84,6 +86,13 @@
     _dirty = YES;
     
     [PULAccount currentUser].settings.notifyAccept = _notifAcceptSwitch.isOn;
+}
+
+- (IBAction)ibNeraby:(id)sender
+{
+    _dirty = YES;
+    
+    [PULAccount currentUser].settings.notifyNearby = _notifyNearbySwitch.isOn;
 }
 
 - (IBAction)ibDone:(id)sender

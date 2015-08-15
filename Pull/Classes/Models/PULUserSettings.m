@@ -17,6 +17,7 @@
     
     settings.notifyAccept = YES;
     settings.notifyInvite = YES;
+    settings.notifyNearby = YES;
     settings.disabled = YES;
     settings.resolveAddress = YES;
     
@@ -37,8 +38,7 @@
              @"notification":@{
                      @"accept": @(_notifyAccept),
                      @"invite": @(_notifyInvite),
-                     @"arrival": @(_notifyArrival),
-                     @"departure": @(_notifyDeparture)
+                     @"nearby": @(_notifyNearby)
                      }
              };
 }
@@ -47,8 +47,7 @@
 {
     self.notifyInvite    = [repr[@"notification"][@"invite"] boolValue];
     self.notifyAccept    = [repr[@"notification"][@"accept"] boolValue];
-    self.notifyDeparture = [repr[@"notification"][@"departure"] boolValue];
-    self.notifyArrival   = [repr[@"notification"][@"arrival"] boolValue];
+    self.notifyNearby = [repr[@"notification"][@"nearby"] boolValue];
 
     self.disabled        = [repr[@"disabled"] boolValue];
 

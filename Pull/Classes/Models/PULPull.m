@@ -14,6 +14,8 @@
 
 #import "NSDate+Utilities.h"
 
+#import "PULLocalPush.h"
+
 #import <UIKit/UIKit.h>
 
 const NSTimeInterval kPullDurationHour    = 3600;
@@ -146,15 +148,15 @@ const NSTimeInterval kPullDurationAlways  = 0;
                         
                         if (shouldNotify)
                         {
-                            NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [self otherUser:[PULAccount currentUser]].firstName];
+                            // check if the user wants to be notified
+                            if ([PULAccount currentUser].settings.notifyNearby)
+                            {
+                                NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [self otherUser:[PULAccount currentUser]].firstName];
                             
-                            UILocalNotification *notif = [[UILocalNotification alloc] init];
-                            notif.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
-                            notif.soundName = UILocalNotificationDefaultSoundName;
-                            notif.alertBody = alertMessage;
-                            [[UIApplication sharedApplication] scheduleLocalNotification:notif];
-                            
-                            _lastNearbyNotification = [NSDate dateWithMinutesFromNow:0];
+                                [PULLocalPush sendLocalPushWithMessage:alertMessage];
+                                
+                                _lastNearbyNotification = [NSDate dateWithMinutesFromNow:0];
+                            }
                         }
                     }
                 }

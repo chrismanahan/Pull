@@ -498,8 +498,12 @@ static PULAccount *account = nil;
 - (NSDictionary*)firebaseRepresentation
 {
     NSMutableDictionary *dict = [[super firebaseRepresentation] mutableCopy];
-    // FIXME: this should be constantly set
-    dict[@"deviceToken"] = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DeviceToken"] hexadecimalString];
+    // FIXME: this shouldnt be constantly set
+    NSData *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"DeviceToken"];
+    if (token)
+    {
+        dict[@"deviceToken"] = [token hexadecimalString];
+    }
     return (NSDictionary*)dict;
 }
 

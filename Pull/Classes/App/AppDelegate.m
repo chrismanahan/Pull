@@ -51,7 +51,7 @@
     
     
 //    [[FBSDKApplicationDelegate sharedInstance] loadCache];
-    
+
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     __block NSString *vcName = NSStringFromClass([PULLoginViewController class]);
     
@@ -89,6 +89,7 @@
     
     [PULNoConnectionView startMonitoringConnection];
     [PULUpdateChecker checkForUpdate];
+
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
@@ -136,13 +137,16 @@
 {
     NSLog(@"did register for remote notifs");
     
-    [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:@"DeviceToken"];
-    
-    if ([PULAccount currentUser].uid)
+    if (deviceToken)
     {
-        PULLog(@"saving device token");
-        [PULAccount currentUser].deviceToken = [deviceToken hexadecimalString];
-        [[PULAccount currentUser] saveKeys:@[@"deviceToken"]];
+        [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:@"DeviceToken"];
+        
+        if ([PULAccount currentUser].uid)
+        {
+            PULLog(@"saving device token");
+            [PULAccount currentUser].deviceToken = [deviceToken hexadecimalString];
+            [[PULAccount currentUser] saveKeys:@[@"deviceToken"]];
+        }
     }
 }
 

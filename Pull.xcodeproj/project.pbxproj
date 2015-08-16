@@ -84,15 +84,12 @@
 		840D7BEC1AF16F4B002268D5 /* learn_more_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840D7BE31AF16F4B002268D5 /* learn_more_3@2x.png */; };
 		840D7BED1AF16F4B002268D5 /* learn_more_3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840D7BE41AF16F4B002268D5 /* learn_more_3@3x.png */; };
 		840D7BF61AF17674002268D5 /* PULHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D7BF51AF17674002268D5 /* PULHeaderView.m */; };
-		841ECA941B7E8E15009061F8 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841ECA931B7E8E15009061F8 /* InterfaceController.m */; };
-		841ECA971B7E8E15009061F8 /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841ECA961B7E8E15009061F8 /* GlanceController.m */; };
 		841ECA991B7E8E15009061F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841ECA981B7E8E15009061F8 /* Images.xcassets */; };
 		841ECA9D1B7E8E15009061F8 /* Pull WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 841ECA9C1B7E8E15009061F8 /* Pull WatchKit App.app */; };
 		841ECAA51B7E8E15009061F8 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841ECAA31B7E8E15009061F8 /* Interface.storyboard */; };
 		841ECAA71B7E8E15009061F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841ECAA61B7E8E15009061F8 /* Images.xcassets */; };
 		841ECAAB1B7E8E15009061F8 /* Pull WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 841ECA8E1B7E8E14009061F8 /* Pull WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		841ECAB21B7E9401009061F8 /* dot_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 951798681AB1207C00925E5A /* dot_icon.png */; };
-		841ECAB31B7E9408009061F8 /* dot_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 951798681AB1207C00925E5A /* dot_icon.png */; };
 		84261A451A9E2628001DD052 /* PULRequestLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84261A441A9E2628001DD052 /* PULRequestLocationViewController.m */; };
 		84261A481A9E263A001DD052 /* PULRequestNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84261A471A9E263A001DD052 /* PULRequestNotificationsViewController.m */; };
 		8456E6201A8965FC00CF76AE /* PULSlideLeftSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456E61F1A8965FC00CF76AE /* PULSlideLeftSegue.m */; };
@@ -232,6 +229,7 @@
 		95F367111AF6C8FB00A3E2F6 /* white_card_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367081AF6C8FB00A3E2F6 /* white_card_top@3x.png */; };
 		95F367131AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95F367121AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib */; };
 		9B01E9A31B6D820B0092DC14 /* PULSquareUserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B01E9A21B6D820B0092DC14 /* PULSquareUserImageView.m */; };
+		9B1835791B7FDBA200BBD669 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
 		9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */; };
 		9B823B151AEEFFD400264DB5 /* PULRightAlignedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B823B141AEEFFD400264DB5 /* PULRightAlignedButton.m */; };
 		9B86B6281AE73CD100C4F1D9 /* PULPassthroughView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B86B6271AE73CD100C4F1D9 /* PULPassthroughView.m */; };
@@ -258,9 +256,16 @@
 		9BB82DF81AEB392C004447FA /* PULInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82DF71AEB392C004447FA /* PULInviteViewController.m */; };
 		9BC487CF1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC487CE1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.m */; };
 		9BC487D31AF6D256008BF2E9 /* PULPullOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC487D21AF6D256008BF2E9 /* PULPullOverlayView.m */; };
-		9BCB7D0E1AEC29A5002636E8 /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCB7D0A1AEC29A5002636E8 /* BackgroundTaskManager.m */; };
 		9BD2C3661AE454930030527F /* PULNewPullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD2C3651AE454930030527F /* PULNewPullViewController.m */; };
 		9BE5AAAB1B7F874300853830 /* PULLocalPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5AAAA1B7F874300853830 /* PULLocalPush.m */; };
+		9BE5AAAE1B7FB07600853830 /* parkour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D81D701B7A83EB00075860 /* parkour.framework */; };
+		9BE5AAB21B7FB21B00853830 /* libPods-Pull.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE5AAB11B7FB21B00853830 /* libPods-Pull.a */; };
+		9BE5AAB31B7FB26900853830 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9589F53F1A86718700EFF5BC /* Crashlytics.framework */; };
+		9BE5AC471B7FB3A700853830 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841ECA931B7E8E15009061F8 /* InterfaceController.m */; };
+		9BE5AC481B7FB3A700853830 /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841ECA961B7E8E15009061F8 /* GlanceController.m */; };
+		9BE5AC491B7FB5D600853830 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9589F5401A86718700EFF5BC /* Fabric.framework */; };
+		9BE5AC4A1B7FB80F00853830 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841ECAA31B7E8E15009061F8 /* Interface.storyboard */; };
+		9BE5AC4B1B7FB81100853830 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841ECAA31B7E8E15009061F8 /* Interface.storyboard */; };
 		9BE5B55A1AED768A00544D57 /* settings_share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE5B5511AED768A00544D57 /* settings_share@3x.png */; };
 		9BE5B55B1AED768A00544D57 /* settings_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE5B5521AED768A00544D57 /* settings_share@2x.png */; };
 		9BE5B55C1AED768A00544D57 /* settings_share.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE5B5531AED768A00544D57 /* settings_share.png */; };
@@ -602,6 +607,7 @@
 		95F367121AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PULPullNotNearbyOverlay.xib; sourceTree = "<group>"; };
 		9B01E9A11B6D820B0092DC14 /* PULSquareUserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULSquareUserImageView.h; sourceTree = "<group>"; };
 		9B01E9A21B6D820B0092DC14 /* PULSquareUserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULSquareUserImageView.m; sourceTree = "<group>"; };
+		9B1835781B7FDBA200BBD669 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		9B5EFA581AE28F8600EFCCD5 /* PULUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULUserCell.h; path = UI/Cells/PULUserCell.h; sourceTree = "<group>"; };
 		9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULUserCell.m; path = UI/Cells/PULUserCell.m; sourceTree = "<group>"; };
 		9B823B131AEEFFD400264DB5 /* PULRightAlignedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULRightAlignedButton.h; path = UI/PULRightAlignedButton.h; sourceTree = "<group>"; };
@@ -636,12 +642,12 @@
 		9BC487CE1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULPullNotNearbyOverlay.m; path = UI/Views/Overlays/PULPullNotNearbyOverlay.m; sourceTree = "<group>"; };
 		9BC487D11AF6D256008BF2E9 /* PULPullOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULPullOverlayView.h; path = UI/Views/Overlays/PULPullOverlayView.h; sourceTree = "<group>"; };
 		9BC487D21AF6D256008BF2E9 /* PULPullOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULPullOverlayView.m; path = UI/Views/Overlays/PULPullOverlayView.m; sourceTree = "<group>"; };
-		9BCB7D091AEC29A5002636E8 /* BackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundTaskManager.h; sourceTree = "<group>"; };
-		9BCB7D0A1AEC29A5002636E8 /* BackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTaskManager.m; sourceTree = "<group>"; };
 		9BD2C3641AE454930030527F /* PULNewPullViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PULNewPullViewController.h; path = "View Controllers/PULNewPullViewController.h"; sourceTree = "<group>"; };
 		9BD2C3651AE454930030527F /* PULNewPullViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PULNewPullViewController.m; path = "View Controllers/PULNewPullViewController.m"; sourceTree = "<group>"; };
 		9BE5AAA91B7F874300853830 /* PULLocalPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULLocalPush.h; sourceTree = "<group>"; };
 		9BE5AAAA1B7F874300853830 /* PULLocalPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULLocalPush.m; sourceTree = "<group>"; };
+		9BE5AAAF1B7FB1E800853830 /* libPods-Pull.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Pull.a"; path = "Pods/../build/Debug-iphoneos/libPods-Pull.a"; sourceTree = "<group>"; };
+		9BE5AAB11B7FB21B00853830 /* libPods-Pull.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Pull.a"; path = "Pods/../build/Debug-iphoneos/libPods-Pull.a"; sourceTree = "<group>"; };
 		9BE5B5511AED768A00544D57 /* settings_share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_share@3x.png"; sourceTree = "<group>"; };
 		9BE5B5521AED768A00544D57 /* settings_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_share@2x.png"; sourceTree = "<group>"; };
 		9BE5B5531AED768A00544D57 /* settings_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_share.png; sourceTree = "<group>"; };
@@ -670,6 +676,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BE5AAB21B7FB21B00853830 /* libPods-Pull.a in Frameworks */,
+				9BE5AC491B7FB5D600853830 /* Fabric.framework in Frameworks */,
+				9BE5AAAE1B7FB07600853830 /* parkour.framework in Frameworks */,
+				9BE5AAB31B7FB26900853830 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -677,6 +687,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B1835791B7FDBA200BBD669 /* WatchKit.framework in Frameworks */,
 				9BF9BEC51B742D380020981E /* AdSupport.framework in Frameworks */,
 				953B064D1A8D9021008235EB /* MediaPlayer.framework in Frameworks */,
 				95D6661C1A7C8EEE000FAD8D /* MapKit.framework in Frameworks */,
@@ -1160,6 +1171,9 @@
 		952BDB5C1A0C4F0500C67BB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B1835781B7FDBA200BBD669 /* WatchKit.framework */,
+				9BE5AAB11B7FB21B00853830 /* libPods-Pull.a */,
+				9BE5AAAF1B7FB1E800853830 /* libPods-Pull.a */,
 				84D81D701B7A83EB00075860 /* parkour.framework */,
 				9BF9BEC41B742D380020981E /* AdSupport.framework */,
 				953B064C1A8D9021008235EB /* MediaPlayer.framework */,
@@ -1472,8 +1486,6 @@
 		9B8961141B6B17B200F58D32 /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				9BCB7D091AEC29A5002636E8 /* BackgroundTaskManager.h */,
-				9BCB7D0A1AEC29A5002636E8 /* BackgroundTaskManager.m */,
 				33BD5AC21A0E9EE800F92414 /* PULLocationUpdater.h */,
 				33BD5AC31A0E9EE800F92414 /* PULLocationUpdater.m */,
 			);
@@ -1649,7 +1661,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				841ECAB31B7E9408009061F8 /* dot_icon.png in Resources */,
+				9BE5AC4A1B7FB80F00853830 /* Interface.storyboard in Resources */,
 				841ECA991B7E8E15009061F8 /* Images.xcassets in Resources */,
 				841ECA9D1B7E8E15009061F8 /* Pull WatchKit App.app in Resources */,
 			);
@@ -1717,6 +1729,7 @@
 				95CEA2B61A8E2A9D000C2686 /* learn_more_arrow@3x.png in Resources */,
 				9BE5B5601AED768A00544D57 /* settings_contact@3x.png in Resources */,
 				953B06171A8AF687008235EB /* compass_rotate_6@2x.png in Resources */,
+				9BE5AC4B1B7FB81100853830 /* Interface.storyboard in Resources */,
 				9B91052E1AED782F00596BEC /* settings_icon_purple@3x.png in Resources */,
 				951798661AB11FB500925E5A /* dot_icon@2x.png in Resources */,
 				95E5177E1AC5CB6A00C8B32E /* map_pin@2x.png in Resources */,
@@ -1919,8 +1932,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				841ECA941B7E8E15009061F8 /* InterfaceController.m in Sources */,
-				841ECA971B7E8E15009061F8 /* GlanceController.m in Sources */,
+				9BE5AC471B7FB3A700853830 /* InterfaceController.m in Sources */,
+				9BE5AC481B7FB3A700853830 /* GlanceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1936,7 +1949,6 @@
 				9B01E9A31B6D820B0092DC14 /* PULSquareUserImageView.m in Sources */,
 				9B86B6281AE73CD100C4F1D9 /* PULPassthroughView.m in Sources */,
 				33ECD35F1A26D3E300192BC8 /* NSData+Hex.m in Sources */,
-				9BCB7D0E1AEC29A5002636E8 /* BackgroundTaskManager.m in Sources */,
 				95DFC6EA1ACCBD09008E4A18 /* THBinder.m in Sources */,
 				3340449D1A17D33A00B00BC3 /* PULPullListViewController.m in Sources */,
 				840D7BF61AF17674002268D5 /* PULHeaderView.m in Sources */,
@@ -2054,19 +2066,29 @@
 /* Begin XCBuildConfiguration section */
 		841ECAAC1B7E8E15009061F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6AF08DA63017A6475623ED3 /* Pods-Pull.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
+				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Pull-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					IS_WATCH_EXT,
 				);
 				INFOPLIST_FILE = "Pull WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SKIP_INSTALL = YES;
 			};
@@ -2074,16 +2096,30 @@
 		};
 		841ECAAD1B7E8E15009061F8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DDA8F62E85EF231B9B53B157 /* Pods-Pull.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "";
+				GCC_PREFIX_HEADER = "Pull-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					IS_WATCH_EXT,
+				);
 				INFOPLIST_FILE = "Pull WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SKIP_INSTALL = YES;
 			};

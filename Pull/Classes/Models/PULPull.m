@@ -84,6 +84,7 @@ const NSTimeInterval kPullDurationAlways  = 0;
     }
 }
 
+//TODO: refactor this to not have to pass in the account to get the other user
 - (PULUser*)otherUser:(PULUser*)thisUser;
 {
     PULUser *other = nil;

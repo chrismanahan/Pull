@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OPc-M6-wgn">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
-        <scene sceneID="aou-V4-d1y">
+        <scene sceneID="rWl-o7-rMk">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController">
+                <controller id="OPc-M6-wgn" customClass="InterfaceController">
                     <items>
-                        <imageView width="134" height="103" alignment="center" verticalAlignment="center" image="dot_icon.png" contentMode="scaleAspectFit" id="zhk-sq-SYF"/>
+                        <label width="118" height="30" alignment="center" verticalAlignment="center" text="test" textAlignment="center" id="k9d-Wm-pfB"/>
                     </items>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="164" y="217"/>
+            <point key="canvasLocation" x="434" y="216"/>
         </scene>
         <!--Glance Interface Controller-->
-        <scene sceneID="rjY-Ar-IMT">
+        <scene sceneID="yd4-y4-dbG">
             <objects>
-                <glanceController spacing="0.0" id="Sv0-Ai-Zie" customClass="GlanceController">
+                <glanceController id="IYj-Jn-Kd6" customClass="GlanceController">
                     <items>
-                        <group alignment="left" id="gv7-I2-MZq">
+                        <group alignment="left" id="rqX-D9-eUp">
                             <items>
                                 <label width="118" height="30" alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="rOU-Wc-msW"/>
                             </items>
                         </group>
-                        <group alignment="left" id="eew-Gs-W6Y">
+                        <group alignment="left" id="Nkl-j1-MpS">
                             <items>
-                                <imageView width="134" height="103" alignment="center" verticalAlignment="center" image="dot_icon.png" contentMode="scaleAspectFit" id="nt6-Ik-xkW"/>
+                                <label width="118" height="30" alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="x0y-qz-GW7"/>
                             </items>
                         </group>
                     </items>
-                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
-                    <connections>
-                        <outlet property="compassImage" destination="nt6-Ik-xkW" id="vDq-4T-vJG"/>
-                        <outlet property="nameLabel" destination="rOU-Wc-msW" id="C14-T0-b4u"/>
-                    </connections>
                 </glanceController>
             </objects>
-            <point key="canvasLocation" x="164" y="514"/>
+            <point key="canvasLocation" x="438" y="508"/>
         </scene>
     </scenes>
 </document>

@@ -11,8 +11,6 @@
 
 #import "PULSlideLeftSegue.h"
 
-#import "PULLocationUpdater.h"
-
 @implementation PULRequestLocationViewController
 
 #pragma mark - actions

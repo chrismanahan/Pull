@@ -8,12 +8,6 @@
 
 #import "GlanceController.h"
 
-//#import "PULAccount.h"
-
-//#import "PULLocationUpdater.h"
-
-#import "PULMacros.h"
-
 @interface GlanceController()
 
 @property (strong, nonatomic) IBOutlet WKInterfaceImage *compassImage;

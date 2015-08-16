@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PULConstants.h"
-
 @interface PULUpdateChecker : NSObject 
 
 + (void)checkForUpdate;

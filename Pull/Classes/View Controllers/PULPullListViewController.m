@@ -14,16 +14,9 @@
 #import "PULLocationOverlay.h"
 #import "PULNoFriendsOverlay.h"
 
-#import "UIVisualEffectView+PullBlur.h"
-
 #import "PULPullDetailViewController.h"
 #import "PULLoginViewController.h"
 #import "PULUserSelectViewController.h"
-
-#import "PULAccount.h"
-#import "PULLocationUpdater.h"
-
-#import "PULConstants.h"
 
 #import "PULUserCardCell.h"
 
@@ -32,8 +25,6 @@
 #import "PULReverseModal.h"
 
 #import "PULPullNotNearbyOverlay.h"
-
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 const NSInteger kPULPullListNumberOfTableViewSections = 4;
 

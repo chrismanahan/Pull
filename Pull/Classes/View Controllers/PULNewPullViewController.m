@@ -14,11 +14,6 @@
 
 #import "PULPullListViewController.h"
 
-#import "PULConstants.h"
-
-#import "PULAccount.h"
-#import "PULPull.h"
-
 @interface PULNewPullViewController () <UITextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet PULUserImageView *userImageView;

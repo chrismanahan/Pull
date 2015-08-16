@@ -9,8 +9,6 @@
 #import "PULSettingsViewController.h"
 #import "PULLoginViewController.h"
 
-#import "PULAccount.h"
-
 #import "PULLoadingIndicator.h"
 
 #import "PULSlideUnwindSegue.h"

@@ -12,13 +12,6 @@
 
 #import "PULSlideLeftSegue.h"
 
-#import "PULAccount.h"
-
-#import "PULConstants.h"
-
-#import <Firebase/Firebase.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 

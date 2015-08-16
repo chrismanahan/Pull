@@ -11,8 +11,6 @@
 
 #import "PULUserCell.h"
 
-#import "PULAccount.h"
-
 #import "PULSlideLeftSegue.h"
 #import "PULSlideUnwindSegue.h"
 

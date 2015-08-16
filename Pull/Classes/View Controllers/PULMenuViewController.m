@@ -10,13 +10,7 @@
 
 #import "PULUserImageView.h"
 
-#import "PULAccount.h"
-
-#import "PULConstants.h"
-
 #import "PULInviteViewController.h"
-
-#import "UIVisualEffectView+PullBlur.h"
 
 #import <MessageUI/MessageUI.h>
 #import <sys/utsname.h>

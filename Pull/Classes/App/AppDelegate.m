@@ -8,23 +8,12 @@
 
 #import "AppDelegate.h"
 
-#import "PULAccount.h"
-
-#import "PULConstants.h"
-
 #import "PULLoginViewController.h"
 #import "PULPullListViewController.h"
 
 #import "PULNoConnectionView.h"
 
-#import "NSData+Hex.h"
-
 #import "PULUpdateChecker.h"
-
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <Firebase/Firebase.h>
-#import <Fabric/Fabric.h>
 
 @interface AppDelegate ()
 

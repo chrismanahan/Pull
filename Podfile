@@ -15,3 +15,4 @@ target 'PullTests' do
 
 end
 
+link_with 'Pull', 'Pull WatchKit Extension'

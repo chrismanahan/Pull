@@ -31,32 +31,32 @@
     [super willActivate];
     
     // find nearest pulled user
-//    NSArray *pullsNearby = [PULAccount currentUser].pullsPulledNearby;
-//    if (pullsNearby.count > 0)
-//    {
-//        PULPull *pull = pullsNearby[0];
-//        PULUser *friend = [pull otherUser:[PULAccount currentUser]];
-//        
-//        _nameLabel.text = friend.firstName;
+    NSArray *pullsNearby = [PULAccount currentUser].pullsPulledNearby;
+    if (pullsNearby.count > 0)
+    {
+        PULPull *pull = pullsNearby[0];
+        PULUser *friend = [pull otherUser:[PULAccount currentUser]];
+        
+        _nameLabel.text = friend.firstName;
         
         
         
-//        [[PULLocationUpdater sharedUpdater] startUpdatingHeadingWithBlock:^(CLHeading *heading) {
-//            // update direction of arrow
-//            CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
-//                                                        and:friend.location.coordinate];
-//            
-//            CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
-//            
-//            _degreeLabel.text = [NSString stringWithFormat:@"%.4f", rads];
-//        }];
+        [[PULLocationUpdater sharedUpdater] startUpdatingHeadingWithBlock:^(CLHeading *heading) {
+            // update direction of arrow
+            CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
+                                                        and:friend.location.coordinate];
+            
+            CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
+            
+            _degreeLabel.text = [NSString stringWithFormat:@"%.4f", rads];
+        }];
     
     
-//    }
-//    else
-//    {
-//        _nameLabel.text = @"No Nearby Pulls";
-//    }
+    }
+    else
+    {
+        _nameLabel.text = @"No Nearby Pulls";
+    }
 }
 
 - (void)didDeactivate {

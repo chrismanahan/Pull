@@ -15,6 +15,8 @@
 
 #import "PULUpdateChecker.h"
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 @interface AppDelegate ()
 
 @end

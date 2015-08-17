@@ -1,7 +1,7 @@
 # Uncomment this line to define a global platform for your project
 #platform :ios, '6.0'
 
-target 'Pull' do
+target 'PullKit' do
 
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
@@ -11,8 +11,5 @@ pod 'Firebase'
 
 end
 
-target 'PullTests' do
-
-end
-
-link_with 'Pull', 'PullKit'
+link_with 'PullKit', 'Pull WatchKit Extension'
+link_with 'PullKit', 'Pull'

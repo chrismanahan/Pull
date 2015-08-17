@@ -54,6 +54,6 @@ FOUNDATION_EXPORT const unsigned char PullKitVersionString[];
 // frameworks
 #import <Crashlytics/Crashlytics.h>
 #import <Fabric/Fabric.h>
+#import <Firebase/Firebase.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <Firebase/Firebase.h>

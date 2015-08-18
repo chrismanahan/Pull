@@ -20,6 +20,9 @@ PODS:
   - FBSDKShareKit (4.5.1):
     - FBSDKCoreKit
   - Firebase (2.3.3)
+  - MMWormhole (1.2.0):
+    - MMWormhole/Core (= 1.2.0)
+  - MMWormhole/Core (1.2.0)
 
 DEPENDENCIES:
   - FBSDKCoreKit
@@ -27,6 +30,7 @@ DEPENDENCIES:
   - FBSDKMessengerShareKit
   - FBSDKShareKit
   - Firebase
+  - MMWormhole
 
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
@@ -35,5 +39,6 @@ SPEC CHECKSUMS:
   FBSDKMessengerShareKit: 4a38dbd3564f5da459ea35b636e6766f7067a830
   FBSDKShareKit: 642034ac9f30793dfd897851b724bb4281750266
   Firebase: 2db60272f68ce40c7d47e5ae6eddc16977c65d4c
+  MMWormhole: 696de5a8d2ef93f028ade4cff34958943c3bfa1e
 
 COCOAPODS: 0.38.0

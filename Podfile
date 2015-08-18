@@ -8,6 +8,7 @@ pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
 pod 'FBSDKMessengerShareKit'
 pod 'Firebase'
+pod 'MMWormhole'
 
 end
 

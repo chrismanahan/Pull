@@ -87,12 +87,12 @@ const NSTimeInterval kPullDurationAlways  = 0;
 }
 
 //TODO: refactor this to not have to pass in the account to get the other user
-- (PULUser*)otherUser:(PULUser*)thisUser;
+- (PULUser*)otherUser;
 {
     PULUser *other = nil;
-    if ([self containsUser:thisUser])
+    if ([self containsUser:[PULAccount currentUser]])
     {
-        if ([self initiatedBy:thisUser])
+        if ([self initiatedBy:[PULAccount currentUser]])
         {
             other = _receivingUser;
         }
@@ -122,7 +122,7 @@ const NSTimeInterval kPullDurationAlways  = 0;
     if (_locationObservers[user.uid] == nil)
     {
         id obs = [THObserver observerForObject:user keyPath:@"location" oldAndNewBlock:^(id oldValue, id newValue) {
-            PULUser *otherUser = [self otherUser:user];
+            PULUser *otherUser = [self otherUser];
             
             if ([user.location distanceFromLocation:otherUser.location] <= kPULNearbyDistance)
             {
@@ -155,7 +155,7 @@ const NSTimeInterval kPullDurationAlways  = 0;
                             // check if the user wants to be notified
                             if ([PULAccount currentUser].settings.notifyNearby)
                             {
-                                NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [self otherUser:[PULAccount currentUser]].firstName];
+                                NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [self otherUser].firstName];
                             
                                 [PULLocalPush sendLocalPushWithMessage:alertMessage];
                                 

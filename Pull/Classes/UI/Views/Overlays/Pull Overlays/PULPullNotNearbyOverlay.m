@@ -27,7 +27,7 @@
 {
     [super setPull:pull];
     
-    PULUser *friend = [self.pull otherUser:[PULAccount currentUser]];
+    PULUser *friend = [self.pull otherUser];
     
     _nameLabel.text = friend.fullName;
     _subTitleLabel.text = [NSString stringWithFormat:@"We will notify you when %@ is within %zd ft",  friend.firstName, kPULNearbyDistanceFeet];

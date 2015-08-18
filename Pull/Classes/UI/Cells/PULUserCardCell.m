@@ -50,7 +50,7 @@
     _pull = pull;
     
     // get other user that is involved in this pull
-    _user = [pull otherUser:[PULAccount currentUser]];
+    _user = [pull otherUser];
     
     _accountLocationUpdatedObserver = [THObserver observerForObject:[PULAccount currentUser]
                                                             keyPath:@"location"

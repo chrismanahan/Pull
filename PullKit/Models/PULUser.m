@@ -219,7 +219,7 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
     
     for (PULPull *pull in self.pulls)
     {
-        PULUser *user = [pull otherUser:self];
+        PULUser *user = [pull otherUser];
         if (![arr containsObject:user])
         {
             [arr addObject:user];

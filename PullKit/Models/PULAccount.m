@@ -280,7 +280,7 @@ static PULAccount *account = nil;
     // remove pull from friend's pulls
     if (pull.isLoaded)
     {
-        PULUser *friend = [pull otherUser:self];
+        PULUser *friend = [pull otherUser];
         
         if (friend.isLoaded)
         {
@@ -294,7 +294,7 @@ static PULAccount *account = nil;
     else
     {
         id obs = [THObserver observerForObject:pull keyPath:@"loaded" oldAndNewBlock:^(id oldValue, id newValue) {
-            PULUser *friend = [pull otherUser:self];
+            PULUser *friend = [pull otherUser];
             if (friend)
             {
                 [friend willChangeValueForKey:@"pulls"];
@@ -457,7 +457,7 @@ static PULAccount *account = nil;
     {
         if (pull.status == PULPullStatusPulled)
         {
-            PULUser *friend = [pull otherUser:self];
+            PULUser *friend = [pull otherUser];
             CGFloat distance = [friend.location distanceFromLocation:self.location];
             
             if (distance <= kPULNearbyDistance)
@@ -479,7 +479,7 @@ static PULAccount *account = nil;
     {
         if (pull.status == PULPullStatusPulled)
         {
-            PULUser *friend = [pull otherUser:self];
+            PULUser *friend = [pull otherUser];
             CGFloat distance = [friend.location distanceFromLocation:self.location];
             
             if (distance > kPULNearbyDistance)

@@ -321,7 +321,7 @@ const NSInteger kPULPulledFarSection = 2;
     if (section == kPULPulledNearbySection)
     {
         PULPullDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullDetailViewController class])];
-        vc.user = [pull otherUser:[PULAccount currentUser]];
+        vc.user = [pull otherUser];
         
         PULSlideSegue *seg = [PULSlideSegue segueWithIdentifier:@"DetailSeg"
                                                          source:self

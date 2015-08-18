@@ -99,14 +99,14 @@ const CGFloat kPULCompassFlashTime = 1.5;
 {
     [super viewDidDisappear:animated];
 
-    [[PULLocationUpdater sharedUpdater] stopUpdatingHeading];
+    [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [[PULLocationUpdater sharedUpdater] startUpdatingHeadingWithBlock:^(CLHeading *heading) {
+    [[PULLocationUpdater sharedUpdater] setHeadingUpdateBlock:^(CLHeading *heading) {
         if (_shouldRotate)
         {
             CGFloat rads = [[PULAccount currentUser] angleWithHeading:heading

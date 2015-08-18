@@ -88,16 +88,13 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
     [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
 }
 
-- (void)startUpdatingHeadingWithBlock:(PULHeadingBlock)block;
+- (void)setHeadingUpdateBlock:(PULHeadingBlock)block;
 {
-    [_locationManager startUpdatingHeading];
-    
     _headingChangeBlock = [block copy];
 }
 
-- (void)stopUpdatingHeading;
+- (void)removeHeadingUpdateBlock;
 {
-    [_locationManager stopUpdatingHeading];
     _headingChangeBlock = nil;
 }
 

@@ -37,8 +37,8 @@ typedef void(^PULHeadingBlock)(CLHeading *heading);
  Instance Methods
  ****************************************************/
 
-- (void)startUpdatingHeadingWithBlock:(PULHeadingBlock)block;
-- (void)stopUpdatingHeading;
+- (void)setHeadingUpdateBlock:(PULHeadingBlock)block;
+- (void)removeHeadingUpdateBlock;
 
 - (BOOL)hasPermission;
 

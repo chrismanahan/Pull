@@ -109,12 +109,8 @@ const CGFloat kPULCompassFlashTime = 1.5;
     [[PULLocationUpdater sharedUpdater] startUpdatingHeadingWithBlock:^(CLHeading *heading) {
         if (_shouldRotate)
         {
-            // update direction of arrow
-            CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
-                                                        and:_user.location.coordinate];
-            
-            CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
-            
+            CGFloat rads = [[PULAccount currentUser] angleWithHeading:heading
+                                                             fromUser:_user];
             [self _rotateCompassToRadians:rads];
         }
     }];
@@ -284,55 +280,6 @@ NSString* deviceName()
     {
         [_directionArrowView setTransform:tr];
     }
-}
-
--(CGFloat) p_calculateAngleBetween:(CLLocationCoordinate2D)coords0 and:(CLLocationCoordinate2D)coords1 {
-    double myLat = coords0.latitude;
-    double myLon = coords0.longitude;
-    double yourLat = coords1.latitude;
-    double yourLon = coords1.longitude;
-    double dx = fabs(myLon - yourLon);
-    double dy = fabs(myLat - yourLat);
-    
-    double ø;
-    
-    // determine which quadrant we're in relative to other user
-    if (dy < 0.0001 && myLon > yourLon) // horizontal right
-    {
-        return 270;
-    }
-    else if (dy < 0.0001 && myLon < yourLon) // horizontal left
-    {
-        return 90;
-    }
-    else if (dx < 0.0001 && myLat > yourLat) // vertical top
-    {
-        return 180;
-    }
-    else if (dx < 0.0001 && myLat < yourLat) // vertical bottom
-    {
-        return 0;
-    }
-    else if (myLat > yourLat && myLon > yourLon) // quadrant 1
-    {
-        ø = atan2(dy, dx);
-        return 270 - RADIANS_TO_DEGREES(ø);
-    }
-    else if (myLat < yourLat && myLon > yourLon) // quad 2
-    {
-        ø = atan2(dx, dy);
-        return 360 - RADIANS_TO_DEGREES(ø);
-    }
-    else if (myLat < yourLat && myLon < yourLon) // quad 3
-    {
-        ø = atan2(dx, dy);
-    }
-    else if (myLat > yourLat && myLon < yourLon) // quad 4
-    {
-        ø = atan2(dy, dx);
-        return 90 + RADIANS_TO_DEGREES(ø);
-    }
-    return RADIANS_TO_DEGREES( ø);
 }
 
 - (void)_spinCompass:(UITapGestureRecognizer*)gesture

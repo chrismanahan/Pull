@@ -45,6 +45,8 @@ extern NSString * const PULAccountDidLoginNotification;
 - (NSArray*)pullsPulledNearby;
 - (NSArray*)pullsPulledFar;
 
+- (double)angleWithHeading:(CLHeading*)heading fromUser:(PULUser*)user;
+
 NS_ASSUME_NONNULL_END
 
 @end

@@ -493,9 +493,27 @@ static PULAccount *account = nil;
 
 }
 
+- (PULPull*)nearestPull;
+{
+    CGFloat nearestDistance = kPULNearbyDistance;
+    PULPull *nearestPull;
+    
+    for (PULPull *pull in self.pullsPulledNearby)
+    {
+        CGFloat distance = [[pull otherUser].location distanceFromLocation:self.location];
+        if (distance < nearestDistance)
+        {
+            nearestDistance = distance;
+            nearestPull = pull;
+        }
+    }
+    
+    return nearestPull;
+}
+
 - (double)angleWithHeading:(CLHeading*)heading fromUser:(PULUser*)user;
 {
-    double degrees = [self _calculateAngleBetween:[PULAccount currentUser].location.coordinate
+    double degrees = [self _calculateAngleBetween:self.location.coordinate
                                                 and:user.location.coordinate];
     
     double rads = (degrees - heading.trueHeading) * M_PI / 180;

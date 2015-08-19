@@ -44,6 +44,7 @@ extern NSString * const PULAccountDidLoginNotification;
 - (NSArray*)pullsWaiting;
 - (NSArray*)pullsPulledNearby;
 - (NSArray*)pullsPulledFar;
+- (nullable PULPull*)nearestPull;
 
 - (double)angleWithHeading:(CLHeading*)heading fromUser:(PULUser*)user;
 

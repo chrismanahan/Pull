@@ -8,12 +8,18 @@
 
 #import "GlanceController.h"
 
+#import "MMWormHole.h"
+
 @interface GlanceController()
 
 @property (strong, nonatomic) IBOutlet WKInterfaceImage *compassImage;
 
 @property (strong, nonatomic) IBOutlet WKInterfaceLabel *nameLabel;
 @property (strong, nonatomic) IBOutlet WKInterfaceLabel *degreeLabel;
+
+@property (nonatomic, strong) NSTimer *checkTimer;
+
+@property (nonatomic, strong) MMWormhole *wormhole;
 
 @end
 
@@ -30,33 +36,42 @@
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     
-    // find nearest pulled user
-    NSArray *pullsNearby = [PULAccount currentUser].pullsPulledNearby;
-    if (pullsNearby.count > 0)
-    {
-        PULPull *pull = pullsNearby[0];
-        PULUser *friend = [pull otherUser:[PULAccount currentUser]];
-        
-        _nameLabel.text = friend.firstName;
-        
-        
-        
-        [[PULLocationUpdater sharedUpdater] startUpdatingHeadingWithBlock:^(CLHeading *heading) {
-            // update direction of arrow
-            CGFloat degrees = [self p_calculateAngleBetween:[PULAccount currentUser].location.coordinate
-                                                        and:friend.location.coordinate];
-            
-            CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
-            
-            _degreeLabel.text = [NSString stringWithFormat:@"%.4f", rads];
-        }];
+    _checkTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                                                   target:self
+                                                 selector:@selector(promptUser)
+                                                 userInfo:nil
+                                                  repeats:NO];
     
+    _wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.pull"
+                                                     optionalDirectory:@"wormhole"];
     
-    }
-    else
-    {
-        _nameLabel.text = @"No Nearby Pulls";
-    }
+    [_wormhole listenForMessageWithIdentifier:@"com.pull-llc.watch-data"
+                                     listener:^(__nullable id messageObject) {
+                                         if (messageObject[@"angle"] && messageObject[@"friendName"])
+                                         {
+                                             CGFloat angle = [messageObject[@"angle"] doubleValue];
+                                             NSString *name = messageObject[@"friendName"];
+                                             
+                                             _nameLabel.text = name;
+                                             _degreeLabel.text = [NSString stringWithFormat:@"%.4f", angle];
+                                             
+                                             CGAffineTransform tr = CGAffineTransformIdentity;
+                                             tr = CGAffineTransformConcat(tr, CGAffineTransformMakeRotation(angle));
+                                             
+//                                             [_degreeLabel setTransform:tr];
+                                             
+                                             if (_checkTimer)
+                                             {
+                                                 [_checkTimer invalidate];
+                                                 _checkTimer = nil;
+                                             }
+                                         }
+                                     }];
+}
+
+- (void)promptUser
+{
+    _nameLabel.text = @"Put your phone in your pocket";
 }
 
 - (void)didDeactivate {

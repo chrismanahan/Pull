@@ -14,6 +14,8 @@
 
 #import "PULAccount.h"
 
+#import "MMWormHole.h"
+
 #import <parkour/parkour.h>
 #import <UIKit/UIKit.h>
 
@@ -30,6 +32,8 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
 @property (nonatomic, strong) CLLocationManager* locationManager;
 
 @property (nonatomic) NSTimer* locationUpdateTimer;
+
+@property (nonatomic, strong) MMWormhole *wormhole;
 
 @end
 
@@ -76,6 +80,9 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         [_locationManager startUpdatingHeading];
+        
+        _wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.pull"
+                                                         optionalDirectory:@"wormhole"];
     }
     
     return self;
@@ -167,9 +174,34 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
+    static NSInteger count = 0;
+    
     if (_headingChangeBlock)
     {
         _headingChangeBlock(newHeading);
+    }
+    
+    if (count % 15 == 0)
+    {
+        // get nearest pull
+        PULPull *pull = [[PULAccount currentUser] nearestPull];
+     
+        if (pull)
+        {
+            // calculate angle
+            double angle = [[PULAccount currentUser] angleWithHeading:newHeading
+                                              fromUser:[pull otherUser]];
+            
+            // check if we have a pull available
+            [_wormhole passMessageObject:@{@"angle":@(angle),
+                                           @"friendName":[pull otherUser].firstName}
+                              identifier:@"com.pull-llc.watch-data"];
+            
+            if (count != 0)
+            {
+                count = 0;
+            }
+        }
     }
 }
 

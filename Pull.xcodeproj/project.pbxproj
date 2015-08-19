@@ -197,6 +197,8 @@
 		95F367111AF6C8FB00A3E2F6 /* white_card_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367081AF6C8FB00A3E2F6 /* white_card_top@3x.png */; };
 		95F367131AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95F367121AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib */; };
 		9B01E9A31B6D820B0092DC14 /* PULSquareUserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B01E9A21B6D820B0092DC14 /* PULSquareUserImageView.m */; };
+		9B1305561B83F24900CBF642 /* NSArray+Sorting.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B1305541B83F24900CBF642 /* NSArray+Sorting.h */; };
+		9B1305571B83F24900CBF642 /* NSArray+Sorting.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1305551B83F24900CBF642 /* NSArray+Sorting.m */; };
 		9B1835791B7FDBA200BBD669 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
 		9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */; };
 		9B78A76B1B80DA63005569B4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B78A76A1B80DA63005569B4 /* Info.plist */; };
@@ -653,6 +655,8 @@
 		95F367121AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PULPullNotNearbyOverlay.xib; sourceTree = "<group>"; };
 		9B01E9A11B6D820B0092DC14 /* PULSquareUserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULSquareUserImageView.h; sourceTree = "<group>"; };
 		9B01E9A21B6D820B0092DC14 /* PULSquareUserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULSquareUserImageView.m; sourceTree = "<group>"; };
+		9B1305541B83F24900CBF642 /* NSArray+Sorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Sorting.h"; sourceTree = "<group>"; };
+		9B1305551B83F24900CBF642 /* NSArray+Sorting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sorting.m"; sourceTree = "<group>"; };
 		9B1835781B7FDBA200BBD669 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		9B5EFA581AE28F8600EFCCD5 /* PULUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUserCell.h; sourceTree = "<group>"; };
 		9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserCell.m; sourceTree = "<group>"; };
@@ -1515,6 +1519,8 @@
 				9B78A77D1B80DE66005569B4 /* NSData+Hex.m */,
 				9B78A77E1B80DE66005569B4 /* UIVisualEffectView+PullBlur.h */,
 				9B78A77F1B80DE66005569B4 /* UIVisualEffectView+PullBlur.m */,
+				9B1305541B83F24900CBF642 /* NSArray+Sorting.h */,
+				9B1305551B83F24900CBF642 /* NSArray+Sorting.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1704,6 +1710,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B78A7BB1B80DE7D005569B4 /* PULPush.h in Headers */,
+				9B1305561B83F24900CBF642 /* NSArray+Sorting.h in Headers */,
 				9B78A7A11B80DE66005569B4 /* PULAccount.h in Headers */,
 				9B78A7A71B80DE66005569B4 /* PULUserSettings.h in Headers */,
 				9B78A7A31B80DE66005569B4 /* PULPull.h in Headers */,
@@ -2280,6 +2287,7 @@
 				9B78A79C1B80DE66005569B4 /* FireObject.m in Sources */,
 				9B78A7D01B80DE88005569B4 /* NSDate+Utilities.m in Sources */,
 				9B78A7AA1B80DE66005569B4 /* PULError.m in Sources */,
+				9B1305571B83F24900CBF642 /* NSArray+Sorting.m in Sources */,
 				9B78A7D91B80DE88005569B4 /* THBinder.m in Sources */,
 				9B78A7A41B80DE66005569B4 /* PULPull.m in Sources */,
 				9B78A7961B80DE66005569B4 /* NSData+Hex.m in Sources */,

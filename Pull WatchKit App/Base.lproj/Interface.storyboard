@@ -11,7 +11,12 @@
                 <controller id="OPc-M6-wgn" customClass="InterfaceController">
                     <items>
                         <label width="118" height="30" alignment="center" verticalAlignment="center" text="test" textAlignment="center" id="k9d-Wm-pfB"/>
+                        <label width="118" height="30" alignment="center" verticalAlignment="center" text="test" textAlignment="center" id="B1X-rc-Tal"/>
                     </items>
+                    <connections>
+                        <outlet property="angleLabel" destination="B1X-rc-Tal" id="vDL-aB-T2q"/>
+                        <outlet property="nameLabel" destination="k9d-Wm-pfB" id="frY-jW-dYo"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="434" y="216"/>
@@ -32,6 +37,10 @@
                             </items>
                         </group>
                     </items>
+                    <connections>
+                        <outlet property="degreeLabel" destination="x0y-qz-GW7" id="6nw-XR-O5o"/>
+                        <outlet property="nameLabel" destination="rOU-Wc-msW" id="nGG-RR-NvK"/>
+                    </connections>
                 </glanceController>
             </objects>
             <point key="canvasLocation" x="438" y="508"/>

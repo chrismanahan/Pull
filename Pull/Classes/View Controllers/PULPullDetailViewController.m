@@ -48,7 +48,6 @@ const CGFloat kPULCompassFlashTime = 1.5;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    _shouldRotate = YES;
     
     // set ui based on loaded user
     CGFloat distance = [[PULAccount currentUser].location distanceFromLocation:_user.location];
@@ -65,8 +64,6 @@ const CGFloat kPULCompassFlashTime = 1.5;
         _directionArrowView.autoresizingMask = UIViewAutoresizingNone;
         
         _didSetUp = YES;
-        
-        
     }
     
     _didSetUp = YES;
@@ -106,6 +103,11 @@ const CGFloat kPULCompassFlashTime = 1.5;
 {
     [super viewDidAppear:animated];
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _shouldRotate = YES;
+        
+    });
+
     [[PULLocationUpdater sharedUpdater] setHeadingUpdateBlock:^(CLHeading *heading) {
         if (_shouldRotate)
         {

@@ -450,19 +450,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="compass_small.png" translatesAutoresizingMaskIntoConstraints="NO" id="OHw-Lt-ZsN">
-                                <rect key="frame" x="187" y="173" width="228" height="307"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="OHw-Lt-ZsN" secondAttribute="height" multiplier="1:1" id="6SF-Vd-fwD"/>
-                                    <constraint firstAttribute="height" constant="462" id="Msx-KR-OGt"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Msx-KR-OGt"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="755 ft" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7c-j8-VHH">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="755 ft" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7c-j8-VHH">
                                 <rect key="frame" x="273" y="113" width="55" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -475,12 +463,24 @@
                                     <constraint firstAttribute="height" constant="90" id="CVs-vT-ZBv"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uwd-8l-A5U" customClass="PULCompassView">
+                                <rect key="frame" x="150" y="156" width="300" height="329"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="uwd-8l-A5U" secondAttribute="height" multiplier="63:68" id="UIz-fl-j6v"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="UIz-fl-j6v"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Col-68-KCe" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="4fp-cF-R2d"/>
-                            <constraint firstAttribute="centerX" secondItem="OHw-Lt-ZsN" secondAttribute="centerX" id="L9W-Vb-gRR"/>
-                            <constraint firstItem="OHw-Lt-ZsN" firstAttribute="top" secondItem="E7c-j8-VHH" secondAttribute="bottom" constant="30" id="N2u-vW-yoC"/>
+                            <constraint firstItem="8ic-Yv-xse" firstAttribute="top" secondItem="uwd-8l-A5U" secondAttribute="bottom" constant="25" id="C8X-UN-HBQ"/>
+                            <constraint firstItem="uwd-8l-A5U" firstAttribute="width" secondItem="Fa8-lq-H52" secondAttribute="width" multiplier="0.5" priority="750" id="E8B-MR-pEr"/>
                             <constraint firstItem="Col-68-KCe" firstAttribute="top" secondItem="Fa8-lq-H52" secondAttribute="top" id="O8z-jo-wGS"/>
                             <constraint firstItem="8ic-Yv-xse" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="TUK-Os-HDt"/>
                             <constraint firstItem="ful-YR-1oS" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="VNH-DI-NH5"/>
@@ -492,18 +492,18 @@
                             <constraint firstAttribute="height" secondItem="8ic-Yv-xse" secondAttribute="height" multiplier="5" id="gpV-Wb-2Uy"/>
                             <constraint firstItem="ful-YR-1oS" firstAttribute="centerX" secondItem="E7c-j8-VHH" secondAttribute="centerX" id="hiL-Oy-3x7"/>
                             <constraint firstItem="ful-YR-1oS" firstAttribute="top" secondItem="Col-68-KCe" secondAttribute="bottom" constant="1" id="pSs-BX-w4n"/>
-                            <constraint firstItem="8ic-Yv-xse" firstAttribute="top" relation="greaterThanOrEqual" secondItem="OHw-Lt-ZsN" secondAttribute="bottom" constant="30" id="uwp-IF-9MS"/>
-                            <constraint firstItem="8ic-Yv-xse" firstAttribute="top" secondItem="OHw-Lt-ZsN" secondAttribute="bottom" constant="40" id="yep-pH-KgH"/>
+                            <constraint firstAttribute="centerX" secondItem="uwd-8l-A5U" secondAttribute="centerX" id="rc2-QM-loF"/>
+                            <constraint firstItem="uwd-8l-A5U" firstAttribute="top" secondItem="E7c-j8-VHH" secondAttribute="bottom" constant="16" id="wOv-Td-fsU"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="gpV-Wb-2Uy"/>
-                                <exclude reference="yep-pH-KgH"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="rxm-zt-ES9"/>
                     <connections>
+                        <outlet property="compassView" destination="uwd-8l-A5U" id="QeG-hG-K14"/>
                         <outlet property="distanceLabel" destination="E7c-j8-VHH" id="yYT-Xv-M98"/>
                         <outlet property="headerView" destination="Col-68-KCe" id="GKB-nq-BEW"/>
                         <outlet property="nameLabel" destination="ful-YR-1oS" id="D9x-Pm-cNi"/>
@@ -1701,7 +1701,6 @@ _____________________
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
-                        <outlet property="directionArrowView" destination="OHw-Lt-ZsN" id="axy-q5-zg5"/>
                         <outlet property="distanceLabel" destination="BJ1-p9-fqk" id="QBS-YI-qtS"/>
                         <outlet property="nameLabel" destination="Leu-0A-WPX" id="QmP-Kj-kPb"/>
                     </connections>
@@ -2505,7 +2504,6 @@ _____________________
         </scene>
     </scenes>
     <resources>
-        <image name="compass_small.png" width="275" height="371"/>
         <image name="continue_facebook.png" width="486" height="114"/>
         <image name="continue_facebook_pressed.png" width="486" height="114"/>
         <image name="golden_ticket_large.png" width="75" height="76"/>

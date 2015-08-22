@@ -14,6 +14,7 @@
 #import "PULLocationOverlay.h"
 #import "PULNoFriendsOverlay.h"
 
+#import "PULCompassView.h"
 #import "PULPullDetailViewController.h"
 #import "PULLoginViewController.h"
 #import "PULUserSelectViewController.h"
@@ -40,6 +41,7 @@ const NSInteger kPULPulledFarSection = 2;
 @property (strong, nonatomic) IBOutlet PULPulledUserSelectView *userSelectView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (strong, nonatomic) IBOutlet PULCompassView *compassView;
 
 @property (nonatomic, strong) PULPull *displayedPull;
 
@@ -264,6 +266,7 @@ const NSInteger kPULPulledFarSection = 2;
             _distanceLabel.text = @"Not Nearby";
         }
     }
+    [_compassView setPull:_displayedPull];
 }
 
 #pragma mark - Actions

@@ -302,6 +302,7 @@
 		9BED05651B88C912008F71CC /* PULPulledUserSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BED05641B88C912008F71CC /* PULPulledUserSelectView.m */; };
 		9BED056A1B88DECC008F71CC /* NZCircularImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BED05691B88DECC008F71CC /* NZCircularImageView.m */; };
 		9BED056E1B88E849008F71CC /* CALayer+Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BED056D1B88E849008F71CC /* CALayer+Animations.m */; };
+		9BED05701B891209008F71CC /* PULCompassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BED056F1B891209008F71CC /* PULCompassView.xib */; };
 		9BED458C1B80D7B90007F5F4 /* PullKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; };
 		9BED45951B80D7B90007F5F4 /* PullKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BED45941B80D7B90007F5F4 /* PullKitTests.m */; };
 		9BED45981B80D7B90007F5F4 /* PullKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; };
@@ -752,6 +753,7 @@
 		9BED05691B88DECC008F71CC /* NZCircularImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NZCircularImageView.m; sourceTree = "<group>"; };
 		9BED056C1B88E849008F71CC /* CALayer+Animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CALayer+Animations.h"; path = "Categories/CALayer+Animations.h"; sourceTree = "<group>"; };
 		9BED056D1B88E849008F71CC /* CALayer+Animations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CALayer+Animations.m"; path = "Categories/CALayer+Animations.m"; sourceTree = "<group>"; };
+		9BED056F1B891209008F71CC /* PULCompassView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PULCompassView.xib; sourceTree = "<group>"; };
 		9BED45811B80D7B90007F5F4 /* PullKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PullKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BED458B1B80D7B90007F5F4 /* PullKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PullKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BED45931B80D7B90007F5F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1337,6 +1339,7 @@
 				33ABDE531AB4A77600A047BF /* PULLocationOverlay.xib */,
 				33ABDE681AB4ABA100A047BF /* PULNoFriendsOverlay.xib */,
 				84AAC8D41A8E904A00C302AD /* PULNoConnectionView.xib */,
+				9BED056F1B891209008F71CC /* PULCompassView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2133,6 +2136,7 @@
 				9BE5B5621AED768A00544D57 /* settings_contact.png in Resources */,
 				3347306B1AA3CCD700B64144 /* nav_blue_down@2x.png in Resources */,
 				953B063D1A8D89DD008235EB /* Facebook_Button.png in Resources */,
+				9BED05701B891209008F71CC /* PULCompassView.xib in Resources */,
 				84DBE3231AE9504000115C59 /* star_icon.png in Resources */,
 				840D7BEC1AF16F4B002268D5 /* learn_more_3@2x.png in Resources */,
 				95F3670E1AF6C8FB00A3E2F6 /* white_card_middle@3x.png in Resources */,

@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface PULCompassView : UIView
 
-@property (nonatomic, strong, readonly) PULUser *user;
+@property (nonatomic, strong, readonly) PULPull *pull;
 
-- (void)setUser:(PULUser *)user;
+- (void)setPull:(PULPull*)pull;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -25,7 +25,7 @@ typedef void(^PULHeadingBlock)(CLHeading *heading);
 
 @property (nonatomic, assign, getter=isTracking) BOOL tracking;
 
-@property (nonatomic, copy) PULHeadingBlock headingChangeBlock;
+@property (nonatomic, copy, readonly) PULHeadingBlock headingChangeBlock;
 
 /****************************************************
  Class Methods

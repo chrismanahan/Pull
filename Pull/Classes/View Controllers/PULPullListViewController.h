@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PULPullListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PULPullListViewController : UIViewController
 
 @end

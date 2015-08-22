@@ -248,15 +248,15 @@ const NSInteger kPULPulledFarSection = 2;
 
 - (void)updateUI
 {
+    PULUser *user = [_displayedPull otherUser];
+    
+    if (![_nameLabel.text isEqualToString:user.fullName])
+    {
+        _nameLabel.text = user.fullName;
+    }
+    
     if (_displayedPull.status == PULPullStatusPulled || YES)
     {
-        PULUser *user = [_displayedPull otherUser];
-        
-        if (![_nameLabel.text isEqualToString:user.fullName])
-        {
-            _nameLabel.text = user.fullName;
-        }
-        
         if (_displayedPull.isNearby)
         {
             _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
@@ -266,6 +266,11 @@ const NSInteger kPULPulledFarSection = 2;
             _distanceLabel.text = @"Not Nearby";
         }
     }
+    else
+    {
+        _distanceLabel.text = @"NA";
+    }
+    
     [_compassView setPull:_displayedPull];
 }
 

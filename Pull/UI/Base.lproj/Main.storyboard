@@ -391,7 +391,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="169" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mIS-oU-QAh" userLabel="Pull table view">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="476"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -590,7 +590,7 @@
                                     <action selector="ibSendPull:" destination="VCg-LE-m1S" eventType="touchUpInside" id="UA5-d2-eCR"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ol3-F0-98G" userLabel="no activity overlay" customClass="PULPassthroughView">
+                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ol3-F0-98G" userLabel="no activity overlay" customClass="PULPassthroughView">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Recent Activity" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yms-cy-X84">
@@ -604,7 +604,7 @@
                                         <color key="textColor" red="0.5570943813" green="0.5570943813" blue="0.5570943813" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap here to start a pull" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zoq-eS-STr">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap below to start a pull" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zoq-eS-STr">
                                         <rect key="frame" x="208" y="444" width="184" height="24"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
                                         <nil key="highlightedColor"/>
@@ -670,6 +670,7 @@
                             <constraint firstItem="Ol3-F0-98G" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="9Vy-rg-TUt"/>
                             <constraint firstItem="Ol3-F0-98G" firstAttribute="trailing" secondItem="mIS-oU-QAh" secondAttribute="trailing" constant="-150" id="9zS-Pn-eSY"/>
                             <constraint firstAttribute="trailing" secondItem="mIS-oU-QAh" secondAttribute="trailing" id="Ft1-dg-6we"/>
+                            <constraint firstItem="rQD-C5-lgL" firstAttribute="top" secondItem="mIS-oU-QAh" secondAttribute="bottom" id="GZm-Ty-fBi"/>
                             <constraint firstItem="Col-68-KCe" firstAttribute="top" secondItem="Fa8-lq-H52" secondAttribute="top" id="O8z-jo-wGS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rQD-C5-lgL" secondAttribute="trailing" id="P1P-kY-Zx9"/>
                             <constraint firstItem="rQD-C5-lgL" firstAttribute="top" secondItem="Zoq-eS-STr" secondAttribute="bottom" constant="8" id="RK6-F2-8gG"/>
@@ -692,6 +693,7 @@
                                 <exclude reference="iUa-GU-j15"/>
                                 <exclude reference="P1P-kY-Zx9"/>
                                 <exclude reference="VeX-yX-nmX"/>
+                                <exclude reference="dSQ-kD-IEm"/>
                             </mask>
                         </variation>
                     </view>

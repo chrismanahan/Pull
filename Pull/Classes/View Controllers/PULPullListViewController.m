@@ -62,8 +62,6 @@ const NSInteger kPULPulledFarSection = 2;
 {
     _observers = [[NSMutableArray alloc] init];
     // inset the table view to give it the slide under header effect
-    _tableViewTopContraint.constant = -64;
-    _friendTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     
     id loginObs = [[NSNotificationCenter defaultCenter] addObserverForName:PULAccountDidLoginNotification
                                                       object:nil

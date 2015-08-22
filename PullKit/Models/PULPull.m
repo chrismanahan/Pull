@@ -111,6 +111,22 @@ const NSTimeInterval kPullDurationAlways  = 0;
     return _duration / 60 / 60;
 }
 
+#pragma mark - overrides
+- (BOOL)isEqual:(id)object
+{
+    if ([object isKindOfClass:[PULPull class]])
+    {
+        return [[object sendingUser] isEqual:_sendingUser] && [[object receivingUser] isEqual:_receivingUser];
+    }
+    
+    return NO;
+}
+
+- (NSUInteger)hash
+{
+    return _sendingUser.hash + _receivingUser.hash;
+}
+
 #pragma mark - Private
 - (void)_observeUsersLocation:(PULUser*)user
 {

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "THObserver.h"
+
 /*****************************************
  Notifications
  *****************************************/
@@ -139,5 +141,11 @@ extern NSString * const FireObjectDidUpdateNotification;
  *  Deletes this object from firebase
  */
 - (void)deleteObject;
+
+- (void)observeKeyPath:(NSString*)keyPath block:(THObserverBlock)block;
+
+- (void)stopObservingKeyPath:(NSString*)keyPath;
+
+- (void)stopObservingAllKeyPaths;
 
 @end

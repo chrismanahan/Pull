@@ -9,6 +9,8 @@ pod 'FBSDKShareKit'
 pod 'FBSDKMessengerShareKit'
 pod 'Firebase'
 pod 'MMWormhole'
+pod 'SDWebImage', '~>3.7'
+pod 'UIActivityIndicator-for-SDWebImage'
 
 end
 

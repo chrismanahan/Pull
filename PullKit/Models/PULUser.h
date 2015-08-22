@@ -33,6 +33,7 @@ extern NSString * const PULImageUpdatedNotification;
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *fullName;
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong, readonly) NSString *imageUrlString;
 // location
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) NSString *address;
@@ -48,6 +49,8 @@ extern NSString * const PULImageUpdatedNotification;
 @property (nonatomic, strong) FireMutableArray *pulls;
 // settings
 @property (nonatomic, strong) PULUserSettings *settings;
+
+- (double)distanceFromUser:(PULUser*)user;
 
 //TODO: -sortedArray: doesn't belong here
 - (id)sortedArray:(NSArray*)array;

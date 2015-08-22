@@ -18,7 +18,7 @@
 #import "PULLoginViewController.h"
 #import "PULUserSelectViewController.h"
 
-#import "PULUserCardCell.h"
+#import "PULPulledUserSelectView.h"
 
 #import "PULSlideUnwindSegue.h"
 #import "PULSlideSegue.h"
@@ -33,15 +33,15 @@ const NSInteger kPULPendingSection = 0;
 const NSInteger kPULWaitingSection = 3;
 const NSInteger kPULPulledFarSection = 2;
 
-@interface PULPullListViewController () <UIAlertViewDelegate>
+@interface PULPullListViewController () <UIAlertViewDelegate, PULPulledUserSelectViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *headerView;
-@property (nonatomic, strong) IBOutlet UITableView *friendTableView;
 @property (strong, nonatomic) IBOutlet UIView *noActivityOverlay;
+@property (strong, nonatomic) IBOutlet PULPulledUserSelectView *userSelectView;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 
-//@property (nonatomic, strong) PULLoadingIndicator *loadingIndicator;
-
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopContraint;
+@property (nonatomic, strong) PULPull *displayedPull;
 
 @property (nonatomic, strong) NSMutableArray *observers;
 
@@ -61,7 +61,8 @@ const NSInteger kPULPulledFarSection = 2;
 - (void)viewDidLoad
 {
     _observers = [[NSMutableArray alloc] init];
-    // inset the table view to give it the slide under header effect
+
+    _userSelectView.delegate = self;
     
     id loginObs = [[NSNotificationCenter defaultCenter] addObserverForName:PULAccountDidLoginNotification
                                                       object:nil
@@ -98,7 +99,7 @@ const NSInteger kPULPulledFarSection = 2;
                                                       object:nil
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
-                                                      [PULLocationOverlay overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
+                                                      [PULLocationOverlay overlayOnView:self.view];
                                                   }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationPermissionsGrantedNotification
@@ -106,7 +107,7 @@ const NSInteger kPULPulledFarSection = 2;
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       
-                                                      [PULLocationOverlay removeOverlayFromView:_friendTableView];
+                                                      [PULLocationOverlay removeOverlayFromView:self.view];
                                                       
                                                   }];
     
@@ -136,6 +137,7 @@ const NSInteger kPULPulledFarSection = 2;
         [[PULAccount currentUser].pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
             [self reload];
             
+            // start tracking location if we haven't been
             if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
             {
                 [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
@@ -146,16 +148,21 @@ const NSInteger kPULPulledFarSection = 2;
     if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"nearby"])
     {
         [[PULAccount currentUser].pulls registerForKeyChange:@"nearby" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
-                [self reload];
+             [self reload];
         }];
     }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [_friendTableView reloadData];
+    [[PULAccount currentUser] observeKeyPath:@"location" block:^{
+        [self updateUI];
+    }];
+    
+    [_userSelectView reload];
     
     if ([PULAccount currentUser])
     {
@@ -163,10 +170,10 @@ const NSInteger kPULPulledFarSection = 2;
     }
     
     // add overlay requesting location if we are missing it
-    if (![PULLocationUpdater sharedUpdater].hasPermission && ![PULLocationOverlay viewContainsOverlay:_friendTableView])
+    if (![PULLocationUpdater sharedUpdater].hasPermission && ![PULLocationOverlay viewContainsOverlay:self.view])
     {
         PULLog(@"adding location overlay");
-        [PULLocationOverlay overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
+        [PULLocationOverlay overlayOnView:self.view];
         
         id locObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                                            object:nil
@@ -174,11 +181,11 @@ const NSInteger kPULPulledFarSection = 2;
                                                                        usingBlock:^(NSNotification *note) {
                                                                            if ([PULLocationUpdater sharedUpdater].hasPermission)
                                                                            {
-                                                                               [PULLocationOverlay removeOverlayFromView:_friendTableView];
+                                                                               [PULLocationOverlay removeOverlayFromView:self.view];
                                                                                
                                                                                [[NSNotificationCenter defaultCenter] removeObserver:locObserver];
                                                                                
-                                                                               [_friendTableView reloadData];
+                                                                               [_userSelectView reload];
                                                                            }
                                                                        }];
     }
@@ -189,6 +196,8 @@ const NSInteger kPULPulledFarSection = 2;
 {
     [super viewWillDisappear:animated];
     
+    [[PULAccount currentUser] stopObservingAllKeyPaths];
+    
     [[PULAccount currentUser].pulls unregisterLoadedBlock];
     [[PULAccount currentUser].pulls unregisterForAllKeyChanges];
 }
@@ -197,7 +206,7 @@ const NSInteger kPULPulledFarSection = 2;
 {
     if ([PULLocationUpdater sharedUpdater].hasPermission)
     {
-        [_friendTableView reloadData];
+        [_userSelectView reload];
 
         if ([PULAccount currentUser].pulls.count > 0)
         {
@@ -211,6 +220,49 @@ const NSInteger kPULPulledFarSection = 2;
     else
     {
         PULLog(@"not reloading friends table, still need location permission");
+    }
+}
+
+#pragma mark - Pulled user select view delegate
+- (void)didSelectPull:(PULPull * __nonnull)pull atIndex:(NSUInteger)index
+{
+    // check if new
+    if (![_displayedPull isEqual:pull])
+    {
+        // stop observing previous user
+        PULUser *user = [_displayedPull otherUser];
+        [user stopObservingKeyPath:@"location"];
+        
+        _displayedPull = pull;
+        user = [_displayedPull otherUser];
+        [user observeKeyPath:@"location"
+                       block:^{
+                           [self updateUI];
+                       }];
+        
+        [self updateUI];
+    }
+}
+
+- (void)updateUI
+{
+    if (_displayedPull.status == PULPullStatusPulled || YES)
+    {
+        PULUser *user = [_displayedPull otherUser];
+        
+        if (![_nameLabel.text isEqualToString:user.fullName])
+        {
+            _nameLabel.text = user.fullName;
+        }
+        
+        if (_displayedPull.isNearby)
+        {
+            _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
+        }
+        else
+        {
+            _distanceLabel.text = @"Not Nearby";
+        }
     }
 }
 
@@ -234,113 +286,5 @@ const NSInteger kPULPulledFarSection = 2;
     return segue;
 }
 
-
-#pragma mark - Table View Data Source
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSArray *datasource = [self _pullsForSection:indexPath.section];
-    
-    NSString *cellId = @"PullCardCell";
-    /*
-    switch (indexPath.section) {
-        case kPULPulledNearbySection:
-        {
-            cellId = @"PulledNearbyCell";
-            break;
-        }
-        case kPULPulledFarSection:
-        {
-            cellId = @"PulledFarCell";
-            break;
-        }
-        case kPULPendingSection:
-        {
-            cellId = @"PullPendingCell";
-            break;
-        }
-        case kPULWaitingSection:
-        {
-            cellId = @"PullWaitingCell";
-        }
-    }*/
-    
-    PULUserCardCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    PULPull *pull;
-    if (datasource.count > indexPath.row)
-    {
-        pull = datasource[indexPath.row];
-        cell.pull = pull;
-        [cell loadUI];
-    }
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    return cell;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return kPULPullListNumberOfTableViewSections;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [self _pullsForSection:section].count;
-}
-
-- (NSArray*)_pullsForSection:(NSInteger)section
-{
-    switch (section) {
-        case kPULPulledNearbySection:
-        {
-            return [[PULAccount currentUser] pullsPulledNearby];
-        }
-        case kPULPulledFarSection:
-        {
-            return [[PULAccount currentUser] pullsPulledFar];
-        }
-        case kPULPendingSection:
-        {
-            return [[PULAccount currentUser] pullsPending];
-        }
-        case kPULWaitingSection:
-        {
-            return [[PULAccount currentUser] pullsWaiting];
-        }
-    }
-    
-    return nil;
-}
-
-#pragma mark - Table View Delegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-    NSInteger section = indexPath.section;
-    
-    PULPull *pull = [self _pullsForSection:section][indexPath.row];
-    if (section == kPULPulledNearbySection)
-    {
-        PULPullDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullDetailViewController class])];
-        vc.user = [pull otherUser];
-        
-        PULSlideSegue *seg = [PULSlideSegue segueWithIdentifier:@"DetailSeg"
-                                                         source:self
-                                                    destination:vc
-                                                 performHandler:^{
-                                                     ;
-                                                 }];
-        
-        seg.slideLeft = YES;
-        
-        [seg perform];
-    }
-    else if (section == kPULPulledFarSection)
-    {
-        [PULPullNotNearbyOverlay overlayOnView:self.view withPull:pull];
-    }
-    
-}
 
 @end

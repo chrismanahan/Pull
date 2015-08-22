@@ -298,6 +298,10 @@
 		9BE5B5601AED768A00544D57 /* settings_contact@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE5B5571AED768A00544D57 /* settings_contact@3x.png */; };
 		9BE5B5611AED768A00544D57 /* settings_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE5B5581AED768A00544D57 /* settings_contact@2x.png */; };
 		9BE5B5621AED768A00544D57 /* settings_contact.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE5B5591AED768A00544D57 /* settings_contact.png */; };
+		9BED05621B88BE9A008F71CC /* PULCompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BED05611B88BE9A008F71CC /* PULCompassView.m */; };
+		9BED05651B88C912008F71CC /* PULPulledUserSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BED05641B88C912008F71CC /* PULPulledUserSelectView.m */; };
+		9BED056A1B88DECC008F71CC /* NZCircularImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BED05691B88DECC008F71CC /* NZCircularImageView.m */; };
+		9BED056E1B88E849008F71CC /* CALayer+Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BED056D1B88E849008F71CC /* CALayer+Animations.m */; };
 		9BED458C1B80D7B90007F5F4 /* PullKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; };
 		9BED45951B80D7B90007F5F4 /* PullKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BED45941B80D7B90007F5F4 /* PullKitTests.m */; };
 		9BED45981B80D7B90007F5F4 /* PullKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; };
@@ -740,6 +744,14 @@
 		9BE5B5571AED768A00544D57 /* settings_contact@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_contact@3x.png"; sourceTree = "<group>"; };
 		9BE5B5581AED768A00544D57 /* settings_contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_contact@2x.png"; sourceTree = "<group>"; };
 		9BE5B5591AED768A00544D57 /* settings_contact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_contact.png; sourceTree = "<group>"; };
+		9BED05601B88BE9A008F71CC /* PULCompassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULCompassView.h; sourceTree = "<group>"; };
+		9BED05611B88BE9A008F71CC /* PULCompassView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULCompassView.m; sourceTree = "<group>"; };
+		9BED05631B88C912008F71CC /* PULPulledUserSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPulledUserSelectView.h; sourceTree = "<group>"; };
+		9BED05641B88C912008F71CC /* PULPulledUserSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPulledUserSelectView.m; sourceTree = "<group>"; };
+		9BED05681B88DECC008F71CC /* NZCircularImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NZCircularImageView.h; sourceTree = "<group>"; };
+		9BED05691B88DECC008F71CC /* NZCircularImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NZCircularImageView.m; sourceTree = "<group>"; };
+		9BED056C1B88E849008F71CC /* CALayer+Animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CALayer+Animations.h"; path = "Categories/CALayer+Animations.h"; sourceTree = "<group>"; };
+		9BED056D1B88E849008F71CC /* CALayer+Animations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CALayer+Animations.m"; path = "Categories/CALayer+Animations.m"; sourceTree = "<group>"; };
 		9BED45811B80D7B90007F5F4 /* PullKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PullKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BED458B1B80D7B90007F5F4 /* PullKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PullKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BED45931B80D7B90007F5F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -943,6 +955,10 @@
 				84A201A61AEEBE5000A8A965 /* PULRoundedMapView.m */,
 				840D7BF41AF17674002268D5 /* PULHeaderView.h */,
 				840D7BF51AF17674002268D5 /* PULHeaderView.m */,
+				9BED05601B88BE9A008F71CC /* PULCompassView.h */,
+				9BED05611B88BE9A008F71CC /* PULCompassView.m */,
+				9BED05631B88C912008F71CC /* PULPulledUserSelectView.h */,
+				9BED05641B88C912008F71CC /* PULPulledUserSelectView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1290,6 +1306,8 @@
 		952BDB8C1A0C4F4D00C67BB5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9BED056B1B88E81E008F71CC /* Categories */,
+				9BED05661B88DEAC008F71CC /* Vendor */,
 				95169F5C1A8714EA006D3078 /* Segues */,
 				952BDB8D1A0C4F5500C67BB5 /* App */,
 				334044A61A17E15200B00BC3 /* UI */,
@@ -1645,6 +1663,32 @@
 				9BC487D21AF6D256008BF2E9 /* PULPullOverlayView.m */,
 			);
 			path = "Pull Overlays";
+			sourceTree = "<group>";
+		};
+		9BED05661B88DEAC008F71CC /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				9BED05671B88DECC008F71CC /* NZCircularImageView */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
+		9BED05671B88DECC008F71CC /* NZCircularImageView */ = {
+			isa = PBXGroup;
+			children = (
+				9BED05681B88DECC008F71CC /* NZCircularImageView.h */,
+				9BED05691B88DECC008F71CC /* NZCircularImageView.m */,
+			);
+			path = NZCircularImageView;
+			sourceTree = "<group>";
+		};
+		9BED056B1B88E81E008F71CC /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				9BED056C1B88E849008F71CC /* CALayer+Animations.h */,
+				9BED056D1B88E849008F71CC /* CALayer+Animations.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		9BED45821B80D7B90007F5F4 /* PullKit */ = {
@@ -2211,6 +2255,7 @@
 				9B823B151AEEFFD400264DB5 /* PULRightAlignedButton.m in Sources */,
 				952BDB6A1A0C4F0500C67BB5 /* AppDelegate.m in Sources */,
 				9B01E9A31B6D820B0092DC14 /* PULSquareUserImageView.m in Sources */,
+				9BED056E1B88E849008F71CC /* CALayer+Animations.m in Sources */,
 				9B86B6281AE73CD100C4F1D9 /* PULPassthroughView.m in Sources */,
 				3340449D1A17D33A00B00BC3 /* PULPullListViewController.m in Sources */,
 				840D7BF61AF17674002268D5 /* PULHeaderView.m in Sources */,
@@ -2224,6 +2269,7 @@
 				330499551A18037D003FEA42 /* PULUserImageView.m in Sources */,
 				95169F351A86F7CD006D3078 /* PULMenuViewController.m in Sources */,
 				3304995C1A1815F3003FEA42 /* PULPullDirectionArrowView.m in Sources */,
+				9BED05621B88BE9A008F71CC /* PULCompassView.m in Sources */,
 				95169F5F1A8714FE006D3078 /* PULSlideSegue.m in Sources */,
 				8456E6201A8965FC00CF76AE /* PULSlideLeftSegue.m in Sources */,
 				9532D4231A7ECC4300ADB840 /* PULInfoAlert.m in Sources */,
@@ -2241,6 +2287,8 @@
 				3304995F1A182542003FEA42 /* PULPullDetailViewController.m in Sources */,
 				9B97242A1AE20BD500EEC3AB /* PULUserSelectViewController.m in Sources */,
 				33FB713D1AAD205B00B74C47 /* PULVerticallyCenteredButton.m in Sources */,
+				9BED05651B88C912008F71CC /* PULPulledUserSelectView.m in Sources */,
+				9BED056A1B88DECC008F71CC /* NZCircularImageView.m in Sources */,
 				95169F621A8718AB006D3078 /* PULSlideUnwindSegue.m in Sources */,
 				33ABDE4C1AB4A20900A047BF /* PULOverlayView.m in Sources */,
 			);

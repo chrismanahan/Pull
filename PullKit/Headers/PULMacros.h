@@ -52,4 +52,7 @@
 #define METERS_TO_FEET(meters) (meters * 3.28084)
 #define METERS_TO_MILES(meters) (meters * 0.000621371)
 
+#define PUL_FORMATTED_DISTANCE_FEET(meters) [NSString stringWithFormat:@"%.2f ft", METERS_TO_FEET(meters)]
+#define PUL_FORMATTED_DISTANCE_MILES(meters) [NSString stringWithFormat:@"%.2f miles", METERS_TO_MILES(meters)]
+
 #endif

@@ -21,6 +21,8 @@ NSString * const FireObjectDidUpdateNotification = @"FireObjectDidUpdateNotifica
 
 @property (nonatomic, readwrite, getter=isLoaded) BOOL loaded;
 
+@property (nonatomic, strong) NSMutableDictionary *observers;
+
 @end
 
 @implementation FireObject
@@ -116,6 +118,35 @@ NSString * const FireObjectDidUpdateNotification = @"FireObjectDidUpdateNotifica
     }
     
     return propertyStringArray;
+}
+
+- (void)observeKeyPath:(NSString*)keyPath block:(THObserverBlock)block;
+{
+    PULLog(@"starting observer on %@ for %@", keyPath, self);
+    
+    if (!_observers)
+    {
+        _observers = [[NSMutableDictionary alloc] init];
+    }
+    
+    id obs = [THObserver observerForObject:self
+                                   keyPath:keyPath
+                                     block:block];
+    
+    _observers[keyPath] = obs;
+}
+
+- (void)stopObservingKeyPath:(NSString*)keyPath;
+{
+    PULLog(@"stopping observer on %@ for %@", keyPath, self);
+    
+    [_observers removeObjectForKey:keyPath];
+}
+
+- (void)stopObservingAllKeyPaths;
+{
+    PULLog(@"stopping observers on all key paths for %@", self);
+    [_observers removeAllObjects];
 }
 
 #pragma mark - Fireable Protocol

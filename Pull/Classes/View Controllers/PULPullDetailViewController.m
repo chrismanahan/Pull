@@ -70,26 +70,6 @@ const CGFloat kPULCompassFlashTime = 1.5;
     
     [self.view insertSubview:_userImageViewContainer aboveSubview:_directionArrowView];
     
-    MKCoordinateRegion region;
-    MKCoordinateSpan span;
-    
-    span.latitudeDelta = 0.05;
-    span.longitudeDelta = 0.05;
-    
-    CLLocationCoordinate2D location = [PULAccount currentUser].location.coordinate;
-    region.span = span;
-    region.center = location;
-    
-    [_mapView setRegion:region];
-    [self.view insertSubview:_mapView atIndex:0];
-    
-    //    if (_mapOverlayView)
-    //    {
-    //        [_mapOverlayView removeFromSuperview];
-    //    }
-    //    _mapOverlayView = [UIView pullVisualEffectViewWithFrame:_mapView.frame];
-    //    [self.view insertSubview:_mapOverlayView aboveSubview:_mapView];
-
 }
 
 - (void)viewDidDisappear:(BOOL)animated

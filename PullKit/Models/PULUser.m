@@ -229,6 +229,11 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
     return (NSArray*)arr;
 }
 
+- (NSString*)imageUrlString
+{
+    return [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", self.fbId];
+}
+
 - (UIImage*)image
 {
     if (_image)
@@ -247,7 +252,7 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
     }
     
     // load image from firebase
-    NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", self.fbId];
+    NSString *userImageURL = self.imageUrlString;
     
     CLSLog(@"Fetching image for user: %@", self.uid);
     NSURL *url = [NSURL URLWithString:userImageURL];
@@ -297,6 +302,12 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
 }
 
 #pragma mark - Public
+- (double)distanceFromUser:(PULUser*)user;
+{
+    double distance = [user.location distanceFromLocation:self.location];
+    return distance;
+}
+
 - (id)sortedArray:(NSArray*)array;
 {
     return [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -313,6 +324,22 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
             return NSOrderedSame;
         }
     }];
+}
+
+#pragma mark - Overrides
+- (BOOL)isEqual:(id)object
+{
+    if ([object isKindOfClass:[PULUser class]])
+    {
+        return [[object fbId] isEqualToString:_fbId];
     }
+    
+    return NO;
+}
+
+- (NSUInteger)hash
+{
+    return self.fbId;
+}
 
 @end

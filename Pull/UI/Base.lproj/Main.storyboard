@@ -2089,22 +2089,22 @@ _____________________
                                     <constraint firstAttribute="height" constant="64" id="omi-PO-JTn"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woB-1u-c5R" userLabel="no friends overlay">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woB-1u-c5R" userLabel="no friends overlay">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Congratulations!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNS-0z-8aC">
-                                        <rect key="frame" x="200" y="70" width="201" height="34"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congratulations!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNS-0z-8aC">
+                                        <rect key="frame" x="200" y="16" width="201" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="You are the first of your Facebook friends on Pull!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBu-yV-NeJ">
-                                        <rect key="frame" x="138" y="112" width="324" height="19"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are the first of your Facebook friends on Pull!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBu-yV-NeJ">
+                                        <rect key="frame" x="138" y="58" width="324" height="19"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" red="0.55709438131313127" green="0.55709438131313127" blue="0.55709438131313127" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap a ticket to invite a friend!" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YS2-B1-f66">
-                                        <rect key="frame" x="152" y="256" width="297" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap a ticket to invite a friend!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YS2-B1-f66">
+                                        <rect key="frame" x="183" y="256" width="235" height="24"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -2167,6 +2167,7 @@ _____________________
                                     <constraint firstItem="gBu-yV-NeJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="woB-1u-c5R" secondAttribute="leading" constant="8" id="dQk-Uu-2ny"/>
                                     <constraint firstItem="hes-9s-WaM" firstAttribute="top" secondItem="YS2-B1-f66" secondAttribute="bottom" constant="8" id="fix-h5-Ekj"/>
                                     <constraint firstItem="mNc-dW-EnB" firstAttribute="leading" secondItem="hes-9s-WaM" secondAttribute="trailing" constant="8" id="gRX-sc-3ep"/>
+                                    <constraint firstItem="yNS-0z-8aC" firstAttribute="top" secondItem="woB-1u-c5R" secondAttribute="top" constant="16" id="gcU-tP-Ssy"/>
                                     <constraint firstItem="JOY-qb-KMr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="woB-1u-c5R" secondAttribute="leading" constant="8" id="kAi-Nf-Use"/>
                                     <constraint firstItem="hes-9s-WaM" firstAttribute="leading" secondItem="JeX-eJ-rci" secondAttribute="trailing" constant="8" id="mIf-9g-QgC"/>
                                     <constraint firstAttribute="centerY" secondItem="YS2-B1-f66" secondAttribute="centerY" id="qQ7-oW-RMW"/>
@@ -2210,6 +2211,7 @@ _____________________
                         <outlet property="noFriendsOverlay" destination="woB-1u-c5R" id="D3j-Wa-5cD"/>
                         <outlet property="searchBar" destination="ldR-9J-uj7" id="vxw-9F-GcN"/>
                         <outlet property="tableView" destination="zQa-Fr-qkB" id="2Rc-wk-6OW"/>
+                        <outlet property="ticketHeaderLabel" destination="YS2-B1-f66" id="KeH-Ul-v9y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vuv-u1-nBM" userLabel="First Responder" sceneMemberID="firstResponder"/>

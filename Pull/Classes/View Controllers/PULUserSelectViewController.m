@@ -29,6 +29,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *inviteButtonCenter;
 @property (strong, nonatomic) IBOutlet UIButton *inviteButtonRight;
 @property (strong, nonatomic) IBOutlet UIButton *inviteButtonLeft;
+@property (strong, nonatomic) IBOutlet UILabel *ticketHeaderLabel;
 
 @end
 
@@ -62,6 +63,11 @@
                 if (remaining < 1)
                 {
                     _inviteButtonLeft.hidden = YES;
+                }
+                
+                if (remaining == 0)
+                {
+                    _ticketHeaderLabel.text = @"You've already sent out your 3 invites";
                 }
             }
         }

@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) NSString *title;
 
+@property (nonatomic, assign, getter=isShowing, readonly) BOOL showing;
+
 + (instancetype)indicatorOnView:(UIView*)onView;
 
 - (void)show;

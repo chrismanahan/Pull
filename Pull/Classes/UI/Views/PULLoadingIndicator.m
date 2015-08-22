@@ -52,6 +52,7 @@
 
 - (void)show;
 {
+    _showing = YES;
     [_onView addSubview:self];
     [self setNeedsDisplay];
  
@@ -62,6 +63,7 @@
 
 - (void)hide;
 {
+    _showing = NO;
     [self removeFromSuperview];
 //    [self.imageView stopAnimating];
     [self stopAnimating];

@@ -265,11 +265,15 @@ const NSInteger kPULPulledFarSection = 2;
     }*/
     
     PULUserCardCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    PULPull *pull = datasource[indexPath.row];
+    PULPull *pull;
+    if (datasource.count > indexPath.row)
+    {
+        pull = datasource[indexPath.row];
+        cell.pull = pull;
+        [cell loadUI];
+    }
     
-    cell.pull = pull;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell loadUI];
     
     return cell;
 }

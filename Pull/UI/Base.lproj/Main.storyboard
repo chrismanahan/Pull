@@ -2676,7 +2676,7 @@ _____________________
                                         <rect key="frame" x="8" y="35" width="545" height="30"/>
                                         <color key="backgroundColor" red="0.87707149620000002" green="0.87707149620000002" blue="0.87707149620000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                         <connections>
                                             <outlet property="delegate" destination="wC0-Gl-ACI" id="ugS-cN-xfZ"/>
                                         </connections>

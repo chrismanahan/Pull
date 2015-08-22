@@ -80,7 +80,6 @@
 		841ECA9D1B7E8E15009061F8 /* Pull WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 841ECA9C1B7E8E15009061F8 /* Pull WatchKit App.app */; };
 		841ECAA51B7E8E15009061F8 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841ECAA31B7E8E15009061F8 /* Interface.storyboard */; };
 		841ECAA71B7E8E15009061F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841ECAA61B7E8E15009061F8 /* Images.xcassets */; };
-		841ECAAB1B7E8E15009061F8 /* Pull WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 841ECA8E1B7E8E14009061F8 /* Pull WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		841ECAB21B7E9401009061F8 /* dot_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 951798681AB1207C00925E5A /* dot_icon.png */; };
 		84261A451A9E2628001DD052 /* PULRequestLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84261A441A9E2628001DD052 /* PULRequestLocationViewController.m */; };
 		84261A481A9E263A001DD052 /* PULRequestNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84261A471A9E263A001DD052 /* PULRequestNotificationsViewController.m */; };
@@ -329,13 +328,6 @@
 			remoteGlobalIDString = 841ECA9B1B7E8E15009061F8;
 			remoteInfo = "Pull WatchKit App";
 		};
-		841ECAA81B7E8E15009061F8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 952BDB521A0C4F0500C67BB5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 841ECA8D1B7E8E14009061F8;
-			remoteInfo = "Pull WatchKit Extension";
-		};
 		952BDB7D1A0C4F0500C67BB5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 952BDB521A0C4F0500C67BB5 /* Project object */;
@@ -381,17 +373,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		841ECAAA1B7E8E15009061F8 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				841ECAAB1B7E8E15009061F8 /* Pull WatchKit Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9B78A7ED1B810A99005569B4 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1782,13 +1763,11 @@
 				952BDB561A0C4F0500C67BB5 /* Sources */,
 				952BDB571A0C4F0500C67BB5 /* Frameworks */,
 				952BDB581A0C4F0500C67BB5 /* Resources */,
-				841ECAAA1B7E8E15009061F8 /* Embed App Extensions */,
 				9BED45991B80D7B90007F5F4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				841ECAA91B7E8E15009061F8 /* PBXTargetDependency */,
 				9BED45971B80D7B90007F5F4 /* PBXTargetDependency */,
 			);
 			name = Pull;
@@ -2325,11 +2304,6 @@
 			target = 841ECA9B1B7E8E15009061F8 /* Pull WatchKit App */;
 			targetProxy = 841ECA9E1B7E8E15009061F8 /* PBXContainerItemProxy */;
 		};
-		841ECAA91B7E8E15009061F8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 841ECA8D1B7E8E14009061F8 /* Pull WatchKit Extension */;
-			targetProxy = 841ECAA81B7E8E15009061F8 /* PBXContainerItemProxy */;
-		};
 		952BDB7E1A0C4F0500C67BB5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 952BDB591A0C4F0500C67BB5 /* Pull */;
@@ -2432,8 +2406,8 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = "Pull WatchKit Extension/Pull WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2488,8 +2462,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2615,7 +2589,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "Pull/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
@@ -2639,8 +2613,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CLANG_ENABLE_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Pull/Pull.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/**",
@@ -2655,7 +2629,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "Pull/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
@@ -2737,7 +2711,7 @@
 				);
 				INFOPLIST_FILE = "PullKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2769,9 +2743,14 @@
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "PullKit-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"PULLKIT=1",
+				);
 				INFOPLIST_FILE = "PullKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

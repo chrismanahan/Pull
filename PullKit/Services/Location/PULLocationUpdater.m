@@ -133,6 +133,8 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
             }
 
         }];
+        
+        [parkour setTrackPositionMode:Share];
     }
 }
 /*!

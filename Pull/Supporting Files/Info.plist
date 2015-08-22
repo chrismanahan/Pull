@@ -20,6 +20,8 @@
 	<string>468309439970987</string>
 	<key>FacebookDisplayName</key>
 	<string>Pull</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

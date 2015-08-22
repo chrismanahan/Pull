@@ -196,6 +196,7 @@
 		95F367101AF6C8FB00A3E2F6 /* white_card_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367071AF6C8FB00A3E2F6 /* white_card_top@2x.png */; };
 		95F367111AF6C8FB00A3E2F6 /* white_card_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367081AF6C8FB00A3E2F6 /* white_card_top@3x.png */; };
 		95F367131AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95F367121AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib */; };
+		9B008BBB1B88282B00593902 /* parkour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B008BBA1B88282B00593902 /* parkour.framework */; };
 		9B01E9A31B6D820B0092DC14 /* PULSquareUserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B01E9A21B6D820B0092DC14 /* PULSquareUserImageView.m */; };
 		9B1305561B83F24900CBF642 /* NSArray+Sorting.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B1305541B83F24900CBF642 /* NSArray+Sorting.h */; };
 		9B1305571B83F24900CBF642 /* NSArray+Sorting.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1305551B83F24900CBF642 /* NSArray+Sorting.m */; };
@@ -302,7 +303,6 @@
 		9BED45951B80D7B90007F5F4 /* PullKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BED45941B80D7B90007F5F4 /* PullKitTests.m */; };
 		9BED45981B80D7B90007F5F4 /* PullKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; };
 		9BED459A1B80D7B90007F5F4 /* PullKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9BED45A11B80D7CB0007F5F4 /* parkour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D81D701B7A83EB00075860 /* parkour.framework */; };
 		9BED45A21B80D7CB0007F5F4 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BF9BEC41B742D380020981E /* AdSupport.framework */; };
 		9BED45A31B80D7CB0007F5F4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953B064C1A8D9021008235EB /* MediaPlayer.framework */; };
 		9BED45A61B80D7CB0007F5F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D6661B1A7C8EEE000FAD8D /* MapKit.framework */; };
@@ -524,7 +524,6 @@
 		84AAC8D11A8E8E5100C302AD /* PULNoConnectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULNoConnectionView.h; sourceTree = "<group>"; };
 		84AAC8D21A8E8E5100C302AD /* PULNoConnectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULNoConnectionView.m; sourceTree = "<group>"; };
 		84AAC8D41A8E904A00C302AD /* PULNoConnectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PULNoConnectionView.xib; sourceTree = "<group>"; };
-		84D81D701B7A83EB00075860 /* parkour.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = parkour.framework; path = Frameworks/parkour.framework; sourceTree = "<group>"; };
 		84DBE2E31AE94FCA00115C59 /* compass_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass_small.png; sourceTree = "<group>"; };
 		84DBE2E41AE94FCB00115C59 /* compass_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass_small@2x.png"; sourceTree = "<group>"; };
 		84DBE2E51AE94FCB00115C59 /* compass_small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass_small@3x.png"; sourceTree = "<group>"; };
@@ -653,6 +652,7 @@
 		95F367071AF6C8FB00A3E2F6 /* white_card_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_card_top@2x.png"; sourceTree = "<group>"; };
 		95F367081AF6C8FB00A3E2F6 /* white_card_top@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_card_top@3x.png"; sourceTree = "<group>"; };
 		95F367121AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PULPullNotNearbyOverlay.xib; sourceTree = "<group>"; };
+		9B008BBA1B88282B00593902 /* parkour.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = parkour.framework; sourceTree = "<group>"; };
 		9B01E9A11B6D820B0092DC14 /* PULSquareUserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULSquareUserImageView.h; sourceTree = "<group>"; };
 		9B01E9A21B6D820B0092DC14 /* PULSquareUserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULSquareUserImageView.m; sourceTree = "<group>"; };
 		9B1305541B83F24900CBF642 /* NSArray+Sorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Sorting.h"; sourceTree = "<group>"; };
@@ -811,8 +811,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BED45A11B80D7CB0007F5F4 /* parkour.framework in Frameworks */,
 				9BED45A21B80D7CB0007F5F4 /* AdSupport.framework in Frameworks */,
+				9B008BBB1B88282B00593902 /* parkour.framework in Frameworks */,
 				9BED45A31B80D7CB0007F5F4 /* MediaPlayer.framework in Frameworks */,
 				9BED45A61B80D7CB0007F5F4 /* MapKit.framework in Frameworks */,
 				9BED45A71B80D7CB0007F5F4 /* CFNetwork.framework in Frameworks */,
@@ -1245,6 +1245,7 @@
 		952BDB5C1A0C4F0500C67BB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B008BBA1B88282B00593902 /* parkour.framework */,
 				9B78A7F91B8128CD005569B4 /* libPods-PullKit.a */,
 				9B78A7F31B812512005569B4 /* CoreMedia.framework */,
 				9B78A7F11B8124FF005569B4 /* AVFoundation.framework */,
@@ -1252,7 +1253,6 @@
 				9B78A7711B80DB36005569B4 /* Fabric.framework */,
 				9B78A7721B80DB36005569B4 /* Crashlytics.framework */,
 				9B1835781B7FDBA200BBD669 /* WatchKit.framework */,
-				84D81D701B7A83EB00075860 /* parkour.framework */,
 				9BF9BEC41B742D380020981E /* AdSupport.framework */,
 				953B064C1A8D9021008235EB /* MediaPlayer.framework */,
 				95D6661B1A7C8EEE000FAD8D /* MapKit.framework */,
@@ -2726,6 +2726,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)",
+					/Users/chrism/Downloads,
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "PullKit-Prefix.pch";
@@ -2764,6 +2765,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)",
+					/Users/chrism/Downloads,
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "PullKit-Prefix.pch";

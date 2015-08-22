@@ -2,13 +2,15 @@
 //  parkour.h
 //  parkour
 //
-//  Created by phillip emily yonis anthony and chenyang on 7/21/15b
+//  Created by phillip emily yonis anthony and jeremy on 8/21/15
 //  Trademark and Copyright (c) 2015 parkour method. All rights reserved.
 //  www.parkourmethod.com
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import "PKConstants.h"
+
+#define theParkourSDKVersion 82106
 
 @interface parkour : NSObject
 

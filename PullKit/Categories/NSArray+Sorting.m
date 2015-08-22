@@ -9,7 +9,7 @@
 #import "NSArray+Sorting.h"
 
 #import "PULPull.h"
-#import "PULUser.h"
+#import "PULAccount.h"
 
 @implementation NSArray (Sorting)
 
@@ -26,7 +26,23 @@
 {
     [self _assertClass:[PULPull class]];
     
-    return nil;
+    return [self sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        CLLocationDistance distance1 = [[((PULPull*)obj1) otherUser].location distanceFromLocation:[PULAccount currentUser].location];
+        CLLocationDistance distance2 = [[((PULPull*)obj2) otherUser].location distanceFromLocation:[PULAccount currentUser].location];
+        
+        if (distance1 < distance2)
+        {
+            return NSOrderedAscending;
+        }
+        else if (distance1 > distance2)
+        {
+            return NSOrderedDescending;
+        }
+        else
+        {
+            return NSOrderedSame;
+        }
+    }];
 }
 
 - (NSArray*)sortedUsersByFirstName;

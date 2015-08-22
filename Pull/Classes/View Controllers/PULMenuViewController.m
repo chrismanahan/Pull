@@ -60,6 +60,20 @@
        {
            _inviteButtonLeft.hidden = YES;
        }
+       
+       if (remaining != 0)
+       {
+           NSString *friendStr = @"friends";
+           if (remaining == 1)
+           {
+               friendStr = @"friend";
+           }
+           _inviteLabel.text = [NSString stringWithFormat:@"You can invite %zd %@ to pull", remaining, friendStr];
+       }
+       else
+       {
+           _inviteLabel.text = @"You have sent all of your invites";
+       }
    }
 }
 

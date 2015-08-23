@@ -66,10 +66,13 @@
             [iv.layer addPopAnimation];
         }
         
+        PULPull *pull = _datasource[_selectedIndex];
+        _selectedPull = pull;
+        
         // notify delegate
         if ([_delegate respondsToSelector:@selector(didSelectPull:atIndex:)])
         {
-            PULPull *pull = _datasource[_selectedIndex];
+        
             [_delegate didSelectPull:pull atIndex:_selectedIndex];
         }
     }
@@ -102,6 +105,10 @@
         if (!_selectedPull)
         {
             [self setSelectedIndex:0];
+        }
+        else
+        {
+            [self setSelectedPull:_selectedPull];
         }
     }
     
@@ -155,7 +162,7 @@
  
     CGFloat padding = 10;
     // determine size for each new view
-    CGFloat wh = CGRectGetHeight(self.frame) - padding*3;
+    CGFloat wh = CGRectGetHeight(self.frame) - padding*2;
     // determine how many views are needed
     NSInteger viewsNeeded = [PULAccount currentUser].pulls.count - _userImageViews.count;
     
@@ -173,7 +180,7 @@
             // create view
             NZCircularImageView *imageView = [[NZCircularImageView alloc] initWithFrame:CGRectMake(0, padding, wh, wh)];
             imageView.borderColor = PUL_LightGray;
-            imageView.borderWidth = @(3);
+            imageView.borderWidth = @(4);
             
             [_userImageViews addObject:imageView];
         }

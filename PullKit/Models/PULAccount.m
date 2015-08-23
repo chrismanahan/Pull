@@ -280,7 +280,7 @@ static PULAccount *account = nil;
     // remove pull from friend's pulls
     if (pull.isLoaded)
     {
-        PULUser *friend = [pull otherUser];
+        __block PULUser *friend = [pull otherUser];
         
         if (friend.isLoaded)
         {
@@ -290,12 +290,23 @@ static PULAccount *account = nil;
             
             [pull deleteObject];
         }
+        else
+        {
+            [friend observeKeyPath:@"loaded" block:^{
+                [friend willChangeValueForKey:@"pulls"];
+                [friend.pulls removeAndSaveObject:pull];
+                [friend didChangeValueForKey:@"pulls"];
+                [pull deleteObject];
+                
+                [friend stopObservingKeyPath:@"loaded"];
+            }];
+        }
     }
     else
     {
         id obs = [THObserver observerForObject:pull keyPath:@"loaded" oldAndNewBlock:^(id oldValue, id newValue) {
             PULUser *friend = [pull otherUser];
-            if (friend)
+            if (friend.isLoaded)
             {
                 [friend willChangeValueForKey:@"pulls"];
                 [friend.pulls removeAndSaveObject:pull];
@@ -303,6 +314,19 @@ static PULAccount *account = nil;
                 [pull deleteObject];
                 
                 [_observers removeObject:obs];
+            }
+            else
+            {
+                [friend observeKeyPath:@"loaded" block:^{
+                    [friend willChangeValueForKey:@"pulls"];
+                    [friend.pulls removeAndSaveObject:pull];
+                    [friend didChangeValueForKey:@"pulls"];
+                    [pull deleteObject];
+                    
+                    [_observers removeObject:obs];
+                    
+                    [friend stopObservingKeyPath:@"loaded"];
+                }];
             }
         }];
         

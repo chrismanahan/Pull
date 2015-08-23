@@ -70,7 +70,7 @@ const NSInteger kPULPulledFarSection = 2;
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
-                                                      [self _observePulls];
+                                                      [self _startAccountObservers];
                                                       
                                                       [[NSNotificationCenter defaultCenter] removeObserver:loginObs];
                                                   }];
@@ -118,41 +118,10 @@ const NSInteger kPULPulledFarSection = 2;
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       PULLog(@"received access token change notif, reloading table");
-                                                      [self reload];
+                                                      [_userSelectView reload];
                                                   }];
     
     [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
-    
-}
-
-- (void)_observePulls
-{
-    if (![[PULAccount currentUser].pulls hasLoadBlock])
-    {
-        [[PULAccount currentUser].pulls registerLoadedBlock:^(FireMutableArray *objects) {
-            [self reload];
-        }];
-    }
-    
-    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"status"])
-    {
-        [[PULAccount currentUser].pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
-            [self reload];
-            
-            // start tracking location if we haven't been
-            if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
-            {
-                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
-            }
-        }];
-    }
-    
-    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"nearby"])
-    {
-        [[PULAccount currentUser].pulls registerForKeyChange:@"nearby" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
-             [self reload];
-        }];
-    }
     
 }
 
@@ -160,16 +129,7 @@ const NSInteger kPULPulledFarSection = 2;
 {
     [super viewWillAppear:animated];
     
-    [[PULAccount currentUser] observeKeyPath:@"location" block:^{
-        [self updateUI];
-    }];
-    
-    [_userSelectView reload];
-    
-    if ([PULAccount currentUser])
-    {
-        [self _observePulls];
-    }
+    [self _startAccountObservers];
     
     // add overlay requesting location if we are missing it
     if (![PULLocationUpdater sharedUpdater].hasPermission && ![PULLocationOverlay viewContainsOverlay:self.view])
@@ -192,37 +152,66 @@ const NSInteger kPULPulledFarSection = 2;
                                                                        }];
     }
     
+    // show no activity overlay if needed
+    if ([PULAccount currentUser].pulls.count > 0)
+    {
+        _noActivityOverlay.hidden = YES;
+    }
+    else
+    {
+        _noActivityOverlay.hidden = NO;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [[PULAccount currentUser] stopObservingAllKeyPaths];
+    [[PULAccount currentUser] stopObservingKeyPath:@"location"];
+    [_userSelectView.selectedUser stopObservingKeyPath:@"location"];
     
-    [[PULAccount currentUser].pulls unregisterLoadedBlock];
-    [[PULAccount currentUser].pulls unregisterForAllKeyChanges];
+//    [[PULAccount currentUser].pulls unregisterLoadedBlock];
+//    [[PULAccount currentUser].pulls unregisterForAllKeyChanges];
 }
 
-- (void)reload
+#pragma mark - Private
+- (void)_startAccountObservers
 {
-    if ([PULLocationUpdater sharedUpdater].hasPermission)
+    PULAccount *acct = [PULAccount currentUser];
+    if (!acct || !acct.isLoaded)
     {
-        [_userSelectView reload];
-
-        if ([PULAccount currentUser].pulls.count > 0)
-        {
-            _noActivityOverlay.hidden = YES;
-        }
-        else
-        {
-            _noActivityOverlay.hidden = NO;
-        }
+        [acct observeKeyPath:@"loaded" block:^{
+            [self _startAccountObservers];
+        }];
+        
+        return;
     }
-    else
+    
+    // observe when pulls are loaded
+    if (![acct.pulls hasLoadBlock])
     {
-        PULLog(@"not reloading friends table, still need location permission");
+        [acct.pulls registerLoadedBlock:^(FireMutableArray *objects) {
+            [_userSelectView reload];
+        }];
     }
+    
+    // observe when the status of any pull has changed
+    if (![acct.pulls isRegisteredForKeyChange:@"status"])
+    {
+        [acct.pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+            // start tracking location if we haven't been
+            if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
+            {
+                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+            }
+        }];
+    }
+    
+    // observe when account moves
+    [acct observeKeyPath:@"location" block:^{
+        [self updateUI];
+    }];
+    
 }
 
 #pragma mark - Pulled user select view delegate
@@ -255,7 +244,7 @@ const NSInteger kPULPulledFarSection = 2;
         _nameLabel.text = user.fullName;
     }
     
-    if (_displayedPull.status == PULPullStatusPulled || YES)
+    if (_displayedPull.status == PULPullStatusPulled || /* DISABLES CODE */ (YES))
     {
         if (_displayedPull.isNearby)
         {

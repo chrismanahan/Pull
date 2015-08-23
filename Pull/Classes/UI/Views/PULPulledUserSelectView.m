@@ -23,6 +23,166 @@
 
 @implementation PULPulledUserSelectView
 
+- (void)initialize
+{
+    PULAccount *acct = [PULAccount currentUser];
+    
+    NSAssert(acct != nil, @"account cannot be nil");
+    
+    if (acct.isLoaded)
+    {
+        // remove load observer if exists
+        if ([acct isObservingKeyPath:@"loaded"])
+        {
+            [acct stopObservingKeyPath:@"loaded"];
+        }
+        
+        [self _loadDatasourceCompletion:^(NSArray *ds) {
+            // create image views
+            [self _updateUserImageViews];
+            
+            // load each image view
+            [self _populateImageViews];
+            
+            [self _startObservingPulls];
+        }];
+        
+    }
+    else
+    {
+        [acct observeKeyPath:@"loaded"
+                       block:^{
+                           [self initialize];
+                       }];
+    }
+}
+
+- (void)_loadDatasourceCompletion:(void(^)(NSArray *ds))completion
+{
+    PULAccount *acct = [PULAccount currentUser];
+    // check if pulls are loaded
+    if (acct.pulls.isLoaded)
+    {
+        // unregister from pulls loaded block if needed
+        [acct.pulls unregisterLoadedBlock];
+        
+        // create data source
+        [self _buildDatasource];
+        
+        if (completion)
+        {
+            completion(_datasource);
+        }
+    }
+    else
+    {
+        // wait until pulls are loaded
+        [acct.pulls registerLoadedBlock:^(FireMutableArray *objects) {
+            [self _loadDatasourceCompletion:completion];
+        }];
+    }
+}
+
+- (void)_startObservingPulls
+{
+    [[PULAccount currentUser].pulls registerLoadedBlock:^(FireMutableArray *objects) {
+        [self _refresh];
+    }];
+    
+    [[PULAccount currentUser].pulls registerForKeyChange:@"status"
+                                   onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+                                       [self _refresh];
+                                   }];
+    
+    // locations
+    [[PULAccount currentUser].friends registerForKeyChange:@"location"
+                                     onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+                                         BOOL valid = [self _validateDatasource];
+                                         if (!valid)
+                                         {
+                                             [self _refresh];
+                                         }
+                                     }];
+    
+    [[PULAccount currentUser] observeKeyPath:@"location"
+                                       block:^{
+                                           BOOL valid = [self _validateDatasource];
+                                           if (!valid)
+                                           {
+                                               [self _refresh];
+                                           }
+                                       }];
+}
+
+- (void)_refresh
+{
+    [self _loadDatasourceCompletion:^(NSArray *ds) {
+        // create image views
+        [self _updateUserImageViews];
+        
+        // load each image view
+        [self _populateImageViews];
+        
+        [self setSelectedPull:_selectedPull];
+    }];
+}
+
+- (BOOL)_validateDatasource
+{
+    double lastDistance = 0.0;
+    for (int i = 0; i < _datasource.count; i++)
+    {
+        PULPull *pull = _datasource[i];
+        double thisDistance = [[pull otherUser] distanceFromUser:[PULAccount currentUser]];
+        
+        if (thisDistance < lastDistance)
+        {
+            return NO;
+        }
+        else
+        {
+            lastDistance = thisDistance;
+        }
+    }
+    
+    return YES;
+}
+
+- (void)_buildDatasource
+{
+    NSMutableArray *ds;
+    
+    PULAccount *acct = [PULAccount currentUser];
+    // get active pulls
+    NSMutableArray *activePulls = [[NSMutableArray alloc] initWithArray:acct.pullsPulledNearby];
+    [activePulls addObjectsFromArray:acct.pullsPulledFar];
+    
+    // sort by distance and store
+    ds = [[NSMutableArray alloc] initWithArray:[activePulls sortedPullsByDistance]];
+    
+    // add the rest of pulls
+    [ds addObjectsFromArray:acct.pullsPending];
+    [ds addObjectsFromArray:acct.pullsWaiting];
+    
+    // set data source
+    _datasource = [[NSArray alloc] initWithArray:ds];
+}
+
+- (void)_populateImageViews
+{
+    NSAssert(_datasource.count == _userImageViews.count, @"user image view count does not match pull count");
+    
+    // load each image view
+    for (int i = 0; i < _datasource.count; i++)
+    {
+        PULPull *pull = _datasource[i];
+        NZCircularImageView *iv = _userImageViews[i];
+        PULUser *user = [pull otherUser];
+        
+        [iv setImageWithResizeURL:user.imageUrlString];
+    }
+}
+
 #pragma mark - Public
 - (nullable PULPull*)pullAtIndex:(NSUInteger)index;
 {
@@ -48,15 +208,24 @@
 {
     if (_datasource.count > 0)
     {
-        NSAssert(selectedIndex < _datasource.count, @"selected index out of bounds");
+        //NSAssert(selectedIndex < _datasource.count, @"selected index out of bounds");
+        if (selectedIndex < 0)
+        {
+            selectedIndex = 0;
+        }
         
         // get image view for previous selected index
         NZCircularImageView *iv = _userImageViews[_selectedIndex];
         // change border color
         iv.borderColor = PUL_LightGray;
         
-        // set new index
+        
+        // set new index and pull
         _selectedIndex = selectedIndex;
+        PULPull *pull = _datasource[_selectedIndex];
+        _selectedPull = pull;
+        
+        // update selected image
         iv = _userImageViews[_selectedIndex];
         // change border color
         iv.borderColor = PUL_Purple;
@@ -65,53 +234,13 @@
         {
             [iv.layer addPopAnimation];
         }
-        
-        PULPull *pull = _datasource[_selectedIndex];
-        _selectedPull = pull;
-        
+
         // notify delegate
         if ([_delegate respondsToSelector:@selector(didSelectPull:atIndex:)])
         {
-        
             [_delegate didSelectPull:pull atIndex:_selectedIndex];
         }
     }
-}
-
-- (NSInteger)maxIndex
-{
-    return _datasource.count - 1;
-}
-
-- (void)reload
-{
-    PULLog(@"reloading pulled user select view");
-    _datasource = [[PULAccount currentUser].pulls sortedPullsByDistance];
-    PULLog(@"\tdatasource count: %zd", _datasource.count);
-
-    [self _updateUserImageViews];
-    
-    NSAssert(_datasource.count == _userImageViews.count, @"user image view count does not match pull count");
-    
-    // load each image view
-    for (int i = 0; i < _datasource.count; i++)
-    {
-        PULPull *pull = _datasource[i];
-        NZCircularImageView *iv = _userImageViews[i];
-        PULUser *user = [pull otherUser];
-        
-        [iv setImageWithResizeURL:user.imageUrlString];
-        
-        if (!_selectedPull)
-        {
-            [self setSelectedIndex:0];
-        }
-        else
-        {
-            [self setSelectedPull:_selectedPull];
-        }
-    }
-    
 }
 
 #pragma mark - Private

@@ -142,6 +142,8 @@ extern NSString * const FireObjectDidUpdateNotification;
  */
 - (void)deleteObject;
 
+- (BOOL)isObservingKeyPath:(NSString*)keyPath;
+
 - (void)observeKeyPath:(NSString*)keyPath block:(THObserverBlock)block;
 
 - (void)stopObservingKeyPath:(NSString*)keyPath;

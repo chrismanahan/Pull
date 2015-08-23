@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didSelectPull:(PULPull*)pull atIndex:(NSUInteger)index;
 
+- (void)userSelectViewDidUpdateToDistance:(CGFloat)distance forSelectedPull:(PULPull*)pull;
+
 @end
 
 @interface PULPulledUserSelectView : UIView
@@ -27,17 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, readonly, nullable) PULPull *selectedPull;
 /**
- *  Currently selected user. Can only be null if there are no pulls available
- */
-@property (nonatomic, strong, readonly) PULUser *selectedUser;
-/**
  *  Currently selected index. -1 if no pulls available
  */
 @property (nonatomic, assign, readonly) NSInteger selectedIndex;
-/**
- *  Max index that can be selected. -1 if no pulls available
- */
-@property (nonatomic, assign, readonly) NSInteger maxIndex;
 
 @property (nonatomic, weak) id <PULPulledUserSelectViewDelegate> delegate;
 
@@ -63,10 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setSelectedPull:(PULPull * __nullable)selectedPull;
 
-/**
- *  Reloads the view. Should be called when first displaying it. The view will manage itself and update as it detects changes in pulls
- */
-- (void)reload;
+- (void)initialize;
 
 @end
 

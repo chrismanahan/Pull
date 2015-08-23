@@ -396,7 +396,6 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
 -(void)addObject:(id)anObject
 {
     [_backingStore addObject:anObject];
-    
     [self _addObserversIfNeededForObject:anObject];
 }
 
@@ -406,13 +405,16 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
     {
         [self _removeObserversIfNeededForObject:obj];
     }
+    
     [_backingStore removeAllObjects];
 }
 
 -(void)removeLastObject
 {
+    
     [self _removeObserversIfNeededForObject:[_backingStore lastObject]];
     [_backingStore removeLastObject];
+    
 }
 
 -(void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject

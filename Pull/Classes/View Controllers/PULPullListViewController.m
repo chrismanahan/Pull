@@ -66,11 +66,12 @@ const NSInteger kPULPulledFarSection = 2;
 
     _userSelectView.delegate = self;
     
+//    
     id loginObs = [[NSNotificationCenter defaultCenter] addObserverForName:PULAccountDidLoginNotification
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
-                                                      [self _startAccountObservers];
+                                                      [_userSelectView initialize];
                                                       
                                                       [[NSNotificationCenter defaultCenter] removeObserver:loginObs];
                                                   }];
@@ -113,13 +114,6 @@ const NSInteger kPULPulledFarSection = 2;
                                                       
                                                   }];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:FBSDKAccessTokenDidChangeNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue currentQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      PULLog(@"received access token change notif, reloading table");
-                                                      [_userSelectView reload];
-                                                  }];
     
     [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
     
@@ -128,8 +122,6 @@ const NSInteger kPULPulledFarSection = 2;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self _startAccountObservers];
     
     // add overlay requesting location if we are missing it
     if (![PULLocationUpdater sharedUpdater].hasPermission && ![PULLocationOverlay viewContainsOverlay:self.view])
@@ -147,7 +139,6 @@ const NSInteger kPULPulledFarSection = 2;
                                                                                
                                                                                [[NSNotificationCenter defaultCenter] removeObserver:locObserver];
                                                                                
-                                                                               [_userSelectView reload];
                                                                            }
                                                                        }];
     }
@@ -167,52 +158,44 @@ const NSInteger kPULPulledFarSection = 2;
 {
     [super viewWillDisappear:animated];
     
-    [[PULAccount currentUser] stopObservingKeyPath:@"location"];
-    [_userSelectView.selectedUser stopObservingKeyPath:@"location"];
+//    [[PULAccount currentUser] stopObservingKeyPath:@"location"];
+//    [_userSelectView.selectedUser stopObservingKeyPath:@"location"];
     
 //    [[PULAccount currentUser].pulls unregisterLoadedBlock];
 //    [[PULAccount currentUser].pulls unregisterForAllKeyChanges];
 }
 
 #pragma mark - Private
-- (void)_startAccountObservers
-{
-    PULAccount *acct = [PULAccount currentUser];
-    if (!acct || !acct.isLoaded)
-    {
-        [acct observeKeyPath:@"loaded" block:^{
-            [self _startAccountObservers];
-        }];
-        
-        return;
-    }
-    
-    // observe when pulls are loaded
-    if (![acct.pulls hasLoadBlock])
-    {
-        [acct.pulls registerLoadedBlock:^(FireMutableArray *objects) {
-            [_userSelectView reload];
-        }];
-    }
-    
-    // observe when the status of any pull has changed
-    if (![acct.pulls isRegisteredForKeyChange:@"status"])
-    {
-        [acct.pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
-            // start tracking location if we haven't been
-            if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
-            {
-                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
-            }
-        }];
-    }
-    
-    // observe when account moves
-    [acct observeKeyPath:@"location" block:^{
-        [self updateUI];
-    }];
-    
-}
+//- (void)_startAccountObservers
+//{
+//    PULAccount *acct = [PULAccount currentUser];
+//    if (!acct || !acct.isLoaded)
+//    {
+//        [acct observeKeyPath:@"loaded" block:^{
+//            [self _startAccountObservers];
+//        }];
+//        
+//        return;
+//    }
+//    
+//    // observe when the status of any pull has changed
+//    if (![acct.pulls isRegisteredForKeyChange:@"status"])
+//    {
+//        [acct.pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+//            // start tracking location if we haven't been
+//            if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
+//            {
+//                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+//            }
+//        }];
+//    }
+//    
+//    // observe when account moves
+//    [acct observeKeyPath:@"location" block:^{
+//        [self updateUI];
+//    }];
+//    
+//}
 
 #pragma mark - Pulled user select view delegate
 - (void)didSelectPull:(PULPull * __nonnull)pull atIndex:(NSUInteger)index
@@ -233,6 +216,11 @@ const NSInteger kPULPulledFarSection = 2;
         
         [self updateUI];
     }
+}
+
+- (void)userSelectViewDidUpdateToDistance:(CGFloat)distance forSelectedPull:(PULPull * __nonnull)pull
+{
+    
 }
 
 - (void)updateUI

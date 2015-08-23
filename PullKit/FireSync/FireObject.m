@@ -120,6 +120,11 @@ NSString * const FireObjectDidUpdateNotification = @"FireObjectDidUpdateNotifica
     return propertyStringArray;
 }
 
+- (BOOL)isObservingKeyPath:(NSString*)keyPath
+{
+    return _observers[keyPath] != nil;
+}
+
 - (void)observeKeyPath:(NSString*)keyPath block:(THObserverBlock)block;
 {
     PULLog(@"starting observer on %@ for %@", keyPath, self);
@@ -138,9 +143,12 @@ NSString * const FireObjectDidUpdateNotification = @"FireObjectDidUpdateNotifica
 
 - (void)stopObservingKeyPath:(NSString*)keyPath;
 {
-    PULLog(@"stopping observer on %@ for %@", keyPath, self);
-    
-    [_observers removeObjectForKey:keyPath];
+    if ([self isObservingKeyPath:keyPath])
+    {
+        PULLog(@"stopping observer on %@ for %@", keyPath, self);
+        
+        [_observers removeObjectForKey:keyPath];
+    }
 }
 
 - (void)stopObservingAllKeyPaths;

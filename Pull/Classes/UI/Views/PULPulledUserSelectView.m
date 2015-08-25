@@ -204,13 +204,22 @@ typedef NS_ENUM(NSInteger, PULDatasourceState) {
         // unregister from pulls loaded block if needed
         [acct.pulls unregisterLoadedBlock];
         
-        // create data source
-        [self _buildDatasource];
-        
-        _datasourceState = PULDatasourceStateLoaded;
-        if (completion)
+        // check if we need to rebuild the datasource
+        if ([self _validateDatasource] && _datasource.count == acct.pulls.count)
         {
+            _datasourceState = PULDatasourceStateLoaded;
             completion(_datasource);
+        }
+        else
+        {
+            // create data source
+            [self _buildDatasource];
+            
+            _datasourceState = PULDatasourceStateLoaded;
+            if (completion)
+            {
+                completion(_datasource);
+            }
         }
     }
     else if (_datasourceState != PULDatasourceStatePendingLoad)
@@ -392,6 +401,8 @@ typedef NS_ENUM(NSInteger, PULDatasourceState) {
     CGFloat wh = CGRectGetHeight(self.frame) - padding*2;
     // determine how many views are needed
     NSInteger viewsNeeded = [PULAccount currentUser].pulls.count - _userImageViews.count;
+    
+    [_userImageViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     if (viewsNeeded < 0)
     {

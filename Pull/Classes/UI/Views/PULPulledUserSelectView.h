@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didSelectPull:(PULPull*)pull atIndex:(NSUInteger)index;
 
-- (void)userSelectViewDidUpdateToDistance:(CGFloat)distance forSelectedPull:(PULPull*)pull;
+- (void)userSelectViewDidUpdateDistanceForSelectedPull:(PULPull*)pull;
 
 @end
 
@@ -58,6 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setSelectedPull:(PULPull * __nullable)selectedPull;
 
 - (void)initialize;
+
+- (void)pause;
+- (void)resume;
 
 @end
 

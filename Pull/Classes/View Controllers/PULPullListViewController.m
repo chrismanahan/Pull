@@ -25,6 +25,8 @@
 #import "PULSlideSegue.h"
 #import "PULReverseModal.h"
 
+#import "CALayer+Animations.h"
+
 #import "PULPullNotNearbyOverlay.h"
 
 const NSInteger kPULPullListNumberOfTableViewSections = 4;
@@ -152,11 +154,16 @@ const NSInteger kPULPulledFarSection = 2;
     {
         _noActivityOverlay.hidden = NO;
     }
+    
+    [_userSelectView resume];
+//    [_userSelectView performSelector:@selector(_refresh)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [_userSelectView pause];
     
 //    [[PULAccount currentUser] stopObservingKeyPath:@"location"];
 //    [_userSelectView.selectedUser stopObservingKeyPath:@"location"];
@@ -218,9 +225,11 @@ const NSInteger kPULPulledFarSection = 2;
     }
 }
 
-- (void)userSelectViewDidUpdateToDistance:(CGFloat)distance forSelectedPull:(PULPull * __nonnull)pull
+- (void)userSelectViewDidUpdateDistanceForSelectedPull:(PULPull * __nonnull)pull
 {
+    [self updateUI];
     
+//    [_compassView.layer addPopAnimation];
 }
 
 - (void)updateUI
@@ -234,21 +243,26 @@ const NSInteger kPULPulledFarSection = 2;
     
     if (_displayedPull.status == PULPullStatusPulled || /* DISABLES CODE */ (YES))
     {
-        if (_displayedPull.isNearby)
+        if (_displayedPull.isNearby || /* Disables code*/ YES)
         {
             _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
         }
         else
         {
+            // display not nearby stuff
             _distanceLabel.text = @"Not Nearby";
         }
     }
     else
     {
+        // display either waiting on acceptance or waiting for approval
         _distanceLabel.text = @"NA";
     }
     
-    [_compassView setPull:_displayedPull];
+    if (![_compassView.pull isEqual:_displayedPull])
+    {
+        [_compassView setPull:_displayedPull];
+    }
 }
 
 #pragma mark - Actions

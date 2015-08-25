@@ -11,6 +11,7 @@
 
 extern NSString* const PULLocationPermissionsGrantedNotification;
 extern NSString* const PULLocationPermissionsDeniedNotification;
+extern NSString* const PULLocationUpdatedNotification;
 
 typedef void(^PULHeadingBlock)(CLHeading *heading);
 

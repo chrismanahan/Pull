@@ -25,7 +25,7 @@
 
 NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermissionsGrantedNotification";
 NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissionsNeededNotification";
-//NSString* const PULLocationHeadingUpdatedNotification = @"PULLocationHeadingUpdatedNotification";
+NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotification";
 
 @interface PULLocationUpdater ()
 
@@ -110,6 +110,7 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
  */
 -(void)startUpdatingLocation;
 {
+    static int tries = 0;
     // verify we should be starting location
     if ([self _shouldUpdateLocation])
     {
@@ -128,13 +129,29 @@ NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissi
                 acct.currentMotionType = motionType;
                 acct.location = position;
                 acct.currentPositionType = positionType;
-                
                 [acct saveKeys:@[@"location"]];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
+                                                                    object:position];
             }
 
         }];
         
-        [parkour setTrackPositionMode:Share];
+        [parkour setTrackPositionMode:Fitness];
+    }
+    else
+    {
+        // try again soon
+        if (tries++ < 10)
+        {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self startUpdatingLocation];
+            });
+        }
+        else
+        {
+            tries = 0;
+        }
     }
 }
 /*!

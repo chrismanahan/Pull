@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -456,15 +456,8 @@
                                 <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ic-Yv-xse" customClass="PULPulledUserSelectView">
-                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="90" id="CVs-vT-ZBv"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uwd-8l-A5U" customClass="PULCompassView">
-                                <rect key="frame" x="150" y="155" width="300" height="330"/>
+                                <rect key="frame" x="150" y="155" width="300" height="331"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="uwd-8l-A5U" secondAttribute="height" multiplier="63:68" id="UIz-fl-j6v"/>
@@ -475,39 +468,75 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Chs-nX-n4I">
+                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="rNk-pE-IZe"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="obG-Qj-DPb">
+                                    <size key="itemSize" width="77" height="77"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PulledUserCell" id="cPU-WX-gbD" customClass="PULPulledUserCollectionViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="77" height="77"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Upr-ut-Qmx" customClass="NZCircularImageView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="77" height="77"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Upr-ut-Qmx" firstAttribute="top" secondItem="cPU-WX-gbD" secondAttribute="top" id="1X9-0G-WrW"/>
+                                            <constraint firstAttribute="bottom" secondItem="Upr-ut-Qmx" secondAttribute="bottom" id="CkU-vm-NfP"/>
+                                            <constraint firstAttribute="trailing" secondItem="Upr-ut-Qmx" secondAttribute="trailing" id="faI-Xs-neV"/>
+                                            <constraint firstItem="Upr-ut-Qmx" firstAttribute="leading" secondItem="cPU-WX-gbD" secondAttribute="leading" id="gbb-OQ-1RV"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="Upr-ut-Qmx" id="IFR-Le-Yfa"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="VCg-LE-m1S" id="raR-BG-dbL"/>
+                                    <outlet property="delegate" destination="VCg-LE-m1S" id="VZs-69-nR8"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Col-68-KCe" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="4fp-cF-R2d"/>
-                            <constraint firstItem="8ic-Yv-xse" firstAttribute="top" secondItem="uwd-8l-A5U" secondAttribute="bottom" constant="25" id="C8X-UN-HBQ"/>
+                            <constraint firstItem="Chs-nX-n4I" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="8XD-U7-Z4K"/>
                             <constraint firstItem="uwd-8l-A5U" firstAttribute="width" secondItem="Fa8-lq-H52" secondAttribute="width" multiplier="0.5" priority="750" id="E8B-MR-pEr"/>
+                            <constraint firstAttribute="trailing" secondItem="Chs-nX-n4I" secondAttribute="trailing" id="LMT-Fj-wKL"/>
                             <constraint firstItem="Col-68-KCe" firstAttribute="top" secondItem="Fa8-lq-H52" secondAttribute="top" id="O8z-jo-wGS"/>
-                            <constraint firstItem="8ic-Yv-xse" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="TUK-Os-HDt"/>
+                            <constraint firstItem="Tg6-Kr-yWv" firstAttribute="top" secondItem="Chs-nX-n4I" secondAttribute="bottom" id="OBA-6g-QeF"/>
                             <constraint firstItem="ful-YR-1oS" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="VNH-DI-NH5"/>
-                            <constraint firstAttribute="trailing" secondItem="8ic-Yv-xse" secondAttribute="trailing" id="ajp-Zt-cmd"/>
                             <constraint firstItem="E7c-j8-VHH" firstAttribute="top" secondItem="ful-YR-1oS" secondAttribute="bottom" constant="8" id="bgY-pT-2da"/>
                             <constraint firstAttribute="trailing" secondItem="ful-YR-1oS" secondAttribute="trailing" id="cYU-g7-9yS"/>
-                            <constraint firstItem="Tg6-Kr-yWv" firstAttribute="top" secondItem="8ic-Yv-xse" secondAttribute="bottom" id="dbd-Q2-VEt"/>
                             <constraint firstAttribute="trailing" secondItem="Col-68-KCe" secondAttribute="trailing" id="g71-Iz-rbN"/>
-                            <constraint firstAttribute="height" secondItem="8ic-Yv-xse" secondAttribute="height" multiplier="5" id="gpV-Wb-2Uy"/>
                             <constraint firstItem="ful-YR-1oS" firstAttribute="centerX" secondItem="E7c-j8-VHH" secondAttribute="centerX" id="hiL-Oy-3x7"/>
                             <constraint firstItem="ful-YR-1oS" firstAttribute="top" secondItem="Col-68-KCe" secondAttribute="bottom" id="pSs-BX-w4n"/>
                             <constraint firstAttribute="centerX" secondItem="uwd-8l-A5U" secondAttribute="centerX" id="rc2-QM-loF"/>
+                            <constraint firstItem="Chs-nX-n4I" firstAttribute="top" secondItem="uwd-8l-A5U" secondAttribute="bottom" constant="24" id="tGf-Ug-IkA"/>
                             <constraint firstItem="uwd-8l-A5U" firstAttribute="top" secondItem="E7c-j8-VHH" secondAttribute="bottom" constant="16" id="wOv-Td-fsU"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="gpV-Wb-2Uy"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="rxm-zt-ES9"/>
                     <connections>
+                        <outlet property="collectionView" destination="Chs-nX-n4I" id="6Bs-AE-ykI"/>
                         <outlet property="compassView" destination="uwd-8l-A5U" id="QeG-hG-K14"/>
                         <outlet property="distanceLabel" destination="E7c-j8-VHH" id="yYT-Xv-M98"/>
                         <outlet property="headerView" destination="Col-68-KCe" id="GKB-nq-BEW"/>
                         <outlet property="nameLabel" destination="ful-YR-1oS" id="D9x-Pm-cNi"/>
-                        <outlet property="userSelectView" destination="8ic-Yv-xse" id="WhP-b8-nLO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PX-8q-Zmp" userLabel="First Responder" sceneMemberID="firstResponder"/>

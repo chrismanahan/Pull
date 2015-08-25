@@ -19,13 +19,14 @@
 #import "PULLoginViewController.h"
 #import "PULUserSelectViewController.h"
 
-#import "PULPulledUserSelectView.h"
-
 #import "PULSlideUnwindSegue.h"
 #import "PULSlideSegue.h"
 #import "PULReverseModal.h"
 
+#import "PULPulledUserCollectionViewCell.h"
+
 #import "CALayer+Animations.h"
+#import "NSArray+Sorting.h"
 
 #import "PULPullNotNearbyOverlay.h"
 
@@ -36,16 +37,18 @@ const NSInteger kPULPendingSection = 0;
 const NSInteger kPULWaitingSection = 3;
 const NSInteger kPULPulledFarSection = 2;
 
-@interface PULPullListViewController () <UIAlertViewDelegate, PULPulledUserSelectViewDelegate>
+@interface PULPullListViewController () <UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (strong, nonatomic) IBOutlet UIView *noActivityOverlay;
-@property (strong, nonatomic) IBOutlet PULPulledUserSelectView *userSelectView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet PULCompassView *compassView;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 
+@property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) PULPull *displayedPull;
+@property (nonatomic, assign) NSInteger selectedIndex;
 
 @property (nonatomic, strong) NSMutableArray *observers;
 
@@ -65,15 +68,12 @@ const NSInteger kPULPulledFarSection = 2;
 - (void)viewDidLoad
 {
     _observers = [[NSMutableArray alloc] init];
-
-    _userSelectView.delegate = self;
     
-//    
     id loginObs = [[NSNotificationCenter defaultCenter] addObserverForName:PULAccountDidLoginNotification
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
-                                                      [_userSelectView initialize];
+                                                      [self _observePulls];
                                                       
                                                       [[NSNotificationCenter defaultCenter] removeObserver:loginObs];
                                                   }];
@@ -116,14 +116,58 @@ const NSInteger kPULPulledFarSection = 2;
                                                       
                                                   }];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserverForName:FBSDKAccessTokenDidChangeNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      PULLog(@"received access token change notif, reloading table");
+                                                      [self reload];
+                                                  }];
+
     [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
     
+}
+
+- (void)_observePulls
+{
+    if (![[PULAccount currentUser].pulls hasLoadBlock])
+    {
+        [[PULAccount currentUser].pulls registerLoadedBlock:^(FireMutableArray *objects) {
+            [self reload];
+        }];
+    }
+    
+    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"status"])
+    {
+        [[PULAccount currentUser].pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+            [self reload];
+            
+            if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
+            {
+                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+            }
+        }];
+    }
+    
+    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"nearby"])
+    {
+        [[PULAccount currentUser].pulls registerForKeyChange:@"nearby" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+            [self reload];
+        }];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [_collectionView reloadData];
+    [self setSelectedIndex:_selectedIndex];
+    
+    if ([PULAccount currentUser])
+    {
+        [self _observePulls];
+    }
     
     // add overlay requesting location if we are missing it
     if (![PULLocationUpdater sharedUpdater].hasPermission && ![PULLocationOverlay viewContainsOverlay:self.view])
@@ -141,92 +185,45 @@ const NSInteger kPULPulledFarSection = 2;
                                                                                
                                                                                [[NSNotificationCenter defaultCenter] removeObserver:locObserver];
                                                                                
+                                                                               [_collectionView reloadData];
+                                                                               [self setSelectedIndex:_selectedIndex];
                                                                            }
                                                                        }];
     }
-    
-    // show no activity overlay if needed
-    if ([PULAccount currentUser].pulls.count > 0)
-    {
-        _noActivityOverlay.hidden = YES;
-    }
-    else
-    {
-        _noActivityOverlay.hidden = NO;
-    }
-    
-    [_userSelectView initialize];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-//    [[PULAccount currentUser] stopObservingKeyPath:@"location"];
-//    [_userSelectView.selectedUser stopObservingKeyPath:@"location"];
-    
-//    [[PULAccount currentUser].pulls unregisterLoadedBlock];
-//    [[PULAccount currentUser].pulls unregisterForAllKeyChanges];
+    [[PULAccount currentUser].pulls unregisterLoadedBlock];
+    [[PULAccount currentUser].pulls unregisterForAllKeyChanges];
 }
 
 #pragma mark - Private
-//- (void)_startAccountObservers
-//{
-//    PULAccount *acct = [PULAccount currentUser];
-//    if (!acct || !acct.isLoaded)
-//    {
-//        [acct observeKeyPath:@"loaded" block:^{
-//            [self _startAccountObservers];
-//        }];
-//        
-//        return;
-//    }
-//    
-//    // observe when the status of any pull has changed
-//    if (![acct.pulls isRegisteredForKeyChange:@"status"])
-//    {
-//        [acct.pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
-//            // start tracking location if we haven't been
-//            if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
-//            {
-//                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
-//            }
-//        }];
-//    }
-//    
-//    // observe when account moves
-//    [acct observeKeyPath:@"location" block:^{
-//        [self updateUI];
-//    }];
-//    
-//}
-
-#pragma mark - Pulled user select view delegate
-- (void)didSelectPull:(PULPull * __nonnull)pull atIndex:(NSUInteger)index
+- (void)reload
 {
-    // check if new
-    if (![_displayedPull isEqual:pull])
+    if ([PULLocationUpdater sharedUpdater].hasPermission)
     {
-        // stop observing previous user
-        PULUser *user = [_displayedPull otherUser];
-        [user stopObservingKeyPath:@"location"];
+        [self _loadDatasourceCompletion:^(NSArray *ds) {
+            [_collectionView reloadData];
+            [self setSelectedIndex:_selectedIndex];
+        }];
         
-        _displayedPull = pull;
-        user = [_displayedPull otherUser];
-        [user observeKeyPath:@"location"
-                       block:^{
-                           [self updateUI];
-                       }];
-        
-        [self updateUI];
+        if ([PULAccount currentUser].pulls.count > 0)
+        {
+            _noActivityOverlay.hidden = YES;
+        }
+        else
+        {
+            _noActivityOverlay.hidden = NO;
+        }
     }
-}
-
-- (void)userSelectViewDidUpdateDistanceForSelectedPull:(PULPull * __nonnull)pull
-{
-    [self updateUI];
+    else
+    {
+        PULLog(@"not reloading friends table, still need location permission");
+    }
     
-//    [_compassView.layer addPopAnimation];
 }
 
 - (void)updateUI
@@ -238,9 +235,9 @@ const NSInteger kPULPulledFarSection = 2;
         _nameLabel.text = user.fullName;
     }
     
-    if (_displayedPull.status == PULPullStatusPulled || /* DISABLES CODE */ (YES))
+    if (_displayedPull.status == PULPullStatusPulled)
     {
-        if (_displayedPull.isNearby || /* Disables code*/ YES)
+        if (_displayedPull.isNearby)
         {
             _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
         }
@@ -282,5 +279,184 @@ const NSInteger kPULPulledFarSection = 2;
     return segue;
 }
 
+#pragma mark - Datasource
+- (void)_loadDatasourceCompletion:(void(^)(NSArray *ds))completion
+{
+    PULAccount *acct = [PULAccount currentUser];
+    // check if pulls are loaded
+    if (acct.pulls.isLoaded)
+    {
+        // unregister from pulls loaded block if needed
+        [acct.pulls unregisterLoadedBlock];
+        
+        // check if we need to rebuild the datasource
+        if ([self _validateDatasource] && _datasource.count == acct.pulls.count && _datasource != nil)
+        {
+            completion(_datasource);
+        }
+        else
+        {
+            // create data source
+            [self _buildDatasource];
+            
+            if (completion)
+            {
+                completion(_datasource);
+            }
+        }
+    }
+    else
+    {
+        if (acct.pulls)
+        {
+            [acct.pulls registerLoadedBlock:^(FireMutableArray *objects) {
+                [self _loadDatasourceCompletion:completion];
+            }];
+        }
+        else
+        {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self _loadDatasourceCompletion:completion];
+            });
+        }
+    }
+}
+
+- (BOOL)_validateDatasource
+{
+    double lastDistance = 0;
+    for (int i = 0; i < _datasource.count; i++)
+    {
+        PULPull *pull = _datasource[i];
+        double thisDistance = [[pull otherUser] distanceFromUser:[PULAccount currentUser]];
+        
+        if (thisDistance < lastDistance)
+        {
+            return NO;
+        }
+        else
+        {
+            lastDistance = thisDistance;
+        }
+    }
+    
+    return YES;
+}
+
+- (void)_buildDatasource
+{
+    NSMutableArray *ds;
+    
+    PULAccount *acct = [PULAccount currentUser];
+    // get active pulls
+    NSMutableArray *activePulls = [[NSMutableArray alloc] initWithArray:acct.pullsPulledNearby];
+    [activePulls addObjectsFromArray:acct.pullsPulledFar];
+    
+    // sort by distance and store
+    ds = [[NSMutableArray alloc] initWithArray:[activePulls sortedPullsByDistance]];
+    
+    // add the rest of pulls
+    [ds addObjectsFromArray:acct.pullsPending];
+    [ds addObjectsFromArray:acct.pullsWaiting];
+    
+    // set data source
+    _datasource = [[NSArray alloc] initWithArray:ds];
+}
+
+#pragma mark Helpers
+- (PULUser*)_userForIndex:(NSInteger)index;
+{
+    PULPull *pull = _datasource[index];
+    return [pull otherUser];
+}
+
+- (NSInteger)_indexForUser:(PULUser*)aUser;
+{
+    for (int i = 0; i < _datasource.count; i++)
+    {
+        PULPull *pull = _datasource[i];
+        PULUser *user = [pull otherUser];
+        if ([user isEqual:aUser])
+        {
+            return i;
+        }
+    }
+    
+    return -1;
+}
+
+- (NSInteger)_indexForPull:(PULPull*)aPull;
+{
+    for (int i = 0; i < _datasource.count; i++)
+    {
+        PULPull *pull = _datasource[i];
+        if ([pull isEqual:aPull])
+        {
+            return i;
+        }
+    }
+    
+    return -1;
+}
+
+- (void)setSelectedIndex:(NSInteger)selectedIndex
+{
+    if (_datasource && _datasource.count > 0
+        )
+    {
+        // stop observing location for last pull
+        if (_displayedPull)
+        {
+            [[_displayedPull otherUser] stopObservingKeyPath:@"location"];
+        }
+        
+        _selectedIndex = selectedIndex;
+        _displayedPull = _datasource[_selectedIndex];
+        
+        // deselect all cells
+        for (int i = 0; i < _datasource.count; i++)
+        {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            PULPulledUserCollectionViewCell *cell = (PULPulledUserCollectionViewCell*)[_collectionView cellForItemAtIndexPath:indexPath];
+            [cell setActive:_selectedIndex == i animated:_selectedIndex == i];
+        }
+        
+        [[_displayedPull otherUser] observeKeyPath:@"location"
+                                             block:^{
+                                                 [self updateUI];
+                                             }];
+        
+        [self updateUI];
+    }
+}
+
+#pragma mark - UICollectionview
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self setSelectedIndex:indexPath.row];
+}
+
+- (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    PULPulledUserCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PulledUserCell" forIndexPath:indexPath];
+    
+    PULPull *pull = _datasource[indexPath.row];
+    
+    cell.pull = pull;
+    
+    return cell;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _datasource.count;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    BOOL active = indexPath.row == _selectedIndex;
+    [((PULPulledUserCollectionViewCell*)cell) setActive:active animated:NO];
+
+}
 
 @end

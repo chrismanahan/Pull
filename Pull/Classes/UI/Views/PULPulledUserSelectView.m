@@ -34,6 +34,7 @@ typedef NS_ENUM(NSInteger, PULDatasourceState) {
 @property (nonatomic, assign) PULDatasourceState datasourceState;
 
 @property (nonatomic, assign) BOOL active;
+@property (nonatomic, assign) BOOL initializing;
 
 @end
 
@@ -43,10 +44,11 @@ typedef NS_ENUM(NSInteger, PULDatasourceState) {
 {
     PULAccount *acct = [PULAccount currentUser];
     
-    NSAssert(acct != nil, @"account cannot be nil");
+//    NSAssert(acct != nil, @"account cannot be nil");
     
-    if (acct.isLoaded)
+    if (acct.isLoaded && acct && !_initializing)
     {
+        _initializing = YES;
         _selectedIndex = -1;
         
         // remove load observer if exists
@@ -64,7 +66,10 @@ typedef NS_ENUM(NSInteger, PULDatasourceState) {
         [self addSubview:_scrollView];
   
         [self resume];
-        [self _refresh];
+        [self _refreshCompletion:^{
+            _initializing = NO;
+            [self _startObservingPulls];
+        }];
         
 //        [self _loadDatasourceCompletion:^(NSArray *ds) {
 //            // create image views
@@ -77,24 +82,39 @@ typedef NS_ENUM(NSInteger, PULDatasourceState) {
 //        }];
         
     }
-    else
+    else if (!_initializing)
     {
-        [acct observeKeyPath:@"loaded"
-                       block:^{
-                           [self initialize];
-                       }];
+        if (acct)
+        {
+            [acct observeKeyPath:@"loaded"
+                           block:^{
+                               if (!_initializing)
+                               {
+                                   [self initialize];
+                               }
+                           }];
+        }
+        else
+        {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (!_initializing)
+                {
+                    [self initialize];
+                }
+            });
+        }
     }
 }
 
 - (void)pause;
 {
-    _active = NO;
-    [self _stopObservingPulls];
+//    _active = NO;
+//    [self _stopObservingPulls];
 }
 
 - (void)resume;
 {
-    _active = YES;
+//    _active = YES;
     [self _startObservingPulls];
 }
 
@@ -227,10 +247,13 @@ typedef NS_ENUM(NSInteger, PULDatasourceState) {
         _datasourceState = PULDatasourceStatePendingLoad;
         
         // wait until pulls are loaded
-        [acct.pulls registerLoadedBlock:^(FireMutableArray *objects) {
-            _datasourceState = PULDatasourceStateLoading;
-            [self _loadDatasourceCompletion:completion];
-        }];
+//        if (!acct.pulls.hasLoadBlock)
+//        {
+            [acct.pulls registerLoadedBlock:^(FireMutableArray *objects) {
+                _datasourceState = PULDatasourceStateLoading;
+                [self _loadDatasourceCompletion:completion];
+            }];
+//        }
     }
 }
 
@@ -287,11 +310,9 @@ typedef NS_ENUM(NSInteger, PULDatasourceState) {
                                                                       }];
 }
 
-- (void)_refresh
+- (void)_refreshCompletion:(void(^)())completion
 {
-    if (_active)
-    {
-        _active = NO;
+
         [self _loadDatasourceCompletion:^(NSArray *ds) {
             // create image views
             [self _updateUserImageViews];
@@ -308,26 +329,35 @@ typedef NS_ENUM(NSInteger, PULDatasourceState) {
                 [self setSelectedIndex:0];
             }
             
-            _active = YES;
+            
+            if (completion)
+            {
+                completion();
+            }
         }];
-    }
     
-//    [self _loadDatasourceCompletion:^(NSArray *ds) {
-//        // create image views
-//        [self _updateUserImageViews];
-//        
-//        // load each image view
-//        [self _populateImageViews];
-//        
-//        if (_selectedPull)
-//        {
-//            [self setSelectedPull:_selectedPull];
-//        }
-//        else if (_datasource.count > 0)
-//        {
-//            [self setSelectedIndex:0];
-//        }
-//    }];
+    
+    //    [self _loadDatasourceCompletion:^(NSArray *ds) {
+    //        // create image views
+    //        [self _updateUserImageViews];
+    //
+    //        // load each image view
+    //        [self _populateImageViews];
+    //
+    //        if (_selectedPull)
+    //        {
+    //            [self setSelectedPull:_selectedPull];
+    //        }
+    //        else if (_datasource.count > 0)
+    //        {
+    //            [self setSelectedIndex:0];
+    //        }
+    //    }];
+}
+
+- (void)_refresh
+{
+    [self _refreshCompletion:nil];
 }
 
 - (BOOL)_validateDatasource
@@ -419,7 +449,6 @@ typedef NS_ENUM(NSInteger, PULDatasourceState) {
             NZCircularImageView *imageView = [[NZCircularImageView alloc] initWithFrame:CGRectMake(0, padding, wh, wh)];
             imageView.borderColor = PUL_LightGray;
             imageView.borderWidth = @(4);
-            
             
             [_userImageViews addObject:imageView];
         }

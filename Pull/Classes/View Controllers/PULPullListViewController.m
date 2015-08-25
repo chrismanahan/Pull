@@ -155,15 +155,12 @@ const NSInteger kPULPulledFarSection = 2;
         _noActivityOverlay.hidden = NO;
     }
     
-    [_userSelectView resume];
-//    [_userSelectView performSelector:@selector(_refresh)];
+    [_userSelectView initialize];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    [_userSelectView pause];
     
 //    [[PULAccount currentUser] stopObservingKeyPath:@"location"];
 //    [_userSelectView.selectedUser stopObservingKeyPath:@"location"];

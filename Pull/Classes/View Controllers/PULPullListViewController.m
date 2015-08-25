@@ -125,7 +125,27 @@ const NSInteger kPULPulledFarSection = 2;
                                                   }];
 
     [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+ 
     
+    // add swipe gesture recognizers
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(_swipeLeft)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(_swipeRight)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    
+    [self.view addGestureRecognizer:swipeLeft];
+    [self.view addGestureRecognizer:swipeRight];
+}
+
+- (void)_swipeLeft
+{
+    [self setSelectedIndex:_selectedIndex + 1];
+}
+
+- (void)_swipeRight
+{
+    [self setSelectedIndex:_selectedIndex - 1];
 }
 
 - (void)_observePulls
@@ -401,13 +421,21 @@ const NSInteger kPULPulledFarSection = 2;
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
-    if (_datasource && _datasource.count > 0
-        )
+    if (_datasource && _datasource.count > 0)
     {
         // stop observing location for last pull
         if (_displayedPull)
         {
             [[_displayedPull otherUser] stopObservingKeyPath:@"location"];
+        }
+        
+        if (selectedIndex < 0)
+        {
+            selectedIndex = 0;
+        }
+        else if (selectedIndex >= _datasource.count)
+        {
+            selectedIndex = _datasource.count - 1;
         }
         
         _selectedIndex = selectedIndex;

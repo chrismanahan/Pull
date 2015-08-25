@@ -11,5 +11,6 @@
 @interface CALayer (Animations)
 
 - (void)addPopAnimation;
+- (void)addPopAnimationCompletion:(void(^)())completion;
 
 @end

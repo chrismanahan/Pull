@@ -49,7 +49,8 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
 
 @property (nonatomic, strong) NSMutableArray *observers;
 
-@property (nonatomic, copy) FireArrayLoadedBlock loadedBlock;
+//@property (nonatomic, copy) FireArrayLoadedBlock loadedBlock;
+@property (nonatomic, strong) NSMutableDictionary *loadedBlocks;
 
 @property (nonatomic, strong) NSMutableArray *keyChangeBlocks;
 
@@ -142,18 +143,28 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
 - (void)registerLoadedBlock:(FireArrayLoadedBlock)block;
 {
     PULLog(@"registered loaded block to %@", NSStringFromClass([self class]));
-    _loadedBlock = [block copy];
+    if (!_loadedBlocks)
+    {
+        _loadedBlocks = [[NSMutableDictionary alloc] init];
+    }
+    
+    NSString *caller = [[NSThread callStackSymbols] objectAtIndex:1]; // this is causing huge lag
+    _loadedBlocks[caller] = [block copy];
     
     if (self.isLoaded)
     {
-        _loadedBlock(self);
+        block(self);
     }
 }
 
 - (void)unregisterLoadedBlock;
 {
     PULLog(@"unregisted loaded block from %@", NSStringFromClass([self class]));
-    _loadedBlock = nil;
+    if (_loadedBlocks)
+    {
+        NSString *caller = [[NSThread callStackSymbols] objectAtIndex:1];
+        [_loadedBlocks removeObjectForKey:caller];
+    }
 }
 
 #pragma mark Keys
@@ -243,9 +254,9 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
                     __block id obs = [THObserver observerForObject:fireObj keyPath:@"loaded" block:^{
                         [_observers removeObject:obs];
                         
-                        if (_observers.count == 0 && _loadedBlock)
+                        if (_observers.count == 0 && _loadedBlocks)
                         {
-                            _loadedBlock(self);
+                            [self _runLoadedBlocks];
                         }
                     }];
                     
@@ -265,11 +276,19 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
     
     NSAssert(!(self.isLoaded && _observers.count != 0) , @"why do we have observers if we're not loaded?");
     
-    if (_loadedBlock && ((!_emptyObjects && self.isLoaded) || (_backingStore.count == 0)))
+    if (_loadedBlocks && ((!_emptyObjects && self.isLoaded) || (_backingStore.count == 0)))
     {
-        _loadedBlock(self);
+        [self _runLoadedBlocks];
     }
     
+}
+
+- (void)_runLoadedBlocks
+{
+    [_loadedBlocks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        FireArrayLoadedBlock block = (FireArrayLoadedBlock)obj;
+        block(self);
+    }];
 }
 
 - (NSString*)rootName
@@ -319,7 +338,7 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
 #pragma mark - Properties
 - (BOOL)hasLoadBlock
 {
-    return (BOOL)_loadedBlock;
+    return (BOOL)_loadedBlocks.count > 0;
 }
 
 - (BOOL)isLoaded

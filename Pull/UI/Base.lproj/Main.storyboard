@@ -440,6 +440,9 @@
                                     <constraint firstAttribute="height" constant="64" id="ukk-Mp-ISw"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cutout_name.png" translatesAutoresizingMaskIntoConstraints="NO" id="l3o-60-dng">
+                                <rect key="frame" x="0.0" y="64" width="600" height="40"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ful-YR-1oS">
                                 <rect key="frame" x="0.0" y="64" width="600" height="40"/>
                                 <color key="backgroundColor" red="0.36862745098039218" green="0.13725490196078433" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
@@ -634,6 +637,9 @@
                                     <outlet property="delegate" destination="VCg-LE-m1S" id="VZs-69-nR8"/>
                                 </connections>
                             </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cutout_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="Vmn-ac-qjh">
+                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -641,22 +647,30 @@
                             <constraint firstItem="Chs-nX-n4I" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="8XD-U7-Z4K"/>
                             <constraint firstItem="ZzK-kx-gII" firstAttribute="top" secondItem="uwd-8l-A5U" secondAttribute="bottom" constant="16" id="BOG-Xy-osf"/>
                             <constraint firstItem="uwd-8l-A5U" firstAttribute="width" secondItem="Fa8-lq-H52" secondAttribute="width" multiplier="0.5" priority="750" id="E8B-MR-pEr"/>
+                            <constraint firstItem="l3o-60-dng" firstAttribute="trailing" secondItem="ful-YR-1oS" secondAttribute="trailing" id="Ffg-dp-NP5"/>
                             <constraint firstAttribute="trailing" secondItem="Chs-nX-n4I" secondAttribute="trailing" id="LMT-Fj-wKL"/>
                             <constraint firstItem="Col-68-KCe" firstAttribute="top" secondItem="Fa8-lq-H52" secondAttribute="top" id="O8z-jo-wGS"/>
                             <constraint firstItem="Tg6-Kr-yWv" firstAttribute="top" secondItem="Chs-nX-n4I" secondAttribute="bottom" id="OBA-6g-QeF"/>
                             <constraint firstItem="Chs-nX-n4I" firstAttribute="top" secondItem="ZzK-kx-gII" secondAttribute="bottom" id="PHv-r4-Lvi"/>
                             <constraint firstItem="Chs-nX-n4I" firstAttribute="leading" secondItem="ZzK-kx-gII" secondAttribute="leading" id="Q87-dv-3zQ"/>
                             <constraint firstItem="ful-YR-1oS" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="VNH-DI-NH5"/>
+                            <constraint firstItem="l3o-60-dng" firstAttribute="bottom" secondItem="ful-YR-1oS" secondAttribute="bottom" id="ZED-pn-xMC"/>
                             <constraint firstItem="E7c-j8-VHH" firstAttribute="top" secondItem="ful-YR-1oS" secondAttribute="bottom" constant="8" id="bgY-pT-2da"/>
                             <constraint firstAttribute="trailing" secondItem="ful-YR-1oS" secondAttribute="trailing" id="cYU-g7-9yS"/>
+                            <constraint firstItem="Chs-nX-n4I" firstAttribute="trailing" secondItem="Vmn-ac-qjh" secondAttribute="trailing" id="ckn-Hb-Rhl"/>
+                            <constraint firstItem="Chs-nX-n4I" firstAttribute="bottom" secondItem="Vmn-ac-qjh" secondAttribute="bottom" id="egK-c0-KCr"/>
                             <constraint firstAttribute="trailing" secondItem="Col-68-KCe" secondAttribute="trailing" id="g71-Iz-rbN"/>
                             <constraint firstItem="Chs-nX-n4I" firstAttribute="trailing" secondItem="ZzK-kx-gII" secondAttribute="trailing" id="gc8-8O-XYz"/>
+                            <constraint firstItem="Chs-nX-n4I" firstAttribute="leading" secondItem="Vmn-ac-qjh" secondAttribute="leading" id="gxJ-Py-2fN"/>
+                            <constraint firstItem="Chs-nX-n4I" firstAttribute="top" secondItem="Vmn-ac-qjh" secondAttribute="top" id="hgp-vh-cFO"/>
                             <constraint firstItem="ful-YR-1oS" firstAttribute="centerX" secondItem="E7c-j8-VHH" secondAttribute="centerX" id="hiL-Oy-3x7"/>
                             <constraint firstItem="ful-YR-1oS" firstAttribute="top" secondItem="Col-68-KCe" secondAttribute="bottom" id="pSs-BX-w4n"/>
                             <constraint firstAttribute="centerX" secondItem="uwd-8l-A5U" secondAttribute="centerX" id="rc2-QM-loF"/>
                             <constraint firstItem="Chs-nX-n4I" firstAttribute="top" secondItem="uwd-8l-A5U" secondAttribute="bottom" constant="24" id="tGf-Ug-IkA"/>
                             <constraint firstItem="uwd-8l-A5U" firstAttribute="top" secondItem="E7c-j8-VHH" secondAttribute="bottom" constant="16" id="wOv-Td-fsU"/>
                             <constraint firstItem="Chs-nX-n4I" firstAttribute="height" secondItem="ZzK-kx-gII" secondAttribute="height" multiplier="0.8" id="wnk-5V-hER"/>
+                            <constraint firstItem="l3o-60-dng" firstAttribute="top" secondItem="ful-YR-1oS" secondAttribute="top" id="xdb-XK-wGD"/>
+                            <constraint firstItem="l3o-60-dng" firstAttribute="leading" secondItem="ful-YR-1oS" secondAttribute="leading" id="zxW-vA-P9n"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -669,6 +683,7 @@
                         <outlet property="collectionView" destination="Chs-nX-n4I" id="6Bs-AE-ykI"/>
                         <outlet property="compassUserImageViewTopConstraint" destination="eJ2-Kb-F09" id="lJf-OB-eZE"/>
                         <outlet property="compassView" destination="uwd-8l-A5U" id="QeG-hG-K14"/>
+                        <outlet property="cutoutImageView" destination="Vmn-ac-qjh" id="HEm-6g-0kK"/>
                         <outlet property="dialogAcceptButton" destination="3bo-9n-FZw" id="owX-fN-ItP"/>
                         <outlet property="dialogCancelButton" destination="P30-JS-1kT" id="rao-pV-Qmo"/>
                         <outlet property="dialogContainer" destination="ZzK-kx-gII" id="ba1-yu-sxX"/>
@@ -2676,6 +2691,8 @@ _____________________
         <image name="compass.png" width="284" height="331"/>
         <image name="continue_facebook.png" width="486" height="114"/>
         <image name="continue_facebook_pressed.png" width="486" height="114"/>
+        <image name="cutout_image.png" width="91" height="91"/>
+        <image name="cutout_name.png" width="488" height="67"/>
         <image name="golden_ticket_large.png" width="75" height="76"/>
         <image name="golden_ticket_large_upright.png" width="55" height="88"/>
         <image name="golden_ticket_small.png" width="35" height="32"/>

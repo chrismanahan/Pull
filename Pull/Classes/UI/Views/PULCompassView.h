@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) PULPull *pull;
 
-- (void)setPull:(PULPull*)pull;
+- (void)setPull:(nullable PULPull*)pull;
 
 @end
 

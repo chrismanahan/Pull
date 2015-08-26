@@ -32,6 +32,16 @@
 
 - (void)setPull:(PULPull*)pull
 {
+    if (!pull)
+    {
+        _pull = nil;
+        [self _setCompassView:NO];
+        _overlayImageView.hidden = YES;
+        _imageView.backgroundColor = [UIColor whiteColor];
+        [_imageView setImage:[UIImage imageNamed:@"smiley_smile_with_background"]];
+        return;
+    }
+    
     [_imageView setImageWithResizeURL:[pull otherUser].imageUrlString];
     
     _pull = pull;

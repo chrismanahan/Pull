@@ -51,6 +51,7 @@ const NSInteger kPULPulledFarSection = 2;
 @property (strong, nonatomic) IBOutlet UILabel *dialogMessageLabel;
 @property (strong, nonatomic) IBOutlet UIButton *dialogCancelButton;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *compassUserImageViewTopConstraint;
+@property (strong, nonatomic) IBOutlet UIImageView *cutoutImageView;
 
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) PULPull *displayedPull;
@@ -283,11 +284,20 @@ const NSInteger kPULPulledFarSection = 2;
 
 - (void)updateUI
 {
+    if (!_displayedPull)
+    {
+        [self _showNoActivePulls:YES];
+        
+        return;
+    }
+    // clean up from showing no active if needed
+    [self _showNoActivePulls:NO];
+    
     PULUser *user = [_displayedPull otherUser];
     
     if (![_nameLabel.text isEqualToString:user.fullName])
     {
-        _nameLabel.text = user.fullName;
+        [self _setNameLabel:user.fullName];
     }
     
     _dialogContainer.hidden = YES;
@@ -354,7 +364,38 @@ const NSInteger kPULPulledFarSection = 2;
     }
     
     [_compassView setPull:_displayedPull];
+}
+
+#pragma mark UI Helpers
+- (void)_showNoActivePulls:(BOOL)show
+{
+    if (show)
+    {
+        [self _setNameLabel:nil];
+        [_compassView setPull:nil];
+        _dialogContainer.hidden = YES;
+    }
     
+    _cutoutImageView.hidden = !show;
+}
+
+- (void)_setNameLabel:(NSString*)name
+{
+    if (!name)
+    {
+        // show cutout
+        _nameLabel.backgroundColor = [UIColor clearColor];
+        _nameLabel.textColor = PUL_Purple;
+        _nameLabel.text = @"no active pulls";
+        _distanceLabel.hidden = YES;
+    }
+    else
+    {
+        _nameLabel.backgroundColor = PUL_Purple;
+        _nameLabel.textColor = [UIColor whiteColor];
+        _nameLabel.text = name;
+        _distanceLabel.hidden = NO;
+    }
 }
 
 #pragma mark - Actions
@@ -366,11 +407,13 @@ const NSInteger kPULPulledFarSection = 2;
 - (IBAction)ibDecline:(id)sender
 {
     [[PULAccount currentUser] cancelPull:_displayedPull];
+    [self updateUI];
 }
 
 - (IBAction)ibCancel:(id)sender
 {
     [[PULAccount currentUser] cancelPull:_displayedPull];
+    [self updateUI];
 }
 
 - (IBAction)ibSendPull:(id)sender
@@ -477,6 +520,11 @@ const NSInteger kPULPulledFarSection = 2;
 }
 
 #pragma mark Helpers
+- (void)_unsetDisplayedPull
+{
+    [self setSelectedIndex:_selectedIndex - 1];
+}
+
 - (PULUser*)_userForIndex:(NSInteger)index;
 {
     PULPull *pull = _datasource[index];
@@ -532,7 +580,14 @@ const NSInteger kPULPulledFarSection = 2;
         }
         
         _selectedIndex = selectedIndex;
-        _displayedPull = _datasource[_selectedIndex];
+        if (_selectedIndex < _datasource.count)
+        {
+            _displayedPull = _datasource[_selectedIndex];
+        }
+        else
+        {
+            _displayedPull = nil;
+        }
         
         // deselect all cells
         for (int i = 0; i < _datasource.count; i++)
@@ -550,6 +605,11 @@ const NSInteger kPULPulledFarSection = 2;
                                                  }];
         }
         
+        [self updateUI];
+    }
+    else
+    {
+        _displayedPull = nil;
         [self updateUI];
     }
 }

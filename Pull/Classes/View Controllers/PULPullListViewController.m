@@ -146,6 +146,10 @@ const NSInteger kPULPulledFarSection = 2;
     
     // change top constraint based on screen size
     CGFloat height = CGRectGetHeight([UIScreen mainScreen].bounds);
+    if (height < 500)
+    {
+        _compassUserImageViewTopConstraint.constant += 12;
+    }
     if (height > 600)
     {
         _compassUserImageViewTopConstraint.constant -= 10;

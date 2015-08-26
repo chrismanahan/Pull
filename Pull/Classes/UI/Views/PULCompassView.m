@@ -13,6 +13,7 @@
 @interface PULCompassView ()
 
 @property (strong, nonatomic) IBOutlet NZCircularImageView *imageView;
+@property (strong, nonatomic) IBOutlet UIImageView *overlayImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *compassImageView;
 
 @end
@@ -39,6 +40,31 @@
     [_imageView setImageWithResizeURL:[pull otherUser].imageUrlString];
     
     _pull = pull;
+    
+    if (_pull.status == PULPullStatusPending)
+    {
+        if ([_pull.sendingUser isEqual:[PULAccount currentUser]])
+        {
+            // waiting on response
+            _overlayImageView.hidden = NO;
+            [_overlayImageView setImage:[UIImage imageNamed:@"sent_request"]];
+        }
+        else
+        {
+            // waiting on us
+            _overlayImageView.hidden = NO;
+            [_overlayImageView setImage:[UIImage imageNamed:@"incoming_request"]];
+        }
+    }
+    else if (_pull.status == PULPullStatusPulled && !_pull.nearby)
+    {
+        _overlayImageView.hidden = NO;
+        [_overlayImageView setImage:[UIImage imageNamed:@"not_nearby"]];
+    }
+    else
+    {
+        _overlayImageView.hidden = YES;
+    }
     
     [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
     

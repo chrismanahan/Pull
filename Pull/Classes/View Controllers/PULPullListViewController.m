@@ -273,10 +273,8 @@ const NSInteger kPULPulledFarSection = 2;
         _distanceLabel.text = @"NA";
     }
     
-    if (![_compassView.pull isEqual:_displayedPull])
-    {
-        [_compassView setPull:_displayedPull];
-    }
+    [_compassView setPull:_displayedPull];
+    
 }
 
 #pragma mark - Actions

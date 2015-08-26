@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="compassImageView" destination="xvT-39-8Ln" id="t0l-YO-wBS"/>
                 <outlet property="imageView" destination="TVH-eU-RMh" id="jVv-ji-xTL"/>
+                <outlet property="overlayImageView" destination="hsK-Dl-fiL" id="SGp-ij-Pzu"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -27,16 +28,23 @@
                         <constraint firstAttribute="width" secondItem="TVH-eU-RMh" secondAttribute="height" multiplier="1:1" id="ZGy-gK-65C"/>
                     </constraints>
                 </imageView>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hsK-Dl-fiL">
+                    <rect key="frame" x="75" y="100" width="150" height="150"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="hsK-Dl-fiL" firstAttribute="leading" secondItem="TVH-eU-RMh" secondAttribute="leading" id="3dW-Z8-a8B"/>
+                <constraint firstItem="hsK-Dl-fiL" firstAttribute="top" secondItem="TVH-eU-RMh" secondAttribute="top" id="5Fx-XI-Fe6"/>
                 <constraint firstItem="xvT-39-8Ln" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9e7-lU-vR3"/>
                 <constraint firstItem="TVH-eU-RMh" firstAttribute="top" secondItem="xvT-39-8Ln" secondAttribute="centerY" constant="-50" id="B4C-j0-XSD"/>
                 <constraint firstItem="TVH-eU-RMh" firstAttribute="centerX" secondItem="xvT-39-8Ln" secondAttribute="centerX" id="DxV-Jo-hQl"/>
                 <constraint firstItem="xvT-39-8Ln" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="TzS-p1-EUK"/>
+                <constraint firstItem="hsK-Dl-fiL" firstAttribute="bottom" secondItem="TVH-eU-RMh" secondAttribute="bottom" id="V0w-lS-9lZ"/>
                 <constraint firstAttribute="bottom" secondItem="xvT-39-8Ln" secondAttribute="bottom" id="h9C-BX-Vdh"/>
                 <constraint firstAttribute="bottom" secondItem="TVH-eU-RMh" secondAttribute="bottom" constant="50" id="jaJ-0x-RcM"/>
                 <constraint firstAttribute="trailing" secondItem="xvT-39-8Ln" secondAttribute="trailing" id="uye-E0-nTd"/>
+                <constraint firstItem="hsK-Dl-fiL" firstAttribute="trailing" secondItem="TVH-eU-RMh" secondAttribute="trailing" id="ycK-dE-8zf"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -440,7 +440,7 @@
                                     <constraint firstAttribute="height" constant="64" id="ukk-Mp-ISw"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lisa Lockhart" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ful-YR-1oS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ful-YR-1oS">
                                 <rect key="frame" x="0.0" y="64" width="600" height="40"/>
                                 <color key="backgroundColor" red="0.36862745098039218" green="0.13725490196078433" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -450,8 +450,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="755 ft" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7c-j8-VHH">
-                                <rect key="frame" x="273" y="112" width="55" height="27"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="0 ft" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7c-j8-VHH">
+                                <rect key="frame" x="285" y="112" width="31" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -531,13 +531,13 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Lisa has request a 12 hour pull with you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="WlA-iR-Ztv">
                                         <rect key="frame" x="140" y="8" width="320" height="32"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="747" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bo-9n-FZw">
-                                        <rect key="frame" x="60" y="42" width="210" height="62"/>
-                                        <color key="backgroundColor" red="0.22325956281982431" green="0.0" blue="0.75631313131313127" alpha="1" colorSpace="calibratedRGB"/>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="747" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bo-9n-FZw">
+                                        <rect key="frame" x="60" y="52" width="210" height="52"/>
+                                        <color key="backgroundColor" red="0.16470588235294117" green="0.0" blue="0.70588235294117652" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Accept">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -547,8 +547,8 @@
                                             <action selector="ibAccept:" destination="VCg-LE-m1S" eventType="touchUpInside" id="unE-qR-5WS"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="747" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjP-ds-btP">
-                                        <rect key="frame" x="320" y="42" width="210" height="62"/>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="747" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjP-ds-btP">
+                                        <rect key="frame" x="320" y="52" width="210" height="52"/>
                                         <color key="backgroundColor" red="0.22325956281982431" green="0.0" blue="0.75631313131313127" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Decline">
@@ -559,15 +559,32 @@
                                             <action selector="ibDecline:" destination="VCg-LE-m1S" eventType="touchUpInside" id="cDF-yi-zoj"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="747" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P30-JS-1kT">
+                                        <rect key="frame" x="165" y="52" width="260" height="52"/>
+                                        <color key="backgroundColor" red="0.22325956280000001" green="0.0" blue="0.7563131313" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="ibAccept:" destination="VCg-LE-m1S" eventType="touchUpInside" id="TLm-d3-N7J"/>
+                                            <action selector="ibCancel:" destination="VCg-LE-m1S" eventType="touchUpInside" id="TfP-iB-CDB"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.29019607843137257" green="0.0" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="3bo-9n-FZw" firstAttribute="top" secondItem="P30-JS-1kT" secondAttribute="top" id="2f4-gV-SHa"/>
                                     <constraint firstAttribute="bottom" secondItem="3bo-9n-FZw" secondAttribute="bottom" constant="8" id="9Za-nn-7U4"/>
                                     <constraint firstItem="fjP-ds-btP" firstAttribute="bottom" secondItem="3bo-9n-FZw" secondAttribute="bottom" id="CDP-oD-gQR"/>
+                                    <constraint firstItem="3bo-9n-FZw" firstAttribute="centerX" secondItem="P30-JS-1kT" secondAttribute="leading" id="Is2-1R-u47"/>
                                     <constraint firstItem="WlA-iR-Ztv" firstAttribute="top" secondItem="ZzK-kx-gII" secondAttribute="top" constant="8" id="JSz-bz-NGt"/>
+                                    <constraint firstItem="P30-JS-1kT" firstAttribute="trailing" secondItem="fjP-ds-btP" secondAttribute="centerX" id="KYg-fH-X9L"/>
                                     <constraint firstItem="fjP-ds-btP" firstAttribute="width" secondItem="3bo-9n-FZw" secondAttribute="width" id="dpq-o8-4UK"/>
                                     <constraint firstAttribute="centerXWithinMargins" secondItem="WlA-iR-Ztv" secondAttribute="centerXWithinMargins" id="fPL-Y5-8xR"/>
                                     <constraint firstItem="3bo-9n-FZw" firstAttribute="top" secondItem="WlA-iR-Ztv" secondAttribute="bottom" constant="12" id="hcP-yH-xGq"/>
+                                    <constraint firstItem="3bo-9n-FZw" firstAttribute="bottom" secondItem="P30-JS-1kT" secondAttribute="bottom" id="i8p-it-eyR"/>
                                     <constraint firstItem="fjP-ds-btP" firstAttribute="leading" secondItem="3bo-9n-FZw" secondAttribute="trailing" constant="50" id="pEM-NR-zng"/>
                                     <constraint firstAttribute="trailing" secondItem="WlA-iR-Ztv" secondAttribute="trailing" constant="8" id="pnU-l9-f76"/>
                                     <constraint firstAttribute="centerX" secondItem="fjP-ds-btP" secondAttribute="leading" constant="-20" id="wfX-Xx-ji9"/>
@@ -654,6 +671,7 @@
                         <outlet property="compassUserImageViewTopConstraint" destination="eJ2-Kb-F09" id="lJf-OB-eZE"/>
                         <outlet property="compassView" destination="uwd-8l-A5U" id="QeG-hG-K14"/>
                         <outlet property="dialogAcceptButton" destination="3bo-9n-FZw" id="owX-fN-ItP"/>
+                        <outlet property="dialogCancelButton" destination="P30-JS-1kT" id="rao-pV-Qmo"/>
                         <outlet property="dialogContainer" destination="ZzK-kx-gII" id="ba1-yu-sxX"/>
                         <outlet property="dialogDeclineButton" destination="fjP-ds-btP" id="Ir2-xO-xLD"/>
                         <outlet property="dialogMessageLabel" destination="WlA-iR-Ztv" id="rgQ-ZK-AdU"/>

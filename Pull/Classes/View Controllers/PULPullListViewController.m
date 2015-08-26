@@ -49,6 +49,7 @@ const NSInteger kPULPulledFarSection = 2;
 @property (strong, nonatomic) IBOutlet UIButton *dialogAcceptButton;
 @property (strong, nonatomic) IBOutlet UIButton *dialogDeclineButton;
 @property (strong, nonatomic) IBOutlet UILabel *dialogMessageLabel;
+@property (strong, nonatomic) IBOutlet UIButton *dialogCancelButton;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *compassUserImageViewTopConstraint;
 
 @property (nonatomic, strong) NSArray *datasource;
@@ -284,6 +285,12 @@ const NSInteger kPULPulledFarSection = 2;
         {
             // display not nearby stuff
             _distanceLabel.text = @"Isn't Nearby";
+            
+            _dialogContainer.hidden = NO;
+            _dialogAcceptButton.hidden = YES;
+            _dialogDeclineButton.hidden = YES;
+            _dialogCancelButton.hidden = YES;
+            _dialogMessageLabel.text = [NSString stringWithFormat:@"%@ isn't within %zd ft yet. Don't worry, we'll notify you when they're near", [_displayedPull otherUser].firstName, kPULNearbyDistanceFeet];
         }
     }
     else
@@ -295,6 +302,12 @@ const NSInteger kPULPulledFarSection = 2;
             {
                 // waiting on response
                 _distanceLabel.text = @"Request Sent";
+                
+                _dialogContainer.hidden = NO;
+                _dialogAcceptButton.hidden = YES;
+                _dialogDeclineButton.hidden = YES;
+                _dialogCancelButton.hidden = NO;
+                _dialogMessageLabel.text = [NSString stringWithFormat:@"We've sent %@ a request. We'll notify you when they accept", [_displayedPull otherUser].firstName];
             }
             else
             {
@@ -303,6 +316,7 @@ const NSInteger kPULPulledFarSection = 2;
                 _dialogContainer.hidden = NO;
                 _dialogAcceptButton.hidden = NO;
                 _dialogDeclineButton.hidden = NO;
+                _dialogCancelButton.hidden = YES;
                 
                 if (_displayedPull.duration == kPullDurationAlways)
                 {
@@ -334,6 +348,11 @@ const NSInteger kPULPulledFarSection = 2;
 }
 
 - (IBAction)ibDecline:(id)sender
+{
+    [[PULAccount currentUser] cancelPull:_displayedPull];
+}
+
+- (IBAction)ibCancel:(id)sender
 {
     [[PULAccount currentUser] cancelPull:_displayedPull];
 }

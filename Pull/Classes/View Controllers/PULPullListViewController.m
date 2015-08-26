@@ -160,11 +160,21 @@ const NSInteger kPULPulledFarSection = 2;
 - (void)_swipeLeft
 {
     [self setSelectedIndex:_selectedIndex + 1];
+    
+    NSIndexPath *path = [NSIndexPath indexPathForItem:_selectedIndex inSection:0];
+    [_collectionView scrollToItemAtIndexPath:path
+                            atScrollPosition:UICollectionViewScrollPositionNone
+                                    animated:YES];
 }
 
 - (void)_swipeRight
 {
     [self setSelectedIndex:_selectedIndex - 1];
+    
+    NSIndexPath *path = [NSIndexPath indexPathForItem:_selectedIndex inSection:0];
+    [_collectionView scrollToItemAtIndexPath:path
+                            atScrollPosition:UICollectionViewScrollPositionNone
+                                    animated:YES];
 }
 
 - (void)_observePulls

@@ -49,6 +49,7 @@ const NSInteger kPULPulledFarSection = 2;
 @property (strong, nonatomic) IBOutlet UIButton *dialogAcceptButton;
 @property (strong, nonatomic) IBOutlet UIButton *dialogDeclineButton;
 @property (strong, nonatomic) IBOutlet UILabel *dialogMessageLabel;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *compassUserImageViewTopConstraint;
 
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) PULPull *displayedPull;
@@ -140,6 +141,19 @@ const NSInteger kPULPulledFarSection = 2;
     
     [self.view addGestureRecognizer:swipeLeft];
     [self.view addGestureRecognizer:swipeRight];
+    
+    // change top constraint based on screen size
+    CGFloat height = CGRectGetHeight([UIScreen mainScreen].bounds);
+    if (height > 600)
+    {
+        _compassUserImageViewTopConstraint.constant -= 10;
+    }
+    if (height > 700)
+    {
+        _compassUserImageViewTopConstraint.constant -= 10;
+    }
+    
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)_swipeLeft

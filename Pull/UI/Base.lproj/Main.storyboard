@@ -482,17 +482,29 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Ism-FP-cii" firstAttribute="top" secondItem="660-e9-Q0d" secondAttribute="top" id="5p6-7w-E7j"/>
-                                            <constraint firstAttribute="bottom" secondItem="pqr-sp-tBt" secondAttribute="bottom" constant="16" id="6QL-7X-54O"/>
+                                            <constraint firstAttribute="bottom" secondItem="pqr-sp-tBt" secondAttribute="bottom" constant="17" id="6QL-7X-54O"/>
                                             <constraint firstItem="pqr-sp-tBt" firstAttribute="centerX" secondItem="Ism-FP-cii" secondAttribute="centerX" id="7ZC-RK-fT2"/>
+                                            <constraint firstItem="Ism-FP-cii" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pqr-sp-tBt" secondAttribute="top" constant="-64" id="9FG-ns-gxK"/>
                                             <constraint firstAttribute="trailing" secondItem="Ism-FP-cii" secondAttribute="trailing" id="Bka-QA-VuJ"/>
-                                            <constraint firstItem="HL6-xi-b3z" firstAttribute="top" secondItem="pqr-sp-tBt" secondAttribute="top" id="Fge-AL-efl"/>
+                                            <constraint firstItem="HL6-xi-b3z" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pqr-sp-tBt" secondAttribute="top" constant="5" id="Fge-AL-efl"/>
                                             <constraint firstItem="HL6-xi-b3z" firstAttribute="bottom" secondItem="pqr-sp-tBt" secondAttribute="bottom" id="HcP-zR-WJl"/>
+                                            <constraint firstItem="Ism-FP-cii" firstAttribute="centerY" secondItem="pqr-sp-tBt" secondAttribute="centerY" constant="-7" id="KAZ-oh-bWP"/>
                                             <constraint firstItem="Ism-FP-cii" firstAttribute="leading" secondItem="660-e9-Q0d" secondAttribute="leading" id="Kya-nN-hDr"/>
                                             <constraint firstItem="HL6-xi-b3z" firstAttribute="trailing" secondItem="pqr-sp-tBt" secondAttribute="trailing" id="Qd5-VQ-afB"/>
+                                            <constraint firstItem="pqr-sp-tBt" firstAttribute="top" secondItem="HL6-xi-b3z" secondAttribute="top" id="Wf7-Qj-Yyf"/>
                                             <constraint firstAttribute="bottom" secondItem="Ism-FP-cii" secondAttribute="bottom" id="dbi-9v-C4o"/>
+                                            <constraint firstItem="Ism-FP-cii" firstAttribute="top" secondItem="pqr-sp-tBt" secondAttribute="top" constant="-44" id="eJ2-Kb-F09"/>
                                             <constraint firstItem="HL6-xi-b3z" firstAttribute="leading" secondItem="pqr-sp-tBt" secondAttribute="leading" id="rpa-Sg-bA0"/>
                                             <constraint firstItem="pqr-sp-tBt" firstAttribute="top" secondItem="Ism-FP-cii" secondAttribute="centerY" constant="-50" id="uVz-Ln-OKM"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="9FG-ns-gxK"/>
+                                                <exclude reference="KAZ-oh-bWP"/>
+                                                <exclude reference="Fge-AL-efl"/>
+                                                <exclude reference="uVz-Ln-OKM"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -514,49 +526,7 @@
                                     <outlet property="overlayImageView" destination="HL6-xi-b3z" id="FiA-2P-UQx"/>
                                 </connections>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Chs-nX-n4I">
-                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="90" id="rNk-pE-IZe"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="obG-Qj-DPb">
-                                    <size key="itemSize" width="77" height="77"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PulledUserCell" id="cPU-WX-gbD" customClass="PULPulledUserCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="77" height="77"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Upr-ut-Qmx" customClass="NZCircularImageView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="77" height="77"/>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="Upr-ut-Qmx" firstAttribute="top" secondItem="cPU-WX-gbD" secondAttribute="top" id="1X9-0G-WrW"/>
-                                            <constraint firstAttribute="bottom" secondItem="Upr-ut-Qmx" secondAttribute="bottom" id="CkU-vm-NfP"/>
-                                            <constraint firstAttribute="trailing" secondItem="Upr-ut-Qmx" secondAttribute="trailing" id="faI-Xs-neV"/>
-                                            <constraint firstItem="Upr-ut-Qmx" firstAttribute="leading" secondItem="cPU-WX-gbD" secondAttribute="leading" id="gbb-OQ-1RV"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="imageView" destination="Upr-ut-Qmx" id="IFR-Le-Yfa"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="VCg-LE-m1S" id="raR-BG-dbL"/>
-                                    <outlet property="delegate" destination="VCg-LE-m1S" id="VZs-69-nR8"/>
-                                </connections>
-                            </collectionView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZzK-kx-gII">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZzK-kx-gII" userLabel="dialog view">
                                 <rect key="frame" x="0.0" y="398" width="600" height="112"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Lisa has request a 12 hour pull with you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="WlA-iR-Ztv">
@@ -606,6 +576,48 @@
                                     <constraint firstItem="WlA-iR-Ztv" firstAttribute="leading" secondItem="ZzK-kx-gII" secondAttribute="leading" constant="8" id="yln-KJ-kbh"/>
                                 </constraints>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Chs-nX-n4I">
+                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="rNk-pE-IZe"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="obG-Qj-DPb">
+                                    <size key="itemSize" width="77" height="77"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PulledUserCell" id="cPU-WX-gbD" customClass="PULPulledUserCollectionViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="77" height="77"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Upr-ut-Qmx" customClass="NZCircularImageView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="77" height="77"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Upr-ut-Qmx" firstAttribute="top" secondItem="cPU-WX-gbD" secondAttribute="top" id="1X9-0G-WrW"/>
+                                            <constraint firstAttribute="bottom" secondItem="Upr-ut-Qmx" secondAttribute="bottom" id="CkU-vm-NfP"/>
+                                            <constraint firstAttribute="trailing" secondItem="Upr-ut-Qmx" secondAttribute="trailing" id="faI-Xs-neV"/>
+                                            <constraint firstItem="Upr-ut-Qmx" firstAttribute="leading" secondItem="cPU-WX-gbD" secondAttribute="leading" id="gbb-OQ-1RV"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="Upr-ut-Qmx" id="IFR-Le-Yfa"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="VCg-LE-m1S" id="raR-BG-dbL"/>
+                                    <outlet property="delegate" destination="VCg-LE-m1S" id="VZs-69-nR8"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -639,6 +651,7 @@
                     <navigationItem key="navigationItem" id="rxm-zt-ES9"/>
                     <connections>
                         <outlet property="collectionView" destination="Chs-nX-n4I" id="6Bs-AE-ykI"/>
+                        <outlet property="compassUserImageViewTopConstraint" destination="eJ2-Kb-F09" id="lJf-OB-eZE"/>
                         <outlet property="compassView" destination="uwd-8l-A5U" id="QeG-hG-K14"/>
                         <outlet property="dialogAcceptButton" destination="3bo-9n-FZw" id="owX-fN-ItP"/>
                         <outlet property="dialogContainer" destination="ZzK-kx-gII" id="ba1-yu-sxX"/>

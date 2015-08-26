@@ -86,13 +86,12 @@ const NSTimeInterval kPullDurationAlways  = 0;
     }
 }
 
-//TODO: refactor this to not have to pass in the account to get the other user
-- (PULUser*)otherUser;
+- (PULUser*)otherUserThatIsNot:(PULUser*)user
 {
     PULUser *other = nil;
-    if ([self containsUser:[PULAccount currentUser]])
+    if ([self containsUser:user])
     {
-        if ([self initiatedBy:[PULAccount currentUser]])
+        if ([self initiatedBy:user])
         {
             other = _receivingUser;
         }
@@ -103,6 +102,11 @@ const NSTimeInterval kPullDurationAlways  = 0;
     }
     
     return other;
+}
+
+- (PULUser*)otherUser;
+{
+    return [self otherUserThatIsNot:[PULAccount currentUser]];
 }
 
 #pragma mark - Properties
@@ -138,7 +142,7 @@ const NSTimeInterval kPullDurationAlways  = 0;
     if (_locationObservers[user.uid] == nil)
     {
         id obs = [THObserver observerForObject:user keyPath:@"location" oldAndNewBlock:^(id oldValue, id newValue) {
-            PULUser *otherUser = [self otherUser];
+            PULUser *otherUser = [self otherUserThatIsNot:user];
             
             if ([user.location distanceFromLocation:otherUser.location] <= kPULNearbyDistance)
             {

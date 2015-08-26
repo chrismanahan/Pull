@@ -76,6 +76,7 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
 - (BOOL)containsUser:(PULUser*)user;
 - (BOOL)initiatedBy:(PULUser*)user;
 - (PULUser*)otherUser;
+- (PULUser*)otherUserThatIsNot:(PULUser*)user;
 - (void)resetExpiration;
 
 NS_ASSUME_NONNULL_END

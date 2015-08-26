@@ -45,6 +45,10 @@ const NSInteger kPULPulledFarSection = 2;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet PULCompassView *compassView;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UIView *dialogContainer;
+@property (strong, nonatomic) IBOutlet UIButton *dialogAcceptButton;
+@property (strong, nonatomic) IBOutlet UIButton *dialogDeclineButton;
+@property (strong, nonatomic) IBOutlet UILabel *dialogMessageLabel;
 
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) PULPull *displayedPull;
@@ -255,6 +259,7 @@ const NSInteger kPULPulledFarSection = 2;
         _nameLabel.text = user.fullName;
     }
     
+    _dialogContainer.hidden = YES;
     if (_displayedPull.status == PULPullStatusPulled)
     {
         if (_displayedPull.isNearby)
@@ -264,13 +269,44 @@ const NSInteger kPULPulledFarSection = 2;
         else
         {
             // display not nearby stuff
-            _distanceLabel.text = @"Not Nearby";
+            _distanceLabel.text = @"Isn't Nearby";
         }
     }
     else
     {
         // display either waiting on acceptance or waiting for approval
-        _distanceLabel.text = @"NA";
+        if (_displayedPull.status == PULPullStatusPending)
+        {
+            if ([_displayedPull.sendingUser isEqual:[PULAccount currentUser]])
+            {
+                // waiting on response
+                _distanceLabel.text = @"Request Sent";
+            }
+            else
+            {
+                // waiting on us
+                _distanceLabel.text = @"Invite Requested";
+                _dialogContainer.hidden = NO;
+                _dialogAcceptButton.hidden = NO;
+                _dialogDeclineButton.hidden = NO;
+                
+                if (_displayedPull.duration == kPullDurationAlways)
+                {
+                    _dialogMessageLabel.text = [NSString stringWithFormat:@"%@ has requested to always be pulled with you", [_displayedPull otherUser].firstName];
+                }
+                else
+                {
+                    _dialogMessageLabel.text = [NSString stringWithFormat:@"%@ has requested a %zd hour pull with you", [_displayedPull otherUser].firstName, _displayedPull.durationHours];
+                }
+                
+            }
+        }
+        else
+        {
+            // invalid
+            NSAssert(YES, @"probably shouldn't have gotten down here");
+            _distanceLabel.text = @"";
+        }
     }
     
     [_compassView setPull:_displayedPull];
@@ -278,6 +314,16 @@ const NSInteger kPULPulledFarSection = 2;
 }
 
 #pragma mark - Actions
+- (IBAction)ibAccept:(id)sender
+{
+    [[PULAccount currentUser] acceptPull:_displayedPull];
+}
+
+- (IBAction)ibDecline:(id)sender
+{
+    [[PULAccount currentUser] cancelPull:_displayedPull];
+}
+
 - (IBAction)ibSendPull:(id)sender
 {
     UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULUserSelectViewController class])];
@@ -447,10 +493,13 @@ const NSInteger kPULPulledFarSection = 2;
             [cell setActive:_selectedIndex == i animated:_selectedIndex == i];
         }
         
-        [[_displayedPull otherUser] observeKeyPath:@"location"
-                                             block:^{
-                                                 [self updateUI];
-                                             }];
+        if (_displayedPull.status == PULPullStatusPulled)
+        {
+            [[_displayedPull otherUser] observeKeyPath:@"location"
+                                                 block:^{
+                                                     [self updateUI];
+                                                 }];
+        }
         
         [self updateUI];
     }

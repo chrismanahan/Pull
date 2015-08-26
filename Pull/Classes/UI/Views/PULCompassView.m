@@ -16,23 +16,18 @@
 @property (strong, nonatomic) IBOutlet UIImageView *overlayImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *compassImageView;
 
+
+
 @end
 
 @implementation PULCompassView
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
+- (void)layoutSubviews
 {
-    if (self = [super initWithCoder:aDecoder])
-    {
-        [self addSubview:[[NSBundle mainBundle] loadNibNamed:@"PULCompassView"
-                                                         owner:self
-                                                     options:nil][0]];
-        
-        _imageView.borderColor = [UIColor whiteColor];
-        _imageView.borderWidth = @(3);
-        
-    }
-    return self;
+    [super layoutSubviews];
+    
+    _imageView.borderColor = [UIColor whiteColor];
+    _imageView.borderWidth = @(3);
 }
 
 - (void)setPull:(PULPull*)pull
@@ -40,6 +35,8 @@
     [_imageView setImageWithResizeURL:[pull otherUser].imageUrlString];
     
     _pull = pull;
+    
+    [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
     
     if (_pull.status == PULPullStatusPending)
     {
@@ -55,30 +52,49 @@
             _overlayImageView.hidden = NO;
             [_overlayImageView setImage:[UIImage imageNamed:@"incoming_request"]];
         }
+        
+        [self _setCompassView:NO];
     }
     else if (_pull.status == PULPullStatusPulled && !_pull.nearby)
     {
+        [self _setCompassView:NO];
         _overlayImageView.hidden = NO;
         [_overlayImageView setImage:[UIImage imageNamed:@"not_nearby"]];
     }
     else
     {
+        [self _setCompassView:YES];
         _overlayImageView.hidden = YES;
+        
+//        static CGFloat lastRads = 0;
+        [[PULLocationUpdater sharedUpdater] setHeadingUpdateBlock:^(CLHeading *heading) {
+            CGFloat rads = [[PULAccount currentUser] angleWithHeading:heading
+                                                             fromUser:[pull otherUser]];
+            
+//            if (rads >= lastRads + 0.005 || rads <= lastRads - 0.005)
+//            {
+                [self _rotateCompassToRadians:rads];
+//                lastRads = rads;
+//            }
+        }];
     }
     
-    [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
+    [self setNeedsLayout];
+}
+
+- (void)_setCompassView:(BOOL)isCompass
+{
+    if (isCompass)
+    {
+        [_compassImageView setImage:[UIImage imageNamed:@"compass"]];
+    }
+    else
+    {
+        _compassImageView.transform = CGAffineTransformIdentity;
+        [_compassImageView setImage:[UIImage imageNamed:@"circle_purple"]];
+    }
     
-    static CGFloat lastRads = 0;
-    [[PULLocationUpdater sharedUpdater] setHeadingUpdateBlock:^(CLHeading *heading) {
-        CGFloat rads = [[PULAccount currentUser] angleWithHeading:heading
-                                                         fromUser:[pull otherUser]];
-        
-        if (rads >= lastRads + 0.005 || rads <= lastRads - 0.005)
-        {
-            [self _rotateCompassToRadians:rads];
-            lastRads = rads;
-        }
-    }];
+    
 }
 
 - (void)_rotateCompassToRadians:(CGFloat)rads

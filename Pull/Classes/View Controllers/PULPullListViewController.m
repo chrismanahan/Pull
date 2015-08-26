@@ -155,6 +155,8 @@ const NSInteger kPULPulledFarSection = 2;
         _compassUserImageViewTopConstraint.constant -= 10;
     }
     
+    _collectionView.contentInset = UIEdgeInsetsMake(0, 8, 0, 0);
+    
     [self.view setNeedsUpdateConstraints];
 }
 

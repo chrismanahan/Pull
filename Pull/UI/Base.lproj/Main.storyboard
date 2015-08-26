@@ -595,6 +595,9 @@
                                     <constraint firstItem="WlA-iR-Ztv" firstAttribute="leading" secondItem="ZzK-kx-gII" secondAttribute="leading" constant="8" id="yln-KJ-kbh"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cutout_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="Vmn-ac-qjh">
+                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
+                            </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Chs-nX-n4I">
                                 <rect key="frame" x="0.0" y="510" width="600" height="90"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -616,19 +619,39 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Upr-ut-Qmx" customClass="NZCircularImageView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="77" height="77"/>
+                                                    <rect key="frame" x="0.0" y="9" width="68" height="68"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="Upr-ut-Qmx" secondAttribute="height" multiplier="1:1" id="xol-GQ-hqr"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="request_notification.png" translatesAutoresizingMaskIntoConstraints="NO" id="CyD-3a-5lB">
+                                                    <rect key="frame" x="53" y="-6" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="WM4-sX-8iI"/>
+                                                        <constraint firstAttribute="height" constant="20" id="qpS-Vg-eAk"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="Upr-ut-Qmx" firstAttribute="top" secondItem="cPU-WX-gbD" secondAttribute="top" id="1X9-0G-WrW"/>
+                                            <constraint firstItem="Upr-ut-Qmx" firstAttribute="top" secondItem="CyD-3a-5lB" secondAttribute="centerY" constant="5" id="4GK-E3-Sup"/>
                                             <constraint firstAttribute="bottom" secondItem="Upr-ut-Qmx" secondAttribute="bottom" id="CkU-vm-NfP"/>
                                             <constraint firstAttribute="trailing" secondItem="Upr-ut-Qmx" secondAttribute="trailing" id="faI-Xs-neV"/>
+                                            <constraint firstAttribute="trailing" secondItem="CyD-3a-5lB" secondAttribute="trailing" constant="4" id="gEE-RE-0aM"/>
                                             <constraint firstItem="Upr-ut-Qmx" firstAttribute="leading" secondItem="cPU-WX-gbD" secondAttribute="leading" id="gbb-OQ-1RV"/>
+                                            <constraint firstItem="CyD-3a-5lB" firstAttribute="top" secondItem="cPU-WX-gbD" secondAttribute="top" constant="-6" id="gpq-FY-V00"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="1X9-0G-WrW"/>
+                                                <exclude reference="faI-Xs-neV"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <outlet property="imageView" destination="Upr-ut-Qmx" id="IFR-Le-Yfa"/>
+                                            <outlet property="requestNotificationImageView" destination="CyD-3a-5lB" id="6me-Yl-4YJ"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -637,9 +660,6 @@
                                     <outlet property="delegate" destination="VCg-LE-m1S" id="VZs-69-nR8"/>
                                 </connections>
                             </collectionView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cutout_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="Vmn-ac-qjh">
-                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -2706,6 +2726,7 @@ _____________________
         <image name="permission_request_location.png" width="442" height="444"/>
         <image name="permission_request_notification.png" width="499" height="444"/>
         <image name="pull_text_white.png" width="475" height="474"/>
+        <image name="request_notification.png" width="21" height="22"/>
         <image name="settings_contact.png" width="35" height="37"/>
         <image name="settings_gear.png" width="34" height="32"/>
         <image name="settings_icon.png" width="77" height="70"/>

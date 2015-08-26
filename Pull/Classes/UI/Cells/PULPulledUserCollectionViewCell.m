@@ -15,6 +15,7 @@
 @interface PULPulledUserCollectionViewCell ()
 
 @property (strong, nonatomic) IBOutlet NZCircularImageView *imageView;
+@property (strong, nonatomic) IBOutlet UIImageView *requestNotificationImageView;
 
 @end
 
@@ -36,6 +37,15 @@
     [_imageView setImageWithResizeURL:[pull otherUser].imageUrlString];
     _imageView.borderWidth = @(5);
     _imageView.borderColor = PUL_LightGray;
+    
+    if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULAccount currentUser]])
+    {
+        _requestNotificationImageView.hidden = NO;
+    }
+    else
+    {
+        _requestNotificationImageView.hidden = YES;
+    }
 }
 
 - (void)setActive:(BOOL)active animated:(BOOL)animated

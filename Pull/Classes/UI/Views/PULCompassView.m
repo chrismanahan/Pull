@@ -27,6 +27,8 @@
                                                          owner:self
                                                      options:nil][0]];
         
+        _imageView.borderColor = [UIColor whiteColor];
+        _imageView.borderWidth = @(3);
         
     }
     return self;

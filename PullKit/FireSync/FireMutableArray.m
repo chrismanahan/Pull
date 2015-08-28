@@ -278,7 +278,7 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
     
     if (_loadedBlocks && ((!_emptyObjects && self.isLoaded) || (_backingStore.count == 0)))
     {
-        [self _runLoadedBlocks];
+//        [self _runLoadedBlocks];
     }
     
 }

@@ -13,7 +13,6 @@
 #import "PULAccount.h"
 
 #import "PULCache.h"
-#import "PULUserImageView.h"
 
 @import UIKit;
 @import CoreLocation;
@@ -339,7 +338,7 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
 
 - (NSUInteger)hash
 {
-    return self.fbId;
+    return self.fbId.hash;
 }
 
 @end

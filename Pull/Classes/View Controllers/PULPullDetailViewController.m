@@ -9,8 +9,7 @@
 #import "PULPullDetailViewController.h"
 
 #import "CGGeometry+Pull.h"
-
-#import "PULUserImageView.h"
+#import "NZCircularImageView.h"
 
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
@@ -28,7 +27,6 @@ const CGFloat kPULCompassFlashTime = 1.5;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *directionArrowView;
 @property (strong, nonatomic) IBOutlet UIImageView *userImageView;
-@property (strong, nonatomic) IBOutlet PULUserImageView *userImageViewContainer;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *userImageViewTopConstraint;
 
 @property (strong, nonatomic) id locationNotification;

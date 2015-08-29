@@ -8,16 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		3302F3121A73EE2600E11F01 /* timeburner_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3302F3111A73EE2600E11F01 /* timeburner_regular.ttf */; };
-		330499551A18037D003FEA42 /* PULUserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 330499521A18037D003FEA42 /* PULUserImageView.m */; };
 		3304995C1A1815F3003FEA42 /* PULPullDirectionArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304995B1A1815F3003FEA42 /* PULPullDirectionArrowView.m */; };
-		3304995F1A182542003FEA42 /* PULPullDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304995E1A182542003FEA42 /* PULPullDetailViewController.m */; };
 		3337647F1A9134650057E3DB /* loading_blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 3337647C1A9134650057E3DB /* loading_blank.png */; };
 		333764801A9134650057E3DB /* loading_blank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3337647D1A9134650057E3DB /* loading_blank@2x.png */; };
 		333764811A9134650057E3DB /* loading_blank@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3337647E1A9134650057E3DB /* loading_blank@3x.png */; };
 		333764831A9137400057E3DB /* intro2.mov in Resources */ = {isa = PBXBuildFile; fileRef = 333764821A9137400057E3DB /* intro2.mov */; };
 		334044971A17AC3A00B00BC3 /* PULLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044961A17AC3A00B00BC3 /* PULLoginViewController.m */; };
 		3340449D1A17D33A00B00BC3 /* PULPullListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3340449C1A17D33A00B00BC3 /* PULPullListViewController.m */; };
-		334044C61A17F9A100B00BC3 /* PULUserCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 334044C51A17F9A100B00BC3 /* PULUserCardCell.m */; };
 		334730671AA3CCD700B64144 /* nav_blue_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3347305B1AA3CCD700B64144 /* nav_blue_right@3x.png */; };
 		334730681AA3CCD700B64144 /* nav_blue_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3347305C1AA3CCD700B64144 /* nav_blue_right@2x.png */; };
 		334730691AA3CCD700B64144 /* nav_blue_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 3347305D1AA3CCD700B64144 /* nav_blue_right.png */; };
@@ -264,9 +261,7 @@
 		95F3670F1AF6C8FB00A3E2F6 /* white_card_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367061AF6C8FB00A3E2F6 /* white_card_top.png */; };
 		95F367101AF6C8FB00A3E2F6 /* white_card_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367071AF6C8FB00A3E2F6 /* white_card_top@2x.png */; };
 		95F367111AF6C8FB00A3E2F6 /* white_card_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367081AF6C8FB00A3E2F6 /* white_card_top@3x.png */; };
-		95F367131AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95F367121AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib */; };
 		9B008BBB1B88282B00593902 /* parkour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B008BBA1B88282B00593902 /* parkour.framework */; };
-		9B01E9A31B6D820B0092DC14 /* PULSquareUserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B01E9A21B6D820B0092DC14 /* PULSquareUserImageView.m */; };
 		9B1305561B83F24900CBF642 /* NSArray+Sorting.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B1305541B83F24900CBF642 /* NSArray+Sorting.h */; };
 		9B1305571B83F24900CBF642 /* NSArray+Sorting.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1305551B83F24900CBF642 /* NSArray+Sorting.m */; };
 		9B1835791B7FDBA200BBD669 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
@@ -358,7 +353,6 @@
 		9B9724271AE2034500EEC3AB /* settings_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B9724211AE2034500EEC3AB /* settings_icon@3x.png */; };
 		9B97242A1AE20BD500EEC3AB /* PULUserSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9724291AE20BD500EEC3AB /* PULUserSelectViewController.m */; };
 		9BB82DF81AEB392C004447FA /* PULInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82DF71AEB392C004447FA /* PULInviteViewController.m */; };
-		9BC487CF1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC487CE1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.m */; };
 		9BC487D31AF6D256008BF2E9 /* PULPullOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC487D21AF6D256008BF2E9 /* PULPullOverlayView.m */; };
 		9BD2C3661AE454930030527F /* PULNewPullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD2C3651AE454930030527F /* PULNewPullViewController.m */; };
 		9BE5AC471B7FB3A700853830 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841ECA931B7E8E15009061F8 /* InterfaceController.m */; };
@@ -484,8 +478,6 @@
 /* Begin PBXFileReference section */
 		2F2A20890876F61EDDAEA53E /* libPods-PullKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PullKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3302F3111A73EE2600E11F01 /* timeburner_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = timeburner_regular.ttf; sourceTree = "<group>"; };
-		330499511A18037D003FEA42 /* PULUserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUserImageView.h; sourceTree = "<group>"; };
-		330499521A18037D003FEA42 /* PULUserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserImageView.m; sourceTree = "<group>"; };
 		3304995A1A1815F3003FEA42 /* PULPullDirectionArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullDirectionArrowView.h; sourceTree = "<group>"; };
 		3304995B1A1815F3003FEA42 /* PULPullDirectionArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPullDirectionArrowView.m; sourceTree = "<group>"; };
 		3304995D1A182542003FEA42 /* PULPullDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullDetailViewController.h; sourceTree = "<group>"; };
@@ -498,8 +490,6 @@
 		334044961A17AC3A00B00BC3 /* PULLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULLoginViewController.m; sourceTree = "<group>"; };
 		3340449B1A17D33A00B00BC3 /* PULPullListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullListViewController.h; sourceTree = "<group>"; };
 		3340449C1A17D33A00B00BC3 /* PULPullListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPullListViewController.m; sourceTree = "<group>"; };
-		334044C41A17F9A100B00BC3 /* PULUserCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUserCardCell.h; sourceTree = "<group>"; };
-		334044C51A17F9A100B00BC3 /* PULUserCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserCardCell.m; sourceTree = "<group>"; };
 		3347305B1AA3CCD700B64144 /* nav_blue_right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_blue_right@3x.png"; sourceTree = "<group>"; };
 		3347305C1AA3CCD700B64144 /* nav_blue_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_blue_right@2x.png"; sourceTree = "<group>"; };
 		3347305D1AA3CCD700B64144 /* nav_blue_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_blue_right.png; sourceTree = "<group>"; };
@@ -788,10 +778,7 @@
 		95F367061AF6C8FB00A3E2F6 /* white_card_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_card_top.png; sourceTree = "<group>"; };
 		95F367071AF6C8FB00A3E2F6 /* white_card_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_card_top@2x.png"; sourceTree = "<group>"; };
 		95F367081AF6C8FB00A3E2F6 /* white_card_top@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_card_top@3x.png"; sourceTree = "<group>"; };
-		95F367121AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PULPullNotNearbyOverlay.xib; sourceTree = "<group>"; };
 		9B008BBA1B88282B00593902 /* parkour.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = parkour.framework; sourceTree = "<group>"; };
-		9B01E9A11B6D820B0092DC14 /* PULSquareUserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULSquareUserImageView.h; sourceTree = "<group>"; };
-		9B01E9A21B6D820B0092DC14 /* PULSquareUserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULSquareUserImageView.m; sourceTree = "<group>"; };
 		9B1305541B83F24900CBF642 /* NSArray+Sorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Sorting.h"; sourceTree = "<group>"; };
 		9B1305551B83F24900CBF642 /* NSArray+Sorting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sorting.m"; sourceTree = "<group>"; };
 		9B1835781B7FDBA200BBD669 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
@@ -885,8 +872,6 @@
 		9B9724291AE20BD500EEC3AB /* PULUserSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserSelectViewController.m; sourceTree = "<group>"; };
 		9BB82DF61AEB392C004447FA /* PULInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULInviteViewController.h; sourceTree = "<group>"; };
 		9BB82DF71AEB392C004447FA /* PULInviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULInviteViewController.m; sourceTree = "<group>"; };
-		9BC487CD1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullNotNearbyOverlay.h; sourceTree = "<group>"; };
-		9BC487CE1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPullNotNearbyOverlay.m; sourceTree = "<group>"; };
 		9BC487D11AF6D256008BF2E9 /* PULPullOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullOverlayView.h; sourceTree = "<group>"; };
 		9BC487D21AF6D256008BF2E9 /* PULPullOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPullOverlayView.m; sourceTree = "<group>"; };
 		9BD2C3641AE454930030527F /* PULNewPullViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULNewPullViewController.h; sourceTree = "<group>"; };
@@ -1010,10 +995,6 @@
 		330499501A18036F003FEA42 /* Image Views */ = {
 			isa = PBXGroup;
 			children = (
-				330499511A18037D003FEA42 /* PULUserImageView.h */,
-				330499521A18037D003FEA42 /* PULUserImageView.m */,
-				9B01E9A11B6D820B0092DC14 /* PULSquareUserImageView.h */,
-				9B01E9A21B6D820B0092DC14 /* PULSquareUserImageView.m */,
 			);
 			path = "Image Views";
 			sourceTree = "<group>";
@@ -1129,8 +1110,6 @@
 		334044C11A17F96600B00BC3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				334044C41A17F9A100B00BC3 /* PULUserCardCell.h */,
-				334044C51A17F9A100B00BC3 /* PULUserCardCell.m */,
 				9B5EFA581AE28F8600EFCCD5 /* PULUserCell.h */,
 				9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */,
 				84BC02871B8CEAB2002A3311 /* PULPulledUserCollectionViewCell.h */,
@@ -1599,7 +1578,6 @@
 		952BDB8E1A0C4F6D00C67BB5 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				95F367121AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib */,
 				9BFE6F3B1AF30D9D000D00FF /* PULPullOptionsOverlay.xib */,
 				952BDB6B1A0C4F0500C67BB5 /* Main.storyboard */,
 				952BDB751A0C4F0500C67BB5 /* LaunchScreen.xib */,
@@ -1927,8 +1905,6 @@
 			children = (
 				9BFE6F381AF30D8E000D00FF /* PULPullOptionsOverlay.h */,
 				9BFE6F391AF30D8E000D00FF /* PULPullOptionsOverlay.m */,
-				9BC487CD1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.h */,
-				9BC487CE1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.m */,
 				9BC487D11AF6D256008BF2E9 /* PULPullOverlayView.h */,
 				9BC487D21AF6D256008BF2E9 /* PULPullOverlayView.m */,
 			);
@@ -2479,7 +2455,6 @@
 				953B06101A8AF687008235EB /* compass_rotate_4.png in Resources */,
 				9B94A9011B8E1118001467F9 /* smiley_smile_with_background@3x.png in Resources */,
 				33ABDE611AB4A7E600A047BF /* no_friends.png in Resources */,
-				95F367131AF6CCE800A3E2F6 /* PULPullNotNearbyOverlay.xib in Resources */,
 				9B49DFCC1B8D4DCC009D0C71 /* circle_purple.png in Resources */,
 				334F54F31AB4F13900372D89 /* permission_request_location.png in Resources */,
 				337A982B1AB6191D00999401 /* continue_facebook_pressed@3x.png in Resources */,
@@ -2594,7 +2569,6 @@
 				9BC487D31AF6D256008BF2E9 /* PULPullOverlayView.m in Sources */,
 				9B823B151AEEFFD400264DB5 /* PULRightAlignedButton.m in Sources */,
 				952BDB6A1A0C4F0500C67BB5 /* AppDelegate.m in Sources */,
-				9B01E9A31B6D820B0092DC14 /* PULSquareUserImageView.m in Sources */,
 				9BED056E1B88E849008F71CC /* CALayer+Animations.m in Sources */,
 				9B86B6281AE73CD100C4F1D9 /* PULPassthroughView.m in Sources */,
 				3340449D1A17D33A00B00BC3 /* PULPullListViewController.m in Sources */,
@@ -2605,10 +2579,7 @@
 				95169F651A871F41006D3078 /* PULNavigationController.m in Sources */,
 				9BD2C3661AE454930030527F /* PULNewPullViewController.m in Sources */,
 				9BFE6F3A1AF30D8E000D00FF /* PULPullOptionsOverlay.m in Sources */,
-				334044C61A17F9A100B00BC3 /* PULUserCardCell.m in Sources */,
-				9BC487CF1AF6D222008BF2E9 /* PULPullNotNearbyOverlay.m in Sources */,
 				84AAC8D31A8E8E5100C302AD /* PULNoConnectionView.m in Sources */,
-				330499551A18037D003FEA42 /* PULUserImageView.m in Sources */,
 				95169F351A86F7CD006D3078 /* PULMenuViewController.m in Sources */,
 				3304995C1A1815F3003FEA42 /* PULPullDirectionArrowView.m in Sources */,
 				9BED05621B88BE9A008F71CC /* PULCompassView.m in Sources */,
@@ -2626,7 +2597,6 @@
 				84261A451A9E2628001DD052 /* PULRequestLocationViewController.m in Sources */,
 				952BDB671A0C4F0500C67BB5 /* main.m in Sources */,
 				9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */,
-				3304995F1A182542003FEA42 /* PULPullDetailViewController.m in Sources */,
 				9B97242A1AE20BD500EEC3AB /* PULUserSelectViewController.m in Sources */,
 				33FB713D1AAD205B00B74C47 /* PULVerticallyCenteredButton.m in Sources */,
 				9BED05651B88C912008F71CC /* PULPulledUserSelectView.m in Sources */,

@@ -8,13 +8,14 @@
 
 #import "PULUserCell.h" 
 
-#import "PULUserImageView.h"
+#import "NZCircularImageView.h"
 
 #import "PULUser.h"
 
 @interface PULUserCell ()
 
-@property (strong, nonatomic) IBOutlet PULUserImageView *userImageView;
+
+@property (strong, nonatomic) IBOutlet NZCircularImageView *userImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end
@@ -26,7 +27,7 @@
 {
     _user = user;
     
-    [_userImageView setImage:_user.image forObject:_user];
+    [_userImageView setImageWithResizeURL:_user.imageUrlString];
     _nameLabel.text = _user.fullName;
 }
 

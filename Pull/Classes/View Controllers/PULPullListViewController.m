@@ -15,7 +15,6 @@
 #import "PULNoFriendsOverlay.h"
 
 #import "PULCompassView.h"
-#import "PULPullDetailViewController.h"
 #import "PULLoginViewController.h"
 #import "PULUserSelectViewController.h"
 
@@ -29,8 +28,6 @@
 #import "NSArray+Sorting.h"
 
 #import "PULPulledUserDataSource.h"
-
-#import "PULPullNotNearbyOverlay.h"
 
 const NSInteger kPULPullListNumberOfTableViewSections = 4;
 
@@ -366,6 +363,8 @@ const NSInteger kPULPulledFarSection = 2;
 
 - (void)_toggleMoreArrow
 {
+    _moreNotificationImageViewRight.hidden = YES;
+    
     // do we have more elements than visible cells
     NSArray *visibleIndexPaths = [_collectionView  indexPathsForVisibleItems];
     if (visibleIndexPaths.count < [PULPulledUserDataSource sharedDataSource].datasource.count && visibleIndexPaths.count != 0)
@@ -387,6 +386,17 @@ const NSInteger kPULPulledFarSection = 2;
         if (highest < [PULPulledUserDataSource sharedDataSource].datasource.count-1)
         {
             _moreNotificationContainerRight.hidden = NO;
+            
+            // check if we should show the notification above the arrow
+            for (int i = highest+1; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
+            {
+                PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[i];
+                if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULAccount currentUser]])
+                {
+                    _moreNotificationImageViewRight.hidden = NO;
+                    break;
+                }
+            }
         }
         else
         {
@@ -509,10 +519,6 @@ const NSInteger kPULPulledFarSection = 2;
 - (UIStoryboardSegue *)segueForUnwindingToViewController:(UIViewController *)toViewController fromViewController:(UIViewController *)fromViewController identifier:(NSString *)identifier {
     PULSlideUnwindSegue *segue = [[PULSlideUnwindSegue alloc] initWithIdentifier:identifier source:fromViewController destination:toViewController];
     
-    if ([fromViewController isKindOfClass:[PULPullDetailViewController class]])
-    {
-        segue.slideRight = YES;
-    }
     return segue;
 }
 #pragma mark Gestures

@@ -8,18 +8,18 @@
 
 #import "PULMenuViewController.h"
 
-#import "PULUserImageView.h"
-
 #import "PULInviteViewController.h"
+
+#import "NZCircularImageView.h"
 
 #import <MessageUI/MessageUI.h>
 #import <sys/utsname.h>
 
 @interface PULMenuViewController () <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
-@property (strong, nonatomic) IBOutlet PULUserImageView *userImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet NZCircularImageView *userImageView;
 
 @property (nonatomic, strong) UIActivityViewController *shareActivityViewController;
 @property (strong, nonatomic) IBOutlet UILabel *inviteLabel;
@@ -78,7 +78,7 @@
 }
 
 - (void)_populateUserInfo {
-    [_userImageView setImage:[PULAccount currentUser].image forObject:[PULAccount currentUser].image];
+    [_userImageView setImageWithResizeURL:[PULAccount currentUser].imageUrlString];
     _backgroundImageView.image = [PULAccount currentUser].image;
     _nameLabel.text = [PULAccount currentUser].fullName;
     

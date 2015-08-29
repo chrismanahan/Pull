@@ -8,15 +8,15 @@
 
 #import "PULNewPullViewController.h"
 
-#import "PULUserImageView.h"
-
 #import "PULReverseModal.h"
+
+#import "NZCircularImageView.h"
 
 #import "PULPullListViewController.h"
 
 @interface PULNewPullViewController () <UITextViewDelegate>
 
-@property (strong, nonatomic) IBOutlet PULUserImageView *userImageView;
+@property (strong, nonatomic) IBOutlet NZCircularImageView *userImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 
 @property (strong, nonatomic) IBOutlet UIButton *select1HourButton;
@@ -48,7 +48,7 @@
     _disclaimerLabel.text = [NSString stringWithFormat:@"%@ will only see you when you are within %zd ft", _user.firstName, kPULNearbyDistanceFeet];
     
     _nameLabel.text = _user.fullName;
-    [_userImageView setImage:_user.image forObject:_user];
+    [_userImageView setImageWithResizeURL:_user.imageUrlString];
 }
 
 - (void)viewDidLoad
@@ -59,7 +59,8 @@
     _select12HourButton.tag = kPullDurationHalfDay;
     _select24HourButton.tag = kPullDurationDay;
     
-    _userImageView.hasBorder = YES;
+    _userImageView.borderWidth = @(5);
+    _userImageView.borderColor = [UIColor whiteColor];
     _sendInviteButton.hidden = YES;
     
     

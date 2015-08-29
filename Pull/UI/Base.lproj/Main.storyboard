@@ -405,17 +405,27 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="589-g3-gO0"/>
                                             <constraint firstAttribute="width" secondItem="0IB-vY-Nh3" secondAttribute="height" multiplier="1:1" id="OV9-1r-uiu"/>
+                                            <constraint firstAttribute="width" secondItem="0IB-vY-Nh3" secondAttribute="height" multiplier="1:1" id="QV6-sC-qsI"/>
+                                            <constraint firstAttribute="width" secondItem="0IB-vY-Nh3" secondAttribute="height" multiplier="1:1" id="S1z-Hy-KiO"/>
+                                            <constraint firstAttribute="width" constant="50" id="iJE-kR-yaF"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="5" minY="8" maxX="5" maxY="8"/>
-                                        <state key="normal" image="settings_icon.png">
+                                        <state key="normal" image="settings_purple.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="589-g3-gO0"/>
+                                                <exclude reference="OV9-1r-uiu"/>
+                                                <exclude reference="S1z-Hy-KiO"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <segue destination="ybE-zO-cWY" kind="custom" identifier="PULSlideSegue" customClass="PULSlideSegue" id="HgX-he-Lzx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AME-TT-MLA">
-                                        <rect key="frame" x="552" y="18" width="40" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AME-TT-MLA">
+                                        <rect key="frame" x="552" y="17" width="40" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="BCp-oS-dnQ"/>
@@ -436,10 +446,16 @@
                                     <constraint firstItem="0IB-vY-Nh3" firstAttribute="centerY" secondItem="1ww-bU-Xro" secondAttribute="centerY" id="XQV-q0-7kY"/>
                                     <constraint firstItem="0IB-vY-Nh3" firstAttribute="leading" secondItem="Col-68-KCe" secondAttribute="leadingMargin" id="aHG-7d-BG1"/>
                                     <constraint firstAttribute="centerY" secondItem="1ww-bU-Xro" secondAttribute="centerY" constant="-5" id="bjZ-fV-UDD"/>
+                                    <constraint firstItem="0IB-vY-Nh3" firstAttribute="width" secondItem="AME-TT-MLA" secondAttribute="width" id="oO3-Ng-lO1"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="AME-TT-MLA" secondAttribute="trailing" id="rP5-vM-Q8T"/>
                                     <constraint firstAttribute="centerX" secondItem="1ww-bU-Xro" secondAttribute="centerX" id="rQt-us-akj"/>
                                     <constraint firstAttribute="height" constant="64" id="ukk-Mp-ISw"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="oO3-Ng-lO1"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cutout_name.png" translatesAutoresizingMaskIntoConstraints="NO" id="l3o-60-dng">
                                 <rect key="frame" x="0.0" y="64" width="600" height="40"/>
@@ -836,82 +852,57 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="2Pw-Cl-vCV" userLabel="bg image">
                                 <rect key="frame" x="0.0" y="20" width="600" height="244"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YXZ-hg-RgW" userLabel="gray line">
-                                <rect key="frame" x="0.0" y="530" width="600" height="1"/>
-                                <color key="backgroundColor" red="0.87707149620000002" green="0.87707149620000002" blue="0.87707149620000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="CcC-4g-39a"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ar4-8d-lsp" userLabel="button container">
                                 <rect key="frame" x="0.0" y="264" width="600" height="266"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hyn-Yo-6z5" userLabel="gray lines bg">
-                                        <rect key="frame" x="90" y="0.0" width="510" height="218"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hyn-Yo-6z5" userLabel="gray lines bg">
+                                        <rect key="frame" x="90" y="0.0" width="510" height="219"/>
                                         <color key="backgroundColor" red="0.87707149620000002" green="0.87707149620000002" blue="0.87707149620000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLK-VI-Xsa">
                                         <rect key="frame" x="0.0" y="73" width="600" height="72"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
-                                        <inset key="titleEdgeInsets" minX="26" minY="-20" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Contact" image="settings_contact.png">
-                                            <color key="titleColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Contact" image="contact_white.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="ibContact:" destination="ybE-zO-cWY" eventType="touchUpInside" id="yIA-qO-1LG"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Any questions or concerns" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="qtH-eq-bi4">
-                                        <rect key="frame" x="90" y="118" width="179" height="19"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" red="0.5570943813" green="0.5570943813" blue="0.5570943813" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C41-e2-ydq">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="72"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
-                                        <inset key="titleEdgeInsets" minX="31" minY="-20" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="App Settings" image="settings_gear.png">
-                                            <color key="titleColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="App Settings" image="app_settings_white.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="5NZ-nN-ZGk" kind="presentation" id="Ajb-mj-FLK"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Notifications, account and more" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="XCW-9H-oc1">
-                                        <rect key="frame" x="90" y="45" width="212" height="19"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" red="0.5570943813" green="0.5570943813" blue="0.5570943813" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lp-0Z-BQm">
-                                        <rect key="frame" x="0.0" y="146" width="600" height="71"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lp-0Z-BQm">
+                                        <rect key="frame" x="0.0" y="146" width="600" height="72"/>
+                                        <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
-                                        <inset key="titleEdgeInsets" minX="31" minY="-20" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Share" image="settings_share.png">
-                                            <color key="titleColor" red="0.21960784310000001" green="0.12941176469999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Share" image="share_white.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="ibShare:" destination="ybE-zO-cWY" eventType="touchUpInside" id="aFQ-32-CME"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Share us with friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="m0r-v6-iqs">
-                                        <rect key="frame" x="90" y="190" width="139" height="19"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" red="0.5570943813" green="0.5570943813" blue="0.5570943813" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="C41-e2-ydq" firstAttribute="height" secondItem="7lp-0Z-BQm" secondAttribute="height" id="9Mq-zv-PG0"/>
                                     <constraint firstItem="C41-e2-ydq" firstAttribute="top" secondItem="ar4-8d-lsp" secondAttribute="top" id="Bfr-u8-gxB"/>
@@ -920,21 +911,15 @@
                                     <constraint firstAttribute="trailing" secondItem="GLK-VI-Xsa" secondAttribute="trailing" id="Mdo-ah-dn7"/>
                                     <constraint firstItem="7lp-0Z-BQm" firstAttribute="top" secondItem="GLK-VI-Xsa" secondAttribute="bottom" constant="1" id="N1U-gO-19u"/>
                                     <constraint firstItem="C41-e2-ydq" firstAttribute="top" secondItem="ar4-8d-lsp" secondAttribute="top" id="OCm-vL-4ji"/>
-                                    <constraint firstItem="m0r-v6-iqs" firstAttribute="leading" secondItem="Hyn-Yo-6z5" secondAttribute="leading" id="Oxr-Lx-P93"/>
                                     <constraint firstAttribute="trailing" secondItem="7lp-0Z-BQm" secondAttribute="trailing" id="Qse-15-YWW"/>
                                     <constraint firstItem="Hyn-Yo-6z5" firstAttribute="bottom" secondItem="7lp-0Z-BQm" secondAttribute="bottom" constant="1" id="Ud0-lH-PdP"/>
-                                    <constraint firstItem="m0r-v6-iqs" firstAttribute="bottom" secondItem="7lp-0Z-BQm" secondAttribute="bottom" constant="-8" id="VkG-fv-AIa"/>
-                                    <constraint firstItem="Hyn-Yo-6z5" firstAttribute="leading" secondItem="XCW-9H-oc1" secondAttribute="leading" id="Zp2-u7-tzX"/>
                                     <constraint firstAttribute="height" secondItem="C41-e2-ydq" secondAttribute="height" multiplier="7/32" id="cXc-ey-5W7"/>
                                     <constraint firstAttribute="trailing" secondItem="Hyn-Yo-6z5" secondAttribute="trailing" id="ddr-Gl-Eml"/>
                                     <constraint firstItem="7lp-0Z-BQm" firstAttribute="leading" secondItem="ar4-8d-lsp" secondAttribute="leading" id="eTv-yY-1RS"/>
-                                    <constraint firstItem="qtH-eq-bi4" firstAttribute="leading" secondItem="Hyn-Yo-6z5" secondAttribute="leading" id="hqr-E2-7Xs"/>
                                     <constraint firstItem="C41-e2-ydq" firstAttribute="height" secondItem="ar4-8d-lsp" secondAttribute="height" multiplier="0.27" id="mBs-sJ-fNn"/>
                                     <constraint firstItem="GLK-VI-Xsa" firstAttribute="top" secondItem="C41-e2-ydq" secondAttribute="bottom" constant="1" id="sJd-Gu-n7X"/>
                                     <constraint firstItem="Hyn-Yo-6z5" firstAttribute="leading" secondItem="ar4-8d-lsp" secondAttribute="leading" constant="90" id="t64-7M-bXQ"/>
-                                    <constraint firstItem="qtH-eq-bi4" firstAttribute="bottom" secondItem="GLK-VI-Xsa" secondAttribute="bottom" constant="-8" id="teZ-Wd-UfD"/>
                                     <constraint firstItem="C41-e2-ydq" firstAttribute="leading" secondItem="ar4-8d-lsp" secondAttribute="leading" id="vIk-me-cco"/>
-                                    <constraint firstItem="XCW-9H-oc1" firstAttribute="bottom" secondItem="C41-e2-ydq" secondAttribute="bottom" constant="-8" id="vMQ-nJ-rqD"/>
                                     <constraint firstItem="Hyn-Yo-6z5" firstAttribute="top" secondItem="ar4-8d-lsp" secondAttribute="top" id="yOb-Gc-teM"/>
                                     <constraint firstAttribute="bottom" secondItem="Hyn-Yo-6z5" secondAttribute="bottom" id="yOq-5d-ctM"/>
                                     <constraint firstItem="GLK-VI-Xsa" firstAttribute="leading" secondItem="ar4-8d-lsp" secondAttribute="leading" id="zFu-lJ-WVM"/>
@@ -950,43 +935,18 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jTx-IR-N7O" userLabel="header view">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUb-Gs-udA">
-                                        <rect key="frame" x="287" y="22" width="28" height="27"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="mUb-Gs-udA" secondAttribute="height" multiplier="67:71" id="Ec0-kl-kTn"/>
-                                            <constraint firstAttribute="width" constant="45" id="Jwp-h9-n3s"/>
-                                            <constraint firstAttribute="width" secondItem="mUb-Gs-udA" secondAttribute="height" multiplier="11:10" id="lqy-bF-mA3"/>
-                                            <constraint firstAttribute="width" secondItem="mUb-Gs-udA" secondAttribute="height" multiplier="54:53" id="ltJ-xL-wnP"/>
-                                            <constraint firstAttribute="height" constant="40" id="utO-Mk-wuI"/>
-                                            <constraint firstAttribute="width" constant="50" id="y3z-cr-5sJ"/>
-                                        </constraints>
-                                        <state key="normal" image="settings_icon_purple.png">
-                                            <color key="titleColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="Ec0-kl-kTn"/>
-                                                <exclude reference="Jwp-h9-n3s"/>
-                                                <exclude reference="lqy-bF-mA3"/>
-                                                <exclude reference="ltJ-xL-wnP"/>
-                                                <exclude reference="utO-Mk-wuI"/>
-                                                <exclude reference="y3z-cr-5sJ"/>
-                                            </mask>
-                                        </variation>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bj2-eY-WpI">
-                                        <rect key="frame" x="562" y="24" width="30" height="30"/>
+                                        <rect key="frame" x="553" y="20" width="39" height="39"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="4ND-fX-Hlr"/>
+                                            <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="1:1" id="8Oh-B0-U1Y"/>
                                             <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="67:71" id="PrH-0T-Wwa"/>
                                             <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="50:51" id="Xe4-H6-j2M"/>
                                             <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="50:51" id="YIt-Cu-oNI"/>
                                             <constraint firstAttribute="height" constant="40" id="fsG-Ae-Ens"/>
                                         </constraints>
-                                        <state key="normal" image="home_icon.png">
+                                        <state key="normal" image="home_white.png">
                                             <color key="titleColor" red="0.87707149620000002" green="0.87707149620000002" blue="0.87707149620000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1003,23 +963,38 @@
                                             <segue destination="OO3-Al-pkh" kind="unwind" unwindAction="unwindFromViewController:" id="is5-Th-xEk"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="setting_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="3rw-p5-Pp4">
+                                        <rect key="frame" x="275" y="20" width="50" height="39"/>
+                                    </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="mUb-Gs-udA" firstAttribute="width" secondItem="mUb-Gs-udA" secondAttribute="height" multiplier="67:71" id="EZa-eC-5Xi"/>
-                                    <constraint firstItem="mUb-Gs-udA" firstAttribute="top" secondItem="jTx-IR-N7O" secondAttribute="top" constant="16" id="ODG-5h-WRg"/>
-                                    <constraint firstAttribute="centerY" secondItem="mUb-Gs-udA" secondAttribute="centerY" constant="-3" id="Obe-w3-Ar9"/>
-                                    <constraint firstItem="Bj2-eY-WpI" firstAttribute="width" secondItem="mUb-Gs-udA" secondAttribute="width" id="VPq-Cw-cpj"/>
-                                    <constraint firstAttribute="centerX" secondItem="mUb-Gs-udA" secondAttribute="centerX" id="d9e-72-TyK"/>
-                                    <constraint firstItem="Bj2-eY-WpI" firstAttribute="centerY" secondItem="mUb-Gs-udA" secondAttribute="centerY" constant="3" id="hvh-Ap-UdR"/>
+                                    <constraint firstAttribute="centerX" secondItem="3rw-p5-Pp4" secondAttribute="centerX" id="4TL-kF-vy0"/>
+                                    <constraint firstAttribute="width" secondItem="Bj2-eY-WpI" secondAttribute="height" multiplier="1:1" id="9nR-mP-yyE"/>
+                                    <constraint firstItem="3rw-p5-Pp4" firstAttribute="top" secondItem="jTx-IR-N7O" secondAttribute="top" constant="20" id="E9l-d6-FFQ"/>
+                                    <constraint firstItem="Bj2-eY-WpI" firstAttribute="centerY" secondItem="3rw-p5-Pp4" secondAttribute="centerY" id="Rbf-97-1jw"/>
+                                    <constraint firstItem="3rw-p5-Pp4" firstAttribute="top" secondItem="jTx-IR-N7O" secondAttribute="top" constant="10" id="Sd5-Oc-et4"/>
+                                    <constraint firstItem="3rw-p5-Pp4" firstAttribute="leading" secondItem="jTx-IR-N7O" secondAttribute="leading" constant="20" symbolic="YES" id="T2e-6Y-72t"/>
+                                    <constraint firstItem="Bj2-eY-WpI" firstAttribute="height" secondItem="3rw-p5-Pp4" secondAttribute="height" id="WP3-sO-4Z8"/>
+                                    <constraint firstItem="Bj2-eY-WpI" firstAttribute="bottom" secondItem="3rw-p5-Pp4" secondAttribute="bottom" id="cBp-vu-uzK"/>
+                                    <constraint firstAttribute="bottom" secondItem="3rw-p5-Pp4" secondAttribute="bottom" constant="5" id="hlU-s4-zZI"/>
                                     <constraint firstAttribute="height" constant="64" id="iSG-ji-V7t"/>
+                                    <constraint firstItem="Bj2-eY-WpI" firstAttribute="width" secondItem="3rw-p5-Pp4" secondAttribute="width" id="jkX-Bm-OxA"/>
+                                    <constraint firstItem="Bj2-eY-WpI" firstAttribute="height" secondItem="3rw-p5-Pp4" secondAttribute="height" multiplier="0.9" id="jng-11-PjI"/>
+                                    <constraint firstItem="Bj2-eY-WpI" firstAttribute="top" secondItem="3rw-p5-Pp4" secondAttribute="top" id="lmq-46-20E"/>
                                     <constraint firstAttribute="trailing" secondItem="Bj2-eY-WpI" secondAttribute="trailing" constant="8" id="mG6-Xa-eZu"/>
+                                    <constraint firstAttribute="centerY" secondItem="3rw-p5-Pp4" secondAttribute="centerY" constant="-5" id="qOQ-O9-OPF"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="EZa-eC-5Xi"/>
-                                        <exclude reference="ODG-5h-WRg"/>
-                                        <exclude reference="VPq-Cw-cpj"/>
+                                        <exclude reference="Sd5-Oc-et4"/>
+                                        <exclude reference="T2e-6Y-72t"/>
+                                        <exclude reference="qOQ-O9-OPF"/>
+                                        <exclude reference="9nR-mP-yyE"/>
+                                        <exclude reference="cBp-vu-uzK"/>
+                                        <exclude reference="jkX-Bm-OxA"/>
+                                        <exclude reference="jng-11-PjI"/>
+                                        <exclude reference="lmq-46-20E"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -1049,9 +1024,9 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can invite 3 friends to Pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="9Ux-bK-Ay2">
-                                <rect key="frame" x="201" y="539" width="198" height="19"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" red="0.5570943813" green="0.5570943813" blue="0.5570943813" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="189" y="536" width="222" height="22"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wlk-SR-5RU">
@@ -1082,7 +1057,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="9Ux-bK-Ay2" secondAttribute="centerX" id="02C-EQ-dbN"/>
                             <constraint firstItem="jTx-IR-N7O" firstAttribute="leading" secondItem="6hr-M5-xhR" secondAttribute="leading" id="2eM-Gp-gMc"/>
@@ -1094,31 +1069,30 @@
                             <constraint firstItem="jTx-IR-N7O" firstAttribute="top" secondItem="6hr-M5-xhR" secondAttribute="top" id="7rX-Ic-MMy"/>
                             <constraint firstItem="ar4-8d-lsp" firstAttribute="leading" secondItem="6hr-M5-xhR" secondAttribute="leading" id="97C-2M-gb5"/>
                             <constraint firstItem="2Pw-Cl-vCV" firstAttribute="bottom" secondItem="Ao8-Qw-wcn" secondAttribute="bottom" id="B5h-Ob-kMb"/>
-                            <constraint firstItem="YXZ-hg-RgW" firstAttribute="top" secondItem="ar4-8d-lsp" secondAttribute="bottom" id="F2o-pi-vQo"/>
                             <constraint firstItem="XPE-ny-MyS" firstAttribute="leading" secondItem="Wlk-SR-5RU" secondAttribute="trailing" constant="8" id="Ibt-Ys-d0W"/>
                             <constraint firstItem="gzS-s7-bbh" firstAttribute="top" secondItem="Ao8-Qw-wcn" secondAttribute="top" constant="16" id="LD7-FQ-syA"/>
                             <constraint firstItem="8hE-Ro-TD5" firstAttribute="top" secondItem="Wlk-SR-5RU" secondAttribute="top" id="TkS-Bu-wRY"/>
                             <constraint firstItem="9Ux-bK-Ay2" firstAttribute="centerX" secondItem="Wlk-SR-5RU" secondAttribute="centerX" constant="-0.5" id="Y0w-Ub-HsX"/>
                             <constraint firstItem="Ao8-Qw-wcn" firstAttribute="top" secondItem="jTx-IR-N7O" secondAttribute="bottom" id="bGi-MS-k5F"/>
                             <constraint firstItem="Ao8-Qw-wcn" firstAttribute="width" secondItem="jTx-IR-N7O" secondAttribute="width" id="bdo-aO-0gB"/>
-                            <constraint firstItem="9Ux-bK-Ay2" firstAttribute="top" secondItem="YXZ-hg-RgW" secondAttribute="bottom" constant="8" id="d1I-mA-Sw9"/>
                             <constraint firstItem="Wlk-SR-5RU" firstAttribute="top" secondItem="9Ux-bK-Ay2" secondAttribute="bottom" constant="2" id="dBt-PL-jdH"/>
-                            <constraint firstItem="YXZ-hg-RgW" firstAttribute="leading" secondItem="ar4-8d-lsp" secondAttribute="leading" id="die-Ca-iFG"/>
                             <constraint firstAttribute="trailing" secondItem="ar4-8d-lsp" secondAttribute="trailing" id="fhg-13-Dw7"/>
                             <constraint firstItem="gzS-s7-bbh" firstAttribute="centerX" secondItem="Ao8-Qw-wcn" secondAttribute="centerX" id="hE0-YA-J92"/>
-                            <constraint firstItem="YXZ-hg-RgW" firstAttribute="trailing" secondItem="ar4-8d-lsp" secondAttribute="trailing" id="hnF-1T-QkM"/>
                             <constraint firstItem="Ao8-Qw-wcn" firstAttribute="bottom" secondItem="ar4-8d-lsp" secondAttribute="top" id="hnp-eH-Jah"/>
                             <constraint firstItem="2Pw-Cl-vCV" firstAttribute="top" secondItem="gAx-sk-hrV" secondAttribute="bottom" id="kgP-us-frP"/>
+                            <constraint firstItem="9Ux-bK-Ay2" firstAttribute="top" secondItem="ar4-8d-lsp" secondAttribute="bottom" constant="6" id="loy-b2-7Au"/>
                             <constraint firstAttribute="trailing" secondItem="jTx-IR-N7O" secondAttribute="trailing" id="m1e-14-5UZ"/>
                             <constraint firstItem="gzS-s7-bbh" firstAttribute="centerY" secondItem="Ao8-Qw-wcn" secondAttribute="centerY" id="mdi-Nc-3KS"/>
                             <constraint firstItem="I1K-aZ-Ea2" firstAttribute="top" secondItem="gzS-s7-bbh" secondAttribute="bottom" constant="8" id="o2x-E8-gb6"/>
                             <constraint firstItem="XPE-ny-MyS" firstAttribute="top" secondItem="Wlk-SR-5RU" secondAttribute="top" id="t2h-JG-Y4b"/>
                             <constraint firstAttribute="height" secondItem="Ao8-Qw-wcn" secondAttribute="height" multiplier="3" id="v1u-8e-z7N"/>
+                            <constraint firstItem="VDr-oB-AOS" firstAttribute="top" secondItem="Wlk-SR-5RU" secondAttribute="bottom" constant="8" id="zLF-ZV-xpC"/>
                             <constraint firstItem="2Pw-Cl-vCV" firstAttribute="leading" secondItem="6hr-M5-xhR" secondAttribute="leading" id="zos-nj-9pb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="mdi-Nc-3KS"/>
+                                <exclude reference="4SL-Dx-cdp"/>
                             </mask>
                         </variation>
                     </view>
@@ -1153,31 +1127,38 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6n5-P9-0XA">
-                                        <rect key="frame" x="560" y="21" width="24" height="31"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="nav_blue_down.png">
-                                            <color key="titleColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="542" y="25" width="42" height="34"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="ibDone:" destination="5NZ-nN-ZGk" eventType="touchUpInside" id="iey-oX-o1O"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0V-jB-dlA">
-                                        <rect key="frame" x="232" y="27" width="136" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <color key="textColor" red="0.053999999999999999" green="0.46400000000000002" blue="0.998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0V-jB-dlA">
+                                        <rect key="frame" x="217" y="19" width="166" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="V0V-jB-dlA" firstAttribute="centerY" secondItem="6n5-P9-0XA" secondAttribute="centerY" constant="5" id="ARX-Un-LME"/>
                                     <constraint firstAttribute="centerX" secondItem="V0V-jB-dlA" secondAttribute="centerX" id="AUS-Gw-oca"/>
-                                    <constraint firstAttribute="centerY" secondItem="V0V-jB-dlA" secondAttribute="centerY" constant="-10" id="TUa-9J-XhF"/>
+                                    <constraint firstAttribute="centerY" secondItem="V0V-jB-dlA" secondAttribute="centerY" constant="-5" id="TUa-9J-XhF"/>
                                     <constraint firstAttribute="height" constant="64" id="in8-nJ-RQT"/>
+                                    <constraint firstItem="6n5-P9-0XA" firstAttribute="baseline" secondItem="V0V-jB-dlA" secondAttribute="baseline" id="kD4-yl-GaK"/>
                                     <constraint firstAttribute="trailing" secondItem="6n5-P9-0XA" secondAttribute="trailing" constant="16" id="lfV-jk-g7b"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="ARX-Un-LME"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ew3-hg-vhO">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
@@ -1191,10 +1172,10 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lcA-mb-cLp" userLabel="notif invite">
                                         <rect key="frame" x="0.0" y="40" width="600" height="50"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull Invite" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7IP-mS-EAI">
-                                                <rect key="frame" x="8" y="11" width="88" height="28"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull Request" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7IP-mS-EAI">
+                                                <rect key="frame" x="8" y="13" width="110" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jg4-7o-rJ9">
@@ -1217,11 +1198,11 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGT-Vr-24H">
                                         <rect key="frame" x="0.0" y="204" width="600" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <inset key="contentEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="280" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Block User">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1231,11 +1212,11 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMv-iC-fHo">
                                         <rect key="frame" x="0.0" y="315" width="600" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <inset key="contentEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="280" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Terms &amp; Conditions">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1245,11 +1226,11 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bjq-cM-P24">
                                         <rect key="frame" x="0.0" y="426" width="600" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <inset key="contentEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="280" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Logout">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1259,23 +1240,23 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGf-n6-iwk" userLabel="pull label">
                                         <rect key="frame" x="282" y="484" width="36" height="32"/>
                                         <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="24"/>
-                                        <color key="textColor" red="0.36470588240000001" green="0.38823529410000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 0.1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vq-SW-ezb" userLabel="version label">
                                         <rect key="frame" x="258" y="519" width="84" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzy-aj-0Ap">
                                         <rect key="frame" x="0.0" y="544" width="600" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="22"/>
                                         <inset key="contentEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="280" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Disable Account">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="0.76000000000000001" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1285,11 +1266,11 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iAr-i8-KgN">
                                         <rect key="frame" x="0.0" y="262" width="600" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <inset key="contentEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="280" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Privacy Policy">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1301,8 +1282,8 @@
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull Accepted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1c-Sn-xZd">
                                                 <rect key="frame" x="8" y="11" width="126" height="28"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QXX-Qq-UcR">
@@ -1327,8 +1308,8 @@
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Friend Nearby" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vdl-TC-7au">
                                                 <rect key="frame" x="8" y="11" width="126" height="28"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Phh-v0-Vwd">
@@ -1351,11 +1332,11 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Cr-Kg-HMW">
                                         <rect key="frame" x="0.0" y="368" width="600" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <inset key="contentEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="280" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Attributions">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1363,6 +1344,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="lcA-mb-cLp" firstAttribute="trailing" secondItem="TMv-iC-fHo" secondAttribute="trailing" id="1wQ-CW-yEJ"/>
                                     <constraint firstItem="CGT-Vr-24H" firstAttribute="top" secondItem="ULs-Zb-Uvc" secondAttribute="bottom" constant="8" id="3Ny-bG-QAT"/>
@@ -1417,7 +1399,7 @@
                                 </variation>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="0.95744129834254144" green="0.95744129834254144" blue="0.95744129834254144" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="PG3-x9-rhX" firstAttribute="top" secondItem="UyF-nm-yDg" secondAttribute="top" id="Ayw-jt-exJ"/>
                             <constraint firstAttribute="trailing" secondItem="PG3-x9-rhX" secondAttribute="trailing" id="DJP-PU-X4o"/>
@@ -1454,40 +1436,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gW-CZ-rAm" userLabel="header">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Attributions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMt-vc-uEY">
-                                        <rect key="frame" x="198" y="28" width="204" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNt-cO-0cI">
-                                        <rect key="frame" x="560" y="22" width="24" height="31"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="nav_blue_down.png">
-                                            <color key="titleColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="ibDone:" destination="5NZ-nN-ZGk" eventType="touchUpInside" id="nGi-gJ-mYc"/>
-                                            <segue destination="2KF-VG-23C" kind="unwind" unwindAction="unwindFromViewController:" id="6vE-lZ-1jX"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="kNt-cO-0cI" secondAttribute="trailing" constant="16" id="HvK-NT-MCG"/>
-                                    <constraint firstAttribute="centerY" secondItem="kMt-vc-uEY" secondAttribute="centerY" constant="-10" id="XIp-GR-w5m"/>
-                                    <constraint firstItem="kMt-vc-uEY" firstAttribute="centerY" secondItem="kNt-cO-0cI" secondAttribute="centerY" constant="5" id="bsy-ky-ebp"/>
-                                    <constraint firstAttribute="height" constant="64" id="xVu-IH-e3P"/>
-                                    <constraint firstAttribute="centerX" secondItem="kMt-vc-uEY" secondAttribute="centerX" id="xtj-jS-xJW"/>
-                                </constraints>
-                            </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2NP-PR-IMy">
                                 <rect key="frame" x="16" y="64" width="568" height="536"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">MMWormhole
 
 The MIT License (MIT)
@@ -1588,23 +1539,62 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 _____________________
 </string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r19-m0-eFx" userLabel="header">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x33-b5-BZV">
+                                        <rect key="frame" x="542" y="25" width="42" height="34"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="Ejv-Sy-Yjp" kind="unwind" unwindAction="unwindFromViewController:" id="n92-dW-aig"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attributions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t4o-eS-8Cc">
+                                        <rect key="frame" x="227" y="19" width="146" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="x33-b5-BZV" secondAttribute="trailing" constant="16" id="DiM-Mq-6gN"/>
+                                    <constraint firstAttribute="height" constant="64" id="LKK-sL-I1h"/>
+                                    <constraint firstAttribute="centerY" secondItem="t4o-eS-8Cc" secondAttribute="centerY" constant="-5" id="ZXf-m7-4oR"/>
+                                    <constraint firstItem="t4o-eS-8Cc" firstAttribute="centerY" secondItem="x33-b5-BZV" secondAttribute="centerY" constant="5" id="odF-dd-mrL"/>
+                                    <constraint firstItem="x33-b5-BZV" firstAttribute="baseline" secondItem="t4o-eS-8Cc" secondAttribute="baseline" id="rzv-e2-f9Q"/>
+                                    <constraint firstAttribute="centerX" secondItem="t4o-eS-8Cc" secondAttribute="centerX" id="u6D-yg-GEP"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="odF-dd-mrL"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="2NP-PR-IMy" firstAttribute="top" secondItem="4gW-CZ-rAm" secondAttribute="bottom" id="86c-m6-qhT"/>
+                            <constraint firstItem="r19-m0-eFx" firstAttribute="top" secondItem="Hzo-jt-HS4" secondAttribute="top" id="ALd-hb-AHf"/>
                             <constraint firstItem="2NP-PR-IMy" firstAttribute="trailing" secondItem="Hzo-jt-HS4" secondAttribute="trailingMargin" id="FtG-uz-n6B"/>
-                            <constraint firstItem="4gW-CZ-rAm" firstAttribute="leading" secondItem="Hzo-jt-HS4" secondAttribute="leading" id="QMy-2J-jkr"/>
+                            <constraint firstAttribute="trailing" secondItem="r19-m0-eFx" secondAttribute="trailing" id="KgM-gK-Q3G"/>
+                            <constraint firstItem="2NP-PR-IMy" firstAttribute="top" secondItem="r19-m0-eFx" secondAttribute="bottom" id="TRQ-cv-vSO"/>
                             <constraint firstItem="UfA-y2-Ug6" firstAttribute="top" secondItem="2NP-PR-IMy" secondAttribute="bottom" id="UbN-rr-1AX"/>
                             <constraint firstItem="2NP-PR-IMy" firstAttribute="leading" secondItem="Hzo-jt-HS4" secondAttribute="leadingMargin" id="YHN-zy-kgA"/>
-                            <constraint firstItem="4gW-CZ-rAm" firstAttribute="top" secondItem="Hzo-jt-HS4" secondAttribute="top" id="ZLm-u5-Sd8"/>
-                            <constraint firstAttribute="trailing" secondItem="4gW-CZ-rAm" secondAttribute="trailing" id="xZB-Tk-BjL"/>
+                            <constraint firstItem="r19-m0-eFx" firstAttribute="leading" secondItem="Hzo-jt-HS4" secondAttribute="leading" id="scQ-Ba-4dA"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N5r-ri-ii4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Ejv-Sy-Yjp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3136" y="2929"/>
         </scene>
@@ -1792,58 +1782,67 @@ _____________________
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YrZ-ED-PlS" userLabel="header">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms &amp; Conditions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwq-JR-Oop">
-                                        <rect key="frame" x="198" y="28" width="204" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDS-5p-52D">
-                                        <rect key="frame" x="560" y="22" width="24" height="31"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="nav_blue_down.png">
-                                            <color key="titleColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="ibDone:" destination="5NZ-nN-ZGk" eventType="touchUpInside" id="3En-aK-43S"/>
-                                            <segue destination="2KF-VG-23C" kind="unwind" unwindAction="unwindFromViewController:" id="eSR-8t-679"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerY" secondItem="xwq-JR-Oop" secondAttribute="centerY" constant="-10" id="JT3-W2-jb8"/>
-                                    <constraint firstAttribute="height" constant="64" id="QRF-cr-WtK"/>
-                                    <constraint firstAttribute="trailing" secondItem="HDS-5p-52D" secondAttribute="trailing" constant="16" id="ZjC-D2-27L"/>
-                                    <constraint firstItem="xwq-JR-Oop" firstAttribute="centerY" secondItem="HDS-5p-52D" secondAttribute="centerY" constant="5" id="rME-y1-Rs5"/>
-                                    <constraint firstAttribute="centerX" secondItem="xwq-JR-Oop" secondAttribute="centerX" id="tx8-2N-zjk"/>
-                                </constraints>
-                            </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0a-Ym-lue">
                                 <rect key="frame" x="16" y="64" width="568" height="536"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">Please read the following Terms &amp; Conditions carefully. By accessing or using this Web Site or the Services, you agree to be bound by the Terms &amp; Conditions described herein and all terms, policies, and disclosures incorporated by reference. If you do not agree to all of these terms, do not use this Web Sites or the Service. These Terms &amp; Conditions (“Terms”) apply to the Web Sites located at www.getpulled.com owned and operated by Pull LLC and the Pull service accessed through our mobile applications (collectively, the “Service”). These Terms do not alter in any way the terms or conditions of any other agreement you may have with Pull, or its subsidiaries or affiliates, for products, services or otherwise. By accessing or using the Sites, you agree to the following Terms. You should review these Terms regularly as they may change at any time at the sole discretion of Pull. If you do not agree to any portion of these Terms, you should not access or otherwise use the Sites. “Content” refers to any text, materials, documents, images, graphics, logos, design, audio, video and any other information provided from or on, uploaded to and/or downloaded from the Sites or Service, other than User Content, which is discussed in Paragraph 5. We will make an effort to update this web page with any changes to these Terms and/or to the services described in these Terms and you are encouraged to review these Terms frequently (the date of the most recent revision to these Terms appears at the end of these Terms). By your continued use of the Sites or Service after changes are posted, you will be deemed to have accepted such changes. 1. Privacy Policy Personal data that you provide regarding yourself will be handled in accordance with the Pull Privacy Policy located above which is hereby incorporated herein as if stated in full. 2. Age Restrictions THE WEB SITE IS NOT INTENDED FOR CHILDREN UNDER 13 YEARS OF AGE. If you are 13 or older but under the age of 18, then you agree to review these terms and conditions with your parent or guardian prior to use of the Sites or Service. If you are a parent or guardian entering this agreement for the benefit of a child aged 13 or older, then you agree to and accept full responsibility for that child's use of the Web Sites and the Pull Mobile Application(s), including all financial charges and legal liability that he or she may incur. Otherwise, you affirm that you are 18 years of age or older and fully able and competent to enter into the terms, conditions, obligations, affirmations, representations, and warranties set forth in these Terms, and to abide by and comply with these Terms. Your registration for, and/or use of, the Web Sites or Service constitutes your representation and warranty that: (a) you satisfy these eligibility requirements, and (b) you have the right, authority and capacity to abide by all of the Terms. 3. Safety The Service is designed to permit others to visualize your location (i.e., your mobile device) as a compass. They are also designed to provide you with the ability to know when you are sharing your location and with the ability to delete location sharing. Nonetheless, use of the Service may involve special risks associated with other persons knowing your location. You should only share such information with those that you trust. You should not endanger yourself or others by viewing a portable mobile device while driving, operating dangerous mechanical devices, or in other situations in which you should be observing your surroundings. 4. Site Use and Content You may view, copy or print pages from the Sites or Service solely for personal and non-commercial purposes. Except solely in connection with your authorized participation in the services offered by Pull, you may not otherwise use, modify, copy, print, display, reproduce, distribute or publish any information from the Sites or Service without the express, prior, written consent of Pull. At any time, we may, without further notice, make changes to the Sites, to these Terms or to the Service described in these Terms. You are prohibited from accessing any portion of the Sites or Service for which you have not been granted proper access and permission. 5. Copyright and Trademarks The trademarks, service marks and logos used and displayed on the Sites and within the Service are Pull’s, or its subsidiaries’ or affiliates’, or one or more other party’s, registered and unregistered trademarks. Pull is the copyright owner or authorized licensee of all text and all graphics contained on the Sites and in the Service. All trademarks and service marks of Pull that may be referred to on the Web Sites or in the Service are the property of Pull. Other parties’ trademarks and service marks that may be referred to on the Sites or in the Service are the property of their respective owners. Nothing on the Sites or in the Service should be construed as granting, by implication, estoppel or otherwise, any license or right to use any of Pull’s trademarks or service marks without Pull’s prior written permission. Pull aggressively enforces its intellectual property rights. Neither the name of Pull nor any of Pull’s other trademarks, service marks or copyrighted materials may be used in any way, including in any advertising, hyperlink, publicity or promotional materials of any kind, whether relating to the Sites, Service or otherwise, without Pull’s prior, written permission. If you believe that any Content or user Content on the Sites or in the Service violates any intellectual property right of yours other than a copyright right (which is covered by Paragraph 4 above), please contact Pull at the address, email address or telephone number set forth at the bottom of these Terms. 6. Disclaimers; Indemnification Any and all interactions between you and any third party through the Sites or Service is your exclusive and sole responsibility, whether in person or through the Sites or Service. You acknowledge and agree that because of the nature of an online service that arranges for third parties to share their respective locations, Pull cannot and does not actively investigate, monitor, review or substantiate any representations or statements made by other users of the Web Sites or Service. Likewise, Pull does not confirm the identity or reputation of, or perform any background investigation into, any user of the Sites or Service. No Warranties YOU EXPRESSLY AGREE THAT YOUR USE OF THE SITES OR SERVICE IS AT YOUR SOLE RISK. THE SITES, THE CONTENT, THE USER CONTENT, AND THE PRODUCTS, SERVICES AND MATERIALS AVAILABLE THROUGH THE SITES AND SERVICE (WHETHER PROVIDED BY PULL, YOU, OTHER USERS OR OTHER AFFILIATES/THIRD PARTIES), INCLUDING, ARE PROVIDED “AS IS” AND “AS AVAILABLE” FOR YOUR USE, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, UNLESS SUCH WARRANTIES ARE LEGALLY INCAPABLE OF EXCLUSION. PULL PROVIDES THE SITES ON A COMMERCIALLY REASONABLE BASIS AND PULL MAKES NO REPRESENTATIONS OR WARRANTIES THAT THE SITES, THE SERVICE, THE CONTENT, THE USER CONTENT OR ANY PRODUCTS OR SERVICES OFFERED IN CONNECTION WITH THE SITES OR SERVICE ARE OR SHALL REMAIN UNINTERRUPTED OR ERROR-FREE, THE CONTENT AND/OR USER CONTENT SHALL BE NON-INFRINGING ON ANY THIRD PARTY’S INTELLECTUAL PROPERTY RIGHTS, THE CONTENT AND/OR USER CONTENT SHALL BE ACCURATE OR TRUE, THAT DEFECTS SHALL BE CORRECTED, THAT THE WEB PAGES ON THE WEB SITES AND SERVICE OR THE SERVERS USED IN CONNECTION WITH THE WEB SITES AND SERVICE ARE OR SHALL REMAIN FREE FROM ANY VIRUSES, WORMS, TIME BOMBS, DROP DEAD DEVICES, TROJAN HORSES OR OTHER HARMFUL COMPONENTS, OR THAT ANY PERSON USING THE SITES OR SERVICE WILL BE THE PERSON THAT HE OR SHE REPRESENTS HIMSELF OR HERSELF TO BE. PULL DOES NOT GUARANTEE THAT YOU WILL BE ABLE TO ACCESS OR USE THE SITES OR SERVICE AT TIMES OR LOCATIONS OF YOUR CHOOSING, OR THAT PULL SHALL HAVE ADEQUATE CAPACITY FOR THE SITES OR SERVICE AS A WHOLE OR IN ANY SPECIFIC GEOGRAPHIC AREA. You acknowledge and agree that you are exclusively and solely responsible for taking, and you will take, reasonable precautions in all interactions with other users of the Sites or Service, whether online or in person. Indemnification You agree to defend, indemnify and hold Pull and its affiliates, subsidiaries, owners, directors, officers, trustees, employees and agents (collectively, the “Indemnified Parties”) harmless from and against any and all claims, demands, suits, proceedings, liabilities, judgments, losses, damages, expenses and costs (including without limitation reasonable attorneys’ fees) assessed or incurred by any Indemnified Party, directly or indirectly, with respect to or arising out of: (i) your failure to comply with these Terms; (ii) your breach of your obligations under these Terms; (iii) your use of the rights granted hereunder including, without limitation, any claims made by any third parties; (iv) your violation of any third party right including, without limitation, any copyright, property, or privacy right; and/or (v) any claim that your User Content caused damage to a third party, including, but not limited to, any other user of the Sites or Service. 7. Limitation of Liability OUR AND OUR SUPPLIERS’ ENTIRE LIABILITY AND YOUR EXCLUSIVE REMEDY WITH RESPECT TO THE USE OF THE SITES OR SERVICE, YOUR COMMUNICATIONS AND/OR DEALINGS IN CONNECTION WITH THE SITES OR SERVICE, AND/OR ANY PRODUCT OR SERVICE PROVIDED IN CONNECTION WITH THE SITES OR SERVICE ARE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO US FOR THE SITES OR SERVICE. YOU HEREBY RELEASE US AND EACH OF OUR SUPPLIERS FROM ANY AND ALL OBLIGATIONS, LIABILITIES AND CLAIMS IN EXCESS OF THIS LIMITATION. IN NO EVENT WILL PULL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE OR CONSEQUENTIAL DAMAGES ARISING FROM YOUR USE OF THE SITES, THE SERVICE, OR ANY SERVICE PROVIDED IN CONNECTION WITH THE SITE OR SERVICE OR FOR ANY OTHER CLAIM RELATED IN ANY WAY TO YOUR USE OF THE SITES, THE SERVICE, OR ANY SERVICE PROVIDED IN CONNECTION WITH THE SITES AND THE SERVICE, INCLUDING, BUT NOT LIMITED TO, (I) ERRORS, MISTAKES, OR INACCURACIES OF CONTENT, (II) PERSONAL INJURY OR PROPERTY DAMAGE OF ANY NATURE WHATSOEVER RESULTING FROM YOUR ACCESS TO AND USE OF THE SITES OR SERVICE OR THE GOODS AND/OR SERVICES OBTAINED THROUGH THE USE OF THE SITES OR THE SERVICE, (III) ANY UNAUTHORIZED ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION AND/OR FINANCIAL INFORMATION STORED THEREIN, (IV) ANY ACT OR OMISSION OF ANOTHER USER OF THE SITES OR THE SERVICE OR PERSON OR BUSINESS ENTITY WITH WHOM YOU COMMUNICATE OR DEAL WITH THROUGH YOUR USE OF THE SITES OR THE SERVICE, (V) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THE SITES OR THE SERVICE, AND/OR (VI) ANY VIRUSES, WORMS, TIME BOMBS, DROP DEAD DEVICES, TROJAN HORSES OR OTHER HARMFUL COMPONENTS THAT MAY BE TRANSMITTED TO OR THROUGH THE SITES OR THE SERVICE BY ANY THIRD PARTY OR FOR ANY LOSS OR DAMAGE OF ANY KIND. BECAUSE SOME STATES OR JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, IN SUCH STATES OR JURISDICTIONS PULL’S LIABILITY WILL BE LIMITED TO THE GREATEST EXTENT PERMITTED BY LAW. 8. Third Party Content Pull or its Sites and Service users may provide hyperlinks to other web sites maintained by third parties (collectively, “Third Party Content”). THE LINKS TO THIRD PARTY WEB SITES AND THIRD PARTY CONTENT ARE PROVIDED FOR YOUR CONVENIENCE AND INFORMATION ONLY. THE CONTENT ON ANY LINKED WEB SITE AND THIRD PARTY CONTENT IS NOT UNDER PULL’S CONTROL AND PULL IS NOT RESPONSIBLE FOR THE CONTENT OF LINKED WEB SITES AND THIRD PARTY CONTENT, INCLUDING ANY FURTHER LINKS CONTAINED IN A THIRD PARTY WEB SITE. IF YOU DECIDE TO ACCESS ANY OF THE THIRD PARTY WEB SITES LINKED TO THE SITES OR THE SERVICE OR VIEW THE THIRD PARTY CONTENT, YOU DO SO ENTIRELY AT YOUR OWN RISK. If a third party links to the Sites or the Service, it is not necessarily an indication of an endorsement, authorization, sponsorship, affiliation, joint venture or partnership by or with Pull. In most cases, Pull is not even aware that a third party has linked to the Sites or the Service. A web site that links to the Sites or Service (i) may link to, but not replicate, Content; (ii) may not create a browser, border environment or frame Content; (iii) may not imply that Pull is endorsing it or its products; (iv) may not misrepresent its relationship with Pull; (v) may not present false or misleading information about Pull’s services or products; and (vi) should not include content that could be construed as distasteful, offensive or controversial, and should contain only Content that is appropriate for all age groups. 9. Your Comments and Feedback We may provide forms or mechanisms for you to provide comments, feedback, suggestions and ideas about our or our suppliers’ Content (such as blog postings), products and services (collectively, “User Content”), and accordingly, we may use any User Content in any way, including in future versions of our Content, products or services, and/or advertising or promotions. You hereby grant us a perpetual, worldwide, irrevocable, royalty-free, non-exclusive, transferable, and sub-licensable license to use, copy, create derivative works of, publicly perform, publicly display, transfer, transmit, translate, distribute and publish, all or any portion of the User Content, in any manner and for any purpose in any media or technology now or hereafter known. In addition, if you provide User Content, you agree not to: (a) defame, abuse, harass, stalk, threaten, or otherwise violate the legal rights of others; (b) publish, post, upload, or otherwise disseminate (collectively, “Transmit”) any Content that is tortious, inappropriate, profane, defamatory, infringing, obscene, indecent, vulgar, unlawful, invasive of another’s privacy, hateful, or racially, ethnically or otherwise objectionable, or that otherwise could result in civil or criminal liability; (c) transmit any Content prohibited by intellectual property (e.g., patent, copyright, trademark, trade secret, or privacy and publicity) or other laws unless you are the owner or have permission to use such rights; (d) transmit Content that contains viruses, corrupted files, or any other software or functionality that may damage or adversely affect the operation of another person’s computer, the Sites or the Service, any software or hardware, or telecommunications equipment, or interfere with any security or rights protection functionality of ours or any third party; (e) advertise or offer to sell any goods or services for any commercial purpose unless you have our written consent to do so; (f) transmit surveys, contests, pyramid schemes, spam and other unsolicited mass mail or email, unsolicited advertising or promotional materials, or chain letters; (g) falsify or delete any author attributions, legal or other proper notices or proprietary designations or labels of the origin or the source of software or other Content; (h) forge headers or manipulate identifiers or other data in order to disguise the origin of any Content transmitted through the Sites or the Service or to manipulate your presence on the Sites or the Service; (i) impersonate any person or entity, including, but not limited to, a Pull representative, or falsely state or otherwise misrepresent your affiliation with a person or entity; or (j) engage in any illegal activities, or incite or provide instructional information about illegal activities, under U.S. and local law. 10. Mobile Services The Service requires the use of mobile devices and wireless services. Pull does not charge for its Service. However, your mobile service provider will charge you for those services that it provides, which are related to the Pull Services. You should check with your carrier to learn about such charges. By using the Service, you agree that Pull may communicate with you regarding the Service by SMS, text message, email or other electronic means to your mobile device or email address, including without limitation providing promotional offers and information from third parties. 11. Local Laws These Terms and your use of the Sites or Service shall be governed by and construed in accordance with the laws of the United States of America and the State of California applicable to agreements made and to be entirely performed within the State of California (even if your use is outside of the State of California), without resort to its conflict of law provisions. You agree that with respect to any disputes or claims not subject to arbitration (as set forth below), any action at law or in equity arising out of or relating to the Sites, the Service or these Terms shall be filed only in the state and federal courts located in Sacramento County, California and you hereby irrevocably and unconditionally consent and submit to the exclusive jurisdiction of such courts. 12. Arbitration THIS ARBITRATION SECTION PROVIDES THAT ANY DISPUTE ARISING FROM THESE TERMS AND/OR YOUR USE OF THE SITES AND/OR SERVICE MAY BE RESOLVED BY BINDING ARBITRATION, WHICH REPLACES THE RIGHT TO GO TO COURT. THIS SECTION PROHIBITS YOU FROM BRINGING A CLASS ACTION OR OTHER REPRESENTATIVE ACTION IN COURT, INCLUDING IN THE FORM OF A PRIVATE ATTORNEY GENERAL ACTION, AND PROHIBITS YOU FROM BRINGING ANY CLAIM IN ARBITRATION AS A CLASS ACTION OR OTHER REPRESENTATIVE ACTION. IN ADDITION, THIS ARBITRATION SECTION PROHIBITS YOUR ABILITY TO BE PART OF ANY CLASS ACTION OR OTHER REPRESENTATIVE ACTION BROUGHT BY ANYONE ELSE, AND PROHIBITS YOUR ABILITY TO BE REPRESENTED IN A CLASS ACTION OR OTHER REPRESENTATIVE ACTION. IF NOT FOR THIS ARBITRATION SECTION, YOU MAY HAVE OTHERWISE HAD A RIGHT TO PARTICIPATE OR BE REPRESENTED IN A CASE FILED IN COURT BY OTHERS (INCLUDING CLASS ACTIONS AND OTHER REPRESENTATIVE ACTIONS) AND YOU AND WE MAY OTHERWISE HAVE HAD A RIGHT TO BRING CLAIMS IN A COURT BEFORE A JUDGE OR JURY. EXCEPT AS OTHERWISE PROVIDED BELOW, YOU WAIVE ANY OTHER RIGHTS THAT YOU WOULD HAVE IF YOU WENT TO A COURT, SUCH AS DISCOVERY OR THE RIGHT TO APPEAL A DECISION. You acknowledge and agree that this Arbitration Section and the agreements contained herein are made pursuant to a transaction that involves interstate commerce, and shall be governed by and be enforceable under the Federal Arbitration Act (the “FAA”) (9 U.S.C. §1 et seq.) as it may be amended from time to time. The circumstances and procedures under which claims (as defined below) may be resolved by arbitration instead of in court are set forth herein. For the purposes of this Arbitration Section, “we” and “us” means Pull, including any parent, subsidiaries, affiliates, licensees, predecessors, successors, or assigns, and all of their officers, directors, employees, agents, and assigns. For the purposes of this Arbitration Section, a “Claim” shall be any claim, dispute or controversy brought by either you or us against the other or against the employees, parents, subsidiaries, affiliates, beneficiaries, agents or assigns of the other and arising from or relating in any way to the Sites or Service or the goods and/or services obtained through use of the Sites or Service. Either party hereto may, without the other’s consent, elect to pursue mandatory binding arbitration with respect to any Claim. A party who initiates a proceeding in court may elect arbitration with respect to any such Claims advanced in the lawsuit by any party or parties. This Arbitration Section governs all Claims, whether based in law, common law, tort, contract, statute, regulation, ordinance, constitutional provision, or any other legal theory of law, including respondeat superior, or any other legal or equitable ground. In addition, this Arbitration Section governs whether or not such Claims seek as remedies declaratory relief, equitable relief, money damages, penalties or injunctions. For the purposes of this Arbitration Section, the term Claim is to be given the broadest possible meaning, including counterclaims, cross claims, third party claims, interpleaders or otherwise. Any claim, dispute or controversy regarding the applicability of this Arbitration Section or the validity of any or all of the Terms or the Pull Privacy Policy are also Claims for the purposes of this Arbitration Section. Notwithstanding anything herein to the contrary, you retain the right to pursue any Claim in a small claims court and proceed on an individual basis for any such Claim that is within the court’s jurisdiction. Arbitration of Claims will be conducted as an individual action. Neither party agrees to any arbitration on a class or representative basis and the arbitrator shall not have authority to proceed with any arbitration on a class or representative basis. Even if a class action lawsuit or other representative action is filed, including in the form of a private attorney general action, any Claim between you and us related to such lawsuits will be subject to an individual arbitration claim if so elected by either you or us. Arbitration proceedings with respect to separate Claims will not be consolidated without the consent of all parties. Only those Claims that are (1) those brought by us against you, or your heirs or your trustee in bankruptcy or (2) those brought by you, or your heirs or your trustee in bankruptcy against us, may be joined in an individual action under this Arbitration Section. The party filing a Claim in arbitration must choose one of the following two arbitration administrators: American Arbitration Association; or JAMS/Endispute (“JAMS”), both of which are independent from us. Any arbitration will be conducted under the rules of the selected arbitration administrator by an impartial third party chosen in accordance with the rules of the selected arbitration administrator and as provided herein. Arbitration hearings will be held at a place chosen by the arbitrator or arbitration administrator within the federal judicial district in which you reside at the time the Claim is filed or at some other place as agreed by the parties in writing. Copies of the current rules of the arbitration administrators named above, and well as information about arbitration and arbitration fees, and instructions for initiating arbitration may be obtained by using the following contact information: American Arbitration Association 1633 Broadway, 10th Floor, New York, NY 10019 Web site: www.adr.org Telephone: 800-778-7879 JAMS 1920 Main Street, Suite 300, Irvine, CA 92614 Web site: www.jamsadr.com Telephone: 800-352-5267 Claims will be resolved by a single, neutral arbitrator, who will be either be a lawyer with at least ten years experience or a retired or former judge. The applicable procedures and rules of the arbitration administrator that are in effect on the date the arbitration is filed will govern the arbitration unless those procedures and rules are inconsistent with this Arbitration Section in which case the procedures and rules of this Arbitration Section will prevail. The procedures and rules of arbitration may limit the amount of discovery available to you or us in the proceeding. Applicable substantive law consistent with the FAA and applicable statutes of limitations will be applied, and the arbitrator will honor claims of privilege recognized at law. At your discretion, you may have a hearing and be represented by counsel. Reasonable steps will be taken by the arbitrator to protect customer information and other confidential information, and the arbitrator may use protective orders to prohibit disclosure outside the arbitration if requested to do so by either party. The arbitrator will have the power to award to a party any damages or other relief provided for under applicable law, Terms and the Pull Privacy Policy. The arbitrator will not have the power to award relief to, against, or for the benefit of any person who is not a party to the proceeding. The arbitrator may award punitive damages or attorneys fees if the law, Terms and the Pull Private Policy authorize such relief. Any award made by the arbitrator will be evidenced in writing by the arbitrator, but the arbitrator is not required to provide a statement of reasons unless requested by a party. Any failure or other delay by either party in enforcing this Arbitration Section at any time, or in connection with any particular Claims, will not constitute a waiver of any rights to require arbitration at a later time or in connection with any other Claims. Decisions rendered in arbitration proceedings will be final and binding on the parties. There shall be no appeal from arbitration decisions other than for arbitrator bias, fraud or misconduct and any award granted in arbitration will be enforceable by any court having jurisdiction as provided by the FAA and/or other applicable law. Regardless of which party prevails, each party will bear the expense of the fees and costs of that party’s attorneys, experts, witnesses, documents and other expenses for arbitration and any appeal. Notwithstanding the foregoing, the arbitrator shall apply applicable law in determining whether a party should recover any or all fees and costs from another party, and the parties will be bound by such determination. This Arbitration Section shall survive: (i) termination of, or changes in, the Terms or the Pull Privacy Policy and any relationship between you and us; (ii) the bankruptcy of any party or any other similar proceeding initiated by you or on your behalf; and (iii) payment in full of any debt by you or by a third party. Should any portion of this Arbitration Section be deemed invalid or unenforceable, the remaining portions shall nevertheless remain in force. 13. Availability Information that Pull publishes in the Sites or in the Service may contain references or cross-references to products, programs or services of Pull that are not necessarily announced or available in your area. Such references do not mean that Pull will announce any of those products, programs or services in your area at any time in the future. You should contact Pull for information regarding the products, programs and services that may be available to you, if any. 14. Termination of Service We may terminate your right to access secured portions of the Sites or Service at any time, without notice, for any or no reason including, but not limited to, conduct that we believe violates these Terms and/or is harmful to other users of the Sites or Service, to Pull, to the business of the Web Site’s Internet service provider, or to other information providers. 15. Miscellaneous If any provision of these Terms is deemed invalid by a court of competent jurisdiction, the invalidity of such provision shall not affect the validity of the remaining provisions of these Terms, which shall remain in full force and effect. No waiver of any term of these Terms shall be deemed a further or continuing waiver of such term or any other term, and Pull’s failure to assert any right or provision under these Terms shall not constitute a waiver of such right or provision. Your Consent To This Agreement By accessing and using the Sitesor the Service, you consent to and agree to be bound by the terms of the foregoing Terms. These Terms, together with Pull’s Privacy Policy and any other legal notices published by Pull on the Sites or in the Service, shall constitute the entire agreement between you and Pull concerning the Sites or the Service. If we decide to change these Terms, we will make an effort to post those changes on the web page so that you will always be able to understand the terms and conditions that apply to your use of the Site or the Service. Your use of the Sites or the Service following any amendment of these Terms will signify your assent to and acceptance of its revised terms. If you have additional questions or comments of any kind, if you see anything on the Sites or in the Service that you think is inappropriate, please let us know by e-mail or by sending your comments or requests to: Pull 947 Bush St, Suite 216 San Francisco, CA 94109 support@getpulled.com Copyright © 2014. Pull LLC. All Rights Reserved. EFFECTIVE AS OF: January 22, 2015 LAST UPDATED: January 22, 2015</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kaj-5i-Y7v" userLabel="header">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcY-KM-WZT">
+                                        <rect key="frame" x="542" y="25" width="42" height="34"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="B8U-Ui-oUi" kind="unwind" unwindAction="unwindFromViewController:" id="NSe-QZ-d1s"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Terms &amp; Conditions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="NvI-ef-MS7">
+                                        <rect key="frame" x="175" y="19" width="251" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="NvI-ef-MS7" secondAttribute="centerY" constant="-5" id="33L-1y-BMU"/>
+                                    <constraint firstItem="hcY-KM-WZT" firstAttribute="baseline" secondItem="NvI-ef-MS7" secondAttribute="baseline" id="3IM-Uc-amk"/>
+                                    <constraint firstAttribute="trailing" secondItem="hcY-KM-WZT" secondAttribute="trailing" constant="16" id="RV2-ow-j0K"/>
+                                    <constraint firstItem="NvI-ef-MS7" firstAttribute="centerY" secondItem="hcY-KM-WZT" secondAttribute="centerY" constant="5" id="dDx-R1-pel"/>
+                                    <constraint firstAttribute="centerX" secondItem="NvI-ef-MS7" secondAttribute="centerX" id="rJc-WM-cNO"/>
+                                    <constraint firstItem="hcY-KM-WZT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NvI-ef-MS7" secondAttribute="trailing" constant="8" id="uWa-VQ-sKP"/>
+                                    <constraint firstAttribute="height" constant="64" id="vQi-mE-7yT"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="dDx-R1-pel"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="YrZ-ED-PlS" firstAttribute="leading" secondItem="yMY-id-87t" secondAttribute="leading" id="3Yl-sl-wxy"/>
+                            <constraint firstAttribute="trailing" secondItem="kaj-5i-Y7v" secondAttribute="trailing" id="1k3-G9-JpU"/>
                             <constraint firstItem="Q0a-Ym-lue" firstAttribute="trailing" secondItem="yMY-id-87t" secondAttribute="trailingMargin" id="ZO3-I4-4Vn"/>
                             <constraint firstItem="XRz-Pr-CVQ" firstAttribute="top" secondItem="Q0a-Ym-lue" secondAttribute="bottom" id="b3v-x2-V3W"/>
+                            <constraint firstItem="Q0a-Ym-lue" firstAttribute="top" secondItem="kaj-5i-Y7v" secondAttribute="bottom" id="bzJ-pG-VVt"/>
+                            <constraint firstItem="kaj-5i-Y7v" firstAttribute="leading" secondItem="yMY-id-87t" secondAttribute="leading" id="nCV-0N-uG4"/>
                             <constraint firstItem="Q0a-Ym-lue" firstAttribute="leading" secondItem="yMY-id-87t" secondAttribute="leadingMargin" id="nWi-ZB-dB2"/>
-                            <constraint firstItem="YrZ-ED-PlS" firstAttribute="top" secondItem="yMY-id-87t" secondAttribute="top" id="ofq-19-OlX"/>
-                            <constraint firstAttribute="trailing" secondItem="YrZ-ED-PlS" secondAttribute="trailing" id="vUg-aP-v6r"/>
-                            <constraint firstItem="Q0a-Ym-lue" firstAttribute="top" secondItem="YrZ-ED-PlS" secondAttribute="bottom" id="xfr-II-EBp"/>
+                            <constraint firstItem="kaj-5i-Y7v" firstAttribute="top" secondItem="yMY-id-87t" secondAttribute="top" id="nfu-jG-3Cb"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AHY-pb-tuu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="B8U-Ui-oUi" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3841" y="2929"/>
         </scene>
@@ -1859,59 +1858,66 @@ _____________________
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JhI-wN-7gm" userLabel="header">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Privacy Policy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0n-2M-a7A">
-                                        <rect key="frame" x="227" y="26" width="146" height="33"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tak-yc-FwJ">
-                                        <rect key="frame" x="560" y="22" width="24" height="31"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="18"/>
-                                        <state key="normal" image="nav_blue_down.png">
-                                            <color key="titleColor" red="0.53725490200000003" green="0.1843137255" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="ibDone:" destination="5NZ-nN-ZGk" eventType="touchUpInside" id="nqV-KY-0nK"/>
-                                            <segue destination="2KF-VG-23C" kind="unwind" unwindAction="unwindFromViewController:" id="1VD-rQ-mkW"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="y0n-2M-a7A" secondAttribute="centerX" id="8gY-pc-zlB"/>
-                                    <constraint firstAttribute="trailing" secondItem="tak-yc-FwJ" secondAttribute="trailing" constant="16" id="Fdi-PK-Twt"/>
-                                    <constraint firstItem="tak-yc-FwJ" firstAttribute="centerY" secondItem="y0n-2M-a7A" secondAttribute="centerY" constant="-5" id="G8g-3w-NEe"/>
-                                    <constraint firstAttribute="centerY" secondItem="y0n-2M-a7A" secondAttribute="centerY" constant="-10" id="KY5-AL-tBF"/>
-                                    <constraint firstAttribute="height" constant="64" id="MPQ-TM-CfO"/>
-                                </constraints>
-                            </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHZ-jG-qGV">
                                 <rect key="frame" x="16" y="64" width="568" height="536"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">We respect and are committed to protecting your privacy. That is why we have adopted this privacy policy (“Policy”). The Policy lets you know how and for what purposes your personal information is being collected, processed, and used. We pledge that we will take reasonable steps to ensure that your personal information will only be used in ways that are in compliance with this Policy. This Policy applies to the Web Sites located at www.getpulled.com owned and operated by Pull LLC. (“Pull”, “we”, “us”) and the Pull service accessed through our mobile applications (collectively, the “Service”). This privacy policy is designed to tell you how we collect and use personal information (as defined below) so you can make an informed decision about using our Site and the Pull Service. Your use of the Site is also governed by Terms &amp; Conditions (“Terms”) located below and which is hereby incorporated herein as if stated in full. We will make an effort to update this web page with any changes to this Policy and you are encouraged to review this Policy frequently (the date of the most recent revision to this Policy appears at the end of this Policy). Use of Information In order to participate in certain features of the Sites and the Service, we may require that individuals provide us with certain specific information that specifically identifies an individual (such as the individual’s full name and mobile number) and information about that individual’s location or activities, such as information about his or her use of the Service. The foregoing use includes submitting Feedback forms (as defined in the Terms located below) for use in connection with the Sites and Service. Personal information does not include "aggregate" information, which is data we collect about the use of the Sites or the Service or categories of the Sites and Service users, from which any personal information has been removed. For example, information that 10% of users have invited others to use the Service is aggregate information. We collect aggregate data for a number of purposes, including to help us understand trends and user needs so that we can better consider new features, products and services, and tailor existing features, products and services, etc., to user desires. This policy in no way limits or restricts our collection of aggregate information. Personal Information Collected Personal information may be collected in a number of ways when you use the various services and activities available through the Pull Service. At several places within our Mobile Application(s), we may collect certain information you voluntarily provide to us which may contain personal information. For example, if you begin using the Service, send us an email, or submit content, we may collect your name, photo, and the mobile number which you provide. In addition, from time to time we may collect contact or other personal or demographic information you provide in connection with your participation in surveys or promotional offers. When turned on and with an active Pull, the Service will automatically collect location information from your mobile device and/or your mobile carrier. When you use the service through your mobile device, some information is also collected automatically, such as your Internet Protocol (IP) address, your operating system, the browser type, the address of a referring web site, and your activity on the application and through the Service. This information can be considered personal information if we combine it with, or link it to, any of the identifying information mentioned above. Personal location information will be used in the aggregate only. If you choose to discontinue allowing us to collect and use your location information, you may discontinue the use of the Service. We may also automatically collect certain information through the use of "cookies”, which are small data files that are stored on a user's hard drive at the request of a Web site to enable the site to recognize users who have previously visited them and retain certain information, such as customer preferences and history. If we combine cookies with or link them to any of the personal information, we would treat this information as personal information. If you wish to block, erase, or be warned of cookies, please refer to your browser instructions or help screen to learn about these functions. Mobile Analytics We use mobile analytics software to allow us to better understand the functionality of our Mobile Application(s) on your phone. This software may record information such as how often you use the application, the events that occur within the application, aggregated usage, performance data, and from where the application was downloaded. We do not link the information we store within the analytics software to any personally identifiable information you submit within the mobile application(s). Usage and Disclosure In general, we use personal information we may collect (such as your name or phone number) to facilitate your use of the mobile application(s) and Pull Service, to provide you with information, products and services you request, to administer and assist us with the operation of the Sites and Mobile Application(s) and of our Service, and for the purpose for which the information was provided. For example, we may use the information we collect: (1) to respond to your emails, submissions, comments, requests or complaints, (2) to ensure that the Service is working correctly and that you are being served the most recent version, (3) to allow other users of the Service that you designate to temporarily view your location in real-time, (4) to request feedback and to enable us to develop, customize, and improve the Sites and our information and services, and (5) for the specific purpose for which the information was provided. In addition, if you so indicate in the event of sharing your contact information with us, we may use the information we collect to send you news and product and service updates, including contacting you about our services, products, activities, special events or offers and for other marketing, informational, product development and promotional purposes, including notifications about new features and or improvements to the Sites or our products and services. We may also receive information from third parties with whom we have business relationships, and may combine this information with the other personal information we have about you. In such cases, this Policy governs our use and disclosure of such information. Information Shared with Third Parties We do not rent, share, or sell any personal information to third parties in any ways different from what is disclosed in this Policy. We may, however, provide other non-personal information and aggregate information to third parties without your authorization. Regarding SMS functionality, when Pull sends location information from your mobile device to those recipients designated by you, your phone number will be provided to them along with such identifying information as you choose, such as name and/or photo. Pull does not use its users’ mobile numbers or other personally identifiable information for commercial or marketing purposes without your consent or except as part of a program or feature for which you will have the ability to opt-in or opt-out. We may share non-personally-identifiable information (such as anonymous user usage data, referring/exit pages and URLs, platform types, number of clicks, etc.) with third parties to demonstrate the usage patterns for Pull’s advertisements, marketing, promotions and/or services on the Service. We are not responsible for any information you provide to these parties directly, and we encourage you to become familiar with their practices before disclosing information directly to such third parties with which you come into contact. You should only share your location with people you know and trust not to convey your location to others. You should also note that personal information you share with others may be forwarded and information you post to public areas of the Sites may become publicly available. In addition to the other times or occasions on which we might disclose information about users of the Sites, we might also disclose information when required by law or in the good-faith belief that such disclosure is necessary to: (a) comply with a legal process and applicable laws; (b) enforce this Policy; (c) respond to claims that any materials, documents, images, graphics, logos, designs, audio, video and any other information provided from or on the Sites or Service violates the rights of third parties; or (d) protect the rights, property or personal safety of Pull its users, or the public. We use reasonable precautions to keep the information that is disclosed to us secure. We provide personally identifiable information and non-personally-identifiable information to our subsidiaries, affiliated companies, or other businesses or persons for the purpose of processing such information on our behalf. We require that these parties agree to process such information in compliance with our Privacy Policy, and we use reasonable efforts to limit their use of such information and to use other appropriate confidentiality and security measures. We also reserve the right to disclose personally identifiable information and/or non-personally-identifiable information in connection with the enforcement of our Terms located below, take precautions against liability, to investigate and defend against any third-party claims or allegations, to assist government enforcement agencies, to protect the security or integrity of the Sites and Service, and to protect the rights, property, or personal safety of Pull, our users, or others. We reserve the right to transfer your personally identifiable information, as well as any other information, in connection with the sale or other disposition of all or part of Pull Apps business and/or assets. We also cannot make any representations regarding the use or transfer of your personally identifiable information or other information that we may have in the event of our bankruptcy, reorganization, insolvency, receivership or an assignment for the benefit of creditors. Furthermore, we cannot and will not be responsible for any breach of security by any third parties or for any actions of any third parties (including other users of the Sites or Service) that receive any of the information that is disclosed to us. The Sites also link to a wide variety of other web sites and the Sites may contain advertisements of third parties. We are not and cannot be responsible for the privacy policies of those web sites of third parties or how they treat information about their users. Any personal information that you may provide in a public or semi-public forum through the Sites or Service are displayed to any person accessing the Sites or Service. ANY PERSONAL INFORMATION THAT YOU SHARE IN A PUBLIC OR SEMI-PUBLIC FORUM IS NOT SUBJECT TO THIS PRIVACY POLICY. ADDITIONALLY, PULL APPS HAS NO CONTROL OF THE FURTHER DISSEMINATION OF INFORMATION THAT YOU PROVIDE TO ANY THIRD PARTY. Measures Taken To Ensure Protection of Your Information Pull endeavors to secure your personal information from unauthorized access, use or disclosure by putting into place measures to safeguard the information we collect. Please be aware, however, that despite our efforts, no security measures are perfect or impenetrable, and that we cannot guarantee that the Sites or Service will be free of any defects or flaws that affect your use of it or the security of your information. When you enter sensitive information or we automatically collect sensitive information on our forms, we encrypt the transmission of that information using secure socket layer technology (SSL). Information From Children The Site and Mobile Applications are not intended or designed to attract users under the age of thirteen (13). We do not collect personally identifiable data from any person that we know to be under the age of thirteen (13). You affirm that you are thirteen (13) years of age or older and are fully able and competent to enter into the terms, conditions, obligations, affirmations, representations, and warranties set forth in this Privacy Policy, and to abide by and comply with this Policy. THE WEB SITES AND MOBILE APPLICATIONS ARE NOT INTENDED FOR USERS UNDER THE AGE OF THIRTEEN (13). Choices With Your Personal Information Whether you submit personally identifiable information to Pull is entirely up to you. You may decide not to submit personally identifiable information through the Sites or Mobile Application(s), in which case Pull LLC may not be able to provide certain services to you. Please note that any information that you post, upload or transmit through the Sites or Service remain subject to our Terms located below. We do not keep your Pull’s active for longer than 6 hours. If you wish to discontinue use of the Pull service and would like to have your account permanently deleted, you may send us an email at support@getpulled.com Once your account is deleted, you will no longer have access to your Recent Pull’s or any other information associated with your use of the Pull Service. Data Retention We will retain your information for as long as your account is active or as needed to provide you services. If you wish to cancel your account or request that we no longer use your information to provide you services contact us at support@getpulled.com. We will retain and use your information as necessary to comply with our legal obligations, resolve disputes, and enforce our agreements. Your Consent To This Privacy Policy By using the Sites or Mobile Application(s), you consent to the collection and use of information by us as specified above or as we otherwise see fit unless you inform us otherwise by means of the procedure identified below. If we decide to change this Privacy Policy, we will make an effort to post those changes on this web page so that you will always be able to understand what information we collect, how we use that information and under what circumstances we may disclose that information to others. Your use of the Sites or Service following any amendment of this Policy will signify your assent to and acceptance of its revised terms. We may use comments, information or feedback that you may submit in any manner that we may choose without notice or compensation to you. If you have additional questions or comments of any kind, if you see anything on the Sites or in the Service that you think is inappropriate, please let us know by e-mail or by sending your comments or requests to: Pull 947 Bush St, Suite 216 San Francisco, CA 94109 support@getpulled.com Copyright © 2014. Pull LLC. All Rights Reserved. EFFECTIVE AS OF: January 22, 2015 LAST UPDATED: January 22, 2015</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eBr-B2-xjK" userLabel="header">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZS-qZ-Kpy">
+                                        <rect key="frame" x="542" y="25" width="42" height="34"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="Pmo-eO-ALO" kind="unwind" unwindAction="unwindFromViewController:" id="fZm-Cj-RWQ"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Privacy Policy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuG-wT-Lsj">
+                                        <rect key="frame" x="217" y="19" width="177" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="BuG-wT-Lsj" firstAttribute="centerY" secondItem="JZS-qZ-Kpy" secondAttribute="centerY" constant="5" id="4zk-Wq-DgK"/>
+                                    <constraint firstAttribute="centerY" secondItem="BuG-wT-Lsj" secondAttribute="centerY" constant="-5" id="ABV-Ex-VXN"/>
+                                    <constraint firstItem="JZS-qZ-Kpy" firstAttribute="baseline" secondItem="BuG-wT-Lsj" secondAttribute="baseline" id="Djc-go-VKS"/>
+                                    <constraint firstAttribute="trailing" secondItem="JZS-qZ-Kpy" secondAttribute="trailing" constant="16" id="ZRZ-kl-180"/>
+                                    <constraint firstAttribute="height" constant="64" id="apW-ZX-FDm"/>
+                                    <constraint firstAttribute="centerX" secondItem="BuG-wT-Lsj" secondAttribute="centerX" id="qA7-5E-v5h"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="4zk-Wq-DgK"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="RHZ-jG-qGV" firstAttribute="trailing" secondItem="kGh-60-1xp" secondAttribute="trailingMargin" id="0qX-eg-OVg"/>
-                            <constraint firstItem="JhI-wN-7gm" firstAttribute="top" secondItem="kGh-60-1xp" secondAttribute="top" id="Qo6-XQ-SYF"/>
-                            <constraint firstItem="RHZ-jG-qGV" firstAttribute="top" secondItem="JhI-wN-7gm" secondAttribute="bottom" id="byy-ot-g8I"/>
-                            <constraint firstItem="JhI-wN-7gm" firstAttribute="leading" secondItem="kGh-60-1xp" secondAttribute="leading" id="d6Y-84-W5t"/>
+                            <constraint firstItem="eBr-B2-xjK" firstAttribute="leading" secondItem="kGh-60-1xp" secondAttribute="leading" id="Be8-LN-FvS"/>
+                            <constraint firstItem="RHZ-jG-qGV" firstAttribute="top" secondItem="eBr-B2-xjK" secondAttribute="bottom" id="EAc-3C-2se"/>
+                            <constraint firstAttribute="trailing" secondItem="eBr-B2-xjK" secondAttribute="trailing" id="KlG-qP-pjL"/>
                             <constraint firstItem="jXS-sZ-aie" firstAttribute="top" secondItem="RHZ-jG-qGV" secondAttribute="bottom" id="fdB-Cy-Hhe"/>
-                            <constraint firstAttribute="trailing" secondItem="JhI-wN-7gm" secondAttribute="trailing" id="mLa-60-SG8"/>
                             <constraint firstItem="RHZ-jG-qGV" firstAttribute="leading" secondItem="kGh-60-1xp" secondAttribute="leadingMargin" id="sW2-Ub-t6L"/>
+                            <constraint firstItem="eBr-B2-xjK" firstAttribute="top" secondItem="kGh-60-1xp" secondAttribute="top" id="seK-d1-hKo"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y2J-S0-486" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Pmo-eO-ALO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3841" y="2256"/>
         </scene>
@@ -2099,8 +2105,8 @@ _____________________
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQd-cW-7XA">
-                                        <rect key="frame" x="8" y="27" width="56" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <rect key="frame" x="8" y="27" width="54" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2709,7 +2715,9 @@ _____________________
         </scene>
     </scenes>
     <resources>
+        <image name="app_settings_white.png" width="81" height="82"/>
         <image name="compass.png" width="284" height="331"/>
+        <image name="contact_white.png" width="77" height="70"/>
         <image name="continue_facebook.png" width="486" height="114"/>
         <image name="continue_facebook_pressed.png" width="486" height="114"/>
         <image name="cutout_name.png" width="488" height="67"/>
@@ -2718,7 +2726,7 @@ _____________________
         <image name="golden_ticket_large_upright.png" width="55" height="88"/>
         <image name="golden_ticket_small.png" width="35" height="32"/>
         <image name="gradient_background.png" width="1274" height="1899"/>
-        <image name="home_icon.png" width="30" height="30"/>
+        <image name="home_white.png" width="51" height="47"/>
         <image name="learn_more_1.png" width="514" height="579"/>
         <image name="learn_more_2.png" width="575" height="431"/>
         <image name="learn_more_3.png" width="642" height="290"/>
@@ -2731,11 +2739,9 @@ _____________________
         <image name="permission_request_notification.png" width="499" height="444"/>
         <image name="pull_text_white.png" width="475" height="474"/>
         <image name="request_notification.png" width="21" height="22"/>
-        <image name="settings_contact.png" width="35" height="37"/>
-        <image name="settings_gear.png" width="34" height="32"/>
-        <image name="settings_icon.png" width="77" height="70"/>
-        <image name="settings_icon_purple.png" width="28" height="27"/>
-        <image name="settings_share.png" width="33" height="46"/>
+        <image name="setting_white.png" width="50" height="52"/>
+        <image name="settings_purple.png" width="137" height="142"/>
+        <image name="share_white.png" width="75" height="101"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fUs-SP-spM"/>

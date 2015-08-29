@@ -36,8 +36,6 @@
     [super viewDidLoad];
     
     [self _populateUserInfo];
-    
-    [self.view insertSubview:[UIView pullVisualEffectViewWithFrame:self.view.bounds] atIndex:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated

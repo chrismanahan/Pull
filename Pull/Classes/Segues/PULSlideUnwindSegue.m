@@ -43,6 +43,7 @@
                          
                          dispatch_async(dispatch_get_main_queue(), ^{
                              [sourceViewController dismissViewControllerAnimated:NO completion:NULL];
+                             [destView removeFromSuperview];
                          });
                          
 //                         [destView removeFromSuperview]; // remove from temp super view

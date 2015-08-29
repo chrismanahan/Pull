@@ -10,13 +10,13 @@
 
 #import "NZCircularImageView.h"
 
+const CGFloat kPULCompassSmileyWinkDuration = 6;
+
 @interface PULCompassView ()
 
 @property (strong, nonatomic) IBOutlet NZCircularImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIImageView *overlayImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *compassImageView;
-
-
 
 @end
 
@@ -30,17 +30,35 @@
     _imageView.borderWidth = @(3);
 }
 
+- (void)_displayNoActivePulls:(BOOL)display
+{
+    if (display)
+    {
+        [self _setCompassView:NO];
+        _overlayImageView.hidden = YES;
+        _imageView.backgroundColor = [UIColor whiteColor];
+        
+        _imageView.animationImages = @[[UIImage imageNamed:@"smiley_smile_with_background"],
+                                       [UIImage imageNamed:@"smiley_wink_with_background"]];
+        _imageView.animationDuration = kPULCompassSmileyWinkDuration;
+        [_imageView startAnimating];
+    }
+    else
+    {
+        [_imageView stopAnimating];
+        _imageView.animationImages = nil;
+    }
+}
+
 - (void)setPull:(PULPull*)pull
 {
     if (!pull)
     {
         _pull = nil;
-        [self _setCompassView:NO];
-        _overlayImageView.hidden = YES;
-        _imageView.backgroundColor = [UIColor whiteColor];
-        [_imageView setImage:[UIImage imageNamed:@"smiley_smile_with_background"]];
+        [self _displayNoActivePulls:YES];
         return;
     }
+    [self _displayNoActivePulls:NO];
     
     [_imageView setImageWithResizeURL:[pull otherUser].imageUrlString];
     

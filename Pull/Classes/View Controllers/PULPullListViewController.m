@@ -39,7 +39,6 @@ const NSInteger kPULPulledFarSection = 2;
 @interface PULPullListViewController () <UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *headerView;
-@property (strong, nonatomic) IBOutlet UIView *noActivityOverlay;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet PULCompassView *compassView;
@@ -227,15 +226,6 @@ const NSInteger kPULPulledFarSection = 2;
                 [self updateUI];
             });
         }];
-
-        if ([PULAccount currentUser].pulls.count > 0)
-        {
-            _noActivityOverlay.hidden = YES;
-        }
-        else
-        {
-            _noActivityOverlay.hidden = NO;
-        }
     }
     else
     {
@@ -448,6 +438,10 @@ const NSInteger kPULPulledFarSection = 2;
         [self _setNameLabel:nil];
         [_compassView setPull:nil];
         _dialogContainer.hidden = YES;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kPULCompassSmileyWinkDuration / 1.725 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            _nameLabel.text = @"tap + to get started";
+        });
     }
     
     _cutoutImageView.hidden = !show;

@@ -107,6 +107,7 @@
 {
     [super viewDidLoad];
     
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     _searchBar.tintColor = PUL_Purple;
 }
 

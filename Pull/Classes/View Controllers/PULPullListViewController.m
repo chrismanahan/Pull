@@ -448,7 +448,7 @@ const NSInteger kPULPulledFarSection = 2;
             else
             {
                 [self _showNoActivePulls:NO];
-            }
+            };
         });
     }
     else

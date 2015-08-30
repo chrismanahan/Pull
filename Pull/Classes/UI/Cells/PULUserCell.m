@@ -22,6 +22,39 @@
 
 @implementation PULUserCell
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    if (_accessoryButton)
+    {
+        _accessoryButton.layer.cornerRadius = 5;
+        
+        switch (_accessoryButtonType) {
+            case PULUserCellAccessoryButtonTypeLight:
+            {
+                _accessoryButton.backgroundColor = [UIColor whiteColor];
+                UIColor *textColor = PUL_Purple;
+                [_accessoryButton setTitleColor:textColor forState:UIControlStateNormal];
+                break;
+            }
+            case PULUserCellAccessoryButtonTypeDark:
+            {
+                _accessoryButton.backgroundColor = PUL_DarkPurple;
+                UIColor *textColor = PUL_LightGray;
+                [_accessoryButton setTitleColor:textColor forState:UIControlStateNormal];
+                break;
+            }
+            case PULUserCellAccessoryButtonTypeNone:
+            default:
+            {
+                _accessoryButton.hidden = YES;
+                break;
+            }
+        }
+    }
+}
+
 #pragma mark - Properties
 - (void)setUser:(PULUser *)user
 {

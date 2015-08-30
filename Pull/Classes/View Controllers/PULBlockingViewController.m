@@ -11,11 +11,15 @@
 #import "PULUserCell.h"
 
 
-@interface PULBlockingViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface PULBlockingViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (nonatomic, strong) PULUser *selectedUser;
+
+@property (nonatomic, strong) NSArray *searchFriendsDatasource;
+@property (nonatomic, strong) NSArray *searchBlockedDatasource;
 
 @end
 
@@ -26,6 +30,13 @@
     [super viewWillAppear:animated];
     
     [_tableView reloadData];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 
 #pragma mark - actions
@@ -43,27 +54,24 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
-    {
-        return [PULAccount currentUser].friends.count;
-    }
-    else
-    {
-        return [PULAccount currentUser].blocked.count;
-    }
+    return [self _dataSourceForSection:section].count;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellId = indexPath.section == 0 ? @"FriendCell" : @"BlockedCell";
-    FireMutableArray *dataSource = indexPath.section == 0 ? [PULAccount currentUser].friends : [PULAccount currentUser].blocked;
+    NSString *cellId = @"UserCell";// indexPath.section == 0 ? @"FriendCell" : @"BlockedCell";
+    NSArray *dataSource = [self _dataSourceForSection:indexPath.section];
     
     PULUser *user = dataSource[indexPath.row];
-    
     PULUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    BOOL isUnblockedSection = indexPath.section == 0;
     
     cell.user = user;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryButtonType = isUnblockedSection ? PULUserCellAccessoryButtonTypeLight : PULUserCellAccessoryButtonTypeDark;
+    [cell.accessoryButton setTitle:(isUnblockedSection ? @"Block" : @"Unblock")
+                          forState:UIControlStateNormal];
+    
     
     return cell;
 }
@@ -74,7 +82,7 @@
     
     switch (section)
     {
-        case 0: title = @"Friends"; break;
+        case 0: title = @"Not Blocked"; break;
         case 1: title = @"Blocked"; break;
     }
     
@@ -83,7 +91,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    NSArray *dataSource = section == 0 ? [PULAccount currentUser].friends : [PULAccount currentUser].blocked;
+    NSArray *dataSource = [self _dataSourceForSection:section];
     
     if (dataSource.count != 0)
     {
@@ -95,10 +103,23 @@
     }
 }
 
+- (NSArray*)_dataSourceForSection:(NSInteger)section
+{
+    if (!_searchFriendsDatasource)
+    {
+        return section == 0 ? [PULAccount currentUser].friends : [PULAccount currentUser].blocked;
+    }
+    else
+    {
+        return section == 0 ? _searchFriendsDatasource : _searchBlockedDatasource;
+    }
+}
+
 #pragma mark - table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     NSArray *dataSource = indexPath.section == 0 ? [PULAccount currentUser].friends : [PULAccount currentUser].blocked;
+    NSArray *dataSource = [self _dataSourceForSection:indexPath.section];
+    
     PULUser *user = dataSource[indexPath.row];
     
     UIAlertView *alert;
@@ -149,7 +170,66 @@
 
     }
     
+//    _searchBar.text = @"";
+//    _searchBlockedDatasource = nil;
+//    _searchFriendsDatasource = nil;
+    
+    if (_searchBar.text.length > 0)
+    {
+        [self searchBar:_searchBar textDidChange:_searchBar.text];
+    }
     _selectedUser = nil;
 }
+
+#pragma mark - UISearchBar Delgate
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self _reloadDatasourceForSearch:searchText];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+}
+
+#pragma mark - Private
+#pragma mark Helpers
+- (void)_reloadDatasourceForSearch:(NSString*)search
+{
+    if (!search || search.length == 0)
+    {
+        _searchFriendsDatasource = nil;
+        _searchBlockedDatasource = nil;
+    }
+    else
+    {
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
+        search = search.lowercaseString;
+        
+        for (PULUser *user in [PULAccount currentUser].friends)
+        {
+            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
+                [user.fullName.lowercaseString hasPrefix:search])
+            {
+                [temp addObject:user];
+            }
+        }
+        _searchFriendsDatasource = [[NSArray alloc] initWithArray:temp];
+        
+        temp = [[NSMutableArray alloc] init];
+        for (PULUser *user in [PULAccount currentUser].blocked)
+        {
+            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
+                [user.fullName.lowercaseString hasPrefix:search])
+            {
+                [temp addObject:user];
+            }
+        }
+        _searchBlockedDatasource = [[NSArray alloc] initWithArray:temp];
+    }
+    
+    [_tableView reloadData];
+}
+
 
 @end

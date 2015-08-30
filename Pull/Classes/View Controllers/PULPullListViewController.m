@@ -440,7 +440,10 @@ const NSInteger kPULPulledFarSection = 2;
         _dialogContainer.hidden = YES;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kPULCompassSmileyWinkDuration / 1.725 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            _nameLabel.text = @"tap + to get started";
+            if (!_displayedPull)
+            {
+                _nameLabel.text = @"tap + to get started";
+            }
         });
     }
     

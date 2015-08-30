@@ -158,22 +158,23 @@
 
 - (void)_deselectAllButtons
 {
-    _select12HourButton.backgroundColor = PUL_LightGray;
-    _select1HourButton.backgroundColor = PUL_LightGray;
-    _select24HourButton.backgroundColor = PUL_LightGray;
-    _selectAlwaysButton.backgroundColor = PUL_LightGray;
+    _select12HourButton.backgroundColor = [UIColor whiteColor];
+    _select1HourButton.backgroundColor = [UIColor whiteColor];
+    _select24HourButton.backgroundColor = [UIColor whiteColor];
+    _selectAlwaysButton.backgroundColor = [UIColor whiteColor];
     
-    [_select12HourButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_select1HourButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_select24HourButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_selectAlwaysButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    UIColor *purple = PUL_Purple;
+    [_select12HourButton setTitleColor:purple forState:UIControlStateNormal];
+    [_select1HourButton setTitleColor:purple forState:UIControlStateNormal];
+    [_select24HourButton setTitleColor:purple forState:UIControlStateNormal];
+    [_selectAlwaysButton setTitleColor:purple forState:UIControlStateNormal];
 }
 
 - (void)_selectButton:(UIButton*)button
 {
     [self _deselectAllButtons];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    button.backgroundColor = PUL_Purple;
+    button.backgroundColor = PUL_DarkPurple;
 }
 
 @end

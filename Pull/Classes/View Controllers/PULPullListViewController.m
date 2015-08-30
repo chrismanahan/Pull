@@ -438,13 +438,22 @@ const NSInteger kPULPulledFarSection = 2;
         [self _setNameLabel:nil];
         [_compassView setPull:nil];
         _dialogContainer.hidden = YES;
+        _nameLabel.textColor = PUL_LightPurple;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kPULCompassSmileyWinkDuration / 1.725 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (!_displayedPull)
             {
                 _nameLabel.text = @"tap + to get started";
             }
+            else
+            {
+                [self _showNoActivePulls:NO];
+            }
         });
+    }
+    else
+    {
+        _nameLabel.textColor = [UIColor whiteColor];
     }
     
     _cutoutImageView.hidden = !show;

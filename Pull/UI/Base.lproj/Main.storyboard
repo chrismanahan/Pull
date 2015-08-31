@@ -394,14 +394,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Col-68-KCe" userLabel="Header" customClass="PULHeaderView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-bU-Xro" userLabel="Title label">
-                                        <rect key="frame" x="269" y="10" width="63" height="55"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-bU-Xro" userLabel="Title label">
+                                        <rect key="frame" x="267" y="13" width="67" height="49"/>
                                         <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="42"/>
                                         <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0IB-vY-Nh3" userLabel="Left button">
-                                        <rect key="frame" x="8" y="13" width="50" height="50"/>
+                                        <rect key="frame" x="8" y="14" width="45" height="47"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="589-g3-gO0"/>
@@ -418,14 +418,16 @@
                                             <mask key="constraints">
                                                 <exclude reference="589-g3-gO0"/>
                                                 <exclude reference="OV9-1r-uiu"/>
+                                                <exclude reference="QV6-sC-qsI"/>
                                                 <exclude reference="S1z-Hy-KiO"/>
+                                                <exclude reference="iJE-kR-yaF"/>
                                             </mask>
                                         </variation>
                                         <connections>
                                             <segue destination="ybE-zO-cWY" kind="custom" identifier="PULSlideSegue" customClass="PULSlideSegue" id="HgX-he-Lzx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AME-TT-MLA">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AME-TT-MLA">
                                         <rect key="frame" x="552" y="17" width="40" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -2692,7 +2694,7 @@ _____________________
     <resources>
         <image name="app_settings_white.png" width="81" height="82"/>
         <image name="compass.png" width="284" height="331"/>
-        <image name="contact_white.png" width="77" height="70"/>
+        <image name="contact_white.png" width="60" height="60"/>
         <image name="continue_facebook.png" width="486" height="114"/>
         <image name="continue_facebook_pressed.png" width="486" height="114"/>
         <image name="cutout_name.png" width="488" height="67"/>
@@ -2708,14 +2710,14 @@ _____________________
         <image name="learn_more_arrow.png" width="23" height="33"/>
         <image name="more_pull_left.png" width="38" height="38"/>
         <image name="more_pull_right.png" width="38" height="37"/>
-        <image name="new_pull.png" width="145" height="145"/>
+        <image name="new_pull.png" width="43" height="43"/>
         <image name="permission_request_location.png" width="442" height="444"/>
         <image name="permission_request_notification.png" width="499" height="444"/>
         <image name="pull_text_white.png" width="475" height="474"/>
         <image name="request_notification.png" width="21" height="22"/>
         <image name="setting_white.png" width="50" height="52"/>
-        <image name="settings_purple.png" width="137" height="142"/>
-        <image name="share_white.png" width="75" height="101"/>
+        <image name="settings_purple.png" width="45" height="47"/>
+        <image name="share_white.png" width="43" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="YmG-62-Utd"/>

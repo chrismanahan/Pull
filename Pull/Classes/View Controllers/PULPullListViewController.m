@@ -268,7 +268,7 @@ const NSInteger kPULPulledFarSection = 2;
             _dialogAcceptButton.hidden = YES;
             _dialogDeclineButton.hidden = YES;
             _dialogCancelButton.hidden = YES;
-            _dialogMessageLabel.text = [NSString stringWithFormat:@"%@ isn't within %zd ft yet. Don't worry, we'll notify you when they're near", [_displayedPull otherUser].firstName, kPULNearbyDistanceFeet];
+            _dialogMessageLabel.text = [NSString stringWithFormat:@"%@ isn't within %zd ft yet. Don't worry, we'll notify you when they're near", [_displayedPull otherUser].firstName, kPULDistanceNearbyFeet];
         }
     }
     else

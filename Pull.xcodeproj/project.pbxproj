@@ -483,8 +483,6 @@
 		3302F3111A73EE2600E11F01 /* timeburner_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = timeburner_regular.ttf; sourceTree = "<group>"; };
 		3304995A1A1815F3003FEA42 /* PULPullDirectionArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullDirectionArrowView.h; sourceTree = "<group>"; };
 		3304995B1A1815F3003FEA42 /* PULPullDirectionArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPullDirectionArrowView.m; sourceTree = "<group>"; };
-		3304995D1A182542003FEA42 /* PULPullDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullDetailViewController.h; sourceTree = "<group>"; };
-		3304995E1A182542003FEA42 /* PULPullDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPullDetailViewController.m; sourceTree = "<group>"; };
 		3337647C1A9134650057E3DB /* loading_blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading_blank.png; sourceTree = "<group>"; };
 		3337647D1A9134650057E3DB /* loading_blank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading_blank@2x.png"; sourceTree = "<group>"; };
 		3337647E1A9134650057E3DB /* loading_blank@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading_blank@3x.png"; sourceTree = "<group>"; };
@@ -1012,8 +1010,6 @@
 				334044961A17AC3A00B00BC3 /* PULLoginViewController.m */,
 				3340449B1A17D33A00B00BC3 /* PULPullListViewController.h */,
 				3340449C1A17D33A00B00BC3 /* PULPullListViewController.m */,
-				3304995D1A182542003FEA42 /* PULPullDetailViewController.h */,
-				3304995E1A182542003FEA42 /* PULPullDetailViewController.m */,
 				9531F8A21A86803A003CBEDF /* PULSettingsViewController.h */,
 				9531F8A31A86803A003CBEDF /* PULSettingsViewController.m */,
 				9531F8A51A86B028003CBEDF /* PULBlockingViewController.h */,

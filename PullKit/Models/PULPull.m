@@ -144,7 +144,7 @@ const NSTimeInterval kPullDurationAlways  = 0;
         id obs = [THObserver observerForObject:user keyPath:@"location" oldAndNewBlock:^(id oldValue, id newValue) {
             PULUser *otherUser = [self otherUserThatIsNot:user];
             
-            if ([user.location distanceFromLocation:otherUser.location] <= kPULNearbyDistance)
+            if ([user.location distanceFromLocation:otherUser.location] <= kPULDistanceNearbyMeters)
             {
                 if (!_nearby)
                 {

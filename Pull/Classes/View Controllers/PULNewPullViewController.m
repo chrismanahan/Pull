@@ -45,7 +45,7 @@
     [super viewWillAppear:animated];
     
     _captionTextView.layer.cornerRadius = 5.0;
-    _disclaimerLabel.text = [NSString stringWithFormat:@"%@ will only see you when you are within %zd ft", _user.firstName, kPULNearbyDistanceFeet];
+    _disclaimerLabel.text = [NSString stringWithFormat:@"%@ will only see you when you are within %zd ft", _user.firstName, kPULDistanceNearbyFeet];
     
     _nameLabel.text = _user.fullName;
     [_userImageView setImageWithResizeURL:_user.imageUrlString];

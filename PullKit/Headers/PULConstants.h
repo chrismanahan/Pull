@@ -19,9 +19,10 @@ extern NSString * const kPULAppReportIssueEmail;
 extern NSString * const kPULAppSuggestionEmail;
 extern NSString * const kPULAppPartnerEmail;
 
-extern const float kPULDistanceUnitCutoff;
-extern const NSInteger kPULNearbyDistanceFeet;
-extern const float kPULNearbyDistance;
+extern const NSInteger kPULDistanceHereFeet;
+extern const double kPULDistanceHereMeters;
+extern const NSInteger kPULDistanceNearbyFeet;
+extern const double kPULDistanceNearbyMeters;
 extern const NSInteger kPULPullLocalNotificationDelayMinutes;
 
 extern const NSInteger kLocationForegroundDistanceFilter;

@@ -484,7 +484,7 @@ static PULAccount *account = nil;
             PULUser *friend = [pull otherUser];
             CGFloat distance = [friend.location distanceFromLocation:self.location];
             
-            if (distance <= kPULNearbyDistance)
+            if (distance <= kPULDistanceNearbyMeters)
             {
                 [arr addObject:pull];
             }
@@ -506,7 +506,7 @@ static PULAccount *account = nil;
             PULUser *friend = [pull otherUser];
             CGFloat distance = [friend.location distanceFromLocation:self.location];
             
-            if (distance > kPULNearbyDistance)
+            if (distance > kPULDistanceNearbyMeters)
             {
                 [arr addObject:pull];
             }
@@ -519,7 +519,7 @@ static PULAccount *account = nil;
 
 - (PULPull*)nearestPull;
 {
-    CGFloat nearestDistance = kPULNearbyDistance;
+    CGFloat nearestDistance = kPULDistanceNearbyMeters;
     PULPull *nearestPull;
     
     for (PULPull *pull in self.pullsPulledNearby)

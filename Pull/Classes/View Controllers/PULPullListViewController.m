@@ -63,15 +63,7 @@ const NSInteger kPULPulledFarSection = 2;
 
 @implementation PULPullListViewController
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        
-    }
-    return self;
-}
-
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     _observers = [[NSMutableArray alloc] init];
@@ -84,27 +76,6 @@ const NSInteger kPULPulledFarSection = 2;
                                                       
                                                       [[NSNotificationCenter defaultCenter] removeObserver:loginObs];
                                                   }];
-    
-    
-    
-    
-    //    [[NSNotificationCenter defaultCenter] addObserverForName:PULConnectionLostNotification
-    //                                                      object:nil
-    //                                                       queue:[NSOperationQueue currentQueue]
-    //                                                  usingBlock:^(NSNotification *note) {
-    //                                                      [PULNoConnectionView overlayOnView:_friendTableView offset:_friendTableView.contentInset.top];
-    //
-    //                                                      _friendTableView.scrollEnabled = NO;
-    //                                                  }];
-    
-    //    [[NSNotificationCenter defaultCenter] addObserverForName:PULConnectionRestoredNotification
-    //                                                      object:nil
-    //                                                       queue:[NSOperationQueue currentQueue]
-    //                                                  usingBlock:^(NSNotification *note) {
-    //
-    //                                                      [PULNoConnectionView removeOverlayFromView:_friendTableView];
-    //                                                      _friendTableView.scrollEnabled = YES;
-    //                                                  }];
     
     // subscribe to disabled location updates
     [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationPermissionsDeniedNotification
@@ -144,6 +115,7 @@ const NSInteger kPULPulledFarSection = 2;
     [self.view addGestureRecognizer:swipeLeft];
     [self.view addGestureRecognizer:swipeRight];
     
+    
     // change top constraint based on screen size
     CGFloat height = CGRectGetHeight([UIScreen mainScreen].bounds);
     if (height < 500)
@@ -159,7 +131,6 @@ const NSInteger kPULPulledFarSection = 2;
         _compassUserImageViewTopConstraint.constant -= 10;
     }
     
-//    _collectionView.contentInset = UIEdgeInsetsMake(0, 8, 0, 0);
     _collectionView.layer.masksToBounds = NO;
     
     [self.view setNeedsUpdateConstraints];
@@ -214,7 +185,7 @@ const NSInteger kPULPulledFarSection = 2;
     [[PULAccount currentUser].pulls unregisterForAllKeyChanges];
 }
 
-#pragma mark - Private
+#pragma mark
 - (void)reload
 {
     if ([PULLocationUpdater sharedUpdater].hasPermission)
@@ -232,6 +203,336 @@ const NSInteger kPULPulledFarSection = 2;
         PULLog(@"not reloading friends table, still need location permission");
     }
     
+}
+
+
+#pragma mark - Actions
+- (IBAction)ibMoreRight:(id)sender
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self _highestVisibleIndex]+1 inSection:0];
+    [_collectionView scrollToItemAtIndexPath:indexPath
+                            atScrollPosition:UICollectionViewScrollPositionRight
+                                    animated:YES];
+}
+
+- (IBAction)ibMoreLeft:(id)sender
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self _lowestVisibleIndex]-1 inSection:0];
+    [_collectionView scrollToItemAtIndexPath:indexPath
+                            atScrollPosition:UICollectionViewScrollPositionNone
+                                    animated:YES];
+    
+}
+
+- (IBAction)ibAccept:(id)sender
+{
+    [[PULAccount currentUser] acceptPull:_displayedPull];
+}
+
+- (IBAction)ibDecline:(id)sender
+{
+    [[PULAccount currentUser] cancelPull:_displayedPull];
+    [self reload];
+}
+
+- (IBAction)ibCancel:(id)sender
+{
+    [[PULAccount currentUser] cancelPull:_displayedPull];
+    [self reload];
+}
+
+- (IBAction)ibSendPull:(id)sender
+{
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULUserSelectViewController class])];
+    
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (IBAction)unwindFromViewController:(UIStoryboardSegue *)sender {}
+
+- (UIStoryboardSegue *)segueForUnwindingToViewController:(UIViewController *)toViewController fromViewController:(UIViewController *)fromViewController identifier:(NSString *)identifier {
+    PULSlideUnwindSegue *segue = [[PULSlideUnwindSegue alloc] initWithIdentifier:identifier source:fromViewController destination:toViewController];
+    
+    return segue;
+}
+#pragma mark Gestures
+- (void)_swipeLeft
+{
+    if ([PULPulledUserDataSource sharedDataSource].datasource.count > 1)
+    {
+        [self setSelectedIndex:_selectedIndex + 1];
+        
+        NSIndexPath *path = [NSIndexPath indexPathForItem:_selectedIndex inSection:0];
+        [_collectionView scrollToItemAtIndexPath:path
+                                atScrollPosition:UICollectionViewScrollPositionNone
+                                        animated:YES];
+    }
+}
+
+- (void)_swipeRight
+{
+    if ([PULPulledUserDataSource sharedDataSource].datasource.count > 1)
+    {
+        [self setSelectedIndex:_selectedIndex - 1];
+        
+        NSIndexPath *path = [NSIndexPath indexPathForItem:_selectedIndex inSection:0];
+        [_collectionView scrollToItemAtIndexPath:path
+                                atScrollPosition:UICollectionViewScrollPositionNone
+                                        animated:YES];
+    }
+}
+#pragma mark - Helpers
+- (void)_observePulls
+{
+    if (![[PULAccount currentUser].pulls hasLoadBlock])
+    {
+        [[PULAccount currentUser].pulls registerLoadedBlock:^(FireMutableArray *objects) {
+            [self reload];
+        }];
+    }
+    
+    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"status"])
+    {
+        [[PULAccount currentUser].pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+            [self reload];
+            
+            if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
+            {
+                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+            }
+        }];
+    }
+    
+    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"nearby"])
+    {
+        [[PULAccount currentUser].pulls registerForKeyChange:@"nearby" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+            [self reload];
+        }];
+    }
+}
+
+
+- (void)_unsetDisplayedPull
+{
+    [self setSelectedIndex:_selectedIndex - 1];
+}
+
+- (PULUser*)_userForIndex:(NSInteger)index;
+{
+    PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[index];
+    return [pull otherUser];
+}
+
+- (NSInteger)_indexForUser:(PULUser*)aUser;
+{
+    for (int i = 0; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
+    {
+        PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[i];
+        PULUser *user = [pull otherUser];
+        if ([user isEqual:aUser])
+        {
+            return i;
+        }
+    }
+    
+    return -1;
+}
+
+- (NSInteger)_indexForPull:(PULPull*)aPull;
+{
+    for (int i = 0; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
+    {
+        PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[i];
+        if ([pull isEqual:aPull])
+        {
+            return i;
+        }
+    }
+    
+    return -1;
+}
+
+- (NSInteger)_highestVisibleIndex
+{
+    return [[self _lowestHighestVisibleIndexes][1] integerValue];
+}
+
+- (NSInteger)_lowestVisibleIndex
+{
+    return [[self _lowestHighestVisibleIndexes][0] integerValue];
+}
+
+- (NSArray*)_lowestHighestVisibleIndexes
+{
+    NSArray *visibleIndexPaths = [_collectionView  indexPathsForVisibleItems];
+    
+    NSInteger highest = 0, lowest = NSIntegerMax;
+    for (NSIndexPath *path in visibleIndexPaths)
+    {
+        if (path.row > highest)
+        {
+            highest = path.row;
+        }
+        if (path.row < lowest)
+        {
+            lowest = path.row;
+        }
+    }
+    
+    return @[@(lowest), @(highest)];
+}
+
+
+- (void)setSelectedIndex:(NSInteger)selectedIndex
+{
+    if ([PULPulledUserDataSource sharedDataSource].datasource && [PULPulledUserDataSource sharedDataSource].datasource.count > 0)
+    {
+        // stop observing location for last pull
+        if (_displayedPull)
+        {
+            [[_displayedPull otherUser] stopObservingKeyPath:@"location"];
+        }
+        
+        if (selectedIndex < 0)
+        {
+            selectedIndex = 0;
+        }
+        else if (selectedIndex >= [PULPulledUserDataSource sharedDataSource].datasource.count)
+        {
+            selectedIndex = [PULPulledUserDataSource sharedDataSource].datasource.count - 1;
+        }
+        
+        _selectedIndex = selectedIndex;
+        if (_selectedIndex < [PULPulledUserDataSource sharedDataSource].datasource.count)
+        {
+            _displayedPull = [PULPulledUserDataSource sharedDataSource].datasource[_selectedIndex];
+        }
+        else
+        {
+            _displayedPull = nil;
+        }
+        
+        // deselect all cells
+        for (int i = 0; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
+        {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            PULPulledUserCollectionViewCell *cell = (PULPulledUserCollectionViewCell*)[_collectionView cellForItemAtIndexPath:indexPath];
+            [cell setActive:_selectedIndex == i animated:_selectedIndex == i];
+        }
+        
+        if (_displayedPull.status == PULPullStatusPulled)
+        {
+            [[_displayedPull otherUser] observeKeyPath:@"location"
+                                                 block:^{
+                                                     [self updateUI];
+                                                 }];
+        }
+        
+        [self updateUI];
+    }
+    else
+    {
+        _displayedPull = nil;
+        [self updateUI];
+    }
+}
+
+
+#pragma mark UI Helpers
+- (void)_showNoActivePulls:(BOOL)show
+{
+    if (show)
+    {
+        [self _setNameLabel:nil];
+        [_compassView setPull:nil];
+        _dialogContainer.hidden = YES;
+        _nameLabel.textColor = PUL_LightPurple;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kPULCompassSmileyWinkDuration / 1.725 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (!_displayedPull)
+            {
+                _nameLabel.text = @"tap + to get started";
+            }
+            else
+            {
+                [self _showNoActivePulls:NO];
+            };
+        });
+    }
+    else
+    {
+        _nameLabel.textColor = [UIColor whiteColor];
+    }
+    
+    _cutoutImageView.hidden = !show;
+}
+
+- (void)_setNameLabel:(NSString*)name
+{
+    if (!name)
+    {
+        // show cutout
+        _nameLabel.backgroundColor = [UIColor clearColor];
+        _nameLabel.textColor = PUL_Purple;
+        _nameLabel.text = @"no active pulls";
+        _distanceLabel.hidden = YES;
+    }
+    else
+    {
+        _nameLabel.backgroundColor = PUL_Purple;
+        _nameLabel.textColor = [UIColor whiteColor];
+        _nameLabel.text = name;
+        _distanceLabel.hidden = NO;
+    }
+}
+
+- (void)_toggleMoreArrow
+{
+    _moreNotificationImageViewRight.hidden = YES;
+    
+    // do we have more elements than visible cells
+    NSArray *visibleIndexPaths = [_collectionView  indexPathsForVisibleItems];
+    if (visibleIndexPaths.count < [PULPulledUserDataSource sharedDataSource].datasource.count && visibleIndexPaths.count != 0)
+    {
+        // which side do we need to show it on
+        
+        NSInteger highest = [self _highestVisibleIndex];
+        NSInteger lowest = [self _lowestVisibleIndex];
+        
+        if (lowest != 0)
+        {
+            _moreNotificationContainerLeft.hidden = NO;
+        }
+        else
+        {
+            _moreNotificationContainerLeft.hidden = YES;
+        }
+        
+        if (highest < [PULPulledUserDataSource sharedDataSource].datasource.count-1)
+        {
+            _moreNotificationContainerRight.hidden = NO;
+            
+            // check if we should show the notification above the arrow
+            for (int i = highest+1; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
+            {
+                PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[i];
+                if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULAccount currentUser]])
+                {
+                    _moreNotificationImageViewRight.hidden = NO;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            _moreNotificationContainerRight.hidden = YES;
+        }
+    }
+    else
+    {
+        _moreNotificationContainerRight.hidden = YES;
+        _moreNotificationContainerLeft.hidden = YES;
+    }
 }
 
 - (void)updateUI
@@ -322,338 +623,20 @@ const NSInteger kPULPulledFarSection = 2;
 }
 
 
-- (void)_observePulls
-{
-    if (![[PULAccount currentUser].pulls hasLoadBlock])
-    {
-        [[PULAccount currentUser].pulls registerLoadedBlock:^(FireMutableArray *objects) {
-            [self reload];
-        }];
-    }
-    
-    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"status"])
-    {
-        [[PULAccount currentUser].pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
-            [self reload];
-            
-            if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
-            {
-                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
-            }
-        }];
-    }
-    
-    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"nearby"])
-    {
-        [[PULAccount currentUser].pulls registerForKeyChange:@"nearby" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
-            [self reload];
-        }];
-    }
-}
-
-- (void)_toggleMoreArrow
-{
-    _moreNotificationImageViewRight.hidden = YES;
-    
-    // do we have more elements than visible cells
-    NSArray *visibleIndexPaths = [_collectionView  indexPathsForVisibleItems];
-    if (visibleIndexPaths.count < [PULPulledUserDataSource sharedDataSource].datasource.count && visibleIndexPaths.count != 0)
-    {
-        // which side do we need to show it on
-
-        NSInteger highest = [self _highestVisibleIndex];
-        NSInteger lowest = [self _lowestVisibleIndex];
-        
-        if (lowest != 0)
-        {
-            _moreNotificationContainerLeft.hidden = NO;
-        }
-        else
-        {
-            _moreNotificationContainerLeft.hidden = YES;
-        }
-        
-        if (highest < [PULPulledUserDataSource sharedDataSource].datasource.count-1)
-        {
-            _moreNotificationContainerRight.hidden = NO;
-            
-            // check if we should show the notification above the arrow
-            for (int i = highest+1; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
-            {
-                PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[i];
-                if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULAccount currentUser]])
-                {
-                    _moreNotificationImageViewRight.hidden = NO;
-                    break;
-                }
-            }
-        }
-        else
-        {
-            _moreNotificationContainerRight.hidden = YES;
-        }
-    }
-    else
-    {
-        _moreNotificationContainerRight.hidden = YES;
-        _moreNotificationContainerLeft.hidden = YES;
-    }
-}
-
-- (NSInteger)_highestVisibleIndex
-{
-    return [[self _lowestHighestVisibleIndexes][1] integerValue];
-}
-
-- (NSInteger)_lowestVisibleIndex
-{
-    return [[self _lowestHighestVisibleIndexes][0] integerValue];
-}
-
-- (NSArray*)_lowestHighestVisibleIndexes
-{
-    NSArray *visibleIndexPaths = [_collectionView  indexPathsForVisibleItems];
-    
-    NSInteger highest = 0, lowest = NSIntegerMax;
-    for (NSIndexPath *path in visibleIndexPaths)
-    {
-        if (path.row > highest)
-        {
-            highest = path.row;
-        }
-        if (path.row < lowest)
-        {
-            lowest = path.row;
-        }
-    }
-    
-    return @[@(lowest), @(highest)];
-}
-
-#pragma mark UI Helpers
-- (void)_showNoActivePulls:(BOOL)show
-{
-    if (show)
-    {
-        [self _setNameLabel:nil];
-        [_compassView setPull:nil];
-        _dialogContainer.hidden = YES;
-        _nameLabel.textColor = PUL_LightPurple;
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kPULCompassSmileyWinkDuration / 1.725 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (!_displayedPull)
-            {
-                _nameLabel.text = @"tap + to get started";
-            }
-            else
-            {
-                [self _showNoActivePulls:NO];
-            };
-        });
-    }
-    else
-    {
-        _nameLabel.textColor = [UIColor whiteColor];
-    }
-    
-    _cutoutImageView.hidden = !show;
-}
-
-- (void)_setNameLabel:(NSString*)name
-{
-    if (!name)
-    {
-        // show cutout
-        _nameLabel.backgroundColor = [UIColor clearColor];
-        _nameLabel.textColor = PUL_Purple;
-        _nameLabel.text = @"no active pulls";
-        _distanceLabel.hidden = YES;
-    }
-    else
-    {
-        _nameLabel.backgroundColor = PUL_Purple;
-        _nameLabel.textColor = [UIColor whiteColor];
-        _nameLabel.text = name;
-        _distanceLabel.hidden = NO;
-    }
-}
-
-#pragma mark - Actions
-- (IBAction)ibMoreRight:(id)sender
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self _highestVisibleIndex]+1 inSection:0];
-    [_collectionView scrollToItemAtIndexPath:indexPath
-                            atScrollPosition:UICollectionViewScrollPositionRight
-                                    animated:YES];
-}
-
-- (IBAction)ibMoreLeft:(id)sender
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self _lowestVisibleIndex]-1 inSection:0];
-    [_collectionView scrollToItemAtIndexPath:indexPath
-                            atScrollPosition:UICollectionViewScrollPositionNone
-                                    animated:YES];
-    
-}
-
-- (IBAction)ibAccept:(id)sender
-{
-    [[PULAccount currentUser] acceptPull:_displayedPull];
-}
-
-- (IBAction)ibDecline:(id)sender
-{
-    [[PULAccount currentUser] cancelPull:_displayedPull];
-    [self reload];
-}
-
-- (IBAction)ibCancel:(id)sender
-{
-    [[PULAccount currentUser] cancelPull:_displayedPull];
-    [self reload];
-}
-
-- (IBAction)ibSendPull:(id)sender
-{
-    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULUserSelectViewController class])];
-    
-    [self presentViewController:vc animated:YES completion:nil];
-}
-
-- (IBAction)unwindFromViewController:(UIStoryboardSegue *)sender {}
-
-- (UIStoryboardSegue *)segueForUnwindingToViewController:(UIViewController *)toViewController fromViewController:(UIViewController *)fromViewController identifier:(NSString *)identifier {
-    PULSlideUnwindSegue *segue = [[PULSlideUnwindSegue alloc] initWithIdentifier:identifier source:fromViewController destination:toViewController];
-    
-    return segue;
-}
-#pragma mark Gestures
-- (void)_swipeLeft
-{
-    if ([PULPulledUserDataSource sharedDataSource].datasource.count > 1)
-    {
-        [self setSelectedIndex:_selectedIndex + 1];
-        
-        NSIndexPath *path = [NSIndexPath indexPathForItem:_selectedIndex inSection:0];
-        [_collectionView scrollToItemAtIndexPath:path
-                                atScrollPosition:UICollectionViewScrollPositionNone
-                                        animated:YES];
-    }
-}
-
-- (void)_swipeRight
-{
-    if ([PULPulledUserDataSource sharedDataSource].datasource.count > 1)
-    {
-        [self setSelectedIndex:_selectedIndex - 1];
-        
-        NSIndexPath *path = [NSIndexPath indexPathForItem:_selectedIndex inSection:0];
-        [_collectionView scrollToItemAtIndexPath:path
-                                atScrollPosition:UICollectionViewScrollPositionNone
-                                        animated:YES];
-    }
-}
-#pragma mark Helpers
-- (void)_unsetDisplayedPull
-{
-    [self setSelectedIndex:_selectedIndex - 1];
-}
-
-- (PULUser*)_userForIndex:(NSInteger)index;
-{
-    PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[index];
-    return [pull otherUser];
-}
-
-- (NSInteger)_indexForUser:(PULUser*)aUser;
-{
-    for (int i = 0; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
-    {
-        PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[i];
-        PULUser *user = [pull otherUser];
-        if ([user isEqual:aUser])
-        {
-            return i;
-        }
-    }
-    
-    return -1;
-}
-
-- (NSInteger)_indexForPull:(PULPull*)aPull;
-{
-    for (int i = 0; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
-    {
-        PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[i];
-        if ([pull isEqual:aPull])
-        {
-            return i;
-        }
-    }
-    
-    return -1;
-}
-
-- (void)setSelectedIndex:(NSInteger)selectedIndex
-{
-    if ([PULPulledUserDataSource sharedDataSource].datasource && [PULPulledUserDataSource sharedDataSource].datasource.count > 0)
-    {
-        // stop observing location for last pull
-        if (_displayedPull)
-        {
-            [[_displayedPull otherUser] stopObservingKeyPath:@"location"];
-        }
-        
-        if (selectedIndex < 0)
-        {
-            selectedIndex = 0;
-        }
-        else if (selectedIndex >= [PULPulledUserDataSource sharedDataSource].datasource.count)
-        {
-            selectedIndex = [PULPulledUserDataSource sharedDataSource].datasource.count - 1;
-        }
-        
-        _selectedIndex = selectedIndex;
-        if (_selectedIndex < [PULPulledUserDataSource sharedDataSource].datasource.count)
-        {
-            _displayedPull = [PULPulledUserDataSource sharedDataSource].datasource[_selectedIndex];
-        }
-        else
-        {
-            _displayedPull = nil;
-        }
-        
-        // deselect all cells
-        for (int i = 0; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
-        {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
-            PULPulledUserCollectionViewCell *cell = (PULPulledUserCollectionViewCell*)[_collectionView cellForItemAtIndexPath:indexPath];
-            [cell setActive:_selectedIndex == i animated:_selectedIndex == i];
-        }
-        
-        if (_displayedPull.status == PULPullStatusPulled)
-        {
-            [[_displayedPull otherUser] observeKeyPath:@"location"
-                                                 block:^{
-                                                     [self updateUI];
-                                                 }];
-        }
-        
-        [self updateUI];
-    }
-    else
-    {
-        _displayedPull = nil;
-        [self updateUI];
-    }
-}
-
-#pragma mark - UICollectionview
+#pragma mark - UICollectionView
+#pragma mark UICollectionView Delegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self setSelectedIndex:indexPath.row];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    BOOL active = indexPath.row == _selectedIndex;
+    [((PULPulledUserCollectionViewCell*)cell) setActive:active animated:NO];
+}
+
+#pragma mark UICollectionView DataSource
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PULPulledUserCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PulledUserCell" forIndexPath:indexPath];
@@ -670,12 +653,7 @@ const NSInteger kPULPulledFarSection = 2;
     return [PULPulledUserDataSource sharedDataSource].datasource.count;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    BOOL active = indexPath.row == _selectedIndex;
-    [((PULPulledUserCollectionViewCell*)cell) setActive:active animated:NO];
-}
-
+#pragma mark UIScrollView Delegate
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     [self updateUI];

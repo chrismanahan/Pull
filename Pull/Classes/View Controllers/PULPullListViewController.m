@@ -535,6 +535,22 @@ const NSInteger kPULPulledFarSection = 2;
     }
 }
 
+- (void)updateDialogWithText:(NSString*)message hide:(BOOL)hideDialog showAcceptDecline:(BOOL)acceptDecline showCancel:(BOOL)cancel
+{
+    NSAssert(!(acceptDecline && cancel), @"cannot show all three buttons at once");
+    
+    _dialogContainer.hidden = hideDialog;
+    _dialogMessageLabel.hidden = hideDialog;
+    
+    // show/hide buttons
+    _dialogAcceptButton.hidden = !acceptDecline;
+    _dialogDeclineButton.hidden = !acceptDecline;
+    _dialogCancelButton.hidden = !cancel;
+    
+    // set display label
+    _dialogMessageLabel.text = message;
+}
+
 - (void)updateUI
 {
     if (!_displayedPull)
@@ -553,10 +569,19 @@ const NSInteger kPULPulledFarSection = 2;
         [self _setNameLabel:user.fullName];
     }
     
-    _dialogContainer.hidden = YES;
+//    _dialogContainer.hidden = YES;
+    NSString *dialogText;
+    
     if (_displayedPull.status == PULPullStatusPulled)
     {
-        if (_displayedPull.isNearby)
+        if (_displayedPull.isHere)
+        {
+            _distanceLabel.text = @"Here";
+            dialogText = [NSString stringWithFormat:@"%@ should be within %zd feet", [_displayedPull otherUser].firstName, kPULDistanceHereFeet];
+            
+            
+        }
+        else if (_displayedPull.isNearby)
         {
             _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
         }
@@ -565,47 +590,50 @@ const NSInteger kPULPulledFarSection = 2;
             // display not nearby stuff
             _distanceLabel.text = @"Isn't Nearby";
             
-            _dialogContainer.hidden = NO;
-            _dialogAcceptButton.hidden = YES;
-            _dialogDeclineButton.hidden = YES;
-            _dialogCancelButton.hidden = YES;
-            _dialogMessageLabel.text = [NSString stringWithFormat:@"%@ isn't within %zd ft yet. Don't worry, we'll notify you when they're near", [_displayedPull otherUser].firstName, kPULDistanceNearbyFeet];
+            dialogText = [NSString stringWithFormat:@"%@ isn't within %zd ft yet. Don't worry, we'll notify you when they're near", [_displayedPull otherUser].firstName, kPULDistanceNearbyFeet];
+        
         }
+        
+        [self updateDialogWithText:dialogText
+                              hide:(dialogText == nil)
+                 showAcceptDecline:NO
+                        showCancel:NO];
     }
     else
     {
         // display either waiting on acceptance or waiting for approval
         if (_displayedPull.status == PULPullStatusPending)
         {
-            if ([_displayedPull.sendingUser isEqual:[PULAccount currentUser]])
+            if ([_displayedPull initiatedBy:[PULAccount currentUser]])
             {
                 // waiting on response
                 _distanceLabel.text = @"Request Sent";
+
+                dialogText = [NSString stringWithFormat:@"We've sent %@ a request. We'll notify you when they accept", [_displayedPull otherUser].firstName];
                 
-                _dialogContainer.hidden = NO;
-                _dialogAcceptButton.hidden = YES;
-                _dialogDeclineButton.hidden = YES;
-                _dialogCancelButton.hidden = NO;
-                _dialogMessageLabel.text = [NSString stringWithFormat:@"We've sent %@ a request. We'll notify you when they accept", [_displayedPull otherUser].firstName];
+                [self updateDialogWithText:dialogText
+                                      hide:NO
+                         showAcceptDecline:NO
+                                showCancel:YES];
             }
             else
             {
                 // waiting on us
                 _distanceLabel.text = @"Invite Requested";
-                _dialogContainer.hidden = NO;
-                _dialogAcceptButton.hidden = NO;
-                _dialogDeclineButton.hidden = NO;
-                _dialogCancelButton.hidden = YES;
-                
+
                 if (_displayedPull.duration == kPullDurationAlways)
                 {
-                    _dialogMessageLabel.text = [NSString stringWithFormat:@"%@ has requested to always be pulled with you", [_displayedPull otherUser].firstName];
+                    dialogText = [NSString stringWithFormat:@"%@ has requested to always be pulled with you", [_displayedPull otherUser].firstName];
                 }
                 else
                 {
-                    _dialogMessageLabel.text = [NSString stringWithFormat:@"%@ has requested a %zd hour pull with you", [_displayedPull otherUser].firstName, _displayedPull.durationHours];
+                    dialogText = [NSString stringWithFormat:@"%@ has requested a %zd hour pull with you", [_displayedPull otherUser].firstName, _displayedPull.durationHours];
                 }
                 
+                [self updateDialogWithText:dialogText
+                                      hide:NO
+                         showAcceptDecline:YES
+                                showCancel:NO];
             }
         }
         else

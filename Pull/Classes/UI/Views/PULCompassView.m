@@ -66,13 +66,13 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
         case PULPullStatusPulled:
         {
             // either gonna be not nearby, none, or nearby
-            if (!pull.isNearby)
-            {
-                overlayImageName = @"not_nearby";
-            }
-            else if (pull.isHere)
+            if (pull.isHere)
             {
                 overlayImageName = @"friend_here";
+            }
+            else if (!pull.isNearby)
+            {
+                overlayImageName = @"not_nearby";
             }
             break;
         }

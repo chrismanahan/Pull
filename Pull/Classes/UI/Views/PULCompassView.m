@@ -50,60 +50,82 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     }
 }
 
+- (void)setUserImageForPull:(PULPull*)pull
+{
+    // set user image
+    [_imageView setImageWithResizeURL:[pull otherUser].imageUrlString];
+    
+    // determine if we need an overlay
+    NSString *overlayImageName;
+    switch (pull.status) {
+        case PULPullStatusPending:
+        {
+            overlayImageName = [pull initiatedBy:[PULAccount currentUser]] ? @"sent_request" : @"incoming_request";
+            break;
+        }
+        case PULPullStatusPulled:
+        {
+            // either gonna be not nearby, none, or nearby
+            if (!pull.isNearby)
+            {
+                overlayImageName = @"not_nearby";
+            }
+            else if (pull.isHere)
+            {
+                overlayImageName = @"friend_here";
+            }
+            break;
+        }
+        case PULPullStatusExpired:
+        case PULPullStatusNone:
+        default:
+            break;
+    }
+    
+    if (overlayImageName)
+    {
+        _overlayImageView.hidden = NO;
+        [_overlayImageView setImage:[UIImage imageNamed:overlayImageName]];
+    }
+    
+    
+    
+}
+
 - (void)setPull:(PULPull*)pull
 {
-    if (!pull)
+    _pull = pull;
+    
+    if (!_pull)
     {
-        _pull = nil;
         [self _displayNoActivePulls:YES];
         return;
     }
+    
     [self _displayNoActivePulls:NO];
+
+    // set user image
+    [self setUserImageForPull:_pull];
     
-    [_imageView setImageWithResizeURL:[pull otherUser].imageUrlString];
-    
-    _pull = pull;
-    
+    // remove previous heading update block
     [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
     
-    if (_pull.status == PULPullStatusPending)
+    BOOL showCompass = _pull.isNearby && !_pull.isHere;
+    [self _setCompassView:showCompass];
+    
+    if (showCompass)
     {
-        if ([_pull.sendingUser isEqual:[PULAccount currentUser]])
-        {
-            // waiting on response
-            _overlayImageView.hidden = NO;
-            [_overlayImageView setImage:[UIImage imageNamed:@"sent_request"]];
-        }
-        else
-        {
-            // waiting on us
-            _overlayImageView.hidden = NO;
-            [_overlayImageView setImage:[UIImage imageNamed:@"incoming_request"]];
-        }
-        
-        [self _setCompassView:NO];
-    }
-    else if (_pull.status == PULPullStatusPulled && !_pull.nearby)
-    {
-        [self _setCompassView:NO];
-        _overlayImageView.hidden = NO;
-        [_overlayImageView setImage:[UIImage imageNamed:@"not_nearby"]];
-    }
-    else
-    {
-        [self _setCompassView:YES];
-        _overlayImageView.hidden = YES;
-        
-//        static CGFloat lastRads = 0;
+        // start rotating compass
+        static CGFloat lastRads = 0;
         [[PULLocationUpdater sharedUpdater] setHeadingUpdateBlock:^(CLHeading *heading) {
             CGFloat rads = [[PULAccount currentUser] angleWithHeading:heading
                                                              fromUser:[pull otherUser]];
             
-//            if (rads >= lastRads + 0.005 || rads <= lastRads - 0.005)
-//            {
+            if (rads >= lastRads + 0.01 || rads <= lastRads - 0.01)
+            {
                 [self _rotateCompassToRadians:rads];
-//                lastRads = rads;
-//            }
+                lastRads = rads;
+            }
         }];
     }
     
@@ -121,8 +143,6 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
         _compassImageView.transform = CGAffineTransformIdentity;
         [_compassImageView setImage:[UIImage imageNamed:@"circle_purple"]];
     }
-    
-    
 }
 
 - (void)_rotateCompassToRadians:(CGFloat)rads

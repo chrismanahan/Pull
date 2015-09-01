@@ -115,6 +115,11 @@ const NSTimeInterval kPullDurationAlways  = 0;
     return _duration / 60 / 60;
 }
 
+- (BOOL)isHere
+{
+    return [[PULAccount currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceHereMeters;
+}
+
 #pragma mark - overrides
 - (BOOL)isEqual:(id)object
 {

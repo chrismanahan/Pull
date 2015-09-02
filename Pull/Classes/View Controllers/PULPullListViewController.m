@@ -133,6 +133,12 @@ const NSInteger kPULPulledFarSection = 2;
     
     _collectionView.layer.masksToBounds = NO;
     
+    // make sure dialog box colors are correct
+    _dialogAcceptButton.backgroundColor = PUL_DarkPurple;
+    _dialogDeclineButton.backgroundColor = PUL_DarkPurple;
+    _dialogCancelButton.backgroundColor = PUL_DarkPurple;
+    _dialogContainer.backgroundColor = PUL_Purple;
+    
     [self.view setNeedsUpdateConstraints];
 }
 

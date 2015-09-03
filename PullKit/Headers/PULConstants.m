@@ -31,6 +31,8 @@ const double kPULDistanceHereMeters =  FEET_TO_METERS( kPULDistanceHereFeet);
 const NSInteger kPULDistanceNearbyFeet = 1000;
 const double kPULDistanceNearbyMeters = FEET_TO_METERS(kPULDistanceNearbyFeet);
 
+const double kPULDistanceAllowedAccuracy = 15;
+
 const NSInteger kPULPullLocalNotificationDelayMinutes = 5;
 
 // location tracking

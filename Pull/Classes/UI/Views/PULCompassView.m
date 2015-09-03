@@ -74,6 +74,12 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
             {
                 overlayImageName = @"not_nearby";
             }
+            
+            if (![pull isAccurate])
+            {
+                overlayImageName = @"low_accuracy";
+            }
+            
             break;
         }
         case PULPullStatusExpired:
@@ -112,7 +118,7 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     // remove previous heading update block
     [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
     
-    BOOL showCompass = _pull.isNearby && !_pull.isHere;
+    BOOL showCompass = _pull.isNearby && !_pull.isHere && [_pull isAccurate];
     [self _setCompassView:showCompass];
     
     if (showCompass)

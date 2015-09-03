@@ -24,6 +24,7 @@ extern const double kPULDistanceHereMeters;
 extern const NSInteger kPULDistanceNearbyFeet;
 extern const double kPULDistanceNearbyMeters;
 extern const NSInteger kPULPullLocalNotificationDelayMinutes;
+extern const double kPULDistanceAllowedAccuracy;
 
 extern const NSInteger kLocationForegroundDistanceFilter;
 extern const NSInteger kLocationBackgroundDistanceFilter;

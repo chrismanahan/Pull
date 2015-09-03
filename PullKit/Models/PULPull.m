@@ -109,6 +109,12 @@ const NSTimeInterval kPullDurationAlways  = 0;
     return [self otherUserThatIsNot:[PULAccount currentUser]];
 }
 
+- (BOOL)isAccurate;
+{
+    return  _sendingUser.locationAccuracy < kPULDistanceAllowedAccuracy &&
+            _receivingUser.locationAccuracy < kPULDistanceAllowedAccuracy;
+}
+
 #pragma mark - Properties
 - (NSInteger)durationHours
 {

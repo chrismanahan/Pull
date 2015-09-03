@@ -41,6 +41,7 @@ extern NSString * const PULImageUpdatedNotification;
 @property (nonatomic, assign) NSInteger currentMotionType;
 @property (nonatomic, assign) NSInteger currentPositionType;
 @property (nonatomic, assign, readonly) CLLocationAccuracy locationAccuracy;
+@property (nonatomic, assign, readonly, getter=hasLowAccuracy) BOOL lowAccuracy;
 // friends
 @property (nonatomic, strong) FireMutableArray *friends;
 @property (nonatomic, strong) FireMutableArray *blocked;

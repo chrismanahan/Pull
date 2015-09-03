@@ -48,6 +48,7 @@ const NSInteger kPULPulledFarSection = 2;
 @property (strong, nonatomic) IBOutlet UIButton *dialogDeclineButton;
 @property (strong, nonatomic) IBOutlet UILabel *dialogMessageLabel;
 @property (strong, nonatomic) IBOutlet UIButton *dialogCancelButton;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *dialogLabelBottomConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *compassUserImageViewTopConstraint;
 @property (strong, nonatomic) IBOutlet UIImageView *cutoutImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *moreNotificationImageViewRight;
@@ -553,6 +554,15 @@ const NSInteger kPULPulledFarSection = 2;
     _dialogDeclineButton.hidden = !acceptDecline;
     _dialogCancelButton.hidden = !cancel;
     
+    if (acceptDecline || cancel)
+    {
+        [NSLayoutConstraint activateConstraints:@[_dialogLabelBottomConstraint]];
+    }
+    else
+    {
+        [NSLayoutConstraint deactivateConstraints:@[_dialogLabelBottomConstraint]];
+    }
+    
     // set display label
     _dialogMessageLabel.text = message;
 }
@@ -580,16 +590,33 @@ const NSInteger kPULPulledFarSection = 2;
     
     if (_displayedPull.status == PULPullStatusPulled)
     {
-        if (_displayedPull.isHere)
+        if (_displayedPull.isNearby)
         {
-            _distanceLabel.text = @"Here";
-            dialogText = [NSString stringWithFormat:@"%@ should be within %zd feet", [_displayedPull otherUser].firstName, kPULDistanceHereFeet];
+            if (_displayedPull.isHere)
+            {
+                _distanceLabel.text = @"Here";
+                dialogText = [NSString stringWithFormat:@"%@ should be within %zd feet", [_displayedPull otherUser].firstName, kPULDistanceHereFeet];
+            }
+            else
+            {
+                _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
+            }
             
-            
-        }
-        else if (_displayedPull.isNearby)
-        {
-            _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
+            // check if we have good accuracy
+            if (![_displayedPull isAccurate])
+            {
+                _distanceLabel.text = @"Low Accuracy";
+                
+                // figure out which dialog text to show
+                if ([PULAccount currentUser].hasLowAccuracy)
+                {
+                    dialogText = @"Because of poor reception, we're having trouble locating you. Enabling WiFi, if it is off, may help.";
+                }
+                else
+                {
+                    dialogText = [NSString stringWithFormat:@"We're having trouble locating %@ right now because of poor reception on their phone. Try again in a little bit.", user.firstName];
+                }
+            }
         }
         else
         {

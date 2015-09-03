@@ -154,8 +154,10 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
         double lon = [repr[@"location"][@"lon"] doubleValue];
         //    double alt = [repr[@"location"][@"alt"] doubleValue];
         
+        [self willChangeValueForKey:@"location"];
         _location = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
         _locationAccuracy = [repr[@"location"][@"accuracy"] doubleValue];
+        [self didChangeValueForKey:@"location"];
         
         _currentMotionType = [repr[@"location"][@"currMoveType"] integerValue];
         _currentPositionType = [repr[@"location"][@"currPosType"] integerValue];
@@ -198,6 +200,11 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
 {
     _location = location;
     _locationAccuracy = location.horizontalAccuracy;
+}
+
+- (BOOL)hasLowAccuracy
+{
+    return _locationAccuracy >= kPULDistanceAllowedAccuracy;
 }
 
 - (NSString*)fullName

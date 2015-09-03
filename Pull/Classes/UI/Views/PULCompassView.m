@@ -87,8 +87,10 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
         _overlayImageView.hidden = NO;
         [_overlayImageView setImage:[UIImage imageNamed:overlayImageName]];
     }
-    
-    
+    else
+    {
+        _overlayImageView.hidden = YES;
+    }
     
 }
 

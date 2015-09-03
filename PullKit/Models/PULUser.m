@@ -94,7 +94,8 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
                                   @"lon": @(_location.coordinate.longitude),
                                   @"alt": @(_location.altitude),
                                   @"currPosType": @(_currentPositionType),
-                                  @"currMoveType":@(_currentMotionType)
+                                  @"currMoveType":@(_currentMotionType),
+                                  @"accuracy":@(_locationAccuracy)
                                   },
                           @"friends": [_friends firebaseRepresentation],
                           @"pulls": [_pulls firebaseRepresentation],
@@ -152,10 +153,12 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
         double lat = [repr[@"location"][@"lat"] doubleValue];
         double lon = [repr[@"location"][@"lon"] doubleValue];
         //    double alt = [repr[@"location"][@"alt"] doubleValue];
-        self.location = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
         
-        _currentMotionType = [repr[@"currMoveType"] integerValue];
-        _currentPositionType = [repr[@"currPosType"] integerValue];
+        _location = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+        _locationAccuracy = [repr[@"location"][@"accuracy"] doubleValue];
+        
+        _currentMotionType = [repr[@"location"][@"currMoveType"] integerValue];
+        _currentPositionType = [repr[@"location"][@"currPosType"] integerValue];
     }
     
     if (repr[@"settings"])
@@ -191,6 +194,12 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
 }
 
 #pragma mark - Properties
+- (void)setLocation:(CLLocation * __nonnull)location
+{
+    _location = location;
+    _locationAccuracy = location.horizontalAccuracy;
+}
+
 - (NSString*)fullName
 {
     return [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];

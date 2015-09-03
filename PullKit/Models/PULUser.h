@@ -40,6 +40,7 @@ extern NSString * const PULImageUpdatedNotification;
 @property (nonatomic, strong) CLPlacemark *placemark;
 @property (nonatomic, assign) NSInteger currentMotionType;
 @property (nonatomic, assign) NSInteger currentPositionType;
+@property (nonatomic, assign, readonly) CLLocationAccuracy locationAccuracy;
 // friends
 @property (nonatomic, strong) FireMutableArray *friends;
 @property (nonatomic, strong) FireMutableArray *blocked;

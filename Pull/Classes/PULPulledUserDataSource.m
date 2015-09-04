@@ -12,17 +12,6 @@
 
 @implementation PULPulledUserDataSource
 
-+ (PULPulledUserDataSource*)sharedDataSource;
-{
-    static PULPulledUserDataSource *shared = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        shared = [[PULPulledUserDataSource alloc] init];
-    });
-    
-    return shared;
-}
-
 - (void)loadDatasourceCompletion:(void(^)(NSArray *ds))completion
 {
     PULAccount *acct = [PULAccount currentUser];
@@ -53,13 +42,13 @@
         if (acct.pulls)
         {
             [acct.pulls registerLoadedBlock:^(FireMutableArray *objects) {
-                [[PULPulledUserDataSource sharedDataSource] loadDatasourceCompletion:completion];
+                [self loadDatasourceCompletion:completion];
             }];
         }
         else
         {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [[PULPulledUserDataSource sharedDataSource] loadDatasourceCompletion:completion];
+                [self loadDatasourceCompletion:completion];
             });
         }
     }

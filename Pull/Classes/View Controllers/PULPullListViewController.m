@@ -38,6 +38,8 @@ const NSInteger kPULAlertEndPullTag = 1001;
 {
     _observers = [[NSMutableArray alloc] init];
     
+    _pulledUserDatasource = [[PULPulledUserDataSource alloc] init];
+    
     id loginObs = [[NSNotificationCenter defaultCenter] addObserverForName:PULAccountDidLoginNotification
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
@@ -166,7 +168,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
 {
     if ([PULLocationUpdater sharedUpdater].hasPermission)
     {
-        [[PULPulledUserDataSource sharedDataSource] loadDatasourceCompletion:^(NSArray *ds) {
+        [_pulledUserDatasource loadDatasourceCompletion:^(NSArray *ds) {
             [_collectionView reloadData];
             [self setSelectedIndex:_selectedIndex];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -258,7 +260,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
 #pragma mark Gestures
 - (void)_swipeLeft
 {
-    if ([PULPulledUserDataSource sharedDataSource].datasource.count > 1)
+    if (_pulledUserDatasource.datasource.count > 1)
     {
         [self setSelectedIndex:_selectedIndex + 1];
         
@@ -271,7 +273,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
 
 - (void)_swipeRight
 {
-    if ([PULPulledUserDataSource sharedDataSource].datasource.count > 1)
+    if (_pulledUserDatasource.datasource.count > 1)
     {
         [self setSelectedIndex:_selectedIndex - 1];
         
@@ -319,15 +321,15 @@ const NSInteger kPULAlertEndPullTag = 1001;
 
 - (PULUser*)_userForIndex:(NSInteger)index;
 {
-    PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[index];
+    PULPull *pull = _pulledUserDatasource.datasource[index];
     return [pull otherUser];
 }
 
 - (NSInteger)_indexForUser:(PULUser*)aUser;
 {
-    for (int i = 0; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
+    for (int i = 0; i < _pulledUserDatasource.datasource.count; i++)
     {
-        PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[i];
+        PULPull *pull = _pulledUserDatasource.datasource[i];
         PULUser *user = [pull otherUser];
         if ([user isEqual:aUser])
         {
@@ -340,9 +342,9 @@ const NSInteger kPULAlertEndPullTag = 1001;
 
 - (NSInteger)_indexForPull:(PULPull*)aPull;
 {
-    for (int i = 0; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
+    for (int i = 0; i < _pulledUserDatasource.datasource.count; i++)
     {
-        PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[i];
+        PULPull *pull = _pulledUserDatasource.datasource[i];
         if ([pull isEqual:aPull])
         {
             return i;
@@ -385,7 +387,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
-    if ([PULPulledUserDataSource sharedDataSource].datasource && [PULPulledUserDataSource sharedDataSource].datasource.count > 0)
+    if (_pulledUserDatasource.datasource && _pulledUserDatasource.datasource.count > 0)
     {
         // stop observing location for last pull
         if (_displayedPull)
@@ -397,15 +399,15 @@ const NSInteger kPULAlertEndPullTag = 1001;
         {
             selectedIndex = 0;
         }
-        else if (selectedIndex >= [PULPulledUserDataSource sharedDataSource].datasource.count)
+        else if (selectedIndex >= _pulledUserDatasource.datasource.count)
         {
-            selectedIndex = [PULPulledUserDataSource sharedDataSource].datasource.count - 1;
+            selectedIndex = _pulledUserDatasource.datasource.count - 1;
         }
         
         _selectedIndex = selectedIndex;
-        if (_selectedIndex < [PULPulledUserDataSource sharedDataSource].datasource.count)
+        if (_selectedIndex < _pulledUserDatasource.datasource.count)
         {
-            _displayedPull = [PULPulledUserDataSource sharedDataSource].datasource[_selectedIndex];
+            _displayedPull = _pulledUserDatasource.datasource[_selectedIndex];
         }
         else
         {
@@ -413,7 +415,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
         }
         
         // deselect all cells
-        for (int i = 0; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
+        for (int i = 0; i < _pulledUserDatasource.datasource.count; i++)
         {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
             PULPulledUserCollectionViewCell *cell = (PULPulledUserCollectionViewCell*)[_collectionView cellForItemAtIndexPath:indexPath];
@@ -493,7 +495,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
     
     // do we have more elements than visible cells
     NSArray *visibleIndexPaths = [_collectionView  indexPathsForVisibleItems];
-    if (visibleIndexPaths.count < [PULPulledUserDataSource sharedDataSource].datasource.count && visibleIndexPaths.count != 0)
+    if (visibleIndexPaths.count < _pulledUserDatasource.datasource.count && visibleIndexPaths.count != 0)
     {
         // which side do we need to show it on
         
@@ -509,14 +511,14 @@ const NSInteger kPULAlertEndPullTag = 1001;
             _moreNotificationContainerLeft.hidden = YES;
         }
         
-        if (highest < [PULPulledUserDataSource sharedDataSource].datasource.count-1)
+        if (highest < _pulledUserDatasource.datasource.count-1)
         {
             _moreNotificationContainerRight.hidden = NO;
             
             // check if we should show the notification above the arrow
-            for (int i = highest+1; i < [PULPulledUserDataSource sharedDataSource].datasource.count; i++)
+            for (int i = highest+1; i < _pulledUserDatasource.datasource.count; i++)
             {
-                PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[i];
+                PULPull *pull = _pulledUserDatasource.datasource[i];
                 if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULAccount currentUser]])
                 {
                     _moreNotificationImageViewRight.hidden = NO;
@@ -720,7 +722,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
 {
     PULPulledUserCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PulledUserCell" forIndexPath:indexPath];
     
-    PULPull *pull = [PULPulledUserDataSource sharedDataSource].datasource[indexPath.row];
+    PULPull *pull = _pulledUserDatasource.datasource[indexPath.row];
     
     cell.pull = pull;
     
@@ -729,7 +731,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [PULPulledUserDataSource sharedDataSource].datasource.count;
+    return _pulledUserDatasource.datasource.count;
 }
 
 #pragma mark UIScrollView Delegate

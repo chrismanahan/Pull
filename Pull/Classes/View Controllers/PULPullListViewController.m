@@ -29,39 +29,6 @@
 
 #import "PULPulledUserDataSource.h"
 
-const NSInteger kPULPullListNumberOfTableViewSections = 4;
-
-const NSInteger kPULPulledNearbySection = 1;
-const NSInteger kPULPendingSection = 0;
-const NSInteger kPULWaitingSection = 3;
-const NSInteger kPULPulledFarSection = 2;
-
-@interface PULPullListViewController () <UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
-
-@property (strong, nonatomic) IBOutlet UIView *headerView;
-@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
-@property (strong, nonatomic) IBOutlet PULCompassView *compassView;
-@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (strong, nonatomic) IBOutlet UIView *dialogContainer;
-@property (strong, nonatomic) IBOutlet UIButton *dialogAcceptButton;
-@property (strong, nonatomic) IBOutlet UIButton *dialogDeclineButton;
-@property (strong, nonatomic) IBOutlet UILabel *dialogMessageLabel;
-@property (strong, nonatomic) IBOutlet UIButton *dialogCancelButton;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *dialogLabelBottomConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *compassUserImageViewTopConstraint;
-@property (strong, nonatomic) IBOutlet UIImageView *cutoutImageView;
-@property (strong, nonatomic) IBOutlet UIImageView *moreNotificationImageViewRight;
-@property (strong, nonatomic) IBOutlet UIView *moreNotificationContainerRight;
-@property (strong, nonatomic) IBOutlet UIView *moreNotificationContainerLeft;
-
-@property (nonatomic, strong) PULPull *displayedPull;
-@property (nonatomic, assign) NSInteger selectedIndex;
-
-@property (nonatomic, strong) NSMutableArray *observers;
-
-@end
-
 @implementation PULPullListViewController
 
 #pragma mark - View Lifecycle
@@ -684,6 +651,9 @@ const NSInteger kPULPulledFarSection = 2;
 }
 
 
+#pragma mark -
+#pragma mark PROTOCOLS
+#pragma mark -
 #pragma mark - UICollectionView
 #pragma mark UICollectionView Delegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

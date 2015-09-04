@@ -58,6 +58,10 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
  *  The duration that this pull is good for converted to hours
  */
 @property (nonatomic, readonly) NSInteger durationHours;
+/**
+ *  Property that returns the duration as human readable string
+ */
+@property (nonatomic, strong, readonly) NSString *durationRemaingString;
 /*!
  *  The time at which this pull expires and goes out for pruning. -resetExpiration should be called to set the expiration based on the set duration and current time
  */

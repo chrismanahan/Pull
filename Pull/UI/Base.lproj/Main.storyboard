@@ -764,9 +764,19 @@
                                     <constraint firstItem="wxz-6a-VRo" firstAttribute="top" secondItem="6Zo-Hd-EUz" secondAttribute="top" constant="4" id="wRI-ql-7j2"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXm-v5-UdK">
+                                <rect key="frame" x="8" y="112" width="117" height="44"/>
+                                <state key="normal" title="12 Hours" image="clock_purple.png">
+                                    <color key="titleColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="ibEndPull:" destination="VCg-LE-m1S" eventType="touchUpInside" id="uri-ih-6jx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="IXm-v5-UdK" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" constant="8" id="0Go-dq-MSM"/>
                             <constraint firstItem="ZzK-kx-gII" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="2cr-jd-ZRG"/>
                             <constraint firstItem="Col-68-KCe" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="4fp-cF-R2d"/>
                             <constraint firstItem="Chs-nX-n4I" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="8XD-U7-Z4K"/>
@@ -786,6 +796,7 @@
                             <constraint firstItem="6Zo-Hd-EUz" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="RbU-t2-8DI"/>
                             <constraint firstItem="ful-YR-1oS" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="VNH-DI-NH5"/>
                             <constraint firstItem="6Zo-Hd-EUz" firstAttribute="width" secondItem="VW3-ba-Yks" secondAttribute="width" id="W6s-Th-feT"/>
+                            <constraint firstItem="IXm-v5-UdK" firstAttribute="top" secondItem="ful-YR-1oS" secondAttribute="bottom" constant="8" id="WCN-iM-rwp"/>
                             <constraint firstItem="l3o-60-dng" firstAttribute="bottom" secondItem="ful-YR-1oS" secondAttribute="bottom" id="ZED-pn-xMC"/>
                             <constraint firstItem="E7c-j8-VHH" firstAttribute="top" secondItem="ful-YR-1oS" secondAttribute="bottom" constant="8" id="bgY-pT-2da"/>
                             <constraint firstItem="VW3-ba-Yks" firstAttribute="leading" secondItem="Chs-nX-n4I" secondAttribute="trailing" id="c8V-8c-i24"/>
@@ -837,6 +848,7 @@
                         <outlet property="moreNotificationContainerRight" destination="VW3-ba-Yks" id="E1Q-3Q-cNi"/>
                         <outlet property="moreNotificationImageViewRight" destination="wTl-BI-PpV" id="cBc-Wv-JIQ"/>
                         <outlet property="nameLabel" destination="ful-YR-1oS" id="D9x-Pm-cNi"/>
+                        <outlet property="pullTimeButton" destination="IXm-v5-UdK" id="haq-dO-PNY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PX-8q-Zmp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2698,6 +2710,7 @@ _____________________
     </scenes>
     <resources>
         <image name="app_settings_white.png" width="81" height="82"/>
+        <image name="clock_purple.png" width="45" height="44"/>
         <image name="compass.png" width="284" height="331"/>
         <image name="contact_white.png" width="60" height="60"/>
         <image name="continue_facebook.png" width="486" height="114"/>

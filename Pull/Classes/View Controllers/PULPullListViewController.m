@@ -29,6 +29,8 @@
 
 #import "PULPulledUserDataSource.h"
 
+const NSInteger kPULAlertEndPullTag = 1001;
+
 @implementation PULPullListViewController
 
 #pragma mark - View Lifecycle
@@ -213,6 +215,30 @@
 {
     [[PULAccount currentUser] cancelPull:_displayedPull];
     [self reload];
+}
+
+- (IBAction)ibEndPull:(id)sender
+{
+    NSString *message;
+    
+    if (_displayedPull.duration == kPullDurationAlways)
+    {
+        message = [NSString stringWithFormat:@"You currently share your location with %@ whenever they are within %zd ft", [_displayedPull otherUser].firstName, kPULDistanceNearbyFeet];
+    }
+    else
+    {
+        message = [NSString stringWithFormat:@"Location sharing will end with %@ in %@", [_displayedPull otherUser].firstName, _displayedPull.durationRemaingString];
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"End Now", @"Keep Active", nil];
+    
+    alert.tag = kPULAlertEndPullTag;
+    
+    [alert show];
 }
 
 - (IBAction)ibSendPull:(id)sender
@@ -419,6 +445,7 @@
     {
         [self _setNameLabel:nil];
         [_compassView setPull:nil];
+        _pullTimeButton.hidden = YES;
         _dialogContainer.hidden = YES;
         _nameLabel.textColor = PUL_LightPurple;
         
@@ -557,6 +584,10 @@
     
     if (_displayedPull.status == PULPullStatusPulled)
     {
+        // show pull time button
+        _pullTimeButton.hidden = NO;
+        [_pullTimeButton setTitle:_displayedPull.durationRemaingString forState:UIControlStateNormal];
+        
         if (_displayedPull.isNearby)
         {
             if (_displayedPull.isHere)
@@ -601,6 +632,8 @@
     }
     else
     {
+        _pullTimeButton.hidden = YES;
+        
         // display either waiting on acceptance or waiting for approval
         if (_displayedPull.status == PULPullStatusPending)
         {
@@ -654,6 +687,21 @@
 #pragma mark -
 #pragma mark PROTOCOLS
 #pragma mark -
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == kPULAlertEndPullTag)
+    {
+        if (buttonIndex == 0)
+        {
+            // end active pull
+            [[PULAccount currentUser] cancelPull:_displayedPull];
+            [self reload];
+        }
+    }
+}
+
 #pragma mark - UICollectionView
 #pragma mark UICollectionView Delegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

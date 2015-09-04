@@ -121,6 +121,19 @@ const NSTimeInterval kPullDurationAlways  = 0;
     return _duration / 60 / 60;
 }
 
+- (NSString*)durationRemaingString
+{
+    if (_duration == kPullDurationAlways)
+    {
+        return @"Always";
+    }
+    
+    NSInteger timeRemaining = [_expiration timeIntervalSinceNow];
+    NSInteger minutes = (timeRemaining / 60) % 60;
+    NSInteger hours = (timeRemaining / 3600);
+    return [NSString stringWithFormat:@"%02ld:%02ld", hours, minutes];
+}
+
 - (BOOL)isHere
 {
     return [[PULAccount currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceHereMeters;

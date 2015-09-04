@@ -553,14 +553,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZzK-kx-gII" userLabel="dialog view">
                                 <rect key="frame" x="0.0" y="398" width="600" height="112"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Lisa has request a 12 hour pull with you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="WlA-iR-Ztv">
-                                        <rect key="frame" x="140" y="8" width="320" height="32"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lisa has request a 12 hour pull with you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="WlA-iR-Ztv">
+                                        <rect key="frame" x="8" y="8" width="584" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="747" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bo-9n-FZw">
-                                        <rect key="frame" x="60" y="47" width="210" height="57"/>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bo-9n-FZw">
+                                        <rect key="frame" x="60" y="59" width="210" height="45"/>
                                         <color key="backgroundColor" red="0.16470588235294117" green="0.0" blue="0.70588235294117652" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Accept">
@@ -571,8 +571,8 @@
                                             <action selector="ibAccept:" destination="VCg-LE-m1S" eventType="touchUpInside" id="unE-qR-5WS"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="747" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjP-ds-btP">
-                                        <rect key="frame" x="320" y="47" width="210" height="57"/>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjP-ds-btP">
+                                        <rect key="frame" x="320" y="59" width="210" height="45"/>
                                         <color key="backgroundColor" red="0.22325956281982431" green="0.0" blue="0.75631313131313127" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Decline">
@@ -583,8 +583,8 @@
                                             <action selector="ibDecline:" destination="VCg-LE-m1S" eventType="touchUpInside" id="cDF-yi-zoj"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="747" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P30-JS-1kT">
-                                        <rect key="frame" x="165" y="47" width="260" height="57"/>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P30-JS-1kT">
+                                        <rect key="frame" x="165" y="59" width="260" height="45"/>
                                         <color key="backgroundColor" red="0.22325956280000001" green="0.0" blue="0.7563131313" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Cancel">
@@ -599,8 +599,10 @@
                                 <color key="backgroundColor" red="0.29019607843137257" green="0.0" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="3bo-9n-FZw" firstAttribute="top" secondItem="P30-JS-1kT" secondAttribute="top" id="2f4-gV-SHa"/>
+                                    <constraint firstItem="3bo-9n-FZw" firstAttribute="height" secondItem="ZzK-kx-gII" secondAttribute="height" multiplier="0.4" id="8Vp-Yi-hAk"/>
                                     <constraint firstAttribute="bottom" secondItem="3bo-9n-FZw" secondAttribute="bottom" constant="8" id="9Za-nn-7U4"/>
                                     <constraint firstItem="fjP-ds-btP" firstAttribute="bottom" secondItem="3bo-9n-FZw" secondAttribute="bottom" id="CDP-oD-gQR"/>
+                                    <constraint firstItem="P30-JS-1kT" firstAttribute="height" secondItem="3bo-9n-FZw" secondAttribute="height" id="E1X-qa-Pkw"/>
                                     <constraint firstItem="3bo-9n-FZw" firstAttribute="centerX" secondItem="P30-JS-1kT" secondAttribute="leading" id="Is2-1R-u47"/>
                                     <constraint firstItem="WlA-iR-Ztv" firstAttribute="top" secondItem="ZzK-kx-gII" secondAttribute="top" constant="8" id="JSz-bz-NGt"/>
                                     <constraint firstItem="P30-JS-1kT" firstAttribute="trailing" secondItem="fjP-ds-btP" secondAttribute="centerX" id="KYg-fH-X9L"/>
@@ -611,6 +613,7 @@
                                     <constraint firstItem="3bo-9n-FZw" firstAttribute="bottom" secondItem="P30-JS-1kT" secondAttribute="bottom" id="i8p-it-eyR"/>
                                     <constraint firstItem="fjP-ds-btP" firstAttribute="leading" secondItem="3bo-9n-FZw" secondAttribute="trailing" constant="50" id="pEM-NR-zng"/>
                                     <constraint firstAttribute="trailing" secondItem="WlA-iR-Ztv" secondAttribute="trailing" constant="8" id="pnU-l9-f76"/>
+                                    <constraint firstItem="fjP-ds-btP" firstAttribute="height" secondItem="3bo-9n-FZw" secondAttribute="height" id="tXC-9y-EkF"/>
                                     <constraint firstAttribute="centerX" secondItem="fjP-ds-btP" secondAttribute="leading" constant="-20" id="wfX-Xx-ji9"/>
                                     <constraint firstItem="fjP-ds-btP" firstAttribute="top" secondItem="3bo-9n-FZw" secondAttribute="top" id="xmY-TM-uRI"/>
                                     <constraint firstItem="3bo-9n-FZw" firstAttribute="width" secondItem="ZzK-kx-gII" secondAttribute="width" multiplier="0.35" id="yfx-zz-5rq"/>

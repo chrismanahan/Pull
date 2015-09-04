@@ -47,6 +47,10 @@
 	<string>468309439970987</string>
 	<key>FacebookDisplayName</key>
 	<string>Pull</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbauth2</string>
+	</array>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>

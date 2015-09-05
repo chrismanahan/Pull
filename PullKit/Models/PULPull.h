@@ -17,6 +17,8 @@ extern const NSTimeInterval kPullDurationHalfDay;
 extern const NSTimeInterval kPullDurationDay;
 extern const NSTimeInterval kPullDurationAlways;
 
+extern NSString * const PULPullNearbyNotification;
+
 /*!
  *  Pull status
  */

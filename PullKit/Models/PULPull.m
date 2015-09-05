@@ -14,8 +14,6 @@
 
 #import "NSDate+Utilities.h"
 
-#import "PULLocalPush.h"
-
 #import "FireSync.h"
 
 #import <UIKit/UIKit.h>
@@ -24,6 +22,8 @@ const NSTimeInterval kPullDurationHour    = 3600;
 const NSTimeInterval kPullDurationHalfDay = 3600 * 12;
 const NSTimeInterval kPullDurationDay     = 3600 * 24;
 const NSTimeInterval kPullDurationAlways  = 0;
+
+NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
 
 @interface PULPull ()
 
@@ -176,38 +176,31 @@ const NSTimeInterval kPullDurationAlways  = 0;
                     _nearby = YES;
                     [self didChangeValueForKey:@"nearby"];
                     
-#ifndef PULLKIT
-                    // notify user that friend is nearby if we're in the background
-                    UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
-                    if (appState != UIApplicationStateActive)
+                    // decide to send out a notification
+                    BOOL shouldNotify = NO;
+                    if (_lastNearbyNotification)
                     {
-                        BOOL shouldNotify = NO;
-                        if (_lastNearbyNotification)
+                        // check if it's been long enough since the last notification
+                        NSDate *now = [NSDate dateWithMinutesFromNow:0];
+                        NSInteger minutesPassed = [now minutesAfterDate:_lastNearbyNotification];
+                        shouldNotify = minutesPassed > kPULPullLocalNotificationDelayMinutes;
+                    }
+                    else
+                    {
+                        shouldNotify = YES;
+                    }
+                    
+                    if (shouldNotify)
+                    {
+                        // check if the user wants to be notified
+                        if ([PULAccount currentUser].settings.notifyNearby)
                         {
-                            // check if it's been long enough since the last notification
-                            NSDate *now = [NSDate dateWithMinutesFromNow:0];
-                            NSInteger minutesPassed = [now minutesAfterDate:_lastNearbyNotification];
-                            shouldNotify = minutesPassed > kPULPullLocalNotificationDelayMinutes;
-                        }
-                        else
-                        {
-                            shouldNotify = YES;
-                        }
-                        
-                        if (shouldNotify)
-                        {
-                            // check if the user wants to be notified
-                            if ([PULAccount currentUser].settings.notifyNearby)
-                            {
-                                NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [self otherUser].firstName];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:PULPullNearbyNotification
+                                                                                object:self];
                             
-                                [PULLocalPush sendLocalPushWithMessage:alertMessage];
-                                
-                                _lastNearbyNotification = [NSDate dateWithMinutesFromNow:0];
-                            }
+                            _lastNearbyNotification = [NSDate dateWithMinutesFromNow:0];
                         }
                     }
-#endif
                 }
             }
             else

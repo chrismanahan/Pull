@@ -19,13 +19,11 @@
 
 + (void)sendLocalPushWithMessage:(NSString*)message delay:(float)delay;
 {
-#ifndef PULLKIT
     UILocalNotification *notif = [[UILocalNotification alloc] init];
     notif.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
     notif.soundName = UILocalNotificationDefaultSoundName;
     notif.alertBody = message;
     [[UIApplication sharedApplication] scheduleLocalNotification:notif];
-#endif
 }
 
 @end

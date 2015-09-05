@@ -12,6 +12,7 @@
 #import "PULPullListViewController.h"
 
 #import "PULNoConnectionView.h"
+#import "PULLocalPush.h"
 
 #import "PULUpdateChecker.h"
 
@@ -25,29 +26,29 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+    
     [Fabric with:@[CrashlyticsKit]];
-
-//    // register for remote notifications
-//    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-//        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge
-//                                                                                             |UIRemoteNotificationTypeSound
-//                                                                                             |UIRemoteNotificationTypeAlert) categories:nil];
-//        [application registerUserNotificationSettings:settings];
-//    } else {
-//        // FIX: < iOS8 doesn't register for push
-//        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-//        [application registerForRemoteNotificationTypes:myTypes];
-//    }
+    
+    //    // register for remote notifications
+    //    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+    //        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge
+    //                                                                                             |UIRemoteNotificationTypeSound
+    //                                                                                             |UIRemoteNotificationTypeAlert) categories:nil];
+    //        [application registerUserNotificationSettings:settings];
+    //    } else {
+    //        // FIX: < iOS8 doesn't register for push
+    //        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+    //        [application registerForRemoteNotificationTypes:myTypes];
+    //    }
     
     
-//    [[FBSDKApplicationDelegate sharedInstance] loadCache];
-
+    //    [[FBSDKApplicationDelegate sharedInstance] loadCache];
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     __block NSString *vcName = NSStringFromClass([PULLoginViewController class]);
     
     // check if we are logged in
-//    Firebase *ref = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
+    //    Firebase *ref = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
     NSData *tokenData = [[NSUserDefaults standardUserDefaults] objectForKey:@"FBToken"];
     FBSDKAccessToken *facebookAccessToken = [NSKeyedUnarchiver unarchiveObjectWithData:tokenData];;// [FBSDKAccessToken currentAccessToken];
     if (facebookAccessToken)
@@ -73,14 +74,30 @@
     
     
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:vcName];
-
+    
     
     [self.window setRootViewController:vc];
     [self.window makeKeyAndVisible];
     
     [PULNoConnectionView startMonitoringConnection];
     [PULUpdateChecker checkForUpdate];
-
+    
+    // start watching for nearby notifications
+    [[NSNotificationCenter defaultCenter] addObserverForName:PULPullNearbyNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                      // notify user that friend is nearby if we're in the background
+                                                      UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
+                                                      if (appState != UIApplicationStateActive)
+                                                      {
+                                                          PULPull *pull = [note object];
+                                                          NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [pull otherUser].firstName];
+                                                          
+                                                          [PULLocalPush sendLocalPushWithMessage:alertMessage];
+                                                      }
+                                                  }];
+    
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
@@ -98,10 +115,10 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     
-//    if ([PULAccountOld currentUser].uid)
-//    {
-//        [[PULAccountOld currentUser] goOnline];
-//    }
+    //    if ([PULAccountOld currentUser].uid)
+    //    {
+    //        [[PULAccountOld currentUser] goOnline];
+    //    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

@@ -40,9 +40,6 @@ FOUNDATION_EXPORT const unsigned char PullKitVersionString[];
 #import <PullKit/FireObject.h>
 #import <PullKit/FireSync.h>
 
-// helpers
-#import <PullKit/PULLocalPush.h>
-
 // models
 #import <PullKit/PULAccount.h>
 #import <PullKit/PULPull.h>

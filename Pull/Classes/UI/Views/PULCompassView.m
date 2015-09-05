@@ -34,7 +34,7 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
 {
     if (display)
     {
-        [self _setCompassView:NO];
+        [self _useCompass:NO];
         _overlayImageView.hidden = YES;
         _imageView.backgroundColor = [UIColor whiteColor];
         
@@ -92,10 +92,12 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     {
         _overlayImageView.hidden = NO;
         [_overlayImageView setImage:[UIImage imageNamed:overlayImageName]];
+        [self _useCompass:NO];
     }
     else
     {
         _overlayImageView.hidden = YES;
+        [self _useCompass:YES];
     }
     
 }
@@ -118,16 +120,20 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     // remove previous heading update block
     [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
     
-    BOOL showCompass = _pull.isNearby && !_pull.isHere && [_pull isAccurate];
-    [self _setCompassView:showCompass];
-    
-    if (showCompass)
+    [self setNeedsLayout];
+}
+
+- (void)_useCompass:(BOOL)useCompass
+{
+    if (useCompass)
     {
+        [_compassImageView setImage:[UIImage imageNamed:@"compass"]];
+        
         // start rotating compass
         static CGFloat lastRads = 0;
         [[PULLocationUpdater sharedUpdater] setHeadingUpdateBlock:^(CLHeading *heading) {
             CGFloat rads = [[PULAccount currentUser] angleWithHeading:heading
-                                                             fromUser:[pull otherUser]];
+                                                             fromUser:[_pull otherUser]];
             
             if (rads >= lastRads + 0.01 || rads <= lastRads - 0.01)
             {
@@ -135,16 +141,6 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
                 lastRads = rads;
             }
         }];
-    }
-    
-    [self setNeedsLayout];
-}
-
-- (void)_setCompassView:(BOOL)isCompass
-{
-    if (isCompass)
-    {
-        [_compassImageView setImage:[UIImage imageNamed:@"compass"]];
     }
     else
     {

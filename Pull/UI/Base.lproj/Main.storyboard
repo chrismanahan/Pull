@@ -428,11 +428,11 @@
                                             <segue destination="ybE-zO-cWY" kind="custom" identifier="PULSlideSegue" customClass="PULSlideSegue" id="HgX-he-Lzx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AME-TT-MLA">
-                                        <rect key="frame" x="552" y="17" width="40" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AME-TT-MLA">
+                                        <rect key="frame" x="567" y="25" width="30" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="BCp-oS-dnQ"/>
+                                            <constraint firstAttribute="width" constant="30" id="BCp-oS-dnQ"/>
                                             <constraint firstAttribute="width" secondItem="AME-TT-MLA" secondAttribute="height" multiplier="1:1" id="sLd-OI-ROO"/>
                                         </constraints>
                                         <state key="normal" image="new_pull.png">
@@ -461,9 +461,6 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cutout_name.png" translatesAutoresizingMaskIntoConstraints="NO" id="l3o-60-dng">
-                                <rect key="frame" x="0.0" y="64" width="600" height="40"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ful-YR-1oS">
                                 <rect key="frame" x="0.0" y="64" width="600" height="40"/>
                                 <color key="backgroundColor" red="0.36862745098039218" green="0.13725490196078433" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
@@ -788,7 +785,6 @@
                             <constraint firstAttribute="trailing" secondItem="ZzK-kx-gII" secondAttribute="trailing" id="CVC-uz-sae"/>
                             <constraint firstItem="uwd-8l-A5U" firstAttribute="width" secondItem="Fa8-lq-H52" secondAttribute="width" multiplier="0.5" priority="750" id="E8B-MR-pEr"/>
                             <constraint firstAttribute="trailing" secondItem="VW3-ba-Yks" secondAttribute="trailing" id="E9L-nH-GgU"/>
-                            <constraint firstItem="l3o-60-dng" firstAttribute="trailing" secondItem="ful-YR-1oS" secondAttribute="trailing" id="Ffg-dp-NP5"/>
                             <constraint firstItem="Tg6-Kr-yWv" firstAttribute="top" secondItem="VW3-ba-Yks" secondAttribute="bottom" id="LEk-Dw-a8D"/>
                             <constraint firstAttribute="trailing" secondItem="Chs-nX-n4I" secondAttribute="trailing" constant="50" id="LMT-Fj-wKL"/>
                             <constraint firstItem="Col-68-KCe" firstAttribute="top" secondItem="Fa8-lq-H52" secondAttribute="top" id="O8z-jo-wGS"/>
@@ -800,7 +796,6 @@
                             <constraint firstItem="ful-YR-1oS" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="VNH-DI-NH5"/>
                             <constraint firstItem="6Zo-Hd-EUz" firstAttribute="width" secondItem="VW3-ba-Yks" secondAttribute="width" id="W6s-Th-feT"/>
                             <constraint firstItem="IXm-v5-UdK" firstAttribute="top" secondItem="ful-YR-1oS" secondAttribute="bottom" constant="8" id="WCN-iM-rwp"/>
-                            <constraint firstItem="l3o-60-dng" firstAttribute="bottom" secondItem="ful-YR-1oS" secondAttribute="bottom" id="ZED-pn-xMC"/>
                             <constraint firstItem="E7c-j8-VHH" firstAttribute="top" secondItem="ful-YR-1oS" secondAttribute="bottom" constant="8" id="bgY-pT-2da"/>
                             <constraint firstItem="VW3-ba-Yks" firstAttribute="leading" secondItem="Chs-nX-n4I" secondAttribute="trailing" id="c8V-8c-i24"/>
                             <constraint firstAttribute="trailing" secondItem="ful-YR-1oS" secondAttribute="trailing" id="cYU-g7-9yS"/>
@@ -818,9 +813,7 @@
                             <constraint firstItem="Tg6-Kr-yWv" firstAttribute="top" secondItem="6Zo-Hd-EUz" secondAttribute="bottom" id="w5b-yT-hYn"/>
                             <constraint firstItem="uwd-8l-A5U" firstAttribute="top" secondItem="E7c-j8-VHH" secondAttribute="bottom" constant="16" id="wOv-Td-fsU"/>
                             <constraint firstItem="Chs-nX-n4I" firstAttribute="height" secondItem="ZzK-kx-gII" secondAttribute="height" multiplier="0.8" id="wnk-5V-hER"/>
-                            <constraint firstItem="l3o-60-dng" firstAttribute="top" secondItem="ful-YR-1oS" secondAttribute="top" id="xdb-XK-wGD"/>
                             <constraint firstItem="VW3-ba-Yks" firstAttribute="height" secondItem="6Zo-Hd-EUz" secondAttribute="height" id="ysi-VC-CqP"/>
-                            <constraint firstItem="l3o-60-dng" firstAttribute="leading" secondItem="ful-YR-1oS" secondAttribute="leading" id="zxW-vA-P9n"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -2712,13 +2705,12 @@ _____________________
         </scene>
     </scenes>
     <resources>
-        <image name="app_settings_white.png" width="81" height="82"/>
+        <image name="app_settings_white.png" width="50" height="50"/>
         <image name="clock_purple.png" width="45" height="44"/>
         <image name="compass.png" width="284" height="331"/>
         <image name="contact_white.png" width="60" height="60"/>
         <image name="continue_facebook.png" width="486" height="114"/>
         <image name="continue_facebook_pressed.png" width="486" height="114"/>
-        <image name="cutout_name.png" width="488" height="67"/>
         <image name="cutout_row.png" width="325" height="50"/>
         <image name="golden_ticket_large.png" width="75" height="76"/>
         <image name="golden_ticket_large_upright.png" width="55" height="88"/>
@@ -2731,7 +2723,7 @@ _____________________
         <image name="learn_more_arrow.png" width="23" height="33"/>
         <image name="more_pull_left.png" width="38" height="38"/>
         <image name="more_pull_right.png" width="38" height="37"/>
-        <image name="new_pull.png" width="43" height="43"/>
+        <image name="new_pull.png" width="30" height="30"/>
         <image name="permission_request_location.png" width="442" height="444"/>
         <image name="permission_request_notification.png" width="499" height="444"/>
         <image name="pull_text_white.png" width="475" height="474"/>

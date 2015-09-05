@@ -117,15 +117,16 @@ const NSInteger kPULAlertEndPullTag = 1001;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self updateUI];
+//    [self updateUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [_collectionView reloadData];
-    [self setSelectedIndex:_selectedIndex];
+
+    [self reload];
+//    [_collectionView reloadData];
+//    [self setSelectedIndex:_selectedIndex];
     
     if ([PULAccount currentUser])
     {

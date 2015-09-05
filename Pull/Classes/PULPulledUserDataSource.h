@@ -12,8 +12,6 @@
 
 @property (nonatomic, strong, readonly) NSArray *datasource;
 
-+ (PULPulledUserDataSource*)sharedDataSource;
-
 - (void)loadDatasourceCompletion:(void(^)(NSArray *ds))completion;
 
 @end

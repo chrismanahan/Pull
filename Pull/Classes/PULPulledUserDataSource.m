@@ -21,13 +21,13 @@
         // unregister from pulls loaded block if needed
         [acct.pulls unregisterLoadedBlock];
         
-        // check if we need to rebuild the datasource
-        if ([self _validateDatasource] && _datasource.count == acct.pulls.count && _datasource != nil)
-        {
-            completion(_datasource);
-        }
-        else
-        {
+//        // check if we need to rebuild the datasource
+//        if ([self _validateDatasource] && _datasource.count == acct.pulls.count && _datasource != nil)
+//        {
+//            completion(_datasource);
+//        }
+//        else
+//        {
             // create data source
             [self _buildDatasource];
             
@@ -35,7 +35,7 @@
             {
                 completion(_datasource);
             }
-        }
+//        }
     }
     else
     {
@@ -54,39 +54,39 @@
     }
 }
 
-- (BOOL)_validateDatasource
-{
-    double lastDistance = 0;
-    for (int i = 0; i < _datasource.count; i++)
-    {
-        PULPull *pull = _datasource[i];
-        double thisDistance = [[pull otherUser] distanceFromUser:[PULAccount currentUser]];
-        
-        // check if status has changed
-        for (PULPull *aPull in [PULAccount currentUser].pulls)
-        {
-            if ([aPull isEqual:pull])
-            {
-                // match status
-                if (aPull.status != pull.status)
-                {
-                    return NO;
-                }
-            }
-        }
-        
-        if (thisDistance < lastDistance && pull.status == PULPullStatusPulled)
-        {
-            return NO;
-        }
-        else
-        {
-            lastDistance = thisDistance;
-        }
-    }
-    
-    return YES;
-}
+//- (BOOL)_validateDatasource
+//{
+//    double lastDistance = 0;
+//    for (int i = 0; i < _datasource.count; i++)
+//    {
+//        PULPull *pull = _datasource[i];
+//        double thisDistance = [[pull otherUser] distanceFromUser:[PULAccount currentUser]];
+//        
+//        // check if status has changed
+//        for (PULPull *aPull in [PULAccount currentUser].pulls)
+//        {
+//            if ([aPull isEqual:pull])
+//            {
+//                // match status
+//                if (aPull.status != pull.status)
+//                {
+//                    return NO;
+//                }
+//            }
+//        }
+//        
+//        if (thisDistance < lastDistance && pull.status == PULPullStatusPulled)
+//        {
+//            return NO;
+//        }
+//        else
+//        {
+//            lastDistance = thisDistance;
+//        }
+//    }
+//    
+//    return YES;
+//}
 
 /**
  *  Builds the datasource

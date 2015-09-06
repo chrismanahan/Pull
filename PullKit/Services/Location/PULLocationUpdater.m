@@ -159,7 +159,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
  */
 -(void)stopUpdatingLocation;
 {
-    PULLog(@"starting location updater");
+    PULLog(@"stopping location updater");
     
     _tracking = NO;
     

@@ -591,20 +591,8 @@ const NSInteger kPULAlertEndPullTag = 1001;
         _pullTimeButton.hidden = NO;
         [_pullTimeButton setTitle:_displayedPull.durationRemaingString forState:UIControlStateNormal];
         
-        if (_displayedPull.isNearby)
-        {
-            if (_displayedPull.isHere)
-            {
-                _distanceLabel.text = @"Here";
-                dialogText = [NSString stringWithFormat:@"%@ should be within %zd feet", [_displayedPull otherUser].firstName, kPULDistanceHereFeet];
-            }
-            else
-            {
-                _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
-            }
-            
-            // check if we have good accuracy
-            if (![_displayedPull isAccurate])
+        switch (_displayedPull.pullDistanceState) {
+            case PULPullDistanceStateInaccurate:
             {
                 _distanceLabel.text = @"Low Accuracy";
                 
@@ -617,15 +605,27 @@ const NSInteger kPULAlertEndPullTag = 1001;
                 {
                     dialogText = [NSString stringWithFormat:@"We're having trouble locating %@ right now because of poor reception on their phone. Try again in a little bit.", user.firstName];
                 }
+                break;
             }
-        }
-        else
-        {
-            // display not nearby stuff
-            _distanceLabel.text = @"Isn't Nearby";
-            
-            dialogText = [NSString stringWithFormat:@"%@ isn't within %zd ft yet. Don't worry, we'll notify you when they're near", [_displayedPull otherUser].firstName, kPULDistanceNearbyFeet];
-        
+            case PULPullDistanceStateFar:
+            {
+                _distanceLabel.text = @"Isn't Nearby";
+                dialogText = [NSString stringWithFormat:@"%@ isn't within %zd ft yet. Don't worry, we'll notify you when they're near", [_displayedPull otherUser].firstName, kPULDistanceNearbyFeet];
+                break;
+            }
+            case PULPullDistanceStateHere:
+            {
+                _distanceLabel.text = @"Here";
+                dialogText = [NSString stringWithFormat:@"%@ should be within %zd feet", [_displayedPull otherUser].firstName, kPULDistanceHereFeet];
+                break;
+            }
+            case PULPullDistanceStateNearby:
+            {
+                 _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
+                break;
+            }
+            default:
+                break;
         }
         
         [self updateDialogWithText:dialogText

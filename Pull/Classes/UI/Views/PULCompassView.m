@@ -1,4 +1,4 @@
-//
+ //
 //  PULCompassView.m
 //  Pull
 //
@@ -65,21 +65,26 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
         }
         case PULPullStatusPulled:
         {
-            // either gonna be not nearby, none, or nearby
-            if (pull.isHere)
-            {
-                overlayImageName = @"friend_here";
+            switch (pull.pullDistanceState) {
+                case PULPullDistanceStateInaccurate:
+                {
+                    overlayImageName = @"low_accuracy";
+                    break;
+                }
+                case PULPullDistanceStateFar:
+                {
+                    overlayImageName = @"not_nearby";
+                    break;
+                }
+                case PULPullDistanceStateHere:
+                {
+                    overlayImageName = @"friend_here";
+                    break;
+                }
+                case PULPullDistanceStateNearby:
+                default:
+                    break;
             }
-            else if (!pull.isNearby)
-            {
-                overlayImageName = @"not_nearby";
-            }
-            
-            if (![pull isAccurate])
-            {
-                overlayImageName = @"low_accuracy";
-            }
-            
             break;
         }
         case PULPullStatusExpired:
@@ -117,14 +122,14 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     // set user image
     [self setUserImageForPull:_pull];
     
-    // remove previous heading update block
-    [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
-    
     [self setNeedsLayout];
 }
 
 - (void)_useCompass:(BOOL)useCompass
 {
+    // remove previous heading update block
+    [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
+    
     if (useCompass)
     {
         [_compassImageView setImage:[UIImage imageNamed:@"compass"]];

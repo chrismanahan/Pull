@@ -139,6 +139,31 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
     return [[PULAccount currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceHereMeters;
 }
 
+- (PULPullDistanceState)pullDistanceState
+{
+    NSAssert(_status == PULPullStatusPulled, @"pull must be active to check the distance state");
+
+    PULPullDistanceState state;
+    if (_nearby && ![self isAccurate])
+    {
+        state = PULPullDistanceStateInaccurate;
+    }
+    else if (self.here)
+    {
+        state = PULPullDistanceStateHere;
+    }
+    else if (_nearby)
+    {
+        state = PULPullDistanceStateNearby;
+    }
+    else
+    {
+        state = PULPullDistanceStateFar;
+    }
+    
+    return state;
+}
+
 #pragma mark - overrides
 - (BOOL)isEqual:(id)object
 {

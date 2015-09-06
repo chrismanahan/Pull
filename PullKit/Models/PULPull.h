@@ -42,6 +42,14 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
     PULPullStatusExpired = 4
 };
 
+typedef NS_ENUM(NSInteger, PULPullDistanceState)
+{
+    PULPullDistanceStateInaccurate = -1,
+    PULPullDistanceStateFar,
+    PULPullDistanceStateNearby,
+    PULPullDistanceStateHere
+};
+
 @interface PULPull : FireObject
 
 /*!
@@ -77,6 +85,7 @@ typedef NS_ENUM(NSInteger, PULPullStatus)
 
 @property (nonatomic, readonly, getter=isNearby) BOOL nearby;
 @property (nonatomic, readonly, getter=isHere) BOOL here;
+@property (nonatomic, readonly) PULPullDistanceState pullDistanceState;
 
 - (instancetype)initNewBetween:(PULUser*)sender and:(PULUser*)receiver duration:(NSTimeInterval)duration;
 

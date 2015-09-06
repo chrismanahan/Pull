@@ -401,35 +401,8 @@
                                         <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0IB-vY-Nh3" userLabel="Left button">
-                                        <rect key="frame" x="8" y="14" width="45" height="47"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="589-g3-gO0"/>
-                                            <constraint firstAttribute="width" secondItem="0IB-vY-Nh3" secondAttribute="height" multiplier="1:1" id="OV9-1r-uiu"/>
-                                            <constraint firstAttribute="width" secondItem="0IB-vY-Nh3" secondAttribute="height" multiplier="1:1" id="QV6-sC-qsI"/>
-                                            <constraint firstAttribute="width" secondItem="0IB-vY-Nh3" secondAttribute="height" multiplier="1:1" id="S1z-Hy-KiO"/>
-                                            <constraint firstAttribute="width" constant="50" id="iJE-kR-yaF"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="5" minY="8" maxX="5" maxY="8"/>
-                                        <state key="normal" image="settings_purple.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="589-g3-gO0"/>
-                                                <exclude reference="OV9-1r-uiu"/>
-                                                <exclude reference="QV6-sC-qsI"/>
-                                                <exclude reference="S1z-Hy-KiO"/>
-                                                <exclude reference="iJE-kR-yaF"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <segue destination="ybE-zO-cWY" kind="custom" identifier="PULSlideSegue" customClass="PULSlideSegue" id="HgX-he-Lzx"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AME-TT-MLA">
-                                        <rect key="frame" x="567" y="25" width="30" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AME-TT-MLA">
+                                        <rect key="frame" x="562" y="23" width="30" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="BCp-oS-dnQ"/>
@@ -439,27 +412,33 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="BCp-oS-dnQ"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <action selector="ibSendPull:" destination="VCg-LE-m1S" eventType="touchUpInside" id="BGR-m7-TrF"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ao-F4-edP">
+                                        <rect key="frame" x="8" y="22" width="32" height="32"/>
+                                        <state key="normal" image="settings_purple.png"/>
+                                        <connections>
+                                            <segue destination="ybE-zO-cWY" kind="custom" customClass="PULSlideSegue" id="z66-NO-9yr"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="0IB-vY-Nh3" firstAttribute="centerY" secondItem="AME-TT-MLA" secondAttribute="centerY" id="KZI-b9-Rsf"/>
-                                    <constraint firstItem="0IB-vY-Nh3" firstAttribute="centerY" secondItem="1ww-bU-Xro" secondAttribute="centerY" id="XQV-q0-7kY"/>
-                                    <constraint firstItem="0IB-vY-Nh3" firstAttribute="leading" secondItem="Col-68-KCe" secondAttribute="leadingMargin" id="aHG-7d-BG1"/>
+                                    <constraint firstItem="AME-TT-MLA" firstAttribute="centerY" secondItem="1ww-bU-Xro" secondAttribute="centerY" id="Hfs-Xf-E4f"/>
+                                    <constraint firstItem="2Ao-F4-edP" firstAttribute="leading" secondItem="Col-68-KCe" secondAttribute="leading" constant="8" id="Mq6-AV-SJK"/>
                                     <constraint firstAttribute="centerY" secondItem="1ww-bU-Xro" secondAttribute="centerY" constant="-5" id="bjZ-fV-UDD"/>
-                                    <constraint firstItem="0IB-vY-Nh3" firstAttribute="width" secondItem="AME-TT-MLA" secondAttribute="width" id="oO3-Ng-lO1"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="AME-TT-MLA" secondAttribute="trailing" id="rP5-vM-Q8T"/>
                                     <constraint firstAttribute="centerX" secondItem="1ww-bU-Xro" secondAttribute="centerX" id="rQt-us-akj"/>
                                     <constraint firstAttribute="height" constant="64" id="ukk-Mp-ISw"/>
+                                    <constraint firstItem="2Ao-F4-edP" firstAttribute="centerY" secondItem="AME-TT-MLA" secondAttribute="centerY" id="zuN-fH-Fbk"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="oO3-Ng-lO1"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ful-YR-1oS">
                                 <rect key="frame" x="0.0" y="64" width="600" height="40"/>
@@ -849,7 +828,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PX-8q-Zmp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1854" y="702"/>
+            <point key="canvasLocation" x="2281" y="1332"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="PgJ-Cf-P5W">
@@ -2708,7 +2687,7 @@ _____________________
         <image name="app_settings_white.png" width="50" height="50"/>
         <image name="clock_purple.png" width="45" height="44"/>
         <image name="compass.png" width="284" height="331"/>
-        <image name="contact_white.png" width="60" height="60"/>
+        <image name="contact_white.png" width="50" height="50"/>
         <image name="continue_facebook.png" width="486" height="114"/>
         <image name="continue_facebook_pressed.png" width="486" height="114"/>
         <image name="cutout_row.png" width="325" height="50"/>
@@ -2729,8 +2708,8 @@ _____________________
         <image name="pull_text_white.png" width="475" height="474"/>
         <image name="request_notification.png" width="21" height="22"/>
         <image name="setting_white.png" width="50" height="52"/>
-        <image name="settings_purple.png" width="45" height="47"/>
-        <image name="share_white.png" width="43" height="63"/>
+        <image name="settings_purple.png" width="32" height="32"/>
+        <image name="share_white.png" width="43" height="61"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="YmG-62-Utd"/>

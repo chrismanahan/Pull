@@ -191,7 +191,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
     @try {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self _highestVisibleIndex]+1 inSection:0];
         [_collectionView scrollToItemAtIndexPath:indexPath
-                                atScrollPosition:UICollectionViewScrollPositionRight
+                                atScrollPosition:UICollectionViewScrollPositionLeft
                                         animated:YES];
 
     }
@@ -205,7 +205,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
     @try {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self _lowestVisibleIndex]-1 inSection:0];
         [_collectionView scrollToItemAtIndexPath:indexPath
-                                atScrollPosition:UICollectionViewScrollPositionNone
+                                atScrollPosition:UICollectionViewScrollPositionRight
                                         animated:YES];
     }
     @catch (NSException *exception) {

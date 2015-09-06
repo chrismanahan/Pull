@@ -188,18 +188,29 @@ const NSInteger kPULAlertEndPullTag = 1001;
 #pragma mark - Actions
 - (IBAction)ibMoreRight:(id)sender
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self _highestVisibleIndex]+1 inSection:0];
-    [_collectionView scrollToItemAtIndexPath:indexPath
-                            atScrollPosition:UICollectionViewScrollPositionRight
-                                    animated:YES];
+    @try {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self _highestVisibleIndex]+1 inSection:0];
+        [_collectionView scrollToItemAtIndexPath:indexPath
+                                atScrollPosition:UICollectionViewScrollPositionRight
+                                        animated:YES];
+
+    }
+    @catch (NSException *exception) {
+        PULLog(@"EXCEPTION WITH SLIDING RIGHT: %@", exception);
+    }
 }
 
 - (IBAction)ibMoreLeft:(id)sender
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self _lowestVisibleIndex]-1 inSection:0];
-    [_collectionView scrollToItemAtIndexPath:indexPath
-                            atScrollPosition:UICollectionViewScrollPositionNone
-                                    animated:YES];
+    @try {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self _lowestVisibleIndex]-1 inSection:0];
+        [_collectionView scrollToItemAtIndexPath:indexPath
+                                atScrollPosition:UICollectionViewScrollPositionNone
+                                        animated:YES];
+    }
+    @catch (NSException *exception) {
+        PULLog(@"EXCEPTION WITH SLIDING RIGHT: %@", exception);
+    }
     
 }
 

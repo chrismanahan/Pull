@@ -504,6 +504,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
 - (void)_toggleMoreArrow
 {
     _moreNotificationImageViewRight.hidden = YES;
+    _moreNotificationImageViewLeft.hidden = YES;
     
     // do we have more elements than visible cells
     NSArray *visibleIndexPaths = [_collectionView  indexPathsForVisibleItems];
@@ -517,6 +518,17 @@ const NSInteger kPULAlertEndPullTag = 1001;
         if (lowest != 0)
         {
             _moreNotificationContainerLeft.hidden = NO;
+            
+            // check if we should show the notification above the arrow
+            for (int i = lowest-1; i >= 0; i--)
+            {
+                PULPull *pull = _pulledUserDatasource.datasource[i];
+                if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULAccount currentUser]])
+                {
+                    _moreNotificationImageViewLeft.hidden = NO;
+                    break;
+                }
+            }
         }
         else
         {

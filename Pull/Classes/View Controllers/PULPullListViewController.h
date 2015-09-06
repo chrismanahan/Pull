@@ -28,6 +28,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *compassUserImageViewTopConstraint;
 @property (strong, nonatomic) IBOutlet UIImageView *cutoutImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *moreNotificationImageViewRight;
+@property (strong, nonatomic) IBOutlet UIImageView *moreNotificationImageViewLeft;
 @property (strong, nonatomic) IBOutlet UIView *moreNotificationContainerRight;
 @property (strong, nonatomic) IBOutlet UIView *moreNotificationContainerLeft;
 @property (strong, nonatomic) IBOutlet UIButton *pullTimeButton;

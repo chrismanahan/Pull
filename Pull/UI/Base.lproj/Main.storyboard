@@ -821,6 +821,7 @@
                         <outlet property="headerView" destination="Col-68-KCe" id="GKB-nq-BEW"/>
                         <outlet property="moreNotificationContainerLeft" destination="6Zo-Hd-EUz" id="qb8-Vt-x9j"/>
                         <outlet property="moreNotificationContainerRight" destination="VW3-ba-Yks" id="E1Q-3Q-cNi"/>
+                        <outlet property="moreNotificationImageViewLeft" destination="wxz-6a-VRo" id="uva-cy-wbG"/>
                         <outlet property="moreNotificationImageViewRight" destination="wTl-BI-PpV" id="cBc-Wv-JIQ"/>
                         <outlet property="nameLabel" destination="ful-YR-1oS" id="D9x-Pm-cNi"/>
                         <outlet property="pullTimeButton" destination="IXm-v5-UdK" id="haq-dO-PNY"/>

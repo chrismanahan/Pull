@@ -131,7 +131,19 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
     NSInteger timeRemaining = [_expiration timeIntervalSinceNow];
     NSInteger minutes = (timeRemaining / 60) % 60;
     NSInteger hours = (timeRemaining / 3600);
-    return [NSString stringWithFormat:@"%02ld:%02ld", hours, minutes];
+
+    NSString *retString;
+    
+    if (hours >= 1)
+    {
+        retString = [NSString stringWithFormat:@"%zdh %zdm", hours, minutes];
+    }
+    else
+    {
+        retString = [NSString stringWithFormat:@"%zdm", minutes];
+    }
+    
+    return retString;
 }
 
 - (BOOL)isHere

@@ -743,7 +743,7 @@
                                     <constraint firstItem="wxz-6a-VRo" firstAttribute="top" secondItem="6Zo-Hd-EUz" secondAttribute="top" constant="4" id="wRI-ql-7j2"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXm-v5-UdK">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXm-v5-UdK">
                                 <rect key="frame" x="8" y="112" width="117" height="44"/>
                                 <state key="normal" title="12 Hours" image="clock_purple.png">
                                     <color key="titleColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -770,6 +770,7 @@
                             <constraint firstItem="Tg6-Kr-yWv" firstAttribute="top" secondItem="Chs-nX-n4I" secondAttribute="bottom" id="OBA-6g-QeF"/>
                             <constraint firstItem="Chs-nX-n4I" firstAttribute="leading" secondItem="6Zo-Hd-EUz" secondAttribute="trailing" id="Ozt-j7-H0g"/>
                             <constraint firstItem="Chs-nX-n4I" firstAttribute="top" secondItem="ZzK-kx-gII" secondAttribute="bottom" id="PHv-r4-Lvi"/>
+                            <constraint firstItem="E7c-j8-VHH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IXm-v5-UdK" secondAttribute="trailing" constant="8" id="Q5q-kF-es5"/>
                             <constraint firstItem="Chs-nX-n4I" firstAttribute="leading" secondItem="ZzK-kx-gII" secondAttribute="leading" id="Q87-dv-3zQ"/>
                             <constraint firstItem="6Zo-Hd-EUz" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="RbU-t2-8DI"/>
                             <constraint firstItem="ful-YR-1oS" firstAttribute="leading" secondItem="Fa8-lq-H52" secondAttribute="leading" id="VNH-DI-NH5"/>

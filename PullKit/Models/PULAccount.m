@@ -174,7 +174,7 @@ static PULAccount *account = nil;
         [self.pulls enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             PULPull *pull = obj;
             
-            if ([pull.expiration isInPast] && pull.duration != kPullDurationAlways)
+            if ([pull.expiration isInPast] && pull.duration != kPullDurationAlways && pull.status == PULPullStatusPulled)
             {
                 PULLog(@"pruning pull: %@", pull);
                 [self cancelPull:pull];

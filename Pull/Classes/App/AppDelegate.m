@@ -86,7 +86,7 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:PULPullNearbyNotification
                                                       object:nil
                                                        queue:[NSOperationQueue currentQueue]
-                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                  usingBlock:^(NSNotification * note) {
                                                       // notify user that friend is nearby if we're in the background
                                                       UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
                                                       if (appState != UIApplicationStateActive)

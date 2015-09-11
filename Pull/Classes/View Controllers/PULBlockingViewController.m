@@ -11,7 +11,7 @@
 #import "PULUserCell.h"
 
 
-@interface PULBlockingViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UISearchBarDelegate, PULUserCellDelegate>
+@interface PULBlockingViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UISearchBarDelegate, PULUserCellDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -199,6 +199,14 @@
     [_tableView reloadData];
 }
 
+#pragma mark - Scroll View Delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([_searchBar isFirstResponder])
+    {
+        [_searchBar resignFirstResponder];
+    }
+}
 
 #pragma mark - User Cell Delegate
 - (void)userCell:(PULUserCell*)cell accessoryButtonTappedForUser:(PULUser *)user

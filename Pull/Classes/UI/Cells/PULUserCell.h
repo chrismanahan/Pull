@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class PULUser;
+@class PULUserCell;
 
 typedef NS_ENUM(NSInteger, PULUserCellAccessoryButtonType)
 {
@@ -17,12 +20,23 @@ typedef NS_ENUM(NSInteger, PULUserCellAccessoryButtonType)
     PULUserCellAccessoryButtonTypeDark
 };
 
+@protocol PULUserCellDelegate <NSObject>
+
+- (void)userCell:(PULUserCell*)cell accessoryButtonTappedForUser:(PULUser *)user;
+
+@end
+
 @interface PULUserCell : UITableViewCell
 
 @property (nonatomic, strong) PULUser *user;
 
 @property (nonatomic, assign) PULUserCellAccessoryButtonType accessoryButtonType;
-@property (strong, nonatomic) IBOutlet UIButton *accessoryButton;
+@property (strong, nonatomic, nullable) IBOutlet UIButton *accessoryButton;
+
+@property (nonatomic, weak, nullable) id <PULUserCellDelegate> delegate;
 
 
 @end
+
+
+NS_ASSUME_NONNULL_END

@@ -55,6 +55,15 @@
     }
 }
 
+#pragma mark - Actions
+- (IBAction)ibAccessoryTapped:(id)sender
+{
+    if ([_delegate respondsToSelector:@selector(userCell:accessoryButtonTappedForUser:)])
+    {
+        [_delegate userCell:self accessoryButtonTappedForUser:_user];
+    }
+}
+
 #pragma mark - Properties
 - (void)setUser:(PULUser *)user
 {

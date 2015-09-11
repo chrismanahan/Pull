@@ -11,7 +11,7 @@
 #import "PULUserCell.h"
 
 
-@interface PULBlockingViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UISearchBarDelegate>
+@interface PULBlockingViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UISearchBarDelegate, PULUserCellDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -72,6 +72,7 @@
     [cell.accessoryButton setTitle:(isUnblockedSection ? @"Block" : @"Unblock")
                           forState:UIControlStateNormal];
     
+    cell.delegate = self;
     
     return cell;
 }
@@ -113,39 +114,6 @@
     {
         return section == 0 ? _searchFriendsDatasource : _searchBlockedDatasource;
     }
-}
-
-#pragma mark - table view delegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSArray *dataSource = [self _dataSourceForSection:indexPath.section];
-    
-    PULUser *user = dataSource[indexPath.row];
-    
-    UIAlertView *alert;
-    if (indexPath.section == 0)
-    {
-        alert = [[UIAlertView alloc] initWithTitle:@"Block"
-                                    message:[NSString stringWithFormat:@"Are you sure you want to block %@ on pull?", user.firstName]
-                                   delegate:self
-                          cancelButtonTitle:@"No"
-                          otherButtonTitles: @"Block", nil];
-        
-        alert.tag = 1000;
-    }
-    else
-    {
-        alert = [[UIAlertView alloc] initWithTitle:@"Unblock"
-                                    message:[NSString stringWithFormat:@"Are you sure you want to unblock %@ on pull?", user.firstName]
-                                   delegate:self
-                          cancelButtonTitle:@"No"
-                          otherButtonTitles: @"Unblock", nil] ;
-        alert.tag = 1001;
-    }
-    
-    _selectedUser = user;
-    
-    [alert show];
 }
 
 #pragma mark - alert view delegat
@@ -231,5 +199,35 @@
     [_tableView reloadData];
 }
 
+
+#pragma mark - User Cell Delegate
+- (void)userCell:(PULUserCell*)cell accessoryButtonTappedForUser:(PULUser *)user
+{
+    UIAlertView *alert;
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    if (indexPath.section == 0)
+    {
+        alert = [[UIAlertView alloc] initWithTitle:@"Block"
+                                           message:[NSString stringWithFormat:@"Are you sure you want to block %@ on pull?", user.firstName]
+                                          delegate:self
+                                 cancelButtonTitle:@"No"
+                                 otherButtonTitles: @"Block", nil];
+        
+        alert.tag = 1000;
+    }
+    else
+    {
+        alert = [[UIAlertView alloc] initWithTitle:@"Unblock"
+                                           message:[NSString stringWithFormat:@"Are you sure you want to unblock %@ on pull?", user.firstName]
+                                          delegate:self
+                                 cancelButtonTitle:@"No"
+                                 otherButtonTitles: @"Unblock", nil] ;
+        alert.tag = 1001;
+    }
+    
+    _selectedUser = user;
+    
+    [alert show];
+}
 
 @end

@@ -79,6 +79,25 @@
     [self.window setRootViewController:vc];
     [self.window makeKeyAndVisible];
     
+    
+    UIView *launchOverlay = [[NSBundle mainBundle] loadNibNamed:@"LaunchScreen"
+                                                          owner:nil
+                                                        options:nil][0];
+    [self.window addSubview:launchOverlay];
+ 
+        [UIView animateWithDuration:0.5
+                              delay:0.2
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             CGRect frame = launchOverlay.frame;
+                             frame.origin.y = -CGRectGetHeight(frame);
+                             launchOverlay.frame = frame;
+                         } completion:^(BOOL finished) {
+                             [launchOverlay removeFromSuperview];
+                         }];
+
+    
+    
     [PULNoConnectionView startMonitoringConnection];
     [PULUpdateChecker checkForUpdate];
     

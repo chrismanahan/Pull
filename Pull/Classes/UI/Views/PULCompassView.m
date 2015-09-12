@@ -130,20 +130,18 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
 
 - (void)_useCompass:(BOOL)useCompass
 {
-    // remove previous heading update block
-    [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
-    
     if (useCompass)
     {
         [_compassImageView setImage:[UIImage imageNamed:@"compass"]];
         
         // start rotating compass
         static CGFloat lastRads = 0;
+        [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
         [[PULLocationUpdater sharedUpdater] setHeadingUpdateBlock:^(CLHeading *heading) {
             CGFloat rads = [[PULAccount currentUser] angleWithHeading:heading
                                                              fromUser:[_pull otherUser]];
             
-            if (rads >= lastRads + 0.01 || rads <= lastRads - 0.01)
+            if (rads >= lastRads + 0.1 || rads <= lastRads - 0.1)
             {
                 [self _rotateCompassToRadians:rads];
                 lastRads = rads;
@@ -152,6 +150,8 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     }
     else
     {
+        [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
+        
         _compassImageView.transform = CGAffineTransformIdentity;
         [_compassImageView setImage:[UIImage imageNamed:@"circle_purple"]];
     }

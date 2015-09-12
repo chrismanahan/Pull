@@ -337,6 +337,13 @@ const NSInteger kPULAlertEndPullTag = 1001;
             [self reload];
         }];
     }
+    
+    if (![[PULAccount currentUser] isObservingKeyPath:@"location"])
+    {
+        [[PULAccount currentUser] observeKeyPath:@"location" block:^{
+            [self updateUI];
+        }];
+    }
 }
 
 

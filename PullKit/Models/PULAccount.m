@@ -186,7 +186,14 @@ static PULAccount *account = nil;
 #pragma mark - Authentication
 - (void)logout;
 {
+    [self cancelAllPulls];
+    
     [[FireSync sharedSync] unauth];
+    [[[FBSDKLoginManager alloc] init] logOut];
+    [FBSDKAccessToken setCurrentAccessToken:nil];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"FBToken"];
+    
+    
 }
 
 + (void)loginWithFacebookToken:(FBSDKAccessToken*)accessToken completion:(nullable void(^)(PULAccount *account, NSError *error))completion;
@@ -208,6 +215,7 @@ static PULAccount *account = nil;
                                     {
                                         PULLog(@"logged in with facebook");
                                         
+                                        [FBSDKAccessToken setCurrentAccessToken:accessToken];
                                         [PULAccount initializeCurrentUser:authData.uid];
                                         
                                         if (completion)
@@ -331,6 +339,14 @@ static PULAccount *account = nil;
         }];
         
         [_observers addObject:obs];
+    }
+}
+
+- (void)cancelAllPulls;
+{
+    for (PULPull *pull in self.pulls)
+    {
+        [self cancelPull:pull];
     }
 }
 

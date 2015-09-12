@@ -31,6 +31,7 @@ extern NSString * const PULAccountDidLoginNotification;
 - (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration caption:(nullable NSString*)caption;
 - (void)acceptPull:(PULPull*)pull;
 - (void)cancelPull:(PULPull*)pull;
+- (void)cancelAllPulls;
 - (void)cancelPullWithUser:(PULUser*)user;
 
 // User management

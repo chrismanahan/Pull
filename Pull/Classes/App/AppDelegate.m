@@ -49,6 +49,7 @@
     
     // check if we are logged in
     //    Firebase *ref = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
+    // FIXME: Token should not be passed around in user defaults, the fb sdk should be used for this
     NSData *tokenData = [[NSUserDefaults standardUserDefaults] objectForKey:@"FBToken"];
     FBSDKAccessToken *facebookAccessToken = [NSKeyedUnarchiver unarchiveObjectWithData:tokenData];;// [FBSDKAccessToken currentAccessToken];
     if (facebookAccessToken)

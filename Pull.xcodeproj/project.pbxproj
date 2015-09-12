@@ -252,10 +252,6 @@
 		9B78A7CF1B80DE88005569B4 /* NSDate+Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7BF1B80DE88005569B4 /* NSDate+Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B78A7D01B80DE88005569B4 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7C01B80DE88005569B4 /* NSDate+Utilities.m */; };
 		9B78A7D11B80DE88005569B4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7C11B80DE88005569B4 /* README.md */; };
-		9B78A7D21B80DE88005569B4 /* LICENCE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B78A7C31B80DE88005569B4 /* LICENCE.txt */; };
-		9B78A7D31B80DE88005569B4 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7C41B80DE88005569B4 /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9B78A7D41B80DE88005569B4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7C51B80DE88005569B4 /* Reachability.m */; };
-		9B78A7D51B80DE88005569B4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7C61B80DE88005569B4 /* README.md */; };
 		9B78A7D61B80DE88005569B4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9B78A7C81B80DE88005569B4 /* LICENSE */; };
 		9B78A7D71B80DE88005569B4 /* ReadMe.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7C91B80DE88005569B4 /* ReadMe.md */; };
 		9B78A7D81B80DE88005569B4 /* THBinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7CA1B80DE88005569B4 /* THBinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -740,10 +736,6 @@
 		9B78A7BF1B80DE88005569B4 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		9B78A7C01B80DE88005569B4 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		9B78A7C11B80DE88005569B4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		9B78A7C31B80DE88005569B4 /* LICENCE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE.txt; sourceTree = "<group>"; };
-		9B78A7C41B80DE88005569B4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		9B78A7C51B80DE88005569B4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		9B78A7C61B80DE88005569B4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9B78A7C81B80DE88005569B4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		9B78A7C91B80DE88005569B4 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		9B78A7CA1B80DE88005569B4 /* THBinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THBinder.h; sourceTree = "<group>"; };
@@ -1716,7 +1708,6 @@
 			isa = PBXGroup;
 			children = (
 				9B78A7BE1B80DE88005569B4 /* NSDate-Extensions-master */,
-				9B78A7C21B80DE88005569B4 /* Reachability */,
 				9B78A7C71B80DE88005569B4 /* THObserversAndBinders */,
 			);
 			path = Vendor;
@@ -1730,17 +1721,6 @@
 				9B78A7C11B80DE88005569B4 /* README.md */,
 			);
 			path = "NSDate-Extensions-master";
-			sourceTree = "<group>";
-		};
-		9B78A7C21B80DE88005569B4 /* Reachability */ = {
-			isa = PBXGroup;
-			children = (
-				9B78A7C31B80DE88005569B4 /* LICENCE.txt */,
-				9B78A7C41B80DE88005569B4 /* Reachability.h */,
-				9B78A7C51B80DE88005569B4 /* Reachability.m */,
-				9B78A7C61B80DE88005569B4 /* README.md */,
-			);
-			path = Reachability;
 			sourceTree = "<group>";
 		};
 		9B78A7C71B80DE88005569B4 /* THObserversAndBinders */ = {
@@ -1871,7 +1851,6 @@
 				9B78A7B51B80DE7D005569B4 /* PULLocationUpdater.h in Headers */,
 				9B78A7E11B80DE9D005569B4 /* PULConstants.h in Headers */,
 				9BED45AE1B80DA160007F5F4 /* PullKit.h in Headers */,
-				9B78A7D31B80DE88005569B4 /* Reachability.h in Headers */,
 				9B78A7E71B80E027005569B4 /* PullKit-Prefix.pch in Headers */,
 				9B78A7DA1B80DE88005569B4 /* THObserver.h in Headers */,
 				9B78A79B1B80DE66005569B4 /* FireObject.h in Headers */,
@@ -2350,7 +2329,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B78A7D61B80DE88005569B4 /* LICENSE in Resources */,
-				9B78A7D21B80DE88005569B4 /* LICENCE.txt in Resources */,
 				9B78A76B1B80DA63005569B4 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2497,13 +2475,11 @@
 				9B78A7B61B80DE7D005569B4 /* PULLocationUpdater.m in Sources */,
 				9B78A7D11B80DE88005569B4 /* README.md in Sources */,
 				9B78A7981B80DE66005569B4 /* UIVisualEffectView+PullBlur.m in Sources */,
-				9B78A7D51B80DE88005569B4 /* README.md in Sources */,
 				9B78A7D71B80DE88005569B4 /* ReadMe.md in Sources */,
 				9B78A79A1B80DE66005569B4 /* FireMutableArray.m in Sources */,
 				9B78A7DB1B80DE88005569B4 /* THObserver.m in Sources */,
 				9B78A7A81B80DE66005569B4 /* PULUserSettings.m in Sources */,
 				9B78A7A21B80DE66005569B4 /* PULAccount.m in Sources */,
-				9B78A7D41B80DE88005569B4 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

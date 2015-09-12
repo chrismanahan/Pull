@@ -22,7 +22,6 @@ FOUNDATION_EXPORT const unsigned char PullKitVersionString[];
 
 // vendor
 #import <PullKit/NSDate+Utilities.h>
-#import <PullKit/Reachability.h>
 #import <PullKit/THObserversAndBinders.h>
 
 // services

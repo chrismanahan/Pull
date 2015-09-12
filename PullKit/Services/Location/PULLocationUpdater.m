@@ -8,14 +8,13 @@
 
 #import "PULLocationUpdater.h"
 
-#import "Reachability.h"
-
 #import "PULConstants.h"
 
 #import "PULAccount.h"
 
 #import "MMWormHole.h"
 
+#import <LocationKit/LocationKit.h>
 #import <parkour/parkour.h>
 #import <UIKit/UIKit.h>
 
@@ -27,7 +26,7 @@ NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermiss
 NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissionsNeededNotification";
 NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotification";
 
-@interface PULLocationUpdater ()
+@interface PULLocationUpdater () <LocationKitDelegate>
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
 
@@ -111,33 +110,56 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 -(void)startUpdatingLocation;
 {
     static int tries = 0;
+    static BOOL didStart = NO;
     // verify we should be starting location
     if ([self _shouldUpdateLocation])
     {
         PULLog(@"starting location updater");
         _tracking = YES;
 
-        [parkour start];
-        [parkour setMinPositionUpdateRate:3];
-        [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
+        BOOL useLK = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
+        if (useLK)
+        {
 
-            CLS_LOG(@"received location: %@ of type %zd : $zd", position, motionType);
-            
-            PULAccount *acct = [PULAccount currentUser];
-            if (acct.isLoaded)
+            if (!didStart)
             {
-                acct.currentMotionType = motionType;
-                acct.location = position;
-                acct.currentPositionType = positionType;
-                [acct saveKeys:@[@"location"]];
+                NSDictionary *options = @{LKOptionTimedUpdatesInterval: @3,
+                                          LKOptionUseiOSMotionActivity: @YES};
+                [[LocationKit sharedInstance] startWithApiToken:@"a4a75fffb77e5f47" delegate:self options:options];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
-                                                                    object:position];
+                [[LocationKit sharedInstance] applyOperationMode:[[LKSetting alloc] initWithType:LKSettingTypeMedium]];
+                
+                didStart = YES;
             }
+            else
+            {
+                [[LocationKit sharedInstance] resume];
+            }
+        }
+        else
+        {
+            [parkour start];
+            [parkour setMinPositionUpdateRate:3];
+            [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
 
-        }];
-        
-        [parkour setTrackPositionMode:Fitness];
+                CLS_LOG(@"received location: %@ of type %zd : $zd", position, motionType);
+                
+                PULAccount *acct = [PULAccount currentUser];
+                if (acct.isLoaded)
+                {
+                    acct.currentMotionType = motionType;
+                    acct.location = position;
+                    acct.currentPositionType = positionType;
+                    [acct saveKeys:@[@"location"]];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
+                                                                        object:position];
+                }
+
+            }];
+            
+            [parkour setTrackPositionMode:Fitness];
+        }
     }
     else
     {
@@ -163,8 +185,37 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     
     _tracking = NO;
     
-    [parkour stopTrackPosition];
-    [parkour stop];
+    BOOL useLK = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
+    if (useLK)
+    {
+        [[LocationKit sharedInstance] pause];
+    }
+    else
+    {
+        [parkour stopTrackPosition];
+        [parkour stop];
+    }
+}
+
+#pragma mark - location kit delegate
+- (void)locationKit:(LocationKit *)locationKit didUpdateLocation:(CLLocation *)location;
+{
+    PULAccount *acct = [PULAccount currentUser];
+    if (acct.isLoaded)
+    {
+//        acct.currentMotionType = motionType;
+        acct.location = location;
+//        acct.currentPositionType = positionType;
+        [acct saveKeys:@[@"location"]];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
+                                                            object:location];
+    }
+}
+
+- (void)locationKit:(LocationKit *)locationKit willChangeActivityMode:(LKActivityMode)mode;
+{
+    
 }
 
 #pragma mark - Location Manager delegate

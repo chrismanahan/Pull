@@ -10,15 +10,13 @@
 
 #import "PULConstants.h"
 
-#import "Reachability.h"
-
 NSString * const PULConnectionRestoredNotification = @"kPULConnectionRestoredNotification";
 
 NSString * const PULConnectionLostNotification = @"kPULConnectionLostNotification;";
 
 @interface PULNoConnectionView ()
 
-@property (nonatomic, strong) Reachability *reachability;
+//@property (nonatomic, strong) Reachability *reachability;
 
 @end
 
@@ -43,55 +41,55 @@ NSString * const PULConnectionLostNotification = @"kPULConnectionLostNotificatio
 - (void)initializeReachability
 {
     
-    _reachability = [Reachability reachabilityForInternetConnection];
-    
-    PULLog(@"starting reachability notifier");
-    [_reachability startNotifier];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reachabilityChanged:)
-                                                 name:kReachabilityChangedNotification
-                                               object:_reachability];
+//    _reachability = [Reachability reachabilityForInternetConnection];
+//    
+//    PULLog(@"starting reachability notifier");
+//    [_reachability startNotifier];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(reachabilityChanged:)
+//                                                 name:kReachabilityChangedNotification
+//                                               object:_reachability];
 }
 
 - (void)reachabilityChanged:(NSNotification*)note
 {
-    NetworkStatus netStatus = [_reachability currentReachabilityStatus];
-    
-    switch (netStatus)
-    {
-        case NotReachable:
-        {
-            PULLog(@"NETWORKCHECK: Not Connected");
-            break;
-        }
-        case ReachableViaWWAN:
-        {
-            PULLog(@"NETWORKCHECK: Connected Via WWAN");
-            break;
-        }
-        case ReachableViaWiFi:
-        {
-            PULLog(@"NETWORKCHECK: Connected Via WiFi");
-            break;
-        }
-    }
-    
-    if ([_reachability isReachable])
-    {
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:PULConnectionRestoredNotification
-                                                            object:self];
-        
-        
-    }
-    else
-    {
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:PULConnectionLostNotification
-                                                            object:self];
-        
-    }
+//    NetworkStatus netStatus = [_reachability currentReachabilityStatus];
+//    
+//    switch (netStatus)
+//    {
+//        case NotReachable:
+//        {
+//            PULLog(@"NETWORKCHECK: Not Connected");
+//            break;
+//        }
+//        case ReachableViaWWAN:
+//        {
+//            PULLog(@"NETWORKCHECK: Connected Via WWAN");
+//            break;
+//        }
+//        case ReachableViaWiFi:
+//        {
+//            PULLog(@"NETWORKCHECK: Connected Via WiFi");
+//            break;
+//        }
+//    }
+//    
+//    if ([_reachability isReachable])
+//    {
+//        
+//        [[NSNotificationCenter defaultCenter] postNotificationName:PULConnectionRestoredNotification
+//                                                            object:self];
+//        
+//        
+//    }
+//    else
+//    {
+//        
+//        [[NSNotificationCenter defaultCenter] postNotificationName:PULConnectionLostNotification
+//                                                            object:self];
+//        
+//    }
 }
 
 @end

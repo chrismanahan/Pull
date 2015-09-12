@@ -11,6 +11,7 @@ pod 'Firebase'
 pod 'MMWormhole'
 pod 'SDWebImage', '~>3.7'
 pod 'UIActivityIndicator-for-SDWebImage'
+pod 'LocationKit', '~> 2.2.0'
 
 end
 

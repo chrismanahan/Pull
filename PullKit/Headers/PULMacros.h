@@ -35,8 +35,8 @@
 #define PUL_rgb(r,g,b)					PUL_rgba(r, g, b, 1.0f)
 
 #define PUL_LightPurple [UIColor colorWithRed:0.451 green:0.420 blue:1.0 alpha:1.0]
-#define PUL_Purple [UIColor colorWithRed:0.3686 green:0.1373 blue:0.9961 alpha:1.0];
-#define PUL_DarkPurple [UIColor colorWithRed:0.2391 green:0.0 blue:0.8303 alpha:1.0];
+#define PUL_Purple [UIColor colorWithRed:0.35686 green:0.137254 blue:1.0 alpha:1.0];
+#define PUL_DarkPurple [UIColor colorWithRed:0.26274 green:0.09411 blue:0.713725 alpha:1.0];
 #define PUL_Blue  [UIColor colorWithRed:0.054 green:0.464 blue:0.998 alpha:1.000]
 #define PUL_LightGray    [UIColor colorWithWhite:0.877 alpha:1.000];
 

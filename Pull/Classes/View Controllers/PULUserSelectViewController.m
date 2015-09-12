@@ -24,7 +24,7 @@
 
 @property (nonatomic, strong) NSArray *dataSource;
 
-@property (strong, nonatomic) id obsPullCount;
+@property (strong, nonatomic) id pullsLoadedNotification;
 
 @property (strong, nonatomic) IBOutlet UIButton *inviteButtonCenter;
 @property (strong, nonatomic) IBOutlet UIButton *inviteButtonRight;
@@ -87,20 +87,27 @@
         loadBlock();
     }
     
-    [account.pulls registerLoadedBlock:^(FireMutableArray *objects) {
-        if (!_dataSource)
-        {
-            loadBlock();
-        }
-    }];
-
+    
+    
+    _pullsLoadedNotification = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
+                                                                                 object:[PULAccount currentUser].pulls
+                                                                                  queue:[NSOperationQueue currentQueue]
+                                                                             usingBlock:^(NSNotification * _Nonnull note) {
+                                                                                 if (!_dataSource)
+                                                                                 {
+                                                                                     loadBlock();
+                                                                                 }
+                                                                             }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [[PULAccount currentUser].pulls unregisterLoadedBlock];
+    if (_pullsLoadedNotification)
+    {
+        [[NSNotificationCenter defaultCenter] removeObserver:_pullsLoadedNotification];
+    }
 }
 
 - (void)viewDidLoad

@@ -16,6 +16,7 @@ NSString * const FireArrayObjectAddedNotification = @"FireArrayObjectAddedNotifi
 NSString * const FireArrayObjectRemovedNotification = @"FireArrayObjectRemovedNotification";
 NSString * const FireArrayEmptyNotification = @"FireArrayEmptyNotification";
 NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNotification";
+NSString * const FireArrayLoadedNotification = @"FireArrayLoadedNotification";
 
 @interface _FireKeyChange : NSObject
 
@@ -48,9 +49,6 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
 @property (nonatomic, strong) NSMutableArray *backingStore;
 
 @property (nonatomic, strong) NSMutableArray *observers;
-
-//@property (nonatomic, copy) FireArrayLoadedBlock loadedBlock;
-@property (nonatomic, strong) NSMutableDictionary *loadedBlocks;
 
 @property (nonatomic, strong) NSMutableArray *keyChangeBlocks;
 
@@ -139,34 +137,6 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
 }
 
 #pragma mark - Block running
-#pragma mark Loading
-- (void)registerLoadedBlock:(FireArrayLoadedBlock)block;
-{
-    PULLog(@"registered loaded block to %@", NSStringFromClass([self class]));
-    if (!_loadedBlocks)
-    {
-        _loadedBlocks = [[NSMutableDictionary alloc] init];
-    }
-    
-    NSString *caller = [[NSThread callStackSymbols] objectAtIndex:1]; // this is causing huge lag
-    _loadedBlocks[caller] = [block copy];
-    
-    if (self.isLoaded)
-    {
-        block(self);
-    }
-}
-
-- (void)unregisterLoadedBlock;
-{
-    PULLog(@"unregisted loaded block from %@", NSStringFromClass([self class]));
-    if (_loadedBlocks)
-    {
-        NSString *caller = [[NSThread callStackSymbols] objectAtIndex:1];
-        [_loadedBlocks removeObjectForKey:caller];
-    }
-}
-
 #pragma mark Keys
 - (void)registerForKeyChange:(NSString*)key onAllObjectsWithBlock:(FireArrayObjectChangedBlock)block;
 {
@@ -254,9 +224,10 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
                     __block id obs = [THObserver observerForObject:fireObj keyPath:@"loaded" block:^{
                         [_observers removeObject:obs];
                         
-                        if (_observers.count == 0 && _loadedBlocks)
+                        if (_observers.count == 0)
                         {
-                            [self _runLoadedBlocks];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:FireArrayLoadedNotification
+                                                                                object:self];
                         }
                     }];
                     
@@ -276,19 +247,12 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
     
     NSAssert(!(self.isLoaded && _observers.count != 0) , @"why do we have observers if we're not loaded?");
     
-    if (_loadedBlocks && ((!_emptyObjects && self.isLoaded) || (_backingStore.count == 0)))
-    {
-//        [self _runLoadedBlocks];
-    }
+    // FIXME: this is an issue. it's being hit way too many times
+//    if (_loadedBlocks && ((!_emptyObjects && self.isLoaded) || (_backingStore.count == 0)))
+//    {
+////        [self _runLoadedBlocks];
+//    }
     
-}
-
-- (void)_runLoadedBlocks
-{
-    [_loadedBlocks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        FireArrayLoadedBlock block = (FireArrayLoadedBlock)obj;
-        block(self);
-    }];
 }
 
 - (NSString*)rootName
@@ -336,11 +300,6 @@ NSString * const FireArrayNoLongerEmptyNotification = @"FireArrayNoLongerEmptyNo
 }
 
 #pragma mark - Properties
-- (BOOL)hasLoadBlock
-{
-    return (BOOL)_loadedBlocks.count > 0;
-}
-
 - (BOOL)isLoaded
 {
     BOOL loaded = YES;

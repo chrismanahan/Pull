@@ -19,6 +19,7 @@ extern NSString * const FireArrayObjectAddedNotification;
 extern NSString * const FireArrayObjectRemovedNotification;
 extern NSString * const FireArrayEmptyNotification;
 extern NSString * const FireArrayNoLongerEmptyNotification;
+extern NSString * const FireArrayLoadedNotification;
 
 @interface FireMutableArray : NSMutableArray <Fireable>
 
@@ -65,10 +66,6 @@ NS_DESIGNATED_INITIALIZER;
 - (void)addAndSaveObject:(FireObject*)anObject;
 
 - (void)removeAndSaveObject:(FireObject*)anObject;
-
-- (void)registerLoadedBlock:(FireArrayLoadedBlock)block;
-
-- (void)unregisterLoadedBlock;
 
 - (void)registerForKeyChange:(NSString*)key onAllObjectsWithBlock:(FireArrayObjectChangedBlock)block;
 

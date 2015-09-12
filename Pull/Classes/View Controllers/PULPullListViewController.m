@@ -31,6 +31,12 @@
 
 const NSInteger kPULAlertEndPullTag = 1001;
 
+@interface PULPullListViewController ()
+
+@property (nonatomic, strong) id pullsLoadedNotification;
+
+@end
+
 @implementation PULPullListViewController
 
 #pragma mark - View Lifecycle
@@ -159,8 +165,13 @@ const NSInteger kPULAlertEndPullTag = 1001;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    [[PULAccount currentUser].pulls unregisterLoadedBlock];
+
+    if (_pullsLoadedNotification)
+    {
+        [[NSNotificationCenter defaultCenter] removeObserver:_pullsLoadedNotification];
+        _pullsLoadedNotification = nil;
+    }
+
     [[PULAccount currentUser].pulls unregisterForAllKeyChanges];
 }
 
@@ -298,11 +309,14 @@ const NSInteger kPULAlertEndPullTag = 1001;
 #pragma mark - Helpers
 - (void)_observePulls
 {
-    if (![[PULAccount currentUser].pulls hasLoadBlock])
+    if (!_pullsLoadedNotification)
     {
-        [[PULAccount currentUser].pulls registerLoadedBlock:^(FireMutableArray *objects) {
-            [self reload];
-        }];
+        _pullsLoadedNotification = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
+                                                                                         object:[PULAccount currentUser].pulls
+                                                                                          queue:[NSOperationQueue currentQueue]
+                                                                                     usingBlock:^(NSNotification * _Nonnull note) {
+                                                                                         [self reload];
+                                                                                     }];
     }
     
     if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"status"])

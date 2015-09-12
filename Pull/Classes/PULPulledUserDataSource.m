@@ -10,6 +10,12 @@
 
 #import "NSArray+Sorting.h"
 
+@interface PULPulledUserDataSource ()
+
+@property (nonatomic, strong) id pullsLoadedNotification;
+
+@end
+
 @implementation PULPulledUserDataSource
 
 - (void)loadDatasourceCompletion:(void(^)(NSArray *ds))completion
@@ -18,9 +24,10 @@
     // check if pulls are loaded
     if (acct.pulls.isLoaded)
     {
-        // unregister from pulls loaded block if needed
-        [acct.pulls unregisterLoadedBlock];
-        
+        if (_pullsLoadedNotification)
+        {
+            [[NSNotificationCenter defaultCenter] removeObserver:_pullsLoadedNotification];
+        }
 //        // check if we need to rebuild the datasource
 //        if ([self _validateDatasource] && _datasource.count == acct.pulls.count && _datasource != nil)
 //        {
@@ -41,9 +48,13 @@
     {
         if (acct.pulls)
         {
-            [acct.pulls registerLoadedBlock:^(FireMutableArray *objects) {
-                [self loadDatasourceCompletion:completion];
-            }];
+            
+            _pullsLoadedNotification = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
+                                                                                         object:[PULAccount currentUser].pulls
+                                                                                          queue:[NSOperationQueue currentQueue]
+                                                                                     usingBlock:^(NSNotification * _Nonnull note) {
+                                                                                         [self loadDatasourceCompletion:completion];
+                                                                                     }];
         }
         else
         {

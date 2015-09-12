@@ -164,6 +164,16 @@ static PULAccount *account = nil;
     }
     
     [self addNewFriendsFromFacebook];
+    
+    // remove pulls that are already expired
+    __block id loadNotif = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
+                                                      object:self.pulls
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                      [self pruneExpiredPulls];
+                                                      
+                                                      [[NSNotificationCenter defaultCenter] removeObserver:loadNotif];
+                                                  }];
 }
 
 - (void)pruneExpiredPulls

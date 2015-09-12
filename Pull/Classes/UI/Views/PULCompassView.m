@@ -22,6 +22,7 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
 
 @implementation PULCompassView
 
+#pragma - View Life
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -30,26 +31,7 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     _imageView.borderWidth = @(3);
 }
 
-- (void)_displayNoActivePulls:(BOOL)display
-{
-    if (display)
-    {
-        [self _useCompass:NO];
-        _overlayImageView.hidden = YES;
-        _imageView.backgroundColor = [UIColor whiteColor];
-        
-        _imageView.animationImages = @[[UIImage imageNamed:@"smiley_smile_with_background"],
-                                       [UIImage imageNamed:@"smiley_wink_with_background"]];
-        _imageView.animationDuration = kPULCompassSmileyWinkDuration;
-        [_imageView startAnimating];
-    }
-    else
-    {
-        [_imageView stopAnimating];
-        _imageView.animationImages = nil;
-    }
-}
-
+#pragma mark - Public
 - (void)setUserImageForPull:(PULPull*)pull
 {
     // set user image
@@ -123,6 +105,27 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     [self setUserImageForPull:_pull];
     
     [self setNeedsLayout];
+}
+
+#pragma mark - Private
+- (void)_displayNoActivePulls:(BOOL)display
+{
+    if (display)
+    {
+        [self _useCompass:NO];
+        _overlayImageView.hidden = YES;
+        _imageView.backgroundColor = [UIColor whiteColor];
+        
+        _imageView.animationImages = @[[UIImage imageNamed:@"smiley_smile_with_background"],
+                                       [UIImage imageNamed:@"smiley_wink_with_background"]];
+        _imageView.animationDuration = kPULCompassSmileyWinkDuration;
+        [_imageView startAnimating];
+    }
+    else
+    {
+        [_imageView stopAnimating];
+        _imageView.animationImages = nil;
+    }
 }
 
 - (void)_useCompass:(BOOL)useCompass

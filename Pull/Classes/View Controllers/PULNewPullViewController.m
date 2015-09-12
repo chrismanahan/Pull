@@ -127,17 +127,12 @@
 
 - (IBAction)ibSendInvite:(id)sender
 {
-    // TODO: validate caption text view
     // send pull
     [[PULAccount currentUser] sendPullToUser:_user duration:_requestedDuration caption:_captionTextView.text];
     
     // dismiss vc
-    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullListViewController class])];
-    PULReverseModal *seg = [PULReverseModal segueWithIdentifier:@"rev" source:self destination:vc performHandler:^{
-        ;
-    }];
+    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     
-    [seg perform];
 }
 
 #pragma mark - Private

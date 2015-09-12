@@ -18,7 +18,6 @@
     // Add the destination view as a subview, temporarily
     UIView *destView = destinationViewController.view;
     CGRect frame = destView.frame;
-    CGRect origFrame = frame;
     frame.origin.x = CGRectGetWidth(sourceViewController.view.frame);
     if (_slideRight)
     {
@@ -43,7 +42,7 @@
                          
                          dispatch_async(dispatch_get_main_queue(), ^{
                              [sourceViewController dismissViewControllerAnimated:NO completion:NULL];
-                             [destView removeFromSuperview];
+//                             [destView removeFromSuperview];
                          });
                          
 //                         [destView removeFromSuperview]; // remove from temp super view

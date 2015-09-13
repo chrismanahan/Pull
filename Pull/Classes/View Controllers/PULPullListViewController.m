@@ -628,7 +628,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
     
 //    _dialogContainer.hidden = YES;
     NSString *dialogText;
-    
+    _pullTimeButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
     if (_displayedPull.status == PULPullStatusPulled)
     {
         // show pull time button
@@ -659,12 +659,14 @@ const NSInteger kPULAlertEndPullTag = 1001;
             }
             case PULPullDistanceStateHere:
             {
+                _pullTimeButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
                 _distanceLabel.text = @"Here";
                 dialogText = [NSString stringWithFormat:@"%@ should be within %zd feet", [_displayedPull otherUser].firstName, kPULDistanceHereFeet];
                 break;
             }
             case PULPullDistanceStateNearby:
             {
+                _pullTimeButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
                  _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
                 break;
             }

@@ -57,6 +57,13 @@
                                                     <rect key="frame" x="172" y="384" width="55" height="37"/>
                                                 </variation>
                                             </pageControl>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info_dot.png" translatesAutoresizingMaskIntoConstraints="NO" id="8s1-gu-pjX">
+                                                <rect key="frame" x="161" y="577" width="15" height="15"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="15" id="10h-F8-2mH"/>
+                                                    <constraint firstAttribute="width" secondItem="8s1-gu-pjX" secondAttribute="height" multiplier="1:1" id="F9J-u1-fkX"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -216,7 +223,9 @@
                             <constraint firstItem="1lw-Li-DFq" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="LAc-sh-30r"/>
                             <constraint firstItem="hjk-hr-LZA" firstAttribute="top" secondItem="VQB-8a-Cj4" secondAttribute="bottom" constant="8" id="OPY-wN-KbQ"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="hjk-hr-LZA" secondAttribute="bottom" constant="8" id="Obl-0h-K6r"/>
+                            <constraint firstItem="hjk-hr-LZA" firstAttribute="leading" secondItem="8s1-gu-pjX" secondAttribute="trailing" constant="2" id="Paz-Ni-Iog"/>
                             <constraint firstItem="VQB-8a-Cj4" firstAttribute="top" secondItem="NEe-Lp-bfv" secondAttribute="bottom" constant="8" id="UZ7-mU-dYZ"/>
+                            <constraint firstItem="8s1-gu-pjX" firstAttribute="centerY" secondItem="hjk-hr-LZA" secondAttribute="centerY" id="XMc-UI-hyn"/>
                             <constraint firstAttribute="trailing" secondItem="1lw-Li-DFq" secondAttribute="trailing" id="Zyn-xo-NYO"/>
                             <constraint firstItem="hjk-hr-LZA" firstAttribute="centerX" secondItem="VQB-8a-Cj4" secondAttribute="centerX" id="ntf-3h-sLp"/>
                             <constraint firstItem="7kr-p3-cRz" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="zq1-WH-RS8"/>
@@ -2630,6 +2639,7 @@ _____________________
         <image name="golden_ticket_large.png" width="75" height="76"/>
         <image name="golden_ticket_large_upright.png" width="55" height="88"/>
         <image name="home_white.png" width="51" height="47"/>
+        <image name="info_dot.png" width="20" height="20"/>
         <image name="intro_four.png" width="395" height="462"/>
         <image name="intro_one.png" width="219" height="462"/>
         <image name="intro_three.png" width="219" height="462"/>

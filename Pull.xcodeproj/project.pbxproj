@@ -219,6 +219,9 @@
 		9B1546221BA6F70900CD0323 /* smiley_sad_with_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B15461F1BA6F70900CD0323 /* smiley_sad_with_background.png */; settings = {ASSET_TAGS = (); }; };
 		9B1546231BA6F70900CD0323 /* smiley_sad_with_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B1546201BA6F70900CD0323 /* smiley_sad_with_background@2x.png */; settings = {ASSET_TAGS = (); }; };
 		9B1546241BA6F70900CD0323 /* smiley_sad_with_background@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B1546211BA6F70900CD0323 /* smiley_sad_with_background@3x.png */; settings = {ASSET_TAGS = (); }; };
+		9B1546261BA705BE00CD0323 /* boop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9B1546251BA705BE00CD0323 /* boop.mp3 */; settings = {ASSET_TAGS = (); }; };
+		9B1546281BA70A2800CD0323 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1546271BA70A2800CD0323 /* AudioToolbox.framework */; };
+		9B15462B1BA7129C00CD0323 /* PULSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B15462A1BA7129C00CD0323 /* PULSoundPlayer.m */; settings = {ASSET_TAGS = (); }; };
 		9B1835791B7FDBA200BBD669 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
 		9B49DFCC1B8D4DCC009D0C71 /* circle_purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFC91B8D4DCC009D0C71 /* circle_purple.png */; };
 		9B49DFCD1B8D4DCC009D0C71 /* circle_purple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFCA1B8D4DCC009D0C71 /* circle_purple@2x.png */; };
@@ -711,6 +714,10 @@
 		9B15461F1BA6F70900CD0323 /* smiley_sad_with_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smiley_sad_with_background.png; sourceTree = "<group>"; };
 		9B1546201BA6F70900CD0323 /* smiley_sad_with_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_sad_with_background@2x.png"; sourceTree = "<group>"; };
 		9B1546211BA6F70900CD0323 /* smiley_sad_with_background@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_sad_with_background@3x.png"; sourceTree = "<group>"; };
+		9B1546251BA705BE00CD0323 /* boop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = boop.mp3; sourceTree = "<group>"; };
+		9B1546271BA70A2800CD0323 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		9B1546291BA7129C00CD0323 /* PULSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULSoundPlayer.h; sourceTree = "<group>"; };
+		9B15462A1BA7129C00CD0323 /* PULSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULSoundPlayer.m; sourceTree = "<group>"; };
 		9B1835781B7FDBA200BBD669 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		9B49DFC91B8D4DCC009D0C71 /* circle_purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_purple.png; sourceTree = "<group>"; };
 		9B49DFCA1B8D4DCC009D0C71 /* circle_purple@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle_purple@2x.png"; sourceTree = "<group>"; };
@@ -882,6 +889,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B1546281BA70A2800CD0323 /* AudioToolbox.framework in Frameworks */,
 				9B78A7F81B8126F3005569B4 /* MapKit.framework in Frameworks */,
 				9B78A7F41B812512005569B4 /* CoreMedia.framework in Frameworks */,
 				9B78A7F21B8124FF005569B4 /* AVFoundation.framework in Frameworks */,
@@ -1412,6 +1420,7 @@
 		952BDB5C1A0C4F0500C67BB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B1546271BA70A2800CD0323 /* AudioToolbox.framework */,
 				9B008BBA1B88282B00593902 /* parkour.framework */,
 				9B78A7F91B8128CD005569B4 /* libPods-PullKit.a */,
 				9B78A7F31B812512005569B4 /* CoreMedia.framework */,
@@ -1517,6 +1526,7 @@
 		952BDB8F1A0C4F7300C67BB5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9B1546251BA705BE00CD0323 /* boop.mp3 */,
 				3302F3101A73EE1600E11F01 /* Fonts */,
 				33FEA23E1A6B0B26002CA63D /* Images.xcassets */,
 				3340449E1A17DC7900B00BC3 /* Images */,
@@ -1856,6 +1866,8 @@
 			children = (
 				9BF0188F1B9B35E7004E6DCA /* PULLocalPush.h */,
 				9BF018901B9B35E7004E6DCA /* PULLocalPush.m */,
+				9B1546291BA7129C00CD0323 /* PULSoundPlayer.h */,
+				9B15462A1BA7129C00CD0323 /* PULSoundPlayer.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2173,6 +2185,7 @@
 				84FC35811B8D0D8000057C49 /* friend_here@2x.png in Resources */,
 				9B8741A61BA253B500B22517 /* clock_purple.png in Resources */,
 				337A98281AB6191D00999401 /* continue_facebook@3x.png in Resources */,
+				9B1546261BA705BE00CD0323 /* boop.mp3 in Resources */,
 				84FC35961B8D0D8000057C49 /* not_nearby@2x.png in Resources */,
 				84FC35951B8D0D8000057C49 /* not_nearby.png in Resources */,
 				9BF61D361B8E772900BD2A27 /* cutout_row@3x.png in Resources */,
@@ -2472,6 +2485,7 @@
 				33ABDE4F1AB4A6B800A047BF /* PULLocationOverlay.m in Sources */,
 				84261A451A9E2628001DD052 /* PULRequestLocationViewController.m in Sources */,
 				952BDB671A0C4F0500C67BB5 /* main.m in Sources */,
+				9B15462B1BA7129C00CD0323 /* PULSoundPlayer.m in Sources */,
 				9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */,
 				9B97242A1AE20BD500EEC3AB /* PULUserSelectViewController.m in Sources */,
 				33FB713D1AAD205B00B74C47 /* PULVerticallyCenteredButton.m in Sources */,

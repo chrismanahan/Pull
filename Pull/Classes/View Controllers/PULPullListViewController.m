@@ -24,6 +24,8 @@
 
 #import "PULPulledUserCollectionViewCell.h"
 
+#import "PULSoundPlayer.h"
+
 #import "CALayer+Animations.h"
 #import "NSArray+Sorting.h"
 
@@ -40,6 +42,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 
 @property (nonatomic, strong) id pullsLoadedNotification;
 
+@property (nonatomic, strong) PULSoundPlayer *soundPlayer;
+
 @end
 
 @implementation PULPullListViewController
@@ -48,6 +52,9 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 - (void)viewDidLoad
 {
     _observers = [[NSMutableArray alloc] init];
+    
+    // initialize sound player
+    _soundPlayer = [[PULSoundPlayer alloc] init];
     
     // set initial text for dialog buttons
     [_dialogAcceptButton setTitle:kPULDialogButtonTextAccept forState:UIControlStateNormal];
@@ -783,6 +790,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 #pragma mark UICollectionView Delegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [_soundPlayer playBoop];
     [self setSelectedIndex:indexPath.row];
 }
 

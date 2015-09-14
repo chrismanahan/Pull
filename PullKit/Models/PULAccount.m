@@ -169,7 +169,7 @@ static PULAccount *account = nil;
     __block id loadNotif = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
                                                       object:self.pulls
                                                        queue:[NSOperationQueue currentQueue]
-                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                  usingBlock:^(NSNotification *note) {
                                                       [self pruneExpiredPulls];
                                                       
                                                       [[NSNotificationCenter defaultCenter] removeObserver:loadNotif];

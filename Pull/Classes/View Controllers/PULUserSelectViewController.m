@@ -92,7 +92,7 @@
     _pullsLoadedNotification = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
                                                                                  object:[PULAccount currentUser].pulls
                                                                                   queue:[NSOperationQueue currentQueue]
-                                                                             usingBlock:^(NSNotification * _Nonnull note) {
+                                                                             usingBlock:^(NSNotification *note) {
                                                                                  if (!_dataSource)
                                                                                  {
                                                                                      loadBlock();

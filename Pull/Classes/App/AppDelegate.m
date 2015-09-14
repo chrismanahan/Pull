@@ -27,7 +27,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [Fabric with:@[CrashlyticsKit]];
+//    [Fabric with:@[CrashlyticsKit]];
     
     //    // register for remote notifications
     //    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {

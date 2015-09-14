@@ -228,8 +228,6 @@
 		9B49DFCE1B8D4DCC009D0C71 /* circle_purple@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFCB1B8D4DCC009D0C71 /* circle_purple@3x.png */; };
 		9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */; };
 		9B78A76B1B80DA63005569B4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B78A76A1B80DA63005569B4 /* Info.plist */; };
-		9B78A7731B80DB36005569B4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7711B80DB36005569B4 /* Fabric.framework */; };
-		9B78A7741B80DB36005569B4 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7721B80DB36005569B4 /* Crashlytics.framework */; };
 		9B78A7951B80DE66005569B4 /* NSData+Hex.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A77C1B80DE66005569B4 /* NSData+Hex.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B78A7961B80DE66005569B4 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A77D1B80DE66005569B4 /* NSData+Hex.m */; };
 		9B78A7971B80DE66005569B4 /* UIVisualEffectView+PullBlur.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A77E1B80DE66005569B4 /* UIVisualEffectView+PullBlur.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -725,8 +723,6 @@
 		9B5EFA581AE28F8600EFCCD5 /* PULUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUserCell.h; sourceTree = "<group>"; };
 		9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserCell.m; sourceTree = "<group>"; };
 		9B78A76A1B80DA63005569B4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9B78A7711B80DB36005569B4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		9B78A7721B80DB36005569B4 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		9B78A77C1B80DE66005569B4 /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hex.h"; sourceTree = "<group>"; };
 		9B78A77D1B80DE66005569B4 /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hex.m"; sourceTree = "<group>"; };
 		9B78A77E1B80DE66005569B4 /* UIVisualEffectView+PullBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIVisualEffectView+PullBlur.h"; sourceTree = "<group>"; };
@@ -916,8 +912,6 @@
 				9BED45A31B80D7CB0007F5F4 /* MediaPlayer.framework in Frameworks */,
 				9BED45A61B80D7CB0007F5F4 /* MapKit.framework in Frameworks */,
 				9BED45A71B80D7CB0007F5F4 /* CFNetwork.framework in Frameworks */,
-				9B78A7731B80DB36005569B4 /* Fabric.framework in Frameworks */,
-				9B78A7741B80DB36005569B4 /* Crashlytics.framework in Frameworks */,
 				9BED45A81B80D7CB0007F5F4 /* Security.framework in Frameworks */,
 				9BED45A91B80D7CB0007F5F4 /* SystemConfiguration.framework in Frameworks */,
 				AC6338BD48D8397CBE464AF8 /* libPods-PullKit.a in Frameworks */,
@@ -1426,8 +1420,6 @@
 				9B78A7F31B812512005569B4 /* CoreMedia.framework */,
 				9B78A7F11B8124FF005569B4 /* AVFoundation.framework */,
 				9B78A7EF1B8124EB005569B4 /* MessageUI.framework */,
-				9B78A7711B80DB36005569B4 /* Fabric.framework */,
-				9B78A7721B80DB36005569B4 /* Crashlytics.framework */,
 				9B1835781B7FDBA200BBD669 /* WatchKit.framework */,
 				9BF9BEC41B742D380020981E /* AdSupport.framework */,
 				953B064C1A8D9021008235EB /* MediaPlayer.framework */,
@@ -1990,7 +1982,6 @@
 				9BED457D1B80D7B90007F5F4 /* Frameworks */,
 				9BED457E1B80D7B90007F5F4 /* Headers */,
 				9BED457F1B80D7B90007F5F4 /* Resources */,
-				9B78A76C1B80DACB005569B4 /* ShellScript */,
 				B93D1EB7924631C80BD5CA1F /* Copy Pods Resources */,
 			);
 			buildRules = (
@@ -2406,19 +2397,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
-		};
-		9B78A76C1B80DACB005569B4 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 9db4731332e0cd8a325f895380a42ce0338840a2 df08a8545224a5f8241093100d0366018434799133434cae0f1fc5a58d49a36c";
 		};
 		B93D1EB7924631C80BD5CA1F /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2844,6 +2822,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc-pull";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
@@ -2885,6 +2864,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc-pull";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
@@ -2974,8 +2954,8 @@
 			baseConfigurationReference = 4FB271B73E2E6FBC152AC746 /* Pods-PullKit.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pull Software, LLC (7KX586WXXQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pull Software, LLC (7KX586WXXQ)";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

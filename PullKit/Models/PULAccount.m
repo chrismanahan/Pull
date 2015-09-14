@@ -111,7 +111,7 @@ static PULAccount *account = nil;
             }
         }];
     
-        [CrashlyticsKit setUserIdentifier:uid];
+//        [CrashlyticsKit setUserIdentifier:uid];
     });
     return account;
 }
@@ -123,7 +123,7 @@ static PULAccount *account = nil;
         account = [[PULAccount alloc] initWithUid:uid];
         [account initialize];
         
-        [CrashlyticsKit setUserIdentifier:uid];
+//        [CrashlyticsKit setUserIdentifier:uid];
     });
     
     return account;

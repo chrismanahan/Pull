@@ -32,6 +32,7 @@
 @property (strong, nonatomic) IBOutlet UIView *moreNotificationContainerRight;
 @property (strong, nonatomic) IBOutlet UIView *moreNotificationContainerLeft;
 @property (strong, nonatomic) IBOutlet UIButton *pullTimeButton;
+@property (strong, nonatomic) IBOutlet UIButton *addPullButton;
 
 @property (nonatomic, strong) PULPull *displayedPull;
 @property (nonatomic, assign) NSInteger selectedIndex;

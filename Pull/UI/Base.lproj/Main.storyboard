@@ -516,7 +516,7 @@
                                             <color key="titleShadowColor" red="0.36901407371599482" green="0.13108152096060344" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="ibAccept:" destination="VCg-LE-m1S" eventType="touchUpInside" id="unE-qR-5WS"/>
+                                            <action selector="ibDialogButton:" destination="VCg-LE-m1S" eventType="touchUpInside" id="cF0-XE-ATA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjP-ds-btP">
@@ -528,7 +528,7 @@
                                             <color key="titleShadowColor" red="0.36901407371599482" green="0.13108152096060344" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="ibDecline:" destination="VCg-LE-m1S" eventType="touchUpInside" id="cDF-yi-zoj"/>
+                                            <action selector="ibDialogButton:" destination="VCg-LE-m1S" eventType="touchUpInside" id="m93-K1-gXr"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P30-JS-1kT">
@@ -540,7 +540,7 @@
                                             <color key="titleShadowColor" red="0.36901407371599482" green="0.13108152096060344" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="ibCancel:" destination="VCg-LE-m1S" eventType="touchUpInside" id="TfP-iB-CDB"/>
+                                            <action selector="ibDialogButton:" destination="VCg-LE-m1S" eventType="touchUpInside" id="5Ma-Og-5UG"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -781,6 +781,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="rxm-zt-ES9"/>
                     <connections>
+                        <outlet property="addPullButton" destination="AME-TT-MLA" id="woT-LT-XKA"/>
                         <outlet property="collectionView" destination="Chs-nX-n4I" id="6Bs-AE-ykI"/>
                         <outlet property="compassUserImageViewTopConstraint" destination="eJ2-Kb-F09" id="lJf-OB-eZE"/>
                         <outlet property="compassView" destination="uwd-8l-A5U" id="QeG-hG-K14"/>

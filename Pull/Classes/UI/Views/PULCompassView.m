@@ -89,6 +89,14 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     
 }
 
+- (void)showNoLocation;
+{
+    [self _useCompass:NO];
+    _overlayImageView.hidden = YES;
+    _imageView.backgroundColor = [UIColor whiteColor];
+    _imageView.image = [UIImage imageNamed:@"smiley_sad_with_background"];
+}
+
 - (void)setPull:(PULPull*)pull
 {
     _pull = pull;

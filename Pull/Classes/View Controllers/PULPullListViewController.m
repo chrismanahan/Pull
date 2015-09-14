@@ -31,6 +31,11 @@
 
 const NSInteger kPULAlertEndPullTag = 1001;
 
+NSString * const kPULDialogButtonTextAccept = @"Accept";
+NSString * const kPULDialogButtonTextCancel = @"Cancel";
+NSString * const kPULDialogButtonTextDecline = @"Decline";
+NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
+
 @interface PULPullListViewController ()
 
 @property (nonatomic, strong) id pullsLoadedNotification;
@@ -43,6 +48,12 @@ const NSInteger kPULAlertEndPullTag = 1001;
 - (void)viewDidLoad
 {
     _observers = [[NSMutableArray alloc] init];
+    
+    // set initial text for dialog buttons
+    [_dialogAcceptButton setTitle:kPULDialogButtonTextAccept forState:UIControlStateNormal];
+    [_dialogCancelButton setTitle:kPULDialogButtonTextCancel forState:UIControlStateNormal];
+    [_dialogDeclineButton setTitle:kPULDialogButtonTextDecline forState:UIControlStateNormal];
+    
     
     _pulledUserDatasource = [[PULPulledUserDataSource alloc] init];
     
@@ -60,7 +71,8 @@ const NSInteger kPULAlertEndPullTag = 1001;
                                                       object:nil
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
-                                                      [PULLocationOverlay overlayOnView:self.view];
+//                                                      [PULLocationOverlay overlayOnView:self.view];
+                                                      [self showNoLocation:YES];
                                                   }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationPermissionsGrantedNotification
@@ -68,7 +80,8 @@ const NSInteger kPULAlertEndPullTag = 1001;
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       
-                                                      [PULLocationOverlay removeOverlayFromView:self.view];
+//                                                      [PULLocationOverlay removeOverlayFromView:self.view];
+                                                      [self reload];
                                                       
                                                   }];
     
@@ -78,6 +91,13 @@ const NSInteger kPULAlertEndPullTag = 1001;
                                                   usingBlock:^(NSNotification *note) {
                                                       PULLog(@"received access token change notif, reloading table");
                                                       [self reload];
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                          [self reload];
                                                   }];
 
     [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
@@ -120,6 +140,8 @@ const NSInteger kPULAlertEndPullTag = 1001;
     [self.view setNeedsUpdateConstraints];
 }
 
+
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -137,28 +159,6 @@ const NSInteger kPULAlertEndPullTag = 1001;
     if ([PULAccount currentUser])
     {
         [self _observePulls];
-    }
-    
-    // add overlay requesting location if we are missing it
-    if (![PULLocationUpdater sharedUpdater].hasPermission && ![PULLocationOverlay viewContainsOverlay:self.view])
-    {
-        PULLog(@"adding location overlay");
-        [PULLocationOverlay overlayOnView:self.view];
-        
-        id locObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                                           object:nil
-                                                                            queue:[NSOperationQueue currentQueue]
-                                                                       usingBlock:^(NSNotification *note) {
-                                                                           if ([PULLocationUpdater sharedUpdater].hasPermission)
-                                                                           {
-                                                                               [PULLocationOverlay removeOverlayFromView:self.view];
-                                                                               
-                                                                               [[NSNotificationCenter defaultCenter] removeObserver:locObserver];
-                                                                               
-                                                                               [_collectionView reloadData];
-                                                                               [self setSelectedIndex:_selectedIndex];
-                                                                           }
-                                                                       }];
     }
 }
 
@@ -178,8 +178,8 @@ const NSInteger kPULAlertEndPullTag = 1001;
 #pragma mark
 - (void)reload
 {
-    if ([PULLocationUpdater sharedUpdater].hasPermission)
-    {
+
+        [self showNoLocation:![PULLocationUpdater sharedUpdater].hasPermission];
         [_pulledUserDatasource loadDatasourceCompletion:^(NSArray *ds) {
             [_collectionView reloadData];
             [self setSelectedIndex:_selectedIndex];
@@ -187,11 +187,6 @@ const NSInteger kPULAlertEndPullTag = 1001;
                 [self updateUI];
             });
         }];
-    }
-    else
-    {
-        PULLog(@"not reloading friends table, still need location permission");
-    }
     
 }
 
@@ -225,21 +220,26 @@ const NSInteger kPULAlertEndPullTag = 1001;
     
 }
 
-- (IBAction)ibAccept:(id)sender
+- (IBAction)ibDialogButton:(UIButton*)sender
 {
-    [[PULAccount currentUser] acceptPull:_displayedPull];
-}
-
-- (IBAction)ibDecline:(id)sender
-{
-    [[PULAccount currentUser] cancelPull:_displayedPull];
-    [self reload];
-}
-
-- (IBAction)ibCancel:(id)sender
-{
-    [[PULAccount currentUser] cancelPull:_displayedPull];
-    [self reload];
+    if ([sender.titleLabel.text isEqual:kPULDialogButtonTextAccept])
+    {
+        [[PULAccount currentUser] acceptPull:_displayedPull];
+    }
+    else if ([sender.titleLabel.text isEqual:kPULDialogButtonTextCancel] ||
+             [sender.titleLabel.text isEqual:kPULDialogButtonTextDecline])
+    {
+        [[PULAccount currentUser] cancelPull:_displayedPull];
+        [self reload];
+    }
+    else if ([sender.titleLabel.text isEqual:kPULDialogButtonTextEnableLocation])
+    {
+        BOOL canGoToSettings = (UIApplicationOpenSettingsURLString != NULL);
+        if (canGoToSettings)
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+    }
 }
 
 - (IBAction)ibEndPull:(id)sender
@@ -314,7 +314,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
         _pullsLoadedNotification = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
                                                                                          object:[PULAccount currentUser].pulls
                                                                                           queue:[NSOperationQueue currentQueue]
-                                                                                     usingBlock:^(NSNotification * _Nonnull note) {
+                                                                                     usingBlock:^(NSNotification *note) {
                                                                                          [self reload];
                                                                                      }];
     }
@@ -474,15 +474,35 @@ const NSInteger kPULAlertEndPullTag = 1001;
 
 
 #pragma mark UI Helpers
-- (void)_showNoActivePulls:(BOOL)show
+- (void)showNoLocation:(BOOL)show
 {
+    _addPullButton.enabled = !show;
+    _pullTimeButton.hidden = show;
+    
     if (show)
     {
-        [self _setNameLabel:nil];
+        BOOL canGoToSettings = (UIApplicationOpenSettingsURLString != NULL);
+        
+        [[PULAccount currentUser] cancelAllPulls];
+        [self _setNameLabel:@"Location Disabled" active:NO];
+        [_compassView showNoLocation];
+        
+        [self updateDialogWithText:@"Please give pull access to your location in settings" hide:NO showAcceptDecline:NO showCancel:NO location:canGoToSettings];
+    }
+    else
+    {
+        [self updateDialogWithText:nil hide:YES showAcceptDecline:NO showCancel:NO location:NO];
+    }
+}
+
+- (void)_showNoActivePulls:(BOOL)show
+{
+    if (show && [PULLocationUpdater sharedUpdater].hasPermission)
+    {
+        [self _setNameLabel:@"No Active Pulls" active:NO];
         [_compassView setPull:nil];
         _pullTimeButton.hidden = YES;
         _dialogContainer.hidden = YES;
-        _nameLabel.textColor = PUL_LightPurple;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kPULCompassSmileyWinkDuration / 1.725 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (!_displayedPull)
@@ -495,31 +515,27 @@ const NSInteger kPULAlertEndPullTag = 1001;
             };
         });
     }
-    else
-    {
-        _nameLabel.textColor = [UIColor whiteColor];
-    }
     
     _cutoutImageView.hidden = !show;
 }
 
-- (void)_setNameLabel:(NSString*)name
+- (void)_setNameLabel:(NSString*)name active:(BOOL)active
 {
-    if (!name)
+    if (!active)
     {
         // show cutout
         _nameLabel.backgroundColor = [UIColor clearColor];
-        _nameLabel.textColor = PUL_Purple;
-        _nameLabel.text = @"no active pulls";
+        _nameLabel.textColor = PUL_LightPurple;
         _distanceLabel.hidden = YES;
     }
     else
     {
         _nameLabel.backgroundColor = PUL_Purple;
         _nameLabel.textColor = [UIColor whiteColor];
-        _nameLabel.text = name;
         _distanceLabel.hidden = NO;
     }
+    
+    _nameLabel.text = name;
 }
 
 - (void)_toggleMoreArrow
@@ -583,9 +599,11 @@ const NSInteger kPULAlertEndPullTag = 1001;
     }
 }
 
-- (void)updateDialogWithText:(NSString*)message hide:(BOOL)hideDialog showAcceptDecline:(BOOL)acceptDecline showCancel:(BOOL)cancel
+// FIXME: dialog box needs some serious refactoring
+- (void)updateDialogWithText:(NSString*)message hide:(BOOL)hideDialog showAcceptDecline:(BOOL)acceptDecline showCancel:(BOOL)cancel location:(BOOL)location
 {
     NSAssert(!(acceptDecline && cancel), @"cannot show all three buttons at once");
+    NSAssert(!(cancel && location), @"can't have cancel and location button in use at the same time");
     
     _dialogContainer.hidden = hideDialog;
     _dialogMessageLabel.hidden = hideDialog;
@@ -593,9 +611,19 @@ const NSInteger kPULAlertEndPullTag = 1001;
     // show/hide buttons
     _dialogAcceptButton.hidden = !acceptDecline;
     _dialogDeclineButton.hidden = !acceptDecline;
-    _dialogCancelButton.hidden = !cancel;
+    _dialogCancelButton.hidden = !cancel && !location;
     
-    if (acceptDecline || cancel)
+    if (cancel)
+    {
+        [_dialogCancelButton setTitle:kPULDialogButtonTextCancel forState:UIControlStateNormal];
+    }
+    else if (location)
+    {
+        [_dialogCancelButton setTitle:kPULDialogButtonTextEnableLocation forState:UIControlStateNormal];
+    }
+    
+    
+    if (acceptDecline || cancel || location)
     {
         [NSLayoutConstraint activateConstraints:@[_dialogLabelBottomConstraint]];
     }
@@ -623,7 +651,7 @@ const NSInteger kPULAlertEndPullTag = 1001;
     
     if (![_nameLabel.text isEqualToString:user.fullName])
     {
-        [self _setNameLabel:user.fullName];
+        [self _setNameLabel:user.fullName active:YES];
     }
     
 //    _dialogContainer.hidden = YES;
@@ -674,7 +702,8 @@ const NSInteger kPULAlertEndPullTag = 1001;
         [self updateDialogWithText:dialogText
                               hide:(dialogText == nil)
                  showAcceptDecline:NO
-                        showCancel:NO];
+                        showCancel:NO
+                          location:NO];
     }
     else
     {
@@ -693,7 +722,8 @@ const NSInteger kPULAlertEndPullTag = 1001;
                 [self updateDialogWithText:dialogText
                                       hide:NO
                          showAcceptDecline:NO
-                                showCancel:YES];
+                                showCancel:YES
+                                  location:NO];
             }
             else
             {
@@ -712,7 +742,8 @@ const NSInteger kPULAlertEndPullTag = 1001;
                 [self updateDialogWithText:dialogText
                                       hide:NO
                          showAcceptDecline:YES
-                                showCancel:NO];
+                                showCancel:NO
+                                  location:NO];
             }
         }
         else

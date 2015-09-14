@@ -17,6 +17,7 @@ extern const CGFloat kPULCompassSmileyWinkDuration;
 @property (nonatomic, strong, readonly) PULPull *pull;
 
 - (void)setPull:(nullable PULPull*)pull;
+- (void)showNoLocation;
 
 @end
 

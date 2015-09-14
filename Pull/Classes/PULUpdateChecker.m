@@ -40,7 +40,9 @@ NSString * const kPULUpdateDeclinedKey = @"UpdateDeclinedKey";
     NSString *appVersion = [infoDict objectForKey:@"CFBundleShortVersionString"];
     
     NSURL *url = [NSURL URLWithString:kPULAppUpdateURL];
-    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    NSURLRequest *req = [NSURLRequest requestWithURL:url
+                         cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                     timeoutInterval:0.0];
     [NSURLConnection sendAsynchronousRequest:req
                                        queue:[NSOperationQueue currentQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {

@@ -261,7 +261,7 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
     UIImage *cached = [[PULCache sharedCache] objectForKey:cacheKey];
     if (cached)
     {
-        CLSLog(@"loading image from cache");
+        PULLog(@"loading image from cache");
         _image = cached;
         return cached;
     }
@@ -269,7 +269,7 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
     // load image from firebase
     NSString *userImageURL = self.imageUrlString;
     
-    CLSLog(@"Fetching image for user: %@", self.uid);
+    PULLog(@"Fetching image for user: %@", self.uid);
     NSURL *url = [NSURL URLWithString:userImageURL];
     NSURLRequest *req = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:req
@@ -288,7 +288,7 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
                                    [[PULCache sharedCache] setObject:_image forKey:cacheKey];
                                }
                                
-                               CLSLog(@"Updated user image");
+                               PULLog(@"Updated user image");
                                // not the cleanest solution posting to userImageView class
                                [[NSNotificationCenter defaultCenter] postNotificationName:PULImageUpdatedNotification object:self];
                            }];

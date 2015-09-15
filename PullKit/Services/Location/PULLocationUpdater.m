@@ -142,7 +142,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
             [parkour setMinPositionUpdateRate:3];
             [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
 
-                CLS_LOG(@"received location: %@ of type %zd : $zd", position, motionType);
+                PULLog(@"received location: %@ of type %zd : $zd", position, motionType);
                 
                 PULAccount *acct = [PULAccount currentUser];
                 if (acct.isLoaded)

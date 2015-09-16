@@ -298,6 +298,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         [_collectionView scrollToItemAtIndexPath:path
                                 atScrollPosition:UICollectionViewScrollPositionNone
                                         animated:YES];
+        
+        [_soundPlayer playBoop];
     }
 }
 
@@ -311,6 +313,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         [_collectionView scrollToItemAtIndexPath:path
                                 atScrollPosition:UICollectionViewScrollPositionNone
                                         animated:YES];
+        
+        [_soundPlayer playBoop];
     }
 }
 #pragma mark - Helpers

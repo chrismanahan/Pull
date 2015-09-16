@@ -52,6 +52,8 @@ extern NSString * const PULImageUpdatedNotification;
 // settings
 @property (nonatomic, strong) PULUserSettings *settings;
 
+@property (nonatomic, assign, getter=isInForeground) BOOL inForeground;
+
 - (double)distanceFromUser:(PULUser*)user;
 
 //TODO: -sortedArray: doesn't belong here

@@ -174,6 +174,32 @@ static PULAccount *account = nil;
                                                       
                                                       [[NSNotificationCenter defaultCenter] removeObserver:loadNotif];
                                                   }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.inForeground = YES;
+        [self saveKeys:@[@"inForeground"]];
+    });
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      self.inForeground = NO;
+                                                      [self saveKeys:@[@"inForeground"]];
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      self.inForeground = YES;
+                                                      [self saveKeys:@[@"inForeground"]];
+                                                      
+                                                      // TODO: it seems that when the app terminates, background is always being set
+                                                      // we should ping the server a second after the background gets called to set
+                                                      // a flag. That way, if the flag is not set, we know the user has terminated
+                                                  }];
+    
 }
 
 - (void)pruneExpiredPulls

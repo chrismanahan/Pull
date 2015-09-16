@@ -100,6 +100,7 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
                           @"friends": [_friends firebaseRepresentation],
                           @"pulls": [_pulls firebaseRepresentation],
                           @"blocked": [_blocked firebaseRepresentation],
+                          @"inForeground": @(_inForeground),
                           self.settings.rootName: self.settings.firebaseRepresentation
                           };
     
@@ -131,6 +132,10 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
     if (repr[@"lastName"] && ![_lastName isEqualToString:repr[@"lastName"]])
     {
         self.lastName = repr[@"lastName"];
+    }
+    if (repr[@"inForeground"])
+    {
+        _inForeground = [repr[@"inForeground"] boolValue];
     }
     
     // update friends
@@ -189,7 +194,8 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
                                  @"nearbyFriends",
                                  @"pulledFriends",
                                  @"pullInvitedFriends",
-                                 @"pullPendingFriends"
+                                 @"pullPendingFriends",
+                                 @"inForeground"
                                  ]];
     
     return keys;

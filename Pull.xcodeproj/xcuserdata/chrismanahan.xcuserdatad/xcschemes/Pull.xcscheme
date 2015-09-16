@@ -22,7 +22,7 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "YES">
@@ -31,6 +31,20 @@
                BlueprintIdentifier = "952BDB7B1A0C4F0500C67BB5"
                BuildableName = "PullTests.xctest"
                BlueprintName = "PullTests"
+               ReferencedContainer = "container:Pull.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9BED458A1B80D7B90007F5F4"
+               BuildableName = "PullKitTests.xctest"
+               BlueprintName = "PullKitTests"
                ReferencedContainer = "container:Pull.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -49,6 +63,16 @@
                BlueprintIdentifier = "952BDB7B1A0C4F0500C67BB5"
                BuildableName = "PullTests.xctest"
                BlueprintName = "PullTests"
+               ReferencedContainer = "container:Pull.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9BED458A1B80D7B90007F5F4"
+               BuildableName = "PullKitTests.xctest"
+               BlueprintName = "PullKitTests"
                ReferencedContainer = "container:Pull.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -72,7 +96,8 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "952BDB591A0C4F0500C67BB5"
@@ -90,7 +115,8 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "952BDB591A0C4F0500C67BB5"

@@ -2632,8 +2632,8 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = "Pull WatchKit Extension/Pull WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Pull Software, LLC (7KX586WXXQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pull Software, LLC (7KX586WXXQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2722,7 +2722,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Christopher Manahan (D5TWM4BJZZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Christopher Manahan (D5TWM4BJZZ)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -2827,7 +2828,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5d2a7bd6-9b74-4d36-9d86-4f995cb98104";
+				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -2869,7 +2870,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5d2a7bd6-9b74-4d36-9d86-4f995cb98104";
+				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -2918,8 +2919,8 @@
 			baseConfigurationReference = 5B5E838B5F8A5B2BA3AD0233 /* Pods-PullKit.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Christopher Manahan (D5TWM4BJZZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Christopher Manahan (D5TWM4BJZZ)";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;

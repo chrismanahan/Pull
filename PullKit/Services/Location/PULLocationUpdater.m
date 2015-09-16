@@ -12,7 +12,7 @@
 
 #import "PULAccount.h"
 
-#import "MMWormHole.h"
+//#import "MMWormHole.h"
 
 #import <LocationKit/LocationKit.h>
 #import <parkour/parkour.h>
@@ -32,7 +32,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 @property (nonatomic) NSTimer* locationUpdateTimer;
 
-@property (nonatomic, strong) MMWormhole *wormhole;
+//@property (nonatomic, strong) MMWormhole *wormhole;
 
 @end
 
@@ -80,8 +80,8 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         _locationManager.delegate = self;
         [_locationManager startUpdatingHeading];
         
-        _wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.pull"
-                                                         optionalDirectory:@"wormhole"];
+//        _wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.pull"
+//                                                         optionalDirectory:@"wormhole"];
     }
     
     return self;
@@ -263,9 +263,9 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
                                               fromUser:[pull otherUser]];
             
             // check if we have a pull available
-            [_wormhole passMessageObject:@{@"angle":@(angle),
-                                           @"friendName":[pull otherUser].firstName}
-                              identifier:@"com.pull-llc.watch-data"];
+//            [_wormhole passMessageObject:@{@"angle":@(angle),
+//                                           @"friendName":[pull otherUser].firstName}
+//                              identifier:@"com.pull-llc.watch-data"];
             
             if (count != 0)
             {

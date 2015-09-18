@@ -204,6 +204,7 @@ NSString * const kFireSyncExceptionName = @"FireSyncException";
 
 - (void)_startObservingObject:(FireObject*)object
 {
+    // FIXME: maybe we should only check if the observer exists rather than stopping it
     // ensure we don't create a duplicate observer. that would get real messy
     [self _stopObservingObject:object];
     

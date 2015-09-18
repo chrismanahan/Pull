@@ -34,6 +34,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *pullTimeButton;
 @property (strong, nonatomic) IBOutlet UIButton *addPullButton;
 
+@property (strong, nonatomic) IBOutlet UILabel *debug_accuracyLabel;
+@property (strong, nonatomic) IBOutlet UILabel *debug_acctAccuracyLabel;
+
 @property (nonatomic, strong) PULPull *displayedPull;
 @property (nonatomic, assign) NSInteger selectedIndex;
 

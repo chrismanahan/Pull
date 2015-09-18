@@ -146,6 +146,12 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
     return retString;
 }
 
+- (BOOL)isAlmostHere
+{
+    return [[PULAccount currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceAlmostHereMeter &&
+            [[PULAccount currentUser] distanceFromUser:[self otherUser]] > kPULDistanceHereMeters;
+}
+
 - (BOOL)isHere
 {
     return [[PULAccount currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceHereMeters;
@@ -159,6 +165,10 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
     if (_nearby && ![self isAccurate])
     {
         state = PULPullDistanceStateInaccurate;
+    }
+    else if (self.almostHere)
+    {
+        state = PULPullDistanceStateAlmostHere;
     }
     else if (self.here)
     {

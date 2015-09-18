@@ -695,6 +695,12 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                 dialogText = [NSString stringWithFormat:@"%@ isn't within %zd ft yet. Don't worry, we'll notify you when they're near", [_displayedPull otherUser].firstName, kPULDistanceNearbyFeet];
                 break;
             }
+            case PULPullDistanceStateAlmostHere:
+            {
+                _distanceLabel.text = @"Nearby";
+                dialogText = [NSString stringWithFormat:@"%@ should be within %zd feet", [_displayedPull otherUser].firstName, kPULDistanceAlmostHereFeet];
+                break;
+            }
             case PULPullDistanceStateHere:
             {
                 _distanceLabel.text = @"Here";
@@ -710,11 +716,19 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                 break;
         }
         
+        _debug_accuracyLabel.text = [NSString stringWithFormat:@"%.2f", [_displayedPull otherUser].locationAccuracy];
+        _debug_acctAccuracyLabel.text = [NSString stringWithFormat:@"%.2f", [PULAccount currentUser].locationAccuracy];;
+        
         [self updateDialogWithText:dialogText
                               hide:(dialogText == nil)
                  showAcceptDecline:NO
                         showCancel:NO
                           location:NO];
+        
+        // TODO: DEBUG
+        _dialogContainer.hidden = NO;
+        _dialogMessageLabel.text = [NSString stringWithFormat:@"%@\n%@", [PULAccount currentUser].location, user.location];
+        _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
     }
     else
     {

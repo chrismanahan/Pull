@@ -75,4 +75,6 @@ NS_DESIGNATED_INITIALIZER;
 
 - (BOOL)isRegisteredForKeyChange:(NSString*)key;
 
+- (BOOL)matchesRepresentation:(NSDictionary*)repr;
+
 @end

@@ -92,7 +92,7 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
                           @"location": @{
                                   @"lat": @(_location.coordinate.latitude),
                                   @"lon": @(_location.coordinate.longitude),
-                                  @"alt": @(_location.altitude),
+//                                  @"alt": @(_location.altitude),
                                   @"currPosType": @(_currentPositionType),
                                   @"currMoveType":@(_currentMotionType),
                                   @"accuracy":@(_locationAccuracy)
@@ -139,19 +139,31 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
     }
     
     // update friends
-    [self willChangeValueForKey:@"friends"];
-    [self.friends loadFromFirebaseRepresentation:repr[@"friends"]];
-    [self didChangeValueForKey:@"friends"];
+    NSDictionary *friendsRepr = repr[@"friends"];
+    if (![self.friends matchesRepresentation:friendsRepr])
+    {
+        [self willChangeValueForKey:@"friends"];
+        [self.friends loadFromFirebaseRepresentation:friendsRepr];
+        [self didChangeValueForKey:@"friends"];
+    }
     
     // update pulls
-    [self willChangeValueForKey:@"pulls"];
-    [self.pulls loadFromFirebaseRepresentation:repr[@"pulls"]];
-    [self didChangeValueForKey:@"pulls"];
+    NSDictionary *pullsRepr = repr[@"pulls"];
+    if (![self.pulls matchesRepresentation:pullsRepr])
+    {
+        [self willChangeValueForKey:@"pulls"];
+        [self.pulls loadFromFirebaseRepresentation:pullsRepr];
+        [self didChangeValueForKey:@"pulls"];
+    }
     
     // update blocked
-    [self willChangeValueForKey:@"blocked"];
-    [self.blocked loadFromFirebaseRepresentation:repr[@"blocked"]];
-    [self didChangeValueForKey:@"blocked"];
+    NSDictionary *blockedRepr = repr[@"blocked"];
+    if (![self.blocked matchesRepresentation:blockedRepr])
+    {
+        [self willChangeValueForKey:@"blocked"];
+        [self.blocked loadFromFirebaseRepresentation:blockedRepr];
+        [self didChangeValueForKey:@"blocked"];
+    }
     
     if (repr[@"location"])
     {
@@ -159,10 +171,13 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
         double lon = [repr[@"location"][@"lon"] doubleValue];
         //    double alt = [repr[@"location"][@"alt"] doubleValue];
         
-        [self willChangeValueForKey:@"location"];
-        _location = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
-        _locationAccuracy = [repr[@"location"][@"accuracy"] doubleValue];
-        [self didChangeValueForKey:@"location"];
+        if (_location.coordinate.latitude != lat || _location.coordinate.longitude != lon)
+        {
+            [self willChangeValueForKey:@"location"];
+            _location = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+            _locationAccuracy = [repr[@"location"][@"accuracy"] doubleValue];
+            [self didChangeValueForKey:@"location"];
+        }
         
         _currentMotionType = [repr[@"location"][@"currMoveType"] integerValue];
         _currentPositionType = [repr[@"location"][@"currPosType"] integerValue];

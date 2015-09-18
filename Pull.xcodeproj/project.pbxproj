@@ -147,6 +147,10 @@
 		84FC35AA1B8D0D8000057C49 /* smiley_wink.png in Resources */ = {isa = PBXBuildFile; fileRef = 84FC35671B8D0D8000057C49 /* smiley_wink.png */; };
 		84FC35AB1B8D0D8000057C49 /* smiley_wink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84FC35681B8D0D8000057C49 /* smiley_wink@2x.png */; };
 		84FC35AC1B8D0D8000057C49 /* smiley_wink@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84FC35691B8D0D8000057C49 /* smiley_wink@3x.png */; };
+		951240C01BABD4FF00988AC0 /* BackgroundTaskManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 951240BE1BABD4FF00988AC0 /* BackgroundTaskManager.h */; settings = {ASSET_TAGS = (); }; };
+		951240C11BABD4FF00988AC0 /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 951240BF1BABD4FF00988AC0 /* BackgroundTaskManager.m */; settings = {ASSET_TAGS = (); }; };
+		951240C21BABD8C300988AC0 /* PullKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; };
+		951240C31BABD8C300988AC0 /* PullKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		95169F351A86F7CD006D3078 /* PULMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95169F341A86F7CD006D3078 /* PULMenuViewController.m */; };
 		95169F5F1A8714FE006D3078 /* PULSlideSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 95169F5E1A8714FE006D3078 /* PULSlideSegue.m */; };
 		95169F621A8718AB006D3078 /* PULSlideUnwindSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 95169F611A8718AB006D3078 /* PULSlideUnwindSegue.m */; };
@@ -270,8 +274,6 @@
 		9B78A7E21B80DE9D005569B4 /* PULConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7DF1B80DE9D005569B4 /* PULConstants.m */; };
 		9B78A7E31B80DE9D005569B4 /* PULMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7E01B80DE9D005569B4 /* PULMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B78A7E71B80E027005569B4 /* PullKit-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7E61B80E027005569B4 /* PullKit-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
-		9B78A7E91B810A99005569B4 /* PullKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; };
-		9B78A7EA1B810A99005569B4 /* PullKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9B78A7EE1B8118EE005569B4 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
 		9B78A7F01B8124EB005569B4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7EF1B8124EB005569B4 /* MessageUI.framework */; };
 		9B78A7F21B8124FF005569B4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7F11B8124FF005569B4 /* AVFoundation.framework */; };
@@ -383,19 +385,19 @@
 			remoteGlobalIDString = 841ECA9B1B7E8E15009061F8;
 			remoteInfo = "Pull WatchKit App";
 		};
+		951240C41BABD8C300988AC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 952BDB521A0C4F0500C67BB5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9BED45801B80D7B90007F5F4;
+			remoteInfo = PullKit;
+		};
 		952BDB7D1A0C4F0500C67BB5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 952BDB521A0C4F0500C67BB5 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 952BDB591A0C4F0500C67BB5;
 			remoteInfo = Pull;
-		};
-		9B78A7EB1B810A99005569B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 952BDB521A0C4F0500C67BB5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9BED45801B80D7B90007F5F4;
-			remoteInfo = PullKit;
 		};
 		9B78A7F61B812590005569B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -428,13 +430,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9B78A7ED1B810A99005569B4 /* Embed Frameworks */ = {
+		951240C61BABD8C300988AC0 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9B78A7EA1B810A99005569B4 /* PullKit.framework in Embed Frameworks */,
+				951240C31BABD8C300988AC0 /* PullKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -620,6 +622,8 @@
 		84FC35671B8D0D8000057C49 /* smiley_wink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smiley_wink.png; sourceTree = "<group>"; };
 		84FC35681B8D0D8000057C49 /* smiley_wink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_wink@2x.png"; sourceTree = "<group>"; };
 		84FC35691B8D0D8000057C49 /* smiley_wink@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_wink@3x.png"; sourceTree = "<group>"; };
+		951240BE1BABD4FF00988AC0 /* BackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundTaskManager.h; sourceTree = "<group>"; };
+		951240BF1BABD4FF00988AC0 /* BackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTaskManager.m; sourceTree = "<group>"; };
 		95169F331A86F7CD006D3078 /* PULMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULMenuViewController.h; sourceTree = "<group>"; };
 		95169F341A86F7CD006D3078 /* PULMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULMenuViewController.m; sourceTree = "<group>"; };
 		95169F5D1A8714FE006D3078 /* PULSlideSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULSlideSegue.h; sourceTree = "<group>"; };
@@ -876,8 +880,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				951240C21BABD8C300988AC0 /* PullKit.framework in Frameworks */,
 				9B78A7EE1B8118EE005569B4 /* WatchKit.framework in Frameworks */,
-				9B78A7E91B810A99005569B4 /* PullKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1720,6 +1724,8 @@
 				9B78A7B21B80DE7D005569B4 /* PULInviteService.m */,
 				9B78A7B31B80DE7D005569B4 /* PULPush.h */,
 				9B78A7B41B80DE7D005569B4 /* PULPush.m */,
+				951240BE1BABD4FF00988AC0 /* BackgroundTaskManager.h */,
+				951240BF1BABD4FF00988AC0 /* BackgroundTaskManager.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1890,6 +1896,7 @@
 				9B78A79D1B80DE66005569B4 /* FireSync.h in Headers */,
 				9B78A7DC1B80DE88005569B4 /* THObserversAndBinders.h in Headers */,
 				9B78A7D81B80DE88005569B4 /* THBinder.h in Headers */,
+				951240C01BABD4FF00988AC0 /* BackgroundTaskManager.h in Headers */,
 				9B78A7E31B80DE9D005569B4 /* PULMacros.h in Headers */,
 				9B78A7951B80DE66005569B4 /* NSData+Hex.h in Headers */,
 				9B78A7991B80DE66005569B4 /* FireMutableArray.h in Headers */,
@@ -1907,13 +1914,13 @@
 				841ECA8A1B7E8E14009061F8 /* Sources */,
 				841ECA8B1B7E8E14009061F8 /* Frameworks */,
 				841ECA8C1B7E8E14009061F8 /* Resources */,
-				9B78A7ED1B810A99005569B4 /* Embed Frameworks */,
+				951240C61BABD8C300988AC0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				841ECA9F1B7E8E15009061F8 /* PBXTargetDependency */,
-				9B78A7EC1B810A99005569B4 /* PBXTargetDependency */,
+				951240C51BABD8C300988AC0 /* PBXTargetDependency */,
 			);
 			name = "Pull WatchKit Extension";
 			productName = "Pull WatchKit Extension";
@@ -2055,7 +2062,7 @@
 					};
 					9BED45801B80D7B90007F5F4 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 894BCL9P67;
+						DevelopmentTeam = 7KX586WXXQ;
 					};
 					9BED458A1B80D7B90007F5F4 = {
 						CreatedOnToolsVersion = 6.4;
@@ -2494,6 +2501,7 @@
 				9B78A7A61B80DE66005569B4 /* PULUser.m in Sources */,
 				9B78A79C1B80DE66005569B4 /* FireObject.m in Sources */,
 				9B78A7D01B80DE88005569B4 /* NSDate+Utilities.m in Sources */,
+				951240C11BABD4FF00988AC0 /* BackgroundTaskManager.m in Sources */,
 				9B78A7AA1B80DE66005569B4 /* PULError.m in Sources */,
 				9B1305571B83F24900CBF642 /* NSArray+Sorting.m in Sources */,
 				9B78A7D91B80DE88005569B4 /* THBinder.m in Sources */,
@@ -2530,15 +2538,15 @@
 			target = 841ECA9B1B7E8E15009061F8 /* Pull WatchKit App */;
 			targetProxy = 841ECA9E1B7E8E15009061F8 /* PBXContainerItemProxy */;
 		};
+		951240C51BABD8C300988AC0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9BED45801B80D7B90007F5F4 /* PullKit */;
+			targetProxy = 951240C41BABD8C300988AC0 /* PBXContainerItemProxy */;
+		};
 		952BDB7E1A0C4F0500C67BB5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 952BDB591A0C4F0500C67BB5 /* Pull */;
 			targetProxy = 952BDB7D1A0C4F0500C67BB5 /* PBXContainerItemProxy */;
-		};
-		9B78A7EC1B810A99005569B4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9BED45801B80D7B90007F5F4 /* PullKit */;
-			targetProxy = 9B78A7EB1B810A99005569B4 /* PBXContainerItemProxy */;
 		};
 		9B78A7F71B812590005569B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2611,7 +2619,7 @@
 				GCC_PREFIX_HEADER = "Pull-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					IS_WATCH_EXT,
+					"WATCH_EXT=1",
 				);
 				INFOPLIST_FILE = "Pull WatchKit Extension/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -2645,7 +2653,7 @@
 				GCC_PREFIX_HEADER = "Pull-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					IS_WATCH_EXT,
+					"WATCH_EXT=1",
 				);
 				INFOPLIST_FILE = "Pull WatchKit Extension/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -2817,7 +2825,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "Pull/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
@@ -2859,7 +2867,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "Pull/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
@@ -2918,9 +2926,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B5E838B5F8A5B2BA3AD0233 /* Pods-PullKit.debug.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Christopher Manahan (D5TWM4BJZZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Christopher Manahan (D5TWM4BJZZ)";
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -2957,9 +2965,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4FB271B73E2E6FBC152AC746 /* Pods-PullKit.release.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Pull Software, LLC (7KX586WXXQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pull Software, LLC (7KX586WXXQ)";
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

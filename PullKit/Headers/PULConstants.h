@@ -19,12 +19,28 @@ extern NSString * const kPULAppReportIssueEmail;
 extern NSString * const kPULAppSuggestionEmail;
 extern NSString * const kPULAppPartnerEmail;
 
+// DISTANCES
 extern const NSInteger kPULDistanceHereFeet;
 extern const double kPULDistanceHereMeters;
+
+extern const NSInteger kPULDistanceAlmostHereFeet;
+extern const double kPULDistanceAlmostHereMeter;
+
 extern const NSInteger kPULDistanceNearbyFeet;
 extern const double kPULDistanceNearbyMeters;
+
+extern const NSInteger kPULLocationTuningDistanceLowFeet;
+extern const NSInteger kPULLocationTuningDistanceLowMeters;
+extern const NSInteger kPULLocationTuningDistanceAutoFeet;
+extern const NSInteger kPULLocationTuningDistanceAutoMeters;
+extern const NSInteger kPULLocationTuningDistanceMediumFeet;
+extern const NSInteger kPULLocationTuningDistanceMediumMeters;
+extern const NSInteger kPULLocationTuningDistanceHighFeet;
+extern const NSInteger kPULLocationTuningDistanceHighMeters;
+
 extern const NSInteger kPULPullLocalNotificationDelayMinutes;
 extern const double kPULDistanceAllowedAccuracy;
 
+// distance filters
 extern const NSInteger kLocationForegroundDistanceFilter;
 extern const NSInteger kLocationBackgroundDistanceFilter;

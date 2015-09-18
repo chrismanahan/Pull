@@ -47,6 +47,7 @@ typedef NS_ENUM(NSInteger, PULPullDistanceState)
     PULPullDistanceStateInaccurate = -1,
     PULPullDistanceStateFar,
     PULPullDistanceStateNearby,
+    PULPullDistanceStateAlmostHere,
     PULPullDistanceStateHere
 };
 
@@ -85,6 +86,7 @@ typedef NS_ENUM(NSInteger, PULPullDistanceState)
 
 @property (nonatomic, readonly, getter=isNearby) BOOL nearby;
 @property (nonatomic, readonly, getter=isHere) BOOL here;
+@property (nonatomic, readonly, getter=isAlmostHere) BOOL almostHere;
 @property (nonatomic, readonly) PULPullDistanceState pullDistanceState;
 
 - (instancetype)initNewBetween:(PULUser*)sender and:(PULUser*)receiver duration:(NSTimeInterval)duration;

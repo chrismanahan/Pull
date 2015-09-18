@@ -87,6 +87,8 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
         [self _useCompass:YES];
     }
     
+    // TODO: DEBUG
+    [self _useCompass:YES];
 }
 
 - (void)showNoLocation;

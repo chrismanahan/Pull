@@ -25,11 +25,24 @@ NSString * const kPULAppSuggestionEmail = @"support@getpulled.com";
 NSString * const kPULAppPartnerEmail = @"support@getpulled.com";
 
 // distances
-const NSInteger kPULDistanceHereFeet = 15;
+const NSInteger kPULDistanceHereFeet = 30;
 const double kPULDistanceHereMeters =  FEET_TO_METERS( kPULDistanceHereFeet);
+
+const NSInteger kPULDistanceAlmostHereFeet = 100;
+const double kPULDistanceAlmostHereMeter = FEET_TO_METERS(kPULDistanceAlmostHereFeet);
 
 const NSInteger kPULDistanceNearbyFeet = 1000;
 const double kPULDistanceNearbyMeters = FEET_TO_METERS(kPULDistanceNearbyFeet);
+
+
+const NSInteger kPULLocationTuningDistanceLowFeet = 5000;
+const NSInteger kPULLocationTuningDistanceLowMeters = FEET_TO_METERS(kPULLocationTuningDistanceLowFeet);
+const NSInteger kPULLocationTuningDistanceAutoFeet = 1000;
+const NSInteger kPULLocationTuningDistanceAutoMeters = FEET_TO_METERS(kPULLocationTuningDistanceAutoFeet);
+const NSInteger kPULLocationTuningDistanceMediumFeet = 100;
+const NSInteger kPULLocationTuningDistanceMediumMeters = FEET_TO_METERS(kPULLocationTuningDistanceMediumFeet);
+const NSInteger kPULLocationTuningDistanceHighFeet = 0;
+const NSInteger kPULLocationTuningDistanceHighMeters = FEET_TO_METERS(kPULLocationTuningDistanceHighFeet);
 
 const double kPULDistanceAllowedAccuracy = 15;
 

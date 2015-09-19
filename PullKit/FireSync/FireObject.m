@@ -134,11 +134,21 @@ NSString * const FireObjectDidUpdateNotification = @"FireObjectDidUpdateNotifica
         _observers = [[NSMutableDictionary alloc] init];
     }
     
+    NSAssert(![self isObservingKeyPath:keyPath], @"observer already exists for key path");
+    
     id obs = [THObserver observerForObject:self
                                    keyPath:keyPath
                                      block:block];
     
     _observers[keyPath] = obs;
+}
+
+- (void)observeKeyPaths:(NSArray <NSString*>*)keyPaths block:(THObserverBlock)block;
+{
+    for (NSString *key in keyPaths)
+    {
+        [self observeKeyPath:key block:block];
+    }
 }
 
 - (void)stopObservingKeyPath:(NSString*)keyPath;
@@ -148,6 +158,14 @@ NSString * const FireObjectDidUpdateNotification = @"FireObjectDidUpdateNotifica
         PULLog(@"stopping observer on %@ for %@", keyPath, self);
         
         [_observers removeObjectForKey:keyPath];
+    }
+}
+
+- (void)stopObservingKeyPaths:(NSArray <NSString*>*)keyPaths;
+{
+    for (NSString *key in keyPaths)
+    {
+        [self stopObservingKeyPath:key];
     }
 }
 

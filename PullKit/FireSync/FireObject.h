@@ -145,9 +145,10 @@ extern NSString * const FireObjectDidUpdateNotification;
 - (BOOL)isObservingKeyPath:(NSString*)keyPath;
 
 - (void)observeKeyPath:(NSString*)keyPath block:(THObserverBlock)block;
+- (void)observeKeyPaths:(NSArray <NSString*>*)keyPaths block:(THObserverBlock)block;
 
+- (void)stopObservingKeyPaths:(NSArray <NSString*>*)keyPaths;
 - (void)stopObservingKeyPath:(NSString*)keyPath;
-
 - (void)stopObservingAllKeyPaths;
 
 @end

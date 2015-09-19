@@ -111,8 +111,16 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
 
 - (BOOL)isAccurate;
 {
-    return  _sendingUser.locationAccuracy < kPULDistanceAllowedAccuracy &&
-            _receivingUser.locationAccuracy < kPULDistanceAllowedAccuracy;
+    
+    
+    // if someone's accuracy is low
+    BOOL accurate =  (_sendingUser.locationAccuracy < kPULDistanceAllowedAccuracy || _receivingUser.locationAccuracy < kPULDistanceAllowedAccuracy);
+    
+    // neither user has moved since their last update and they're relatively close
+    BOOL closeEnough = self.here || self.almostHere;
+    BOOL noMovement = ((!_receivingUser.hasMovedSinceLastLocationUpdate && !_sendingUser.hasMovedSinceLastLocationUpdate) && closeEnough);
+    
+    return accurate || noMovement;
 }
 
 #pragma mark - Properties
@@ -154,7 +162,13 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
 
 - (BOOL)isHere
 {
-    return [[PULAccount currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceHereMeters;
+    CGFloat threshold = kPULDistanceHereMeters;
+    if (![PULAccount currentUser].hasMovedSinceLastLocationUpdate && ![self otherUser].hasMovedSinceLastLocationUpdate)
+    {
+        threshold += 20;
+    }
+    
+    return [[PULAccount currentUser] distanceFromUser:[self otherUser]] <= threshold;
 }
 
 - (PULPullDistanceState)pullDistanceState
@@ -166,13 +180,13 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
     {
         state = PULPullDistanceStateInaccurate;
     }
-    else if (self.almostHere)
-    {
-        state = PULPullDistanceStateAlmostHere;
-    }
     else if (self.here)
     {
         state = PULPullDistanceStateHere;
+    }
+    else if (self.almostHere)
+    {
+        state = PULPullDistanceStateAlmostHere;
     }
     else if (_nearby)
     {

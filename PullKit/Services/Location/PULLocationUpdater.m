@@ -224,7 +224,15 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 - (void)locationKit:(LocationKit *)locationKit willChangeActivityMode:(LKActivityMode)mode;
 {
+    [PULAccount currentUser].hasMovedSinceLastLocationUpdate = mode != LKActivityModeStationary;
+
+    if ([PULAccount currentUser].currentMotionType == LKActivityModeStationary && mode != LKActivityModeStationary)
+    {
+        [self _forceUpdateIfNeeded];
+    }
+    
     [PULAccount currentUser].currentMotionType = mode;
+    [[PULAccount currentUser] saveKeys:@[@"location"]];
     
     [self _updateToLocation:nil];
 }
@@ -287,6 +295,27 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 }
 
 #pragma mark - Private
+- (NSTimeInterval)_secondsSinceLastUpdate
+{
+    return fabs([[PULAccount currentUser].location.timestamp timeIntervalSinceNow]);
+}
+
+- (void)_forceUpdate
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[LocationKit sharedInstance] getCurrentLocationWithHandler:^(CLLocation *location, NSError *error) {
+            [self _saveNewLocation:location];
+        }];
+    });
+}
+
+- (void)_forceUpdateIfNeeded
+{
+    if ([self _secondsSinceLastUpdate] >= 5 && [PULAccount currentUser].currentMotionType != LKActivityModeStationary)
+    {
+        [self _forceUpdate];
+    }
+}
 - (void)_updateToLocation:(nullable CLLocation*)location;
 {
     PULAccount *acct = [PULAccount currentUser];
@@ -328,16 +357,11 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         }
     }
     
-    // find nearest pull that's active
+    // if we have a pull, get setting type for the nearest one
     if (keepTuning && hasActivePull)
     {
         PULPull *nearestPull = [acct nearestPull];
-        // distance between us and user of nearest pull
-        PULUser *otherUser = [nearestPull otherUser];
-        
-        CGFloat distance = [acct distanceFromUser:otherUser];
-        
-        settingType = [self _settingTypeForDistance:distance];
+        settingType = [self _settingTypeForPull:nearestPull];
     }
     
     // apply new setting
@@ -346,43 +370,40 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
  
     if (!getImmediateUpdate && foreground)
     {
-        // check the time of our last update
-        NSTimeInterval secondsSinceLastUpdate = fabs([acct.location.timestamp timeIntervalSinceNow]);
-        getImmediateUpdate = secondsSinceLastUpdate > 3 && acct.currentMotionType != LKActivityModeStationary;
-    }
-    
-    // get immediate update if needed
-    if (getImmediateUpdate)
-    {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[LocationKit sharedInstance] getCurrentLocationWithHandler:^(CLLocation *location, NSError *error) {
-                
-                CGFloat newLat = round(100 * location.coordinate.latitude) / 100;
-                CGFloat newLon = round(100 * location.coordinate.longitude) / 100;
-                CGFloat acctLat = round(100 * acct.location.coordinate.latitude) / 100;
-                CGFloat acctLon = round(100 * acct.location.coordinate.latitude) / 100;
-                
-                if ((newLat != acctLat || newLon != acctLon) ||
-                    location.horizontalAccuracy < acct.location.horizontalAccuracy)
-                {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        acct.location = location;
-                        [acct saveKeys:@[@"location"]];
-                    });
-                }
-            }];
-        });
+        [self _forceUpdateIfNeeded];
     }
     
     if (location && [location isKindOfClass:[CLLocation class]])
     {
-        acct.location = location;
-        
-        [acct saveKeys:@[@"location"]];
-        
+        [self _saveNewLocation:location];
+
         [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
                                                             object:location];
         
+    }
+}
+
+- (void)_saveNewLocation:(CLLocation*)location;
+{
+    PULAccount *acct = [PULAccount currentUser];
+    
+    // round each lat lon for comparison
+    CGFloat newLat = round(100 * location.coordinate.latitude) / 100;
+    CGFloat newLon = round(100 * location.coordinate.longitude) / 100;
+    CGFloat acctLat = round(100 * acct.location.coordinate.latitude) / 100;
+    CGFloat acctLon = round(100 * acct.location.coordinate.latitude) / 100;
+    
+    BOOL hasDifferentLoc = (newLat != acctLat || newLon != acctLon);
+    
+    if (hasDifferentLoc || location.horizontalAccuracy < acct.location.horizontalAccuracy)
+    {
+        // save new location if coords are different or if the accuracy has improved
+        dispatch_async(dispatch_get_main_queue(), ^{
+            acct.hasMovedSinceLastLocationUpdate = hasDifferentLoc;
+            
+            acct.location = location;
+            [acct saveKeys:@[@"location"]];
+        });
     }
 }
 
@@ -420,6 +441,15 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     }
     
     return settingType;
+}
+
+- (LKSettingType)_settingTypeForPull:(PULPull*)pull
+{
+    // distance between us and user of nearest pull
+    PULUser *otherUser = [pull otherUser];
+    CGFloat distance = [[PULAccount currentUser] distanceFromUser:otherUser];
+    return [self _settingTypeForDistance:distance];
+    
 }
 
 - (NSInteger)_secondsBetween:(CLLocation*)location0 andLocation:(CLLocation*)location1;

@@ -95,7 +95,8 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
 //                                  @"alt": @(_location.altitude),
                                   @"currPosType": @(_currentPositionType),
                                   @"currMoveType":@(_currentMotionType),
-                                  @"accuracy":@(_locationAccuracy)
+                                  @"accuracy":@(_locationAccuracy),
+                                  @"hasMovedSinceLastUpdate": @(_hasMovedSinceLastLocationUpdate)
                                   },
                           @"friends": [_friends firebaseRepresentation],
                           @"pulls": [_pulls firebaseRepresentation],
@@ -179,6 +180,7 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
             [self didChangeValueForKey:@"location"];
         }
         
+        _hasMovedSinceLastLocationUpdate = [repr[@"location"][@"hasMovedSinceLastUpdate"] boolValue];
         _currentMotionType = [repr[@"location"][@"currMoveType"] integerValue];
         _currentPositionType = [repr[@"location"][@"currPosType"] integerValue];
     }

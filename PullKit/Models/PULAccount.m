@@ -188,6 +188,7 @@ static PULAccount *account = nil;
             }
         });
     };
+    updateForegroundBlock();
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
                                                       object:nil

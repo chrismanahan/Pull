@@ -35,7 +35,7 @@ const NSInteger kPULDistanceNearbyFeet = 1000;
 const double kPULDistanceNearbyMeters = FEET_TO_METERS(kPULDistanceNearbyFeet);
 
 
-const NSInteger kPULLocationTuningDistanceLowFeet = 5000;
+const NSInteger kPULLocationTuningDistanceLowFeet = 7000;
 const NSInteger kPULLocationTuningDistanceLowMeters = FEET_TO_METERS(kPULLocationTuningDistanceLowFeet);
 const NSInteger kPULLocationTuningDistanceAutoFeet = 1000;
 const NSInteger kPULLocationTuningDistanceAutoMeters = FEET_TO_METERS(kPULLocationTuningDistanceAutoFeet);

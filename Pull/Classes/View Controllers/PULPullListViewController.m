@@ -726,8 +726,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                           location:NO];
         
         // TODO: DEBUG
-        _dialogContainer.hidden = NO;
-        _dialogMessageLabel.text = [NSString stringWithFormat:@"%@\n%@", [PULAccount currentUser].location, user.location];
+//        _dialogContainer.hidden = NO;
+//        _dialogMessageLabel.text = [NSString stringWithFormat:@"%@\n%@", [PULAccount currentUser].location, user.location];
         _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
     }
     else

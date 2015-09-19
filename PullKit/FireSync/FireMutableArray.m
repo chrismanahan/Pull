@@ -22,10 +22,7 @@ NSString * const FireArrayLoadedNotification = @"FireArrayLoadedNotification";
 
 @property (nonatomic, copy) NSString *key;
 @property (nonatomic, copy) FireArrayObjectChangedBlock block;
-@property (nonatomic, strong) NSMutableDictionary *observers;
-
-- (BOOL)observerExistsForObject:(FireObject*)object;
-- (void)removeObserversForObject:(FireObject*)object;
+@property (nonatomic, strong) NSMutableArray *observers;
 
 @end
 
@@ -38,29 +35,9 @@ NSString * const FireArrayLoadedNotification = @"FireArrayLoadedNotification";
         
         _key = [key copy];
         _block = [block copy];
-        _observers = [[NSMutableDictionary alloc] init];
+        _observers = [[NSMutableArray alloc] init];
     }
     return self;
-}
-
-- (BOOL)observerExistsForObject:(FireObject*)object;
-{
-    return _observers[object.uid] != nil;
-}
-
-- (void)removeObserversForObject:(FireObject*)object;
-{
-    NSMutableArray *keys = [[NSMutableArray alloc] init];
-    
-    [_observers enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([key isEqualToString:object.uid])
-        {
-            PULLog(@"\tremoving observer");
-            [keys addObject:key];
-        }
-    }];
- 
-    [_observers removeObjectsForKeys:keys];
 }
 
 @end
@@ -183,7 +160,7 @@ NSString * const FireArrayLoadedNotification = @"FireArrayLoadedNotification";
             keyChange.block(self, obj);
         }];
         
-        keyChange.observers[obj.uid] = obs;
+        [keyChange.observers addObject:@{obj.uid: obs}];
     }
     
     [_keyChangeBlocks addObject:keyChange];
@@ -298,19 +275,17 @@ NSString * const FireArrayLoadedNotification = @"FireArrayLoadedNotification";
 #pragma mark - Private
 - (void)_addObserversIfNeededForObject:(FireObject*)anObject
 {
+    PULLog(@"adding observers if need for object: %@", anObject);
     if (_keyChangeBlocks.count)
     {
         for (_FireKeyChange *change in _keyChangeBlocks)
         {
-            if (![change observerExistsForObject:anObject])
-            {
-                id obs = [THObserver observerForObject:anObject keyPath:change.key block:^{
-                    change.block(self, anObject);
-                }];
-                
-                PULLog(@"adding observers for object: %@", anObject);
-                change.observers[anObject.uid] = obs;
-            }
+            id obs = [THObserver observerForObject:anObject keyPath:change.key block:^{
+                change.block(self, anObject);
+            }];
+            
+            PULLog(@"\tadding observer");
+            [change.observers addObject:@{anObject.uid: obs}];
         }
     }
 }
@@ -322,7 +297,16 @@ NSString * const FireArrayLoadedNotification = @"FireArrayLoadedNotification";
     {
         for (_FireKeyChange *change in _keyChangeBlocks)
         {
-            [change removeObserversForObject:anObject];
+            NSMutableIndexSet *indices = [[NSMutableIndexSet alloc] init];
+            [change.observers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                NSString *key = [obj allKeys][0];
+                if ([key isEqualToString:anObject.uid])
+                {
+                    PULLog(@"\tremoving observer");
+                    [indices addIndex:idx];
+                }
+            }];
+            [change.observers removeObjectsAtIndexes:indices];
         }
     }
 }

@@ -175,10 +175,19 @@ static PULAccount *account = nil;
                                                       [[NSNotificationCenter defaultCenter] removeObserver:loadNotif];
                                                   }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.inForeground = YES;
-        [self saveKeys:@[@"inForeground"]];
-    });
+    void(^updateForegroundBlock)() = ^void(){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.isLoaded)
+            {
+                self.inForeground = YES;
+                [self saveKeys:@[@"inForeground"]];
+            }
+            else
+            {
+                updateForegroundBlock();
+            }
+        });
+    };
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
                                                       object:nil

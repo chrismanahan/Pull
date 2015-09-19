@@ -12,7 +12,7 @@
 /*****************************************
  Logging
  *****************************************/
-#define PULLog( s, ... )  NSLog( @"<%@:%d> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#define PULLog( s, ... ) NSLog( @"<%@:%d> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  [NSString stringWithFormat:(s), ##__VA_ARGS__] )
 #define PULLogNotif( s, ... ) /*CLS_LOG*/NSLog( @"NOTIF - %@", [NSString stringWithFormat:(s), ##__VA_ARGS__])
 
 #ifdef DEBUG

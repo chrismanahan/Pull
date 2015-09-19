@@ -16,6 +16,7 @@
 
 #import "BackgroundTaskManager.h"
 
+#import <CoreMotion/CoreMotion.h>
 #import <CoreLocation/CoreLocation.h>
 //#import <LocationKit/LocationKit.h>
 //#import <parkour/parkour.h>
@@ -35,6 +36,8 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 @property (nonatomic, strong) NSTimer *updateTimer;
 
+@property (nonatomic, strong) CMMotionManager *motionManager;
+
 @end
 
 @implementation PULLocationUpdater
@@ -46,7 +49,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         shared=[[PULLocationUpdater alloc] init];
-        
     });
     return shared;
 }
@@ -89,6 +91,9 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
                                                       usingBlock:^(NSNotification *note) {
                                                           [[BackgroundTaskManager sharedBackgroundTaskManager] endAllBackgroundTasks];
                                                       }];
+        
+        _motionManager = [[CMMotionManager alloc] init];
+        _motionManager.deviceMotionUpdateInterval = 0.5;
 
     }
     
@@ -128,6 +133,20 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         _locationManager.distanceFilter = 1.0;
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         [_locationManager startUpdatingLocation];
+        
+        [_motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue]
+                                            withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
+                                                CMAcceleration accel = motion.userAcceleration;
+                                                CMAcceleration gravity = motion.gravity;
+                                                CMRotationRate rotation = motion.rotationRate;
+                                                CMAttitude *attitude = motion.attitude;
+                                                
+                                                PULLog(@"-----");
+                                                PULLog(@"\t%.3f, %.3f, %.3f", accel.x, accel.y, accel.z);
+                                                PULLog(@"\t%.3f, %.3f, %.3f", gravity.x, gravity.y, gravity.z);
+                                                PULLog(@"\t%.3f, %.3f, %.3f", rotation.x, rotation.y, rotation.z);
+                                                PULLog(@"\t%.3f, %.3f, %.3f", attitude.pitch, attitude.roll, attitude.yaw);
+                                            }];
         
         //        BOOL useLK = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
         //        if (useLK)
@@ -352,16 +371,28 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     
     if (location && [location isKindOfClass:[CLLocation class]])
     {
+        static CLLocationDistance lastDistance = -1;
         // we gotta check if this is a good reading
         NSInteger secondsSinceLastUpdate = [self _secondsBetween:acct.location andLocation:location];
         CLLocationAccuracy newAccuracy = location.horizontalAccuracy;
+        CLLocationDistance distanceBetweenLocations = fabs([location distanceFromLocation:acct.location]);
         
         if (!(secondsSinceLastUpdate < 5 && newAccuracy > 15))
         {
         
+            if (newAccuracy > 15 && distanceBetweenLocations < 0.5)
+            {
+                return;
+            }
+            
+            if (lastDistance != -1 && (distanceBetweenLocations > lastDistance && secondsSinceLastUpdate < 2))
+            {
+                return;
+            }
     //        if (useLK)
     //        {
                 acct.location = location;
+            lastDistance = distanceBetweenLocations;
             
                 [acct saveKeys:@[@"location"]];
                 
@@ -372,7 +403,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     //        }
         }
     }
-    
 }
 
 - (NSInteger)_secondsBetween:(CLLocation*)location0 andLocation:(CLLocation*)location1;

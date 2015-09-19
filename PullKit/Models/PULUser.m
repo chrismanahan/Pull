@@ -164,7 +164,7 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
         [self.blocked loadFromFirebaseRepresentation:blockedRepr];
         [self didChangeValueForKey:@"blocked"];
     }
-    
+
     if (repr[@"location"])
     {
         double lat = [repr[@"location"][@"lat"] doubleValue];

@@ -177,14 +177,16 @@ static PULAccount *account = nil;
     
     void(^updateForegroundBlock)(BOOL) = ^void(BOOL foreground){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSInteger count = 0;
+            while (!self.loaded && count++ < 50)
+            {
+                sleep(10);
+            }
+            
             if (self.isLoaded)
             {
                 self.inForeground = foreground;
                 [self saveKeys:@[@"inForeground"]];
-            }
-            else
-            {
-                updateForegroundBlock(foreground);
             }
         });
     };

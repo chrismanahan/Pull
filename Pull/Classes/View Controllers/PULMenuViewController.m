@@ -20,7 +20,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet NZCircularImageView *userImageView;
-@property (strong, nonatomic) IBOutlet UIButton *debug_locationButton;
 
 @property (nonatomic, strong) UIActivityViewController *shareActivityViewController;
 
@@ -34,53 +33,6 @@
     [super viewDidLoad];
     
     [self _populateUserInfo];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    BOOL lk = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
-    if (lk)
-    {
-        [_debug_locationButton setTitle:@"Switch to Parkour" forState:UIControlStateNormal];
-    }
-    else
-    {
-        [_debug_locationButton setTitle:@"Switch to LocationKit" forState:UIControlStateNormal];
-    }
-
-//    // determine how many invite buttons should be shown
-//   if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasSentInviteKey"])
-//   {
-//       NSInteger remaining = [[NSUserDefaults standardUserDefaults] integerForKey:@"InvitesRemainingKey"];
-//       if (remaining < 3)
-//       {
-//           _inviteButtonRight.hidden = YES;
-//       }
-//       if (remaining < 2)
-//       {
-//           _inviteButtonCenter.hidden = YES;
-//       }
-//       if (remaining < 1)
-//       {
-//           _inviteButtonLeft.hidden = YES;
-//       }
-//       
-//       if (remaining != 0)
-//       {
-//           NSString *friendStr = @"friends";
-//           if (remaining == 1)
-//           {
-//               friendStr = @"friend";
-//           }
-//           _inviteLabel.text = [NSString stringWithFormat:@"You can invite %zd %@ to pull", remaining, friendStr];
-//       }
-//       else
-//       {
-//           _inviteLabel.text = @"You have sent all of your invites";
-//       }
-//   }
 }
 
 - (void)_populateUserInfo {
@@ -106,7 +58,7 @@
                                                        delegate:self
                                               cancelButtonTitle:@"Cancel"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"Report an Issue", @"Make a Suggestion", @"Partner with Us", nil];
+                                              otherButtonTitles:@"Report an Issue", @"Make a Suggestion", @"Partner with Us", @"Invite a Friend", nil];
     
     [sheet showInView:self.view];
     
@@ -123,18 +75,6 @@
 {
     NSURL *url = [NSURL URLWithString:kPULAppDownloadURL];
     [[UIApplication sharedApplication] openURL:url];
-}
-
-- (IBAction)ibDebug_LocationService:(id)sender
-{
-    BOOL lk = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
-    [[NSUserDefaults standardUserDefaults] setBool:!lk forKey:@"LK"];
- 
-    [[[UIAlertView alloc] initWithTitle:@"Switching Location Framworks"
-                                message:@"Please kill pull and reopen to take effect"
-                               delegate:nil
-                      cancelButtonTitle:@"Ok"
-                      otherButtonTitles:nil] show];
 }
 
 #pragma mark - action sheet delegate
@@ -157,6 +97,11 @@
             break;
         }
         case 3:
+        {
+            [self _showInviteMail];
+            break;
+        }
+        case 4:
         {
             // cancel
             break;
@@ -203,6 +148,11 @@
 - (void)_showPartnerMail
 {
     [self _showMailWithSubject:@"Become Partner" to:kPULAppPartnerEmail body:nil];
+}
+
+- (void)_showInviteMail
+{
+    [self _showMailWithSubject:@"Invite Friend" to:kPULAppPartnerEmail body:nil];
 }
 
 - (void)_showMailWithSubject:(NSString*)subject to:(NSString*)to body:(NSString*)body

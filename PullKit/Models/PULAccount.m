@@ -637,19 +637,19 @@ static PULAccount *account = nil;
     double ø;
     
     // determine which quadrant we're in relative to other user
-    if (dy < 0.0001 && myLon > yourLon) // horizontal right
+    if (dy < 0.000001 && myLon > yourLon) // horizontal right
     {
         return 270;
     }
-    else if (dy < 0.0001 && myLon < yourLon) // horizontal left
+    else if (dy < 0.000001 && myLon < yourLon) // horizontal left
     {
         return 90;
     }
-    else if (dx < 0.0001 && myLat > yourLat) // vertical top
+    else if (dx < 0.000001 && myLat > yourLat) // vertical top
     {
         return 180;
     }
-    else if (dx < 0.0001 && myLat < yourLat) // vertical bottom
+    else if (dx < 0.000001 && myLat < yourLat) // vertical bottom
     {
         return 0;
     }

@@ -14,8 +14,6 @@
 
 //#import "MMWormHole.h"
 
-#import "BackgroundTaskManager.h"
-
 #import <CoreLocation/CoreLocation.h>
 #import <LocationKit/LocationKit.h>
 //#import <parkour/parkour.h>
@@ -71,23 +69,10 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         [_locationManager startUpdatingHeading];
+
         
         //        _wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.pull"
         //                                                         optionalDirectory:@"wormhole"];
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
-                                                          object:nil
-                                                           queue:[NSOperationQueue currentQueue]
-                                                      usingBlock:^(NSNotification *note) {
-                                                          [[BackgroundTaskManager sharedBackgroundTaskManager] beginNewBackgroundTask];
-                                                      }];
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                          object:nil
-                                                           queue:[NSOperationQueue currentQueue]
-                                                      usingBlock:^(NSNotification *note) {
-                                                          [[BackgroundTaskManager sharedBackgroundTaskManager] endAllBackgroundTasks];
-                                                      }];
         
     }
     
@@ -121,6 +106,10 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     // verify we should be starting location
     if ([self _shouldUpdateLocation])
     {
+//        _locationManager.distanceFilter = 9000;
+//        _locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+//        [_locationManager startMonitoringSignificantLocationChanges];
+        
         PULLog(@"starting location updater");
         _tracking = YES;
         
@@ -166,11 +155,11 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         //            [parkour setTrackPositionMode:Fitness];
         //        }
         
-        _updateTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
-                                                        target:self
-                                                      selector:@selector(_updateToLocation:)
-                                                      userInfo:nil
-                                                       repeats:YES];
+//        _updateTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+//                                                        target:self
+//                                                      selector:@selector(_updateToLocation:)
+//                                                      userInfo:nil
+//                                                       repeats:YES];
     }
     else
     {
@@ -197,8 +186,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     _tracking = NO;
     
     //    [_locationManager stopUpdatingLocation];
-    [_updateTimer invalidate];
-    _updateTimer = nil;
     
     //    BOOL useLK = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
     //    if (useLK)
@@ -295,9 +282,25 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 }
 
 #pragma mark - Private
+- (void)_startLocationKit
+{
+    NSDictionary *options = @{LKOptionTimedUpdatesInterval: @3,
+                              LKOptionUseiOSMotionActivity: @YES};
+    [[LocationKit sharedInstance] startWithApiToken:@"a4a75fffb77e5f47" delegate:self options:options];
+    [self _updateToLocation:nil];
+    
+}
+
 - (NSTimeInterval)_secondsSinceLastUpdate
 {
     return fabs([[PULAccount currentUser].location.timestamp timeIntervalSinceNow]);
+}
+
+- (void)_forceEmptyUpdate
+{
+    [[LocationKit sharedInstance] getCurrentLocationWithHandler:^(CLLocation *location, NSError *error) {
+        ;
+    }];
 }
 
 - (void)_forceUpdate
@@ -376,10 +379,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     if (location && [location isKindOfClass:[CLLocation class]])
     {
         [self _saveNewLocation:location];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
-                                                            object:location];
-        
     }
 }
 
@@ -391,7 +390,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     CGFloat newLat = round(100 * location.coordinate.latitude) / 100;
     CGFloat newLon = round(100 * location.coordinate.longitude) / 100;
     CGFloat acctLat = round(100 * acct.location.coordinate.latitude) / 100;
-    CGFloat acctLon = round(100 * acct.location.coordinate.latitude) / 100;
+    CGFloat acctLon = round(100 * acct.location.coordinate.longitude) / 100;
     
     BOOL hasDifferentLoc = (newLat != acctLat || newLon != acctLon);
     
@@ -403,6 +402,9 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
             
             acct.location = location;
             [acct saveKeys:@[@"location"]];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
+                                                                object:location];
         });
     }
 }
@@ -467,14 +469,15 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 - (BOOL)_shouldUpdateLocation
 {
-    BOOL shouldUpdate = ([[PULAccount currentUser] pullsPulledNearby].count > 0 || [[PULAccount currentUser] pullsPulledFar].count > 0) && !_tracking;
-    
-    //    BOOL useLK = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
-    //    if (useLK)
-    //    {
-    //        shouldUpdate = shouldUpdate && [PULAccount currentUser].currentMotionType != LKActivityModeAutomotive;
-    //    }
-    return shouldUpdate;
+    return YES;
+//    BOOL shouldUpdate = ([[PULAccount currentUser] pullsPulledNearby].count > 0 || [[PULAccount currentUser] pullsPulledFar].count > 0) && !_tracking;
+//    
+//    //    BOOL useLK = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
+//    //    if (useLK)
+//    //    {
+//    //        shouldUpdate = shouldUpdate && [PULAccount currentUser].currentMotionType != LKActivityModeAutomotive;
+//    //    }
+//    return shouldUpdate;
 }
 
 

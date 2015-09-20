@@ -20,8 +20,16 @@ extern NSString * const kPULAppSuggestionEmail;
 extern NSString * const kPULAppPartnerEmail;
 
 // DISTANCES
+extern const NSInteger kPULDistanceTogetherFeet;
+extern const NSInteger kPULDistanceTogetherMeters;
+
+extern const NSInteger kPULDistanceNoLongerTogetherFeet;
+extern const NSInteger kPULDistanceNoLongerTogetherMeters;
+
 extern const NSInteger kPULDistanceHereFeet;
 extern const double kPULDistanceHereMeters;
+extern const NSInteger kPULDistanceHereTogetherFeet;
+extern const double kPULDistanceHereTogetherMeters;
 
 extern const NSInteger kPULDistanceAlmostHereFeet;
 extern const double kPULDistanceAlmostHereMeter;

@@ -163,9 +163,9 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
 - (BOOL)isHere
 {
     CGFloat threshold = kPULDistanceHereMeters;
-    if (![PULAccount currentUser].hasMovedSinceLastLocationUpdate && ![self otherUser].hasMovedSinceLastLocationUpdate)
+    if (self.together)
     {
-        threshold += 20;
+        threshold = kPULDistanceHereTogetherMeters;
     }
     
     return [[PULAccount currentUser] distanceFromUser:[self otherUser]] <= threshold;
@@ -293,7 +293,8 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
              @"expiration": @([_expiration timeIntervalSince1970]),
              @"status": @(_status),
              @"duration": @(_duration),
-             @"caption": _caption ?: @""
+             @"caption": _caption ?: @"",
+             @"together": @(_together)
              };
 }
 
@@ -329,6 +330,11 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
     if (repr[@"caption"])
     {
         self.caption = repr[@"caption"];
+    }
+    
+    if (repr[@"together"])
+    {
+        self.together = [repr[@"together"] boolValue];
     }
     
     [super loadFromFirebaseRepresentation:repr];

@@ -25,8 +25,16 @@ NSString * const kPULAppSuggestionEmail = @"support@getpulled.com";
 NSString * const kPULAppPartnerEmail = @"support@getpulled.com";
 
 // distances
+const NSInteger kPULDistanceTogetherFeet = 20;
+const NSInteger kPULDistanceTogetherMeters = FEET_TO_METERS(kPULDistanceTogetherFeet);
+const NSInteger kPULDistanceNoLongerTogetherFeet = 70;
+const NSInteger kPULDistanceNoLongerTogetherMeters = FEET_TO_METERS(kPULDistanceNoLongerTogetherFeet);
+
 const NSInteger kPULDistanceHereFeet = 30;
 const double kPULDistanceHereMeters =  FEET_TO_METERS( kPULDistanceHereFeet);
+
+const NSInteger kPULDistanceHereTogetherFeet = 50;
+const double kPULDistanceHereTogetherMeters = FEET_TO_METERS(kPULDistanceHereTogetherFeet);
 
 const NSInteger kPULDistanceAlmostHereFeet = 100;
 const double kPULDistanceAlmostHereMeter = FEET_TO_METERS(kPULDistanceAlmostHereFeet);

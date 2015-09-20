@@ -82,6 +82,8 @@ typedef NS_ENUM(NSInteger, PULPullDistanceState)
  */
 @property (nonatomic) PULPullStatus status;
 
+@property (nonatomic, assign, getter=areTogether) BOOL together;
+
 @property (nonatomic, strong) NSString *caption;
 
 @property (nonatomic, readonly, getter=isNearby) BOOL nearby;

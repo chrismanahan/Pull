@@ -29,7 +29,7 @@ const NSTimeInterval kPruneTimerInterval = 5.0;
 
 @property (nonatomic, strong) NSMutableArray *observers;
 
-@property (nonatomic, strong) NSTimer *pruneTimer;
+@property (nonatomic, strong) NSTimer *pullCheckTimer;
 
 @end
 
@@ -147,11 +147,11 @@ static PULAccount *account = nil;
 - (void)initialize
 {
     [super initialize];
-    if (!_pruneTimer)
+    if (!_pullCheckTimer)
     {
-        _pruneTimer = [NSTimer scheduledTimerWithTimeInterval:kPruneTimerInterval
+        _pullCheckTimer = [NSTimer scheduledTimerWithTimeInterval:kPruneTimerInterval
                                                        target:self
-                                                     selector:@selector(pruneExpiredPulls)
+                                                     selector:@selector(checkOnPulls)
                                                      userInfo:nil
                                                       repeats:YES];
         
@@ -170,7 +170,7 @@ static PULAccount *account = nil;
                                                       object:self.pulls
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
-                                                      [self pruneExpiredPulls];
+                                                      [self checkOnPulls];
                                                       
                                                       [[NSNotificationCenter defaultCenter] removeObserver:loadNotif];
                                                   }];
@@ -212,7 +212,7 @@ static PULAccount *account = nil;
     
 }
 
-- (void)pruneExpiredPulls
+- (void)checkOnPulls
 {
     PULLog(@"Checking for expired pulls");
     if (self.pulls.count > 0 && self.pulls.isLoaded)
@@ -224,6 +224,23 @@ static PULAccount *account = nil;
             {
                 PULLog(@"pruning pull: %@", pull);
                 [self cancelPull:pull];
+            }
+            else
+            {
+                // check if users are together
+                CLLocationDistance distance = [self.location distanceFromLocation:[pull otherUser].location];
+                if (distance <= kPULDistanceTogetherMeters && !pull.areTogether)
+                {
+                    // mark as together
+                    pull.together = YES;
+                    [pull saveKeys:@[@"together"]];
+                }
+                else if (distance > kPULDistanceNoLongerTogetherMeters && pull.areTogether)
+                {
+                    // mark as no longer together
+                    pull.together = NO;
+                    [pull saveKeys:@[@"together"]];
+                }
             }
         }];
     }

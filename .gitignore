@@ -37,3 +37,5 @@ DerivedData
 Pods/
 Fabric.*
 Firebase.*
+Podfile.lock
+Pull.xcworkspace/xcshareddata/Pull.xcscmblueprint

@@ -231,7 +231,6 @@
 		9B49DFCD1B8D4DCC009D0C71 /* circle_purple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFCA1B8D4DCC009D0C71 /* circle_purple@2x.png */; };
 		9B49DFCE1B8D4DCC009D0C71 /* circle_purple@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFCB1B8D4DCC009D0C71 /* circle_purple@3x.png */; };
 		9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */; };
-		9B78A76B1B80DA63005569B4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B78A76A1B80DA63005569B4 /* Info.plist */; };
 		9B78A7951B80DE66005569B4 /* NSData+Hex.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A77C1B80DE66005569B4 /* NSData+Hex.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B78A7961B80DE66005569B4 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A77D1B80DE66005569B4 /* NSData+Hex.m */; };
 		9B78A7971B80DE66005569B4 /* UIVisualEffectView+PullBlur.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A77E1B80DE66005569B4 /* UIVisualEffectView+PullBlur.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -374,7 +373,7 @@
 		9BFE6F4C1AF313AD000D00FF /* clock_icon_large.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F491AF313AD000D00FF /* clock_icon_large.png */; };
 		9BFE6F4D1AF313AD000D00FF /* clock_icon_large@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F4A1AF313AD000D00FF /* clock_icon_large@2x.png */; };
 		9BFE6F4E1AF313AD000D00FF /* clock_icon_large@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F4B1AF313AD000D00FF /* clock_icon_large@3x.png */; };
-		AC6338BD48D8397CBE464AF8 /* libPods-PullKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2A20890876F61EDDAEA53E /* libPods-PullKit.a */; };
+		AAD5AA8B4AA44017A95EA27A /* libPods-PullKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2A20890876F61EDDAEA53E /* libPods-PullKit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -455,6 +454,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PullKit.xcconfig"; path = "Pods/Pods-PullKit.xcconfig"; sourceTree = "<group>"; };
 		2F2A20890876F61EDDAEA53E /* libPods-PullKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PullKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3302F3111A73EE2600E11F01 /* timeburner_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = timeburner_regular.ttf; sourceTree = "<group>"; };
 		3304995A1A1815F3003FEA42 /* PULPullDirectionArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullDirectionArrowView.h; sourceTree = "<group>"; };
@@ -503,8 +503,6 @@
 		33FD492C1AD967CF00E76EF4 /* AccountTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTests.m; sourceTree = "<group>"; };
 		33FEA2351A6B0A5F002CA63D /* launchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchImage.png; sourceTree = "<group>"; };
 		33FEA23E1A6B0B26002CA63D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4FB271B73E2E6FBC152AC746 /* Pods-PullKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PullKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-PullKit/Pods-PullKit.release.xcconfig"; sourceTree = "<group>"; };
-		5B5E838B5F8A5B2BA3AD0233 /* Pods-PullKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PullKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PullKit/Pods-PullKit.debug.xcconfig"; sourceTree = "<group>"; };
 		840D7BF41AF17674002268D5 /* PULHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULHeaderView.h; sourceTree = "<group>"; };
 		840D7BF51AF17674002268D5 /* PULHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULHeaderView.m; sourceTree = "<group>"; };
 		841ECA8E1B7E8E14009061F8 /* Pull WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pull WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -918,7 +916,7 @@
 				9BED45A71B80D7CB0007F5F4 /* CFNetwork.framework in Frameworks */,
 				9BED45A81B80D7CB0007F5F4 /* Security.framework in Frameworks */,
 				9BED45A91B80D7CB0007F5F4 /* SystemConfiguration.framework in Frameworks */,
-				AC6338BD48D8397CBE464AF8 /* libPods-PullKit.a in Frameworks */,
+				AAD5AA8B4AA44017A95EA27A /* libPods-PullKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -933,15 +931,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		21BA7362D79BE541CF3B2FC2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5B5E838B5F8A5B2BA3AD0233 /* Pods-PullKit.debug.xcconfig */,
-				4FB271B73E2E6FBC152AC746 /* Pods-PullKit.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		3302F3101A73EE1600E11F01 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1398,7 +1387,7 @@
 				9BED45911B80D7B90007F5F4 /* PullKitTests */,
 				952BDB5C1A0C4F0500C67BB5 /* Frameworks */,
 				952BDB5B1A0C4F0500C67BB5 /* Products */,
-				21BA7362D79BE541CF3B2FC2 /* Pods */,
+				0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1984,12 +1973,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9BED459F1B80D7B90007F5F4 /* Build configuration list for PBXNativeTarget "PullKit" */;
 			buildPhases = (
-				038A0303C6A3BF712106FA38 /* Check Pods Manifest.lock */,
+				9385882DC65A4B0A93FEED0B /* Check Pods Manifest.lock */,
 				9BED457C1B80D7B90007F5F4 /* Sources */,
 				9BED457D1B80D7B90007F5F4 /* Frameworks */,
 				9BED457E1B80D7B90007F5F4 /* Headers */,
 				9BED457F1B80D7B90007F5F4 /* Resources */,
-				B93D1EB7924631C80BD5CA1F /* Copy Pods Resources */,
+				19C318A9C20A4E37917815E2 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2025,7 +2014,7 @@
 		952BDB521A0C4F0500C67BB5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Pull LLC";
 				TargetAttributes = {
 					841ECA8D1B7E8E14009061F8 = {
@@ -2379,7 +2368,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B78A7D61B80DE88005569B4 /* LICENSE in Resources */,
-				9B78A76B1B80DA63005569B4 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2393,7 +2381,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		038A0303C6A3BF712106FA38 /* Check Pods Manifest.lock */ = {
+		19C318A9C20A4E37917815E2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-PullKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9385882DC65A4B0A93FEED0B /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2406,21 +2409,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B93D1EB7924631C80BD5CA1F /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PullKit/Pods-PullKit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2603,7 +2591,6 @@
 /* Begin XCBuildConfiguration section */
 		841ECAAC1B7E8E15009061F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B5E838B5F8A5B2BA3AD0233 /* Pods-PullKit.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = "Pull WatchKit Extension/Pull WatchKit Extension.entitlements";
@@ -2628,6 +2615,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2636,7 +2624,6 @@
 		};
 		841ECAAD1B7E8E15009061F8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FB271B73E2E6FBC152AC746 /* Pods-PullKit.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = "Pull WatchKit Extension/Pull WatchKit Extension.entitlements";
@@ -2662,6 +2649,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2684,6 +2672,7 @@
 				IBSC_MODULE = Pull_WatchKit_Extension;
 				INFOPLIST_FILE = "Pull WatchKit App/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2705,6 +2694,7 @@
 				IBSC_MODULE = Pull_WatchKit_Extension;
 				INFOPLIST_FILE = "Pull WatchKit App/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2715,6 +2705,7 @@
 		};
 		952BDB841A0C4F0500C67BB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2734,6 +2725,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Christopher Manahan (D5TWM4BJZZ)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2761,7 +2753,7 @@
 		};
 		952BDB851A0C4F0500C67BB5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FB271B73E2E6FBC152AC746 /* Pods-PullKit.release.xcconfig */;
+			baseConfigurationReference = 0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2801,7 +2793,6 @@
 		};
 		952BDB871A0C4F0500C67BB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B5E838B5F8A5B2BA3AD0233 /* Pods-PullKit.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2900,6 +2891,7 @@
 				);
 				INFOPLIST_FILE = "PullTests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pull.app/Pull";
 			};
@@ -2917,6 +2909,7 @@
 				);
 				INFOPLIST_FILE = "PullTests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pull.app/Pull";
 			};
@@ -2924,7 +2917,7 @@
 		};
 		9BED459B1B80D7B90007F5F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B5E838B5F8A5B2BA3AD0233 /* Pods-PullKit.debug.xcconfig */;
+			baseConfigurationReference = 0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2953,6 +2946,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull.pullkit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2963,7 +2957,7 @@
 		};
 		9BED459C1B80D7B90007F5F4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FB271B73E2E6FBC152AC746 /* Pods-PullKit.release.xcconfig */;
+			baseConfigurationReference = 0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2993,6 +2987,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull.pullkit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3017,6 +3012,7 @@
 				INFOPLIST_FILE = "PullKitTests/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pull.app/Pull";
 			};
@@ -3035,6 +3031,7 @@
 				INFOPLIST_FILE = "PullKitTests/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pull.app/Pull";
 			};

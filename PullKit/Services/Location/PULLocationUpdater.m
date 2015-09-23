@@ -350,8 +350,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
             PULAccount *acct = [PULAccount currentUser];
             if (acct.isLoaded)
             {
-                
-                
                 if (motionType != acct.currentMotionType)
                 {
                     [PULAccount currentUser].hasMovedSinceLastLocationUpdate = motionType != NotMoving;
@@ -391,7 +389,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     
     BOOL hasDifferentLoc = (newLat != acctLat || newLon != acctLon);
     
-    if (hasDifferentLoc || location.horizontalAccuracy < acct.location.horizontalAccuracy)
+    if (YES || hasDifferentLoc || location.horizontalAccuracy < acct.location.horizontalAccuracy)
     {
         // save new location if coords are different or if the accuracy has improved
         dispatch_async(dispatch_get_main_queue(), ^{

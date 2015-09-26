@@ -693,7 +693,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                 _distanceLabel.text = @"Low Accuracy";
                 
                 // figure out which dialog text to show
-                if ([PULAccount currentUser].hasLowAccuracy)
+                if ([PULUser currentUser].location.isLowAccuracy)
                 {
                     dialogText = @"Because of poor reception, we're having trouble locating you. Enabling WiFi, if it is off, may help.";
                 }

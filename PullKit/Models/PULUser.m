@@ -10,8 +10,6 @@
 
 #import "PULPull.h"
 
-#import "PULAccount.h"
-
 #import "PULCache.h"
 
 @import UIKit;
@@ -225,11 +223,6 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
     _locationAccuracy = location.horizontalAccuracy;
 }
 
-- (BOOL)hasLowAccuracy
-{
-    return _locationAccuracy >= kPULDistanceAllowedAccuracy;
-}
-
 - (NSString*)fullName
 {
     return [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
@@ -272,52 +265,6 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
     return [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", self.fbId];
 }
 
-- (UIImage*)image
-{
-    if (_image)
-    {
-        return _image;
-    }
-    
-    // check cache
-    NSString *cacheKey = [NSString stringWithFormat:@"UserImage%@", self.uid];
-    UIImage *cached = [[PULCache sharedCache] objectForKey:cacheKey];
-    if (cached)
-    {
-        PULLog(@"loading image from cache");
-        _image = cached;
-        return cached;
-    }
-    
-    // load image from firebase
-    NSString *userImageURL = self.imageUrlString;
-    
-    PULLog(@"Fetching image for user: %@", self.uid);
-    NSURL *url = [NSURL URLWithString:userImageURL];
-    NSURLRequest *req = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:req
-                                       queue:[NSOperationQueue currentQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               _image = [UIImage imageWithData:data];
-                               
-                               if (!_image)
-                               {
-                                   _image = [UIImage imageNamed:@"userPlaceholder.png"];
-                               }
-                               
-                               // set cache
-                               if (_image)
-                               {
-                                   [[PULCache sharedCache] setObject:_image forKey:cacheKey];
-                               }
-                               
-                               PULLog(@"Updated user image");
-                               // not the cleanest solution posting to userImageView class
-                               [[NSNotificationCenter defaultCenter] postNotificationName:PULImageUpdatedNotification object:self];
-                           }];
-    return nil;
-}
-
 - (void)setSettings:(PULUserSettings *)settings
 {
     [self willChangeValueForKey:NSStringFromSelector(@selector(settings))];
@@ -346,24 +293,6 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
     return distance;
 }
 
-- (id)sortedArray:(NSArray*)array;
-{
-    return [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        if ([obj1 isKindOfClass:[PULUser class]])
-        {
-            return [[obj1 firstName] compare:[obj2 firstName]];
-        }
-        else if ([obj1 isKindOfClass:[PULPull class]])
-        {
-            return [[obj1 expiration] compare:[obj2 expiration]];
-        }
-        else
-        {
-            return NSOrderedSame;
-        }
-    }];
-}
-
 #pragma mark - Overrides
 - (BOOL)isEqual:(id)object
 {
@@ -378,6 +307,17 @@ NSString * const PULImageUpdatedNotification = @"PULImageUpdatedNotification";
 - (NSUInteger)hash
 {
     return self.fbId.hash;
+}
+
+#pragma mark - Parse Subclassing
++ (NSString*)parseClassName
+{
+    return @"User";
+}
+
++ (void)load
+{
+    [self registerSubclass];
 }
 
 @end

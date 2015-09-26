@@ -17,6 +17,7 @@
 #import "PULUpdateChecker.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 
 @interface AppDelegate ()
 
@@ -44,31 +45,19 @@
     
     //    [[FBSDKApplicationDelegate sharedInstance] loadCache];
     
+    // start parse
+    [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
+    [PFFacebookUtils initializeFacebook];
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     __block NSString *vcName = NSStringFromClass([PULLoginViewController class]);
     
     // check if we are logged in
-    //    Firebase *ref = [[Firebase alloc] initWithUrl:kPULFirebaseURL];
-    // FIXME: Token should not be passed around in user defaults, the fb sdk should be used for this
-    NSData *tokenData = [[NSUserDefaults standardUserDefaults] objectForKey:@"FBToken"];
-    FBSDKAccessToken *facebookAccessToken = [NSKeyedUnarchiver unarchiveObjectWithData:tokenData];;// [FBSDKAccessToken currentAccessToken];
-    if (facebookAccessToken)
+    if ([PULAccount currentUser])
     {
         vcName = NSStringFromClass([PULPullListViewController class]);
-        [PULAccount loginWithFacebookToken:facebookAccessToken completion:^(PULAccount *account, NSError *error) {
-            if (error)
-            {
-                vcName = NSStringFromClass([PULLoginViewController class]);
-                
-                UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:vcName];
-                
-                
-                [self.window setRootViewController:vc];
-                [self.window makeKeyAndVisible];
-            }
-        }];
     }
-    else
+    else /*not logged in*/
     {
         vcName = NSStringFromClass([PULLoginViewController class]);
     }
@@ -86,20 +75,19 @@
                                                         options:nil][0];
     [self.window addSubview:launchOverlay];
  
-        [UIView animateWithDuration:0.5
-                              delay:0.2
-                            options:UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             CGRect frame = launchOverlay.frame;
-                             frame.origin.y = -CGRectGetHeight(frame);
-                             launchOverlay.frame = frame;
-                         } completion:^(BOOL finished) {
-                             [launchOverlay removeFromSuperview];
-                         }];
+    [UIView animateWithDuration:0.5
+                          delay:0.2
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGRect frame = launchOverlay.frame;
+                         frame.origin.y = -CGRectGetHeight(frame);
+                         launchOverlay.frame = frame;
+                     } completion:^(BOOL finished) {
+                         [launchOverlay removeFromSuperview];
+                     }];
 
     
-    
-    [PULNoConnectionView startMonitoringConnection];
+    // check if we need to notify the user of an update
     [PULUpdateChecker checkForUpdate];
     
     // start watching for nearby notifications
@@ -113,7 +101,6 @@
                                                       {
                                                           PULPull *pull = [note object];
                                                           NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [pull otherUser].firstName];
-                                                          
                                                           [PULLocalPush sendLocalPushWithMessage:alertMessage];
                                                       }
                                                   }];

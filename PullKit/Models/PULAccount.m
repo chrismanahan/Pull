@@ -21,8 +21,6 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
-NSString * const PULAccountDidLoginNotification = @"PULAccountDidLoginNotification";
-
 const NSTimeInterval kPruneTimerInterval = 5.0;
 
 @interface PULAccount ()

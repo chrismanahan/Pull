@@ -52,19 +52,11 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 {
     if (self = [super init])
     {
-        [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayObjectAddedNotification
-                                                          object:[PULAccount currentUser].pulls
-                                                           queue:[NSOperationQueue currentQueue]
-                                                      usingBlock:^(NSNotification *note) {
-                                                          [self _updateToLocation:nil];
-                                                      }];
+        // TODO: since we no longer are observing a server for changes, we will have to poll
+        //      while in the background to check if a pulled friend is in the foregound.
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayObjectRemovedNotification
-                                                          object:[PULAccount currentUser].pulls
-                                                           queue:[NSOperationQueue currentQueue]
-                                                      usingBlock:^(NSNotification *note) {
-                                                          [self _updateToLocation:nil];
-                                                      }];
+        // TODO: we will also need to update accuracy everytime a pull's status changes or is
+        //      added or removed
         
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
@@ -115,15 +107,11 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
                 
                 PULLog(@"received location: %@ of type %zd : $zd", position, motionType);
                 
-                PULAccount *acct = [PULAccount currentUser];
-                if (acct.isLoaded)
-                {
-                    acct.currentMotionType = motionType;
-                    acct.location = position;
-                    acct.currentPositionType = positionType;
-                    [acct saveKeys:@[@"location"]];
-                    [self _updateToLocation:position];
-                }
+                PULUser *acct = [PULUser currentUser];
+                acct.currentMotionType = motionType;
+                acct.location = position;
+                acct.currentPositionType = positionType;
+                [self _updateToLocation:position];
                 
             }];
             
@@ -183,9 +171,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 - (void)locationKit:(LocationKit *)locationKit willChangeActivityMode:(LKActivityMode)mode;
 {
-    [PULAccount currentUser].hasMovedSinceLastLocationUpdate = mode != LKActivityModeStationary;
-
-    if ([PULAccount currentUser].currentMotionType == LKActivityModeStationary && mode != LKActivityModeStationary)
+    if ([PULAccount currentUser].location.movementType == LKActivityModeStationary && mode != LKActivityModeStationary)
     {
         [self _forceUpdateIfNeeded];
     }

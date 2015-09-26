@@ -6,50 +6,56 @@
 //  Copyright (c) 2015 Pull LLC. All rights reserved.
 //
 
-#import "FireObject.h"
-
-#import "FireMutableArray.h"
 #import "PULUserSettings.h"
+#import "PULLocation.h"
 
 #import <CoreLocation/CoreLocation.h>
+#import <Parse/Parse.h>
+
+#import "PFObject+Subclass.h"
 
 @class CLPlacemark;
-@class UIImage;
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString * const PULImageUpdatedNotification;
+@interface PULUser : PFUser <PFSubclassing>
 
-@interface PULUser : FireObject
-
-// identifiers
+/*!
+ *  Facebook ID
+ */
 @property (nonatomic, strong) NSString *fbId;
-@property (nonatomic, strong) NSString *deviceToken;
-// contact info
-@property (nonatomic, strong) NSString *phoneNumber;
+/*!
+ *  Email address of user
+ */
 @property (nonatomic, strong) NSString *email;
-// basic details
+/*!
+ *  First name
+ */
 @property (nonatomic, strong) NSString *firstName;
+/*!
+ *  Last name
+ */
 @property (nonatomic, strong) NSString *lastName;
-@property (nonatomic, strong) NSString *fullName;
-@property (nonatomic, strong) UIImage *image;
+ /*!
+ *  Full name
+ */
+@property (nonatomic, strong, readonly) NSString *fullName;
+/*!
+ *  URL string to get user's profile image. Currently only pulls from facebook
+ */
 @property (nonatomic, strong, readonly) NSString *imageUrlString;
-// location
-@property (nonatomic, strong) CLLocation *location;
-@property (nonatomic, strong) NSString *address;
-@property (nonatomic, strong) CLPlacemark *placemark;
-@property (nonatomic, assign) NSInteger currentMotionType;
-@property (nonatomic, assign) NSInteger currentPositionType;
-@property (nonatomic, assign, readonly) CLLocationAccuracy locationAccuracy;
-@property (nonatomic, assign, readonly, getter=hasLowAccuracy) BOOL lowAccuracy;
-@property (nonatomic, assign) BOOL hasMovedSinceLastLocationUpdate;
-// friends
-@property (nonatomic, strong) FireMutableArray *friends;
-@property (nonatomic, strong) FireMutableArray *blocked;
+/*!
+ *  Most recent location of user
+ */
+@property (nonatomic, strong) PULLocation *location;
+
+
+@property (nonatomic, strong) NSArray *friends;
+@property (nonatomic, strong) NSArray *blocked;
 @property (nonatomic, strong) NSArray *unpulledFriends;
 @property (nonatomic, strong) NSArray *pulledFriends;
 // pulls
-@property (nonatomic, strong) FireMutableArray *pulls;
+@property (nonatomic, strong) NSArray *pulls;
 // settings
 @property (nonatomic, strong) PULUserSettings *settings;
 
@@ -57,10 +63,9 @@ extern NSString * const PULImageUpdatedNotification;
 
 - (double)distanceFromUser:(PULUser*)user;
 
-//TODO: -sortedArray: doesn't belong here
-- (id)sortedArray:(NSArray*)array;
-
 - (void)initialize;
+
++ (NSString*)parseClassName;
 
 NS_ASSUME_NONNULL_END
 

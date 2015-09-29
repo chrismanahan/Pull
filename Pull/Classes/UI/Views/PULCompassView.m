@@ -42,7 +42,7 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     switch (pull.status) {
         case PULPullStatusPending:
         {
-            overlayImageName = [pull initiatedBy:[PULAccount currentUser]] ? @"sent_request" : @"incoming_request";
+            overlayImageName = [pull initiatedBy:[PULUser currentUser]] ? @"sent_request" : @"incoming_request";
             break;
         }
         case PULPullStatusPulled:
@@ -145,7 +145,7 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
         static CGFloat lastRads = 0;
         [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
         [[PULLocationUpdater sharedUpdater] setHeadingUpdateBlock:^(CLHeading *heading) {
-            CGFloat rads = [[PULAccount currentUser] angleWithHeading:heading
+            CGFloat rads = [[PULUser currentUser] angleWithHeading:heading
                                                              fromUser:[_pull otherUser]];
             
             if (rads >= lastRads + 0.1 || rads <= lastRads - 0.1)

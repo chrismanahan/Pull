@@ -38,7 +38,7 @@
     _imageView.borderWidth = @(5);
     _imageView.borderColor = PUL_LightGray;
     
-    if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULAccount currentUser]])
+    if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULUser currentUser]])
     {
         _requestNotificationImageView.hidden = NO;
     }

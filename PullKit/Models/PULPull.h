@@ -6,18 +6,26 @@
 //  Copyright (c) 2015 Pull LLC. All rights reserved.
 //
 
-#import "FireObject.h"
+#import <Parse/Parse.h>
+
+#import "PFObject+Subclass.h"
 
 @class PULUser;
 
 NS_ASSUME_NONNULL_BEGIN
+
+/*****************************
+ Constants
+ *****************************/
 
 extern const NSTimeInterval kPullDurationHour;
 extern const NSTimeInterval kPullDurationHalfDay;
 extern const NSTimeInterval kPullDurationDay;
 extern const NSTimeInterval kPullDurationAlways;
 
-extern NSString * const PULPullNearbyNotification;
+/*****************************
+ Enums
+ *****************************/
 
 /*!
  *  Pull status
@@ -51,7 +59,15 @@ typedef NS_ENUM(NSInteger, PULPullDistanceState)
     PULPullDistanceStateHere
 };
 
-@interface PULPull : FireObject
+
+/*****************************
+ Interface
+ *****************************/
+@interface PULPull : PFObject <PFSubclassing>
+
+/*****************************
+ Properties
+ *****************************/
 
 /*!
  *  User that initiated this pull
@@ -76,29 +92,53 @@ typedef NS_ENUM(NSInteger, PULPullDistanceState)
 /*!
  *  The time at which this pull expires and goes out for pruning. -resetExpiration should be called to set the expiration based on the set duration and current time
  */
-@property (nonatomic, strong, readonly) NSDate *expiration;
+@property (nonatomic, strong) NSDate *expiration;
 /*!
  *  The status of this pull
  */
 @property (nonatomic) PULPullStatus status;
-
+/**
+ *  Indicates that the two users involved in this pull are physically together
+ */
 @property (nonatomic, assign, getter=areTogether) BOOL together;
 
-@property (nonatomic, strong) NSString *caption;
+/*****************************
+ Instance Methods
+ *****************************/
 
-@property (nonatomic, readonly, getter=isNearby) BOOL nearby;
-@property (nonatomic, readonly, getter=isHere) BOOL here;
-@property (nonatomic, readonly, getter=isAlmostHere) BOOL almostHere;
-@property (nonatomic, readonly) PULPullDistanceState pullDistanceState;
-
-- (instancetype)initNewBetween:(PULUser*)sender and:(PULUser*)receiver duration:(NSTimeInterval)duration;
-
+/**
+ *  Helper method to check if the users are nearby
+ *
+ *  @return YES if nearby
+ */
+- (BOOL)isNearby;
+/**
+ *  Helper to indicate if the users are almost together
+ *
+ *  @return Yes if users are almost together
+ */
+- (BOOL)isAlmostHere;
+/**
+ *  Helper to indicate if the users are within visible distance
+ *
+ *  @return Yes if within visible distance
+ */
+- (BOOL)isHere;
 - (BOOL)containsUser:(PULUser*)user;
 - (BOOL)initiatedBy:(PULUser*)user;
 - (BOOL)isAccurate;
+
+- (PULPullDistanceState)pullDistanceState;
+
 - (PULUser*)otherUser;
 - (PULUser*)otherUserThatIsNot:(PULUser*)user;
 - (void)resetExpiration;
+
+/*****************************
+ Class Methods
+ *****************************/
+
++ (NSString*)parseClassName;
 
 NS_ASSUME_NONNULL_END
 

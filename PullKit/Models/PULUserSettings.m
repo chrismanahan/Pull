@@ -8,8 +8,12 @@
 
 #import "PULUserSettings.h"
 
-// TODO: make constants for default values
 @implementation PULUserSettings
+
+@dynamic notifyGone;
+@dynamic notifyAccept;
+@dynamic notifyInvite;
+@dynamic notifyNearby;
 
 + (instancetype)defaultSettings;
 {
@@ -18,40 +22,21 @@
     settings.notifyAccept = YES;
     settings.notifyInvite = YES;
     settings.notifyNearby = YES;
-    settings.disabled = YES;
-    settings.resolveAddress = YES;
+    settings.notifyGone = YES;
     
     return settings;
 }
 
-#pragma mark - Fireable Protocol
-- (NSString*)rootName
+#pragma mark - Parse sublcass
++ (NSString*)parseClassName
 {
-    return @"settings";
+    return @"UserSettings";
 }
 
-- (NSDictionary*)firebaseRepresentation
++ (void)load
 {
-    return @{
-             @"disabled": @(_disabled),
-             @"resolveAddress": @(_resolveAddress),
-             @"notification":@{
-                     @"accept": @(_notifyAccept),
-                     @"invite": @(_notifyInvite),
-                     @"nearby": @(_notifyNearby)
-                     }
-             };
-}
-
-- (void)loadFromFirebaseRepresentation:(NSDictionary *)repr
-{
-    self.notifyInvite    = [repr[@"notification"][@"invite"] boolValue];
-    self.notifyAccept    = [repr[@"notification"][@"accept"] boolValue];
-    self.notifyNearby = [repr[@"notification"][@"nearby"] boolValue];
-
-    self.disabled        = [repr[@"disabled"] boolValue];
-
-    self.resolveAddress  = [repr[@"resolveAddress"] boolValue];
+    [self registerSubclass];
+    [super load];
 }
 
 @end

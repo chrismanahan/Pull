@@ -16,6 +16,7 @@
 
 #import "PULUpdateChecker.h"
 
+#import <Parse/Parse.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
@@ -46,14 +47,15 @@
     //    [[FBSDKApplicationDelegate sharedInstance] loadCache];
     
     // start parse
-    [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
-    [PFFacebookUtils initializeFacebook];
+//    [PULUser registerSubclass];
+//    [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
+//    [PFFacebookUtils initializeFacebook];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     __block NSString *vcName = NSStringFromClass([PULLoginViewController class]);
     
     // check if we are logged in
-    if ([PULAccount currentUser])
+    if ([PULUser currentUser])
     {
         vcName = NSStringFromClass([PULPullListViewController class]);
     }
@@ -91,23 +93,23 @@
     [PULUpdateChecker checkForUpdate];
     
     // start watching for nearby notifications
-    [[NSNotificationCenter defaultCenter] addObserverForName:PULPullNearbyNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue currentQueue]
-                                                  usingBlock:^(NSNotification * note) {
-                                                      // notify user that friend is nearby if we're in the background
-                                                      UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
-                                                      if (appState != UIApplicationStateActive)
-                                                      {
-                                                          PULPull *pull = [note object];
-                                                          NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [pull otherUser].firstName];
-                                                          [PULLocalPush sendLocalPushWithMessage:alertMessage];
-                                                      }
-                                                  }];
+//    [[NSNotificationCenter defaultCenter] addObserverForName:PULPullNearbyNotification
+//                                                      object:nil
+//                                                       queue:[NSOperationQueue currentQueue]
+//                                                  usingBlock:^(NSNotification * note) {
+//                                                      // notify user that friend is nearby if we're in the background
+//                                                      UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
+//                                                      if (appState != UIApplicationStateActive)
+//                                                      {
+//                                                          PULPull *pull = [note object];
+//                                                          NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [pull otherUser].firstName];
+//                                                          [PULLocalPush sendLocalPushWithMessage:alertMessage];
+//                                                      }
+//                                                  }];
     
     
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                    didFinishLaunchingWithOptions:launchOptions];
+    return YES;//[[FBSDKApplicationDelegate sharedInstance] application:application
+                 //                   didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -129,22 +131,22 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [FBSDKAppEvents activateApp];
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
     
     application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[PFFacebookUtils session] close];
 }
 
 #pragma mark - Facebook
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                          openURL:url
-                                                sourceApplication:sourceApplication
-                                                       annotation:annotation];
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                        withSession:[PFFacebookUtils session]];
 }
 
 #pragma mark - Push notifications
@@ -155,13 +157,14 @@
     if (deviceToken)
     {
         [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:@"DeviceToken"];
-        
-        if ([PULAccount currentUser].uid)
-        {
-            PULLog(@"saving device token");
-            [PULAccount currentUser].deviceToken = [deviceToken hexadecimalString];
-            [[PULAccount currentUser] saveKeys:@[@"deviceToken"]];
-        }
+
+        // TODO: PUSH NOTIF DEVICE TOKEN STUFF
+//        if ([PULUser currentUser].uid)
+//        {
+//            PULLog(@"saving device token");
+//            [PULUser currentUser].deviceToken = [deviceToken hexadecimalString];
+//            [[PULUser currentUser] saveKeys:@[@"deviceToken"]];
+//        }
     }
 }
 

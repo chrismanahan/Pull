@@ -128,7 +128,8 @@
 - (IBAction)ibSendInvite:(id)sender
 {
     // send pull
-    [[PULAccount currentUser] sendPullToUser:_user duration:_requestedDuration caption:_captionTextView.text];
+    // TODO: SEND PULL TO SELECTED USER
+//    [[PULUser currentUser] sendPullToUser:_user duration:_requestedDuration caption:_captionTextView.text];
     
     // dismiss vc
     [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];

@@ -11,6 +11,7 @@
 
 #import "PULUserCell.h"
 
+#import "PULUser.h"
 #import "PULSlideLeftSegue.h"
 #import "PULSlideUnwindSegue.h"
 
@@ -38,41 +39,31 @@
 
     _searchBar.text = @"";
     
-    PULAccount *account = [PULAccount currentUser];
-    
-    void (^loadBlock)() = ^void(){
-        if (account.friends.count == 0 && account.friends.isLoaded)
-        {
-            _noFriendsOverlay.hidden = NO;
-            
-        }
-        else
-        {
-            if (!_noFriendsOverlay.hidden)
-            {
-                _noFriendsOverlay.hidden = YES;
-            }
-            
-            [self _reloadDatasource];
-        }
-    };
-    
-    if ((account.pulls.isLoaded && account.pulls.count > 0) || account.pulls.count == 0)
-    {
-        loadBlock();
-    }
+    PULUser *account = [PULUser currentUser];
     
     
-    
-    _pullsLoadedNotification = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
-                                                                                 object:[PULAccount currentUser].pulls
-                                                                                  queue:[NSOperationQueue currentQueue]
-                                                                             usingBlock:^(NSNotification *note) {
-                                                                                 if (!_dataSource)
-                                                                                 {
-                                                                                     loadBlock();
-                                                                                 }
-                                                                             }];
+    // TODO: load selection of users
+//    void (^loadBlock)() = ^void(){
+//        if (account.friends.count == 0 && account.friends.isLoaded)
+//        {
+//            _noFriendsOverlay.hidden = NO;
+//            
+//        }
+//        else
+//        {
+//            if (!_noFriendsOverlay.hidden)
+//            {
+//                _noFriendsOverlay.hidden = YES;
+//            }
+//            
+//            [self _reloadDatasource];
+//        }
+//    };
+//    
+//    if ((account.pulls.isLoaded && account.pulls.count > 0) || account.pulls.count == 0)
+//    {
+//        loadBlock();
+//    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -116,26 +107,27 @@
 
 - (void)_reloadDatasourceForSearch:(NSString*)search
 {
-    if (!search || search.length == 0)
-    {
-        _dataSource = [[PULAccount currentUser] sortedArray:[PULAccount currentUser].unpulledFriends];
-    }
-    else
-    {
-        NSMutableArray *temp = [[NSMutableArray alloc] init];
-        for (PULUser *user in [PULAccount currentUser].unpulledFriends)
-        {
-            search = search.lowercaseString;
-            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
-                [user.fullName.lowercaseString hasPrefix:search])
-            {
-                [temp addObject:user];
-            }
-        }
-        _dataSource = [[NSArray alloc] initWithArray:temp];
-    }
-    
-    [_tableView reloadData];
+    // TODO: reload data source
+//    if (!search || search.length == 0)
+//    {
+//        _dataSource = [[PULUser currentUser] sortedArray:[PULUser currentUser].unpulledFriends];
+//    }
+//    else
+//    {
+//        NSMutableArray *temp = [[NSMutableArray alloc] init];
+//        for (PULUser *user in [PULUser currentUser].unpulledFriends)
+//        {
+//            search = search.lowercaseString;
+//            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
+//                [user.fullName.lowercaseString hasPrefix:search])
+//            {
+//                [temp addObject:user];
+//            }
+//        }
+//        _dataSource = [[NSArray alloc] initWithArray:temp];
+//    }
+//    
+//    [_tableView reloadData];
 }
 
 #pragma mark - UISearchBar Delgate

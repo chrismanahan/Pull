@@ -7,8 +7,7 @@
 //
 
 #import "PULInviteService.h"
-#import "PULAccount.h"
-
+#import "PULUser.h"
 
 NSString * const kPULInviteServiceUrl = @"http://getpulled.com/Invite/invite.php";
 
@@ -21,7 +20,7 @@ typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
     PULLog(@"sending invite to: %@", email);
     NSDictionary *params = @{@"action": @"invite",
                              @"email": email,
-                             @"from": [PULAccount currentUser].uid
+                             @"from": [PULUser currentUser].username
                              };
     
     PULLog(@"sending params");

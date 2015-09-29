@@ -106,37 +106,40 @@
 
 - (NSArray*)_dataSourceForSection:(NSInteger)section
 {
-    if (!_searchFriendsDatasource)
-    {
-        return section == 0 ? [PULAccount currentUser].friends : [PULAccount currentUser].blocked;
-    }
-    else
-    {
-        return section == 0 ? _searchFriendsDatasource : _searchBlockedDatasource;
-    }
+    // TODO: RETURN DATA SOURCE
+    return nil;
+//    if (!_searchFriendsDatasource)
+//    {
+//        return section == 0 ? [PULUser currentUser].friends : [PULUser currentUser].blocked;
+//    }
+//    else
+//    {
+//        return section == 0 ? _searchFriendsDatasource : _searchBlockedDatasource;
+//    }
 }
 
 #pragma mark - alert view delegat
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1)
-    {
-        if (alertView.tag == 1000)
-        {
-            // block
-            [[PULAccount currentUser] blockUser:_selectedUser];
-        }
-        else if (alertView.tag == 1001)
-        {
-            // unblock
-            [[PULAccount currentUser] unblockUser:_selectedUser];
-        }
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [_tableView reloadData];
-        });
-
-    }
+    // TODO: ALERT USER WHEN BUTTON TAPPED
+//    if (buttonIndex == 1)
+//    {
+//        if (alertView.tag == 1000)
+//        {
+//            // block
+//            [[PULUser currentUser] blockUser:_selectedUser];
+//        }
+//        else if (alertView.tag == 1001)
+//        {
+//            // unblock
+//            [[PULUser currentUser] unblockUser:_selectedUser];
+//        }
+//        
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [_tableView reloadData];
+//        });
+//
+//    }
     
 //    _searchBar.text = @"";
 //    _searchBlockedDatasource = nil;
@@ -164,39 +167,40 @@
 #pragma mark Helpers
 - (void)_reloadDatasourceForSearch:(NSString*)search
 {
-    if (!search || search.length == 0)
-    {
-        _searchFriendsDatasource = nil;
-        _searchBlockedDatasource = nil;
-    }
-    else
-    {
-        NSMutableArray *temp = [[NSMutableArray alloc] init];
-        search = search.lowercaseString;
-        
-        for (PULUser *user in [PULAccount currentUser].friends)
-        {
-            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
-                [user.fullName.lowercaseString hasPrefix:search])
-            {
-                [temp addObject:user];
-            }
-        }
-        _searchFriendsDatasource = [[NSArray alloc] initWithArray:temp];
-        
-        temp = [[NSMutableArray alloc] init];
-        for (PULUser *user in [PULAccount currentUser].blocked)
-        {
-            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
-                [user.fullName.lowercaseString hasPrefix:search])
-            {
-                [temp addObject:user];
-            }
-        }
-        _searchBlockedDatasource = [[NSArray alloc] initWithArray:temp];
-    }
-    
-    [_tableView reloadData];
+    // TODO: reload data source
+//    if (!search || search.length == 0)
+//    {
+//        _searchFriendsDatasource = nil;
+//        _searchBlockedDatasource = nil;
+//    }
+//    else
+//    {
+//        NSMutableArray *temp = [[NSMutableArray alloc] init];
+//        search = search.lowercaseString;
+//        
+//        for (PULUser *user in [PULUser currentUser].friends)
+//        {
+//            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
+//                [user.fullName.lowercaseString hasPrefix:search])
+//            {
+//                [temp addObject:user];
+//            }
+//        }
+//        _searchFriendsDatasource = [[NSArray alloc] initWithArray:temp];
+//        
+//        temp = [[NSMutableArray alloc] init];
+//        for (PULUser *user in [PULUser currentUser].blocked)
+//        {
+//            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
+//                [user.fullName.lowercaseString hasPrefix:search])
+//            {
+//                [temp addObject:user];
+//            }
+//        }
+//        _searchBlockedDatasource = [[NSArray alloc] initWithArray:temp];
+//    }
+//    
+//    [_tableView reloadData];
 }
 
 #pragma mark - Scroll View Delegate

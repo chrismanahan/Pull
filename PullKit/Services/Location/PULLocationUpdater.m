@@ -10,12 +10,13 @@
 
 #import "PULConstants.h"
 
-#import "PULAccount.h"
+#import "PULUser.h"
+#import "PULParseMiddleMan.h"
 
 //#import "MMWormHole.h"
 
 #import <CoreLocation/CoreLocation.h>
-#import <LocationKit/LocationKit.h>
+//#import <LocationKit/LocationKit.h>
 #import <parkour/parkour.h>
 #import <UIKit/UIKit.h>
 
@@ -23,7 +24,7 @@ NSString* const PULLocationPermissionsGrantedNotification = @"PULLocationPermiss
 NSString* const PULLocationPermissionsDeniedNotification = @"PULLocationPermissionsNeededNotification";
 NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotification";
 
-@interface PULLocationUpdater () <LocationKitDelegate>
+@interface PULLocationUpdater ()
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
 
@@ -32,6 +33,8 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 //@property (nonatomic, strong) MMWormhole *wormhole;
 
 @property (nonatomic, strong) NSTimer *updateTimer;
+
+@property (nonatomic, strong) PULParseMiddleMan *parse;
 
 @end
 
@@ -61,8 +64,8 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         [_locationManager startUpdatingHeading];
-
         
+        _parse = [PULParseMiddleMan sharedInstance];
         //        _wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.pull"
         //                                                         optionalDirectory:@"wormhole"];
         
@@ -101,22 +104,18 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         PULLog(@"starting location updater");
         _tracking = YES;
         
-            [parkour start];
-            [parkour setMinPositionUpdateRate:0];
-            [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
-                
-                PULLog(@"received location: %@ of type %zd : $zd", position, motionType);
-                
-                PULUser *acct = [PULUser currentUser];
-                acct.currentMotionType = motionType;
-                acct.location = position;
-                acct.currentPositionType = positionType;
-                [self _updateToLocation:position];
-                
-            }];
+        [parkour start];
+        [parkour setMinPositionUpdateRate:0];
+        [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
             
-            [parkour setTrackPositionMode:Fitness];
-
+            PULLog(@"received location: %@ of type %zd : $zd", position, motionType);
+            
+            [self _updateToLocation:position position:positionType motion:motionType];
+            
+        }];
+        
+        [parkour setTrackPositionMode:Fitness];
+        
     }
     else
     {
@@ -150,7 +149,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     //    BOOL useLK = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
     //    if (useLK)
     //    {
-//    [[LocationKit sharedInstance] pause];
+    //    [[LocationKit sharedInstance] pause];
     //    }
     //    else
     //    {
@@ -160,27 +159,27 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 }
 
 #pragma mark - location kit delegate
-- (void)locationKit:(LocationKit *)locationKit didUpdateLocation:(CLLocation *)location;
-{
-    PULAccount *acct = [PULAccount currentUser];
-    if (acct.isLoaded)
-    {
-        [self _updateToLocation:location];
-    }
-}
-
-- (void)locationKit:(LocationKit *)locationKit willChangeActivityMode:(LKActivityMode)mode;
-{
-    if ([PULAccount currentUser].location.movementType == LKActivityModeStationary && mode != LKActivityModeStationary)
-    {
-        [self _forceUpdateIfNeeded];
-    }
-    
-    [PULAccount currentUser].currentMotionType = mode;
-    [[PULAccount currentUser] saveKeys:@[@"location"]];
-    
-    [self _updateToLocation:nil];
-}
+//- (void)locationKit:(LocationKit *)locationKit didUpdateLocation:(CLLocation *)location;
+//{
+//    PULUser *acct = [PULUser currentUser];
+//    if (acct.isLoaded)
+//    {
+//        [self _updateToLocation:location];
+//    }
+//}
+//
+//- (void)locationKit:(LocationKit *)locationKit willChangeActivityMode:(LKActivityMode)mode;
+//{
+//    if ([PULUser currentUser].location.movementType == LKActivityModeStationary && mode != LKActivityModeStationary)
+//    {
+//        [self _forceUpdateIfNeeded];
+//    }
+//    
+//    [PULUser currentUser].currentMotionType = mode;
+//    [[PULUser currentUser] saveKeys:@[@"location"]];
+//    
+//    [self _updateToLocation:nil];
+//}
 
 #pragma mark - Location Manager delegate
 -(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
@@ -218,13 +217,13 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     if (count % 15 == 0)
     {
         // get nearest pull
-        PULPull *pull = [[PULAccount currentUser] nearestPull];
+        PULPull *pull = [_parse nearestPull];
         
         if (pull)
         {
             // calculate angle
-            double angle = [[PULAccount currentUser] angleWithHeading:newHeading
-                                                             fromUser:[pull otherUser]];
+            double angle = [[PULUser currentUser] angleWithHeading:newHeading
+                                                          fromUser:[pull otherUser]];
             
             // check if we have a pull available
             //            [_wormhole passMessageObject:@{@"angle":@(angle),
@@ -246,40 +245,40 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 //                              LKOptionUseiOSMotionActivity: @YES};
 //    [[LocationKit sharedInstance] startWithApiToken:@"a4a75fffb77e5f47" delegate:self options:options];
 //    [self _updateToLocation:nil];
-//    
+//
 //}
 
 - (NSTimeInterval)_secondsSinceLastUpdate
 {
-    return fabs([[PULAccount currentUser].location.timestamp timeIntervalSinceNow]);
+    return fabs([[PULUser currentUser].location.location.timestamp timeIntervalSinceNow]);
 }
 
-- (void)_forceEmptyUpdate
+//- (void)_forceEmptyUpdate
+//{
+//    [[LocationKit sharedInstance] getCurrentLocationWithHandler:^(CLLocation *location, NSError *error) {
+//        ;
+//    }];
+//}
+//
+//- (void)_forceUpdate
+//{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [[LocationKit sharedInstance] getCurrentLocationWithHandler:^(CLLocation *location, NSError *error) {
+//            [self _saveNewLocation:location];
+//        }];
+//    });
+//}
+//
+//- (void)_forceUpdateIfNeeded
+//{
+//    if ([self _secondsSinceLastUpdate] >= 5 && [PULUser currentUser].currentMotionType != LKActivityModeStationary)
+//    {
+//        [self _forceUpdate];
+//    }
+//}
+- (void)_updateToLocation:(nullable CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
 {
-    [[LocationKit sharedInstance] getCurrentLocationWithHandler:^(CLLocation *location, NSError *error) {
-        ;
-    }];
-}
-
-- (void)_forceUpdate
-{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[LocationKit sharedInstance] getCurrentLocationWithHandler:^(CLLocation *location, NSError *error) {
-            [self _saveNewLocation:location];
-        }];
-    });
-}
-
-- (void)_forceUpdateIfNeeded
-{
-    if ([self _secondsSinceLastUpdate] >= 5 && [PULAccount currentUser].currentMotionType != LKActivityModeStationary)
-    {
-        [self _forceUpdate];
-    }
-}
-- (void)_updateToLocation:(nullable CLLocation*)location;
-{
-    PULAccount *acct = [PULAccount currentUser];
+    PULUser *acct = [PULUser currentUser];
     // determine which tracking mode to use based on current motion type
     // and state of pulls
     PKPositionTrackingMode trackingMode = Geofencing;
@@ -289,7 +288,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     BOOL getImmediateUpdate = NO;
     
     // check motion type
-    if (acct.currentMotionType == Driving)
+    if (acct.location.movementType == Driving)
     {
         trackingMode = Geofencing;
         keepTuning = NO;
@@ -298,7 +297,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     // check if we're in the foreground or anyone we're pulled with is in the foreground
     if (keepTuning)
     {
-        for (PULPull *pull in acct.pulls)
+        for (PULPull *pull in [_parse cachedPulls])
         {
             if (pull.status == PULPullStatusPulled)
             {
@@ -321,85 +320,67 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     // if we have a pull, get setting type for the nearest one
     if (keepTuning && hasActivePull)
     {
-        PULPull *nearestPull = [acct nearestPull];
+        PULPull *nearestPull = [_parse nearestPull];
         trackingMode = [self _settingTypeForPull:nearestPull];
     }
     
     [parkour stopTrackPosition];
     
-   
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
             
             PULLog(@"received location: %@ of type %zd : $zd", position, motionType);
             
-            PULAccount *acct = [PULAccount currentUser];
-            if (acct.isLoaded)
-            {
-                if (motionType != acct.currentMotionType)
-                {
-                    [PULAccount currentUser].hasMovedSinceLastLocationUpdate = motionType != NotMoving;
-                }
-                
-                acct.currentMotionType = motionType;
-                acct.location = position;
-                acct.currentPositionType = positionType;
-//                [acct saveKeys:@[@"location"]];
-                [self _updateToLocation:position];
-            }
+//            PULUser *acct = [PULUser currentUser];
+//            if (motionType != acct.location.movementType)
+//            {
+//                //                    [PULUser currentUser].hasMovedSinceLastLocationUpdate = motionType != NotMoving;
+//            }
+            
+            [self _updateToLocation:position position:positionType motion:motionType];
+        
         }];
         
         [parkour setTrackPositionMode:trackingMode];
     });
     
-    if (!getImmediateUpdate && foreground)
-    {
-        [self _forceUpdateIfNeeded];
-    }
+//    if (!getImmediateUpdate && foreground)
+//    {
+//        [self _forceUpdateIfNeeded];
+//    }
     
     if (location && [location isKindOfClass:[CLLocation class]])
     {
-        [self _saveNewLocation:location];
+        [self _saveNewLocation:location position:positionType motion:motionType];
     }
 }
 
-- (void)_saveNewLocation:(CLLocation*)location;
+- (void)_saveNewLocation:(CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
+
 {
-    PULAccount *acct = [PULAccount currentUser];
+    PULUser *acct = [PULUser currentUser];
     
     // round each lat lon for comparison
     CGFloat newLat = round(100 * location.coordinate.latitude) / 100;
     CGFloat newLon = round(100 * location.coordinate.longitude) / 100;
-    CGFloat acctLat = round(100 * acct.location.coordinate.latitude) / 100;
-    CGFloat acctLon = round(100 * acct.location.coordinate.longitude) / 100;
+    CGFloat acctLat = round(100 * acct.location.location.coordinate.latitude) / 100;
+    CGFloat acctLon = round(100 * acct.location.location.coordinate.longitude) / 100;
     
     BOOL hasDifferentLoc = (newLat != acctLat || newLon != acctLon);
     
-    if (YES || hasDifferentLoc || location.horizontalAccuracy < acct.location.horizontalAccuracy)
+    if (YES || hasDifferentLoc || location.horizontalAccuracy < acct.location.location.horizontalAccuracy)
     {
         // save new location if coords are different or if the accuracy has improved
         dispatch_async(dispatch_get_main_queue(), ^{
-            acct.hasMovedSinceLastLocationUpdate = hasDifferentLoc;
             
-            acct.location = location;
-            [acct saveKeys:@[@"location"]];
+            [_parse updateLocation:location
+                      movementType:motionType
+                      positionType:positionType];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
                                                                 object:location];
         });
     }
-}
-
-- (LKSetting*)_settingForType:(LKSettingType)settingType
-{
-    LKSetting *setting = [[LKSetting alloc] initWithType:settingType];
-    if (settingType == LKSettingTypeHigh)
-    {
-        setting.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-        setting.distanceFilter = 0.25;
-    }
-    
-    return setting;
 }
 
 - (PKPositionTrackingMode)_settingTypeForDistance:(CLLocationDistance)distance
@@ -430,7 +411,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 {
     // distance between us and user of nearest pull
     PULUser *otherUser = [pull otherUser];
-    CGFloat distance = [[PULAccount currentUser] distanceFromUser:otherUser];
+    CGFloat distance = [[PULUser currentUser] distanceFromUser:otherUser];
     return [self _settingTypeForDistance:distance];
     
 }
@@ -451,14 +432,14 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 - (BOOL)_shouldUpdateLocation
 {
     return YES;
-//    BOOL shouldUpdate = ([[PULAccount currentUser] pullsPulledNearby].count > 0 || [[PULAccount currentUser] pullsPulledFar].count > 0) && !_tracking;
-//    
-//    //    BOOL useLK = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
-//    //    if (useLK)
-//    //    {
-//    //        shouldUpdate = shouldUpdate && [PULAccount currentUser].currentMotionType != LKActivityModeAutomotive;
-//    //    }
-//    return shouldUpdate;
+    //    BOOL shouldUpdate = ([[PULUser currentUser] pullsPulledNearby].count > 0 || [[PULUser currentUser] pullsPulledFar].count > 0) && !_tracking;
+    //
+    //    //    BOOL useLK = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
+    //    //    if (useLK)
+    //    //    {
+    //    //        shouldUpdate = shouldUpdate && [PULUser currentUser].currentMotionType != LKActivityModeAutomotive;
+    //    //    }
+    //    return shouldUpdate;
 }
 
 

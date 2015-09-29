@@ -16,6 +16,13 @@ FOUNDATION_EXPORT const unsigned char PullKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <PullKit/PublicHeader.h>
 
+// frameworks
+//#import <Crashlytics/Crashlytics.h>
+//#import <Fabric/Fabric.h>
+#import <Parse/Parse.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
 // constants and macros
 #import <PullKit/PULConstants.h>
 #import <PullKit/PULMacros.h>
@@ -28,28 +35,16 @@ FOUNDATION_EXPORT const unsigned char PullKitVersionString[];
 #import <PullKit/PULLocationUpdater.h>
 #import <PullKit/PULCache.h>
 #import <PullKit/PULInviteService.h>
-#import <PullKit/PULPush.h>
 
 // categories
 #import <PullKit/NSData+Hex.h>
 #import <PullKit/UIVisualEffectView+PullBlur.h>
 
-// Fire sync
-#import <PullKit/FireMutableArray.h>
-#import <PullKit/FireObject.h>
-#import <PullKit/FireSync.h>
-
 // models
-#import <PullKit/PULAccount.h>
 #import <PullKit/PULPull.h>
 #import <PullKit/PULUser.h>
 #import <PullKit/PULUserSettings.h>
 
-#import <PullKit/PULError.h>
+#import <PullKit/PULParseMiddleMan.h>
 
-// frameworks
-//#import <Crashlytics/Crashlytics.h>
-//#import <Fabric/Fabric.h>
-#import <Parse/Parse.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <PullKit/PULError.h>

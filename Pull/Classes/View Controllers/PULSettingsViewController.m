@@ -33,7 +33,7 @@
 {
     [super viewWillAppear:animated];
     
-    PULUserSettings *settings = [PULAccount currentUser].settings;
+    PULUserSettings *settings = [PULUser currentUser].settings;
     [_notifAcceptSwitch setOn:settings.notifyAccept];
     [_notifInviteSwitch setOn:settings.notifyInvite];
     [_notifyNearbySwitch setOn:settings.notifyNearby];
@@ -76,28 +76,29 @@
 {
     _dirty = YES;
     
-     [PULAccount currentUser].settings.notifyInvite = _notifInviteSwitch.isOn;
+     [PULUser currentUser].settings.notifyInvite = _notifInviteSwitch.isOn;
 }
 
 - (IBAction)ibAccept:(id)sender
 {
     _dirty = YES;
     
-    [PULAccount currentUser].settings.notifyAccept = _notifAcceptSwitch.isOn;
+    [PULUser currentUser].settings.notifyAccept = _notifAcceptSwitch.isOn;
 }
 
 - (IBAction)ibNeraby:(id)sender
 {
     _dirty = YES;
     
-    [PULAccount currentUser].settings.notifyNearby = _notifyNearbySwitch.isOn;
+    [PULUser currentUser].settings.notifyNearby = _notifyNearbySwitch.isOn;
 }
 
 - (IBAction)ibDone:(id)sender
 {
     if (_dirty)
     {
-        [[PULAccount currentUser] saveKeys:@[@"settings"]];
+        // TODO: Save settings
+//        [[PULUser currentUser] saveKeys:@[@"settings"]];
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -105,7 +106,8 @@
 
 - (IBAction)ibLogout:(id)sender
 {
-    [[PULAccount currentUser] logout];
+    // TODO: logout user
+//    [[PULUser currentUser] logout];
  
     UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
     
@@ -135,15 +137,16 @@
 {
     if (buttonIndex == 1)
     {
-        PULLoadingIndicator *ai = [PULLoadingIndicator indicatorOnView:self.view];
-        ai.title = @"Disabling";
-        [ai show];
-        // disable account
-//        [[PULAccount currentUser].pullManager unpullEveryone];
-        [PULAccount currentUser].settings.disabled = YES;
-        [[PULAccount currentUser] saveAll];
-        [ai hide];
-        [self ibLogout:nil];
+        // TODO: end pulls and logout
+//        PULLoadingIndicator *ai = [PULLoadingIndicator indicatorOnView:self.view];
+//        ai.title = @"Disabling";
+//        [ai show];
+//        // disable account
+////        [[PULUser currentUser].pullManager unpullEveryone];
+//        [PULUser currentUser].settings.disabled = YES;
+//        [[PULUser currentUser] saveAll];
+//        [ai hide];
+//        [self ibLogout:nil];
 
     }
 }

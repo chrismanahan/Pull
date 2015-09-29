@@ -14,8 +14,6 @@
 
 #import "NSDate+Utilities.h"
 
-#import "FireSync.h"
-
 #import <UIKit/UIKit.h>
 
 const NSTimeInterval kPullDurationHour    = 3600;
@@ -23,37 +21,15 @@ const NSTimeInterval kPullDurationHalfDay = 3600 * 12;
 const NSTimeInterval kPullDurationDay     = 3600 * 24;
 const NSTimeInterval kPullDurationAlways  = 0;
 
-NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
-
-@interface PULPull ()
-
-@property (nonatomic, strong, readwrite) NSDate *expiration;
-
-@property (nonatomic, strong) NSMutableDictionary *locationObservers;
-
-@property (nonatomic, strong) NSDate *lastNearbyNotification;
-
-@end
-
 @implementation PULPull
 
-#pragma mark - Initialization
-- (instancetype)initNewBetween:(PULUser*)sender and:(PULUser*)receiver duration:(NSTimeInterval)duration;
-{
-    if (self = [super initNew])
-    {
-        _sendingUser = sender;
-        _receivingUser = receiver;
-        _duration = duration;
-        _status = PULPullStatusPending;
-        [self resetExpiration];
-        
-        [self _observeUsersLocation:_sendingUser];
-        [self _observeUsersLocation:_receivingUser];
-    }
-    
-    return self;
-}
+@dynamic sendingUser;
+@dynamic receivingUser;
+@dynamic duration;
+@dynamic expiration;
+@dynamic status;
+@dynamic together;
+
 
 #pragma mark - Public
 - (BOOL)containsUser:(PULUser*)user;
@@ -67,22 +43,22 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
 
 - (BOOL)initiatedBy:(PULUser*)user;
 {
-    return [user isEqual:_sendingUser];
+    return [user isEqual:self.sendingUser];
 }
 
 - (void)resetExpiration;
 {
-    if (_status == PULPullStatusPulled && _duration == kPullDurationAlways)
+    if (self.status == PULPullStatusPulled && self.duration == kPullDurationAlways)
     {
-        _expiration = [NSDate dateWithTimeIntervalSince1970:0];
+        self.expiration = [NSDate dateWithTimeIntervalSince1970:0];
     }
-    else if (_status == PULPullStatusPending && _duration == kPullDurationAlways)
+    else if (self.status == PULPullStatusPending && self.duration == kPullDurationAlways)
     {
-        _expiration = [NSDate dateWithTimeIntervalSinceNow:kPullDurationDay];
+        self.expiration = [NSDate dateWithTimeIntervalSinceNow:kPullDurationDay];
     }
     else
     {
-        _expiration = [NSDate dateWithTimeIntervalSinceNow:_duration];
+        self.expiration = [NSDate dateWithTimeIntervalSinceNow:self.duration];
     }
 }
 
@@ -93,11 +69,11 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
     {
         if ([self initiatedBy:user])
         {
-            other = _receivingUser;
+            other = self.receivingUser;
         }
         else
         {
-            other = _sendingUser;
+            other = self.sendingUser;
         }
     }
     
@@ -106,7 +82,7 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
 
 - (PULUser*)otherUser;
 {
-    return [self otherUserThatIsNot:[PULAccount currentUser]];
+    return [self otherUserThatIsNot:[PULUser currentUser]];
 }
 
 - (BOOL)isAccurate;
@@ -114,29 +90,30 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
     
     
     // if someone's accuracy is low
-    BOOL accurate =  (_sendingUser.locationAccuracy < kPULDistanceAllowedAccuracy || _receivingUser.locationAccuracy < kPULDistanceAllowedAccuracy);
+    BOOL accurate =  (self.sendingUser.location.accuracy < kPULDistanceAllowedAccuracy || self.receivingUser.location.accuracy < kPULDistanceAllowedAccuracy);
     
     // neither user has moved since their last update and they're relatively close
-    BOOL closeEnough = self.here || self.almostHere;
-    BOOL noMovement = ((!_receivingUser.hasMovedSinceLastLocationUpdate && !_sendingUser.hasMovedSinceLastLocationUpdate) && closeEnough);
+    BOOL closeEnough = [self isHere] || [self isAlmostHere];
+    // TODO: add back in an implemenation of determine if the user hasn't moved since the last update
+//    BOOL noMovement = ((!_receivingUser.hasMovedSinceLastLocationUpdate && !_sendingUser.hasMovedSinceLastLocationUpdate) && closeEnough);
     
-    return accurate || noMovement;
+    return accurate;// || noMovement;
 }
 
 #pragma mark - Properties
 - (NSInteger)durationHours
 {
-    return _duration / 60 / 60;
+    return self.duration / 60 / 60;
 }
 
 - (NSString*)durationRemaingString
 {
-    if (_duration == kPullDurationAlways)
+    if (self.duration == kPullDurationAlways)
     {
         return @"Always";
     }
     
-    NSInteger timeRemaining = [_expiration timeIntervalSinceNow];
+    NSInteger timeRemaining = [self.expiration timeIntervalSinceNow];
     NSInteger minutes = (timeRemaining / 60) % 60;
     NSInteger hours = (timeRemaining / 3600);
 
@@ -156,8 +133,8 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
 
 - (BOOL)isAlmostHere
 {
-    return [[PULAccount currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceAlmostHereMeter &&
-            [[PULAccount currentUser] distanceFromUser:[self otherUser]] > kPULDistanceHereMeters;
+    return [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceAlmostHereMeter &&
+            [[PULUser currentUser] distanceFromUser:[self otherUser]] > kPULDistanceHereMeters;
 }
 
 - (BOOL)isHere
@@ -168,27 +145,27 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
         threshold = kPULDistanceHereTogetherMeters;
     }
     
-    return [[PULAccount currentUser] distanceFromUser:[self otherUser]] <= threshold;
+    return [[PULUser currentUser] distanceFromUser:[self otherUser]] <= threshold;
 }
 
 - (PULPullDistanceState)pullDistanceState
 {
-    NSAssert(_status == PULPullStatusPulled, @"pull must be active to check the distance state");
+    NSAssert(self.status == PULPullStatusPulled, @"pull must be active to check the distance state");
 
     PULPullDistanceState state;
-    if (_nearby && ![self isAccurate])
+    if ([self isNearby] && ![self isAccurate])
     {
         state = PULPullDistanceStateInaccurate;
     }
-    else if (self.here)
+    else if ([self isHere])
     {
         state = PULPullDistanceStateHere;
     }
-    else if (self.almostHere)
+    else if ([self isAlmostHere])
     {
         state = PULPullDistanceStateAlmostHere;
     }
-    else if (_nearby)
+    else if ([self isNearby])
     {
         state = PULPullDistanceStateNearby;
     }
@@ -205,7 +182,7 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
 {
     if ([object isKindOfClass:[PULPull class]])
     {
-        return [[object sendingUser] isEqual:_sendingUser] && [[object receivingUser] isEqual:_receivingUser];
+        return [[object sendingUser] isEqual:self.sendingUser] && [[object receivingUser] isEqual:self.receivingUser];
     }
     
     return NO;
@@ -213,132 +190,19 @@ NSString * const PULPullNearbyNotification = @"UserNearbyNotification";
 
 - (NSUInteger)hash
 {
-    return _sendingUser.hash + _receivingUser.hash;
+    return self.sendingUser.hash + self.receivingUser.hash;
 }
 
-#pragma mark - Private
-- (void)_observeUsersLocation:(PULUser*)user
+
+#pragma mark - Parse subclass
++ (NSString*)parseClassName;
 {
-    if (!_locationObservers)
-    {
-        _locationObservers = [[NSMutableDictionary alloc] init];
-    }
-    
-    if (_locationObservers[user.uid] == nil)
-    {
-        id obs = [THObserver observerForObject:user keyPath:@"location" oldAndNewBlock:^(id oldValue, id newValue) {
-            PULUser *otherUser = [self otherUserThatIsNot:user];
-            
-            if ([user.location distanceFromLocation:otherUser.location] <= kPULDistanceNearbyMeters)
-            {
-                if (!_nearby)
-                {
-                    [self willChangeValueForKey:@"nearby"];
-                    _nearby = YES;
-                    [self didChangeValueForKey:@"nearby"];
-                    
-                    // decide to send out a notification
-                    BOOL shouldNotify = NO;
-                    if (_lastNearbyNotification)
-                    {
-                        // check if it's been long enough since the last notification
-                        NSDate *now = [NSDate dateWithMinutesFromNow:0];
-                        NSInteger minutesPassed = [now minutesAfterDate:_lastNearbyNotification];
-                        shouldNotify = minutesPassed > kPULPullLocalNotificationDelayMinutes;
-                    }
-                    else
-                    {
-                        shouldNotify = YES;
-                    }
-                    
-                    if (shouldNotify)
-                    {
-                        // check if the user wants to be notified
-                        if ([PULAccount currentUser].settings.notifyNearby)
-                        {
-                            [[NSNotificationCenter defaultCenter] postNotificationName:PULPullNearbyNotification
-                                                                                object:self];
-                            
-                            _lastNearbyNotification = [NSDate dateWithMinutesFromNow:0];
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (_nearby)
-                {
-                    [self willChangeValueForKey:@"nearby"];
-                    _nearby = NO;
-                    [self didChangeValueForKey:@"nearby"];
-                }
-            }
-        }];
-        
-        _locationObservers[user.uid] = obs;
-    }
+    return @"Pull";
 }
 
-#pragma mark - Fireable Protocol
-- (NSString*)rootName
++ (void)load
 {
-    return @"pulls";
+    
 }
-
-- (NSDictionary*)firebaseRepresentation
-{
-    return @{
-             @"sendingUser": _sendingUser.uid,
-             @"receivingUser": _receivingUser.uid,
-             @"expiration": @([_expiration timeIntervalSince1970]),
-             @"status": @(_status),
-             @"duration": @(_duration),
-             @"caption": _caption ?: @"",
-             @"together": @(_together)
-             };
-}
-
-- (void)loadFromFirebaseRepresentation:(NSDictionary *)repr
-{
-    if (repr[@"sendingUser"])
-    {
-        self.sendingUser = [[PULUser alloc] initWithUid:repr[@"sendingUser"]];
-        [self _observeUsersLocation:self.sendingUser];
-    }
-    
-    if (repr[@"receivingUser"])
-    {
-        self.receivingUser = [[PULUser alloc] initWithUid:repr[@"receivingUser"]];
-        [self _observeUsersLocation:self.receivingUser];
-    }
-    
-    if (repr[@"status"] && [repr[@"status"] integerValue] != self.status)
-    {
-        self.status = [repr[@"status"] integerValue];
-    }
-    
-    if (repr[@"expiration"] && [repr[@"expiration"] integerValue] != _expiration.timeIntervalSince1970)
-    {
-        self.expiration = [NSDate dateWithTimeIntervalSince1970:[repr[@"expiration"] integerValue]];
-    }
-    
-    if (repr[@"duration"])
-    {
-        self.duration = [repr[@"duration"] integerValue];
-    }
-    
-    if (repr[@"caption"])
-    {
-        self.caption = repr[@"caption"];
-    }
-    
-    if (repr[@"together"])
-    {
-        self.together = [repr[@"together"] boolValue];
-    }
-    
-    [super loadFromFirebaseRepresentation:repr];
-}
-
 
 @end

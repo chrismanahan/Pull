@@ -6,24 +6,30 @@
 //  Copyright (c) 2015 Pull LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-#import "FireObject.h"
+#import <Parse/Parse.h>
+#import "PFObject+Subclass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PULUserSettings : NSObject <Fireable>
+@interface PULUserSettings : PFObject <PFSubclassing>
+
+/*****************************
+ Properties
+ *****************************/
 
 @property (nonatomic, assign) BOOL notifyInvite;
 @property (nonatomic, assign) BOOL notifyAccept;
 @property (nonatomic, assign) BOOL notifyNearby;
+@property (nonatomic, assign) BOOL notifyGone;
 
-@property (nonatomic, assign, getter=isDisabled) BOOL disabled;
-
-@property (nonatomic, assign) BOOL resolveAddress;
+/*****************************
+ Class Methods
+ *****************************/
 
 + (instancetype)defaultSettings;
 
-NS_ASSUME_NONNULL_END
++ (NSString*)parseClassName;
 
 @end
+
+NS_ASSUME_NONNULL_END

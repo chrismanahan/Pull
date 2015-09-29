@@ -36,19 +36,11 @@
 }
 
 - (void)_populateUserInfo {
-    [_userImageView setImageWithResizeURL:[PULAccount currentUser].imageUrlString];
-    _backgroundImageView.image = [PULAccount currentUser].image;
-    _nameLabel.text = [PULAccount currentUser].fullName;
+    [_userImageView setImageWithResizeURL:[PULUser currentUser].imageUrlString];
+    // TODO: SET BACKGROUND IMAGE VIEW DYNAMICALLY IN MENU VIEW
+//    _backgroundImageView.image = [PULUser currentUser].image;
+    _nameLabel.text = [PULUser currentUser].fullName;
     
-    if (!_backgroundImageView.image)
-    {
-        [[NSNotificationCenter defaultCenter] addObserverForName:PULImageUpdatedNotification
-                                                          object:[PULAccount currentUser]
-                                                           queue:[NSOperationQueue currentQueue]
-                                                      usingBlock:^(NSNotification *note) {
-                                                          _backgroundImageView.image = [[note object] image];
-                                                      }];
-    }
 }
 
 #pragma mark - actions

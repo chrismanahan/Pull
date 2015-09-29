@@ -41,10 +41,11 @@
 		33ABDE671AB4A7E600A047BF /* enable_location.png in Resources */ = {isa = PBXBuildFile; fileRef = 33ABDE5E1AB4A7E600A047BF /* enable_location.png */; };
 		33ABDE691AB4ABA100A047BF /* PULNoFriendsOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33ABDE681AB4ABA100A047BF /* PULNoFriendsOverlay.xib */; };
 		33FB713D1AAD205B00B74C47 /* PULVerticallyCenteredButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FB713C1AAD205B00B74C47 /* PULVerticallyCenteredButton.m */; };
-		33FD492B1AD9671B00E76EF4 /* XCTestCase+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FD492A1AD9671B00E76EF4 /* XCTestCase+Auth.m */; };
-		33FD492D1AD967CF00E76EF4 /* AccountTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FD492C1AD967CF00E76EF4 /* AccountTests.m */; };
 		33FEA23B1A6B0A5F002CA63D /* launchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 33FEA2351A6B0A5F002CA63D /* launchImage.png */; };
 		33FEA23F1A6B0B26002CA63D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33FEA23E1A6B0B26002CA63D /* Images.xcassets */; };
+		412AD36081FECFF878D6D73C /* libPods-PullKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2A20890876F61EDDAEA53E /* libPods-PullKit.a */; };
+		4160CBF5F36181B42092430F /* libPods-PullKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2A20890876F61EDDAEA53E /* libPods-PullKit.a */; };
+		68211219BB5402F8B85B4452 /* libPods-PullKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2A20890876F61EDDAEA53E /* libPods-PullKit.a */; };
 		840D7BF61AF17674002268D5 /* PULHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D7BF51AF17674002268D5 /* PULHeaderView.m */; };
 		841ECA991B7E8E15009061F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841ECA981B7E8E15009061F8 /* Images.xcassets */; };
 		841ECA9D1B7E8E15009061F8 /* Pull WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 841ECA9C1B7E8E15009061F8 /* Pull WatchKit App.app */; };
@@ -159,7 +160,6 @@
 		952BDB6A1A0C4F0500C67BB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB691A0C4F0500C67BB5 /* AppDelegate.m */; };
 		952BDB6D1A0C4F0500C67BB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 952BDB6B1A0C4F0500C67BB5 /* Main.storyboard */; };
 		952BDB771A0C4F0500C67BB5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 952BDB751A0C4F0500C67BB5 /* LaunchScreen.xib */; };
-		952BDB831A0C4F0500C67BB5 /* PullTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 952BDB821A0C4F0500C67BB5 /* PullTests.m */; };
 		9531F8A41A86803A003CBEDF /* PULSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9531F8A31A86803A003CBEDF /* PULSettingsViewController.m */; };
 		9531F8A71A86B028003CBEDF /* PULBlockingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9531F8A61A86B028003CBEDF /* PULBlockingViewController.m */; };
 		9532D4231A7ECC4300ADB840 /* PULInfoAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 9532D4221A7ECC4300ADB840 /* PULInfoAlert.m */; };
@@ -202,11 +202,10 @@
 		953E02881BA61BB70080D9B8 /* smiley_sad.png in Resources */ = {isa = PBXBuildFile; fileRef = 953E02851BA61BB70080D9B8 /* smiley_sad.png */; };
 		953E02891BA61BB70080D9B8 /* smiley_sad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 953E02861BA61BB70080D9B8 /* smiley_sad@2x.png */; };
 		953E028A1BA61BB70080D9B8 /* smiley_sad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 953E02871BA61BB70080D9B8 /* smiley_sad@3x.png */; };
-		954285981BB3BEC500268329 /* PULLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 954285961BB3BEC500268329 /* PULLocation.h */; };
+		954285981BB3BEC500268329 /* PULLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 954285961BB3BEC500268329 /* PULLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		954285991BB3BEC500268329 /* PULLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 954285971BB3BEC500268329 /* PULLocation.m */; };
 		9590B5611A98D2110057EA6A /* PULUpdateChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 9590B5601A98D2110057EA6A /* PULUpdateChecker.m */; };
 		95CEA2B81A8ED42F000C2686 /* pull_splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 95CEA2B71A8ED42F000C2686 /* pull_splash.png */; };
-		95E517731AC3884600C8B32E /* PullingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E517721AC3884600C8B32E /* PullingTests.m */; };
 		95EF21D01A916A3F000B48B8 /* gradient_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EF21CF1A916A3F000B48B8 /* gradient_background.png */; };
 		95EF21D51A92E113000B48B8 /* Spalsh_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EF21D31A92E113000B48B8 /* Spalsh_6.png */; };
 		95EF21D61A92E113000B48B8 /* Spalsh_6plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EF21D41A92E113000B48B8 /* Spalsh_6plus.png */; };
@@ -229,6 +228,10 @@
 		9B1546281BA70A2800CD0323 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1546271BA70A2800CD0323 /* AudioToolbox.framework */; };
 		9B15462B1BA7129C00CD0323 /* PULSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B15462A1BA7129C00CD0323 /* PULSoundPlayer.m */; };
 		9B1835791B7FDBA200BBD669 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
+		9B252FA61BB85F4F0081966E /* PullKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; };
+		9B252FA71BB85F4F0081966E /* PullKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9B2F7E151BB866C300CCB547 /* FriendTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B2F7E141BB866C300CCB547 /* FriendTest.m */; settings = {ASSET_TAGS = (); }; };
+		9B2F7E171BB86B7600CCB547 /* FriendingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B2F7E161BB86B7600CCB547 /* FriendingTests.m */; settings = {ASSET_TAGS = (); }; };
 		9B49DFCC1B8D4DCC009D0C71 /* circle_purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFC91B8D4DCC009D0C71 /* circle_purple.png */; };
 		9B49DFCD1B8D4DCC009D0C71 /* circle_purple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFCA1B8D4DCC009D0C71 /* circle_purple@2x.png */; };
 		9B49DFCE1B8D4DCC009D0C71 /* circle_purple@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFCB1B8D4DCC009D0C71 /* circle_purple@3x.png */; };
@@ -237,11 +240,6 @@
 		9B78A7961B80DE66005569B4 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A77D1B80DE66005569B4 /* NSData+Hex.m */; };
 		9B78A7971B80DE66005569B4 /* UIVisualEffectView+PullBlur.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A77E1B80DE66005569B4 /* UIVisualEffectView+PullBlur.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B78A7981B80DE66005569B4 /* UIVisualEffectView+PullBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A77F1B80DE66005569B4 /* UIVisualEffectView+PullBlur.m */; };
-		9B78A7991B80DE66005569B4 /* FireMutableArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7811B80DE66005569B4 /* FireMutableArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9B78A79B1B80DE66005569B4 /* FireObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7831B80DE66005569B4 /* FireObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9B78A79D1B80DE66005569B4 /* FireSync.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7851B80DE66005569B4 /* FireSync.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9B78A7A11B80DE66005569B4 /* PULAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A78B1B80DE66005569B4 /* PULAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9B78A7A21B80DE66005569B4 /* PULAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A78C1B80DE66005569B4 /* PULAccount.m */; };
 		9B78A7A31B80DE66005569B4 /* PULPull.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A78D1B80DE66005569B4 /* PULPull.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B78A7A41B80DE66005569B4 /* PULPull.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A78E1B80DE66005569B4 /* PULPull.m */; };
 		9B78A7A51B80DE66005569B4 /* PULUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A78F1B80DE66005569B4 /* PULUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -256,12 +254,9 @@
 		9B78A7B81B80DE7D005569B4 /* PULCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7B01B80DE7D005569B4 /* PULCache.m */; };
 		9B78A7B91B80DE7D005569B4 /* PULInviteService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7B11B80DE7D005569B4 /* PULInviteService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B78A7BA1B80DE7D005569B4 /* PULInviteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7B21B80DE7D005569B4 /* PULInviteService.m */; };
-		9B78A7BB1B80DE7D005569B4 /* PULPush.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7B31B80DE7D005569B4 /* PULPush.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9B78A7BC1B80DE7D005569B4 /* PULPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7B41B80DE7D005569B4 /* PULPush.m */; };
 		9B78A7CF1B80DE88005569B4 /* NSDate+Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7BF1B80DE88005569B4 /* NSDate+Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B78A7D01B80DE88005569B4 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7C01B80DE88005569B4 /* NSDate+Utilities.m */; };
 		9B78A7D11B80DE88005569B4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7C11B80DE88005569B4 /* README.md */; };
-		9B78A7D61B80DE88005569B4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9B78A7C81B80DE88005569B4 /* LICENSE */; };
 		9B78A7D71B80DE88005569B4 /* ReadMe.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7C91B80DE88005569B4 /* ReadMe.md */; };
 		9B78A7D81B80DE88005569B4 /* THBinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B78A7CA1B80DE88005569B4 /* THBinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B78A7D91B80DE88005569B4 /* THBinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7CB1B80DE88005569B4 /* THBinder.m */; };
@@ -329,6 +324,8 @@
 		9BBFA91B1BA511720064A698 /* info_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BBFA9181BA511720064A698 /* info_dot@2x.png */; };
 		9BBFA91C1BA511720064A698 /* info_dot@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BBFA9191BA511720064A698 /* info_dot@3x.png */; };
 		9BC487D31AF6D256008BF2E9 /* PULPullOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC487D21AF6D256008BF2E9 /* PULPullOverlayView.m */; };
+		9BC74BA51BB7975B00DFB297 /* PULParseMiddleMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BC74BA31BB7975B00DFB297 /* PULParseMiddleMan.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9BC74BA61BB7975B00DFB297 /* PULParseMiddleMan.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC74BA41BB7975B00DFB297 /* PULParseMiddleMan.m */; settings = {ASSET_TAGS = (); }; };
 		9BD2C3661AE454930030527F /* PULNewPullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD2C3651AE454930030527F /* PULNewPullViewController.m */; };
 		9BE5AC471B7FB3A700853830 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841ECA931B7E8E15009061F8 /* InterfaceController.m */; };
 		9BE5AC481B7FB3A700853830 /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841ECA961B7E8E15009061F8 /* GlanceController.m */; };
@@ -347,8 +344,6 @@
 		9BED05701B891209008F71CC /* PULCompassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BED056F1B891209008F71CC /* PULCompassView.xib */; };
 		9BED458C1B80D7B90007F5F4 /* PullKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; };
 		9BED45951B80D7B90007F5F4 /* PullKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BED45941B80D7B90007F5F4 /* PullKitTests.m */; };
-		9BED45981B80D7B90007F5F4 /* PullKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; };
-		9BED459A1B80D7B90007F5F4 /* PullKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9BED45811B80D7B90007F5F4 /* PullKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9BED45A21B80D7CB0007F5F4 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BF9BEC41B742D380020981E /* AdSupport.framework */; };
 		9BED45A31B80D7CB0007F5F4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953B064C1A8D9021008235EB /* MediaPlayer.framework */; };
 		9BED45A61B80D7CB0007F5F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D6661B1A7C8EEE000FAD8D /* MapKit.framework */; };
@@ -364,15 +359,13 @@
 		9BF61D361B8E772900BD2A27 /* cutout_row@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF61D331B8E772900BD2A27 /* cutout_row@3x.png */; };
 		9BF61D371B8E772900BD2A27 /* cutout_row@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF61D341B8E772900BD2A27 /* cutout_row@2x.png */; };
 		9BF61D381B8E772900BD2A27 /* cutout_row.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF61D351B8E772900BD2A27 /* cutout_row.png */; };
-		9BFE6F3A1AF30D8E000D00FF /* PULPullOptionsOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFE6F391AF30D8E000D00FF /* PULPullOptionsOverlay.m */; };
-		9BFE6F3C1AF30D9D000D00FF /* PULPullOptionsOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F3B1AF30D9D000D00FF /* PULPullOptionsOverlay.xib */; };
 		9BFE6F431AF31114000D00FF /* gray_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F3D1AF31114000D00FF /* gray_card.png */; };
 		9BFE6F441AF31114000D00FF /* gray_card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F3E1AF31114000D00FF /* gray_card@2x.png */; };
 		9BFE6F451AF31114000D00FF /* gray_card@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F3F1AF31114000D00FF /* gray_card@3x.png */; };
 		9BFE6F4C1AF313AD000D00FF /* clock_icon_large.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F491AF313AD000D00FF /* clock_icon_large.png */; };
 		9BFE6F4D1AF313AD000D00FF /* clock_icon_large@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F4A1AF313AD000D00FF /* clock_icon_large@2x.png */; };
 		9BFE6F4E1AF313AD000D00FF /* clock_icon_large@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F4B1AF313AD000D00FF /* clock_icon_large@3x.png */; };
-		AAD5AA8B4AA44017A95EA27A /* libPods-PullKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2A20890876F61EDDAEA53E /* libPods-PullKit.a */; };
+		E1193F84D4CEF5F48C3B7895 /* libPods-PullKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2A20890876F61EDDAEA53E /* libPods-PullKit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -397,6 +390,13 @@
 			remoteGlobalIDString = 952BDB591A0C4F0500C67BB5;
 			remoteInfo = Pull;
 		};
+		9B252FA81BB85F4F0081966E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 952BDB521A0C4F0500C67BB5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9BED45801B80D7B90007F5F4;
+			remoteInfo = PullKit;
+		};
 		9B78A7F61B812590005569B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 952BDB521A0C4F0500C67BB5 /* Project object */;
@@ -418,13 +418,6 @@
 			remoteGlobalIDString = 952BDB591A0C4F0500C67BB5;
 			remoteInfo = Pull;
 		};
-		9BED45961B80D7B90007F5F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 952BDB521A0C4F0500C67BB5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9BED45801B80D7B90007F5F4;
-			remoteInfo = PullKit;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -439,13 +432,13 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9BED45991B80D7B90007F5F4 /* Embed Frameworks */ = {
+		9B252FAA1BB85F4F0081966E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9BED459A1B80D7B90007F5F4 /* PullKit.framework in Embed Frameworks */,
+				9B252FA71BB85F4F0081966E /* PullKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,7 +446,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PullKit.xcconfig"; path = "Pods/Pods-PullKit.xcconfig"; sourceTree = "<group>"; };
 		2F2A20890876F61EDDAEA53E /* libPods-PullKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PullKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3302F3111A73EE2600E11F01 /* timeburner_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = timeburner_regular.ttf; sourceTree = "<group>"; };
 		3304995A1A1815F3003FEA42 /* PULPullDirectionArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullDirectionArrowView.h; sourceTree = "<group>"; };
@@ -497,11 +489,9 @@
 		33FB713B1AAD205B00B74C47 /* PULVerticallyCenteredButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULVerticallyCenteredButton.h; sourceTree = "<group>"; };
 		33FB713C1AAD205B00B74C47 /* PULVerticallyCenteredButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULVerticallyCenteredButton.m; sourceTree = "<group>"; };
 		33FC5AB71A6C838900255B84 /* CGGeometry+Pull.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CGGeometry+Pull.h"; sourceTree = "<group>"; };
-		33FD49291AD9671B00E76EF4 /* XCTestCase+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+Auth.h"; sourceTree = "<group>"; };
-		33FD492A1AD9671B00E76EF4 /* XCTestCase+Auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+Auth.m"; sourceTree = "<group>"; };
-		33FD492C1AD967CF00E76EF4 /* AccountTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTests.m; sourceTree = "<group>"; };
 		33FEA2351A6B0A5F002CA63D /* launchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchImage.png; sourceTree = "<group>"; };
 		33FEA23E1A6B0B26002CA63D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7A4163CF305EF27887D3C07A /* Pods-Pull.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pull.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pull/Pods-Pull.debug.xcconfig"; sourceTree = "<group>"; };
 		840D7BF41AF17674002268D5 /* PULHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULHeaderView.h; sourceTree = "<group>"; };
 		840D7BF51AF17674002268D5 /* PULHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULHeaderView.m; sourceTree = "<group>"; };
 		841ECA8E1B7E8E14009061F8 /* Pull WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pull WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -619,6 +609,7 @@
 		84FC35671B8D0D8000057C49 /* smiley_wink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smiley_wink.png; sourceTree = "<group>"; };
 		84FC35681B8D0D8000057C49 /* smiley_wink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_wink@2x.png"; sourceTree = "<group>"; };
 		84FC35691B8D0D8000057C49 /* smiley_wink@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_wink@3x.png"; sourceTree = "<group>"; };
+		8B9C2A6CE124E99CCF4CA7D5 /* libPods-Pull.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pull.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		951240BE1BABD4FF00988AC0 /* BackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundTaskManager.h; sourceTree = "<group>"; };
 		951240BF1BABD4FF00988AC0 /* BackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTaskManager.m; sourceTree = "<group>"; };
 		95169F331A86F7CD006D3078 /* PULMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULMenuViewController.h; sourceTree = "<group>"; };
@@ -641,7 +632,6 @@
 		952BDB761A0C4F0500C67BB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		952BDB7C1A0C4F0500C67BB5 /* PullTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PullTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		952BDB811A0C4F0500C67BB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		952BDB821A0C4F0500C67BB5 /* PullTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullTests.m; sourceTree = "<group>"; };
 		9531F8A21A86803A003CBEDF /* PULSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULSettingsViewController.h; sourceTree = "<group>"; };
 		9531F8A31A86803A003CBEDF /* PULSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULSettingsViewController.m; sourceTree = "<group>"; };
 		9531F8A51A86B028003CBEDF /* PULBlockingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULBlockingViewController.h; sourceTree = "<group>"; };
@@ -696,7 +686,6 @@
 		9590B5601A98D2110057EA6A /* PULUpdateChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUpdateChecker.m; sourceTree = "<group>"; };
 		95CEA2B71A8ED42F000C2686 /* pull_splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pull_splash.png; sourceTree = "<group>"; };
 		95D6661B1A7C8EEE000FAD8D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		95E517721AC3884600C8B32E /* PullingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullingTests.m; sourceTree = "<group>"; };
 		95EF21CF1A916A3F000B48B8 /* gradient_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradient_background.png; sourceTree = "<group>"; };
 		95EF21D31A92E113000B48B8 /* Spalsh_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spalsh_6.png; sourceTree = "<group>"; };
 		95EF21D41A92E113000B48B8 /* Spalsh_6plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spalsh_6plus.png; sourceTree = "<group>"; };
@@ -720,6 +709,12 @@
 		9B1546291BA7129C00CD0323 /* PULSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULSoundPlayer.h; sourceTree = "<group>"; };
 		9B15462A1BA7129C00CD0323 /* PULSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULSoundPlayer.m; sourceTree = "<group>"; };
 		9B1835781B7FDBA200BBD669 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
+		9B252FA41BB85B070081966E /* libPods-PullKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-PullKit.a"; path = "Pods/../build/Debug-iphoneos/libPods-PullKit.a"; sourceTree = "<group>"; };
+		9B252FAB1BB85F690081966E /* libParse.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libParse.a; path = "Pods/../build/Debug-iphoneos/libParse.a"; sourceTree = "<group>"; };
+		9B252FAD1BB85F7A0081966E /* libPods-PullKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-PullKit.a"; path = "Pods/../build/Debug-iphoneos/libPods-PullKit.a"; sourceTree = "<group>"; };
+		9B2F7E141BB866C300CCB547 /* FriendTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTest.m; sourceTree = "<group>"; };
+		9B2F7E161BB86B7600CCB547 /* FriendingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendingTests.m; sourceTree = "<group>"; };
+		9B3E4CC51A0B3BA35B14E484 /* Pods-PullKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PullKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-PullKit/Pods-PullKit.release.xcconfig"; sourceTree = "<group>"; };
 		9B49DFC91B8D4DCC009D0C71 /* circle_purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_purple.png; sourceTree = "<group>"; };
 		9B49DFCA1B8D4DCC009D0C71 /* circle_purple@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle_purple@2x.png"; sourceTree = "<group>"; };
 		9B49DFCB1B8D4DCC009D0C71 /* circle_purple@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle_purple@3x.png"; sourceTree = "<group>"; };
@@ -829,6 +824,8 @@
 		9BBFA9191BA511720064A698 /* info_dot@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_dot@3x.png"; sourceTree = "<group>"; };
 		9BC487D11AF6D256008BF2E9 /* PULPullOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullOverlayView.h; sourceTree = "<group>"; };
 		9BC487D21AF6D256008BF2E9 /* PULPullOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPullOverlayView.m; sourceTree = "<group>"; };
+		9BC74BA31BB7975B00DFB297 /* PULParseMiddleMan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULParseMiddleMan.h; sourceTree = "<group>"; };
+		9BC74BA41BB7975B00DFB297 /* PULParseMiddleMan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULParseMiddleMan.m; sourceTree = "<group>"; };
 		9BC8A0441BA79DA1006B4BD2 /* Pull.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Pull.entitlements; sourceTree = "<group>"; };
 		9BC8A0451BA79F11006B4BD2 /* Pull WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Pull WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		9BD2C3641AE454930030527F /* PULNewPullViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULNewPullViewController.h; sourceTree = "<group>"; };
@@ -863,15 +860,14 @@
 		9BF61D341B8E772900BD2A27 /* cutout_row@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cutout_row@2x.png"; sourceTree = "<group>"; };
 		9BF61D351B8E772900BD2A27 /* cutout_row.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cutout_row.png; sourceTree = "<group>"; };
 		9BF9BEC41B742D380020981E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		9BFE6F381AF30D8E000D00FF /* PULPullOptionsOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPullOptionsOverlay.h; sourceTree = "<group>"; };
-		9BFE6F391AF30D8E000D00FF /* PULPullOptionsOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPullOptionsOverlay.m; sourceTree = "<group>"; };
-		9BFE6F3B1AF30D9D000D00FF /* PULPullOptionsOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PULPullOptionsOverlay.xib; sourceTree = "<group>"; };
 		9BFE6F3D1AF31114000D00FF /* gray_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gray_card.png; sourceTree = "<group>"; };
 		9BFE6F3E1AF31114000D00FF /* gray_card@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray_card@2x.png"; sourceTree = "<group>"; };
 		9BFE6F3F1AF31114000D00FF /* gray_card@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray_card@3x.png"; sourceTree = "<group>"; };
 		9BFE6F491AF313AD000D00FF /* clock_icon_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock_icon_large.png; sourceTree = "<group>"; };
 		9BFE6F4A1AF313AD000D00FF /* clock_icon_large@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_icon_large@2x.png"; sourceTree = "<group>"; };
 		9BFE6F4B1AF313AD000D00FF /* clock_icon_large@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_icon_large@3x.png"; sourceTree = "<group>"; };
+		EAB04995E21D95412A6C7687 /* Pods-Pull.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pull.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pull/Pods-Pull.release.xcconfig"; sourceTree = "<group>"; };
+		EF82C4C7B5ACB5A241716A3A /* Pods-PullKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PullKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PullKit/Pods-PullKit.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -892,9 +888,10 @@
 				9B78A7F81B8126F3005569B4 /* MapKit.framework in Frameworks */,
 				9B78A7F41B812512005569B4 /* CoreMedia.framework in Frameworks */,
 				9B78A7F21B8124FF005569B4 /* AVFoundation.framework in Frameworks */,
+				9B252FA61BB85F4F0081966E /* PullKit.framework in Frameworks */,
 				9B78A7F01B8124EB005569B4 /* MessageUI.framework in Frameworks */,
 				9B1835791B7FDBA200BBD669 /* WatchKit.framework in Frameworks */,
-				9BED45981B80D7B90007F5F4 /* PullKit.framework in Frameworks */,
+				68211219BB5402F8B85B4452 /* libPods-PullKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -903,6 +900,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B78A7F51B812576005569B4 /* PullKit.framework in Frameworks */,
+				412AD36081FECFF878D6D73C /* libPods-PullKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,7 +915,7 @@
 				9BED45A71B80D7CB0007F5F4 /* CFNetwork.framework in Frameworks */,
 				9BED45A81B80D7CB0007F5F4 /* Security.framework in Frameworks */,
 				9BED45A91B80D7CB0007F5F4 /* SystemConfiguration.framework in Frameworks */,
-				AAD5AA8B4AA44017A95EA27A /* libPods-PullKit.a in Frameworks */,
+				E1193F84D4CEF5F48C3B7895 /* libPods-PullKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,6 +924,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BED458C1B80D7B90007F5F4 /* PullKit.framework in Frameworks */,
+				4160CBF5F36181B42092430F /* libPods-PullKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1121,15 +1120,6 @@
 				9BE5B5591AED768A00544D57 /* settings_contact.png */,
 			);
 			path = menu;
-			sourceTree = "<group>";
-		};
-		33FD49281AD966F500E76EF4 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				33FD49291AD9671B00E76EF4 /* XCTestCase+Auth.h */,
-				33FD492A1AD9671B00E76EF4 /* XCTestCase+Auth.m */,
-			);
-			path = Categories;
 			sourceTree = "<group>";
 		};
 		841ECA8F1B7E8E15009061F8 /* Pull WatchKit Extension */ = {
@@ -1388,7 +1378,7 @@
 				9BED45911B80D7B90007F5F4 /* PullKitTests */,
 				952BDB5C1A0C4F0500C67BB5 /* Frameworks */,
 				952BDB5B1A0C4F0500C67BB5 /* Products */,
-				0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */,
+				DF79FFACC5C6008B7513338B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1408,6 +1398,9 @@
 		952BDB5C1A0C4F0500C67BB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B252FAD1BB85F7A0081966E /* libPods-PullKit.a */,
+				9B252FAB1BB85F690081966E /* libParse.a */,
+				9B252FA41BB85B070081966E /* libPods-PullKit.a */,
 				9B1546271BA70A2800CD0323 /* AudioToolbox.framework */,
 				9B008BBA1B88282B00593902 /* parkour.framework */,
 				9B78A7F91B8128CD005569B4 /* libPods-PullKit.a */,
@@ -1422,6 +1415,7 @@
 				952BDB5F1A0C4F0500C67BB5 /* Security.framework */,
 				952BDB611A0C4F0500C67BB5 /* SystemConfiguration.framework */,
 				2F2A20890876F61EDDAEA53E /* libPods-PullKit.a */,
+				8B9C2A6CE124E99CCF4CA7D5 /* libPods-Pull.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1451,11 +1445,7 @@
 		952BDB7F1A0C4F0500C67BB5 /* PullTests */ = {
 			isa = PBXGroup;
 			children = (
-				33FD49281AD966F500E76EF4 /* Categories */,
-				952BDB821A0C4F0500C67BB5 /* PullTests.m */,
 				952BDB801A0C4F0500C67BB5 /* Supporting Files */,
-				95E517721AC3884600C8B32E /* PullingTests.m */,
-				33FD492C1AD967CF00E76EF4 /* AccountTests.m */,
 			);
 			path = PullTests;
 			sourceTree = "<group>";
@@ -1464,6 +1454,7 @@
 			isa = PBXGroup;
 			children = (
 				952BDB811A0C4F0500C67BB5 /* Info.plist */,
+				9B2F7E161BB86B7600CCB547 /* FriendingTests.m */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -1498,7 +1489,6 @@
 		952BDB8E1A0C4F6D00C67BB5 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				9BFE6F3B1AF30D9D000D00FF /* PULPullOptionsOverlay.xib */,
 				952BDB6B1A0C4F0500C67BB5 /* Main.storyboard */,
 				952BDB751A0C4F0500C67BB5 /* LaunchScreen.xib */,
 				33ABDE531AB4A77600A047BF /* PULLocationOverlay.xib */,
@@ -1718,6 +1708,8 @@
 				9B78A7B41B80DE7D005569B4 /* PULPush.m */,
 				951240BE1BABD4FF00988AC0 /* BackgroundTaskManager.h */,
 				951240BF1BABD4FF00988AC0 /* BackgroundTaskManager.m */,
+				9BC74BA31BB7975B00DFB297 /* PULParseMiddleMan.h */,
+				9BC74BA41BB7975B00DFB297 /* PULParseMiddleMan.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1790,8 +1782,6 @@
 		9BC487D01AF6D234008BF2E9 /* Pull Overlays */ = {
 			isa = PBXGroup;
 			children = (
-				9BFE6F381AF30D8E000D00FF /* PULPullOptionsOverlay.h */,
-				9BFE6F391AF30D8E000D00FF /* PULPullOptionsOverlay.m */,
 				9BC487D11AF6D256008BF2E9 /* PULPullOverlayView.h */,
 				9BC487D21AF6D256008BF2E9 /* PULPullOverlayView.m */,
 			);
@@ -1839,6 +1829,7 @@
 			children = (
 				9BED45941B80D7B90007F5F4 /* PullKitTests.m */,
 				9BED45921B80D7B90007F5F4 /* Supporting Files */,
+				9B2F7E141BB866C300CCB547 /* FriendTest.m */,
 			);
 			path = PullKitTests;
 			sourceTree = "<group>";
@@ -1862,6 +1853,17 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		DF79FFACC5C6008B7513338B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EF82C4C7B5ACB5A241716A3A /* Pods-PullKit.debug.xcconfig */,
+				9B3E4CC51A0B3BA35B14E484 /* Pods-PullKit.release.xcconfig */,
+				7A4163CF305EF27887D3C07A /* Pods-Pull.debug.xcconfig */,
+				EAB04995E21D95412A6C7687 /* Pods-Pull.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1869,9 +1871,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B78A7BB1B80DE7D005569B4 /* PULPush.h in Headers */,
 				9B1305561B83F24900CBF642 /* NSArray+Sorting.h in Headers */,
-				9B78A7A11B80DE66005569B4 /* PULAccount.h in Headers */,
 				9B78A7A71B80DE66005569B4 /* PULUserSettings.h in Headers */,
 				9B78A7A31B80DE66005569B4 /* PULPull.h in Headers */,
 				9B78A7B71B80DE7D005569B4 /* PULCache.h in Headers */,
@@ -1879,20 +1879,18 @@
 				9B78A7CF1B80DE88005569B4 /* NSDate+Utilities.h in Headers */,
 				9B78A7B51B80DE7D005569B4 /* PULLocationUpdater.h in Headers */,
 				9B78A7E11B80DE9D005569B4 /* PULConstants.h in Headers */,
-				954285981BB3BEC500268329 /* PULLocation.h in Headers */,
 				9BED45AE1B80DA160007F5F4 /* PullKit.h in Headers */,
 				9B78A7E71B80E027005569B4 /* PullKit-Prefix.pch in Headers */,
 				9B78A7DA1B80DE88005569B4 /* THObserver.h in Headers */,
-				9B78A79B1B80DE66005569B4 /* FireObject.h in Headers */,
 				9B78A7A51B80DE66005569B4 /* PULUser.h in Headers */,
 				9B78A7A91B80DE66005569B4 /* PULError.h in Headers */,
-				9B78A79D1B80DE66005569B4 /* FireSync.h in Headers */,
 				9B78A7DC1B80DE88005569B4 /* THObserversAndBinders.h in Headers */,
 				9B78A7D81B80DE88005569B4 /* THBinder.h in Headers */,
+				9BC74BA51BB7975B00DFB297 /* PULParseMiddleMan.h in Headers */,
 				951240C01BABD4FF00988AC0 /* BackgroundTaskManager.h in Headers */,
+				954285981BB3BEC500268329 /* PULLocation.h in Headers */,
 				9B78A7E31B80DE9D005569B4 /* PULMacros.h in Headers */,
 				9B78A7951B80DE66005569B4 /* NSData+Hex.h in Headers */,
-				9B78A7991B80DE66005569B4 /* FireMutableArray.h in Headers */,
 				9B78A7B91B80DE7D005569B4 /* PULInviteService.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1939,15 +1937,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 952BDB861A0C4F0500C67BB5 /* Build configuration list for PBXNativeTarget "Pull" */;
 			buildPhases = (
+				5F0F82E1BEBA7CD8F6ACFF5B /* Check Pods Manifest.lock */,
 				952BDB561A0C4F0500C67BB5 /* Sources */,
 				952BDB571A0C4F0500C67BB5 /* Frameworks */,
 				952BDB581A0C4F0500C67BB5 /* Resources */,
-				9BED45991B80D7B90007F5F4 /* Embed Frameworks */,
+				9B252FAA1BB85F4F0081966E /* Embed Frameworks */,
+				0A46AD568349EE7E14214ED8 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9BED45971B80D7B90007F5F4 /* PBXTargetDependency */,
+				9B252FA91BB85F4F0081966E /* PBXTargetDependency */,
 			);
 			name = Pull;
 			productName = Pull;
@@ -1958,9 +1958,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 952BDB891A0C4F0500C67BB5 /* Build configuration list for PBXNativeTarget "PullTests" */;
 			buildPhases = (
+				07736465A536EFD2704DB412 /* Check Pods Manifest.lock */,
 				952BDB781A0C4F0500C67BB5 /* Sources */,
 				952BDB791A0C4F0500C67BB5 /* Frameworks */,
 				952BDB7A1A0C4F0500C67BB5 /* Resources */,
+				582BBF4D7E982C534427F298 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1977,12 +1979,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9BED459F1B80D7B90007F5F4 /* Build configuration list for PBXNativeTarget "PullKit" */;
 			buildPhases = (
-				9385882DC65A4B0A93FEED0B /* Check Pods Manifest.lock */,
+				19CB4580DA24D11D9C900FB5 /* Check Pods Manifest.lock */,
 				9BED457C1B80D7B90007F5F4 /* Sources */,
 				9BED457D1B80D7B90007F5F4 /* Frameworks */,
 				9BED457E1B80D7B90007F5F4 /* Headers */,
 				9BED457F1B80D7B90007F5F4 /* Resources */,
-				19C318A9C20A4E37917815E2 /* Copy Pods Resources */,
+				83CA9E484DBB4B308CA3E4D0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1997,9 +1999,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9BED45A01B80D7B90007F5F4 /* Build configuration list for PBXNativeTarget "PullKitTests" */;
 			buildPhases = (
+				9583DB5ADA2B2C94D23FA963 /* Check Pods Manifest.lock */,
 				9BED45871B80D7B90007F5F4 /* Sources */,
 				9BED45881B80D7B90007F5F4 /* Frameworks */,
 				9BED45891B80D7B90007F5F4 /* Resources */,
+				E96FA9798E4A800F4BA82E8C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2275,7 +2279,6 @@
 				334F54F21AB4F13900372D89 /* permission_request_location@2x.png in Resources */,
 				84FC35991B8D0D8000057C49 /* request_notification@2x.png in Resources */,
 				9B91052F1AED782F00596BEC /* settings_icon_purple@2x.png in Resources */,
-				9BFE6F3C1AF30D9D000D00FF /* PULPullOptionsOverlay.xib in Resources */,
 				33ABDE671AB4A7E600A047BF /* enable_location.png in Resources */,
 				337A982D1AB6191D00999401 /* continue_facebook_pressed.png in Resources */,
 				33FEA23F1A6B0B26002CA63D /* Images.xcassets in Resources */,
@@ -2371,7 +2374,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B78A7D61B80DE88005569B4 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2385,22 +2387,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		19C318A9C20A4E37917815E2 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-PullKit-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9385882DC65A4B0A93FEED0B /* Check Pods Manifest.lock */ = {
+		07736465A536EFD2704DB412 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2413,6 +2400,111 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		0A46AD568349EE7E14214ED8 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PullKit/Pods-PullKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		19CB4580DA24D11D9C900FB5 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		582BBF4D7E982C534427F298 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PullKit/Pods-PullKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5F0F82E1BEBA7CD8F6ACFF5B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		83CA9E484DBB4B308CA3E4D0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PullKit/Pods-PullKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9583DB5ADA2B2C94D23FA963 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E96FA9798E4A800F4BA82E8C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PullKit/Pods-PullKit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2446,7 +2538,6 @@
 				9BF61D321B8E62EC00BD2A27 /* PULPulledUserDataSource.m in Sources */,
 				95169F651A871F41006D3078 /* PULNavigationController.m in Sources */,
 				9BD2C3661AE454930030527F /* PULNewPullViewController.m in Sources */,
-				9BFE6F3A1AF30D8E000D00FF /* PULPullOptionsOverlay.m in Sources */,
 				84AAC8D31A8E8E5100C302AD /* PULNoConnectionView.m in Sources */,
 				95169F351A86F7CD006D3078 /* PULMenuViewController.m in Sources */,
 				3304995C1A1815F3003FEA42 /* PULPullDirectionArrowView.m in Sources */,
@@ -2478,10 +2569,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95E517731AC3884600C8B32E /* PullingTests.m in Sources */,
-				33FD492D1AD967CF00E76EF4 /* AccountTests.m in Sources */,
-				952BDB831A0C4F0500C67BB5 /* PullTests.m in Sources */,
-				33FD492B1AD9671B00E76EF4 /* XCTestCase+Auth.m in Sources */,
+				9B2F7E171BB86B7600CCB547 /* FriendingTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2496,9 +2584,9 @@
 				9B1305571B83F24900CBF642 /* NSArray+Sorting.m in Sources */,
 				9B78A7D91B80DE88005569B4 /* THBinder.m in Sources */,
 				9B78A7A41B80DE66005569B4 /* PULPull.m in Sources */,
+				9BC74BA61BB7975B00DFB297 /* PULParseMiddleMan.m in Sources */,
 				9B78A7961B80DE66005569B4 /* NSData+Hex.m in Sources */,
 				9B78A7BA1B80DE7D005569B4 /* PULInviteService.m in Sources */,
-				9B78A7BC1B80DE7D005569B4 /* PULPush.m in Sources */,
 				9B78A7B81B80DE7D005569B4 /* PULCache.m in Sources */,
 				9B78A7E21B80DE9D005569B4 /* PULConstants.m in Sources */,
 				9B78A7B61B80DE7D005569B4 /* PULLocationUpdater.m in Sources */,
@@ -2508,7 +2596,6 @@
 				954285991BB3BEC500268329 /* PULLocation.m in Sources */,
 				9B78A7DB1B80DE88005569B4 /* THObserver.m in Sources */,
 				9B78A7A81B80DE66005569B4 /* PULUserSettings.m in Sources */,
-				9B78A7A21B80DE66005569B4 /* PULAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2517,6 +2604,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BED45951B80D7B90007F5F4 /* PullKitTests.m in Sources */,
+				9B2F7E151BB866C300CCB547 /* FriendTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2538,6 +2626,11 @@
 			target = 952BDB591A0C4F0500C67BB5 /* Pull */;
 			targetProxy = 952BDB7D1A0C4F0500C67BB5 /* PBXContainerItemProxy */;
 		};
+		9B252FA91BB85F4F0081966E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9BED45801B80D7B90007F5F4 /* PullKit */;
+			targetProxy = 9B252FA81BB85F4F0081966E /* PBXContainerItemProxy */;
+		};
 		9B78A7F71B812590005569B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9BED45801B80D7B90007F5F4 /* PullKit */;
@@ -2552,11 +2645,6 @@
 			isa = PBXTargetDependency;
 			target = 952BDB591A0C4F0500C67BB5 /* Pull */;
 			targetProxy = 9BED458F1B80D7B90007F5F4 /* PBXContainerItemProxy */;
-		};
-		9BED45971B80D7B90007F5F4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9BED45801B80D7B90007F5F4 /* PullKit */;
-			targetProxy = 9BED45961B80D7B90007F5F4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2707,7 +2795,6 @@
 		};
 		952BDB841A0C4F0500C67BB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2755,7 +2842,6 @@
 		};
 		952BDB851A0C4F0500C67BB5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2795,6 +2881,7 @@
 		};
 		952BDB871A0C4F0500C67BB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF82C4C7B5ACB5A241716A3A /* Pods-PullKit.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2820,7 +2907,10 @@
 				INFOPLIST_FILE = "Pull/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-licucore",
@@ -2837,6 +2927,7 @@
 		};
 		952BDB881A0C4F0500C67BB5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B3E4CC51A0B3BA35B14E484 /* Pods-PullKit.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2862,7 +2953,10 @@
 				INFOPLIST_FILE = "Pull/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-licucore",
@@ -2879,9 +2973,10 @@
 		};
 		952BDB8A1A0C4F0500C67BB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF82C4C7B5ACB5A241716A3A /* Pods-PullKit.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2901,9 +2996,10 @@
 		};
 		952BDB8B1A0C4F0500C67BB5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B3E4CC51A0B3BA35B14E484 /* Pods-PullKit.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2919,9 +3015,10 @@
 		};
 		9BED459B1B80D7B90007F5F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */;
+			baseConfigurationReference = EF82C4C7B5ACB5A241716A3A /* Pods-PullKit.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -2935,7 +3032,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)",
-					/Users/chrism/Downloads,
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "PullKit-Prefix.pch";
@@ -2948,6 +3044,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull.pullkit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2959,9 +3056,10 @@
 		};
 		9BED459C1B80D7B90007F5F4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E4485300F07411396A3F20D /* Pods-PullKit.xcconfig */;
+			baseConfigurationReference = 9B3E4CC51A0B3BA35B14E484 /* Pods-PullKit.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -2976,7 +3074,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)",
-					/Users/chrism/Downloads,
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "PullKit-Prefix.pch";
@@ -2989,6 +3086,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pull-software-llc.pull.pullkit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3000,7 +3098,9 @@
 		};
 		9BED459D1B80D7B90007F5F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF82C4C7B5ACB5A241716A3A /* Pods-PullKit.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -3022,7 +3122,9 @@
 		};
 		9BED459E1B80D7B90007F5F4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B3E4CC51A0B3BA35B14E484 /* Pods-PullKit.release.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (

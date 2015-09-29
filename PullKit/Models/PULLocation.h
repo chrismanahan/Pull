@@ -16,8 +16,11 @@
 /*!
  *  PULLocation represents all the location information as it relates to a single user
  */
-@interface PULLocation : PFObject
+@interface PULLocation : PFObject <PFSubclassing>
 
+/*****************************
+ Properties
+ *****************************/
 /*!
  *  Latitude
  */
@@ -59,5 +62,10 @@
 @property (nonatomic, strong, readonly) CLLocation *location;
 
 @property (nonatomic, getter=isLowAccuracy, readonly) BOOL lowAccuracy;
+
+/*****************************
+ Class Methods
+ *****************************/
++ (NSString*)parseClassName;
 
 @end

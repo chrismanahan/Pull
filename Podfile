@@ -12,9 +12,8 @@ pod 'Parse'
 pod 'ParseFacebookUtils'
 pod 'SDWebImage', '~>3.7'
 pod 'UIActivityIndicator-for-SDWebImage'
-pod 'LocationKit', '~> 2.2.0'
+# pod 'LocationKit', '~> 2.2.0'
 
-end
-
-link_with 'PullKit', 'Pull WatchKit Extension'
 link_with 'PullKit', 'Pull'
+link_with 'PullKit', 'PullTests'
+end

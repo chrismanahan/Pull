@@ -64,14 +64,14 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     
     _pulledUserDatasource = [[PULPulledUserDataSource alloc] init];
     
-    id loginObs = [[NSNotificationCenter defaultCenter] addObserverForName:PULAccountDidLoginNotification
-                                                                    object:nil
-                                                                     queue:[NSOperationQueue mainQueue]
-                                                                usingBlock:^(NSNotification *note) {
-                                                                    [self _observePulls];
-                                                                    
-                                                                    [[NSNotificationCenter defaultCenter] removeObserver:loginObs];
-                                                                }];
+//    id loginObs = [[NSNotificationCenter defaultCenter] addObserverForName:PULAccountDidLoginNotification
+//                                                                    object:nil
+//                                                                     queue:[NSOperationQueue mainQueue]
+//                                                                usingBlock:^(NSNotification *note) {
+//                                                                    [self _observePulls];
+//                                                                    
+//                                                                    [[NSNotificationCenter defaultCenter] removeObserver:loginObs];
+//                                                                }];
     
     // subscribe to disabled location updates
     [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationPermissionsDeniedNotification
@@ -160,13 +160,6 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     [super viewWillAppear:animated];
     
     [self reload];
-    //    [_collectionView reloadData];
-    //    [self setSelectedIndex:_selectedIndex];
-    
-    if ([PULAccount currentUser])
-    {
-        [self _observePulls];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -179,7 +172,6 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         _pullsLoadedNotification = nil;
     }
     
-    [[PULAccount currentUser].pulls unregisterForAllKeyChanges];
 }
 
 #pragma mark
@@ -231,12 +223,12 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 {
     if ([sender.titleLabel.text isEqual:kPULDialogButtonTextAccept])
     {
-        [[PULAccount currentUser] acceptPull:_displayedPull];
+        //TODO: ACCEPT PULL
     }
     else if ([sender.titleLabel.text isEqual:kPULDialogButtonTextCancel] ||
              [sender.titleLabel.text isEqual:kPULDialogButtonTextDecline])
     {
-        [[PULAccount currentUser] cancelPull:_displayedPull];
+        // TODO: DECLINE/CANCEL PULL
         [self reload];
     }
     else if ([sender.titleLabel.text isEqual:kPULDialogButtonTextEnableLocation])
@@ -318,51 +310,51 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     }
 }
 #pragma mark - Helpers
-- (void)_observePulls
-{
-    if (!_pullsLoadedNotification)
-    {
-        _pullsLoadedNotification = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
-                                                                                     object:[PULAccount currentUser].pulls
-                                                                                      queue:[NSOperationQueue currentQueue]
-                                                                                 usingBlock:^(NSNotification *note) {
-                                                                                     [self reload];
-                                                                                 }];
-    }
-    
-    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"status"])
-    {
-        [[PULAccount currentUser].pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
-            [self reload];
-            
-            if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
-            {
-                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
-            }
-        }];
-    }
-    
-    if (![[PULAccount currentUser].pulls isRegisteredForKeyChange:@"nearby"])
-    {
-        [[PULAccount currentUser].pulls registerForKeyChange:@"nearby" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
-            [self reload];
-        }];
-    }
-    
-    if (![[PULAccount currentUser] isObservingKeyPath:@"location"])
-    {
-        [[PULAccount currentUser] observeKeyPath:@"location" block:^{
-            [self updateUI];
-        }];
-    }
-    
-    if (![[PULAccount currentUser] isObservingKeyPath:@"hasMovedSinceLastLocationUpdate"])
-    {
-        [[PULAccount currentUser] observeKeyPath:@"hasMovedSinceLastLocationUpdate" block:^{
-            [self updateUI];
-        }];
-    }
-}
+//- (void)_observePulls
+//{
+//    if (!_pullsLoadedNotification)
+//    {
+//        _pullsLoadedNotification = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
+//                                                                                     object:[PULUser currentUser].pulls
+//                                                                                      queue:[NSOperationQueue currentQueue]
+//                                                                                 usingBlock:^(NSNotification *note) {
+//                                                                                     [self reload];
+//                                                                                 }];
+//    }
+//    
+//    if (![[PULUser currentUser].pulls isRegisteredForKeyChange:@"status"])
+//    {
+//        [[PULUser currentUser].pulls registerForKeyChange:@"status" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+//            [self reload];
+//            
+//            if (((PULPull*)object).status == PULPullStatusPulled && ![PULLocationUpdater sharedUpdater].isTracking)
+//            {
+//                [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+//            }
+//        }];
+//    }
+//    
+//    if (![[PULUser currentUser].pulls isRegisteredForKeyChange:@"nearby"])
+//    {
+//        [[PULUser currentUser].pulls registerForKeyChange:@"nearby" onAllObjectsWithBlock:^(FireMutableArray *array, FireObject *object) {
+//            [self reload];
+//        }];
+//    }
+//    
+//    if (![[PULUser currentUser] isObservingKeyPath:@"location"])
+//    {
+//        [[PULUser currentUser] observeKeyPath:@"location" block:^{
+//            [self updateUI];
+//        }];
+//    }
+//    
+//    if (![[PULUser currentUser] isObservingKeyPath:@"hasMovedSinceLastLocationUpdate"])
+//    {
+//        [[PULUser currentUser] observeKeyPath:@"hasMovedSinceLastLocationUpdate" block:^{
+//            [self updateUI];
+//        }];
+//    }
+//}
 
 
 - (void)_unsetDisplayedPull
@@ -443,7 +435,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         // stop observing location for last pull
         if (_displayedPull)
         {
-            [[_displayedPull otherUser] stopObservingKeyPaths:@[@"location", @"locationAccuracy", @"hasMovedSinceLastLocationUpdate"]];
+            // TODO: STOP OBSERVING LOCATION
+//            [[_displayedPull otherUser] stopObservingKeyPaths:@[@"location", @"locationAccuracy", @"hasMovedSinceLastLocationUpdate"]];
         }
         
         if (selectedIndex < 0)
@@ -475,10 +468,11 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         
         if (_displayedPull.status == PULPullStatusPulled)
         {
-            [[_displayedPull otherUser] observeKeyPaths:@[@"location", @"locationAccuracy", @"hasMovedSinceLastLocationUpdate"]
-                                                  block:^{
-                                                      [self updateUI];
-                                                  }];
+            // TODO: START OBSERVING LOCATION
+//            [[_displayedPull otherUser] observeKeyPaths:@[@"location", @"locationAccuracy", @"hasMovedSinceLastLocationUpdate"]
+//                                                  block:^{
+//                                                      [self updateUI];
+//                                                  }];
         }
         
         [self updateUI];
@@ -501,7 +495,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     {
         BOOL canGoToSettings = (UIApplicationOpenSettingsURLString != NULL);
         
-        [[PULAccount currentUser] cancelAllPulls];
+        // TODO: CANCEL ALL PULLS
+//        [[PULUser currentUser] cancelAllPulls];
         [self _setNameLabel:@"Location Disabled" active:NO];
         [_compassView showNoLocation];
         
@@ -578,7 +573,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             for (int i = lowest-1; i >= 0; i--)
             {
                 PULPull *pull = _pulledUserDatasource.datasource[i];
-                if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULAccount currentUser]])
+                if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULUser currentUser]])
                 {
                     _moreNotificationImageViewLeft.hidden = NO;
                     break;
@@ -598,7 +593,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             for (int i = highest+1; i < _pulledUserDatasource.datasource.count; i++)
             {
                 PULPull *pull = _pulledUserDatasource.datasource[i];
-                if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULAccount currentUser]])
+                if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULUser currentUser]])
                 {
                     _moreNotificationImageViewRight.hidden = NO;
                     break;
@@ -723,15 +718,15 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             }
             case PULPullDistanceStateNearby:
             {
-                _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
+                _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULUser currentUser]]);
                 break;
             }
             default:
                 break;
         }
         
-        _debug_accuracyLabel.text = [NSString stringWithFormat:@"%.2f", [_displayedPull otherUser].locationAccuracy];
-        _debug_acctAccuracyLabel.text = [NSString stringWithFormat:@"%.2f", [PULAccount currentUser].locationAccuracy];;
+//        _debug_accuracyLabel.text = [NSString stringWithFormat:@"%.2f", [_displayedPull otherUser].locationAccuracy];
+//        _debug_acctAccuracyLabel.text = [NSString stringWithFormat:@"%.2f", [PULUser currentUser].locationAccuracy];;
         
         [self updateDialogWithText:dialogText
                               hide:(dialogText == nil)
@@ -741,8 +736,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         
         // TODO: DEBUG
         //        _dialogContainer.hidden = NO;
-        //        _dialogMessageLabel.text = [NSString stringWithFormat:@"%@\n%@", [PULAccount currentUser].location, user.location];
-        _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULAccount currentUser]]);
+        //        _dialogMessageLabel.text = [NSString stringWithFormat:@"%@\n%@", [PULUser currentUser].location, user.location];
+        _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULUser currentUser]]);
     }
     else
     {
@@ -751,7 +746,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         // display either waiting on acceptance or waiting for approval
         if (_displayedPull.status == PULPullStatusPending)
         {
-            if ([_displayedPull initiatedBy:[PULAccount currentUser]])
+            if ([_displayedPull initiatedBy:[PULUser currentUser]])
             {
                 // waiting on response
                 _distanceLabel.text = @"Request Sent";
@@ -812,7 +807,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         if (buttonIndex == 0)
         {
             // end active pull
-            [[PULAccount currentUser] cancelPull:_displayedPull];
+            // TODO: CANCEL CURR PULL
+//            [[PULUser currentUser] cancelPull:_displayedPull];
             [self reload];
         }
     }

@@ -85,7 +85,7 @@ static PULAccount *account = nil;
                     
                     PULUser *user = [[PULUser alloc] initWithUid:userUID];
                     
-                    [[PULAccount currentUser].friends addAndSaveObject:user];
+                    [[PULUser currentUser].friends addAndSaveObject:user];
                 }
             }
             // check if this is the first registration
@@ -140,74 +140,6 @@ static PULAccount *account = nil;
 //    return account;
     
     return account;
-}
-
-- (void)initialize
-{
-    [super initialize];
-    if (!_pullCheckTimer)
-    {
-        _pullCheckTimer = [NSTimer scheduledTimerWithTimeInterval:kPruneTimerInterval
-                                                       target:self
-                                                     selector:@selector(checkOnPulls)
-                                                     userInfo:nil
-                                                      repeats:YES];
-        
-
-    }
-    
-    if (!_observers)
-    {
-        _observers = [[NSMutableArray alloc] init];
-    }
-    
-    [self addNewFriendsFromFacebook];
-    
-    // remove pulls that are already expired
-    __block id loadNotif = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
-                                                      object:self.pulls
-                                                       queue:[NSOperationQueue currentQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      [self checkOnPulls];
-                                                      
-                                                      [[NSNotificationCenter defaultCenter] removeObserver:loadNotif];
-                                                  }];
-    
-    void(^updateForegroundBlock)(BOOL) = ^void(BOOL foreground){
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSInteger count = 0;
-            while (!self.loaded && count++ < 50)
-            {
-                sleep(10);
-            }
-            
-            if (self.isLoaded)
-            {
-                self.inForeground = foreground;
-                [self saveKeys:@[@"inForeground"]];
-            }
-        });
-    };
-    updateForegroundBlock(YES);
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue currentQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      updateForegroundBlock(NO);
-                                                  }];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue currentQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      updateForegroundBlock(YES);
-                                                      
-                                                      // TODO: it seems that when the app terminates, background is always being set
-                                                      // we should ping the server a second after the background gets called to set
-                                                      // a flag. That way, if the flag is not set, we know the user has terminated
-                                                  }];
-    
 }
 
 - (void)checkOnPulls
@@ -281,7 +213,7 @@ static PULAccount *account = nil;
                                         
                                         if (completion)
                                         {
-                                            completion([PULAccount currentUser], nil);
+                                            completion([PULUser currentUser], nil);
                                         }
                                         
                                         [[NSNotificationCenter defaultCenter] postNotificationName:PULAccountDidLoginNotification object:self];

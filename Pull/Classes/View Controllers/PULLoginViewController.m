@@ -34,53 +34,48 @@
 #pragma mark - Actions
 - (IBAction)ibPresentFacebookLogin:(id)sender;
 {
-    PULLog(@"presenting facebook login");
-    
-    NSArray *permissions = @[@"email", @"public_profile", @"user_friends"];
-    
-    [PFFacebookUtils logInWithPermissions:permissions
-                                    block:^(PFUser * _Nullable user, NSError * _Nullable error) {
-                                        if (error)
-                                        {
-                                            UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Authentication Error"
-                                                                                                 message:[NSString stringWithFormat:@"There was a problem authenticating: (%li) %@", (long)error.code, error.localizedDescription]
-                                                                                                delegate:nil
-                                                                                       cancelButtonTitle:@"Ok"
-                                                                                       otherButtonTitles: nil];
-                                            [errorAlert show];
-                                        }
-                                        else
-                                        {
-                                            // check if we already have location/notifcation permissions
-                                            BOOL grantedPermissions = [[NSUserDefaults standardUserDefaults] boolForKey:@"DidGrantPermissions"];
-                                            
-                                            if (!grantedPermissions)
-                                            {
-                                                // show permission request vc
-                                                UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULRequestLocationViewController class])];
-                                                
-                                                PULSlideLeftSegue *seg = [PULSlideLeftSegue segueWithIdentifier:@"RequestLocationSeg"
-                                                                                                         source:self
-                                                                                                    destination:vc
-                                                                                                 performHandler:^{
-                                                                                                     ;
-                                                                                                 }];
-                                                [seg perform];
-                                                
-                                                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DidGrantPermissions"];
-                                            }
-                                            else
-                                            {
-                                                UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullListViewController class])];
-                                                
-                                                [self presentViewController:vc animated:YES completion:^{
-                                                    ;
-                                                }];
-                                            }
-                                            
-                                        }
-                                    }];
-    
+    [[PULParseMiddleMan sharedInstance] loginWithFacebook:^(BOOL success, NSError * _Nullable error) {
+        if (success)
+        {
+            // check if we already have location/notifcation permissions
+            BOOL grantedPermissions = [[NSUserDefaults standardUserDefaults] boolForKey:@"DidGrantPermissions"];
+            
+            if (!grantedPermissions)
+            {
+                // show permission request vc
+                UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULRequestLocationViewController class])];
+                
+                PULSlideLeftSegue *seg = [PULSlideLeftSegue segueWithIdentifier:@"RequestLocationSeg"
+                                                                         source:self
+                                                                    destination:vc
+                                                                 performHandler:^{
+                                                                     ;
+                                                                 }];
+                [seg perform];
+                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DidGrantPermissions"];
+            }
+            else
+            {
+                UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULPullListViewController class])];
+                
+                [self presentViewController:vc animated:YES completion:^{
+                    ;
+                }];
+            }
+        }
+        else
+        {
+            PULLog(@"failed to initialize: %@", error);
+            UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Authentication Error"
+                                                                 message:[NSString stringWithFormat:@"There was a problem authenticating: (%li) %@", (long)error.code, error.localizedDescription]
+                                                                delegate:nil
+                                                       cancelButtonTitle:@"Ok"
+                                                       otherButtonTitles: nil];
+            [errorAlert show];
+
+        }
+    }];
 }
 
 #pragma mark - scroll delegate

@@ -6,19 +6,21 @@
 //  Copyright (c) 2015 Pull LLC. All rights reserved.
 //
 
-#import "PULUserSettings.h"
 #import "PULLocation.h"
 
-#import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
-
 #import "PFObject+Subclass.h"
 
 @class CLPlacemark;
+@class PULUserSettings;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PULUser : PFUser <PFSubclassing>
+
+/*****************************
+ Properties
+ *****************************/
 
 /*!
  *  Facebook ID
@@ -36,37 +38,65 @@ NS_ASSUME_NONNULL_BEGIN
  *  Last name
  */
 @property (nonatomic, strong) NSString *lastName;
+/**
+ *  Gender of user. Either m, f, or o (other)
+ */
+@property (nonatomic, strong) NSString *gender;
  /*!
  *  Full name
  */
 @property (nonatomic, strong, readonly) NSString *fullName;
 /*!
+ *  Username of user, auto generated based on signup type
+ */
+@property (nonatomic, strong) NSString *username;
+/*!
  *  URL string to get user's profile image. Currently only pulls from facebook
  */
 @property (nonatomic, strong, readonly) NSString *imageUrlString;
+/**
+ *  Flag indicating if this user is in the foreground
+ */
+@property (nonatomic, assign) BOOL isInForeground;
+/**
+ *  Indicates this user has disabled their account
+ */
+@property (nonatomic, assign) BOOL isDisabled;
+/**
+ *  Indicates this user is currently online
+ */
+@property (nonatomic, assign) BOOL isOnline;
 /*!
  *  Most recent location of user
  */
 @property (nonatomic, strong) PULLocation *location;
-
-
-@property (nonatomic, strong) NSArray *friends;
-@property (nonatomic, strong) NSArray *blocked;
-@property (nonatomic, strong) NSArray *unpulledFriends;
-@property (nonatomic, strong) NSArray *pulledFriends;
-// pulls
-@property (nonatomic, strong) NSArray *pulls;
-// settings
+/**
+ *  User settings
+ */
 @property (nonatomic, strong) PULUserSettings *settings;
 
-@property (nonatomic, assign, getter=isInForeground) BOOL inForeground;
+/*****************************
+ Instance Methods
+ *****************************/
 
-- (double)distanceFromUser:(PULUser*)user;
-
-- (void)initialize;
-
-+ (NSString*)parseClassName;
-
-NS_ASSUME_NONNULL_END
+/**
+ *   Helper method to determine distance to other user
+ *
+ *  @param user Other user to determine distance from
+ *
+ *  @return Distance in meters
+ */
+- (CLLocationDistance)distanceFromUser:(PULUser*)user;
+/**
+ *  Calculates the angle between this user and other user given a magnetic heading
+ *
+ *  @param heading Heading to calculate against
+ *  @param user    Other user
+ *
+ *  @return Angle in radians
+ */
+- (double)angleWithHeading:(CLHeading*)heading fromUser:(PULUser*)user;
 
 @end
+
+NS_ASSUME_NONNULL_END

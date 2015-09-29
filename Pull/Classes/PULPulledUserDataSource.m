@@ -20,49 +20,50 @@
 
 - (void)loadDatasourceCompletion:(void(^)(NSArray *ds))completion
 {
-    PULAccount *acct = [PULAccount currentUser];
-    // check if pulls are loaded
-    if (acct.pulls.isLoaded)
-    {
-        if (_pullsLoadedNotification)
-        {
-            [[NSNotificationCenter defaultCenter] removeObserver:_pullsLoadedNotification];
-        }
-//        // check if we need to rebuild the datasource
-//        if ([self _validateDatasource] && _datasource.count == acct.pulls.count && _datasource != nil)
+    // TODO: LOAD DATA SOURCE
+//    PULUser *acct = [PULUser currentUser];
+//    // check if pulls are loaded
+//    if (acct.pulls.isLoaded)
+//    {
+//        if (_pullsLoadedNotification)
 //        {
-//            completion(_datasource);
+//            [[NSNotificationCenter defaultCenter] removeObserver:_pullsLoadedNotification];
+//        }
+////        // check if we need to rebuild the datasource
+////        if ([self _validateDatasource] && _datasource.count == acct.pulls.count && _datasource != nil)
+////        {
+////            completion(_datasource);
+////        }
+////        else
+////        {
+//            // create data source
+//            [self _buildDatasource];
+//            
+//            if (completion)
+//            {
+//                completion(_datasource);
+//            }
+////        }
+//    }
+//    else
+//    {
+//        if (acct.pulls)
+//        {
+//            
+//            _pullsLoadedNotification = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
+//                                                                                         object:[PULUser currentUser].pulls
+//                                                                                          queue:[NSOperationQueue currentQueue]
+//                                                                                     usingBlock:^(NSNotification *note) {
+//                                                                                         [self loadDatasourceCompletion:completion];
+//                                                                                     }];
 //        }
 //        else
 //        {
-            // create data source
-            [self _buildDatasource];
-            
-            if (completion)
-            {
-                completion(_datasource);
-            }
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [self loadDatasourceCompletion:completion];
+//            });
 //        }
-    }
-    else
-    {
-        if (acct.pulls)
-        {
-            
-            _pullsLoadedNotification = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
-                                                                                         object:[PULAccount currentUser].pulls
-                                                                                          queue:[NSOperationQueue currentQueue]
-                                                                                     usingBlock:^(NSNotification *note) {
-                                                                                         [self loadDatasourceCompletion:completion];
-                                                                                     }];
-        }
-        else
-        {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self loadDatasourceCompletion:completion];
-            });
-        }
-    }
+//    }
 }
 
 //- (BOOL)_validateDatasource
@@ -71,10 +72,10 @@
 //    for (int i = 0; i < _datasource.count; i++)
 //    {
 //        PULPull *pull = _datasource[i];
-//        double thisDistance = [[pull otherUser] distanceFromUser:[PULAccount currentUser]];
+//        double thisDistance = [[pull otherUser] distanceFromUser:[PULUser currentUser]];
 //        
 //        // check if status has changed
-//        for (PULPull *aPull in [PULAccount currentUser].pulls)
+//        for (PULPull *aPull in [PULUser currentUser].pulls)
 //        {
 //            if ([aPull isEqual:pull])
 //            {
@@ -106,22 +107,23 @@
  */
 - (BOOL)_buildDatasource
 {
-    NSMutableArray *ds;
-    
-    PULAccount *acct = [PULAccount currentUser];
-    // get active pulls
-    NSMutableArray *activePulls = [[NSMutableArray alloc] initWithArray:acct.pullsPulledNearby];
-    [activePulls addObjectsFromArray:acct.pullsPulledFar];
-    
-    // sort by distance and store
-    ds = [[NSMutableArray alloc] initWithArray:[activePulls sortedPullsByDistance]];
-    
-    // add the rest of pulls
-    [ds addObjectsFromArray:acct.pullsPending];
-    [ds addObjectsFromArray:acct.pullsWaiting];
-    
-    // set data source
-    _datasource = [[NSArray alloc] initWithArray:ds];
+    // TODO: BUILD DATA SOURCE
+//    NSMutableArray *ds;
+//    
+//    PULUser *acct = [PULUser currentUser];
+//    // get active pulls
+//    NSMutableArray *activePulls = [[NSMutableArray alloc] initWithArray:acct.pullsPulledNearby];
+//    [activePulls addObjectsFromArray:acct.pullsPulledFar];
+//    
+//    // sort by distance and store
+//    ds = [[NSMutableArray alloc] initWithArray:[activePulls sortedPullsByDistance]];
+//    
+//    // add the rest of pulls
+//    [ds addObjectsFromArray:acct.pullsPending];
+//    [ds addObjectsFromArray:acct.pullsWaiting];
+//    
+//    // set data source
+//    _datasource = [[NSArray alloc] initWithArray:ds];
     
     return YES;
 }

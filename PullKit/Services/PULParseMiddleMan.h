@@ -89,6 +89,9 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  Instance Methods
  *****************************/
 
+- (PULUser*)currentUser;
+
+
 /*****************************************************/
 /*****************************************************/
 #pragma mark - Logging In
@@ -116,8 +119,18 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  *  @param completion Block to run when the users are returned. If no users come back in the query, the array will be empty
  */
 - (void)getBlockedUsersInBackground:(nullable PULUsersBlock)completion;
-
-
+/**
+ *  Gets the cached array of friends
+ *
+ *  @return Array of friends or nil
+ */
+- (nullable NSArray<PULUser*>*)cachedFriends;
+/**
+ *  Gets the cached array of blocked users
+ *
+ *  @return Array of blocked users or nil
+ */
+- (nullable NSArray<PULUser*>*)cachedBlockedUsers;
 
 /*****************************************************/
 /*****************************************************/
@@ -134,7 +147,7 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
 - (void)getPullsInBackground:(nullable PULPullsBlock)completion;
 
 - (NSArray<PULPull*>*)cachedPulls;
-- (PULPull*)nearestPull;
+- (nullable PULPull*)nearestPull;
 
 
 /*****************************************************/
@@ -164,12 +177,15 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  *  Blocks a user
  *
  *  @param user       User to block
- *  @param completion Block to run when action is complete
  *
- *  @note This method will assert that the current user is friends with the user to block and has not already blocked
  */
-- (void)blockUser:(PULUser*)user inBackground:(nullable PULStatusBlock)completion;
-
+- (void)blockUser:(PULUser*)user;
+/**
+ *  Unblocks a blocked user
+ *
+ *  @param user User to block
+ */
+- (void)unblockUser:(PULUser*)user;
 
 
 /*****************************************************/

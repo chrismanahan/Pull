@@ -70,6 +70,11 @@
     return self.username.hash;
 }
 
++ (void)load
+{
+    [self registerSubclass];
+}
+
 #pragma mark - Private
 - (double)_calculateAngleBetween:(CLLocationCoordinate2D)coords0 and:(CLLocationCoordinate2D)coords1
 {

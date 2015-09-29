@@ -202,7 +202,7 @@ const NSTimeInterval kPullDurationAlways  = 0;
 
 + (void)load
 {
-    
+    [self registerSubclass];
 }
 
 @end

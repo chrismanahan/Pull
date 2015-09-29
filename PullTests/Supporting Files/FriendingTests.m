@@ -1,4 +1,4 @@
-//
+
 //  FriendingTests.m
 //  Pull
 //
@@ -24,22 +24,53 @@
     [super tearDown];
 }
 
-- (void)testRegister
+- (void)delayTestSeconds:(CGFloat)seconds
+{
+    __block BOOL waitingForBlock = YES;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        waitingForBlock = NO;
+    });
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+}
+
+- (void)testGetFriends
 {
     dispatch_semaphore_t sem = dispatch_semaphore_create(0);
     
-//    [[PULParseMiddleMan sharedInstance] registerUser:@"username:1234"
-//                                               first:@"chris"
-//                                                last:@"manahan"
-//                                               email:@"chrismanahan@gmail.com"
-//                                                fbId:@"1234"
-//                                          completion:^(BOOL success, NSError * _Nullable error) {
-//                                              NSLog(@"success: %zd", success);
-//
-//                                               dispatch_semaphore_signal(sem);
-//                                          }];
+    [[PULParseMiddleMan sharedInstance] getFriendsInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
+        dispatch_semaphore_signal(sem);
+    }];
     
-  dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+    dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+}
+
+- (void)testBlockFriend
+{
+    PULParseMiddleMan *parse = [PULParseMiddleMan sharedInstance];
+    [parse getFriendsInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
+        
+        PULUser *user = users[0];
+        [parse blockUser:user];
+    }];
+    
+    [self delayTestSeconds:1];
+}
+
+- (void)testUnblockFriend
+{
+    PULParseMiddleMan *parse = [PULParseMiddleMan sharedInstance];
+    [parse getBlockedUsersInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
+        
+        PULUser *user = users[0];
+        [parse unblockUser:user];
+    }];
+    
+    [self delayTestSeconds:1];
 }
 
 - (void)testPerformanceExample {

@@ -55,7 +55,7 @@
     __block NSString *vcName = NSStringFromClass([PULLoginViewController class]);
     
     // check if we are logged in
-    if ([PULUser currentUser])
+    if ([[PULParseMiddleMan sharedInstance] currentUser])
     {
         vcName = NSStringFromClass([PULPullListViewController class]);
     }

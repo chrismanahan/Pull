@@ -17,6 +17,17 @@ const NSTimeInterval kPULIntervalTimeOccasional = 45;
 const NSTimeInterval kPULIntervalTimeSeldom     = 120;
 const NSTimeInterval kPULIntervalTimeRare       = 5 * 60;
 
+NSString * const kPULFriendTypeFacebook = @"fb";
+
+NSString * const kPULLookupSendingUserKey = @"sendingUser";
+NSString * const kPULLookupReceivingUserKey = @"receivingUser";
+
+@interface PULParseMiddleMan ()
+
+@property (nonatomic, strong) NSCache *cache;
+
+@end
+
 @implementation PULParseMiddleMan
 
 + (instancetype)sharedInstance;
@@ -24,7 +35,7 @@ const NSTimeInterval kPULIntervalTimeRare       = 5 * 60;
     static PULParseMiddleMan *shared = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [PULUser registerSubclass];
+//        [PULUser registerSubclass];
         [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
         [PFFacebookUtils initializeFacebook];
         
@@ -32,6 +43,20 @@ const NSTimeInterval kPULIntervalTimeRare       = 5 * 60;
     });
     
     return shared;
+}
+
+- (instancetype)init
+{
+    if (self = [super init])
+    {
+        _cache = [[NSCache alloc] init];
+    }
+    return self;
+}
+
+- (PULUser*)currentUser;
+{
+    return [PULUser currentUser];
 }
 
 #pragma mark - Login
@@ -50,53 +75,278 @@ const NSTimeInterval kPULIntervalTimeRare       = 5 * 60;
          }
          else
          {
-             [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                 if (!error)
-                 {
-                     [self _initializeUserInfo:(PULUser*)user fbResult:result completion:completion];
-                 }
-                 else
-                 {
-                     PULLog(@"COULD NOT GET FACEBOOK INFO: %@", error);
-                     completion(NO, error);
-                 }
-             }];
+             if (user.isNew)
+             {
+                 [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                     if (!error)
+                     {
+                         [self _registerUser:(PULUser*)user withFbResult:result completion:completion];
+                     }
+                     else
+                     {
+                         PULLog(@"COULD NOT GET FACEBOOK INFO: %@", error);
+                         completion(NO, error);
+                     }
+                 }];
+             }
+             else
+             {
+                 
+             }
          }
      }];
 
 }
 
+#pragma mark - Getting Friends
+- (void)getFriendsInBackground:(PULUsersBlock)completion
+{
+    [self _runBlockInBackground:^{
+        PFQuery *query = [self _queryLookupFriends];
+        NSError *err;
+        NSArray *objects = [query findObjects:&err];
+        NSArray *users = [self _usersFromLookupResults:objects];
+        
+        if (err)
+        {
+            completion(nil, err);
+        }
+        else
+        {
+            [_cache setObject:users forKey:@"friends"];
+            completion(users, nil);
+        }
+    }];
+}
+
+- (void)getBlockedUsersInBackground:(PULUsersBlock)completion
+{
+    PFQuery *query = [self _queryLookupBlocked];
+    
+    [self _runBlockInBackground:^{
+        NSError *err;
+        NSArray *objects = [query findObjects:&err];
+        NSArray *users = [self _usersFromLookupResults:objects];
+        
+        if (err)
+        {
+            completion(nil, err);
+        }
+        else
+        {
+            [_cache setObject:users forKey:@"blocked"];
+            completion(users, nil);
+        }
+    }];
+}
+
+
+- (nullable NSArray<PULUser*>*)cachedFriends
+{
+    return [_cache objectForKey:@"friends"];
+}
+
+- (nullable NSArray<PULUser*>*)cachedBlockedUsers
+{
+    return [_cache objectForKey:@"blocked"];
+}
+
 #pragma mark - Adding / Removing Friends
-- (void)friendUsers:(nullable NSArray<PULUser*>*)users inBackground:(nullable PULStatusBlock)completion;
+- (void)friendUsers:(nullable NSArray<PULUser*>*)users
 {
     if (users)
     {
-        PFUser *currUser = [PFUser currentUser];
         for (PULUser *user in users)
         {
-            PFObject *obj = [PFObject objectWithClassName:@"FriendLookup"];
-            
-            obj[@"sendingUser"] = currUser;
-            obj[@"receivingUser"] = user;
-            obj[@"type"] = @"friend";
-            obj[@"isAccepted"] = @YES;
-            [obj saveInBackground];
+            [self friendUser:user];
         }
-        
-        if (completion)
-        {
-            completion(YES, nil);
-        }
-    }
-    else
-    {
-        completion(YES, nil);
     }
 }
 
-#pragma mark - Private
+- (void)friendUser:(PULUser *)user
+{
+    PFUser *currUser = [PFUser currentUser];
+    
+    // TODO: check if user is already friends with this user
+    PFObject *obj = [PFObject objectWithClassName:@"FriendLookup"];
+    
+    obj[@"sendingUser"] = currUser;
+    obj[@"receivingUser"] = user;
+    obj[@"type"] = kPULFriendTypeFacebook;
+    obj[@"isAccepted"] = @YES;
+    obj[@"isBlocked"] = @NO;
+    obj[@"blockedBy"] = [NSNull null];
+    
+    [obj saveEventually];
+}
 
-- (void)_initializeUserInfo:(PULUser*)user fbResult:(id)result completion:(void(^)(BOOL success, NSError *error))completion
+- (void)blockUser:(PULUser*)user
+{
+    [self _block:YES user:user];
+}
+
+- (void)unblockUser:(PULUser*)user
+{
+    [self _block:NO user:user];
+}
+
+#pragma mark - Getting pulls
+- (void)getPullsInBackground:(nullable PULPullsBlock)completion
+{
+    
+}
+
+- (NSArray<PULPull*>*)cachedPulls
+{
+    return nil;
+}
+
+- (nullable PULPull*)nearestPull
+{
+    return nil;
+}
+
+
+- (void)updateLocation:(CLLocation*)location movementType:(PKMotionType)moveType positionType:(PKPositionType)posType
+{
+    
+}
+
+- (void)updateLocation:(CLLocation*)location movementType:(PKMotionType)moveType positionType:(PKPositionType)posType completion:(nullable PULStatusBlock)completion
+{
+    
+}
+
+- (void)observeChangesInLocationForUser:(PULUser*)user interval:(NSTimeInterval)interval block:(PULUserBlock)block
+{
+    
+}
+
+- (void)stopObservingChangesInLocationForUser:(PULUser*)user
+{
+    
+}
+
+- (void)stopObservingChangesInLocationForAllUsers
+{
+    
+}
+
+- (void)sendPullToUser:(PULUser*)user completion:(nullable PULStatusBlock)completion
+{
+    
+}
+
+
+
+#pragma mark - Private
+#pragma mark Queries
+- (PFQuery*)_queryLookupFriends
+{
+    return [self _queryLookupUsersBlocked:NO];
+}
+
+- (PFQuery*)_queryLookupBlocked
+{
+    return [self _queryLookupUsersBlocked:YES];
+}
+
+- (PFQuery*)_queryLookupUsersBlocked:(BOOL)blocked
+{
+    PULUser *acct = [PULUser currentUser];
+    
+    // lookup queries
+    PFQuery *senderQuery = [PFQuery queryWithClassName:@"FriendLookup"];
+    [senderQuery whereKey:kPULLookupSendingUserKey equalTo:acct];
+    [senderQuery whereKey:kPULLookupReceivingUserKey notEqualTo:acct];
+    
+    PFQuery *recQuery = [PFQuery queryWithClassName:@"FriendLookup"];
+    [recQuery whereKey:kPULLookupReceivingUserKey equalTo:acct];
+    [recQuery whereKey:kPULLookupSendingUserKey notEqualTo:acct];
+    
+    PFQuery *lookupQuery = [PFQuery orQueryWithSubqueries:@[senderQuery, recQuery]];
+    [lookupQuery whereKey:@"isBlocked" equalTo:@(blocked)];
+    if (blocked)
+    {
+        [lookupQuery whereKey:@"blockedBy" equalTo:acct];
+    }
+    [lookupQuery whereKey:@"isAccepted" equalTo:@YES];
+    
+    [lookupQuery includeKey:kPULLookupReceivingUserKey];
+    [lookupQuery includeKey:kPULLookupSendingUserKey];
+
+    return lookupQuery;
+}
+
+#pragma mark Parsing Results
+- (NSArray<PULUser*>*)_usersFromLookupResults:(NSArray<PFObject*>*)objects
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (PFObject *obj in objects)
+    {
+        PFUser *otherUser = [self _friendLookupOtherUser:obj];
+        [arr addObject:otherUser];
+    }
+    
+    return arr;
+}
+
+- (BOOL)_friendLookup:(PFObject*)obj containsUser:(PULUser*)user;
+{
+    return [[self _friendLookupOtherUser:obj] isEqual:user];
+}
+
+- (PULUser*)_friendLookupOtherUser:(PFObject*)obj
+{
+    PULUser *otherUser;
+    if (![obj[kPULLookupSendingUserKey] isEqual:[PULUser currentUser]])
+    {
+        otherUser = obj[kPULLookupSendingUserKey];
+    }
+    else
+    {
+        otherUser = obj[kPULLookupReceivingUserKey];
+    }
+    
+    return otherUser;
+}
+
+#pragma mark Helpers
+- (void)_block:(BOOL)block user:(PULUser*)user
+{
+    [self _runBlockInBackground:^{
+        PFQuery *lookup = block ? [self _queryLookupFriends] : [self _queryLookupBlocked];
+        
+        NSArray *rows = [lookup findObjects];
+        
+        if (rows)
+        {
+            for (PFObject *obj in rows)
+            {
+                if ([self _friendLookup:obj containsUser:user])
+                {
+                    // found row to block
+                    obj[@"isBlocked"] = @(block);
+                    if (block)
+                    {
+                        obj[@"blockedBy"] = [PULUser currentUser];
+                    }
+                    else
+                    {
+                        obj[@"blockedBy"] = [NSNull null];
+                    }
+                    
+                    [obj saveEventually];
+                    
+                    break;
+                }
+            }
+        }
+    }];
+}
+
+#pragma mark Registration
+- (void)_registerUser:(PULUser*)user withFbResult:(id)result completion:(void(^)(BOOL success, NSError *error))completion
 {
     NSDictionary *fbData = (NSDictionary*)result;
     
@@ -153,27 +403,14 @@ const NSTimeInterval kPULIntervalTimeRare       = 5 * 60;
          }
          
      }];
-    
-    
-    //    // get friends from facebook
-    //    [[PULParseMiddleMan sharedInstance] getFacebookFriendsAsUsers:^(NSArray<PULUser *> * _Nonnull users, NSError * _Nullable error) {
-    //        // add fb friends as pull friends
-    //        if (users)
-    //        {
-    //            [[PULParseMiddleMan  sharedInstance] friendUsers:users inBackground:^(BOOL success, NSError * _Nullable error) {
-    //                completion(success, error);
-    //            }];
-    //        }
-    //        else if (error)
-    //        {
-    //            completion(NO, error);
-    //        }
-    //        else
-    //        {
-    //            completion(YES, nil);
-    //        }
-    //    }];
 }
 
+#pragma mark - Threading
+- (void)_runBlockInBackground:(void(^)())block
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        block();
+    });
+}
 
 @end

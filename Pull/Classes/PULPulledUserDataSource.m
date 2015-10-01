@@ -20,50 +20,12 @@
 
 - (void)loadDatasourceCompletion:(void(^)(NSArray *ds))completion
 {
-    // TODO: LOAD DATA SOURCE
-//    PULUser *acct = [PULUser currentUser];
-//    // check if pulls are loaded
-//    if (acct.pulls.isLoaded)
-//    {
-//        if (_pullsLoadedNotification)
-//        {
-//            [[NSNotificationCenter defaultCenter] removeObserver:_pullsLoadedNotification];
-//        }
-////        // check if we need to rebuild the datasource
-////        if ([self _validateDatasource] && _datasource.count == acct.pulls.count && _datasource != nil)
-////        {
-////            completion(_datasource);
-////        }
-////        else
-////        {
-//            // create data source
-//            [self _buildDatasource];
-//            
-//            if (completion)
-//            {
-//                completion(_datasource);
-//            }
-////        }
-//    }
-//    else
-//    {
-//        if (acct.pulls)
-//        {
-//            
-//            _pullsLoadedNotification = [[NSNotificationCenter defaultCenter] addObserverForName:FireArrayLoadedNotification
-//                                                                                         object:[PULUser currentUser].pulls
-//                                                                                          queue:[NSOperationQueue currentQueue]
-//                                                                                     usingBlock:^(NSNotification *note) {
-//                                                                                         [self loadDatasourceCompletion:completion];
-//                                                                                     }];
-//        }
-//        else
-//        {
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                [self loadDatasourceCompletion:completion];
-//            });
-//        }
-//    }
+    PULParseMiddleMan *parse = [PULParseMiddleMan sharedInstance];
+    
+    if ([parse cachedPulls])
+    {
+        completion([parse cachedPulls]);
+    }
 }
 
 //- (BOOL)_validateDatasource

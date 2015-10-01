@@ -29,6 +29,7 @@ const NSTimeInterval kPullDurationAlways  = 0;
 @dynamic expiration;
 @dynamic status;
 @dynamic together;
+@dynamic canDelete;
 
 
 #pragma mark - Public
@@ -129,6 +130,12 @@ const NSTimeInterval kPullDurationAlways  = 0;
     }
     
     return retString;
+}
+
+- (BOOL)isNearby
+{
+    return [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceNearbyMeters &&
+    [[PULUser currentUser] distanceFromUser:[self otherUser]] > kPULDistanceAlmostHereMeter;
 }
 
 - (BOOL)isAlmostHere

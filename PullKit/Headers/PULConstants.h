@@ -49,6 +49,9 @@ extern const NSInteger kPULLocationTuningDistanceHighMeters;
 extern const NSInteger kPULPullLocalNotificationDelayMinutes;
 extern const double kPULDistanceAllowedAccuracy;
 
+extern const NSInteger kPULPollTimeActive;
+extern const NSInteger kPULPollTimePassive;
+extern const NSInteger kPULPollTimeBackground;
 // distance filters
 extern const NSInteger kLocationForegroundDistanceFilter;
 extern const NSInteger kLocationBackgroundDistanceFilter;

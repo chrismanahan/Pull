@@ -93,6 +93,8 @@ typedef NS_ENUM(NSInteger, PULPullDistanceState)
  *  The time at which this pull expires and goes out for pruning. -resetExpiration should be called to set the expiration based on the set duration and current time
  */
 @property (nonatomic, strong) NSDate *expiration;
+
+@property (nonatomic, assign) BOOL canDelete;
 /*!
  *  The status of this pull
  */
@@ -100,7 +102,7 @@ typedef NS_ENUM(NSInteger, PULPullDistanceState)
 /**
  *  Indicates that the two users involved in this pull are physically together
  */
-@property (nonatomic, assign, getter=areTogether) BOOL together;
+@property (nonatomic, assign) BOOL together;
 
 /*****************************
  Instance Methods

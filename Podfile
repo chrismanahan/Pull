@@ -16,4 +16,5 @@ pod 'UIActivityIndicator-for-SDWebImage'
 
 link_with 'PullKit', 'Pull'
 link_with 'PullKit', 'PullTests'
+link_with 'PullKit', 'PullKitTests'
 end

@@ -26,16 +26,13 @@
 
 - (void)delayTestSeconds:(CGFloat)seconds
 {
-    __block BOOL waitingForBlock = YES;
+    dispatch_semaphore_t sem = dispatch_semaphore_create(0);
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        waitingForBlock = NO;
+        dispatch_semaphore_signal(sem);
     });
     
-    while(waitingForBlock) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-    }
+    dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
 }
 
 - (void)testGetFriends
@@ -71,6 +68,84 @@
     }];
     
     [self delayTestSeconds:1];
+}
+
+- (void)testSendPull
+{
+     __block BOOL waitingForBlock = YES;
+    
+    PULParseMiddleMan *parse = [PULParseMiddleMan sharedInstance];
+    [parse getFriendsInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
+        
+        PULUser *user = users[0];
+        
+        [parse sendPullToUser:user duration:3600 completion:^(BOOL success, NSError * _Nullable error) {
+            waitingForBlock = NO;
+        }];
+    }];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+}
+
+- (void)testAcceptPull
+{
+    PULParseMiddleMan *parse = [PULParseMiddleMan sharedInstance];
+    [parse getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
+        PULPull *pull = pulls[0];
+        
+        [parse acceptPull:pull];
+    }];
+    
+    [self delayTestSeconds:1];
+}
+
+- (void)testDeletePull
+{
+    PULParseMiddleMan *parse = [PULParseMiddleMan sharedInstance];
+    [parse getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
+        PULPull *pull = pulls[0];
+        
+        [parse deletePull:pull];
+    }];
+    
+    [self delayTestSeconds:1];
+}
+
+- (void)testUpdateLocation
+{
+    CLLocation *loc = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(50, 30)
+                                                    altitude:30
+                                          horizontalAccuracy:5
+                                            verticalAccuracy:3
+                                                      course:70
+                                                       speed:1.5
+                                                   timestamp:[NSDate dateWithTimeIntervalSinceNow:0]];
+    
+    PULParseMiddleMan *parse = [PULParseMiddleMan sharedInstance];
+    [parse updateLocation:loc
+             movementType:Walking
+             positionType:Outdoors];
+    
+    [self delayTestSeconds:1];
+}
+
+- (void)testObserveLocationUpdate
+{
+//    PULParseMiddleMan *parse = [PULParseMiddleMan sharedInstance];
+//    [parse getFriendsInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
+//        
+//        PULUser *user = users[0];
+//        [parse observeChangesInLocationForUser:user
+//                                      interval:1.0
+//                                         block:^(PULUser * _Nonnull user, NSError * _Nullable error) {
+//                                             PULLog(@"location: %@", user.location.location);
+//                                         }];
+//    }];
+//
+//    [self delayTestSeconds:60];
 }
 
 - (void)testPerformanceExample {

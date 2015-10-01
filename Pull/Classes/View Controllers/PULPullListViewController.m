@@ -29,8 +29,6 @@
 #import "CALayer+Animations.h"
 #import "NSArray+Sorting.h"
 
-#import "PULPulledUserDataSource.h"
-
 const NSInteger kPULAlertEndPullTag = 1001;
 
 NSString * const kPULDialogButtonTextAccept = @"Accept";
@@ -43,6 +41,10 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 @property (nonatomic, strong) id pullsLoadedNotification;
 
 @property (nonatomic, strong) PULSoundPlayer *soundPlayer;
+
+@property (nonatomic, assign) BOOL isReloading;
+
+@property (nonatomic, strong) NSArray *pullsDatasource;
 
 @end
 
@@ -62,7 +64,6 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     [_dialogDeclineButton setTitle:kPULDialogButtonTextDecline forState:UIControlStateNormal];
     
     
-    _pulledUserDatasource = [[PULPulledUserDataSource alloc] init];
     
 //    id loginObs = [[NSNotificationCenter defaultCenter] addObserverForName:PULAccountDidLoginNotification
 //                                                                    object:nil
@@ -92,13 +93,13 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                                                       
                                                   }];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:FBSDKAccessTokenDidChangeNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue currentQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      PULLog(@"received access token change notif, reloading table");
-                                                      [self reload];
-                                                  }];
+//    [[NSNotificationCenter defaultCenter] addObserverForName:FBSDKAccessTokenDidChangeNotification
+//                                                      object:nil
+//                                                       queue:[NSOperationQueue currentQueue]
+//                                                  usingBlock:^(NSNotification *note) {
+//                                                      PULLog(@"received access token change notif, reloading table");
+//                                                      [self reload];
+//                                                  }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                       object:nil
@@ -177,18 +178,28 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 #pragma mark
 - (void)reload
 {
-    
-    [self showNoLocation:![PULLocationUpdater sharedUpdater].hasPermission];
-    [_pulledUserDatasource loadDatasourceCompletion:^(NSArray *ds) {
-        [_collectionView reloadData];
-        [self setSelectedIndex:_selectedIndex];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    if (!_isReloading)
+    {
+        self.isReloading = YES;
+        [self showNoLocation:![PULLocationUpdater sharedUpdater].hasPermission];
+      
+        [[PULParseMiddleMan sharedInstance] getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
+            _pullsDatasource = pulls;
+            
+            [_collectionView reloadData];
             [self updateUI];
-        });
-    }];
-    
+            [self setSelectedIndex:_selectedIndex];
+            self.isReloading = NO;
+        }];
+    }
 }
 
+- (void)setIsReloading:(BOOL)isReloading
+{
+    _isReloading = isReloading;
+    
+    // TODO: display activity indicator
+}
 
 #pragma mark - Actions
 - (IBAction)ibMoreRight:(id)sender
@@ -223,12 +234,13 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 {
     if ([sender.titleLabel.text isEqual:kPULDialogButtonTextAccept])
     {
-        //TODO: ACCEPT PULL
+        [[PULParseMiddleMan sharedInstance] acceptPull:_displayedPull];
+        [self reload];
     }
     else if ([sender.titleLabel.text isEqual:kPULDialogButtonTextCancel] ||
              [sender.titleLabel.text isEqual:kPULDialogButtonTextDecline])
     {
-        // TODO: DECLINE/CANCEL PULL
+        [[PULParseMiddleMan sharedInstance] deletePull:_displayedPull];
         [self reload];
     }
     else if ([sender.titleLabel.text isEqual:kPULDialogButtonTextEnableLocation])
@@ -282,7 +294,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 #pragma mark Gestures
 - (void)_swipeLeft
 {
-    if (_pulledUserDatasource.datasource.count > 1)
+    if (_pullsDatasource.count > 1)
     {
         [self setSelectedIndex:_selectedIndex + 1];
         
@@ -297,7 +309,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 
 - (void)_swipeRight
 {
-    if (_pulledUserDatasource.datasource.count > 1)
+    if (_pullsDatasource.count > 1)
     {
         [self setSelectedIndex:_selectedIndex - 1];
         
@@ -364,15 +376,15 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 
 - (PULUser*)_userForIndex:(NSInteger)index;
 {
-    PULPull *pull = _pulledUserDatasource.datasource[index];
+    PULPull *pull = _pullsDatasource[index];
     return [pull otherUser];
 }
 
 - (NSInteger)_indexForUser:(PULUser*)aUser;
 {
-    for (int i = 0; i < _pulledUserDatasource.datasource.count; i++)
+    for (int i = 0; i < _pullsDatasource.count; i++)
     {
-        PULPull *pull = _pulledUserDatasource.datasource[i];
+        PULPull *pull = _pullsDatasource[i];
         PULUser *user = [pull otherUser];
         if ([user isEqual:aUser])
         {
@@ -385,9 +397,9 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 
 - (NSInteger)_indexForPull:(PULPull*)aPull;
 {
-    for (int i = 0; i < _pulledUserDatasource.datasource.count; i++)
+    for (int i = 0; i < _pullsDatasource.count; i++)
     {
-        PULPull *pull = _pulledUserDatasource.datasource[i];
+        PULPull *pull = _pullsDatasource[i];
         if ([pull isEqual:aPull])
         {
             return i;
@@ -430,28 +442,29 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
-    if (_pulledUserDatasource.datasource && _pulledUserDatasource.datasource.count > 0)
+    // stop observing location for last pull
+    if (_displayedPull)
     {
-        // stop observing location for last pull
-        if (_displayedPull)
-        {
-            // TODO: STOP OBSERVING LOCATION
-//            [[_displayedPull otherUser] stopObservingKeyPaths:@[@"location", @"locationAccuracy", @"hasMovedSinceLastLocationUpdate"]];
-        }
-        
+        // TODO: STOP OBSERVING LOCATION
+        [[PULParseMiddleMan sharedInstance] stopObservingChangesInLocationForUser:[_displayedPull otherUser]];
+    }
+    
+    NSArray *pulls = _pullsDatasource;
+    if (pulls && pulls.count > 0)
+    {
         if (selectedIndex < 0)
         {
             selectedIndex = 0;
         }
-        else if (selectedIndex >= _pulledUserDatasource.datasource.count)
+        else if (selectedIndex >= pulls.count)
         {
-            selectedIndex = _pulledUserDatasource.datasource.count - 1;
+            selectedIndex = pulls.count - 1;
         }
         
         _selectedIndex = selectedIndex;
-        if (_selectedIndex < _pulledUserDatasource.datasource.count)
+        if (_selectedIndex < _pullsDatasource.count)
         {
-            _displayedPull = _pulledUserDatasource.datasource[_selectedIndex];
+            _displayedPull = pulls[_selectedIndex];
         }
         else
         {
@@ -459,20 +472,21 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         }
         
         // deselect all cells
-        for (int i = 0; i < _pulledUserDatasource.datasource.count; i++)
+        for (int i = 0; i < pulls.count; i++)
         {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
             PULPulledUserCollectionViewCell *cell = (PULPulledUserCollectionViewCell*)[_collectionView cellForItemAtIndexPath:indexPath];
             [cell setActive:_selectedIndex == i animated:_selectedIndex == i];
         }
         
+        // start observing the location for this pull
         if (_displayedPull.status == PULPullStatusPulled)
         {
-            // TODO: START OBSERVING LOCATION
-//            [[_displayedPull otherUser] observeKeyPaths:@[@"location", @"locationAccuracy", @"hasMovedSinceLastLocationUpdate"]
-//                                                  block:^{
-//                                                      [self updateUI];
-//                                                  }];
+            [[PULParseMiddleMan sharedInstance]
+             observeChangesInLocationForUser:[_displayedPull otherUser]
+             interval:kPULPollTimeActive
+             target:self
+             selecter:@selector(updateUI)];
         }
         
         [self updateUI];
@@ -558,7 +572,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     
     // do we have more elements than visible cells
     NSArray *visibleIndexPaths = [_collectionView  indexPathsForVisibleItems];
-    if (visibleIndexPaths.count < _pulledUserDatasource.datasource.count && visibleIndexPaths.count != 0)
+    if (visibleIndexPaths.count < _pullsDatasource.count && visibleIndexPaths.count != 0)
     {
         // which side do we need to show it on
         
@@ -572,7 +586,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             // check if we should show the notification above the arrow
             for (int i = lowest-1; i >= 0; i--)
             {
-                PULPull *pull = _pulledUserDatasource.datasource[i];
+                PULPull *pull = _pullsDatasource[i];
                 if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULUser currentUser]])
                 {
                     _moreNotificationImageViewLeft.hidden = NO;
@@ -585,14 +599,14 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             _moreNotificationContainerLeft.hidden = YES;
         }
         
-        if (highest < _pulledUserDatasource.datasource.count-1)
+        if (highest < _pullsDatasource.count-1)
         {
             _moreNotificationContainerRight.hidden = NO;
             
             // check if we should show the notification above the arrow
-            for (int i = highest+1; i < _pulledUserDatasource.datasource.count; i++)
+            for (int i = highest+1; i < _pullsDatasource.count; i++)
             {
-                PULPull *pull = _pulledUserDatasource.datasource[i];
+                PULPull *pull = _pullsDatasource[i];
                 if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULUser currentUser]])
                 {
                     _moreNotificationImageViewRight.hidden = NO;
@@ -807,8 +821,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         if (buttonIndex == 0)
         {
             // end active pull
-            // TODO: CANCEL CURR PULL
-//            [[PULUser currentUser] cancelPull:_displayedPull];
+            [[PULParseMiddleMan sharedInstance] deletePull:_displayedPull];
             [self reload];
         }
     }
@@ -833,7 +846,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 {
     PULPulledUserCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PulledUserCell" forIndexPath:indexPath];
     
-    PULPull *pull = _pulledUserDatasource.datasource[indexPath.row];
+    PULPull *pull = _pullsDatasource[indexPath.row];
     
     cell.pull = pull;
     
@@ -842,7 +855,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _pulledUserDatasource.datasource.count;
+    return _pullsDatasource.count;
 }
 
 #pragma mark UIScrollView Delegate

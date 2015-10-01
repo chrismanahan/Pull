@@ -38,6 +38,9 @@ extern const NSTimeInterval kPULIntervalTimeSeldom;
  */
 extern const NSTimeInterval kPULIntervalTimeRare;
 
+extern NSString * const PULParseObjectsUpdatedLocationsNotification;
+extern NSString * const PULParseObjectsUpdatedPullsNotification;
+
 /*****************************
  Blocks
  *****************************/
@@ -141,13 +144,21 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  *
  *  @discussion If a pull is returned in the internal query that is past it's expiration, it will mark that pull for deletion. If the pull was already marked for deletion, this will delete the pull altogether. Marking a pull for deletion is the solution to making sure we don't delete a pull when the other user involved is currently reading that same pull.
  *
- *  @param completion Block to run when pulls are returned.
+ *  @param completion Block to run when pulls are returned. 
+ *
+ *  @note Completion block will run twice if cached pulls are available
  *
  */
 - (void)getPullsInBackground:(nullable PULPullsBlock)completion;
+- (void)getPullsInBackground:(nullable PULPullsBlock)completion ignoreCache:(BOOL)ignoreCache;
 
 - (NSArray<PULPull*>*)cachedPulls;
 - (nullable PULPull*)nearestPull;
+
+
+
+- (void)deletePull:(PULPull*)pull;
+- (void)acceptPull:(PULPull*)pull;
 
 
 /*****************************************************/
@@ -163,7 +174,7 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  *
  *  @note This method will assert that the users are not already friends
  */
-- (void)friendUsers:(nullable NSArray<PULUser*>*)users inBackground:(nullable PULStatusBlock)completion;
+- (void)friendUsers:(nullable NSArray<PULUser*>*)users;
 /**
  *  Adds a user as a friend to the logged in user
  *
@@ -172,7 +183,7 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  *
  *  @note This method will assert that the users are not already friends
  */
-- (void)friendUser:(PULUser*)user inBackground:(nullable PULStatusBlock)completion;
+- (void)friendUser:(PULUser*)user;
 /**
  *  Blocks a user
  *
@@ -200,15 +211,6 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  *  @param posType  Current position type
  */
 - (void)updateLocation:(CLLocation*)location movementType:(PKMotionType)moveType positionType:(PKPositionType)posType;
-/**
- *  Updates the current user's location
- *
- *  @param location Location to update to
- *  @param moveType Current movement type
- *  @param posType  Current position type
- *  @param completion Block to run when this action is complete
- */
-- (void)updateLocation:(CLLocation*)location movementType:(PKMotionType)moveType positionType:(PKPositionType)posType completion:(nullable PULStatusBlock)completion;
 
 
 
@@ -225,7 +227,7 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  *
  *  @note This method will assert that this user isn't already being observed
  */
-- (void)observeChangesInLocationForUser:(PULUser*)user interval:(NSTimeInterval)interval block:(PULUserBlock)block;
+- (void)observeChangesInLocationForUser:(PULUser*)user interval:(NSTimeInterval)interval target:(id)target selecter:(SEL)selector;
 /**
  *  Stops monitoring for location changes for a specific user
  *
@@ -250,7 +252,8 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  *  @param user       User to send pull to
  *  @param completion Completion block to run
  */
-- (void)sendPullToUser:(PULUser*)user completion:(nullable PULStatusBlock)completion;
+- (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration completion:(nullable PULStatusBlock)completion;
+
 
 @end
 

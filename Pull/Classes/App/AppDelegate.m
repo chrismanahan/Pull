@@ -57,6 +57,7 @@
     // check if we are logged in
     if ([[PULParseMiddleMan sharedInstance] currentUser])
     {
+        [[[PULParseMiddleMan sharedInstance] currentUser].location fetchIfNeededInBackground];
         vcName = NSStringFromClass([PULPullListViewController class]);
     }
     else /*not logged in*/

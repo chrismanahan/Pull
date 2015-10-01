@@ -23,16 +23,19 @@
 {
     static CLLocation *loc;
     
-    // if no location yet or the location is stale, initialize again
-    if (!loc || ![loc.timestamp isEqualToDate:self.updatedAt])
+    if (self.isDataAvailable)
     {
-        loc = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.lat, self.lon)
-                                             altitude:self.alt
-                                   horizontalAccuracy:self.accuracy
-                                     verticalAccuracy:0
-                                               course:self.course
-                                                speed:self.speed
-                                            timestamp:self.updatedAt];
+        // if no location yet or the location is stale, initialize again
+        if (!loc || ![loc.timestamp isEqualToDate:self.updatedAt])
+        {
+            loc = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.lat, self.lon)
+                                                 altitude:self.alt
+                                       horizontalAccuracy:self.accuracy
+                                         verticalAccuracy:0
+                                                   course:self.course
+                                                    speed:self.speed
+                                                timestamp:self.updatedAt];
+        }
     }
     return loc;
 }

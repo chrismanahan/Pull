@@ -26,18 +26,19 @@
     [super tearDown];
 }
 
-- (void)testNewUser
+- (void)testGetFriends
 {
-    [[PULParseMiddleMan sharedInstance] registerUser:@"facebook:1234"
-                                               first:@"chris"
-                                                last:@"manahan"
-                                               email:@"chrismanahan@gmail.com"
-                                                fbId:@"1234"
-                                          completion:^(BOOL success, NSError * _Nullable error) {
-                                              NSLog(@"success: %zd", success);
-                                          }];
+    dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+    
+    [[PULParseMiddleMan sharedInstance] getFriendsInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
+        
+        
+        
+        dispatch_semaphore_signal(sem);
+    }];
+    
+    dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
 }
-
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{

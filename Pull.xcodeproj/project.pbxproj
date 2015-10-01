@@ -351,6 +351,8 @@
 		9BED45A81B80D7CB0007F5F4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB5F1A0C4F0500C67BB5 /* Security.framework */; };
 		9BED45A91B80D7CB0007F5F4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952BDB611A0C4F0500C67BB5 /* SystemConfiguration.framework */; };
 		9BED45AE1B80DA160007F5F4 /* PullKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BED45AD1B80DA160007F5F4 /* PullKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9BEFB0CC1BBC2C8800A7A86B /* PFQuery+PullQueries.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BEFB0CA1BBC2C8800A7A86B /* PFQuery+PullQueries.h */; settings = {ASSET_TAGS = (); }; };
+		9BEFB0CD1BBC2C8800A7A86B /* PFQuery+PullQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFB0CB1BBC2C8800A7A86B /* PFQuery+PullQueries.m */; settings = {ASSET_TAGS = (); }; };
 		9BF018911B9B35E7004E6DCA /* PULLocalPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF018901B9B35E7004E6DCA /* PULLocalPush.m */; };
 		9BF53C551B92285200DB474E /* smiley_wink_with_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF53C521B92285200DB474E /* smiley_wink_with_background.png */; };
 		9BF53C561B92285200DB474E /* smiley_wink_with_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF53C531B92285200DB474E /* smiley_wink_with_background@2x.png */; };
@@ -849,6 +851,8 @@
 		9BED45931B80D7B90007F5F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BED45941B80D7B90007F5F4 /* PullKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullKitTests.m; sourceTree = "<group>"; };
 		9BED45AD1B80DA160007F5F4 /* PullKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullKit.h; sourceTree = "<group>"; };
+		9BEFB0CA1BBC2C8800A7A86B /* PFQuery+PullQueries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFQuery+PullQueries.h"; sourceTree = "<group>"; };
+		9BEFB0CB1BBC2C8800A7A86B /* PFQuery+PullQueries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFQuery+PullQueries.m"; sourceTree = "<group>"; };
 		9BF0188F1B9B35E7004E6DCA /* PULLocalPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULLocalPush.h; sourceTree = "<group>"; };
 		9BF018901B9B35E7004E6DCA /* PULLocalPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULLocalPush.m; sourceTree = "<group>"; };
 		9BF53C521B92285200DB474E /* smiley_wink_with_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smiley_wink_with_background.png; sourceTree = "<group>"; };
@@ -1708,8 +1712,7 @@
 				9B78A7B41B80DE7D005569B4 /* PULPush.m */,
 				951240BE1BABD4FF00988AC0 /* BackgroundTaskManager.h */,
 				951240BF1BABD4FF00988AC0 /* BackgroundTaskManager.m */,
-				9BC74BA31BB7975B00DFB297 /* PULParseMiddleMan.h */,
-				9BC74BA41BB7975B00DFB297 /* PULParseMiddleMan.m */,
+				9BEFB0C91BBC2C6000A7A86B /* Parse */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1842,6 +1845,17 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		9BEFB0C91BBC2C6000A7A86B /* Parse */ = {
+			isa = PBXGroup;
+			children = (
+				9BC74BA31BB7975B00DFB297 /* PULParseMiddleMan.h */,
+				9BC74BA41BB7975B00DFB297 /* PULParseMiddleMan.m */,
+				9BEFB0CA1BBC2C8800A7A86B /* PFQuery+PullQueries.h */,
+				9BEFB0CB1BBC2C8800A7A86B /* PFQuery+PullQueries.m */,
+			);
+			name = Parse;
+			sourceTree = "<group>";
+		};
 		9BF0188E1B9B35E7004E6DCA /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1892,6 +1906,7 @@
 				9B78A7E31B80DE9D005569B4 /* PULMacros.h in Headers */,
 				9B78A7951B80DE66005569B4 /* NSData+Hex.h in Headers */,
 				9B78A7B91B80DE7D005569B4 /* PULInviteService.h in Headers */,
+				9BEFB0CC1BBC2C8800A7A86B /* PFQuery+PullQueries.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2583,6 +2598,7 @@
 				9B78A7AA1B80DE66005569B4 /* PULError.m in Sources */,
 				9B1305571B83F24900CBF642 /* NSArray+Sorting.m in Sources */,
 				9B78A7D91B80DE88005569B4 /* THBinder.m in Sources */,
+				9BEFB0CD1BBC2C8800A7A86B /* PFQuery+PullQueries.m in Sources */,
 				9B78A7A41B80DE66005569B4 /* PULPull.m in Sources */,
 				9BC74BA61BB7975B00DFB297 /* PULParseMiddleMan.m in Sources */,
 				9B78A7961B80DE66005569B4 /* NSData+Hex.m in Sources */,

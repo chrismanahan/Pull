@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @class PULCompassView;
-@class PULPulledUserDataSource;
 
 @interface PULPullListViewController : UIViewController <UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 
@@ -41,7 +40,5 @@
 @property (nonatomic, assign) NSInteger selectedIndex;
 
 @property (nonatomic, strong) NSMutableArray *observers;
-
-@property (nonatomic, strong) PULPulledUserDataSource *pulledUserDatasource;
 
 @end

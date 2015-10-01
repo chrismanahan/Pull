@@ -56,6 +56,10 @@ const double kPULDistanceAllowedAccuracy = 15;
 
 const NSInteger kPULPullLocalNotificationDelayMinutes = 5;
 
+const NSInteger kPULPollTimeActive = 5;
+const NSInteger kPULPollTimePassive = 30;
+const NSInteger kPULPollTimeBackground = 120;
+
 // location tracking
 const NSInteger kLocationForegroundDistanceFilter = 1;//20;    // meters
 const NSInteger kLocationBackgroundDistanceFilter = 4;//30;

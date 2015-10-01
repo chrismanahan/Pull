@@ -288,12 +288,12 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     BOOL getImmediateUpdate = NO;
     
     // check motion type
-    if (acct.location.movementType == Driving)
-    {
-        trackingMode = Geofencing;
-        keepTuning = NO;
-    }
-    
+//    if (acct.location.movementType == Driving)
+//    {
+//        trackingMode = Geofencing;
+//        keepTuning = NO;
+//    }
+//    
     // check if we're in the foreground or anyone we're pulled with is in the foreground
     if (keepTuning)
     {

@@ -21,7 +21,8 @@
     {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"boop" ofType:@"mp3"];
         NSURL *pathUrl = [NSURL fileURLWithPath:path];
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)pathUrl, &_boopSoundID);
+        // TODO: enable sound load
+  //      AudioServicesCreateSystemSoundID((__bridge CFURLRef)pathUrl, &_boopSoundID);
         
     }
     

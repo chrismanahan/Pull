@@ -10,6 +10,8 @@
 
 #import "PFQuery+PullQueries.h"
 
+#import "NSDate+Utilities.h"
+
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
@@ -68,7 +70,6 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
                                                           [self _stopMonitoringPulls];
                                                           [self _stopMonitoringPulledLocations];
                                                           
-                                                          [self _startMonitoringPullsInBackground:YES];
                                                           [self _startMonitoringPulledLocationsInBackground:YES];
                                                       }];
         
@@ -157,9 +158,11 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)_stopObserverTimer:(NSTimer*)timer
 {
-    NSAssert(timer != nil, @"timer doesn't exist");
-    [timer invalidate];
-    timer = nil;
+    if (timer)
+    {
+        [timer invalidate];
+        timer = nil;
+    }
 }
 
 
@@ -327,17 +330,36 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     [self _runBlockInBackground:^{
         PFQuery *query  = [PFQuery queryLookupPulls];
         NSError *err;
-        NSArray *objs = [query findObjects:&err];
+        NSMutableArray *objs = [[query findObjects:&err] mutableCopy];
+        NSMutableIndexSet *flaggedIndexes = [[NSMutableIndexSet alloc] init];
         
         for (PULPull *pull in objs)
         {
             PULUser *otherUser = [pull otherUser];
             [otherUser.location fetchIfNeeded];
+            
+            if ([pull.expiration isInPast])
+            {
+                [flaggedIndexes addIndex:[objs indexOfObject:pull]];
+            }
+        }
+        
+        // remove expired pulls and delete
+        NSArray *flaggedPulls = [objs objectsAtIndexes:flaggedIndexes];
+        [objs removeObjectsAtIndexes:flaggedIndexes];
+        
+        if (flaggedPulls.count > 0)
+        {
+            for (PULPull *pull in flaggedPulls)
+            {
+                [self deletePull:pull];
+            }
         }
         
         // set these pulls into the cache
         [self _setPullCache:objs];
         
+        // run completion
         [self _runBlockOnMainQueue:^{
             completion(objs, err);
         }];
@@ -497,7 +519,10 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     // remove from cache
     NSMutableArray *pulls = [[self cachedPulls] mutableCopy];
     [pulls removeObject:pull];
-    [_cache setObject:pulls forKey:@"pulls"];
+    if (pulls)
+    {
+        [_cache setObject:pulls forKey:@"pulls"];
+    }
     
     // delete from parse
     [pull deleteEventually];

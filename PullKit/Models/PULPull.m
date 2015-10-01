@@ -88,8 +88,6 @@ const NSTimeInterval kPullDurationAlways  = 0;
 
 - (BOOL)isAccurate;
 {
-    
-    
     // if someone's accuracy is low
     BOOL accurate =  (self.sendingUser.location.accuracy < kPULDistanceAllowedAccuracy || self.receivingUser.location.accuracy < kPULDistanceAllowedAccuracy);
     
@@ -158,6 +156,8 @@ const NSTimeInterval kPullDurationAlways  = 0;
 - (PULPullDistanceState)pullDistanceState
 {
     NSAssert(self.status == PULPullStatusPulled, @"pull must be active to check the distance state");
+    NSAssert(self.receivingUser.location.isDataAvailable, @"receiver location not available");
+    NSAssert(self.sendingUser.location.isDataAvailable, @"sender location not available");
 
     PULPullDistanceState state;
     if ([self isNearby] && ![self isAccurate])

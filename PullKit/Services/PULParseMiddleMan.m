@@ -96,76 +96,74 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)_observerTimerTick:(NSTimer*)timer
 {
-    if ([timer isEqual:_observerTimerPulls])
-    {
-        // refresh pulls
-        [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
-                                                                object:nil];
-        } ignoreCache:YES];
-    }
-    else if ([timer isEqual:_observerTimerLocations])
-    {
-        // refresh locations
-        NSMutableArray *locations = [[NSMutableArray alloc] init];
-        for (PULPull *pull in [self cachedPulls])
+    [self _runBlockInBackground:^{
+        if ([timer isEqual:_observerTimerPulls])
         {
-            [locations addObject:[pull otherUser].location];
+            // refresh pulls
+            [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
+                                                                    object:nil];
+            } ignoreCache:YES];
         }
-        
-        if (locations.count > 0)
+        else if ([timer isEqual:_observerTimerLocations])
         {
-            [PFObject fetchAll:locations];
+            // refresh locations
+            NSMutableArray *locations = [[NSMutableArray alloc] init];
+            for (PULPull *pull in [self cachedPulls])
+            {
+                [locations addObject:[pull otherUser].location];
+            }
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedLocationsNotification
-                                                                object:nil];
+            if (locations.count > 0)
+            {
+                [PFObject fetchAll:locations];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedLocationsNotification
+                                                                    object:nil];
+            }
         }
-    }
+    }];
 }
 
 - (void)_startMonitoringPullsInBackground:(BOOL)inBackground
 {
-    [self _startObserverTimer:_observerTimerPulls inBackground:inBackground];
+    NSAssert(_observerTimerPulls == nil, @"observer timer already set. should be stopped first");
+    _observerTimerPulls = [NSTimer
+                               scheduledTimerWithTimeInterval:inBackground ? kPULPollTimeBackground : kPULPollTimePassive
+                               target:self
+                               selector:@selector(_observerTimerTick:)
+                               userInfo:nil
+                               repeats:YES];
 }
 
 - (void)_startMonitoringPulledLocationsInBackground:(BOOL)inBackground
 {
-    [self _startObserverTimer:_observerTimerLocations inBackground:inBackground];
-}
-
-- (void)_startObserverTimer:(NSTimer*)timer inBackground:(BOOL)background
-{
-    NSAssert(timer == nil, @"observer timer already set. should be stopped first");
-    timer = [NSTimer
-             scheduledTimerWithTimeInterval:background ? kPULPollTimeBackground : kPULPollTimePassive
+    NSAssert(_observerTimerLocations == nil, @"observer timer already set. should be stopped first");
+    _observerTimerLocations = [NSTimer
+             scheduledTimerWithTimeInterval:inBackground ? kPULPollTimeBackground : kPULPollTimePassive
              target:self
              selector:@selector(_observerTimerTick:)
              userInfo:nil
              repeats:YES];
 }
 
-
-
 - (void)_stopMonitoringPulls
 {
-    [self _stopObserverTimer:_observerTimerPulls];
+    if (_observerTimerPulls)
+    {
+        [_observerTimerPulls invalidate];
+        _observerTimerPulls = nil;
+    }
 }
 
 - (void)_stopMonitoringPulledLocations
 {
-    [self _stopObserverTimer:_observerTimerLocations];
-}
-
-- (void)_stopObserverTimer:(NSTimer*)timer
-{
-    if (timer)
+    if (_observerTimerLocations)
     {
-        [timer invalidate];
-        timer = nil;
+        [_observerTimerLocations invalidate];
+        _observerTimerLocations = nil;
     }
 }
-
-
 
 - (void)_addPullToCache:(PULPull*)pull
 {
@@ -342,6 +340,18 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             {
                 [flaggedIndexes addIndex:[objs indexOfObject:pull]];
             }
+            else
+            {
+                // need to explicity set this user
+                if ([pull.sendingUser isEqual:otherUser])
+                {
+                    pull.receivingUser = [PULUser currentUser];
+                }
+                else
+                {
+                    pull.sendingUser = [PULUser currentUser];
+                }
+            }
         }
         
         // remove expired pulls and delete
@@ -445,17 +455,22 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)_tickObserverTimer:(NSTimer*)timer
 {
-    PULUser *user = [timer userInfo];
-    
-    [user.location fetch];
-    
-    NSString *key = user.username;
-    NSDictionary *dict = _locationTimers[key];
-    
-    SEL selector = [dict[@"selector"] pointerValue];
-    id target = dict[@"target"];
-    
-    [target performSelector:selector];
+    [self _runBlockInBackground:^{
+        PULUser *user = [timer userInfo];
+        
+        [user.location fetch];
+        
+        NSString *key = user.username;
+        NSDictionary *dict = _locationTimers[key];
+        
+        SEL selector = [dict[@"selector"] pointerValue];
+        id target = dict[@"target"];
+        
+        [self _runBlockOnMainQueue:^{
+            [target performSelector:selector];
+        }];
+        
+    }];
 }
 
 #pragma mark - Pulls

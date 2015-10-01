@@ -53,6 +53,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 #pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
+    [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+    
     _observers = [[NSMutableArray alloc] init];
     
     // initialize sound player
@@ -74,6 +76,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 //                                                                    [[NSNotificationCenter defaultCenter] removeObserver:loginObs];
 //                                                                }];
     
+   static BOOL finishedSetup = NO;
     // subscribe to disabled location updates
     [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationPermissionsDeniedNotification
                                                       object:nil
@@ -89,7 +92,10 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                                                   usingBlock:^(NSNotification *note) {
                                                       
                                                       //                                                      [PULLocationOverlay removeOverlayFromView:self.view];
-                                                      [self reload];
+                                                      if (finishedSetup)
+                                                      {
+                                                          [self reload];
+                                                      }
                                                       
                                                   }];
     
@@ -101,15 +107,21 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 //                                                      [self reload];
 //                                                  }];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+    [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationUpdatedNotification
                                                       object:nil
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
-                                                      [self reload];
+                                                      
+                                                      if (!finishedSetup)
+                                                      {
+                                                          finishedSetup = YES;
+                                                          
+                                                          [self finishSetup];
+                                                          [self reload];
+                                                      }
+                                                      
+                                                      [self updateUI];
                                                   }];
-    
-    [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
-    
     
     // add swipe gesture recognizers
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(_swipeLeft)];
@@ -148,21 +160,6 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     [self.view setNeedsUpdateConstraints];
 }
 
-
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    //    [self updateUI];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self reload];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -173,6 +170,33 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         _pullsLoadedNotification = nil;
     }
     
+}
+
+- (void)finishSetup
+{
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [self reload];
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:PULParseObjectsUpdatedPullsNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      // TODO: check if foreground
+                                                      [self reload];
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:PULParseObjectsUpdatedLocationsNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      // TODO: check if foreground
+                                                      [self reload];
+                                                  }];
+
 }
 
 #pragma mark
@@ -655,9 +679,6 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         dispatch_async(dispatch_get_main_queue(), ^{
             [NSLayoutConstraint activateConstraints:@[_dialogLabelBottomConstraint]];
         });
-        
-        
-        
     }
     else
     {
@@ -678,6 +699,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         
         return;
     }
+
     // clean up from showing no active if needed
     [self _showNoActivePulls:NO];
     

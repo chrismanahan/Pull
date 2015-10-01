@@ -128,12 +128,14 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  *  @return Array of friends or nil
  */
 - (nullable NSArray<PULUser*>*)cachedFriends;
+- (nullable NSArray<PULUser*>*)cachedFriendsNotPulled;
 /**
  *  Gets the cached array of blocked users
  *
  *  @return Array of blocked users or nil
  */
 - (nullable NSArray<PULUser*>*)cachedBlockedUsers;
+
 
 /*****************************************************/
 /*****************************************************/

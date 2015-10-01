@@ -25,9 +25,9 @@
 
 @property (nonatomic, strong) NSArray *dataSource;
 
-@property (strong, nonatomic) id pullsLoadedNotification;
-
 @property (strong, nonatomic) IBOutlet UILabel *ticketHeaderLabel;
+
+@property (nonatomic, strong) PULParseMiddleMan *parse;
 
 @end
 
@@ -37,43 +37,26 @@
 {
     [super viewWillAppear:animated];
 
-    _searchBar.text = @"";
-    
-    PULUser *account = [PULUser currentUser];
-    
-    
-    // TODO: load selection of users
-//    void (^loadBlock)() = ^void(){
-//        if (account.friends.count == 0 && account.friends.isLoaded)
-//        {
-//            _noFriendsOverlay.hidden = NO;
-//            
-//        }
-//        else
-//        {
-//            if (!_noFriendsOverlay.hidden)
-//            {
-//                _noFriendsOverlay.hidden = YES;
-//            }
-//            
-//            [self _reloadDatasource];
-//        }
-//    };
-//    
-//    if ((account.pulls.isLoaded && account.pulls.count > 0) || account.pulls.count == 0)
-//    {
-//        loadBlock();
-//    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    if (_pullsLoadedNotification)
+    if ([_parse cachedFriendsNotPulled])
     {
-        [[NSNotificationCenter defaultCenter] removeObserver:_pullsLoadedNotification];
+        [self _reloadDatasource];
     }
+    else
+    {
+        // TODO: show loading indicator
+    }
+    
+    [_parse getFriendsInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
+        // hide or show no friends overlay if needed
+        if (!_dataSource || _dataSource.count == 0) {
+            self.noFriendsOverlay.hidden = YES;
+        } else if (self.noFriendsOverlay.hidden) {
+            self.noFriendsOverlay.hidden = NO;
+        }
+        
+        [self _reloadDatasource];
+        // TODO: hide loading indicator
+    }];
 }
 
 - (void)viewDidLoad
@@ -82,6 +65,8 @@
     
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     _searchBar.tintColor = PUL_Purple;
+    
+    _parse = [PULParseMiddleMan sharedInstance];
 }
 
 #pragma mark - Actions
@@ -108,26 +93,26 @@
 - (void)_reloadDatasourceForSearch:(NSString*)search
 {
     // TODO: reload data source
-//    if (!search || search.length == 0)
-//    {
-//        _dataSource = [[PULUser currentUser] sortedArray:[PULUser currentUser].unpulledFriends];
-//    }
-//    else
-//    {
-//        NSMutableArray *temp = [[NSMutableArray alloc] init];
-//        for (PULUser *user in [PULUser currentUser].unpulledFriends)
-//        {
-//            search = search.lowercaseString;
-//            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
-//                [user.fullName.lowercaseString hasPrefix:search])
-//            {
-//                [temp addObject:user];
-//            }
-//        }
-//        _dataSource = [[NSArray alloc] initWithArray:temp];
-//    }
-//    
-//    [_tableView reloadData];
+    if (!search || search.length == 0)
+    {
+        _dataSource = [_parse cachedFriendsNotPulled];
+    }
+    else
+    {
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
+        for (PULUser *user in [_parse cachedFriendsNotPulled])
+        {
+            search = search.lowercaseString;
+            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
+                [user.fullName.lowercaseString hasPrefix:search])
+            {
+                [temp addObject:user];
+            }
+        }
+        _dataSource = [[NSArray alloc] initWithArray:temp];
+    }
+    
+    [_tableView reloadData];
 }
 
 #pragma mark - UISearchBar Delgate

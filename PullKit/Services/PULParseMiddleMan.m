@@ -15,6 +15,8 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
+
 const NSTimeInterval kPULIntervalTimeFrequent   = 5;
 const NSTimeInterval kPULIntervalTimeModerate   = 20;
 const NSTimeInterval kPULIntervalTimeOccasional = 45;
@@ -265,7 +267,25 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (nullable NSArray<PULUser*>*)cachedFriends
 {
-    return [_cache objectForKey:@"friends"];
+    return [[_cache objectForKey:@"friends"] linq_sort:^id(id item) {
+        return [item firstName];
+    }];
+}
+
+- (nullable NSArray<PULUser*>*)cachedFriendsNotPulled;
+{
+    return [[self cachedFriends]
+             linq_where:^BOOL(id item) {
+                 return ![[self cachedFriendsPulled] containsObject:item];
+             }];
+}
+
+- (nullable NSArray<PULUser*>*)cachedFriendsPulled
+{
+    return [[self cachedPulls]
+            linq_select:^id(id item) {
+                return [item otherUser];
+            }];
 }
 
 - (nullable NSArray<PULUser*>*)cachedBlockedUsers

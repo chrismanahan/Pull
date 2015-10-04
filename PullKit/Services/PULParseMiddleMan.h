@@ -154,7 +154,7 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
 - (void)getPullsInBackground:(nullable PULPullsBlock)completion;
 - (void)getPullsInBackground:(nullable PULPullsBlock)completion ignoreCache:(BOOL)ignoreCache;
 
-- (NSArray<PULPull*>*)cachedPulls;
+- (nullable NSArray<PULPull*>*)cachedPulls;
 - (nullable PULPull*)nearestPull;
 
 
@@ -256,6 +256,7 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  */
 - (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration completion:(nullable PULStatusBlock)completion;
 
+- (void)_registerUser:(PULUser*)user withFbResult:(id)result completion:(void(^)(BOOL success, NSError *error))completion;
 
 @end
 

@@ -27,8 +27,8 @@
     [self _assertClass:[PULPull class]];
     
     return [self sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        CLLocationDistance distance1 = [[((PULPull*)obj1) otherUser].location.location distanceFromLocation:[PULUser currentUser].location];
-        CLLocationDistance distance2 = [[((PULPull*)obj2) otherUser].location.location distanceFromLocation:[PULUser currentUser].location];
+        CLLocationDistance distance1 = [[((PULPull*)obj1) otherUser].location.location distanceFromLocation:[PULUser currentUser].location.location];
+        CLLocationDistance distance2 = [[((PULPull*)obj2) otherUser].location.location distanceFromLocation:[PULUser currentUser].location.location];
         
         if (distance1 < distance2)
         {

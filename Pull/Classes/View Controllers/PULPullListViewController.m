@@ -46,6 +46,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 
 @property (nonatomic, strong) NSArray *pullsDatasource;
 
+@property (nonatomic, assign) BOOL finishedSetup;
+
 @end
 
 @implementation PULPullListViewController
@@ -76,7 +78,6 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 //                                                                    [[NSNotificationCenter defaultCenter] removeObserver:loginObs];
 //                                                                }];
     
-   static BOOL finishedSetup = NO;
     // subscribe to disabled location updates
     [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationPermissionsDeniedNotification
                                                       object:nil
@@ -92,7 +93,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                                                   usingBlock:^(NSNotification *note) {
                                                       
                                                       //                                                      [PULLocationOverlay removeOverlayFromView:self.view];
-                                                      if (finishedSetup)
+                                                      if (_finishedSetup)
                                                       {
                                                           [self reload];
                                                       }
@@ -112,9 +113,9 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       
-                                                      if (!finishedSetup)
+                                                      if (!_finishedSetup)
                                                       {
-                                                          finishedSetup = YES;
+                                                          _finishedSetup = YES;
                                                           
                                                           [self finishSetup];
                                                           [self reload];
@@ -169,7 +170,16 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         [[NSNotificationCenter defaultCenter] removeObserver:_pullsLoadedNotification];
         _pullsLoadedNotification = nil;
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
+    if (_finishedSetup)
+    {
+        [self reload];
+    }
 }
 
 - (void)finishSetup
@@ -196,6 +206,13 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                                                       // TODO: check if foreground
                                                       [self reload];
                                                   }];
+
+    PULUser *user = [PULUser currentUser];
+    if (user && [UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+    {
+        user.isInForeground = YES;
+        [user saveInBackground];
+    }
 
 }
 

@@ -24,6 +24,13 @@ extern const NSTimeInterval kPullDurationDay;
 extern const NSTimeInterval kPullDurationAlways;
 
 /*****************************
+ Notifications
+ *****************************/
+
+extern NSString * const PULPullNearbyNotification;
+extern NSString * const PULPullNoLongerNearbyNotification;
+
+/*****************************
  Enums
  *****************************/
 
@@ -94,7 +101,6 @@ typedef NS_ENUM(NSInteger, PULPullDistanceState)
  */
 @property (nonatomic, strong) NSDate *expiration;
 
-@property (nonatomic, assign) BOOL canDelete;
 /*!
  *  The status of this pull
  */
@@ -103,29 +109,23 @@ typedef NS_ENUM(NSInteger, PULPullDistanceState)
  *  Indicates that the two users involved in this pull are physically together
  */
 @property (nonatomic, assign) BOOL together;
+/**
+ *  Indicates that the users are within 1000 ft of eachother 
+ */
+@property (nonatomic, assign) BOOL nearby;
 
 /*****************************
  Instance Methods
  *****************************/
 
 /**
- *  Helper method to check if the users are nearby
+ *   Sets the narby and together flags. Sends out appropriate nearby/no longer nearby notifications
  *
- *  @return YES if nearby
- */
-- (BOOL)isNearby;
-/**
- *  Helper to indicate if the users are almost together
+ *  @see PULPullNoLongerNearbyNotification
+ *  @see PULPullNearbyNotification
  *
- *  @return Yes if users are almost together
  */
-- (BOOL)isAlmostHere;
-/**
- *  Helper to indicate if the users are within visible distance
- *
- *  @return Yes if within visible distance
- */
-- (BOOL)isHere;
+- (void)setDistanceFlags;
 - (BOOL)containsUser:(PULUser*)user;
 - (BOOL)initiatedBy:(PULUser*)user;
 - (BOOL)isAccurate;

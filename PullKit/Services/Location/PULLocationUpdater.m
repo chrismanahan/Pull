@@ -36,6 +36,8 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 @property (nonatomic, strong) PULParseMiddleMan *parse;
 
+@property (nonatomic, assign) PKPositionTrackingMode currentTrackingMode;
+
 @end
 
 @implementation PULLocationUpdater
@@ -96,42 +98,34 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
  */
 -(void)startUpdatingLocation;
 {
-    static int tries = 0;
-    static BOOL didStart = NO;
-    // verify we should be starting location
-    if ([self _shouldUpdateLocation])
-    {
-        PULLog(@"starting location updater");
-        _tracking = YES;
-        
-        [parkour start];
-        [parkour setMinPositionUpdateRate:0];
-        [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
-            
-            PULLog(@"received location: %@ of type %zd : $zd", position, motionType);
-            
-            [self _updateToLocation:position position:positionType motion:motionType];
-            
-        }];
-        
-        [parkour setTrackPositionMode:Fitness];
-        
-    }
-    else
-    {
-        // try again soon
-        if (tries++ < 10)
-        {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self startUpdatingLocation];
-            });
-        }
-        else
-        {
-            tries = 0;
-        }
-    }
+    [self startUpdatingLocationWithMode:Automotive];
 }
+
+- (void)startUpdatingLocationWithMode:(PKPositionTrackingMode)mode
+{
+    PULLog(@"starting location updater");
+    _tracking = YES;
+    _currentTrackingMode = mode;
+    
+    [parkour start];
+    [parkour setMinPositionUpdateRate:5];
+    [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
+        
+        PULLog(@"received location: %@ of type %zd : $zd", position, motionType);
+        
+        [self _updateToLocation:position position:positionType motion:motionType];
+        
+    }];
+    
+    [parkour setTrackPositionMode:mode];
+}
+
+- (void)restartUpdatingLocationWithMode:(PKPositionTrackingMode)mode
+{
+    [self stopUpdatingLocation];
+    [self startUpdatingLocationWithMode:mode];
+}
+
 /*!
  *  Stops updating and posting location
  */
@@ -142,7 +136,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     _tracking = NO;
     
     [parkour stopTrackPosition];
-    [parkour stop];
+//    [parkour stop];
 }
 
 #pragma mark - Location Manager delegate
@@ -210,23 +204,16 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 - (void)_updateToLocation:(nullable CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
 {
-    /*
+    
     PULUser *acct = [PULUser currentUser];
     // determine which tracking mode to use based on current motion type
     // and state of pulls
-    PKPositionTrackingMode trackingMode = Geofencing;
+    PKPositionTrackingMode trackingMode = Pedestrian;
     BOOL keepTuning = YES;
     BOOL foreground = acct.isInForeground;
     BOOL hasActivePull = NO;
     BOOL getImmediateUpdate = NO;
     
-    // check motion type
-//    if (acct.location.movementType == Driving)
-//    {
-//        trackingMode = Geofencing;
-//        keepTuning = NO;
-//    }
-//    
     // check if we're in the foreground or anyone we're pulled with is in the foreground
     if (keepTuning)
     {
@@ -243,9 +230,10 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
             }
         }
         
+        // if no one's in the foreground, use low tracking
         if (!foreground)
         {
-            trackingMode = Geofencing;
+            trackingMode = Pedestrian;
             keepTuning = NO;
         }
     }
@@ -257,41 +245,23 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         trackingMode = [self _settingTypeForPull:nearestPull];
     }
     
-    [parkour stopTrackPosition];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
-            
-            PULLog(@"received location: %@ of type %zd : $zd", position, motionType);
-            
-//            PULUser *acct = [PULUser currentUser];
-//            if (motionType != acct.location.movementType)
-//            {
-//                //                    [PULUser currentUser].hasMovedSinceLastLocationUpdate = motionType != NotMoving;
-//            }
-            
-            [self _updateToLocation:position position:positionType motion:motionType];
-        
-        }];
-        
-        [parkour setTrackPositionMode:trackingMode];
-    });
-    
-//    if (!getImmediateUpdate && foreground)
-//    {
-//        [self _forceUpdateIfNeeded];
-//    }
-    */
-    if (location && [location isKindOfClass:[CLLocation class]])
+    // restart location tracking with new mode
+    if (trackingMode != _currentTrackingMode)
     {
-        [self _saveNewLocation:location position:positionType motion:motionType];
+        [self restartUpdatingLocationWithMode:trackingMode];
     }
+    
+    // save new location
+    [self _saveNewLocation:location position:positionType motion:motionType];
+
 }
 
 - (void)_saveNewLocation:(CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
 
 {
     PULUser *acct = [PULUser currentUser];
+    
+    if (!acct) { return; } 
     
     // round each lat lon for comparison
     CGFloat newLat = round(100 * location.coordinate.latitude) / 100;
@@ -304,7 +274,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     if (YES || hasDifferentLoc || location.horizontalAccuracy < acct.location.location.horizontalAccuracy)
     {
         // save new location if coords are different or if the accuracy has improved
-//        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
         
             [_parse updateLocation:location
                       movementType:motionType
@@ -312,7 +282,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
             
             [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
                                                                 object:location];
-//        });
+        });
     }
 }
 
@@ -322,19 +292,19 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     
     if (distance > kPULLocationTuningDistanceLowMeters)
     {
-        settingType = Geofencing;
+        settingType = Pedestrian;
     }
     else if (distance > kPULLocationTuningDistanceAutoMeters)
     {
-        settingType = Pedestrian;
+        settingType = Fitness;
     }
     else if (distance > kPULLocationTuningDistanceMediumMeters)
     {
-        settingType = Fitness;
+        settingType = Automotive;
     }
     else
     {
-        settingType = Share;
+        settingType = Automotive;
     }
     
     return settingType;

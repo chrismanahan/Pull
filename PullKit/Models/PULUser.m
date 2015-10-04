@@ -25,6 +25,12 @@
 @dynamic location;
 @dynamic settings;
 
++ (instancetype)currentUser
+{
+    PFUser *user = [PFUser currentUser];
+    return (PULUser*)user;
+}
+
 #pragma mark - Properties
 - (NSString*)fullName
 {

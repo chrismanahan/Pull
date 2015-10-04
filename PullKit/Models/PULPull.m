@@ -21,6 +21,9 @@ const NSTimeInterval kPullDurationHalfDay = 3600 * 12;
 const NSTimeInterval kPullDurationDay     = 3600 * 24;
 const NSTimeInterval kPullDurationAlways  = 0;
 
+NSString * const PULPullNearbyNotification = @"PULPullNearbyNotification";
+NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNotification";
+
 @implementation PULPull
 
 @dynamic sendingUser;
@@ -29,10 +32,31 @@ const NSTimeInterval kPullDurationAlways  = 0;
 @dynamic expiration;
 @dynamic status;
 @dynamic together;
-@dynamic canDelete;
+@dynamic nearby;
 
 
 #pragma mark - Public
+- (void)setDistanceFlags;
+{
+    BOOL wasNearby = self.nearby;
+    
+    self.nearby = [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceNearbyMeters;
+    self.together = [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceTogetherMeters;
+    
+    if (!wasNearby && self.nearby)
+    {
+        // if we weren't nearby and now we are, notify
+        [[NSNotificationCenter defaultCenter] postNotificationName:PULPullNearbyNotification
+                                                            object:self];
+    }
+    else if (wasNearby && !self.nearby)
+    {
+        // if we were nearby and no longer are, tell the user
+        [[NSNotificationCenter defaultCenter] postNotificationName:PULPullNoLongerNearbyNotification
+                                                            object:self];
+    }
+}
+
 - (BOOL)containsUser:(PULUser*)user;
 {
     if ([self.sendingUser isEqual:user] || [self.receivingUser isEqual:user])
@@ -92,7 +116,7 @@ const NSTimeInterval kPullDurationAlways  = 0;
     BOOL accurate =  (self.sendingUser.location.accuracy < kPULDistanceAllowedAccuracy || self.receivingUser.location.accuracy < kPULDistanceAllowedAccuracy);
     
     // neither user has moved since their last update and they're relatively close
-    BOOL closeEnough = [self isHere] || [self isAlmostHere];
+    BOOL closeEnough = [self _isHere] || [self _isAlmostHere];
     // TODO: add back in an implemenation of determine if the user hasn't moved since the last update
 //    BOOL noMovement = ((!_receivingUser.hasMovedSinceLastLocationUpdate && !_sendingUser.hasMovedSinceLastLocationUpdate) && closeEnough);
     
@@ -130,19 +154,21 @@ const NSTimeInterval kPullDurationAlways  = 0;
     return retString;
 }
 
-- (BOOL)isNearby
+
+// TODO: refeactor these methods to coincide only with pullDistanceState
+- (BOOL)_isNearby
 {
     return [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceNearbyMeters &&
     [[PULUser currentUser] distanceFromUser:[self otherUser]] > kPULDistanceAlmostHereMeter;
 }
 
-- (BOOL)isAlmostHere
+- (BOOL)_isAlmostHere
 {
     return [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceAlmostHereMeter &&
             [[PULUser currentUser] distanceFromUser:[self otherUser]] > kPULDistanceHereMeters;
 }
 
-- (BOOL)isHere
+- (BOOL)_isHere
 {
     CGFloat threshold = kPULDistanceHereMeters;
     if (self.together)
@@ -156,23 +182,23 @@ const NSTimeInterval kPullDurationAlways  = 0;
 - (PULPullDistanceState)pullDistanceState
 {
     NSAssert(self.status == PULPullStatusPulled, @"pull must be active to check the distance state");
-    NSAssert(self.receivingUser.location.isDataAvailable, @"receiver location not available");
-    NSAssert(self.sendingUser.location.isDataAvailable, @"sender location not available");
+//    NSAssert(self.receivingUser.location.isDataAvailable, @"receiver location not available");
+//    NSAssert(self.sendingUser.location.isDataAvailable, @"sender location not available");
 
     PULPullDistanceState state;
-    if ([self isNearby] && ![self isAccurate])
+    if ([self _isNearby] && ![self isAccurate])
     {
         state = PULPullDistanceStateInaccurate;
     }
-    else if ([self isHere])
+    else if ([self _isHere])
     {
         state = PULPullDistanceStateHere;
     }
-    else if ([self isAlmostHere])
+    else if ([self _isAlmostHere])
     {
         state = PULPullDistanceStateAlmostHere;
     }
-    else if ([self isNearby])
+    else if ([self _isNearby])
     {
         state = PULPullDistanceStateNearby;
     }

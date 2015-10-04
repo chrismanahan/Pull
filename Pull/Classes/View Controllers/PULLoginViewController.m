@@ -34,6 +34,10 @@
 #pragma mark - Actions
 - (IBAction)ibPresentFacebookLogin:(id)sender;
 {
+    PULLog(@"presenting facebook login");
+    
+    NSArray *permissions = @[@"email", @"public_profile", @"user_friends"];
+    
     [[PULParseMiddleMan sharedInstance] loginWithFacebook:^(BOOL success, NSError * _Nullable error) {
         if (success)
         {

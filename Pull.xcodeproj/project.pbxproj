@@ -218,7 +218,11 @@
 		95F3670F1AF6C8FB00A3E2F6 /* white_card_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367061AF6C8FB00A3E2F6 /* white_card_top.png */; };
 		95F367101AF6C8FB00A3E2F6 /* white_card_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367071AF6C8FB00A3E2F6 /* white_card_top@2x.png */; };
 		95F367111AF6C8FB00A3E2F6 /* white_card_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367081AF6C8FB00A3E2F6 /* white_card_top@3x.png */; };
-		9B008BBB1B88282B00593902 /* parkour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B008BBA1B88282B00593902 /* parkour.framework */; };
+		9B0A66D81BBEBE66004575BE /* parkour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B0A66D71BBEBE66004575BE /* parkour.framework */; settings = {ASSET_TAGS = (); }; };
+		9B0A66D91BBEBE66004575BE /* parkour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B0A66D71BBEBE66004575BE /* parkour.framework */; settings = {ASSET_TAGS = (); }; };
+		9B0A66DC1BBECBFA004575BE /* BackgroundTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B0A66DA1BBECBFA004575BE /* BackgroundTask.h */; settings = {ASSET_TAGS = (); }; };
+		9B0A66DD1BBECBFA004575BE /* BackgroundTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0A66DB1BBECBFA004575BE /* BackgroundTask.m */; settings = {ASSET_TAGS = (); }; };
+		9B0A66DE1BBECBFA004575BE /* BackgroundTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0A66DB1BBECBFA004575BE /* BackgroundTask.m */; settings = {ASSET_TAGS = (); }; };
 		9B1305561B83F24900CBF642 /* NSArray+Sorting.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B1305541B83F24900CBF642 /* NSArray+Sorting.h */; };
 		9B1305571B83F24900CBF642 /* NSArray+Sorting.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1305551B83F24900CBF642 /* NSArray+Sorting.m */; };
 		9B1546221BA6F70900CD0323 /* smiley_sad_with_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B15461F1BA6F70900CD0323 /* smiley_sad_with_background.png */; };
@@ -700,7 +704,9 @@
 		95F367061AF6C8FB00A3E2F6 /* white_card_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_card_top.png; sourceTree = "<group>"; };
 		95F367071AF6C8FB00A3E2F6 /* white_card_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_card_top@2x.png"; sourceTree = "<group>"; };
 		95F367081AF6C8FB00A3E2F6 /* white_card_top@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_card_top@3x.png"; sourceTree = "<group>"; };
-		9B008BBA1B88282B00593902 /* parkour.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = parkour.framework; sourceTree = "<group>"; };
+		9B0A66D71BBEBE66004575BE /* parkour.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = parkour.framework; sourceTree = "<group>"; };
+		9B0A66DA1BBECBFA004575BE /* BackgroundTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundTask.h; sourceTree = "<group>"; };
+		9B0A66DB1BBECBFA004575BE /* BackgroundTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTask.m; sourceTree = "<group>"; };
 		9B1305541B83F24900CBF642 /* NSArray+Sorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Sorting.h"; sourceTree = "<group>"; };
 		9B1305551B83F24900CBF642 /* NSArray+Sorting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sorting.m"; sourceTree = "<group>"; };
 		9B15461F1BA6F70900CD0323 /* smiley_sad_with_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smiley_sad_with_background.png; sourceTree = "<group>"; };
@@ -894,6 +900,7 @@
 				9B78A7F21B8124FF005569B4 /* AVFoundation.framework in Frameworks */,
 				9B252FA61BB85F4F0081966E /* PullKit.framework in Frameworks */,
 				9B78A7F01B8124EB005569B4 /* MessageUI.framework in Frameworks */,
+				9B0A66D81BBEBE66004575BE /* parkour.framework in Frameworks */,
 				9B1835791B7FDBA200BBD669 /* WatchKit.framework in Frameworks */,
 				68211219BB5402F8B85B4452 /* libPods-PullKit.a in Frameworks */,
 			);
@@ -913,7 +920,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BED45A21B80D7CB0007F5F4 /* AdSupport.framework in Frameworks */,
-				9B008BBB1B88282B00593902 /* parkour.framework in Frameworks */,
+				9B0A66D91BBEBE66004575BE /* parkour.framework in Frameworks */,
 				9BED45A31B80D7CB0007F5F4 /* MediaPlayer.framework in Frameworks */,
 				9BED45A61B80D7CB0007F5F4 /* MapKit.framework in Frameworks */,
 				9BED45A71B80D7CB0007F5F4 /* CFNetwork.framework in Frameworks */,
@@ -1402,11 +1409,11 @@
 		952BDB5C1A0C4F0500C67BB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B0A66D71BBEBE66004575BE /* parkour.framework */,
 				9B252FAD1BB85F7A0081966E /* libPods-PullKit.a */,
 				9B252FAB1BB85F690081966E /* libParse.a */,
 				9B252FA41BB85B070081966E /* libPods-PullKit.a */,
 				9B1546271BA70A2800CD0323 /* AudioToolbox.framework */,
-				9B008BBA1B88282B00593902 /* parkour.framework */,
 				9B78A7F91B8128CD005569B4 /* libPods-PullKit.a */,
 				9B78A7F31B812512005569B4 /* CoreMedia.framework */,
 				9B78A7F11B8124FF005569B4 /* AVFoundation.framework */,
@@ -1466,6 +1473,8 @@
 		952BDB8C1A0C4F4D00C67BB5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9B0A66DA1BBECBFA004575BE /* BackgroundTask.h */,
+				9B0A66DB1BBECBFA004575BE /* BackgroundTask.m */,
 				9BF0188E1B9B35E7004E6DCA /* Helpers */,
 				9BED056B1B88E81E008F71CC /* Categories */,
 				9BED05661B88DEAC008F71CC /* Vendor */,
@@ -1891,6 +1900,7 @@
 				9B78A7B71B80DE7D005569B4 /* PULCache.h in Headers */,
 				9B78A7971B80DE66005569B4 /* UIVisualEffectView+PullBlur.h in Headers */,
 				9B78A7CF1B80DE88005569B4 /* NSDate+Utilities.h in Headers */,
+				9B0A66DC1BBECBFA004575BE /* BackgroundTask.h in Headers */,
 				9B78A7B51B80DE7D005569B4 /* PULLocationUpdater.h in Headers */,
 				9B78A7E11B80DE9D005569B4 /* PULConstants.h in Headers */,
 				9BED45AE1B80DA160007F5F4 /* PullKit.h in Headers */,
@@ -2576,6 +2586,7 @@
 				9B97242A1AE20BD500EEC3AB /* PULUserSelectViewController.m in Sources */,
 				33FB713D1AAD205B00B74C47 /* PULVerticallyCenteredButton.m in Sources */,
 				95169F621A8718AB006D3078 /* PULSlideUnwindSegue.m in Sources */,
+				9B0A66DD1BBECBFA004575BE /* BackgroundTask.m in Sources */,
 				33ABDE4C1AB4A20900A047BF /* PULOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2605,6 +2616,7 @@
 				9B78A7BA1B80DE7D005569B4 /* PULInviteService.m in Sources */,
 				9B78A7B81B80DE7D005569B4 /* PULCache.m in Sources */,
 				9B78A7E21B80DE9D005569B4 /* PULConstants.m in Sources */,
+				9B0A66DE1BBECBFA004575BE /* BackgroundTask.m in Sources */,
 				9B78A7B61B80DE7D005569B4 /* PULLocationUpdater.m in Sources */,
 				9B78A7D11B80DE88005569B4 /* README.md in Sources */,
 				9B78A7981B80DE66005569B4 /* UIVisualEffectView+PullBlur.m in Sources */,

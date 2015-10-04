@@ -128,11 +128,15 @@
 - (IBAction)ibSendInvite:(id)sender
 {
     // send pull
-    // TODO: SEND PULL TO SELECTED USER
-//    [[PULUser currentUser] sendPullToUser:_user duration:_requestedDuration caption:_captionTextView.text];
+    // TODO: show loading indicator
+    [[PULParseMiddleMan sharedInstance] sendPullToUser:_user
+                                              duration:_requestedDuration
+                                            completion:^(BOOL success, NSError * _Nullable error) {
+                                                // dismiss vc
+                                                [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                                            }];
     
-    // dismiss vc
-    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    
     
 }
 

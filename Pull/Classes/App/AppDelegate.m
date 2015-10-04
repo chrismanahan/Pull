@@ -20,7 +20,13 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
+#import <parkour/parkour.h>
+#import "BackgroundTask.h"
+
 @interface AppDelegate ()
+{
+    BackgroundTask *bgTask;
+}
 
 @end
 
@@ -50,6 +56,13 @@
 //    [PULUser registerSubclass];
 //    [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
 //    [PFFacebookUtils initializeFacebook];
+    
+    [PULUser registerSubclass];
+    [PULPull registerSubclass];
+    [PULLocation registerSubclass];
+    [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
+    [PFFacebookUtils initializeFacebook];
+
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     __block NSString *vcName = NSStringFromClass([PULLoginViewController class]);
@@ -92,25 +105,41 @@
     
     // check if we need to notify the user of an update
     [PULUpdateChecker checkForUpdate];
+
+    bgTask = [[BackgroundTask alloc] init];
     
     // start watching for nearby notifications
-//    [[NSNotificationCenter defaultCenter] addObserverForName:PULPullNearbyNotification
-//                                                      object:nil
-//                                                       queue:[NSOperationQueue currentQueue]
-//                                                  usingBlock:^(NSNotification * note) {
-//                                                      // notify user that friend is nearby if we're in the background
-//                                                      UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
-//                                                      if (appState != UIApplicationStateActive)
-//                                                      {
-//                                                          PULPull *pull = [note object];
-//                                                          NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [pull otherUser].firstName];
-//                                                          [PULLocalPush sendLocalPushWithMessage:alertMessage];
-//                                                      }
-//                                                  }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:PULPullNearbyNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification * note) {
+                                                      // notify user that friend is nearby if we're in the background
+                                                      UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
+                                                      if (appState != UIApplicationStateActive)
+                                                      {
+                                                          PULPull *pull = [note object];
+                                                          NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [pull otherUser].firstName];
+                                                          [PULLocalPush sendLocalPushWithMessage:alertMessage];
+                                                      }
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:PULPullNoLongerNearbyNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification * note) {
+                                                      // notify user that friend is nearby if we're in the background
+                                                      UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
+                                                      if (appState != UIApplicationStateActive)
+                                                      {
+                                                          PULPull *pull = [note object];
+                                                          NSString *alertMessage = [NSString stringWithFormat:@"%@ is no longer nearby", [pull otherUser].firstName];
+                                                          [PULLocalPush sendLocalPushWithMessage:alertMessage];
+                                                      }
+                                                  }];
     
     
-    return YES;//[[FBSDKApplicationDelegate sharedInstance] application:application
-                 //                   didFinishLaunchingWithOptions:launchOptions];
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                 didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -119,16 +148,29 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [bgTask startBackgroundTasks:2 target:self selector:@selector(backgroundPing)];
+    
+    PULUser *user = [PULUser currentUser];
+    if (user)
+    {
+        user.isInForeground = NO;
+        [user saveInBackground];
+    }
+}
+- (void)backgroundPing
+{
+    ;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    [bgTask stopBackgroundTask];
     
-    //    if ([PULAccountOld currentUser].uid)
-    //    {
-    //        [[PULAccountOld currentUser] goOnline];
-    //    }
+    PULUser *user = [PULUser currentUser];
+    if (user)
+    {
+        user.isInForeground = YES;
+        [user saveInBackground];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

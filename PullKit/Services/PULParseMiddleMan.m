@@ -46,7 +46,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 //        [PULUser registerSubclass];
-        [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
+        [Parse setApplicationId:@"5tgod9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
         [PFFacebookUtils initializeFacebook];
         
         shared = [[PULParseMiddleMan alloc] init];
@@ -72,6 +72,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
                                                           [self _stopMonitoringPulls];
                                                           [self _stopMonitoringPulledLocations];
                                                           
+                                                          [self _startMonitoringPullsInBackground:YES];
                                                           [self _startMonitoringPulledLocationsInBackground:YES];
                                                       }];
         
@@ -96,89 +97,6 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     return [PULUser currentUser];
 }
 
-- (void)_observerTimerTick:(NSTimer*)timer
-{
-    [self _runBlockInBackground:^{
-        if ([timer isEqual:_observerTimerPulls])
-        {
-            // refresh pulls
-            [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
-                                                                    object:nil];
-            } ignoreCache:YES];
-        }
-        else if ([timer isEqual:_observerTimerLocations])
-        {
-            // refresh locations
-            NSMutableArray *locations = [[NSMutableArray alloc] init];
-            for (PULPull *pull in [self cachedPulls])
-            {
-                [locations addObject:[pull otherUser].location];
-            }
-            
-            if (locations.count > 0)
-            {
-                [PFObject fetchAll:locations];
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedLocationsNotification
-                                                                    object:nil];
-            }
-        }
-    }];
-}
-
-- (void)_startMonitoringPullsInBackground:(BOOL)inBackground
-{
-    NSAssert(_observerTimerPulls == nil, @"observer timer already set. should be stopped first");
-    _observerTimerPulls = [NSTimer
-                               scheduledTimerWithTimeInterval:inBackground ? kPULPollTimeBackground : kPULPollTimePassive
-                               target:self
-                               selector:@selector(_observerTimerTick:)
-                               userInfo:nil
-                               repeats:YES];
-}
-
-- (void)_startMonitoringPulledLocationsInBackground:(BOOL)inBackground
-{
-    NSAssert(_observerTimerLocations == nil, @"observer timer already set. should be stopped first");
-    _observerTimerLocations = [NSTimer
-             scheduledTimerWithTimeInterval:inBackground ? kPULPollTimeBackground : kPULPollTimePassive
-             target:self
-             selector:@selector(_observerTimerTick:)
-             userInfo:nil
-             repeats:YES];
-}
-
-- (void)_stopMonitoringPulls
-{
-    if (_observerTimerPulls)
-    {
-        [_observerTimerPulls invalidate];
-        _observerTimerPulls = nil;
-    }
-}
-
-- (void)_stopMonitoringPulledLocations
-{
-    if (_observerTimerLocations)
-    {
-        [_observerTimerLocations invalidate];
-        _observerTimerLocations = nil;
-    }
-}
-
-- (void)_addPullToCache:(PULPull*)pull
-{
-    NSMutableArray *pulls = [_cache objectForKey:@"pulls"];
-    [pulls addObject:pull];
-    [self _setPullCache:pulls];
-}
-
-- (void)_setPullCache:(NSArray*)pulls
-{
-    [_cache setObject:pulls forKey:@"pulls"];
-}
-
 #pragma mark - Login
 - (void)loginWithFacebook:(PULStatusBlock)completion
 {
@@ -186,6 +104,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     
     NSArray *permissions = @[@"email", @"public_profile", @"user_friends"];
     
+    [PFFacebookUtils setFacebookLoginBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent];
     [PFFacebookUtils
      logInWithPermissions:permissions
      block:^(PFUser * _Nullable user, NSError * _Nullable error) {
@@ -211,7 +130,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
              }
              else
              {
-                 
+                 completion(YES, error);
              }
          }
      }];
@@ -262,35 +181,6 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             }
         }];
     }];
-}
-
-
-- (nullable NSArray<PULUser*>*)cachedFriends
-{
-    return [[_cache objectForKey:@"friends"] linq_sort:^id(id item) {
-        return [item firstName];
-    }];
-}
-
-- (nullable NSArray<PULUser*>*)cachedFriendsNotPulled;
-{
-    return [[self cachedFriends]
-             linq_where:^BOOL(id item) {
-                 return ![[self cachedFriendsPulled] containsObject:item];
-             }];
-}
-
-- (nullable NSArray<PULUser*>*)cachedFriendsPulled
-{
-    return [[self cachedPulls]
-            linq_select:^id(id item) {
-                return [item otherUser];
-            }];
-}
-
-- (nullable NSArray<PULUser*>*)cachedBlockedUsers
-{
-    return [_cache objectForKey:@"blocked"];
 }
 
 #pragma mark - Adding / Removing Friends
@@ -397,13 +287,116 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     
 }
 
-- (NSArray<PULPull*>*)cachedPulls
+// TODO: refactor caches into their own class
+#pragma mark - Cache
+- (void)_addPullToCache:(PULPull*)pull
 {
-    return [_cache objectForKey:@"pulls"];
+    NSMutableArray *pulls = [_cache objectForKey:@"pulls"];
+    [pulls addObject:pull];
+    [self _setPullCache:pulls];
+}
+
+- (void)_setPullCache:(NSArray*)pulls
+{
+    if (pulls)
+    {
+        [_cache setObject:pulls forKey:@"pulls"];
+    }
+}
+
+- (nullable NSArray<PULUser*>*)cachedFriends
+{
+    return [[_cache objectForKey:@"friends"] linq_sort:^id(id item) {
+        return [item firstName];
+    }];
+}
+
+- (nullable NSArray<PULUser*>*)cachedFriendsNotPulled;
+{
+    return [[self cachedFriends]
+            linq_where:^BOOL(id item) {
+                return ![[self cachedFriendsPulled] containsObject:item];
+            }];
+}
+
+- (nullable NSArray<PULUser*>*)cachedFriendsPulled
+{
+    return [[self cachedPulls]
+            linq_select:^id(id item) {
+                return [item otherUser];
+            }];
+}
+
+- (nullable NSArray<PULUser*>*)cachedBlockedUsers
+{
+    return [_cache objectForKey:@"blocked"];
+}
+
+- (nullable NSArray<PULPull*>*)cachedPulls
+{
+    return [[_cache objectForKey:@"pulls"]
+            linq_sort:^id(id item) {
+                return @([item status]);
+            }];
+}
+
+- (nullable NSArray<PULPull*>*)cachedPullsOrdered
+{
+    return [[[[self cachedPullsNearby]
+               linq_concat:[self cachedPullsFar]]
+               linq_concat:[self cachedPullsPending]]
+               linq_concat:[self cachedPullsWaiting]];
+}
+
+- (nullable NSArray<PULPull*>*)cachedPullsPending
+{
+    return [[self cachedPulls]
+    linq_where:^BOOL(PULPull *pull) {
+        return pull.status == PULPullStatusPending && ![pull initiatedBy:[PULUser currentUser]];
+    }];
+}
+
+- (nullable NSArray<PULPull*>*)cachedPullsWaiting
+{
+    return [[self cachedPulls]
+            linq_where:^BOOL(PULPull *pull) {
+                return pull.status == PULPullStatusPending && [pull initiatedBy:[PULUser currentUser]];
+            }];
+}
+
+- (nullable NSArray<PULPull*>*)cachedPullsNearby
+{
+    return [[self cachedPulls]
+            linq_where:^BOOL(PULPull *pull) {
+                PULUser *friend = [pull otherUser];
+                CGFloat distance = [friend.location.location distanceFromLocation:[PULUser currentUser].location.location];
+                return pull.status == PULPullStatusPulled && distance <= kPULDistanceNearbyMeters;
+            }];
+}
+
+- (nullable NSArray<PULPull*>*)cachedPullsFar
+{
+    return [[self cachedPulls]
+            linq_where:^BOOL(PULPull *pull) {
+                PULUser *friend = [pull otherUser];
+                CGFloat distance = [friend.location.location distanceFromLocation:[PULUser currentUser].location.location];
+                return pull.status == PULPullStatusPulled && distance > kPULDistanceNearbyMeters;
+            }];
+}
+
+- (nullable NSArray<PULPull*>*)cachedPullsPulled
+{
+    return [[self cachedPullsNearby] linq_concat:[self cachedPullsFar]];
 }
 
 - (nullable PULPull*)nearestPull
 {
+    NSArray *pulls = [self cachedPullsPulled];
+    if (pulls && pulls.count > 0)
+    {
+        return pulls[0];
+    }
+    
     return nil;
 }
 
@@ -523,19 +516,21 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             pull.receivingUser = user;
             pull.status = PULPullStatusPending;
             pull.duration = duration;
-            pull.canDelete = NO;
             pull.together = NO;
+            pull.nearby = NO;
             
             PFACL *acl = [PFACL ACL];
             [acl setPublicReadAccess:NO];
             [acl setWriteAccess:YES forUser:[PULUser currentUser]];
             [acl setWriteAccess:YES forUser:user];
             
+            BOOL success = [pull save];
+            
             [self _runBlockOnMainQueue:^{
-                completion([pull save], nil);;
+                completion(success, nil);;
             }];
         }];
-    }];
+    } ignoreCache:YES];
 }
 
 - (void)acceptPull:(PULPull*)pull
@@ -562,6 +557,49 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     // delete from parse
     [pull deleteEventually];
 }
+
+
+#pragma mark - Monitoring Stuff
+- (void)_startMonitoringPullsInBackground:(BOOL)inBackground
+{
+    NSAssert(_observerTimerPulls == nil, @"observer timer already set. should be stopped first");
+    _observerTimerPulls = [NSTimer
+                           scheduledTimerWithTimeInterval:inBackground ? kPULPollTimeBackground : kPULPollTimePassive
+                           target:self
+                           selector:@selector(_observerTimerTick:)
+                           userInfo:nil
+                           repeats:YES];
+}
+
+- (void)_startMonitoringPulledLocationsInBackground:(BOOL)inBackground
+{
+    NSAssert(_observerTimerLocations == nil, @"observer timer already set. should be stopped first");
+    _observerTimerLocations = [NSTimer
+                               scheduledTimerWithTimeInterval:inBackground ? kPULPollTimeBackground : kPULPollTimePassive
+                               target:self
+                               selector:@selector(_observerTimerTick:)
+                               userInfo:nil
+                               repeats:YES];
+}
+
+- (void)_stopMonitoringPulls
+{
+    if (_observerTimerPulls)
+    {
+        [_observerTimerPulls invalidate];
+        _observerTimerPulls = nil;
+    }
+}
+
+- (void)_stopMonitoringPulledLocations
+{
+    if (_observerTimerLocations)
+    {
+        [_observerTimerLocations invalidate];
+        _observerTimerLocations = nil;
+    }
+}
+
 
 #pragma mark - Private
 #pragma mark Parsing Results
@@ -631,6 +669,52 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     }];
 }
 
+- (void)_observerTimerTick:(NSTimer*)timer
+{
+    if (![PULUser currentUser].isDataAvailable)
+    {
+        return;
+    }
+    [self _runBlockInBackground:^{
+        if ([timer isEqual:_observerTimerPulls])
+        {
+            // refresh pulls
+            
+            [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
+                                                                    object:nil];
+                //TODO: go through each pull and see if we have a nearby flag that we need to notify the user about
+            } ignoreCache:YES];
+        }
+        else if ([timer isEqual:_observerTimerLocations])
+        {
+            // refresh locations
+            NSArray *locations = [[self cachedPullsPulled]
+                                  linq_select:^id(PULPull *pull) {
+                                      return [pull otherUser].location;
+                                  }];
+            
+            if (locations.count > 0)
+            {
+                [PFObject fetchAll:locations];
+                
+                // go through each pull and check if we need to add nearby or together flag
+                for (PULPull *pull in [self cachedPullsPulled])
+                {
+                    [pull setDistanceFlags];
+                    if (pull.isDirty)
+                    {
+                        [pull saveEventually];
+                    }
+                }
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedLocationsNotification
+                                                                    object:nil];
+            }
+        }
+    }];
+}
+
 #pragma mark Registration
 - (void)_registerUser:(PULUser*)user withFbResult:(id)result completion:(void(^)(BOOL success, NSError *error))completion
 {
@@ -643,6 +727,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     if (fbData[@"email"]) { user[@"email"] = fbData[@"email"]; }
     if (fbData[@"locale"]) { user[@"locale"] = fbData[@"locale"]; }
     user[@"username"] = [NSString stringWithFormat:@"fb:%@", user[@"fbId"]];
+    user[@"isInForeground"] = @(YES);
     
     [user saveInBackground];
     
@@ -677,12 +762,13 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
                  [friendQuery whereKey:@"username" containedIn:usernames];
                  [friendQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                      [[PULParseMiddleMan  sharedInstance] friendUsers:objects];
+                     completion(YES, nil);
                  }];
              }
              else
              {
                  // return nil
-                 completion(NO, nil);
+                 completion(YES, nil);
              }
          }
          

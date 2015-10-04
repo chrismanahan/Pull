@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class PULPull;
+
 @interface PULPulledUserCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) PULPull *pull;

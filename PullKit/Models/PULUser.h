@@ -10,9 +10,9 @@
 
 #import <Parse/Parse.h>
 #import "PFObject+Subclass.h"
+#import "PULUserSettings.h"
 
 @class CLPlacemark;
-@class PULUserSettings;
 
 NS_ASSUME_NONNULL_BEGIN
 

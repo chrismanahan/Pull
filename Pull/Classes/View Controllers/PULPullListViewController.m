@@ -14,7 +14,6 @@
 #import "PULLocationOverlay.h"
 #import "PULNoFriendsOverlay.h"
 
-#import "PULCompassView.h"
 #import "PULLoginViewController.h"
 #import "PULUserSelectViewController.h"
 
@@ -28,6 +27,9 @@
 
 #import "CALayer+Animations.h"
 #import "NSArray+Sorting.h"
+
+#import "PULParseMiddleMan.h"
+#import "PULLocationUpdater.h"
 
 const NSInteger kPULAlertEndPullTag = 1001;
 

@@ -12,6 +12,8 @@
 
 #import "NZCircularImageView.h"
 
+#import "PULUser.h"
+
 #import <MessageUI/MessageUI.h>
 #import <sys/utsname.h>
 

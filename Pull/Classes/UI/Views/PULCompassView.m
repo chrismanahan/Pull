@@ -8,6 +8,10 @@
 
 #import "PULCompassView.h"
 
+#import "PULPull.h"
+#import "PULUser.h"
+#import "PULLocationUpdater.h"
+
 #import "NZCircularImageView.h"
 
 const CGFloat kPULCompassSmileyWinkDuration = 6;

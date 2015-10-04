@@ -10,6 +10,8 @@
 
 #import "NSArray+Sorting.h"
 
+#import "PULParseMiddleMan.h"
+
 @interface PULPulledUserDataSource ()
 
 @property (nonatomic, strong) id pullsLoadedNotification;

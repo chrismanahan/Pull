@@ -20,6 +20,9 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
+#import "PULUser.h"
+#import "PULParseMiddleMan.h"
+
 #import <parkour/parkour.h>
 #import "BackgroundTask.h"
 
@@ -56,13 +59,9 @@
 //    [PULUser registerSubclass];
 //    [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
 //    [PFFacebookUtils initializeFacebook];
-    
-    [PULUser registerSubclass];
-    [PULPull registerSubclass];
-    [PULLocation registerSubclass];
+
     [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
     [PFFacebookUtils initializeFacebook];
-
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     __block NSString *vcName = NSStringFromClass([PULLoginViewController class]);

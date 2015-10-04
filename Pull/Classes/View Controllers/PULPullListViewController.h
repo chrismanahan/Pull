@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class PULCompassView;
+#import "PULCompassView.h"
+#import "PULPull.h"
 
 @interface PULPullListViewController : UIViewController <UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 

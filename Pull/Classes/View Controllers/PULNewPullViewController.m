@@ -10,6 +10,10 @@
 
 #import "PULReverseModal.h"
 
+#import "PULUser.h"
+
+#import "PULParseMiddleMan.h"
+
 #import "NZCircularImageView.h"
 
 #import "PULPullListViewController.h"

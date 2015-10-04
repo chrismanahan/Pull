@@ -8,6 +8,9 @@
 
 #import "PULPulledUserCollectionViewCell.h"
 
+#import "PULPull.h"
+#import "PULUser.h"
+
 #import "NZCircularImageView.h"
 
 #import "CALayer+Animations.h"

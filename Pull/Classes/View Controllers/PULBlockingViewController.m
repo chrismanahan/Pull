@@ -10,6 +10,7 @@
 
 #import "PULUserCell.h"
 
+#import "PULUser.h"
 
 @interface PULBlockingViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UISearchBarDelegate, PULUserCellDelegate, UIScrollViewDelegate>
 

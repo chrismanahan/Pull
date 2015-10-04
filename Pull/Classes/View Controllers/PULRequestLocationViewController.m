@@ -9,6 +9,8 @@
 #import "PULRequestLocationViewController.h"
 #import "PULRequestNotificationsViewController.h"
 
+#import "PULLocationUpdater.h"
+
 #import "PULSlideLeftSegue.h"
 
 @implementation PULRequestLocationViewController

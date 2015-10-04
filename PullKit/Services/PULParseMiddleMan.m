@@ -45,10 +45,6 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     static PULParseMiddleMan *shared = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-//        [PULUser registerSubclass];
-        [Parse setApplicationId:@"5tgod9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
-        [PFFacebookUtils initializeFacebook];
-        
         shared = [[PULParseMiddleMan alloc] init];
     });
     

@@ -11,6 +11,7 @@
 
 #import "PULUserCell.h"
 
+#import "PULParseMiddleMan.h"
 #import "PULUser.h"
 #import "PULSlideLeftSegue.h"
 #import "PULSlideUnwindSegue.h"

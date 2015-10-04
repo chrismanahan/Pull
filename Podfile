@@ -1,7 +1,7 @@
 # Uncomment this line to define a global platform for your project
 #platform :ios, '6.0'
 
-target 'PullKit' do
+target 'Pull' do
 
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
@@ -14,7 +14,5 @@ pod 'SDWebImage', '~>3.7'
 pod 'UIActivityIndicator-for-SDWebImage'
 pod 'LinqToObjectiveC'
 
-link_with 'PullKit', 'Pull'
-link_with 'PullKit', 'PullTests'
-link_with 'PullKit', 'PullKitTests'
+link_with 'Pull', 'PullTests'
 end

@@ -11,6 +11,7 @@
 
 #import "PULLoadingIndicator.h"
 
+#import "PULUser.h"
 #import "PULSlideUnwindSegue.h"
 #import "PULReverseModal.h"
 

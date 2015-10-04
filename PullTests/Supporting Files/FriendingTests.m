@@ -8,6 +8,9 @@
 
 #import <XCTest/XCTest.h>
 
+#import "PULParseMiddleMan.h"
+#import "PULUser.h"
+
 @interface FriendingTests : XCTestCase
 
 @end

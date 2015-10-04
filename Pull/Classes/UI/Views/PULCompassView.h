@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class PULPull;
+
 NS_ASSUME_NONNULL_BEGIN
 
 extern const CGFloat kPULCompassSmileyWinkDuration;

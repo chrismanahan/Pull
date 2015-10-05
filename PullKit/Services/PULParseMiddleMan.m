@@ -15,7 +15,6 @@
 
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 
 const NSTimeInterval kPULIntervalTimeFrequent   = 5;
@@ -30,8 +29,6 @@ NSString * const PULParseObjectsUpdatedLocationsNotification = @"PULParseObjects
 NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpdatedPullsNotification";
 
 @interface PULParseMiddleMan ()
-
-@property (nonatomic, strong) NSMutableDictionary *cache;
 
 @property (nonatomic, strong) NSMutableDictionary *locationTimers;
 @property (nonatomic, strong) NSTimer *observerTimerPulls;
@@ -57,7 +54,8 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     if (self = [super init])
     {
         _locationTimers = [[NSMutableDictionary alloc] init];
-        _cache = [[NSMutableDictionary alloc] init];
+        
+        _cache = [[PULCache alloc] init];
         
         [self _startMonitoringPullsInBackground:NO];
         [self _startMonitoringPulledLocationsInBackground:NO];
@@ -150,7 +148,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             }
             else
             {
-                [_cache setObject:users forKey:@"friends"];
+                [_cache setUsers:users];
                 completion(users, nil);
             }
         }];
@@ -173,7 +171,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             }
             else
             {
-                [_cache setObject:users forKey:@"blocked"];
+                [_cache setBlockedUsers:users];
                 completion(users, nil);
             }
         }];
@@ -231,9 +229,9 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)getPullsInBackground:(nullable PULPullsBlock)completion ignoreCache:(BOOL)ignoreCache;
 {
-    if ([self cachedPulls] && !ignoreCache)
+    if ([_cache cachedPulls] && !ignoreCache)
     {
-        completion([self cachedPulls], nil);
+        completion([_cache cachedPulls], nil);
     }
     
     [self _runBlockInBackground:^{
@@ -278,7 +276,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
         }
         
         // set these pulls into the cache
-        [self _setPullCache:objs];
+        [_cache setPulls:objs];
         
         // run completion
         [self _runBlockOnMainQueue:^{
@@ -290,116 +288,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 // TODO: refactor caches into their own class
 #pragma mark - Cache
-- (void)_addPullToCache:(PULPull*)pull
-{
-    NSMutableArray *pulls = [_cache objectForKey:@"pulls"];
-    [pulls addObject:pull];
-    [self _setPullCache:pulls];
-}
 
-- (void)_setPullCache:(NSArray*)pulls
-{
-    if (pulls)
-    {
-        [_cache setObject:pulls forKey:@"pulls"];
-    }
-}
-
-- (nullable NSArray<PULUser*>*)cachedFriends
-{
-    return [[_cache objectForKey:@"friends"] linq_sort:^id(id item) {
-        return [item firstName];
-    }];
-}
-
-- (nullable NSArray<PULUser*>*)cachedFriendsNotPulled;
-{
-    return [[self cachedFriends]
-            linq_where:^BOOL(id item) {
-                return ![[self cachedFriendsPulled] containsObject:item];
-            }];
-}
-
-- (nullable NSArray<PULUser*>*)cachedFriendsPulled
-{
-    return [[self cachedPulls]
-            linq_select:^id(id item) {
-                return [item otherUser];
-            }];
-}
-
-- (nullable NSArray<PULUser*>*)cachedBlockedUsers
-{
-    return [_cache objectForKey:@"blocked"];
-}
-
-- (nullable NSArray<PULPull*>*)cachedPulls
-{
-    return [[_cache objectForKey:@"pulls"]
-            linq_sort:^id(id item) {
-                return @([item status]);
-            }];
-}
-
-- (nullable NSArray<PULPull*>*)cachedPullsOrdered
-{
-    return [[[[self cachedPullsNearby]
-               linq_concat:[self cachedPullsFar]]
-               linq_concat:[self cachedPullsPending]]
-               linq_concat:[self cachedPullsWaiting]];
-}
-
-- (nullable NSArray<PULPull*>*)cachedPullsPending
-{
-    return [[self cachedPulls]
-    linq_where:^BOOL(PULPull *pull) {
-        return pull.status == PULPullStatusPending && ![pull initiatedBy:[PULUser currentUser]];
-    }];
-}
-
-- (nullable NSArray<PULPull*>*)cachedPullsWaiting
-{
-    return [[self cachedPulls]
-            linq_where:^BOOL(PULPull *pull) {
-                return pull.status == PULPullStatusPending && [pull initiatedBy:[PULUser currentUser]];
-            }];
-}
-
-- (nullable NSArray<PULPull*>*)cachedPullsNearby
-{
-    return [[self cachedPulls]
-            linq_where:^BOOL(PULPull *pull) {
-                PULUser *friend = [pull otherUser];
-                CGFloat distance = [friend.location.location distanceFromLocation:[PULUser currentUser].location.location];
-                return pull.status == PULPullStatusPulled && distance <= kPULDistanceNearbyMeters;
-            }];
-}
-
-- (nullable NSArray<PULPull*>*)cachedPullsFar
-{
-    return [[self cachedPulls]
-            linq_where:^BOOL(PULPull *pull) {
-                PULUser *friend = [pull otherUser];
-                CGFloat distance = [friend.location.location distanceFromLocation:[PULUser currentUser].location.location];
-                return pull.status == PULPullStatusPulled && distance > kPULDistanceNearbyMeters;
-            }];
-}
-
-- (nullable NSArray<PULPull*>*)cachedPullsPulled
-{
-    return [[self cachedPullsNearby] linq_concat:[self cachedPullsFar]];
-}
-
-- (nullable PULPull*)nearestPull
-{
-    NSArray *pulls = [self cachedPullsPulled];
-    if (pulls && pulls.count > 0)
-    {
-        return pulls[0];
-    }
-    
-    return nil;
-}
 
 #pragma mark - Location
 - (void)updateLocation:(CLLocation*)location movementType:(PKMotionType)moveType positionType:(PKPositionType)posType
@@ -529,12 +418,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 - (void)deletePull:(PULPull*)pull
 {
     // remove from cache
-    NSMutableArray *pulls = [[self cachedPulls] mutableCopy];
-    [pulls removeObject:pull];
-    if (pulls)
-    {
-        [_cache setObject:pulls forKey:@"pulls"];
-    }
+    [_cache removePull:pull];
     
     // delete from parse
     [pull deleteEventually];
@@ -624,7 +508,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
         else if ([timer isEqual:_observerTimerLocations])
         {
             // refresh locations
-            NSArray *locations = [[self cachedPullsPulled]
+            NSArray *locations = [[_cache cachedPullsPulled]
                                   linq_select:^id(PULPull *pull) {
                                       return [pull otherUser].location;
                                   }];
@@ -634,7 +518,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
                 [PFObject fetchAll:locations];
                 
                 // go through each pull and check if we need to add nearby or together flag
-                for (PULPull *pull in [self cachedPullsPulled])
+                for (PULPull *pull in [_cache cachedPullsPulled])
                 {
                     [pull setDistanceFlags];
                     if (pull.isDirty)

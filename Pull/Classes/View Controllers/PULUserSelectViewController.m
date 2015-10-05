@@ -38,7 +38,7 @@
 {
     [super viewWillAppear:animated];
 
-    if ([_parse cachedFriendsNotPulled])
+    if ([_parse.cache cachedFriendsNotPulled])
     {
         [self _reloadDatasource];
     }
@@ -96,12 +96,12 @@
     // TODO: reload data source
     if (!search || search.length == 0)
     {
-        _dataSource = [_parse cachedFriendsNotPulled];
+        _dataSource = [_parse.cache cachedFriendsNotPulled];
     }
     else
     {
         NSMutableArray *temp = [[NSMutableArray alloc] init];
-        for (PULUser *user in [_parse cachedFriendsNotPulled])
+        for (PULUser *user in [_parse.cache cachedFriendsNotPulled])
         {
             search = search.lowercaseString;
             if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||

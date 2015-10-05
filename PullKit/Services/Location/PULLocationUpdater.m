@@ -179,7 +179,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     if (count % 15 == 0)
     {
         // get nearest pull
-        PULPull *pull = [_parse nearestPull];
+        PULPull *pull = [_parse.cache nearestPull];
         
         if (pull)
         {
@@ -220,7 +220,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     // check if we're in the foreground or anyone we're pulled with is in the foreground
     if (keepTuning)
     {
-        for (PULPull *pull in [_parse cachedPulls])
+        for (PULPull *pull in [_parse.cache cachedPulls])
         {
             if (pull.status == PULPullStatusPulled)
             {
@@ -244,7 +244,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     // if we have a pull, get setting type for the nearest one
     if (keepTuning && hasActivePull)
     {
-        PULPull *nearestPull = [_parse nearestPull];
+        PULPull *nearestPull = [_parse.cache nearestPull];
         trackingMode = [self _settingTypeForPull:nearestPull];
     }
     

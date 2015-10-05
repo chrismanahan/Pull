@@ -12,6 +12,8 @@
 #import "PULUser.h"
 #import "PULPull.h"
 
+#import "PULCache.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 /*****************************
@@ -84,6 +86,12 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
 @interface PULParseMiddleMan : NSObject
 
 /*****************************
+ Properties
+ *****************************/
+@property (nonatomic, strong) PULCache *cache;
+
+
+/*****************************
  Class Methods
  *****************************/
 + (instancetype)sharedInstance;
@@ -122,19 +130,7 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
  *  @param completion Block to run when the users are returned. If no users come back in the query, the array will be empty
  */
 - (void)getBlockedUsersInBackground:(nullable PULUsersBlock)completion;
-/**
- *  Gets the cached array of friends
- *
- *  @return Array of friends or nil
- */
-- (nullable NSArray<PULUser*>*)cachedFriends;
-- (nullable NSArray<PULUser*>*)cachedFriendsNotPulled;
-/**
- *  Gets the cached array of blocked users
- *
- *  @return Array of blocked users or nil
- */
-- (nullable NSArray<PULUser*>*)cachedBlockedUsers;
+
 
 
 /*****************************************************/
@@ -154,7 +150,6 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
 - (void)getPullsInBackground:(nullable PULPullsBlock)completion;
 - (void)getPullsInBackground:(nullable PULPullsBlock)completion ignoreCache:(BOOL)ignoreCache;
 
-- (nullable NSArray<PULPull*>*)cachedPulls;
 - (nullable PULPull*)nearestPull;
 
 

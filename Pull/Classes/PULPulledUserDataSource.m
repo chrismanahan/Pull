@@ -24,9 +24,9 @@
 {
     PULParseMiddleMan *parse = [PULParseMiddleMan sharedInstance];
     
-    if ([parse cachedPulls])
+    if ([parse.cache cachedPulls])
     {
-        completion([parse cachedPulls]);
+        completion([parse.cache cachedPulls]);
     }
 }
 

@@ -239,7 +239,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         }
         else
         {
-            _pullsDatasource = [[PULParseMiddleMan sharedInstance] cachedPulls];
+            _pullsDatasource = [[PULParseMiddleMan sharedInstance].cache cachedPulls];
             
             [_collectionView reloadData];
             [self updateUI];

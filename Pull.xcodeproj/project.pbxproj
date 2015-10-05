@@ -225,6 +225,7 @@
 		9B49DFCD1B8D4DCC009D0C71 /* circle_purple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFCA1B8D4DCC009D0C71 /* circle_purple@2x.png */; };
 		9B49DFCE1B8D4DCC009D0C71 /* circle_purple@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFCB1B8D4DCC009D0C71 /* circle_purple@3x.png */; };
 		9B537B2B1BC2BF75005587D6 /* PFACL+Users.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B537B2A1BC2BF75005587D6 /* PFACL+Users.m */; settings = {ASSET_TAGS = (); }; };
+		9B537B311BC2C91D005587D6 /* PULCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B537B301BC2C91D005587D6 /* PULCache.m */; settings = {ASSET_TAGS = (); }; };
 		9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */; };
 		9B78A7EE1B8118EE005569B4 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
 		9B78A7F01B8124EB005569B4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7EF1B8124EB005569B4 /* MessageUI.framework */; };
@@ -321,7 +322,6 @@
 		9BFF37A01BC1745300201811 /* PULUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7921B80DE66005569B4 /* PULUserSettings.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF37A11BC1745800201811 /* PULLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 954285971BB3BEC500268329 /* PULLocation.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF37A21BC1746700201811 /* PULLocationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7AE1B80DE7D005569B4 /* PULLocationUpdater.m */; settings = {ASSET_TAGS = (); }; };
-		9BFF37A31BC1746A00201811 /* PULCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7B01B80DE7D005569B4 /* PULCache.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF37A41BC1746C00201811 /* PULInviteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7B21B80DE7D005569B4 /* PULInviteService.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF37A61BC1747100201811 /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 951240BF1BABD4FF00988AC0 /* BackgroundTaskManager.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF37A81BC1747E00201811 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7C01B80DE88005569B4 /* NSDate+Utilities.m */; settings = {ASSET_TAGS = (); }; };
@@ -647,6 +647,8 @@
 		9B49DFCB1B8D4DCC009D0C71 /* circle_purple@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle_purple@3x.png"; sourceTree = "<group>"; };
 		9B537B291BC2BF75005587D6 /* PFACL+Users.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFACL+Users.h"; sourceTree = "<group>"; };
 		9B537B2A1BC2BF75005587D6 /* PFACL+Users.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFACL+Users.m"; sourceTree = "<group>"; };
+		9B537B2F1BC2C91D005587D6 /* PULCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULCache.h; sourceTree = "<group>"; };
+		9B537B301BC2C91D005587D6 /* PULCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULCache.m; sourceTree = "<group>"; };
 		9B5EFA581AE28F8600EFCCD5 /* PULUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUserCell.h; sourceTree = "<group>"; };
 		9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserCell.m; sourceTree = "<group>"; };
 		9B78A77C1B80DE66005569B4 /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Hex.h"; path = "../../PullKit/Categories/NSData+Hex.h"; sourceTree = "<group>"; };
@@ -663,8 +665,6 @@
 		9B78A7921B80DE66005569B4 /* PULUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserSettings.m; sourceTree = "<group>"; };
 		9B78A7AD1B80DE7D005569B4 /* PULLocationUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULLocationUpdater.h; sourceTree = "<group>"; };
 		9B78A7AE1B80DE7D005569B4 /* PULLocationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULLocationUpdater.m; sourceTree = "<group>"; };
-		9B78A7AF1B80DE7D005569B4 /* PULCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULCache.h; sourceTree = "<group>"; };
-		9B78A7B01B80DE7D005569B4 /* PULCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULCache.m; sourceTree = "<group>"; };
 		9B78A7B11B80DE7D005569B4 /* PULInviteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULInviteService.h; sourceTree = "<group>"; };
 		9B78A7B21B80DE7D005569B4 /* PULInviteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULInviteService.m; sourceTree = "<group>"; };
 		9B78A7B31B80DE7D005569B4 /* PULPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPush.h; sourceTree = "<group>"; };
@@ -1551,8 +1551,6 @@
 			isa = PBXGroup;
 			children = (
 				9B78A7AC1B80DE7D005569B4 /* Location */,
-				9B78A7AF1B80DE7D005569B4 /* PULCache.h */,
-				9B78A7B01B80DE7D005569B4 /* PULCache.m */,
 				9B78A7B11B80DE7D005569B4 /* PULInviteService.h */,
 				9B78A7B21B80DE7D005569B4 /* PULInviteService.m */,
 				9B78A7B31B80DE7D005569B4 /* PULPush.h */,
@@ -1666,6 +1664,8 @@
 				9BEFB0CB1BBC2C8800A7A86B /* PFQuery+PullQueries.m */,
 				9B537B291BC2BF75005587D6 /* PFACL+Users.h */,
 				9B537B2A1BC2BF75005587D6 /* PFACL+Users.m */,
+				9B537B2F1BC2C91D005587D6 /* PULCache.h */,
+				9B537B301BC2C91D005587D6 /* PULCache.m */,
 			);
 			name = Parse;
 			sourceTree = "<group>";
@@ -2235,6 +2235,7 @@
 				9BB82DF81AEB392C004447FA /* PULInviteViewController.m in Sources */,
 				953B062F1A8CDDE3008235EB /* PULReverseModal.m in Sources */,
 				9BF018911B9B35E7004E6DCA /* PULLocalPush.m in Sources */,
+				9B537B311BC2C91D005587D6 /* PULCache.m in Sources */,
 				9590B5611A98D2110057EA6A /* PULUpdateChecker.m in Sources */,
 				33ABDE4F1AB4A6B800A047BF /* PULLocationOverlay.m in Sources */,
 				84261A451A9E2628001DD052 /* PULRequestLocationViewController.m in Sources */,
@@ -2246,7 +2247,6 @@
 				9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */,
 				9B97242A1AE20BD500EEC3AB /* PULUserSelectViewController.m in Sources */,
 				9BFF37A11BC1745800201811 /* PULLocation.m in Sources */,
-				9BFF37A31BC1746A00201811 /* PULCache.m in Sources */,
 				33FB713D1AAD205B00B74C47 /* PULVerticallyCenteredButton.m in Sources */,
 				95169F621A8718AB006D3078 /* PULSlideUnwindSegue.m in Sources */,
 				9B0A66DD1BBECBFA004575BE /* BackgroundTask.m in Sources */,

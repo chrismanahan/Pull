@@ -32,8 +32,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 //@property (nonatomic, strong) MMWormhole *wormhole;
 
-@property (nonatomic, strong) NSTimer *updateTimer;
-
 @property (nonatomic, strong) PULParseMiddleMan *parse;
 
 @property (nonatomic, assign) PKPositionTrackingMode currentTrackingMode;
@@ -71,6 +69,12 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         //        _wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.pull"
         //                                                         optionalDirectory:@"wormhole"];
         
+        
+        _locationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:5
+                                                                target:self
+                                                              selector:@selector(_updateTrackingMode)
+                                                              userInfo:nil
+                                                               repeats:YES];
     }
     
     return self;
@@ -111,7 +115,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     [parkour setMinPositionUpdateRate:5];
     [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
         
-        PULLog(@"received location: %@ of type %zd : $zd", position, motionType);
+        PULLog(@"received location: %@ of type %zd", position, motionType);
         
         [self _updateToLocation:position position:positionType motion:motionType];
         
@@ -202,13 +206,12 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     return fabs([[PULUser currentUser].location.location.timestamp timeIntervalSinceNow]);
 }
 
-- (void)_updateToLocation:(nullable CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
+- (void)_updateTrackingMode
 {
-    
     PULUser *acct = [PULUser currentUser];
     // determine which tracking mode to use based on current motion type
     // and state of pulls
-    PKPositionTrackingMode trackingMode = Pedestrian;
+    PKPositionTrackingMode trackingMode = Geofencing;
     BOOL keepTuning = YES;
     BOOL foreground = acct.isInForeground;
     BOOL hasActivePull = NO;
@@ -233,7 +236,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         // if no one's in the foreground, use low tracking
         if (!foreground)
         {
-            trackingMode = Pedestrian;
+            trackingMode = Geofencing;
             keepTuning = NO;
         }
     }
@@ -248,8 +251,15 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     // restart location tracking with new mode
     if (trackingMode != _currentTrackingMode)
     {
+        PULLog(@"changing tracking mode to %ld", (long)trackingMode);
         [self restartUpdatingLocationWithMode:trackingMode];
     }
+}
+
+- (void)_updateToLocation:(nullable CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
+{
+    
+    [self _updateTrackingMode];
     
     // save new location
     [self _saveNewLocation:location position:positionType motion:motionType];
@@ -292,15 +302,15 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     
     if (distance > kPULLocationTuningDistanceLowMeters)
     {
-        settingType = Pedestrian;
+        settingType = Geofencing;
     }
     else if (distance > kPULLocationTuningDistanceAutoMeters)
     {
-        settingType = Fitness;
+        settingType = Pedestrian;
     }
     else if (distance > kPULLocationTuningDistanceMediumMeters)
     {
-        settingType = Automotive;
+        settingType = Fitness;
     }
     else
     {

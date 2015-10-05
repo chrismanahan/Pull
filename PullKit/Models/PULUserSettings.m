@@ -17,11 +17,11 @@
 
 + (instancetype)defaultSettings;
 {
-    PULUserSettings *settings = [[PULUserSettings alloc] init];
+    PULUserSettings *settings = [PULUserSettings object];
     
     settings.notifyAccept = YES;
     settings.notifyInvite = YES;
-    settings.notifyNearby = YES;
+    settings.notifyNearby = YES; 
     settings.notifyGone = YES;
     
     return settings;

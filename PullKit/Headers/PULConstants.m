@@ -58,7 +58,7 @@ const NSInteger kPULPullLocalNotificationDelayMinutes = 5;
 
 const NSInteger kPULPollTimeActive = 2;//TODO:5;
 const NSInteger kPULPollTimePassive = 15;//TODO:30;
-const NSInteger kPULPollTimeBackground = 20;//TODO:120;
+const NSInteger kPULPollTimeBackground = 30;//TODO:120;
 
 // location tracking
 const NSInteger kLocationForegroundDistanceFilter = 1;//20;    // meters

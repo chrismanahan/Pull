@@ -198,7 +198,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       // TODO: check if foreground
-                                                      [self reload];
+                                                      [self reloadForceRefresh:NO];
                                                   }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:PULParseObjectsUpdatedLocationsNotification
@@ -219,22 +219,38 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 }
 
 #pragma mark
-- (void)reload
+- (void)reloadForceRefresh:(BOOL)refresh
 {
     if (!_isReloading)
     {
         self.isReloading = YES;
         [self showNoLocation:![PULLocationUpdater sharedUpdater].hasPermission];
-      
-        [[PULParseMiddleMan sharedInstance] getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
-            _pullsDatasource = pulls;
+        
+        if (refresh)
+        {
+            [[PULParseMiddleMan sharedInstance] getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
+                _pullsDatasource = pulls;
+                
+                [_collectionView reloadData];
+                [self updateUI];
+                [self setSelectedIndex:_selectedIndex];
+                self.isReloading = NO;
+            }];
+        }
+        else
+        {
+            _pullsDatasource = [[PULParseMiddleMan sharedInstance] cachedPulls];
             
             [_collectionView reloadData];
             [self updateUI];
             [self setSelectedIndex:_selectedIndex];
-            self.isReloading = NO;
-        }];
+        }
     }
+}
+
+- (void)reload
+{
+    [self reloadForceRefresh:YES];
 }
 
 - (void)setIsReloading:(BOOL)isReloading

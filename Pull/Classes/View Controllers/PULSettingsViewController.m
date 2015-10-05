@@ -38,7 +38,6 @@
     [_notifAcceptSwitch setOn:settings.notifyAccept];
     [_notifInviteSwitch setOn:settings.notifyInvite];
     [_notifyNearbySwitch setOn:settings.notifyNearby];
-    
 }
 
 
@@ -99,7 +98,7 @@
     if (_dirty)
     {
         // TODO: Save settings
-//        [[PULUser currentUser] saveKeys:@[@"settings"]];
+        [[PULUser currentUser].settings saveInBackground];
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -139,15 +138,15 @@
     if (buttonIndex == 1)
     {
         // TODO: end pulls and logout
-//        PULLoadingIndicator *ai = [PULLoadingIndicator indicatorOnView:self.view];
-//        ai.title = @"Disabling";
-//        [ai show];
-//        // disable account
-////        [[PULUser currentUser].pullManager unpullEveryone];
-//        [PULUser currentUser].settings.disabled = YES;
-//        [[PULUser currentUser] saveAll];
-//        [ai hide];
-//        [self ibLogout:nil];
+        PULLoadingIndicator *ai = [PULLoadingIndicator indicatorOnView:self.view];
+        ai.title = @"Disabling";
+        [ai show];
+        // disable account
+//        [[PULUser currentUser].pullManager unpullEveryone];
+        [PULUser currentUser].isDisabled = YES;
+        [[PULUser currentUser] saveInBackground];
+        [ai hide];
+        [self ibLogout:nil];
 
     }
 }

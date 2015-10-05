@@ -224,6 +224,7 @@
 		9B49DFCC1B8D4DCC009D0C71 /* circle_purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFC91B8D4DCC009D0C71 /* circle_purple.png */; };
 		9B49DFCD1B8D4DCC009D0C71 /* circle_purple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFCA1B8D4DCC009D0C71 /* circle_purple@2x.png */; };
 		9B49DFCE1B8D4DCC009D0C71 /* circle_purple@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFCB1B8D4DCC009D0C71 /* circle_purple@3x.png */; };
+		9B537B2B1BC2BF75005587D6 /* PFACL+Users.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B537B2A1BC2BF75005587D6 /* PFACL+Users.m */; settings = {ASSET_TAGS = (); }; };
 		9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */; };
 		9B78A7EE1B8118EE005569B4 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
 		9B78A7F01B8124EB005569B4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7EF1B8124EB005569B4 /* MessageUI.framework */; };
@@ -644,6 +645,8 @@
 		9B49DFC91B8D4DCC009D0C71 /* circle_purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_purple.png; sourceTree = "<group>"; };
 		9B49DFCA1B8D4DCC009D0C71 /* circle_purple@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle_purple@2x.png"; sourceTree = "<group>"; };
 		9B49DFCB1B8D4DCC009D0C71 /* circle_purple@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle_purple@3x.png"; sourceTree = "<group>"; };
+		9B537B291BC2BF75005587D6 /* PFACL+Users.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFACL+Users.h"; sourceTree = "<group>"; };
+		9B537B2A1BC2BF75005587D6 /* PFACL+Users.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFACL+Users.m"; sourceTree = "<group>"; };
 		9B5EFA581AE28F8600EFCCD5 /* PULUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUserCell.h; sourceTree = "<group>"; };
 		9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserCell.m; sourceTree = "<group>"; };
 		9B78A77C1B80DE66005569B4 /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Hex.h"; path = "../../PullKit/Categories/NSData+Hex.h"; sourceTree = "<group>"; };
@@ -1661,6 +1664,8 @@
 				9BC74BA41BB7975B00DFB297 /* PULParseMiddleMan.m */,
 				9BEFB0CA1BBC2C8800A7A86B /* PFQuery+PullQueries.h */,
 				9BEFB0CB1BBC2C8800A7A86B /* PFQuery+PullQueries.m */,
+				9B537B291BC2BF75005587D6 /* PFACL+Users.h */,
+				9B537B2A1BC2BF75005587D6 /* PFACL+Users.m */,
 			);
 			name = Parse;
 			sourceTree = "<group>";
@@ -2191,6 +2196,7 @@
 				334044971A17AC3A00B00BC3 /* PULLoginViewController.m in Sources */,
 				845573281B8CBC5900EF1DCA /* NZCircularImageView.m in Sources */,
 				9BFF37A21BC1746700201811 /* PULLocationUpdater.m in Sources */,
+				9B537B2B1BC2BF75005587D6 /* PFACL+Users.m in Sources */,
 				84261A481A9E263A001DD052 /* PULRequestNotificationsViewController.m in Sources */,
 				9BFF37A81BC1747E00201811 /* NSDate+Utilities.m in Sources */,
 				9BFF37A91BC1748500201811 /* THBinder.m in Sources */,

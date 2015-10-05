@@ -9,6 +9,7 @@
 #import "PULParseMiddleMan.h"
 
 #import "PFQuery+PullQueries.h"
+#import "PFACL+Users.h"
 
 #import "NSDate+Utilities.h"
 
@@ -30,7 +31,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 @interface PULParseMiddleMan ()
 
-@property (nonatomic, strong) NSCache *cache;
+@property (nonatomic, strong) NSMutableDictionary *cache;
 
 @property (nonatomic, strong) NSMutableDictionary *locationTimers;
 @property (nonatomic, strong) NSTimer *observerTimerPulls;
@@ -56,7 +57,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     if (self = [super init])
     {
         _locationTimers = [[NSMutableDictionary alloc] init];
-        _cache = [[NSCache alloc] init];
+        _cache = [[NSMutableDictionary alloc] init];
         
         [self _startMonitoringPullsInBackground:NO];
         [self _startMonitoringPulledLocationsInBackground:NO];
@@ -204,6 +205,10 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     obj[@"isAccepted"] = @YES;
     obj[@"isBlocked"] = @NO;
     obj[@"blockedBy"] = [NSNull null];
+    
+    // set acl
+    PFACL *acl = [PFACL ACLWithUser:[PULUser currentUser] and:user];
+    obj.ACL = acl;
     
     [obj saveEventually];
 }
@@ -405,6 +410,11 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     if (!loc)
     {
         loc = [PULLocation object];
+        
+        PFACL *acl = [PFACL ACLWithUser:[PULUser currentUser]];
+        [acl setPublicReadAccess:YES];
+        loc.ACL = acl;
+        
         saveUser = YES;
     }
     
@@ -431,7 +441,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 {
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:interval
                                                       target:self
-                                                    selector:@selector(_tickObserverTimer:)
+                                                    selector:@selector(_tickActiveLocationTimer:)
                                                     userInfo:user
                                                      repeats:YES];
     
@@ -460,26 +470,6 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
         [timer invalidate];
     }
     [_locationTimers removeAllObjects];
-}
-
-- (void)_tickObserverTimer:(NSTimer*)timer
-{
-    [self _runBlockInBackground:^{
-        PULUser *user = [timer userInfo];
-        
-        [user.location fetch];
-        
-        NSString *key = user.username;
-        NSDictionary *dict = _locationTimers[key];
-        
-        SEL selector = [dict[@"selector"] pointerValue];
-        id target = dict[@"target"];
-        
-        [self _runBlockOnMainQueue:^{
-            [target performSelector:selector];
-        }];
-        
-    }];
 }
 
 #pragma mark - Pulls
@@ -514,11 +504,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             pull.duration = duration;
             pull.together = NO;
             pull.nearby = NO;
-            
-            PFACL *acl = [PFACL ACL];
-            [acl setPublicReadAccess:NO];
-            [acl setWriteAccess:YES forUser:[PULUser currentUser]];
-            [acl setWriteAccess:YES forUser:user];
+            pull.ACL = [PFACL ACLWithUser:[PULUser currentUser] and:user];
             
             BOOL success = [pull save];
             
@@ -598,6 +584,72 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 
 #pragma mark - Private
+- (void)_tickActiveLocationTimer:(NSTimer*)timer
+{
+    [self _runBlockInBackground:^{
+        PULUser *user = [timer userInfo];
+        
+        [user.location fetch];
+        
+        NSString *key = user.username;
+        NSDictionary *dict = _locationTimers[key];
+        
+        SEL selector = [dict[@"selector"] pointerValue];
+        id target = dict[@"target"];
+        
+        [self _runBlockOnMainQueue:^{
+            [target performSelector:selector];
+        }];
+        
+    }];
+}
+
+- (void)_observerTimerTick:(NSTimer*)timer
+{
+    if (![PULUser currentUser].isDataAvailable)
+    {
+        return;
+    }
+    [self _runBlockInBackground:^{
+        if ([timer isEqual:_observerTimerPulls])
+        {
+            // refresh pulls
+            
+            [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
+                                                                    object:nil];
+                //TODO: go through each pull and see if we have a nearby flag that we need to notify the user about
+            } ignoreCache:YES];
+        }
+        else if ([timer isEqual:_observerTimerLocations])
+        {
+            // refresh locations
+            NSArray *locations = [[self cachedPullsPulled]
+                                  linq_select:^id(PULPull *pull) {
+                                      return [pull otherUser].location;
+                                  }];
+            
+            if (locations.count > 0)
+            {
+                [PFObject fetchAll:locations];
+                
+                // go through each pull and check if we need to add nearby or together flag
+                for (PULPull *pull in [self cachedPullsPulled])
+                {
+                    [pull setDistanceFlags];
+                    if (pull.isDirty)
+                    {
+                        [pull saveEventually];
+                    }
+                }
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedLocationsNotification
+                                                                    object:nil];
+            }
+        }
+    }];
+}
+
 #pragma mark Parsing Results
 - (NSArray<PULUser*>*)_usersFromLookupResults:(NSArray<PFObject*>*)objects
 {
@@ -665,52 +717,6 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     }];
 }
 
-- (void)_observerTimerTick:(NSTimer*)timer
-{
-    if (![PULUser currentUser].isDataAvailable)
-    {
-        return;
-    }
-    [self _runBlockInBackground:^{
-        if ([timer isEqual:_observerTimerPulls])
-        {
-            // refresh pulls
-            
-            [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
-                                                                    object:nil];
-                //TODO: go through each pull and see if we have a nearby flag that we need to notify the user about
-            } ignoreCache:YES];
-        }
-        else if ([timer isEqual:_observerTimerLocations])
-        {
-            // refresh locations
-            NSArray *locations = [[self cachedPullsPulled]
-                                  linq_select:^id(PULPull *pull) {
-                                      return [pull otherUser].location;
-                                  }];
-            
-            if (locations.count > 0)
-            {
-                [PFObject fetchAll:locations];
-                
-                // go through each pull and check if we need to add nearby or together flag
-                for (PULPull *pull in [self cachedPullsPulled])
-                {
-                    [pull setDistanceFlags];
-                    if (pull.isDirty)
-                    {
-                        [pull saveEventually];
-                    }
-                }
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedLocationsNotification
-                                                                    object:nil];
-            }
-        }
-    }];
-}
-
 #pragma mark Registration
 - (void)_registerUser:(PULUser*)user withFbResult:(id)result completion:(void(^)(BOOL success, NSError *error))completion
 {
@@ -724,6 +730,14 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     if (fbData[@"locale"]) { user[@"locale"] = fbData[@"locale"]; }
     user[@"username"] = [NSString stringWithFormat:@"fb:%@", user[@"fbId"]];
     user[@"isInForeground"] = @(YES);
+    
+    user.settings = [PULUserSettings defaultSettings];
+    
+    // set acl for user and settings
+    PFACL *acl = [PFACL ACLWithUser:user];
+    [acl setPublicReadAccess:YES];
+    user.ACL = acl;
+    user.settings.ACL = acl;
     
     [user saveInBackground];
     

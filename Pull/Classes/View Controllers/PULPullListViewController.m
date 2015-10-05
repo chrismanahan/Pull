@@ -223,11 +223,11 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 {
     if (!_isReloading)
     {
-        self.isReloading = YES;
         [self showNoLocation:![PULLocationUpdater sharedUpdater].hasPermission];
         
         if (refresh)
         {
+            self.isReloading = YES;
             [[PULParseMiddleMan sharedInstance] getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
                 _pullsDatasource = pulls;
                 
@@ -294,13 +294,13 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     if ([sender.titleLabel.text isEqual:kPULDialogButtonTextAccept])
     {
         [[PULParseMiddleMan sharedInstance] acceptPull:_displayedPull];
-        [self reload];
+        [self reloadForceRefresh:NO];
     }
     else if ([sender.titleLabel.text isEqual:kPULDialogButtonTextCancel] ||
              [sender.titleLabel.text isEqual:kPULDialogButtonTextDecline])
     {
         [[PULParseMiddleMan sharedInstance] deletePull:_displayedPull];
-        [self reload];
+        [self reloadForceRefresh:NO];
     }
     else if ([sender.titleLabel.text isEqual:kPULDialogButtonTextEnableLocation])
     {

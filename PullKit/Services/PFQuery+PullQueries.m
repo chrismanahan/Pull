@@ -30,6 +30,8 @@ NSString * const kPULLookupReceivingUserKey = @"receivingUser";
 + (PFQuery*)queryLookupPulls
 {
     PFQuery *lookupQuery = [self _queryInteraction:[PULPull parseClassName]];
+    lookupQuery.cachePolicy = kPFCachePolicyNetworkOnly;
+    
     return lookupQuery;
 }
 

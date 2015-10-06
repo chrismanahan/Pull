@@ -274,20 +274,25 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     
     if (!acct) { return; } 
     
-    // round each lat lon for comparison
-    CGFloat newLat = round(100000 * location.coordinate.latitude) / 100000;
-    CGFloat newLon = round(100000 * location.coordinate.longitude) / 100000;
-    CGFloat acctLat = round(100000 * acct.location.location.coordinate.latitude) / 100000;
-    CGFloat acctLon = round(100000 * acct.location.location.coordinate.longitude) / 100000;
+    BOOL hasDifferentLoc = YES;
     
-    BOOL hasDifferentLoc = (newLat != acctLat || newLon != acctLon);
+    if (acct.location.isDataAvailable)
+    {
+        // round each lat lon for comparison
+        CGFloat newLat = round(100000 * location.coordinate.latitude) / 100000;
+        CGFloat newLon = round(100000 * location.coordinate.longitude) / 100000;
+        CGFloat acctLat = round(100000 * acct.location.coordinate.latitude) / 100000;
+        CGFloat acctLon = round(100000 * acct.location.coordinate.longitude) / 100000;
+        
+        hasDifferentLoc = (newLat != acctLat || newLon != acctLon);
+    }
     
     if (hasDifferentLoc || location.horizontalAccuracy < acct.location.accuracy)
     {
         // save new location if coords are different or if the accuracy has improved
         dispatch_async(dispatch_get_main_queue(), ^{
         
-            PULLog(@"\tsaving new location: (%.5f, %.5f)", newLat, newLon);
+            PULLog(@"\tsaving new location: (%.5f, %.5f)", location.coordinate.latitude, location.coordinate.longitude);
             PULLog(@"\t\tmotion type: %zd", motionType);
             [_parse updateLocation:location
                       movementType:motionType

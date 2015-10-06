@@ -317,8 +317,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
         saveUser = YES;
     }
     
-    loc.lat = location.coordinate.latitude;
-    loc.lon = location.coordinate.longitude;
+    loc.coordinate = [PFGeoPoint geoPointWithLocation:location];
     loc.alt = location.altitude;
     loc.accuracy = location.horizontalAccuracy;
     loc.course = location.course;
@@ -326,7 +325,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     loc.movementType = moveType;
     loc.positionType = posType;
     
-    [loc saveEventually];
+    [loc saveInBackground];
     
     if (saveUser)
     {

@@ -21,14 +21,7 @@
 /*****************************
  Properties
  *****************************/
-/*!
- *  Latitude
- */
-@property (nonatomic) CGFloat lat;
-/*!
- *  Longitude
- */
-@property (nonatomic) CGFloat lon;
+@property (nonatomic, strong) PFGeoPoint *coordinate;
 /*!
  *  Altitude
  */

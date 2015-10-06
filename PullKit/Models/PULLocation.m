@@ -10,8 +10,7 @@
 
 @implementation PULLocation
 
-@dynamic lat;
-@dynamic lon;
+@dynamic coordinate;
 @dynamic alt;
 @dynamic accuracy;
 @dynamic course;
@@ -28,7 +27,7 @@
         // if no location yet or the location is stale, initialize again
         if (!loc || ![loc.timestamp isEqualToDate:self.updatedAt])
         {
-            loc = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.lat, self.lon)
+            loc = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.coordinate.latitude, self.coordinate.longitude)
                                                  altitude:self.alt
                                        horizontalAccuracy:self.accuracy
                                          verticalAccuracy:0

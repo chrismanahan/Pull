@@ -15,7 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger)
 {
     PULPushTypeSendPull,
-    PULPushTypeAcceptPull
+    PULPushTypeAcceptPull,
+    PULPushTypeLocalFriendNearby,
+    PULPushTypeLocalFriendGone
 }  PULPushType;
 
 @interface PULPush : NSObject

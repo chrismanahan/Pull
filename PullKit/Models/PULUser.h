@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  User settings
  */
-@property (nonatomic, strong) PULUserSettings *settings;
+@property (nonatomic, strong) PULUserSettings *userSettings;
 
 /*****************************
  Instance Methods

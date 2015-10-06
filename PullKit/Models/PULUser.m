@@ -23,7 +23,7 @@
 @dynamic isDisabled;
 @dynamic isOnline;
 @dynamic location;
-@dynamic settings;
+@dynamic userSettings;
 
 + (instancetype)currentUser
 {

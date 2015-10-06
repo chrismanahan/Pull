@@ -49,6 +49,7 @@ NSString * const kPULLookupReceivingUserKey = @"receivingUser";
     }
     [lookupQuery whereKey:@"isAccepted" equalTo:@YES];
     
+    [lookupQuery includeKey:@"settings"];
     
     
     return lookupQuery;

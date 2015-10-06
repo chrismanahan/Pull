@@ -12,7 +12,7 @@
 #import "PULPullListViewController.h"
 
 #import "PULNoConnectionView.h"
-#import "PULLocalPush.h"
+#import "PULPush.h"
 
 #import "PULUpdateChecker.h"
 
@@ -67,10 +67,17 @@
     __block NSString *vcName = NSStringFromClass([PULLoginViewController class]);
     
     // check if we are logged in
-    if ([[PULParseMiddleMan sharedInstance] currentUser])
+    if ([PULUser currentUser])
     {
         [[[PULParseMiddleMan sharedInstance] currentUser].location fetchIfNeededInBackground];
         vcName = NSStringFromClass([PULPullListViewController class]);
+        
+        // TODO: remove setting user settings when all dev devices updated
+        if (![PULUser currentUser].userSettings)
+        {
+            [PULUser currentUser].userSettings = [PULUserSettings defaultSettings];
+            [[PULUser currentUser].userSettings saveInBackground];
+        }
     }
     else /*not logged in*/
     {
@@ -106,38 +113,6 @@
     [PULUpdateChecker checkForUpdate];
 
     bgTask = [[BackgroundTask alloc] init];
-    
-    [PULUser currentUser].settings = [PULUserSettings defaultSettings];
-    [[PULUser currentUser] saveInBackground];
-    
-    // start watching for nearby notifications
-    [[NSNotificationCenter defaultCenter] addObserverForName:PULPullNearbyNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue currentQueue]
-                                                  usingBlock:^(NSNotification * note) {
-                                                      // notify user that friend is nearby if we're in the background
-                                                      UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
-                                                      if (appState != UIApplicationStateActive)
-                                                      {
-                                                          PULPull *pull = [note object];
-                                                          NSString *alertMessage = [NSString stringWithFormat:@"%@ is nearby!", [pull otherUser].firstName];
-                                                          [PULLocalPush sendLocalPushWithMessage:alertMessage];
-                                                      }
-                                                  }];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:PULPullNoLongerNearbyNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue currentQueue]
-                                                  usingBlock:^(NSNotification * note) {
-                                                      // notify user that friend is nearby if we're in the background
-                                                      UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
-                                                      if (appState != UIApplicationStateActive)
-                                                      {
-                                                          PULPull *pull = [note object];
-                                                          NSString *alertMessage = [NSString stringWithFormat:@"%@ is no longer nearby", [pull otherUser].firstName];
-                                                          [PULLocalPush sendLocalPushWithMessage:alertMessage];
-                                                      }
-                                                  }];
     
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application

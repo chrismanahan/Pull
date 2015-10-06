@@ -407,10 +407,9 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             
             BOOL success = [pull save];
             
-            //send push to other user
-            [PULPush sendPushType:PULPushTypeSendPull to:user from:[PULUser currentUser]];
-            
             [self _runBlockOnMainQueue:^{
+                //send push to other user
+                [PULPush sendPushType:PULPushTypeSendPull to:user from:[PULUser currentUser]];
                 completion(success, nil);;
             }];
         }];
@@ -630,6 +629,8 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 {
     NSDictionary *fbData = (NSDictionary*)result;
     
+    PULUserSettings *settings = [PULUserSettings defaultSettings];
+    
     if (fbData[@"first_name"]) { user[@"firstName"] = fbData[@"first_name"]; }
     if (fbData[@"last_name"]) { user[@"lastName"] = fbData[@"last_name"]; }
     if (fbData[@"gender"] && [fbData[@"gender"] length] > 0) { user[@"gender"] = [fbData[@"gender"] substringToIndex:1]; }
@@ -639,13 +640,14 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     user[@"username"] = [NSString stringWithFormat:@"fb:%@", user[@"fbId"]];
     user[@"isInForeground"] = @(YES);
     
-    user.settings = [PULUserSettings defaultSettings];
-    
     // set acl for user and settings
     PFACL *acl = [PFACL ACLWithUser:user];
     [acl setPublicReadAccess:YES];
     user.ACL = acl;
-    user.settings.ACL = acl;
+    settings.ACL = acl;
+    
+    // set user settings
+    user.userSettings = settings;
     
     [user saveInBackground];
     

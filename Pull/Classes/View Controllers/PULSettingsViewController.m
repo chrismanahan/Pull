@@ -35,7 +35,7 @@
 {
     [super viewWillAppear:animated];
     
-    PULUserSettings *settings = [PULUser currentUser].settings;
+    PULUserSettings *settings = [PULUser currentUser].userSettings;
     [_notifAcceptSwitch setOn:settings.notifyAccept];
     [_notifInviteSwitch setOn:settings.notifyInvite];
     [_notifyNearbySwitch setOn:settings.notifyNearby];
@@ -62,28 +62,28 @@
 {
     _dirty = YES;
     
-     [PULUser currentUser].settings.notifyInvite = _notifInviteSwitch.isOn;
+     [PULUser currentUser].userSettings.notifyInvite = _notifInviteSwitch.isOn;
 }
 
 - (IBAction)ibAccept:(id)sender
 {
     _dirty = YES;
     
-    [PULUser currentUser].settings.notifyAccept = _notifAcceptSwitch.isOn;
+    [PULUser currentUser].userSettings.notifyAccept = _notifAcceptSwitch.isOn;
 }
 
 - (IBAction)ibNeraby:(id)sender
 {
     _dirty = YES;
     
-    [PULUser currentUser].settings.notifyNearby = _notifyNearbySwitch.isOn;
+    [PULUser currentUser].userSettings.notifyNearby = _notifyNearbySwitch.isOn;
 }
 
 - (IBAction)ibGone:(id)sender
 {
     _dirty = YES;
     
-    [PULUser currentUser].settings.notifyGone = _notifyGoneSwitch.isOn;
+    [PULUser currentUser].userSettings.notifyGone = _notifyGoneSwitch.isOn;
 }
 
 - (IBAction)ibDone:(id)sender
@@ -91,7 +91,7 @@
     if (_dirty)
     {
         // TODO: Save settings
-        [[PULUser currentUser].settings saveInBackground];
+        [[PULUser currentUser].userSettings saveInBackground];
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];

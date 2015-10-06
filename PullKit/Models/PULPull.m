@@ -10,6 +10,7 @@
 
 #import "PULAccount.h"
 
+#import "PULPush.h"
 #import "PULConstants.h"
 
 #import "NSDate+Utilities.h"
@@ -46,14 +47,16 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
     if (!wasNearby && self.nearby)
     {
         // if we weren't nearby and now we are, notify
-        [[NSNotificationCenter defaultCenter] postNotificationName:PULPullNearbyNotification
-                                                            object:self];
+        [PULPush sendPushType:PULPushTypeLocalFriendNearby
+                           to:[PULUser currentUser]
+                         from:[self otherUser]];
     }
     else if (wasNearby && !self.nearby)
     {
         // if we were nearby and no longer are, tell the user
-        [[NSNotificationCenter defaultCenter] postNotificationName:PULPullNoLongerNearbyNotification
-                                                            object:self];
+        [PULPush sendPushType:PULPushTypeLocalFriendGone
+                           to:[PULUser currentUser]
+                         from:[self otherUser]];
     }
 }
 

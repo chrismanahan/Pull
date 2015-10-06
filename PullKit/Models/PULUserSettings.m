@@ -36,7 +36,6 @@
 + (void)load
 {
     [self registerSubclass];
-    [super load];
 }
 
 @end

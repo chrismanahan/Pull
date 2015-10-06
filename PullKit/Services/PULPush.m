@@ -10,42 +10,80 @@
 
 #import "PULUser.h"
 
+#import "PULLocalPush.h"
+
 @implementation PULPush
 
 + (void)sendPushType:(PULPushType)type to:(PULUser*)toUser from:(PULUser*)fromUser;
 {
-    PULLog(@"sending push of type: %zd", type);
-    NSString *message;
-    switch (type) {
-        case PULPushTypeAcceptPull:
-        {
-            message = [NSString stringWithFormat:kPULPushFormattedMessageAcceptPull, fromUser.firstName];
-            break;
+    // we can send this to a background thread since it's not urgent
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        PULLog(@"sending push of type: %zd", type);
+        NSString *message;
+        BOOL canSend = YES;
+        BOOL isLocal = NO;
+        
+         // fetch other user's settings if needed
+        [toUser.userSettings fetchIfNeeded];
+        
+        switch (type) {
+            case PULPushTypeAcceptPull:
+            {
+                canSend = toUser.userSettings.notifyAccept;
+                message = [NSString stringWithFormat:kPULPushFormattedMessageAcceptPull, fromUser.firstName];
+                break;
+            }
+            case PULPushTypeSendPull:
+            {
+                canSend = toUser.userSettings.notifyInvite;
+                message = [NSString stringWithFormat:kPULPushFormattedMessageSendPull, fromUser.firstName];
+                break;
+            }
+            case PULPushTypeLocalFriendNearby:
+            {
+                isLocal = YES;
+                canSend = toUser.userSettings.notifyNearby;
+                message = [NSString stringWithFormat:@"%@ is nearby!", fromUser.firstName];
+                break;
+            }
+            case PULPushTypeLocalFriendGone:
+            {
+                isLocal = YES;
+                canSend = toUser.userSettings.notifyGone;
+                message = [NSString stringWithFormat:@"%@ is no longer nearby", fromUser.firstName];
+                break;
+            }
+            default:
+                break;
         }
-        case PULPushTypeSendPull:
+        
+        if (message && canSend)
         {
-            message = [NSString stringWithFormat:kPULPushFormattedMessageSendPull, fromUser.firstName];
-            break;
+            if (isLocal)
+            {
+                [PULLocalPush sendLocalPushWithMessage:message];
+            }
+            else
+            {
+                NSDictionary *data = @{@"alert": message,
+                                       @"sound": @"default",
+                                       @"badge": @"increment"};
+                PFPush *push = [[PFPush alloc] init];
+                [push setChannel:[self _channelForUser:toUser]];
+                [push setData:data];
+                [push sendPushInBackground];
+                PULLog(@"sent push");
+            }
         }
-        default:
-            break;
-    }
-    
-    if (message)
-    {
-        NSDictionary *data = @{@"alert": @"default",
-                               @"sound": @"popcorn",
-                               @"badge": @"increment"};
-        PFPush *push = [[PFPush alloc] init];
-        [push setChannel:[self _channelForUser:toUser]];
-        [push setData:data];
-        [push sendPushInBackground];
-        PULLog(@"sent push");
-    }
-    else
-    {
-        PULLog(@"could not send push, not supported");
-    }
+        else if (!canSend)
+        {
+            PULLog(@"\tuser does no want this type of notif");
+        }
+        else
+        {
+            PULLog(@"\tcould not send push, not supported");
+        }
+    });
 }
 
 

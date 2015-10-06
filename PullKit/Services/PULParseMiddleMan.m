@@ -534,7 +534,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             if (locations.count > 0)
             {
                 [PFObject fetchAll:locations];
-//                [PFObject fetchAll:[_cache cachedFriendsPulled]];
+//                [PFObject fetchAll:[_cache cacwhedFriendsPulled]];
                 
                 // go through each pull and check if we need to add nearby or together flag
                 for (PULPull *pull in [_cache cachedPullsPulled])

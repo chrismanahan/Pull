@@ -107,6 +107,9 @@
 
     bgTask = [[BackgroundTask alloc] init];
     
+    [PULUser currentUser].settings = [PULUserSettings defaultSettings];
+    [[PULUser currentUser] saveInBackground];
+    
     // start watching for nearby notifications
     [[NSNotificationCenter defaultCenter] addObserverForName:PULPullNearbyNotification
                                                       object:nil

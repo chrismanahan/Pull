@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UISwitch *notifInviteSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *notifAcceptSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *notifyNearbySwitch;
+@property (strong, nonatomic) IBOutlet UISwitch *notifyGoneSwitch;
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -38,6 +39,7 @@
     [_notifAcceptSwitch setOn:settings.notifyAccept];
     [_notifInviteSwitch setOn:settings.notifyInvite];
     [_notifyNearbySwitch setOn:settings.notifyNearby];
+    [_notifyGoneSwitch setOn:settings.notifyGone];
 }
 
 
@@ -50,22 +52,6 @@
    
     _versionLabel.text = [NSString stringWithFormat:@"Version %@ (%@)", appVersion, buildNumber];
 }
-
-//- (void)viewDidLayoutSubviews
-//{
-//    [super viewDidLayoutSubviews];
-//    CGFloat scrollViewHeight = 0.0f;
-//    for (UIView* view in _scrollView.subviews)
-//    {
-//        CGFloat maxY = CGRectGetMinY(view.frame) + CGRectGetHeight(view.frame);
-//        if (maxY > scrollViewHeight)
-//        {
-//            scrollViewHeight = maxY;
-//        }
-//    }
-//    
-//    [_scrollView setContentSize:(CGSizeMake(CGRectGetWidth(_scrollView.frame), scrollViewHeight))];
-//}
 
 #pragma mark - navigation
 - (IBAction)unwindFromViewController:(UIStoryboardSegue *)sender {
@@ -91,6 +77,13 @@
     _dirty = YES;
     
     [PULUser currentUser].settings.notifyNearby = _notifyNearbySwitch.isOn;
+}
+
+- (IBAction)ibGone:(id)sender
+{
+    _dirty = YES;
+    
+    [PULUser currentUser].settings.notifyGone = _notifyGoneSwitch.isOn;
 }
 
 - (IBAction)ibDone:(id)sender

@@ -213,6 +213,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     if (user && [UIApplication sharedApplication].applicationState == UIApplicationStateActive)
     {
         user.isInForeground = YES;
+        user[@"killed"] = @(NO);
         [user saveInBackground];
     }
 

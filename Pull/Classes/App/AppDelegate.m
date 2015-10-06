@@ -153,7 +153,13 @@
     if (user)
     {
         user.isInForeground = NO;
+        user[@"killed"] = @(YES);
         [user saveInBackground];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            user[@"killed"] = @(NO);
+            [user saveInBackground];
+        });
     }
 }
 - (void)backgroundPing
@@ -168,6 +174,7 @@
     if (user)
     {
         user.isInForeground = YES;
+        user[@"killed"] = @(NO);
         [user saveInBackground];
     }
 }

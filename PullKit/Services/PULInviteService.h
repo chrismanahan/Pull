@@ -8,10 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^PULInviteCompleteBlock)(BOOL success, NSInteger remaining);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^PULInviteCompleteBlock)(BOOL success);
 
 @interface PULInviteService : NSObject
 
 - (void)sendInviteToEmail:(NSString*)email completion:(PULInviteCompleteBlock)completion;
 
+- (void)redeemInviteCode:(NSString*)code completion:(PULInviteCompleteBlock)completion;
+
 @end
+
+NS_ASSUME_NONNULL_END

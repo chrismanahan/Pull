@@ -228,6 +228,42 @@
                                     <action selector="ibPresentFacebookLogin:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="RTI-r2-Y2h"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jss-RU-PfR">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SIH-6f-Zn1">
+                                        <rect key="frame" x="200" y="50" width="200" height="30"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="Adg-er-80g"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2D-zW-1Og">
+                                        <rect key="frame" x="272" y="156" width="57" height="30"/>
+                                        <animations/>
+                                        <state key="normal" title="Redeem"/>
+                                        <connections>
+                                            <action selector="ibRedeemInvite:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="XGp-yr-xLB"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="SIH-6f-Zn1" firstAttribute="top" secondItem="jss-RU-PfR" secondAttribute="top" constant="50" id="5gf-Jy-Ekx"/>
+                                    <constraint firstItem="SIH-6f-Zn1" firstAttribute="centerY" secondItem="jss-RU-PfR" secondAttribute="centerY" id="5uE-8S-usE"/>
+                                    <constraint firstItem="e2D-zW-1Og" firstAttribute="top" secondItem="SIH-6f-Zn1" secondAttribute="bottom" constant="76" id="qGB-oT-4DM"/>
+                                    <constraint firstItem="SIH-6f-Zn1" firstAttribute="centerX" secondItem="jss-RU-PfR" secondAttribute="centerX" id="vqd-jn-Kma"/>
+                                    <constraint firstItem="e2D-zW-1Og" firstAttribute="centerX" secondItem="SIH-6f-Zn1" secondAttribute="centerX" id="zwV-RE-WPp"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="5uE-8S-usE"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -235,6 +271,7 @@
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="1lw-Li-DFq" secondAttribute="bottom" id="2bO-JE-UjR"/>
                             <constraint firstItem="NEe-Lp-bfv" firstAttribute="trailing" secondItem="VQB-8a-Cj4" secondAttribute="trailing" id="3RU-Kd-dQf"/>
                             <constraint firstItem="NEe-Lp-bfv" firstAttribute="leading" secondItem="VQB-8a-Cj4" secondAttribute="leading" id="3lO-J6-Ft4"/>
+                            <constraint firstItem="jss-RU-PfR" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="6r9-8B-PRg"/>
                             <constraint firstItem="NEe-Lp-bfv" firstAttribute="centerX" secondItem="VQB-8a-Cj4" secondAttribute="centerX" id="8Kz-or-o8X"/>
                             <constraint firstAttribute="centerX" secondItem="hjk-hr-LZA" secondAttribute="centerX" id="CdS-ki-9eW"/>
                             <constraint firstItem="7kr-p3-cRz" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" id="Cn1-63-PgA"/>
@@ -243,14 +280,19 @@
                             <constraint firstItem="hjk-hr-LZA" firstAttribute="top" secondItem="VQB-8a-Cj4" secondAttribute="bottom" constant="8" id="OPY-wN-KbQ"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="hjk-hr-LZA" secondAttribute="bottom" constant="8" id="Obl-0h-K6r"/>
                             <constraint firstItem="hjk-hr-LZA" firstAttribute="leading" secondItem="8s1-gu-pjX" secondAttribute="trailing" constant="2" id="Paz-Ni-Iog"/>
+                            <constraint firstAttribute="trailing" secondItem="jss-RU-PfR" secondAttribute="trailing" id="QmO-pV-Vcn"/>
                             <constraint firstItem="VQB-8a-Cj4" firstAttribute="top" secondItem="NEe-Lp-bfv" secondAttribute="bottom" constant="8" id="UZ7-mU-dYZ"/>
+                            <constraint firstItem="jss-RU-PfR" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="XGY-hu-nFO"/>
                             <constraint firstItem="8s1-gu-pjX" firstAttribute="centerY" secondItem="hjk-hr-LZA" secondAttribute="centerY" id="XMc-UI-hyn"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="jss-RU-PfR" secondAttribute="bottom" id="Yji-su-mpv"/>
                             <constraint firstAttribute="trailing" secondItem="1lw-Li-DFq" secondAttribute="trailing" id="Zyn-xo-NYO"/>
                             <constraint firstItem="hjk-hr-LZA" firstAttribute="centerX" secondItem="VQB-8a-Cj4" secondAttribute="centerX" id="ntf-3h-sLp"/>
                             <constraint firstItem="7kr-p3-cRz" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="zq1-WH-RS8"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="inviteTextField" destination="SIH-6f-Zn1" id="M5A-k7-lMl"/>
+                        <outlet property="inviteWall" destination="jss-RU-PfR" id="3zq-le-wol"/>
                         <outlet property="pageControl" destination="Drx-Fa-ISs" id="Yci-46-CXZ"/>
                         <outlet property="scrollView" destination="1lw-Li-DFq" id="80J-iZ-5pR"/>
                     </connections>
@@ -785,14 +827,14 @@
                                 <rect key="frame" x="538" y="361" width="42" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="581-0l-bZ8">
                                 <rect key="frame" x="538" y="332" width="42" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -1081,10 +1123,19 @@
                                     <constraint firstAttribute="width" secondItem="gzS-s7-bbh" secondAttribute="height" multiplier="1:1" id="8HZ-TP-Ubr"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vub-Ch-YVn">
+                                <rect key="frame" x="277" y="562" width="46" height="30"/>
+                                <animations/>
+                                <state key="normal" title="send invite"/>
+                                <connections>
+                                    <segue destination="wC0-Gl-ACI" kind="presentation" id="D48-1e-2gn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="VDr-oB-AOS" firstAttribute="top" secondItem="vub-Ch-YVn" secondAttribute="bottom" constant="8" id="1Ik-zK-CCs"/>
                             <constraint firstItem="jTx-IR-N7O" firstAttribute="leading" secondItem="6hr-M5-xhR" secondAttribute="leading" id="2eM-Gp-gMc"/>
                             <constraint firstItem="gzS-s7-bbh" firstAttribute="height" secondItem="Ao8-Qw-wcn" secondAttribute="height" multiplier="0.65" id="3Kc-y3-dXx"/>
                             <constraint firstItem="VDr-oB-AOS" firstAttribute="top" secondItem="ar4-8d-lsp" secondAttribute="bottom" constant="70" id="4SL-Dx-cdp"/>
@@ -1095,6 +1146,7 @@
                             <constraint firstItem="ar4-8d-lsp" firstAttribute="leading" secondItem="6hr-M5-xhR" secondAttribute="leading" id="97C-2M-gb5"/>
                             <constraint firstItem="2Pw-Cl-vCV" firstAttribute="bottom" secondItem="Ao8-Qw-wcn" secondAttribute="bottom" id="B5h-Ob-kMb"/>
                             <constraint firstItem="gzS-s7-bbh" firstAttribute="top" secondItem="Ao8-Qw-wcn" secondAttribute="top" constant="16" id="LD7-FQ-syA"/>
+                            <constraint firstItem="vub-Ch-YVn" firstAttribute="centerX" secondItem="6hr-M5-xhR" secondAttribute="centerX" id="ZeW-bd-4dT"/>
                             <constraint firstItem="Ao8-Qw-wcn" firstAttribute="top" secondItem="jTx-IR-N7O" secondAttribute="bottom" id="bGi-MS-k5F"/>
                             <constraint firstItem="Ao8-Qw-wcn" firstAttribute="width" secondItem="jTx-IR-N7O" secondAttribute="width" id="bdo-aO-0gB"/>
                             <constraint firstAttribute="trailing" secondItem="ar4-8d-lsp" secondAttribute="trailing" id="fhg-13-Dw7"/>
@@ -2789,7 +2841,7 @@ _____________________
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Bw-g7-9lQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2982" y="2087"/>
+            <point key="canvasLocation" x="644" y="1392"/>
         </scene>
     </scenes>
     <resources>

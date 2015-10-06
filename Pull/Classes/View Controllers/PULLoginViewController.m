@@ -12,6 +12,8 @@
 
 #import "PULSlideLeftSegue.h"
 
+#import "PULInviteService.h"
+
 #import "PULParseMiddleMan.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
@@ -19,6 +21,9 @@
 
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (strong, nonatomic) IBOutlet UIView *inviteWall;
+@property (strong, nonatomic) IBOutlet UITextField *inviteTextField;
 
 @end
 
@@ -33,6 +38,32 @@
 }
 
 #pragma mark - Actions
+- (IBAction)ibRedeemInvite:(id)sender
+{
+    [_inviteTextField resignFirstResponder];
+    
+    NSString *code = _inviteTextField.text;
+    
+    if (code && code.length > 0)
+    {
+        PULInviteService *inviteService = [[PULInviteService alloc] init];
+        [inviteService redeemInviteCode:code completion:^(BOOL success) {
+            if (success)
+            {
+                _inviteWall.hidden = YES;
+            }
+            else
+            {
+                [[[UIAlertView alloc] initWithTitle:@"Error Redeeming Code"
+                                            message:@"Your invite code could not be redeemed. If this contintues to be a problem, contact support@getpulled.com with your invite code"
+                                           delegate:nil
+                                  cancelButtonTitle:@"Ok"
+                                  otherButtonTitles: nil] show];
+            }
+        }];
+    }
+}
+
 - (IBAction)ibPresentFacebookLogin:(id)sender;
 {
 

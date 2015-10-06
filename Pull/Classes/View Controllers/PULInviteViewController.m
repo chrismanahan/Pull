@@ -88,13 +88,13 @@
         
         PULInviteService *invite = [[PULInviteService alloc] init];
         [invite sendInviteToEmail:email
-                       completion:^(BOOL success, NSInteger remaining) {
+                       completion:^(BOOL success) {
                            [ai hide];
                            
                            if (success)
                            {
                                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasSentInviteKey"];
-                               [[NSUserDefaults standardUserDefaults] setInteger:remaining forKey:@"InvitesRemainingKey"];
+//                               [[NSUserDefaults standardUserDefaults] setInteger:remaining forKey:@"InvitesRemainingKey"];
                                [self dismissViewControllerAnimated:YES completion:nil];
                            }
                            else

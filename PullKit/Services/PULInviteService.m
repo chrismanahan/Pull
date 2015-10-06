@@ -9,7 +9,7 @@
 #import "PULInviteService.h"
 #import "PULUser.h"
 
-NSString * const kPULInviteServiceUrl = @"http://getpulled.com/Invite/invite.php";
+NSString * const kPULInviteServiceUrl = @"http://chrismanahan.com/getpulled.com/public_html/Invite/invite.php";;//@"http://getpulled.com/Invite/invite.php";
 
 typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
 
@@ -17,10 +17,14 @@ typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
 
 - (void)sendInviteToEmail:(NSString*)email completion:(PULInviteCompleteBlock)completion;
 {
+    // create code to send
+    NSString *code = [self _createInvite];
+    
     PULLog(@"sending invite to: %@", email);
     NSDictionary *params = @{@"action": @"invite",
                              @"email": email,
-                             @"from": [PULUser currentUser].username
+                             @"from": [PULUser currentUser].fullName,
+                             @"code": code
                              };
     
     PULLog(@"sending params");
@@ -31,15 +35,46 @@ typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
                      {
                          PULLog(@"received json: %@", jsonData);
                          BOOL success = [jsonData[@"success"] boolValue];
-                         NSInteger remaining = [jsonData[@"invitesRemaining"] integerValue];
                          
-                         completion(success, remaining);
+                         completion(success);
                      }
                      else
                      {
+                         completion(NO);
                          PULLog(@"no json from invite service");
                      }
                  }];
+}
+
+- (void)redeemInviteCode:(NSString*)code completion:(PULInviteCompleteBlock)completion;
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        PFQuery *query = [PFQuery queryWithClassName:@"InviteLookup"];
+        [query whereKey:@"code" equalTo:code];
+        PFObject *obj = [query getFirstObject];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (obj)
+            {
+                // success, check if redeemed
+                BOOL redeemed = [obj[@"isRedeemed"] boolValue];
+                if (redeemed)
+                {
+                    completion(NO);
+                }
+                else
+                {
+                    obj[@"isRedeemed"] = @(YES);
+                    [obj saveInBackground];
+                    completion(YES);
+                }
+            }
+            else
+            {
+                completion(NO);
+            }
+        });
+    });
 }
 
 - (void)runWithParameters:(NSDictionary*)params completion:(PULConnectionBlock)completion;
@@ -73,4 +108,20 @@ typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
                            }];
 }
 
+- (NSString*)_createInvite;
+{
+    PFObject *obj = [PFObject objectWithClassName:@"InviteLookup"];
+    obj[@"fromUser"] = [PULUser currentUser];
+    obj[@"isRedeemed"] = @(NO);
+    obj[@"code"] = [self _generateCode];
+    [obj saveInBackground];
+    
+    return obj[@"code"];
+}
+
+-(NSString *)_generateCode
+{
+    NSInteger rand = arc4random() % 999999999;
+    return [NSString stringWithFormat:@"%02x", (int)rand];
+}
 @end

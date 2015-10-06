@@ -78,6 +78,10 @@
             [PULUser currentUser].userSettings = [PULUserSettings defaultSettings];
             [[PULUser currentUser].userSettings saveInBackground];
         }
+        else
+        {
+            [[PULUser currentUser].userSettings fetchInBackground];
+        }
     }
     else /*not logged in*/
     {

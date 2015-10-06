@@ -513,12 +513,15 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
         if ([timer isEqual:_observerTimerPulls])
         {
             // refresh pulls
-            
-            [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
-                                                                    object:nil];
-                //TODO: go through each pull and see if we have a nearby flag that we need to notify the user about
-            } ignoreCache:YES];
+            [PFObject fetchAll:[_cache cachedPulls]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
+                                                                object:nil];
+//            [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
+//                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
+//                                                                    object:nil];
+//                ;
+//                //TODO: go through each pull and see if we have a nearby flag that we need to notify the user about
+//            } ignoreCache:YES];
         }
         else if ([timer isEqual:_observerTimerLocations])
         {
@@ -535,8 +538,13 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
                 // go through each pull and check if we need to add nearby or together flag
                 for (PULPull *pull in [_cache cachedPullsPulled])
                 {
+                    BOOL wasNearby = pull.nearby;
+                    BOOL wasTogether = pull.together;
                     [pull setDistanceFlags];
-                    if (pull.isDirty)
+                    
+                    BOOL dirty = wasNearby != pull.nearby || wasTogether != pull.together;
+                    
+                    if (dirty)
                     {
                         [pull saveEventually];
                     }

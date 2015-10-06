@@ -19,17 +19,14 @@
 - (IBAction)ibNext:(id)sender
 {
     UIApplication *application = [UIApplication sharedApplication];
-    // register for remote notifications
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge
-                                                                                             |UIUserNotificationTypeSound
-                                                                                             |UIUserNotificationTypeAlert) categories:nil];
-        [application registerUserNotificationSettings:settings];
-    } else {
-        // FIX: < iOS8 doesn't register for push
-        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-        [application registerForRemoteNotificationTypes:myTypes];
-    }
+    
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
     
     [self next];
 }

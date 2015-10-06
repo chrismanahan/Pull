@@ -12,21 +12,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString * const kPULPushTypeSendFriendRequest;
-extern NSString * const kPULPushTypeAcceptFriendRequest;
-extern NSString * const kPULPushTypeSendPull;
-extern NSString * const kPULPushTypeAcceptPull;
+typedef NS_ENUM(NSInteger)
+{
+    PULPushTypeSendPull,
+    PULPushTypeAcceptPull
+}  PULPushType;
 
 @interface PULPush : NSObject
 
 /**
  *  Send a push notification to a user from a user
  *
- *  @param  pushType    kPULPushType constant for the type of push to send
+ *  @param  type        Type of push to send
  *  @param  toUser      User to send push to
  *  @param  fromUser    Originating user
  */
-+ (void)sendPushType:(NSString*)pushType to:(PULUser*)toUser from:(PULUser*)fromUser;
++ (void)sendPushType:(PULPushType)type to:(PULUser*)toUser from:(PULUser*)fromUser;
+
++ (void)subscribeToPushNotifications:(PULUser*)user;
 
 NS_ASSUME_NONNULL_END
 

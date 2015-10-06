@@ -8,6 +8,8 @@
 
 #import "PULParseMiddleMan.h"
 
+#import "PULPush.h"
+
 #import "PFQuery+PullQueries.h"
 #import "PFACL+Users.h"
 
@@ -114,7 +116,14 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
                  [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                      if (!error)
                      {
-                         [self _registerUser:(PULUser*)user withFbResult:result completion:completion];
+                         [self _registerUser:(PULUser*)user withFbResult:result completion:^(BOOL success, NSError * _Nonnull error) {
+                             
+                             if (success)
+                             {
+                                 [PULPush subscribeToPushNotifications:[PULUser currentUser]];
+                             }
+                             completion(success, error);
+                         }];
                      }
                      else
                      {
@@ -125,6 +134,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
              }
              else
              {
+                 [PULPush subscribeToPushNotifications:[PULUser currentUser]];
                  completion(YES, error);
              }
          }
@@ -397,6 +407,9 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             
             BOOL success = [pull save];
             
+            //send push to other user
+            [PULPush sendPushType:PULPushTypeSendPull to:user from:[PULUser currentUser]];
+            
             [self _runBlockOnMainQueue:^{
                 completion(success, nil);;
             }];
@@ -412,6 +425,8 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
         pull.expiration = [NSDate dateWithTimeIntervalSinceNow:pull.duration];
         [pull save];
 
+        //send push to other user
+        [PULPush sendPushType:PULPushTypeAcceptPull to:[pull otherUser] from:[PULUser currentUser]];
     }];
 }
 

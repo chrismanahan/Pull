@@ -226,6 +226,7 @@
 		9B49DFCE1B8D4DCC009D0C71 /* circle_purple@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B49DFCB1B8D4DCC009D0C71 /* circle_purple@3x.png */; };
 		9B537B2B1BC2BF75005587D6 /* PFACL+Users.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B537B2A1BC2BF75005587D6 /* PFACL+Users.m */; settings = {ASSET_TAGS = (); }; };
 		9B537B311BC2C91D005587D6 /* PULCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B537B301BC2C91D005587D6 /* PULCache.m */; settings = {ASSET_TAGS = (); }; };
+		9B537B321BC307A9005587D6 /* PULPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7B41B80DE7D005569B4 /* PULPush.m */; settings = {ASSET_TAGS = (); }; };
 		9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */; };
 		9B78A7EE1B8118EE005569B4 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
 		9B78A7F01B8124EB005569B4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7EF1B8124EB005569B4 /* MessageUI.framework */; };
@@ -2193,6 +2194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B537B321BC307A9005587D6 /* PULPush.m in Sources */,
 				334044971A17AC3A00B00BC3 /* PULLoginViewController.m in Sources */,
 				845573281B8CBC5900EF1DCA /* NZCircularImageView.m in Sources */,
 				9BFF37A21BC1746700201811 /* PULLocationUpdater.m in Sources */,

@@ -63,3 +63,7 @@ const NSInteger kPULPollTimeBackground = 30;//TODO:120;
 // location tracking
 const NSInteger kLocationForegroundDistanceFilter = 1;//20;    // meters
 const NSInteger kLocationBackgroundDistanceFilter = 4;//30;
+
+
+NSString * const kPULPushFormattedMessageSendPull = @"%@ has sent you a pull!";
+NSString * const kPULPushFormattedMessageAcceptPull = @"%@ has accepted your pull!";

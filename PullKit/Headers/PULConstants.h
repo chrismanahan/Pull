@@ -55,3 +55,22 @@ extern const NSInteger kPULPollTimeBackground;
 // distance filters
 extern const NSInteger kLocationForegroundDistanceFilter;
 extern const NSInteger kLocationBackgroundDistanceFilter;
+
+/**
+ *  Constant defines the string that is sent as a push notification when sending a pull. For this
+ *  to work correctly, use with `stringWithFormat:` and pass the FirstName paramater as the argument
+ *
+ *  @param FirstName    The argument to pass is the first name of the sending user
+ *
+ *  @warning This must be used as a formatted string and passed one argument.
+ */
+extern NSString * const kPULPushFormattedMessageSendPull;
+/**
+ *  Constant defines the string that is sent as a push notification when accepting a pull. For this
+ *  to work correctly, use with `stringWithFormat:` and pass the FirstName paramater as the argument
+ *
+ *  @param FirstName    The argument to pass is the first name of the current user
+ *
+ *  @warning This must be used as a formatted string and passed one argument.
+ */
+extern NSString * const kPULPushFormattedMessageAcceptPull;

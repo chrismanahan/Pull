@@ -10,56 +10,60 @@
 
 #import "PULUser.h"
 
-NSString * const kPULPushServerURL = @"http://getpulled.com/push/push.php";
-
-NSString * const kPULPushTypeSendFriendRequest   = @"sendFriendRequest";
-NSString * const kPULPushTypeAcceptFriendRequest = @"acceptFriendRequest";
-NSString * const kPULPushTypeSendPull            = @"sendPull";
-NSString * const kPULPushTypeAcceptPull          = @"acceptPull";
-
 @implementation PULPush
 
-+ (void)sendPushType:(NSString*)pushType to:(PULUser*)toUser from:(PULUser*)fromUser;
++ (void)sendPushType:(PULPushType)type to:(PULUser*)toUser from:(PULUser*)fromUser;
 {
-    PULLog(@"sending push (%@) to %@", pushType, toUser.firstName);
-    BOOL sendPush = YES;
-    // check if other user wants this notifcation
-    if ([pushType isEqualToString:kPULPushTypeAcceptPull])
-    {
-        sendPush = toUser.settings.notifyAccept;
-    }
-    else if ([pushType isEqualToString:kPULPushTypeSendPull])
-    {
-        sendPush = toUser.settings.notifyInvite;
-    }
-    else
-    {
-        NSAssert(YES, @"push type is not supported!!! %@", pushType);
+    PULLog(@"sending push of type: %zd", type);
+    NSString *message;
+    switch (type) {
+        case PULPushTypeAcceptPull:
+        {
+            message = [NSString stringWithFormat:kPULPushFormattedMessageAcceptPull, fromUser.firstName];
+            break;
+        }
+        case PULPushTypeSendPull:
+        {
+            message = [NSString stringWithFormat:kPULPushFormattedMessageSendPull, fromUser.firstName];
+            break;
+        }
+        default:
+            break;
     }
     
-    if (sendPush)
+    if (message)
     {
-        NSString *deviceToken = toUser.deviceToken;
-        
-        if (!deviceToken)
-        {
-            PULLog(@"don't have a device token, can't send push");
-            return;
-        }
-        NSString *urlString = [NSString stringWithFormat:@"%@?type=%@&name=%@&deviceToken=%@", kPULPushServerURL, pushType, fromUser.firstName, deviceToken];
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSURLRequest *req = [NSURLRequest requestWithURL:url];
-        
-        [NSURLConnection sendAsynchronousRequest:req
-                                           queue:[NSOperationQueue currentQueue]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                                   PULLog(@"sent push: %@", [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
-                               }];
+        NSDictionary *data = @{@"alert": @"default",
+                               @"sound": @"popcorn",
+                               @"badge": @"increment"};
+        PFPush *push = [[PFPush alloc] init];
+        [push setChannel:[self _channelForUser:toUser]];
+        [push setData:data];
+        [push sendPushInBackground];
+        PULLog(@"sent push");
     }
     else
     {
-        PULLog(@"not sending push. receiving user doesn't want it");
+        PULLog(@"could not send push, not supported");
     }
+}
+
+
++ (void)subscribeToPushNotifications:(PULUser*)user;
+{
+    NSString *channel = [self _channelForUser:user];
+    PULLog(@"subscribing to channel: %@", channel);
+    PFInstallation *install = [PFInstallation currentInstallation];
+    [install setChannels:@[@"global", channel]];
+    [install saveInBackground];
+}
+
+#pragma mark - Private
++ (NSString*)_channelForUser:(PULUser*)user
+{
+    NSAssert(user.username != nil, @"username cannot be nil");
+    NSString *channel = [user.username stringByReplacingOccurrencesOfString:@":" withString:@""];
+    return channel;
 }
 
 @end

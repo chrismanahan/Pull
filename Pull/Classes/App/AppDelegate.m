@@ -192,22 +192,11 @@
 }
 
 #pragma mark - Push notifications
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    NSLog(@"did register for remote notifs");
-    
-    if (deviceToken)
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:@"DeviceToken"];
-
-        // TODO: PUSH NOTIF DEVICE TOKEN STUFF
-//        if ([PULUser currentUser].uid)
-//        {
-//            PULLog(@"saving device token");
-//            [PULUser currentUser].deviceToken = [deviceToken hexadecimalString];
-//            [[PULUser currentUser] saveKeys:@[@"deviceToken"]];
-//        }
-    }
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation saveInBackground];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -215,16 +204,8 @@
     NSLog(@"did fail to register for remote notifs: %@", error.localizedDescription);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    NSLog(@"did receive notif");
-}
-
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
-    NSLog(@"did register user notif settings");
-    
-    [application registerForRemoteNotifications];
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
 }
 
 @end

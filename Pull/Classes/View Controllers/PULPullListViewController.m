@@ -797,9 +797,6 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                 break;
         }
         
-//        _debug_accuracyLabel.text = [NSString stringWithFormat:@"%.2f", [_displayedPull otherUser].locationAccuracy];
-//        _debug_acctAccuracyLabel.text = [NSString stringWithFormat:@"%.2f", [PULUser currentUser].locationAccuracy];;
-        
         [self updateDialogWithText:dialogText
                               hide:(dialogText == nil)
                  showAcceptDecline:NO

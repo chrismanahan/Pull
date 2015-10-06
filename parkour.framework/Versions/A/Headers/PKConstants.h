@@ -2,34 +2,40 @@
 //  PKConstants.h
 //  parkour
 //
-//  Created by phillip emily yonis anthony and jeremy on 8/21/15
-//  Trademark and Copyright (c) 2015 parkour method. All rights reserved.
-//  www.parkourmethod.com
+//  Created by phillip on 10/2/15.
+//  Copyright © 2015 phillip. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+#import <AdSupport/ASIdentifierManager.h>
+
+#define aSDKVersion 2042
+
+
 
 typedef NS_ENUM(NSInteger, PKPositionType) {
-    Unknown = 0,
-    Indoors,
-    Outdoors,
-    VerifiedIndoors
+    pkIndoors = 0,
+    pkOutdoors,
+    pkVerifiedIndoors
 };
 
 typedef NS_ENUM(NSInteger, PKMotionType) {
-    Undefined = 0,
-    NotMoving,
-    Walking,
-    Running,
-    Cycling,
-    Driving
+    pkNotMoving = 0,
+    pkWalking,
+    pkRunning,
+    pkCycling,
+    pkDriving,
+    pkFlying
 };
 
 typedef NS_ENUM(NSInteger, PKPositionTrackingMode) {
-    Default = 0,
-    Geofencing,
-    Pedestrian,
-    Fitness,
-    Automotive,
-    Share
+    pkLowEnergy = 0,
+    pkGeofencing,
+    pkPedestrian,
+    pkFitness,
+    pkAutomotive,
+    pkShare
 };
+

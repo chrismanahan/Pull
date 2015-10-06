@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<gpx creator="GPS Visualizer http://www.gpsvisualizer.com/" version="1.1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+    <wpt lat="40.8925576" lon="-72.9831355">
+        <name>805 Stonegate Way, Middle Island, NY 11953</name>
+    </wpt>
+    <wpt lat="40.892298" lon="-72.9830389">
+        <name>40.892298,-72.9830389</name>
+        <desc>1205 Stonegate Way, Middle Island, NY 11953, USA</desc>
+    </wpt>
+    <wpt lat="40.8923873" lon="-72.9825776">
+        <name>40.8923873,-72.9825776</name>
+        <desc>1205 Stonegate Way, Middle Island, NY 11953, USA</desc>
+    </wpt>
+    <wpt lat="40.8923467" lon="-72.9821484">
+        <name>40.8923467,-72.9821484</name>
+        <desc>2001-2611 Stonegate Way, Middle Island, NY 11953, USA</desc>
+    </wpt>
+    <wpt lat="40.8924359" lon="-72.981258">
+        <name>40.8924359,-72.981258</name>
+        <desc>2001-2611 Stonegate Way, Middle Island, NY 11953, USA</desc>
+    </wpt>
+    <wpt lat="40.892955" lon="-72.9810112">
+        <name>40.892955,-72.9810112</name>
+        <desc>2001-2611 Stonegate Way, Middle Island, NY 11953, USA</desc>
+    </wpt>
+    <wpt lat="40.893422" lon="-72.9815112">
+        <name>Under the Stars Backyard Movies</name>
+    </wpt>
+    <wpt lat="40.8940694" lon="-72.9825975">
+        <name>40.8940694,-72.9825975</name>
+        <desc>100 Stonegate Way, Middle Island, NY 11953, USA</desc>
+    </wpt>
+    <wpt lat="40.8945308" lon="-72.9833444">
+        <name>40.8945308,-72.9833444</name>
+        <desc>100 Stonegate Way, Middle Island, NY 11953, USA</desc>
+    </wpt>
+    <wpt lat="40.8952899" lon="-72.9833496">
+        <name>40.8952899,-72.9833496</name>
+        <desc>100 Stonegate Way, Middle Island, NY 11953, USA</desc>
+    </wpt>
+</gpx>

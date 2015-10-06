@@ -129,8 +129,8 @@
     
     PULParseMiddleMan *parse = [PULParseMiddleMan sharedInstance];
     [parse updateLocation:loc
-             movementType:Walking
-             positionType:Outdoors];
+             movementType:pkWalking
+             positionType:pkOutdoors];
     
     [self delayTestSeconds:1];
 }

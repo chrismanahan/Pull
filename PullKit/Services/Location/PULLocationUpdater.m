@@ -102,7 +102,8 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
  */
 -(void)startUpdatingLocation;
 {
-    [self startUpdatingLocationWithMode:Automotive];
+    
+    [self startUpdatingLocationWithMode:pkAutomotive];
 }
 
 - (void)startUpdatingLocationWithMode:(PKPositionTrackingMode)mode
@@ -112,7 +113,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     _currentTrackingMode = mode;
     
     [parkour start];
-    [parkour setMinPositionUpdateRate:5];
+//    [parkour setMinPositionUpdateRate:5];
     [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
         
         PULLog(@"received location: %@ of type %zd", position, motionType);
@@ -211,7 +212,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     PULUser *acct = [PULUser currentUser];
     // determine which tracking mode to use based on current motion type
     // and state of pulls
-    PKPositionTrackingMode trackingMode = Geofencing;
+    PKPositionTrackingMode trackingMode = pkGeofencing;
     BOOL keepTuning = YES;
     BOOL foreground = acct.isInForeground;
     BOOL hasActivePull = NO;
@@ -236,7 +237,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         // if no one's in the foreground, use low tracking
         if (!foreground)
         {
-            trackingMode = Geofencing;
+            trackingMode = pkGeofencing;
             keepTuning = NO;
         }
     }
@@ -274,18 +275,20 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     if (!acct) { return; } 
     
     // round each lat lon for comparison
-    CGFloat newLat = round(100 * location.coordinate.latitude) / 100;
-    CGFloat newLon = round(100 * location.coordinate.longitude) / 100;
-    CGFloat acctLat = round(100 * acct.location.location.coordinate.latitude) / 100;
-    CGFloat acctLon = round(100 * acct.location.location.coordinate.longitude) / 100;
+    CGFloat newLat = round(100000 * location.coordinate.latitude) / 100000;
+    CGFloat newLon = round(100000 * location.coordinate.longitude) / 100000;
+    CGFloat acctLat = round(100000 * acct.location.location.coordinate.latitude) / 100000;
+    CGFloat acctLon = round(100000 * acct.location.location.coordinate.longitude) / 100000;
     
     BOOL hasDifferentLoc = (newLat != acctLat || newLon != acctLon);
     
-    if (YES || hasDifferentLoc || location.horizontalAccuracy < acct.location.location.horizontalAccuracy)
+    if (hasDifferentLoc || location.horizontalAccuracy < acct.location.accuracy)
     {
         // save new location if coords are different or if the accuracy has improved
         dispatch_async(dispatch_get_main_queue(), ^{
         
+            PULLog(@"\tsaving new location: (%.5f, %.5f)", newLat, newLon);
+            PULLog(@"\t\tmotion type: %zd", motionType);
             [_parse updateLocation:location
                       movementType:motionType
                       positionType:positionType];
@@ -302,19 +305,19 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     
     if (distance > kPULLocationTuningDistanceLowMeters)
     {
-        settingType = Geofencing;
+        settingType = pkGeofencing;
     }
     else if (distance > kPULLocationTuningDistanceAutoMeters)
     {
-        settingType = Pedestrian;
+        settingType = pkPedestrian;
     }
     else if (distance > kPULLocationTuningDistanceMediumMeters)
     {
-        settingType = Fitness;
+        settingType = pkFitness;
     }
     else
     {
-        settingType = Automotive;
+        settingType = pkAutomotive;
     }
     
     return settingType;

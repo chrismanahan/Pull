@@ -21,6 +21,8 @@ extern const CGFloat kPULCompassSmileyWinkDuration;
 - (void)setPull:(nullable PULPull*)pull;
 - (void)showNoLocation;
 
+- (void)showBusy:(BOOL)busy;
+
 @end
 
 NS_ASSUME_NONNULL_END

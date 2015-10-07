@@ -47,6 +47,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 
 @property (nonatomic, strong) PULSoundPlayer *soundPlayer;
 
+@property (nonatomic, strong) PULLoadingIndicator *ai;
+
 @property (nonatomic, assign) BOOL isReloading;
 
 @property (nonatomic, strong) NSArray *pullsDatasource;
@@ -119,6 +121,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 //                                                      [self reload];
 //                                                  }];
     
+    [_compassView showBusy:YES];
     [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationUpdatedNotification
                                                       object:nil
                                                        queue:[NSOperationQueue currentQueue]
@@ -163,6 +166,11 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     
     _collectionView.layer.masksToBounds = NO;
     
+    // hide dialog and name stuff
+    _nameLabel.backgroundColor = [UIColor clearColor];
+    _pullTimeButton.hidden = YES;
+    _distanceLabel.text = @"";
+    _dialogContainer.hidden = YES;
     // make sure dialog box colors are correct
     _dialogAcceptButton.backgroundColor = PUL_DarkPurple;
     _dialogDeclineButton.backgroundColor = PUL_DarkPurple;
@@ -255,7 +263,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     if (!_isReloading)
     {
         [self showNoLocation:![PULLocationUpdater sharedUpdater].hasPermission];
-        
+      
         if (refresh)
         {
             self.isReloading = YES;
@@ -288,7 +296,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 {
     _isReloading = isReloading;
     
-    // TODO: display activity indicator
+    [_compassView showBusy:isReloading];
 }
 
 #pragma mark - Actions

@@ -76,3 +76,4 @@ NSString * const kAnalyticsAmplitudeEventDeclinePull = @"Deleted Pull";
 NSString * const kAnalyticsAmplitudeEventBlockUser = @"Blocked User";
 NSString * const kAnalyticsAmplitudeEventUnblockUser = @"Unblocked User";
 NSString * const kAnalyticsAmplitudeEventPullStateTogether = @"Arrived Together";
+NSString * const kAnalyticsAmplitudeEventRefreshFriendsList = @"Refreshed Friends List";

@@ -100,6 +100,30 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     _imageView.image = [UIImage imageNamed:@"smiley_sad_with_background"];
 }
 
+- (void)showBusy:(BOOL)busy;
+{
+    if (busy)
+    {
+        [self _useCompass:NO];
+        _overlayImageView.hidden = YES;
+        _imageView.backgroundColor = PUL_Purple;
+        _imageView.hidden = NO;
+        _imageView.animationImages = @[[UIImage imageNamed:@"smiley_loader1"],
+                                       [UIImage imageNamed:@"smiley_loader2"],
+                                       [UIImage imageNamed:@"smiley_loader3"],
+                                       [UIImage imageNamed:@"smiley_loader4"],
+                                       [UIImage imageNamed:@"smiley_loader5"],
+                                       [UIImage imageNamed:@"smiley_loader6"]];
+        _imageView.animationDuration = 1.0;
+        [_imageView startAnimating];
+    }
+    else
+    {
+        [_imageView stopAnimating];
+        _imageView.animationImages = nil;
+    }
+}
+
 - (void)setPull:(PULPull*)pull
 {
     _pull = pull;

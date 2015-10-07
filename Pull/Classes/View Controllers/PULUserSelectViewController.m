@@ -16,6 +16,10 @@
 #import "PULSlideLeftSegue.h"
 #import "PULSlideUnwindSegue.h"
 
+#import "SVPullToRefresh.h"
+
+#import "Amplitude.h"
+
 @interface PULUserSelectViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -57,6 +61,20 @@
         
         [self _reloadDatasource];
         // TODO: hide loading indicator
+    }];
+    
+    __weak id weakSelf = self;
+    [_tableView addPullToRefreshWithActionHandler:^{
+        [[Amplitude instance] logEvent:kAnalyticsAmplitudeEventRefreshFriendsList];
+        
+        [[PULParseMiddleMan sharedInstance] getFriendsInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakSelf _reloadDatasource];
+                [[weakSelf tableView].pullToRefreshView stopAnimating];
+            });
+        }];
+
     }];
 }
 

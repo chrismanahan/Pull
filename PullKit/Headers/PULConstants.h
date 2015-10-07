@@ -82,3 +82,4 @@ extern NSString * const kAnalyticsAmplitudeEventDeclinePull;
 extern NSString * const kAnalyticsAmplitudeEventBlockUser;
 extern NSString * const kAnalyticsAmplitudeEventUnblockUser;
 extern NSString * const kAnalyticsAmplitudeEventPullStateTogether;
+extern NSString * const kAnalyticsAmplitudeEventRefreshFriendsList;

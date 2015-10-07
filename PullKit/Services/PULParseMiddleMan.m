@@ -134,6 +134,9 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
              }
              else
              {
+                 [PULUser currentUser].isDisabled = NO;
+                 [[PULUser currentUser] saveInBackground];
+                 
                  [PULPush subscribeToPushNotifications:[PULUser currentUser]];
                  completion(YES, error);
              }
@@ -563,7 +566,10 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     for (PFObject *obj in objects)
     {
         PULUser *otherUser = [self _friendLookupOtherUser:obj];
-        [arr addObject:otherUser];
+        if (!otherUser.isDisabled)
+        {
+            [arr addObject:otherUser];
+        }
     }
     
     return arr;
@@ -638,6 +644,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     if (fbData[@"locale"]) { user[@"locale"] = fbData[@"locale"]; }
     user[@"username"] = [NSString stringWithFormat:@"fb:%@", user[@"fbId"]];
     user[@"isInForeground"] = @(YES);
+    user[@"isDisabled"] = @(NO);
     
     // set acl for user and settings
     PFACL *acl = [PFACL ACLWithUser:user];

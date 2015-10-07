@@ -16,6 +16,7 @@
 
 #import <MessageUI/MessageUI.h>
 #import <sys/utsname.h>
+#import "PULInviteService.h"
 
 @interface PULMenuViewController () <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
@@ -25,11 +26,25 @@
 
 @property (nonatomic, strong) UIActivityViewController *shareActivityViewController;
 
+@property (nonatomic, strong) IBOutlet UIButton *inviteButton1;
+@property (nonatomic, strong) IBOutlet UIButton *inviteButton2;
+@property (nonatomic, strong) IBOutlet UIButton *inviteButton3;
+@property (nonatomic, strong) IBOutlet UILabel *inviteLabel;
 
 @end
 
 @implementation PULMenuViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    // configure invite UI
+    PULInviteService *invites = [PULInviteService sharedInstance];
+    _inviteButton3.hidden = invites.invitesRemaining < 3;
+    _inviteButton1.hidden = invites.invitesRemaining < 2;
+    _inviteButton2.hidden = invites.invitesRemaining < 1;
+    _inviteLabel.hidden = !invites.canSendInvites;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

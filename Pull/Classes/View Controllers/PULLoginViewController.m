@@ -46,7 +46,7 @@
     
     if (code && code.length > 0)
     {
-        PULInviteService *inviteService = [[PULInviteService alloc] init];
+        PULInviteService *inviteService = [PULInviteService sharedInstance];
         [inviteService redeemInviteCode:code completion:^(BOOL success) {
             if (success)
             {

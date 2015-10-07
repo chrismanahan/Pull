@@ -9,11 +9,21 @@
 #import "PULInviteService.h"
 #import "PULUser.h"
 
-NSString * const kPULInviteServiceUrl = @"http://chrismanahan.com/getpulled.com/public_html/Invite/invite.php";;//@"http://getpulled.com/Invite/invite.php";
+NSString * const kPULInviteServiceUrl = @"http://chrismanahan.com/getpulled.com/public_html/Invite/invite.php";//@"http://getpulled.com/Invite/invite.php";
 
 typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
 
 @implementation PULInviteService
+
++ (instancetype)sharedInstance;
+{
+    static PULInviteService *shared = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        shared = [[PULInviteService alloc] init];
+    });
+    return shared;
+}
 
 - (void)sendInviteToEmail:(NSString*)email completion:(PULInviteCompleteBlock)completion;
 {
@@ -29,12 +39,20 @@ typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
     
     PULLog(@"sending params");
     
-    [self runWithParameters:params
+    [self _runWithParameters:params
                  completion:^(NSDictionary *jsonData, NSError *error) {
                      if (jsonData)
                      {
                          PULLog(@"received json: %@", jsonData);
                          BOOL success = [jsonData[@"success"] boolValue];
+                         if (success)
+                         {
+                             _invitesRemaining--;
+                             if (_invitesRemaining == 0)
+                             {
+                                 _canSendInvites = NO;
+                             }
+                         }
                          
                          completion(success);
                      }
@@ -77,7 +95,23 @@ typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
     });
 }
 
-- (void)runWithParameters:(NSDictionary*)params completion:(PULConnectionBlock)completion;
+- (void)initialize;
+{
+    // determine if we can send invites
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        PFQuery *query = [PFQuery queryWithClassName:@"InviteLookup"];
+        [query whereKey:@"fromUser" equalTo:[PULUser currentUser]];
+        
+        NSArray *objs = [query findObjects];
+        
+        _canSendInvites = objs != nil || objs.count < 3;
+        _invitesRemaining = 3 - objs.count;
+    });
+    
+}
+
+#pragma mark - Private
+- (void)_runWithParameters:(NSDictionary*)params completion:(PULConnectionBlock)completion;
 {
     NSMutableString *urlString = [NSMutableString stringWithFormat:@"%@?", kPULInviteServiceUrl];
     

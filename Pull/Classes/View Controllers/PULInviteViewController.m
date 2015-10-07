@@ -86,7 +86,7 @@
         ai.title = @"Inviting...";
         [ai show];
         
-        PULInviteService *invite = [[PULInviteService alloc] init];
+        PULInviteService *invite = [PULInviteService sharedInstance];
         [invite sendInviteToEmail:email
                        completion:^(BOOL success) {
                            [ai hide];

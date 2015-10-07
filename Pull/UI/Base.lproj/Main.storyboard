@@ -1103,19 +1103,41 @@
                                     <constraint firstAttribute="width" secondItem="gzS-s7-bbh" secondAttribute="height" multiplier="1:1" id="8HZ-TP-Ubr"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vub-Ch-YVn">
-                                <rect key="frame" x="277" y="562" width="46" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite A Friend" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0G-06-4Ef">
+                                <rect key="frame" x="245" y="530" width="110" height="22"/>
                                 <animations/>
-                                <state key="normal" title="send invite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eOa-tm-9aQ">
+                                <rect key="frame" x="283" y="560" width="35" height="32"/>
+                                <animations/>
+                                <state key="normal" image="golden_ticket_small.png"/>
                                 <connections>
-                                    <segue destination="wC0-Gl-ACI" kind="presentation" id="D48-1e-2gn"/>
+                                    <segue destination="wC0-Gl-ACI" kind="presentation" id="eMb-YJ-X1y"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2U-JZ-b1a">
+                                <rect key="frame" x="322" y="560" width="35" height="32"/>
+                                <animations/>
+                                <state key="normal" image="golden_ticket_small.png"/>
+                                <connections>
+                                    <segue destination="wC0-Gl-ACI" kind="presentation" id="jTL-fO-QVh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4db-TB-R4X">
+                                <rect key="frame" x="244" y="560" width="35" height="32"/>
+                                <animations/>
+                                <state key="normal" image="golden_ticket_small.png"/>
+                                <connections>
+                                    <segue destination="wC0-Gl-ACI" kind="presentation" id="tRk-cY-3dN"/>
                                 </connections>
                             </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="VDr-oB-AOS" firstAttribute="top" secondItem="vub-Ch-YVn" secondAttribute="bottom" constant="8" id="1Ik-zK-CCs"/>
                             <constraint firstItem="jTx-IR-N7O" firstAttribute="leading" secondItem="6hr-M5-xhR" secondAttribute="leading" id="2eM-Gp-gMc"/>
                             <constraint firstItem="gzS-s7-bbh" firstAttribute="height" secondItem="Ao8-Qw-wcn" secondAttribute="height" multiplier="0.65" id="3Kc-y3-dXx"/>
                             <constraint firstItem="VDr-oB-AOS" firstAttribute="top" secondItem="ar4-8d-lsp" secondAttribute="bottom" constant="70" id="4SL-Dx-cdp"/>
@@ -1124,15 +1146,22 @@
                             <constraint firstItem="jTx-IR-N7O" firstAttribute="top" secondItem="6hr-M5-xhR" secondAttribute="top" id="7rX-Ic-MMy"/>
                             <constraint firstItem="VDr-oB-AOS" firstAttribute="top" secondItem="ar4-8d-lsp" secondAttribute="bottom" constant="70" id="8ma-hE-df2"/>
                             <constraint firstItem="ar4-8d-lsp" firstAttribute="leading" secondItem="6hr-M5-xhR" secondAttribute="leading" id="97C-2M-gb5"/>
+                            <constraint firstItem="4db-TB-R4X" firstAttribute="centerY" secondItem="eOa-tm-9aQ" secondAttribute="centerY" id="9MA-Ya-oef"/>
                             <constraint firstItem="2Pw-Cl-vCV" firstAttribute="bottom" secondItem="Ao8-Qw-wcn" secondAttribute="bottom" id="B5h-Ob-kMb"/>
+                            <constraint firstItem="VDr-oB-AOS" firstAttribute="top" secondItem="eOa-tm-9aQ" secondAttribute="bottom" constant="8" id="Fob-Md-7ww"/>
+                            <constraint firstItem="G0G-06-4Ef" firstAttribute="centerX" secondItem="6hr-M5-xhR" secondAttribute="centerX" id="IU3-se-Mo5"/>
                             <constraint firstItem="gzS-s7-bbh" firstAttribute="top" secondItem="Ao8-Qw-wcn" secondAttribute="top" constant="16" id="LD7-FQ-syA"/>
-                            <constraint firstItem="vub-Ch-YVn" firstAttribute="centerX" secondItem="6hr-M5-xhR" secondAttribute="centerX" id="ZeW-bd-4dT"/>
+                            <constraint firstItem="eOa-tm-9aQ" firstAttribute="centerX" secondItem="G0G-06-4Ef" secondAttribute="centerX" id="N2x-jt-lzK"/>
+                            <constraint firstItem="X2U-JZ-b1a" firstAttribute="centerY" secondItem="eOa-tm-9aQ" secondAttribute="centerY" id="Phm-3f-28t"/>
                             <constraint firstItem="Ao8-Qw-wcn" firstAttribute="top" secondItem="jTx-IR-N7O" secondAttribute="bottom" id="bGi-MS-k5F"/>
                             <constraint firstItem="Ao8-Qw-wcn" firstAttribute="width" secondItem="jTx-IR-N7O" secondAttribute="width" id="bdo-aO-0gB"/>
                             <constraint firstAttribute="trailing" secondItem="ar4-8d-lsp" secondAttribute="trailing" id="fhg-13-Dw7"/>
+                            <constraint firstItem="eOa-tm-9aQ" firstAttribute="top" secondItem="G0G-06-4Ef" secondAttribute="bottom" constant="8" id="gDk-qu-jjq"/>
                             <constraint firstItem="gzS-s7-bbh" firstAttribute="centerX" secondItem="Ao8-Qw-wcn" secondAttribute="centerX" id="hE0-YA-J92"/>
                             <constraint firstItem="Ao8-Qw-wcn" firstAttribute="bottom" secondItem="ar4-8d-lsp" secondAttribute="top" id="hnp-eH-Jah"/>
+                            <constraint firstItem="X2U-JZ-b1a" firstAttribute="leading" secondItem="eOa-tm-9aQ" secondAttribute="trailing" constant="4" id="k35-ie-bro"/>
                             <constraint firstItem="2Pw-Cl-vCV" firstAttribute="top" secondItem="gAx-sk-hrV" secondAttribute="bottom" id="kgP-us-frP"/>
+                            <constraint firstItem="eOa-tm-9aQ" firstAttribute="leading" secondItem="4db-TB-R4X" secondAttribute="trailing" constant="4" id="liG-9L-7cr"/>
                             <constraint firstAttribute="trailing" secondItem="jTx-IR-N7O" secondAttribute="trailing" id="m1e-14-5UZ"/>
                             <constraint firstItem="gzS-s7-bbh" firstAttribute="centerY" secondItem="Ao8-Qw-wcn" secondAttribute="centerY" id="mdi-Nc-3KS"/>
                             <constraint firstItem="I1K-aZ-Ea2" firstAttribute="top" secondItem="gzS-s7-bbh" secondAttribute="bottom" constant="8" id="o2x-E8-gb6"/>
@@ -1148,6 +1177,10 @@
                     </view>
                     <connections>
                         <outlet property="backgroundImageView" destination="2Pw-Cl-vCV" id="A8j-nb-Yzx"/>
+                        <outlet property="inviteButton1" destination="4db-TB-R4X" id="EUt-Ma-Hv5"/>
+                        <outlet property="inviteButton2" destination="eOa-tm-9aQ" id="g3Y-ZU-tvD"/>
+                        <outlet property="inviteButton3" destination="X2U-JZ-b1a" id="yTq-3T-sgn"/>
+                        <outlet property="inviteLabel" destination="G0G-06-4Ef" id="2yP-9u-n5g"/>
                         <outlet property="nameLabel" destination="I1K-aZ-Ea2" id="0di-Vc-11u"/>
                         <outlet property="userImageView" destination="gzS-s7-bbh" id="IyG-7C-Drd"/>
                     </connections>
@@ -2833,6 +2866,7 @@ _____________________
         <image name="cutout_row.png" width="325" height="50"/>
         <image name="facebook.png" width="585" height="129"/>
         <image name="golden_ticket_large_upright.png" width="55" height="88"/>
+        <image name="golden_ticket_small.png" width="35" height="32"/>
         <image name="home_white.png" width="51" height="47"/>
         <image name="info_dot.png" width="20" height="20"/>
         <image name="intro_four.png" width="395" height="462"/>
@@ -2849,4 +2883,7 @@ _____________________
         <image name="settings_purple.png" width="32" height="32"/>
         <image name="share_white.png" width="43" height="61"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="tRk-cY-3dN"/>
+    </inferredMetricsTieBreakers>
 </document>

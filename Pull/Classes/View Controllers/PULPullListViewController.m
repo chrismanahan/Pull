@@ -30,6 +30,7 @@
 
 #import "PULParseMiddleMan.h"
 #import "PULLocationUpdater.h"
+#import "PULInviteService.h"
 
 const NSInteger kPULAlertEndPullTag = 1001;
 
@@ -58,6 +59,10 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 - (void)viewDidLoad
 {
     [[PULLocationUpdater sharedUpdater] startUpdatingLocation];
+    
+    // initialize the invite service
+    [[PULInviteService sharedInstance] initialize];
+    
     
     _observers = [[NSMutableArray alloc] init];
     

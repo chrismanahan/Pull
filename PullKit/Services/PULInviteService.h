@@ -14,6 +14,13 @@ typedef void(^PULInviteCompleteBlock)(BOOL success);
 
 @interface PULInviteService : NSObject
 
+@property (nonatomic, assign, readonly) BOOL canSendInvites;
+@property (nonatomic, assign, readonly) NSInteger invitesRemaining;
+
++ (instancetype)sharedInstance;
+
+- (void)initialize;
+
 - (void)sendInviteToEmail:(NSString*)email completion:(PULInviteCompleteBlock)completion;
 
 - (void)redeemInviteCode:(NSString*)code completion:(PULInviteCompleteBlock)completion;

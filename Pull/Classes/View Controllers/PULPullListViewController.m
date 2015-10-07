@@ -163,7 +163,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     _dialogAcceptButton.backgroundColor = PUL_DarkPurple;
     _dialogDeclineButton.backgroundColor = PUL_DarkPurple;
     _dialogCancelButton.backgroundColor = PUL_DarkPurple;
-    _dialogContainer.backgroundColor = PUL_Purple;
+    _dialogContainer.backgroundColor = [UIColor clearColor];
     
     [self.view setNeedsUpdateConstraints];
 }

@@ -585,7 +585,7 @@
                                         <rect key="frame" x="8" y="8" width="584" height="39"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bo-9n-FZw">
@@ -629,7 +629,7 @@
                                     </button>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="3bo-9n-FZw" firstAttribute="top" secondItem="P30-JS-1kT" secondAttribute="top" id="2f4-gV-SHa"/>
                                     <constraint firstItem="3bo-9n-FZw" firstAttribute="height" secondItem="ZzK-kx-gII" secondAttribute="height" multiplier="0.4" id="8Vp-Yi-hAk"/>

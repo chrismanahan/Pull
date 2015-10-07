@@ -18,10 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 /*****************************
  Users
  *****************************/
-- (void)addUserToCache:(PULUser*)user;
-- (void)setUsers:(nullable NSArray<PULUser*>*)users;
+- (void)addFriendToCache:(PULUser*)user;
+- (void)setFriends:(nullable NSArray<PULUser*>*)users;
+- (void)removeFriend:(PULUser*)user;
 - (void)addBlockedUserToCache:(PULUser*)user;
 - (void)setBlockedUsers:(nullable NSArray<PULUser*>*)users;
+- (void)removeBlockedUser:(PULUser*)user;
 
 /**
  *  Gets the cached array of friends

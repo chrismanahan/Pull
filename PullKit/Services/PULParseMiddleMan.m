@@ -161,7 +161,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             }
             else
             {
-                [_cache setUsers:users];
+                [_cache setFriends:users];
                 completion(users, nil);
             }
         }];
@@ -598,6 +598,19 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 #pragma mark Helpers
 - (void)_block:(BOOL)block user:(PULUser*)user
 {
+    // adjust cache
+    if (block)
+    {
+        [_cache removeFriend:user];
+        [_cache addBlockedUserToCache:user];
+    }
+    else
+    {
+        [_cache removeBlockedUser:user];
+        [_cache addFriendToCache:user];
+    }
+    
+    // run parse operation
     [self _runBlockInBackground:^{
         PFQuery *lookup = block ? [PFQuery queryLookupFriends] : [PFQuery queryLookupBlocked];
         

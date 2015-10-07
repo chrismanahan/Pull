@@ -12,6 +12,8 @@
 
 #import "PULUser.h"
 
+#import "PULParseMiddleMan.h"
+
 @interface PULBlockingViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UISearchBarDelegate, PULUserCellDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -31,6 +33,23 @@
     [super viewWillAppear:animated];
     
     [_tableView reloadData];
+    
+    __block NSInteger blocksToRun = 2;
+    [[PULParseMiddleMan sharedInstance] getFriendsInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
+        if (--blocksToRun == 0)
+        {
+            [self _reloadDatasourceForSearch:nil];
+            [_tableView reloadData];
+        }
+    }];
+    
+    [[PULParseMiddleMan sharedInstance] getBlockedUsersInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
+        if (--blocksToRun == 0)
+        {
+            [self _reloadDatasourceForSearch:nil];
+            [_tableView reloadData];
+        }
+    }];
 }
 
 - (void)viewDidLoad
@@ -107,49 +126,36 @@
 
 - (NSArray*)_dataSourceForSection:(NSInteger)section
 {
-    // TODO: RETURN DATA SOURCE
-    return nil;
-//    if (!_searchFriendsDatasource)
-//    {
-//        return section == 0 ? [PULUser currentUser].friends : [PULUser currentUser].blocked;
-//    }
-//    else
-//    {
-//        return section == 0 ? _searchFriendsDatasource : _searchBlockedDatasource;
-//    }
+    return section == 0 ? _searchFriendsDatasource : _searchBlockedDatasource;
 }
 
 #pragma mark - alert view delegat
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     // TODO: ALERT USER WHEN BUTTON TAPPED
-//    if (buttonIndex == 1)
-//    {
-//        if (alertView.tag == 1000)
-//        {
-//            // block
-//            [[PULUser currentUser] blockUser:_selectedUser];
-//        }
-//        else if (alertView.tag == 1001)
-//        {
-//            // unblock
-//            [[PULUser currentUser] unblockUser:_selectedUser];
-//        }
-//        
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [_tableView reloadData];
-//        });
-//
-//    }
-    
-//    _searchBar.text = @"";
-//    _searchBlockedDatasource = nil;
-//    _searchFriendsDatasource = nil;
-    
-    if (_searchBar.text.length > 0)
+    if (buttonIndex == 1)
     {
-        [self searchBar:_searchBar textDidChange:_searchBar.text];
+        if (alertView.tag == 1000)
+        {
+            // block
+            [[PULParseMiddleMan sharedInstance] blockUser:_selectedUser];
+        }
+        else if (alertView.tag == 1001)
+        {
+            // unblock
+            [[PULParseMiddleMan sharedInstance] unblockUser:_selectedUser];
+        }
+        
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_tableView reloadData];
+//        });
+
     }
+    
+    _searchBar.text = @"";
+
+    [self _reloadDatasourceForSearch:nil];
+
     _selectedUser = nil;
 }
 
@@ -166,42 +172,44 @@
 
 #pragma mark - Private
 #pragma mark Helpers
-- (void)_reloadDatasourceForSearch:(NSString*)search
+- (void)_reloadDatasourceForSearch:(nullable NSString*)search
 {
-    // TODO: reload data source
-//    if (!search || search.length == 0)
-//    {
-//        _searchFriendsDatasource = nil;
-//        _searchBlockedDatasource = nil;
-//    }
-//    else
-//    {
-//        NSMutableArray *temp = [[NSMutableArray alloc] init];
-//        search = search.lowercaseString;
-//        
-//        for (PULUser *user in [PULUser currentUser].friends)
-//        {
-//            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
-//                [user.fullName.lowercaseString hasPrefix:search])
-//            {
-//                [temp addObject:user];
-//            }
-//        }
-//        _searchFriendsDatasource = [[NSArray alloc] initWithArray:temp];
-//        
-//        temp = [[NSMutableArray alloc] init];
-//        for (PULUser *user in [PULUser currentUser].blocked)
-//        {
-//            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
-//                [user.fullName.lowercaseString hasPrefix:search])
-//            {
-//                [temp addObject:user];
-//            }
-//        }
-//        _searchBlockedDatasource = [[NSArray alloc] initWithArray:temp];
-//    }
-//    
-//    [_tableView reloadData];
+    NSArray *cachedFriends = [[PULParseMiddleMan sharedInstance].cache cachedFriends];
+    NSArray *cachedBlocked = [[PULParseMiddleMan sharedInstance].cache cachedBlockedUsers];
+    
+    if (!search || search.length == 0)
+    {
+        _searchFriendsDatasource = cachedFriends;
+        _searchBlockedDatasource = cachedBlocked;
+    }
+    else
+    {
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
+        search = search.lowercaseString;
+        
+        for (PULUser *user in cachedFriends)
+        {
+            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
+                [user.fullName.lowercaseString hasPrefix:search])
+            {
+                [temp addObject:user];
+            }
+        }
+        _searchFriendsDatasource = [[NSArray alloc] initWithArray:temp];
+        
+        temp = [[NSMutableArray alloc] init];
+        for (PULUser *user in cachedBlocked)
+        {
+            if ([user.firstName.lowercaseString hasPrefix:search] || [user.lastName.lowercaseString hasPrefix:search] ||
+                [user.fullName.lowercaseString hasPrefix:search])
+            {
+                [temp addObject:user];
+            }
+        }
+        _searchBlockedDatasource = [[NSArray alloc] initWithArray:temp];
+    }
+    
+    [_tableView reloadData];
 }
 
 #pragma mark - Scroll View Delegate

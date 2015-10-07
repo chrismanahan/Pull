@@ -76,19 +76,27 @@
 }
 
 #pragma mark Users
-- (void)addUserToCache:(PULUser*)user
+- (void)addFriendToCache:(PULUser*)user
 {
     NSMutableArray *users = [_cacheStorage objectForKey:@"friends"];
     [users addObject:user];
-    [self setUsers:users];
+    [self setFriends:users];
 }
 
-- (void)setUsers:(nullable NSArray<PULUser*>*)users;
+- (void)setFriends:(nullable NSArray<PULUser*>*)users;
 {
     if (users)
     {
         [_cacheStorage setObject:users forKey:@"friends"];
     }
+}
+
+- (void)removeFriend:(PULUser*)user;
+{
+    NSMutableArray *users = [_cacheStorage objectForKey:@"friends"];
+    [users removeObject:user];
+    [self setFriends:users];
+
 }
 
 - (void)addBlockedUserToCache:(PULUser*)user;
@@ -104,6 +112,13 @@
     {
         [_cacheStorage setObject:users forKey:@"blocked"];
     }
+}
+
+- (void)removeBlockedUser:(PULUser*)user;
+{
+    NSMutableArray *users = [_cacheStorage objectForKey:@"blocked"];
+    [users removeObject:user];
+    [self setBlockedUsers:users];
 }
 
 #pragma mark - Removing

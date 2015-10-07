@@ -230,7 +230,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         {
             self.isReloading = YES;
             [[PULParseMiddleMan sharedInstance] getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
-                _pullsDatasource = pulls;
+                _pullsDatasource = [[PULParseMiddleMan sharedInstance].cache cachedPullsOrdered];
                 
                 [_collectionView reloadData];
                 [self updateUI];
@@ -240,7 +240,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         }
         else
         {
-            _pullsDatasource = [[PULParseMiddleMan sharedInstance].cache cachedPulls];
+            _pullsDatasource = [[PULParseMiddleMan sharedInstance].cache cachedPullsOrdered];
             
             [_collectionView reloadData];
             [self updateUI];

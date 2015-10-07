@@ -239,9 +239,9 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)getPullsInBackground:(nullable PULPullsBlock)completion ignoreCache:(BOOL)ignoreCache;
 {
-    if ([_cache cachedPulls] && !ignoreCache)
+    if ([_cache cachedPullsOrdered] && !ignoreCache)
     {
-        completion([_cache cachedPulls], nil);
+        completion([_cache cachedPullsOrdered], nil);
     }
     
     [self _runBlockInBackground:^{

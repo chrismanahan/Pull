@@ -19,6 +19,18 @@
 
 @end
 
+@implementation NSArray (PullSorting)
+
+- (NSArray*)pull_sortByDistance
+{
+    return [self linq_sort:^id(PULPull *pull) {
+        return @([[PULUser currentUser].location.coordinate distanceInMilesTo:[pull otherUser].location.coordinate]);
+    }];
+}
+
+@end
+
+
 @implementation PULCache
 
 #pragma mark - Init
@@ -129,16 +141,12 @@
 #pragma mark Pulls
 - (nullable NSArray<PULPull*>*)cachedPulls
 {
-    return [[_cacheStorage objectForKey:@"pulls"]
-            linq_sort:^id(PULPull *pull) {
-                return @(pull.status);
-            }];
+    return [_cacheStorage objectForKey:@"pulls"];
 }
 
 - (nullable NSArray<PULPull*>*)cachedPullsOrdered
 {
-    return [[[[self cachedPullsNearby]
-              linq_concat:[self cachedPullsFar]]
+    return [[[self cachedPullsPulled]
              linq_concat:[self cachedPullsPending]]
             linq_concat:[self cachedPullsWaiting]];
 }
@@ -161,27 +169,30 @@
 
 - (nullable NSArray<PULPull*>*)cachedPullsNearby
 {
-    return [[self cachedPulls]
+    return [[[self cachedPulls]
             linq_where:^BOOL(PULPull *pull) {
                 PULUser *friend = [pull otherUser];
                 CGFloat distance = [friend.location.location distanceFromLocation:[PULUser currentUser].location.location];
                 return pull.status == PULPullStatusPulled && distance <= kPULDistanceNearbyMeters;
-            }];
+            }]
+            pull_sortByDistance];
 }
 
 - (nullable NSArray<PULPull*>*)cachedPullsFar
 {
-    return [[self cachedPulls]
+    return [[[self cachedPulls]
             linq_where:^BOOL(PULPull *pull) {
                 PULUser *friend = [pull otherUser];
                 CGFloat distance = [friend.location.location distanceFromLocation:[PULUser currentUser].location.location];
                 return pull.status == PULPullStatusPulled && distance > kPULDistanceNearbyMeters;
-            }];
+            }]
+            pull_sortByDistance];
 }
 
 - (nullable NSArray<PULPull*>*)cachedPullsPulled
 {
-    return [[self cachedPullsNearby] linq_concat:[self cachedPullsFar]];
+    return [[self cachedPullsNearby]
+            linq_concat:[self cachedPullsFar]];
 }
 
 - (nullable PULPull*)nearestPull

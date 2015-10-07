@@ -36,10 +36,24 @@
     [super viewWillAppear:animated];
     
     PULUserSettings *settings = [PULUser currentUser].userSettings;
-    [_notifAcceptSwitch setOn:settings.notifyAccept];
-    [_notifInviteSwitch setOn:settings.notifyInvite];
-    [_notifyNearbySwitch setOn:settings.notifyNearby];
-    [_notifyGoneSwitch setOn:settings.notifyGone];
+    if (settings.isDataAvailable)
+    {
+        [_notifAcceptSwitch setOn:settings.notifyAccept];
+        [_notifInviteSwitch setOn:settings.notifyInvite];
+        [_notifyNearbySwitch setOn:settings.notifyNearby];
+        [_notifyGoneSwitch setOn:settings.notifyGone];
+    }
+    else
+    {
+        // TODO: show ai
+        [settings fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            // TODO: hide ai
+            [_notifAcceptSwitch setOn:settings.notifyAccept];
+            [_notifInviteSwitch setOn:settings.notifyInvite];
+            [_notifyNearbySwitch setOn:settings.notifyNearby];
+            [_notifyGoneSwitch setOn:settings.notifyGone];
+        }];
+    }
 }
 
 
@@ -100,7 +114,7 @@
 - (IBAction)ibLogout:(id)sender
 {
     // TODO: logout user
-//    [[PULUser currentUser] logout];
+    [PULUser logOut];
  
     UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
     
@@ -137,10 +151,21 @@
         // disable account
 //        [[PULUser currentUser].pullManager unpullEveryone];
         [PULUser currentUser].isDisabled = YES;
-        [[PULUser currentUser] saveInBackground];
-        [ai hide];
-        [self ibLogout:nil];
-
+        [[PULUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            [ai hide];
+            if (succeeded)
+            {
+                [self ibLogout:nil];
+            }
+            else
+            {
+                [[[UIAlertView alloc] initWithTitle:@"Error"
+                                           message:@"There was an error while disabling your account. If the problem persists, please contact support@getpulled.com"
+                                          delegate:self
+                                 cancelButtonTitle:@"Ok"
+                                 otherButtonTitles:nil] show];
+            }
+        }];
     }
 }
 

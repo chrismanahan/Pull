@@ -104,8 +104,8 @@ typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
         
         NSArray *objs = [query findObjects];
         
-        _canSendInvites = objs != nil || objs.count < 3;
         _invitesRemaining = 3 - objs.count;
+        _canSendInvites = _invitesRemaining > 0;
     });
     
 }

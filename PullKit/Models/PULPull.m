@@ -13,6 +13,7 @@
 #import "PULPush.h"
 #import "PULConstants.h"
 
+#import "Amplitude.h"
 #import "NSDate+Utilities.h"
 
 #import <UIKit/UIKit.h>
@@ -40,6 +41,7 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
 - (void)setDistanceFlags;
 {
     BOOL wasNearby = self.nearby;
+    BOOL wasTogether = self.together;
     
     self.nearby = [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceNearbyMeters;
     self.together = [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceTogetherMeters;
@@ -57,6 +59,11 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
         [PULPush sendPushType:PULPushTypeLocalFriendGone
                            to:[PULUser currentUser]
                          from:[self otherUser]];
+    }
+    
+    if (!wasTogether && self.together)
+    {
+        [[Amplitude instance] logEvent:kAnalyticsAmplitudeEventPullStateTogether];
     }
 }
 

@@ -32,6 +32,8 @@
 #import "PULLocationUpdater.h"
 #import "PULInviteService.h"
 
+#import "Amplitude.h"
+
 const NSInteger kPULAlertEndPullTag = 1001;
 
 NSString * const kPULDialogButtonTextAccept = @"Accept";
@@ -63,6 +65,8 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     // initialize the invite service
     [[PULInviteService sharedInstance] initialize];
     
+    // start up amplitude
+    [self initializeAnalytics];
     
     _observers = [[NSMutableArray alloc] init];
     
@@ -222,6 +226,27 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         [user saveInBackground];
     }
 
+}
+
+- (void)initializeAnalytics
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    BOOL hasSetupAmplitude = [defaults boolForKey:@"InitAmplitude"];
+    if (!hasSetupAmplitude)
+    {
+        Amplitude *amp = [Amplitude instance];
+        PULUser *user = [PULUser currentUser];
+        
+        [amp setUserId:user.username];
+        
+        NSDictionary *userProperties = @{@"gender": user.gender ?: @"",
+                                         @"locale": user[@"locale"] ?: @""};
+        
+        [amp setUserProperties:userProperties];
+        
+        [defaults setBool:YES forKey:@"InitAmplitude"];
+    }
 }
 
 #pragma mark

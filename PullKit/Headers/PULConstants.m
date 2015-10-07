@@ -67,3 +67,12 @@ const NSInteger kLocationBackgroundDistanceFilter = 4;//30;
 
 NSString * const kPULPushFormattedMessageSendPull = @"%@ has sent you a pull!";
 NSString * const kPULPushFormattedMessageAcceptPull = @"%@ has accepted your pull!";
+
+
+
+NSString * const kAnalyticsAmplitudeEventSendPull = @"Send Pull";
+NSString * const kAnalyticsAmplitudeEventAcceptPull = @"Accept Pull";
+NSString * const kAnalyticsAmplitudeEventDeclinePull = @"Deleted Pull";
+NSString * const kAnalyticsAmplitudeEventBlockUser = @"Blocked User";
+NSString * const kAnalyticsAmplitudeEventUnblockUser = @"Unblocked User";
+NSString * const kAnalyticsAmplitudeEventPullStateTogether = @"Arrived Together";

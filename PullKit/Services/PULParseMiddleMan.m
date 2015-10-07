@@ -10,6 +10,8 @@
 
 #import "PULPush.h"
 
+#import "Amplitude.h"
+
 #import "PFQuery+PullQueries.h"
 #import "PFACL+Users.h"
 
@@ -379,6 +381,10 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
         if (error)
         {
+            [[Amplitude instance] logEvent:kAnalyticsAmplitudeEventSendPull
+                       withEventProperties:@{@"duration": @(duration / 60 / 60),
+                                             @"success": @NO}];
+            
             completion(NO, error);
             return;
         }
@@ -390,6 +396,10 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
                 if ([pull containsUser:user])
                 {
                     // pull already exists with this user
+                    [[Amplitude instance] logEvent:kAnalyticsAmplitudeEventSendPull
+                               withEventProperties:@{@"duration": @(duration / 60 / 60),
+                                                     @"success": @NO,
+                                                      @"error": @"Already Existed"}];
                     completion(NO, nil);
                     return;
                 }
@@ -412,6 +422,9 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             [self _runBlockOnMainQueue:^{
                 //send push to other user
                 [PULPush sendPushType:PULPushTypeSendPull to:user from:[PULUser currentUser]];
+                [[Amplitude instance] logEvent:kAnalyticsAmplitudeEventSendPull
+                           withEventProperties:@{@"duration": @(duration / 60 / 60),
+                                                 @"success": @YES}];
                 completion(success, nil);;
             }];
         }];
@@ -426,6 +439,9 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
         pull.expiration = [NSDate dateWithTimeIntervalSinceNow:pull.duration];
         [pull save];
 
+        [[Amplitude instance] logEvent:kAnalyticsAmplitudeEventAcceptPull
+                   withEventProperties:@{@"duration": @(pull.duration / 60 / 60)}];
+        
         //send push to other user
         [PULPush sendPushType:PULPushTypeAcceptPull to:[pull otherUser] from:[PULUser currentUser]];
     }];
@@ -433,6 +449,9 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)deletePull:(PULPull*)pull
 {
+    [[Amplitude instance] logEvent:kAnalyticsAmplitudeEventDeclinePull
+               withEventProperties:@{@"duration": @(pull.duration / 60 / 60)}];
+    
     // remove from cache
     [_cache removePull:pull];
     
@@ -603,11 +622,17 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     {
         [_cache removeFriend:user];
         [_cache addBlockedUserToCache:user];
+        
+        [[Amplitude instance] logEvent:kAnalyticsAmplitudeEventBlockUser
+                   withEventProperties:@{@"user": user.username}];
     }
     else
     {
         [_cache removeBlockedUser:user];
         [_cache addFriendToCache:user];
+        
+        [[Amplitude instance] logEvent:kAnalyticsAmplitudeEventUnblockUser
+                   withEventProperties:@{@"user": user.username}];
     }
     
     // run parse operation

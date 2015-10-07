@@ -74,3 +74,11 @@ extern NSString * const kPULPushFormattedMessageSendPull;
  *  @warning This must be used as a formatted string and passed one argument.
  */
 extern NSString * const kPULPushFormattedMessageAcceptPull;
+
+
+extern NSString * const kAnalyticsAmplitudeEventSendPull;
+extern NSString * const kAnalyticsAmplitudeEventAcceptPull;
+extern NSString * const kAnalyticsAmplitudeEventDeclinePull;
+extern NSString * const kAnalyticsAmplitudeEventBlockUser;
+extern NSString * const kAnalyticsAmplitudeEventUnblockUser;
+extern NSString * const kAnalyticsAmplitudeEventPullStateTogether;

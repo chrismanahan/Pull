@@ -157,6 +157,7 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
 - (void)deletePull:(PULPull*)pull;
 - (void)acceptPull:(PULPull*)pull;
 
+- (void)deleteAllPullsCompletion:(void(^)())completion;
 
 /*****************************************************/
 /*****************************************************/

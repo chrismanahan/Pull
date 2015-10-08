@@ -459,6 +459,14 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     [pull deleteEventually];
 }
 
+- (void)deleteAllPullsCompletion:(void(^)())completion
+{
+    [PFObject deleteAllInBackground:[_cache cachedPulls] block:^(BOOL succeeded, NSError * _Nullable error) {
+        [_cache setPulls:nil];
+        completion();
+    }];
+}
+
 
 #pragma mark - Monitoring Stuff
 - (void)_startMonitoringPullsInBackground:(BOOL)inBackground

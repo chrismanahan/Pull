@@ -62,6 +62,10 @@
     {
         [_cacheStorage setObject:pulls forKey:@"pulls"];
     }
+    else
+    {
+        [_cacheStorage removeObjectForKey:@"pulls"];
+    }
 }
 
 - (void)removePull:(PULPull*)pull;

@@ -10,7 +10,7 @@
 #import "PULLoginViewController.h"
 
 #import "PULLoadingIndicator.h"
-
+#import "PULParseMiddleMan.h"
 #import "PULUser.h"
 #import "PULSlideUnwindSegue.h"
 #import "PULReverseModal.h"
@@ -151,20 +151,22 @@
         // disable account
 //        [[PULUser currentUser].pullManager unpullEveryone];
         [PULUser currentUser].isDisabled = YES;
-        [[PULUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            [ai hide];
-            if (succeeded)
-            {
-                [self ibLogout:nil];
-            }
-            else
-            {
-                [[[UIAlertView alloc] initWithTitle:@"Error"
-                                           message:@"There was an error while disabling your account. If the problem persists, please contact support@getpulled.com"
-                                          delegate:self
-                                 cancelButtonTitle:@"Ok"
-                                 otherButtonTitles:nil] show];
-            }
+        [[PULParseMiddleMan sharedInstance] deleteAllPullsCompletion:^{
+            [[PULUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                [ai hide];
+                if (succeeded)
+                {
+                    [self ibLogout:nil];
+                }
+                else
+                {
+                    [[[UIAlertView alloc] initWithTitle:@"Error"
+                                                message:@"There was an error while disabling your account. If the problem persists, please contact support@getpulled.com"
+                                               delegate:self
+                                      cancelButtonTitle:@"Ok"
+                                      otherButtonTitles:nil] show];
+                }
+            }];
         }];
     }
 }

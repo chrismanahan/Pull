@@ -8,7 +8,6 @@
 
 #import "PULPullListViewController.h"
 
-#import "PULLoadingIndicator.h"
 #import "PULNoConnectionView.h"
 
 #import "PULLocationOverlay.h"
@@ -46,8 +45,6 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 @property (nonatomic, strong) id pullsLoadedNotification;
 
 @property (nonatomic, strong) PULSoundPlayer *soundPlayer;
-
-@property (nonatomic, strong) PULLoadingIndicator *ai;
 
 @property (nonatomic, assign) BOOL isReloading;
 

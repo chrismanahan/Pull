@@ -138,13 +138,13 @@
     if (user)
     {
         user.isInForeground = NO;
-        user[@"killed"] = @(YES);
+//        user[@"killed"] = @(YES);
         [user saveInBackground];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            user[@"killed"] = @(NO);
-            [user saveInBackground];
-        });
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            user[@"killed"] = @(NO);
+//            [user saveInBackground];
+//        });
     }
 }
 - (void)backgroundPing
@@ -172,6 +172,8 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [PULUser currentUser][@"killed"] = @(YES);
+    [[PULUser currentUser] save];
     [[PFFacebookUtils session] close];
 }
 

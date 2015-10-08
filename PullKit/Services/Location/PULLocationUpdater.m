@@ -75,6 +75,20 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
                                                               selector:@selector(_updateTrackingMode)
                                                               userInfo:nil
                                                                repeats:YES];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
+                                                          object:nil
+                                                           queue:[NSOperationQueue currentQueue]
+                                                      usingBlock:^(NSNotification * _Nonnull note) {
+                                                          [_locationManager stopUpdatingHeading];
+                                                      }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                          object:nil
+                                                           queue:[NSOperationQueue currentQueue]
+                                                      usingBlock:^(NSNotification * _Nonnull note) {
+                                                          [_locationManager startUpdatingHeading];
+                                                      }];
     }
     
     return self;

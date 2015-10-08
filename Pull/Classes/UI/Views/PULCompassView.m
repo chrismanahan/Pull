@@ -22,6 +22,8 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
 @property (strong, nonatomic) IBOutlet UIImageView *overlayImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *compassImageView;
 
+@property (nonatomic, assign) CGFloat lastRotation;
+
 @end
 
 @implementation PULCompassView
@@ -166,18 +168,18 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     if (useCompass)
     {
         [_compassImageView setImage:[UIImage imageNamed:@"compass"]];
+        [self _rotateCompassToRadians:_lastRotation];
         
         // start rotating compass
-        static CGFloat lastRads = 0;
         [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
         [[PULLocationUpdater sharedUpdater] setHeadingUpdateBlock:^(CLHeading *heading) {
             CGFloat rads = [[PULUser currentUser] angleWithHeading:heading
                                                              fromUser:[_pull otherUser]];
             
-            if (rads >= lastRads + 0.1 || rads <= lastRads - 0.1)
+            if (rads >= _lastRotation + 0.1 || rads <= _lastRotation - 0.1)
             {
                 [self _rotateCompassToRadians:rads];
-                lastRads = rads;
+                _lastRotation = rads;
             }
         }];
     }

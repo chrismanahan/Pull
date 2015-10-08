@@ -51,8 +51,8 @@
 
 - (double)angleWithHeading:(CLHeading*)heading fromUser:(PULUser*)user;
 {
-    double degrees = [self _calculateAngleBetween:self.location.location.coordinate
-                                              and:user.location.location.coordinate];
+    double degrees = [self _calculateAngleBetween:self.location.coordinate
+                                              and:user.location.coordinate];
     
     double rads = (degrees - heading.trueHeading) * M_PI / 180;
     
@@ -82,7 +82,7 @@
 }
 
 #pragma mark - Private
-- (double)_calculateAngleBetween:(CLLocationCoordinate2D)coords0 and:(CLLocationCoordinate2D)coords1
+- (double)_calculateAngleBetween:(PFGeoPoint*)coords0 and:(PFGeoPoint*)coords1
 {
     double myLat = coords0.latitude;
     double myLon = coords0.longitude;

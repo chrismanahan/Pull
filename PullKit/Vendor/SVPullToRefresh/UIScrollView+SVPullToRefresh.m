@@ -462,13 +462,11 @@ static char UIScrollViewPullToRefreshView;
     if(!_overlayImageView) {
         
         _overlayImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-        _overlayImageView.animationImages = @[[UIImage imageNamed:@"smiley_loader1"],
-                               [UIImage imageNamed:@"smiley_loader2"],
-                               [UIImage imageNamed:@"smiley_loader3"],
-                               [UIImage imageNamed:@"smiley_loader4"],
-                               [UIImage imageNamed:@"smiley_loader5"],
-                               [UIImage imageNamed:@"smiley_loader6"]];
-        _overlayImageView.animationDuration = 1.0;
+        _overlayImageView.animationImages = @[[UIImage imageNamed:@"friends_loading"],
+                               [UIImage imageNamed:@"friends_loading2"],
+                               [UIImage imageNamed:@"friends_loading3"],
+                               [UIImage imageNamed:@"friends_loading4"]];
+        _overlayImageView.animationDuration = 0.5;
 
         [self addSubview:_overlayImageView];
     }

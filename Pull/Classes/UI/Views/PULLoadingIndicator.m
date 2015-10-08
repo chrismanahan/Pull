@@ -54,8 +54,12 @@
 - (void)hide;
 {
     _showing = NO;
-    [self removeFromSuperview];
-    [self.imageView stopAnimating];
+    if (self.superview)
+    {
+        [self removeFromSuperview];
+        [self.imageView stopAnimating];
+    }
+    
 }
 
 @end

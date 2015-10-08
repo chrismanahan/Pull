@@ -11,6 +11,7 @@
 
 #import "PULUserCell.h"
 
+#import "PULLoadingIndicator.h"
 #import "PULParseMiddleMan.h"
 #import "PULUser.h"
 #import "PULSlideLeftSegue.h"
@@ -33,6 +34,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *ticketHeaderLabel;
 
 @property (nonatomic, strong) PULParseMiddleMan *parse;
+@property (nonatomic, strong) PULLoadingIndicator *ai;
 
 @end
 
@@ -42,13 +44,14 @@
 {
     [super viewWillAppear:animated];
 
+    _ai = [PULLoadingIndicator indicatorOnView:self.view];
     if ([_parse.cache cachedFriendsNotPulled])
     {
         [self _reloadDatasource];
     }
     else
     {
-        // TODO: show loading indicator
+        [_ai show];
     }
     
     [_parse getFriendsInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
@@ -60,7 +63,7 @@
         }
         
         [self _reloadDatasource];
-        // TODO: hide loading indicator
+        [_ai hide];
     }];
     
     __weak id weakSelf = self;

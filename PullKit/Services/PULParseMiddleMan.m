@@ -260,7 +260,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             PULUser *otherUser = [pull otherUser];
             [otherUser.location fetchIfNeeded];
             
-            if ([pull.expiration isInPast])
+            if ([pull.expiration isInPast] && pull.duration != kPullDurationAlways)
             {
                 [flaggedIndexes addIndex:[objs indexOfObject:pull]];
             }
@@ -378,6 +378,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 #pragma mark - Pulls
 - (void)sendPullToUser:(PULUser*)user duration:(NSTimeInterval)duration completion:(nullable PULStatusBlock)completion
 {
+    [_cache resetPullSorting];
     [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
         if (error)
         {
@@ -435,6 +436,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 {
     NSAssert([pull.receivingUser isEqual:[PULUser currentUser]], @"can only accept a pull if we're the receiver");
     [self _runBlockInBackground:^{
+        [_cache resetPullSorting];
         pull.status = PULPullStatusPulled;
         pull.expiration = [NSDate dateWithTimeIntervalSinceNow:pull.duration];
         [pull save];
@@ -449,6 +451,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)deletePull:(PULPull*)pull
 {
+    [_cache resetPullSorting];
     [[Amplitude instance] logEvent:kAnalyticsAmplitudeEventDeclinePull
                withEventProperties:@{@"duration": @(pull.duration / 60 / 60)}];
     
@@ -461,6 +464,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)deleteAllPullsCompletion:(void(^)())completion
 {
+    [_cache resetPullSorting];
     [PFObject deleteAllInBackground:[_cache cachedPulls] block:^(BOOL succeeded, NSError * _Nullable error) {
         [_cache setPulls:nil];
         completion();

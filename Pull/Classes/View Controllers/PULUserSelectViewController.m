@@ -50,7 +50,7 @@
     [super viewWillAppear:animated];
 
     _ai = [PULLoadingIndicator indicatorOnView:self.view];
-    if ([_parse.cache cachedFriendsNotPulled])
+    if ([_parse.cache cachedFriendsNotPulled].count > 0)
     {
         [self _reloadDatasource];
     }

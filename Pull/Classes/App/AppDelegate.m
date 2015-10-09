@@ -132,7 +132,7 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [bgTask startBackgroundTasks:2 target:self selector:@selector(backgroundPing)];
+//    [bgTask startBackgroundTasks:2 target:self selector:@selector(backgroundPing)];
     
     PULUser *user = [PULUser currentUser];
     if (user)
@@ -153,7 +153,7 @@
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    [bgTask stopBackgroundTask];
+//    [bgTask stopBackgroundTask];
     
     PULUser *user = [PULUser currentUser];
     if (user)

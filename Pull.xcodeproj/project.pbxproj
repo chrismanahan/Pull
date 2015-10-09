@@ -258,6 +258,8 @@
 		9B537B311BC2C91D005587D6 /* PULCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B537B301BC2C91D005587D6 /* PULCache.m */; settings = {ASSET_TAGS = (); }; };
 		9B537B321BC307A9005587D6 /* PULPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7B41B80DE7D005569B4 /* PULPush.m */; settings = {ASSET_TAGS = (); }; };
 		9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */; };
+		9B5F7E0C1BC837D600FB1C4E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5F7E0A1BC837D600FB1C4E /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
+		9B5F7E0D1BC837D600FB1C4E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5F7E0B1BC837D600FB1C4E /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
 		9B78A7EE1B8118EE005569B4 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
 		9B78A7F01B8124EB005569B4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7EF1B8124EB005569B4 /* MessageUI.framework */; };
 		9B78A7F21B8124FF005569B4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7F11B8124FF005569B4 /* AVFoundation.framework */; };
@@ -709,6 +711,8 @@
 		9B537B301BC2C91D005587D6 /* PULCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULCache.m; sourceTree = "<group>"; };
 		9B5EFA581AE28F8600EFCCD5 /* PULUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUserCell.h; sourceTree = "<group>"; };
 		9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULUserCell.m; sourceTree = "<group>"; };
+		9B5F7E0A1BC837D600FB1C4E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		9B5F7E0B1BC837D600FB1C4E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		9B78A77C1B80DE66005569B4 /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Hex.h"; path = "../../PullKit/Categories/NSData+Hex.h"; sourceTree = "<group>"; };
 		9B78A77D1B80DE66005569B4 /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Hex.m"; path = "../../PullKit/Categories/NSData+Hex.m"; sourceTree = "<group>"; };
 		9B78A77E1B80DE66005569B4 /* UIVisualEffectView+PullBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIVisualEffectView+PullBlur.h"; path = "../../PullKit/Categories/UIVisualEffectView+PullBlur.h"; sourceTree = "<group>"; };
@@ -856,8 +860,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B1546281BA70A2800CD0323 /* AudioToolbox.framework in Frameworks */,
+				9B5F7E0D1BC837D600FB1C4E /* Crashlytics.framework in Frameworks */,
 				9BCCA7201BC4169B003A10DD /* parkour.framework in Frameworks */,
 				9B78A7F81B8126F3005569B4 /* MapKit.framework in Frameworks */,
+				9B5F7E0C1BC837D600FB1C4E /* Fabric.framework in Frameworks */,
 				9B78A7F41B812512005569B4 /* CoreMedia.framework in Frameworks */,
 				9B78A7F21B8124FF005569B4 /* AVFoundation.framework in Frameworks */,
 				9B78A7F01B8124EB005569B4 /* MessageUI.framework in Frameworks */,
@@ -1340,6 +1346,8 @@
 		952BDB5C1A0C4F0500C67BB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B5F7E0A1BC837D600FB1C4E /* Fabric.framework */,
+				9B5F7E0B1BC837D600FB1C4E /* Crashlytics.framework */,
 				9BCCA71F1BC4169B003A10DD /* parkour.framework */,
 				9B1546271BA70A2800CD0323 /* AudioToolbox.framework */,
 				9B78A7F31B812512005569B4 /* CoreMedia.framework */,
@@ -1836,6 +1844,7 @@
 				952BDB581A0C4F0500C67BB5 /* Resources */,
 				9B252FAA1BB85F4F0081966E /* Embed Frameworks */,
 				0A46AD568349EE7E14214ED8 /* Copy Pods Resources */,
+				9B5F7DF91BC8371B00FB1C4E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2303,6 +2312,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		9B5F7DF91BC8371B00FB1C4E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run e625f0c9aeb79b492ed648489de1b685e3fd34df 2efa6f4f7f03ccf41ccef53c638de89215af0e6f0d9d0131074eb20db8ef4cce";
 		};
 /* End PBXShellScriptBuildPhase section */
 

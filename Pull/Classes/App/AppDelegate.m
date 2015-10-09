@@ -20,6 +20,9 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 #import "PULUser.h"
 #import "PULParseMiddleMan.h"
 
@@ -61,6 +64,7 @@
 //    [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
 //    [PFFacebookUtils initializeFacebook];
 
+    [Fabric with:@[[Crashlytics class]]];
     [[Amplitude instance] initializeApiKey:@"c055f7a8351346bb5dbb4c57b59531d2"];
     
     [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];

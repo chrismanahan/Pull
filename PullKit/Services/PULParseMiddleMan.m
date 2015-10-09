@@ -148,24 +148,32 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 }
 
 #pragma mark - Getting Friends
+/**
+ *  @warning This must be run on a background thread
+ *
+ *  @return Array of friends
+ */
+- (NSArray*)_getFriends
+{
+    PFQuery *query = [PFQuery queryLookupFriends];
+    NSArray *objects = [query findObjects:nil];
+    NSArray *users = [self _usersFromLookupResults:objects];
+    return users;
+}
+
 - (void)getFriendsInBackground:(PULUsersBlock)completion
 {
     [self _runBlockInBackground:^{
-        PFQuery *query = [PFQuery queryLookupFriends];
-        NSError *err;
-        NSArray *objects = [query findObjects:&err];
-        NSArray *users = [self _usersFromLookupResults:objects];
+        NSArray *users = [self _getFriends];
         
         [self _runBlockOnMainQueue:^{
-            if (err)
-            {
-                completion(nil, err);
-            }
-            else
-            {
-                [_cache setFriends:users];
-                completion(users, nil);
-            }
+            [_cache setFriends:users];
+            
+            [self _addFriendsFromFacebookForce:NO
+                                    completion:^(BOOL success, NSError * _Nullable error) {
+                                        completion(users, nil);
+                                }];
+            
         }];
     }];
 }
@@ -222,6 +230,8 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     // set acl
     PFACL *acl = [PFACL ACLWithUser:[PULUser currentUser] and:user];
     obj.ACL = acl;
+    
+    [_cache addFriendToCache:user];
     
     [obj saveEventually];
 }
@@ -711,6 +721,13 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     
     [user saveInBackground];
     
+    [self _addFriendsFromFacebookForce:YES completion:^(BOOL success, NSError * _Nullable error) {
+        completion(YES, error);
+    }];
+}
+
+- (void)_addFriendsFromFacebookForce:(BOOL)force completion:(PULStatusBlock)completion
+{
     [[FBRequest requestForMyFriends]
      startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
          if (error)
@@ -737,12 +754,42 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
              // check if we have friends
              if (usernames.count > 0)
              {
+                 NSArray *currentFriends;
+                 
+                 if (!force)
+                 {
+                     currentFriends = [_cache cachedFriends];
+                     if (!currentFriends || currentFriends.count == 0)
+                     {
+                         currentFriends = [self _getFriends];
+                     }
+                 }
                  // build query to get all these users
                  PFQuery *friendQuery = [PFUser query];
                  [friendQuery whereKey:@"username" containedIn:usernames];
+                 
                  [friendQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-                     [[PULParseMiddleMan  sharedInstance] friendUsers:objects];
+                     if (!force)
+                     {
+                         NSMutableArray *mutableObjects = [[NSMutableArray alloc] init];
+                         // remove users that are in current friends
+                         for (PULUser *user in objects)
+                         {
+                             if (![currentFriends containsObject:user])
+                             {
+                                 [mutableObjects addObject:user];
+                             }
+                         }
+                         
+                         [[PULParseMiddleMan  sharedInstance] friendUsers:mutableObjects];
+                     }
+                     else
+                     {
+                         [[PULParseMiddleMan  sharedInstance] friendUsers:objects];
+                     }
+                     
                      completion(YES, nil);
+                     
                  }];
              }
              else

@@ -41,9 +41,9 @@
     if (self = [super init])
     {
         _cacheStorage = [[NSMutableDictionary alloc] init];
-        [_cacheStorage setObject:@[] forKey:@"pulls"];
-        [_cacheStorage setObject:@[] forKey:@"friends"];
-        [_cacheStorage setObject:@[] forKey:@"blocked"];
+        [_cacheStorage setObject:[@[] mutableCopy] forKey:@"pulls"];
+        [_cacheStorage setObject:[@[] mutableCopy] forKey:@"friends"];
+        [_cacheStorage setObject:[@[] mutableCopy] forKey:@"blocked"];
         
         _sortedPulls = [[NSMutableDictionary alloc] init];
     }

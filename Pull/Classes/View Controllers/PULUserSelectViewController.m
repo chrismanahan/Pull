@@ -11,6 +11,8 @@
 
 #import "PULUserCell.h"
 
+#import "PULInviteService.h"
+
 #import "PULLoadingIndicator.h"
 #import "PULParseMiddleMan.h"
 #import "PULUser.h"
@@ -28,6 +30,9 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) IBOutlet UIView *noFriendsOverlay;
+@property (nonatomic, strong) IBOutlet UIButton *inviteButton1;
+@property (nonatomic, strong) IBOutlet UIButton *inviteButton2;
+@property (nonatomic, strong) IBOutlet UIButton *inviteButton3;
 
 @property (nonatomic, strong) NSArray *dataSource;
 
@@ -56,13 +61,15 @@
     
     [_parse getFriendsInBackground:^(NSArray<PULUser *> * _Nullable users, NSError * _Nullable error) {
         // hide or show no friends overlay if needed
-        if (!_dataSource || _dataSource.count == 0) {
-            self.noFriendsOverlay.hidden = YES;
-        } else if (self.noFriendsOverlay.hidden) {
-            self.noFriendsOverlay.hidden = NO;
+        if (!users || users.count == 0)
+        {
+            [self showNoFriendsOverlay:YES];
         }
-        
-        [self _reloadDatasource];
+        else
+        {
+            [self showNoFriendsOverlay:NO];
+            [self _reloadDatasource];
+        }
         [_ai hide];
     }];
     
@@ -79,6 +86,30 @@
         }];
 
     }];
+}
+
+- (void)showNoFriendsOverlay:(BOOL)show
+{
+    self.noFriendsOverlay.hidden = !show;
+    
+    if (show)
+    {
+        // configure invite UI
+        PULInviteService *invites = [PULInviteService sharedInstance];
+        _inviteButton3.hidden = invites.invitesRemaining < 3;
+        _inviteButton1.hidden = invites.invitesRemaining < 2;
+        _inviteButton2.hidden = invites.invitesRemaining < 1;
+        
+        if (invites.canSendInvites)
+        {
+            _ticketHeaderLabel.text = @"Thanks for being part of our beta. To invite a friend, click one of the tickets below";
+        }
+        else
+        {
+            _ticketHeaderLabel.text = @"Thanks for being part of our beta. You already redeemed your 3 invites. If you'd like to claim more invites, please email support@getpulled.com";
+        }
+    }
+
 }
 
 - (void)viewDidLoad

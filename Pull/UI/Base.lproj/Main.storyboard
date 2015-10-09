@@ -436,7 +436,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Col-68-KCe" userLabel="Header" customClass="PULHeaderView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-bU-Xro" userLabel="Title label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-bU-Xro" userLabel="Title label">
                                         <rect key="frame" x="267" y="13" width="67" height="49"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="42"/>
@@ -1326,7 +1326,7 @@
                                             <action selector="ibLogout:" destination="5NZ-nN-ZGk" eventType="touchUpInside" id="Et0-xO-X9m"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGf-n6-iwk" userLabel="pull label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGf-n6-iwk" userLabel="pull label">
                                         <rect key="frame" x="282" y="537" width="36" height="32"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="24"/>
@@ -1340,7 +1340,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzy-aj-0Ap">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzy-aj-0Ap">
                                         <rect key="frame" x="0.0" y="597" width="600" height="50"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2092,65 +2092,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woB-1u-c5R" userLabel="no friends overlay">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Congratulations!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNS-0z-8aC">
-                                        <rect key="frame" x="200" y="16" width="201" height="34"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are the first of your Facebook friends on Pull!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBu-yV-NeJ">
-                                        <rect key="frame" x="138" y="58" width="324" height="19"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" red="0.55709438131313127" green="0.55709438131313127" blue="0.55709438131313127" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thanks for being part of our beta. To invite a friend, send their email to support@getpulled.com" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YS2-B1-f66">
-                                        <rect key="frame" x="8" y="244" width="584" height="48"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invites are limited" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOY-qb-KMr">
-                                        <rect key="frame" x="244" y="372" width="113" height="19"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" red="0.55709438131313127" green="0.55709438131313127" blue="0.55709438131313127" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="JOY-qb-KMr" secondAttribute="centerX" id="3tH-6E-bhc"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YS2-B1-f66" secondAttribute="trailing" constant="8" id="58H-7T-Jz2"/>
-                                    <constraint firstAttribute="centerY" secondItem="yNS-0z-8aC" secondAttribute="centerY" constant="50" id="9BZ-dq-CUs"/>
-                                    <constraint firstItem="JOY-qb-KMr" firstAttribute="top" secondItem="YS2-B1-f66" secondAttribute="bottom" constant="80" id="C6K-0h-3vL"/>
-                                    <constraint firstAttribute="centerY" secondItem="YS2-B1-f66" secondAttribute="centerY" id="DoJ-mT-vHq"/>
-                                    <constraint firstAttribute="centerX" secondItem="YS2-B1-f66" secondAttribute="centerX" id="KJf-Lo-xNZ"/>
-                                    <constraint firstAttribute="centerX" secondItem="yNS-0z-8aC" secondAttribute="centerX" id="SWZ-bV-FvN"/>
-                                    <constraint firstItem="YS2-B1-f66" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="woB-1u-c5R" secondAttribute="leading" constant="8" id="TYM-3B-M80"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gBu-yV-NeJ" secondAttribute="trailing" constant="8" id="XAV-Co-xae"/>
-                                    <constraint firstAttribute="centerX" secondItem="YS2-B1-f66" secondAttribute="centerX" id="Z2X-sO-gfW"/>
-                                    <constraint firstItem="gBu-yV-NeJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="woB-1u-c5R" secondAttribute="leading" constant="8" id="dQk-Uu-2ny"/>
-                                    <constraint firstItem="yNS-0z-8aC" firstAttribute="top" secondItem="woB-1u-c5R" secondAttribute="top" constant="16" id="gcU-tP-Ssy"/>
-                                    <constraint firstItem="JOY-qb-KMr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="woB-1u-c5R" secondAttribute="leading" constant="8" id="kAi-Nf-Use"/>
-                                    <constraint firstAttribute="centerY" secondItem="YS2-B1-f66" secondAttribute="centerY" id="qQ7-oW-RMW"/>
-                                    <constraint firstItem="gBu-yV-NeJ" firstAttribute="centerX" secondItem="yNS-0z-8aC" secondAttribute="centerX" id="vQS-fM-3Jm"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JOY-qb-KMr" secondAttribute="trailing" constant="8" id="y1L-5S-EBG"/>
-                                    <constraint firstItem="gBu-yV-NeJ" firstAttribute="top" secondItem="yNS-0z-8aC" secondAttribute="bottom" constant="8" id="zXt-6Q-ymv"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="9BZ-dq-CUs"/>
-                                        <exclude reference="KJf-Lo-xNZ"/>
-                                        <exclude reference="qQ7-oW-RMW"/>
-                                    </mask>
-                                </variation>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zQa-Fr-qkB">
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <animations/>
@@ -2280,6 +2221,103 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                     </mask>
                                 </variation>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woB-1u-c5R" userLabel="no friends overlay">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congratulations!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNS-0z-8aC">
+                                        <rect key="frame" x="198" y="16" width="205" height="34"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are the first of your Facebook friends on Pull!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBu-yV-NeJ">
+                                        <rect key="frame" x="138" y="58" width="324" height="19"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thanks for being part of our beta. To invite a friend, send their email to support@getpulled.com" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YS2-B1-f66">
+                                        <rect key="frame" x="8" y="244" width="584" height="48"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuN-9s-buY">
+                                        <rect key="frame" x="283" y="299" width="35" height="35"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="wuN-9s-buY" secondAttribute="height" multiplier="1:1" id="VPY-9n-V6E"/>
+                                            <constraint firstAttribute="width" constant="35" id="oAK-qT-KUR"/>
+                                        </constraints>
+                                        <state key="normal" image="golden_ticket_small.png"/>
+                                        <connections>
+                                            <segue destination="wC0-Gl-ACI" kind="presentation" id="AAW-AI-4Va"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Nl-oF-5Ts">
+                                        <rect key="frame" x="326" y="299" width="35" height="35"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="7Nl-oF-5Ts" secondAttribute="height" multiplier="1:1" id="eKd-V3-k0p"/>
+                                            <constraint firstAttribute="width" constant="35" id="tv9-zH-j1T"/>
+                                        </constraints>
+                                        <state key="normal" image="golden_ticket_small.png"/>
+                                        <connections>
+                                            <segue destination="wC0-Gl-ACI" kind="presentation" id="dY0-5O-W57"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qzf-R0-slR">
+                                        <rect key="frame" x="240" y="299" width="35" height="35"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Qzf-R0-slR" secondAttribute="height" multiplier="1:1" id="XoQ-pd-x5d"/>
+                                            <constraint firstAttribute="width" constant="35" id="n40-6r-fcL"/>
+                                        </constraints>
+                                        <state key="normal" image="golden_ticket_small.png"/>
+                                        <connections>
+                                            <segue destination="wC0-Gl-ACI" kind="presentation" id="9uN-Kn-RvJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="7Nl-oF-5Ts" firstAttribute="top" secondItem="Qzf-R0-slR" secondAttribute="top" id="1N9-Ch-jtk"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YS2-B1-f66" secondAttribute="trailing" constant="8" id="58H-7T-Jz2"/>
+                                    <constraint firstItem="7Nl-oF-5Ts" firstAttribute="width" secondItem="7Nl-oF-5Ts" secondAttribute="height" multiplier="1:1" id="78z-k9-mZ5"/>
+                                    <constraint firstAttribute="centerY" secondItem="yNS-0z-8aC" secondAttribute="centerY" constant="50" id="9BZ-dq-CUs"/>
+                                    <constraint firstItem="Qzf-R0-slR" firstAttribute="width" secondItem="Qzf-R0-slR" secondAttribute="height" multiplier="1:1" id="9TW-nC-z69"/>
+                                    <constraint firstItem="wuN-9s-buY" firstAttribute="top" secondItem="Qzf-R0-slR" secondAttribute="top" id="BNQ-ou-6kV"/>
+                                    <constraint firstAttribute="centerY" secondItem="YS2-B1-f66" secondAttribute="centerY" id="DoJ-mT-vHq"/>
+                                    <constraint firstAttribute="centerX" secondItem="YS2-B1-f66" secondAttribute="centerX" id="KJf-Lo-xNZ"/>
+                                    <constraint firstItem="7Nl-oF-5Ts" firstAttribute="bottom" secondItem="Qzf-R0-slR" secondAttribute="bottom" id="KcJ-UA-lOg"/>
+                                    <constraint firstAttribute="centerX" secondItem="yNS-0z-8aC" secondAttribute="centerX" id="SWZ-bV-FvN"/>
+                                    <constraint firstItem="YS2-B1-f66" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="woB-1u-c5R" secondAttribute="leading" constant="8" id="TYM-3B-M80"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gBu-yV-NeJ" secondAttribute="trailing" constant="8" id="XAV-Co-xae"/>
+                                    <constraint firstAttribute="centerX" secondItem="YS2-B1-f66" secondAttribute="centerX" id="Z2X-sO-gfW"/>
+                                    <constraint firstItem="wuN-9s-buY" firstAttribute="centerX" secondItem="YS2-B1-f66" secondAttribute="centerX" id="cqT-5o-LcA"/>
+                                    <constraint firstItem="7Nl-oF-5Ts" firstAttribute="leading" secondItem="wuN-9s-buY" secondAttribute="trailing" constant="8" id="ctv-tT-yRS"/>
+                                    <constraint firstItem="gBu-yV-NeJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="woB-1u-c5R" secondAttribute="leading" constant="8" id="dQk-Uu-2ny"/>
+                                    <constraint firstItem="yNS-0z-8aC" firstAttribute="top" secondItem="woB-1u-c5R" secondAttribute="top" constant="16" id="gcU-tP-Ssy"/>
+                                    <constraint firstItem="wuN-9s-buY" firstAttribute="bottom" secondItem="Qzf-R0-slR" secondAttribute="bottom" id="gpk-Ys-Ayv"/>
+                                    <constraint firstItem="wuN-9s-buY" firstAttribute="top" secondItem="YS2-B1-f66" secondAttribute="bottom" constant="7" id="hvh-Dw-t3U"/>
+                                    <constraint firstAttribute="centerY" secondItem="YS2-B1-f66" secondAttribute="centerY" id="qQ7-oW-RMW"/>
+                                    <constraint firstItem="wuN-9s-buY" firstAttribute="leading" secondItem="Qzf-R0-slR" secondAttribute="trailing" constant="8" id="tG4-yF-vbB"/>
+                                    <constraint firstItem="gBu-yV-NeJ" firstAttribute="centerX" secondItem="yNS-0z-8aC" secondAttribute="centerX" id="vQS-fM-3Jm"/>
+                                    <constraint firstItem="Qzf-R0-slR" firstAttribute="width" secondItem="Qzf-R0-slR" secondAttribute="height" multiplier="1:1" id="zLD-RB-VIY"/>
+                                    <constraint firstItem="gBu-yV-NeJ" firstAttribute="top" secondItem="yNS-0z-8aC" secondAttribute="bottom" constant="8" id="zXt-6Q-ymv"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="9BZ-dq-CUs"/>
+                                        <exclude reference="KJf-Lo-xNZ"/>
+                                        <exclude reference="qQ7-oW-RMW"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2301,6 +2339,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="inviteButton1" destination="Qzf-R0-slR" id="htG-Jw-bWl"/>
+                        <outlet property="inviteButton2" destination="wuN-9s-buY" id="YE2-Bf-Add"/>
+                        <outlet property="inviteButton3" destination="7Nl-oF-5Ts" id="ko6-5A-Kwm"/>
                         <outlet property="noFriendsOverlay" destination="woB-1u-c5R" id="D3j-Wa-5cD"/>
                         <outlet property="searchBar" destination="ldR-9J-uj7" id="vxw-9F-GcN"/>
                         <outlet property="tableView" destination="zQa-Fr-qkB" id="2Rc-wk-6OW"/>
@@ -2554,7 +2595,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                             <segue destination="9Ri-h6-OO3" kind="unwind" unwindAction="unwindFromViewController:" id="hfy-U3-uDg"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pull" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbo-cQ-dT0">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pull" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbo-cQ-dT0">
                                         <rect key="frame" x="304" y="16" width="54" height="47"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="TimeBurner" family="TimeBurner" pointSize="36"/>
@@ -2839,7 +2880,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Bw-g7-9lQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="644" y="1392"/>
+            <point key="canvasLocation" x="2974" y="1890"/>
         </scene>
     </scenes>
     <resources>
@@ -2869,6 +2910,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <image name="share_white.png" width="43" height="61"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tRk-cY-3dN"/>
+        <segue reference="dY0-5O-W57"/>
     </inferredMetricsTieBreakers>
 </document>

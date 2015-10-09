@@ -220,7 +220,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     PULUser *acct = [PULUser currentUser];
     // determine which tracking mode to use based on current motion type
     // and state of pulls
-    PKPositionTrackingMode trackingMode = pkGeofencing;
+    PKPositionTrackingMode trackingMode = pkLowEnergy;
     BOOL keepTuning = YES;
     BOOL foreground = acct.isInForeground;
     BOOL hasActivePull = NO;
@@ -245,7 +245,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         // if no one's in the foreground, use low tracking
         if (!foreground)
         {
-            trackingMode = pkGeofencing;
+            trackingMode = hasActivePull ? pkGeofencing : pkLowEnergy;
             keepTuning = NO;
         }
     }

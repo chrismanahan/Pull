@@ -128,10 +128,12 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                                                           _finishedSetup = YES;
                                                           
                                                           [self finishSetup];
-                                                          [self reload];
+                                                          [self reloadForceRefresh:YES showActivityIndicator:YES];
+                                                          
+//                                                          [self updateUI];
                                                       }
                                                       
-                                                      [self updateUI];
+                                                      
                                                   }];
     
     // add swipe gesture recognizers

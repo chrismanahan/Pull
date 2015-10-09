@@ -330,12 +330,14 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     loc.movementType = moveType;
     loc.positionType = posType;
     
-    [loc saveInBackground];
-    
     if (saveUser)
     {
         [PULUser currentUser].location = loc;
-        [[PULUser currentUser] saveEventually];
+        [[PULUser currentUser] saveInBackground];
+    }
+    else
+    {
+        [loc saveInBackground];
     }
 }
 

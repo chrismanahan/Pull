@@ -299,8 +299,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     if (hasDifferentLoc || location.horizontalAccuracy < acct.location.accuracy || numUpdates++ < 3)
     {
         // save new location if coords are different or if the accuracy has improved
-        dispatch_async(dispatch_get_main_queue(), ^{
-        
             PULLog(@"\tsaving new location: (%.5f, %.5f)", location.coordinate.latitude, location.coordinate.longitude);
             PULLog(@"\t\tmotion type: %zd", motionType);
             [_parse updateLocation:location
@@ -309,7 +307,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
             
             [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
                                                                 object:location];
-        });
     }
 }
 

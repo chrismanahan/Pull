@@ -113,19 +113,26 @@
 
 - (IBAction)ibLogout:(id)sender
 {
-    // TODO: logout user
-    [PULUser logOut];
- 
-    UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
+    PULLoadingIndicator *ai = [PULLoadingIndicator indicatorOnView:self.view];
+    [ai show];
+    [[PULParseMiddleMan sharedInstance] deleteAllPullsCompletion:^{
+        [ai hide];
+        
+        [PULUser logOut];
+        
+        UIViewController *login = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:NSStringFromClass([PULLoginViewController class])];
+        
+        PULReverseModal *seg = [PULReverseModal segueWithIdentifier:@"LoginSeg"
+                                                             source:self
+                                                        destination:login
+                                                     performHandler:^{
+                                                         ;
+                                                     }];
+        
+        [seg perform];
+    }];
     
-    PULReverseModal *seg = [PULReverseModal segueWithIdentifier:@"LoginSeg"
-                                                         source:self
-                                                    destination:login
-                                                 performHandler:^{
-                                                     ;
-                                                 }];
     
-    [seg perform];
 }
 
 - (IBAction)ibDisableAccount:(id)sender
@@ -144,30 +151,16 @@
 {
     if (buttonIndex == 1)
     {
-        // TODO: end pulls and logout
         PULLoadingIndicator *ai = [PULLoadingIndicator indicatorOnView:self.view];
-        ai.title = @"Disabling";
         [ai show];
-        // disable account
-//        [[PULUser currentUser].pullManager unpullEveryone];
-        [PULUser currentUser].isDisabled = YES;
-        [[PULParseMiddleMan sharedInstance] deleteAllPullsCompletion:^{
-            [[PULUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                [ai hide];
-                if (succeeded)
-                {
-                    [self ibLogout:nil];
-                }
-                else
-                {
-                    [[[UIAlertView alloc] initWithTitle:@"Error"
-                                                message:@"There was an error while disabling your account. If the problem persists, please contact support@getpulled.com"
-                                               delegate:self
-                                      cancelButtonTitle:@"Ok"
-                                      otherButtonTitles:nil] show];
-                }
-            }];
-        }];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            // disable account
+            [PULUser currentUser].isDisabled = YES;
+            [[PULUser currentUser] save];
+            [ai hide];
+            [self ibLogout:nil];
+
+        });
     }
 }
 

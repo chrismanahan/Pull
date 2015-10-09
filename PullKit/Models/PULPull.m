@@ -134,6 +134,7 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
 
 - (BOOL)isAccurate;
 {
+    PULUser *otherUser = [self otherUser];
     // if someone's accuracy is low
     BOOL accurate =  (self.sendingUser.location.accuracy < kPULDistanceAllowedAccuracy || self.receivingUser.location.accuracy < kPULDistanceAllowedAccuracy);
     
@@ -144,7 +145,7 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
     
     
     
-    return (accurate || closeEnough) && ![[self otherUser][@"killed"] boolValue];// || noMovement;
+    return (accurate || closeEnough) && ![otherUser[@"killed"] boolValue] && ![otherUser[@"noLocation"] boolValue];// || noMovement;
 }
 
 #pragma mark - Properties

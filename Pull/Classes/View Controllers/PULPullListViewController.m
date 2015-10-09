@@ -268,16 +268,20 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
       
         if (refresh)
         {
-            self.isReloading = YES;
+            if (showAI)
+            {
+                [_compassView showBusy:YES];
+            }
+            _isReloading = YES;
             [[PULParseMiddleMan sharedInstance] getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
-                self.isReloading = NO;
+                _isReloading = NO;
                 [_compassView showBusy:NO];
                 _pullsDatasource = [[PULParseMiddleMan sharedInstance].cache cachedPullsOrdered];
                 [_collectionView reloadData];
-                [self updateUI];
+//                [self updateUI];
                 [self setSelectedIndex:_selectedIndex];
                 
-            }];
+            } ignoreCache:YES];
         }
         else
         {
@@ -293,11 +297,6 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 - (void)reload
 {
     [self reloadForceRefresh:YES];
-}
-
-- (void)setIsReloading:(BOOL)isReloading
-{
-    _isReloading = isReloading;
 }
 
 #pragma mark - Actions
@@ -602,22 +601,30 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 - (void)showNoLocation:(BOOL)show
 {
     _addPullButton.enabled = !show;
-    _pullTimeButton.hidden = show;
     
     if (show)
     {
+        _pullTimeButton.hidden = YES;
         BOOL canGoToSettings = (UIApplicationOpenSettingsURLString != NULL);
         
-        // TODO: CANCEL ALL PULLS
-//        [[PULUser currentUser] cancelAllPulls];
+        [PULUser currentUser][@"noLocation"] = @(YES);
+        [[PULUser currentUser] saveInBackground];
+        
         [self _setNameLabel:@"Location Disabled" active:NO];
+        [_compassView showBusy:NO];
         [_compassView showNoLocation];
         
         [self updateDialogWithText:@"Please give pull access to your location in settings" hide:NO showAcceptDecline:NO showCancel:NO location:canGoToSettings];
     }
     else
     {
-        [self updateDialogWithText:nil hide:YES showAcceptDecline:NO showCancel:NO location:NO];
+        if ([[PULUser currentUser][@"noLocation"] isEqual:@(YES)])
+        {
+            [PULUser currentUser][@"noLocation"] = @(NO);
+            [[PULUser currentUser] saveInBackground];
+        }
+        
+//        [self updateDialogWithText:nil hide:YES showAcceptDecline:NO showCancel:NO location:NO];
     }
 }
 

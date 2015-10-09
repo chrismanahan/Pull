@@ -155,11 +155,11 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     }
     if (height > 600)
     {
-        _compassUserImageViewTopConstraint.constant -= 10;
+        _compassUserImageViewTopConstraint.constant -= 20;
     }
     if (height > 700)
     {
-        _compassUserImageViewTopConstraint.constant -= 10;
+        _compassUserImageViewTopConstraint.constant -= 14;
     }
     
     _collectionView.layer.masksToBounds = NO;

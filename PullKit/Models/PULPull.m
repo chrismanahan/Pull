@@ -50,9 +50,14 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
 {
     BOOL wasNearby = self.nearby;
     BOOL wasTogether = self.together;
+    NSInteger togetherThreshold = kPULDistanceTogetherMeters;
+    if (wasTogether)
+    {
+        togetherThreshold = kPULDistanceNoLongerTogetherMeters;
+    }
     
     self.nearby = [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceNearbyMeters;
-    self.together = [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceTogetherMeters;
+    self.together = [[PULUser currentUser] distanceFromUser:[self otherUser]] <= togetherThreshold;
     
     if (!wasNearby && self.nearby)
     {

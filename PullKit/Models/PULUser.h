@@ -66,6 +66,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  Indicates this user is currently online
  */
 @property (nonatomic, assign) BOOL isOnline;
+
+@property (nonatomic, assign) BOOL lowBattery;
+
+@property (nonatomic, assign) BOOL noLocation;
+@property (nonatomic, assign) BOOL killed;
 /*!
  *  Most recent location of user
  */

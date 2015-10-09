@@ -148,9 +148,10 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
     // TODO: add back in an implemenation of determine if the user hasn't moved since the last update
 //    BOOL noMovement = ((!_receivingUser.hasMovedSinceLastLocationUpdate && !_sendingUser.hasMovedSinceLastLocationUpdate) && closeEnough);
     
-    
-    
-    return (accurate || closeEnough) && ![otherUser[@"killed"] boolValue] && ![otherUser[@"noLocation"] boolValue];// || noMovement;
+    return (accurate || closeEnough) &&
+    !otherUser.killed &&
+    !otherUser.noLocation &&
+    !otherUser.lowBattery;// || noMovement;
 }
 
 #pragma mark - Properties

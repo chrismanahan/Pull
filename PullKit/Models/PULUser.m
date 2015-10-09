@@ -24,6 +24,10 @@
 @dynamic isOnline;
 @dynamic location;
 @dynamic userSettings;
+@dynamic lowBattery;
+@dynamic killed;
+@dynamic noLocation;
+
 
 + (instancetype)currentUser
 {

@@ -125,9 +125,53 @@
 
     bgTask = [[BackgroundTask alloc] init];
     
+    [self startObservingBatteryLevel];
+    
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                  didFinishLaunchingWithOptions:launchOptions];
+}
+
+- (void)startObservingBatteryLevel
+{
+    UIDevice *device = [UIDevice currentDevice];
+    device.batteryMonitoringEnabled = YES;
+    
+    [self batteryLevelDidChange:device.batteryLevel];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceBatteryLevelDidChangeNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                      float level = [UIDevice currentDevice].batteryLevel;
+                                                      PULLog(@"received battery update: %.2f", level);
+                                                      
+                                                      [self batteryLevelDidChange:level];
+                                                  }];
+}
+
+- (void)batteryLevelDidChange:(float)level
+{
+    PULUser *currentUser = [PULUser currentUser];
+    if (!currentUser) { return ; }
+    
+    BOOL needsSave = NO;
+    
+    if (level < 0.02 && !currentUser.lowBattery)
+    {
+        currentUser.lowBattery = YES;
+        needsSave = YES;
+    }
+    else if ((currentUser.lowBattery && level >= 0.02))
+    {
+        currentUser.lowBattery = NO;
+        needsSave = YES;
+    }
+    
+    if (needsSave)
+    {
+        [currentUser saveEventually];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

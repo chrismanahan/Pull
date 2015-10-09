@@ -40,10 +40,16 @@
     [_imageView setImageWithResizeURL:[pull otherUser].imageUrlString];
     _imageView.borderWidth = @(5);
     _imageView.borderColor = PUL_LightGray;
+    _imageView.alpha = 1.0;
     
     if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULUser currentUser]])
     {
         _requestNotificationImageView.hidden = NO;
+    }
+    else if (pull.status == PULPullStatusPending)
+    {
+        _imageView.alpha = 0.6;
+        _requestNotificationImageView.hidden = YES;
     }
     else
     {

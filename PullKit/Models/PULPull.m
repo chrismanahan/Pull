@@ -26,6 +26,12 @@ const NSTimeInterval kPullDurationAlways  = 0;
 NSString * const PULPullNearbyNotification = @"PULPullNearbyNotification";
 NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNotification";
 
+@interface PULPull ()
+
+@property (nonatomic, strong) PULUser *otherUser;
+
+@end
+
 @implementation PULPull
 
 @dynamic sendingUser;
@@ -35,6 +41,8 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
 @dynamic status;
 @dynamic together;
 @dynamic nearby;
+
+@synthesize otherUser = _otherUser;
 
 
 #pragma mark - Public
@@ -117,7 +125,11 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
 
 - (PULUser*)otherUser;
 {
-    return [self otherUserThatIsNot:[PULUser currentUser]];
+    if (!_otherUser)
+    {
+        _otherUser = [self otherUserThatIsNot:[PULUser currentUser]];
+    }
+    return _otherUser;
 }
 
 - (BOOL)isAccurate;
@@ -170,14 +182,19 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
 // TODO: refeactor these methods to coincide only with pullDistanceState
 - (BOOL)_isNearby
 {
-    return [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceNearbyMeters &&
-    [[PULUser currentUser] distanceFromUser:[self otherUser]] > kPULDistanceAlmostHereMeter;
+    PULUser *thisUser = [PULUser currentUser];
+    PULUser *otherUser = [self otherUser];
+    
+    return [thisUser distanceFromUser:otherUser] <= kPULDistanceNearbyMeters &&
+    [thisUser distanceFromUser:otherUser] > kPULDistanceAlmostHereMeter;
 }
 
 - (BOOL)_isAlmostHere
 {
-    return [[PULUser currentUser] distanceFromUser:[self otherUser]] <= kPULDistanceAlmostHereMeter &&
-            [[PULUser currentUser] distanceFromUser:[self otherUser]] > kPULDistanceHereMeters;
+    PULUser *thisUser = [PULUser currentUser];
+    PULUser *otherUser = [self otherUser];
+    return [thisUser distanceFromUser:otherUser] <= kPULDistanceAlmostHereMeter &&
+            [thisUser distanceFromUser:otherUser] > kPULDistanceHereMeters;
 }
 
 - (BOOL)_isHere

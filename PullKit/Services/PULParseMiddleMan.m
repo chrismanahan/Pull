@@ -542,6 +542,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
         {
             // refresh pulls
             [PFObject fetchAll:[_cache cachedPulls]];
+            [_cache resetPullSorting];
             [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
                                                                 object:nil];
 //            [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
@@ -562,6 +563,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
             if (locations.count > 0)
             {
                 [PFObject fetchAll:locations];
+                [_cache resetPullSorting];
 //                [PFObject fetchAll:[_cache cacwhedFriendsPulled]];
                 
                 // go through each pull and check if we need to add nearby or together flag

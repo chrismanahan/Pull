@@ -40,6 +40,7 @@ typedef void(^PULHeadingBlock)(CLHeading *heading);
 
 - (void)setHeadingUpdateBlock:(PULHeadingBlock)block;
 - (void)removeHeadingUpdateBlock;
+- (BOOL)hasHeadingUpdateBlock;
 
 - (BOOL)hasPermission;
 

@@ -23,6 +23,7 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
 @property (strong, nonatomic) IBOutlet UIImageView *compassImageView;
 
 @property (nonatomic, assign) CGFloat lastRotation;
+@property (nonatomic, assign) BOOL isUsingCompass;
 
 @end
 
@@ -119,8 +120,11 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     }
     else
     {
-        [_imageView stopAnimating];
-        _imageView.animationImages = nil;
+        if (_imageView.isAnimating)
+        {
+            [_imageView stopAnimating];
+            _imageView.animationImages = nil;
+        }
     }
 }
 
@@ -158,33 +162,41 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
     }
     else
     {
-        [_imageView stopAnimating];
-        _imageView.animationImages = nil;
+        if (_imageView.isAnimating)
+        {
+            [_imageView stopAnimating];
+            _imageView.animationImages = nil;
+        }
     }
 }
 
 - (void)_useCompass:(BOOL)useCompass
 {
-    if (useCompass)
+    if (useCompass && !_isUsingCompass)
     {
+        _isUsingCompass = YES;
         [_compassImageView setImage:[UIImage imageNamed:@"compass"]];
         [self _rotateCompassToRadians:_lastRotation];
         
         // start rotating compass
-        [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
-        [[PULLocationUpdater sharedUpdater] setHeadingUpdateBlock:^(CLHeading *heading) {
-            CGFloat rads = [[PULUser currentUser] angleWithHeading:heading
-                                                             fromUser:[_pull otherUser]];
-            
-            if (rads >= _lastRotation + 0.1 || rads <= _lastRotation - 0.1)
-            {
-                [self _rotateCompassToRadians:rads];
-                _lastRotation = rads;
-            }
-        }];
+//        [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
+        if (![[PULLocationUpdater sharedUpdater] hasHeadingUpdateBlock])
+        {
+            [[PULLocationUpdater sharedUpdater] setHeadingUpdateBlock:^(CLHeading *heading) {
+                CGFloat rads = [[PULUser currentUser] angleWithHeading:heading
+                                                                 fromUser:[_pull otherUser]];
+                
+                if (rads >= _lastRotation + 0.1 || rads <= _lastRotation - 0.1)
+                {
+                    [self _rotateCompassToRadians:rads];
+                    _lastRotation = rads;
+                }
+            }];
+        }
     }
-    else
+    else if (!useCompass)
     {
+        _isUsingCompass = NO;
         [[PULLocationUpdater sharedUpdater] removeHeadingUpdateBlock];
         
         _compassImageView.transform = CGAffineTransformIdentity;

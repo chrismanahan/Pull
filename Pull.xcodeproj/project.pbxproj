@@ -220,7 +220,6 @@
 		9B1546261BA705BE00CD0323 /* boop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9B1546251BA705BE00CD0323 /* boop.mp3 */; };
 		9B1546281BA70A2800CD0323 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1546271BA70A2800CD0323 /* AudioToolbox.framework */; };
 		9B15462B1BA7129C00CD0323 /* PULSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B15462A1BA7129C00CD0323 /* PULSoundPlayer.m */; };
-		9B1835791B7FDBA200BBD669 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
 		9B1FD47F1BC5ECED00CFD784 /* friends_loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B1FD4631BC5ECED00CFD784 /* friends_loading.png */; settings = {ASSET_TAGS = (); }; };
 		9B1FD4801BC5ECED00CFD784 /* friends_loading2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B1FD4641BC5ECED00CFD784 /* friends_loading2.png */; settings = {ASSET_TAGS = (); }; };
 		9B1FD4811BC5ECED00CFD784 /* friends_loading2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B1FD4651BC5ECED00CFD784 /* friends_loading2@2x.png */; settings = {ASSET_TAGS = (); }; };
@@ -347,7 +346,6 @@
 		9BFE6F4E1AF313AD000D00FF /* clock_icon_large@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFE6F4B1AF313AD000D00FF /* clock_icon_large@3x.png */; };
 		9BFF37981BC1741C00201811 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A77D1B80DE66005569B4 /* NSData+Hex.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF37991BC1742300201811 /* UIVisualEffectView+PullBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A77F1B80DE66005569B4 /* UIVisualEffectView+PullBlur.m */; settings = {ASSET_TAGS = (); }; };
-		9BFF379A1BC1742700201811 /* NSArray+Sorting.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1305551B83F24900CBF642 /* NSArray+Sorting.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF379B1BC1743400201811 /* PULConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7DF1B80DE9D005569B4 /* PULConstants.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF379D1BC1744C00201811 /* PULPull.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A78E1B80DE66005569B4 /* PULPull.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF379F1BC1745000201811 /* PULUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7901B80DE66005569B4 /* PULUser.m */; settings = {ASSET_TAGS = (); }; };
@@ -662,8 +660,6 @@
 		9B0EE7FC1BC5B59B002775E4 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		9B0EE7FD1BC5B59B002775E4 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		9B0EE7FE1BC5B59B002775E4 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
-		9B1305541B83F24900CBF642 /* NSArray+Sorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+Sorting.h"; path = "../../PullKit/Categories/NSArray+Sorting.h"; sourceTree = "<group>"; };
-		9B1305551B83F24900CBF642 /* NSArray+Sorting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Sorting.m"; path = "../../PullKit/Categories/NSArray+Sorting.m"; sourceTree = "<group>"; };
 		9B15461F1BA6F70900CD0323 /* smiley_sad_with_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smiley_sad_with_background.png; sourceTree = "<group>"; };
 		9B1546201BA6F70900CD0323 /* smiley_sad_with_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_sad_with_background@2x.png"; sourceTree = "<group>"; };
 		9B1546211BA6F70900CD0323 /* smiley_sad_with_background@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_sad_with_background@3x.png"; sourceTree = "<group>"; };
@@ -865,7 +861,6 @@
 				9B78A7F41B812512005569B4 /* CoreMedia.framework in Frameworks */,
 				9B78A7F21B8124FF005569B4 /* AVFoundation.framework in Frameworks */,
 				9B78A7F01B8124EB005569B4 /* MessageUI.framework in Frameworks */,
-				9B1835791B7FDBA200BBD669 /* WatchKit.framework in Frameworks */,
 				6580641B326C50B2ABB547D7 /* libPods-Pull.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1751,8 +1746,6 @@
 				9B78A77D1B80DE66005569B4 /* NSData+Hex.m */,
 				9B78A77E1B80DE66005569B4 /* UIVisualEffectView+PullBlur.h */,
 				9B78A77F1B80DE66005569B4 /* UIVisualEffectView+PullBlur.m */,
-				9B1305541B83F24900CBF642 /* NSArray+Sorting.h */,
-				9B1305551B83F24900CBF642 /* NSArray+Sorting.m */,
 				9BED056C1B88E849008F71CC /* CALayer+Animations.h */,
 				9BED056D1B88E849008F71CC /* CALayer+Animations.m */,
 			);
@@ -2346,7 +2339,6 @@
 				9BFF37981BC1741C00201811 /* NSData+Hex.m in Sources */,
 				953B05C91A8803D9008235EB /* PULLoadingIndicator.m in Sources */,
 				84BC02891B8CEAB2002A3311 /* PULPulledUserCollectionViewCell.m in Sources */,
-				9BFF379A1BC1742700201811 /* NSArray+Sorting.m in Sources */,
 				95169F651A871F41006D3078 /* PULNavigationController.m in Sources */,
 				9BD2C3661AE454930030527F /* PULNewPullViewController.m in Sources */,
 				9BFF37AB1BC1756700201811 /* PULParseMiddleMan.m in Sources */,
@@ -2622,7 +2614,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pull Software, LLC (7KX586WXXQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pull Software, LLC (7KX586WXXQ)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

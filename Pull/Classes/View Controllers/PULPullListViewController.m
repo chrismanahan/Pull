@@ -25,7 +25,6 @@
 #import "PULSoundPlayer.h"
 
 #import "CALayer+Animations.h"
-#import "NSArray+Sorting.h"
 
 #import "PULParseMiddleMan.h"
 #import "PULLocationUpdater.h"
@@ -257,6 +256,10 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 #pragma mark
 - (void)reloadForceRefresh:(BOOL)refresh
 {
+    [self reloadForceRefresh:refresh showActivityIndicator:NO];
+}
+- (void)reloadForceRefresh:(BOOL)refresh showActivityIndicator:(BOOL)showAI
+{
     if (!_isReloading)
     {
         [self showNoLocation:![PULLocationUpdater sharedUpdater].hasPermission];
@@ -266,7 +269,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             self.isReloading = YES;
             [[PULParseMiddleMan sharedInstance] getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
                 self.isReloading = NO;
-                
+                [_compassView showBusy:NO];
                 _pullsDatasource = [[PULParseMiddleMan sharedInstance].cache cachedPullsOrdered];
                 [_collectionView reloadData];
                 [self updateUI];
@@ -293,8 +296,6 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 - (void)setIsReloading:(BOOL)isReloading
 {
     _isReloading = isReloading;
-    
-    [_compassView showBusy:isReloading];
 }
 
 #pragma mark - Actions
@@ -809,19 +810,19 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             case PULPullDistanceStateFar:
             {
                 _distanceLabel.text = @"Isn't Nearby";
-                dialogText = [NSString stringWithFormat:@"%@ isn't within %zd ft yet. Don't worry, we'll notify you when they're near", [_displayedPull otherUser].firstName, kPULDistanceNearbyFeet];
+                dialogText = [NSString stringWithFormat:@"%@ isn't within %zd ft yet. Don't worry, we'll notify you when they're near", user.firstName, kPULDistanceNearbyFeet];
                 break;
             }
             case PULPullDistanceStateAlmostHere:
             {
                 _distanceLabel.text = @"Nearby";
-                dialogText = [NSString stringWithFormat:@"%@ should be within %zd feet", [_displayedPull otherUser].firstName, kPULDistanceAlmostHereFeet];
+                dialogText = [NSString stringWithFormat:@"%@ should be within %zd feet", user.firstName, kPULDistanceAlmostHereFeet];
                 break;
             }
             case PULPullDistanceStateHere:
             {
                 _distanceLabel.text = @"Here";
-                dialogText = [NSString stringWithFormat:@"%@ should be within %zd feet", [_displayedPull otherUser].firstName, kPULDistanceHereFeet];
+                dialogText = [NSString stringWithFormat:@"%@ should be within %zd feet", user.firstName, kPULDistanceHereFeet];
                 break;
             }
             case PULPullDistanceStateNearby:
@@ -871,11 +872,11 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                 
                 if (_displayedPull.duration == kPullDurationAlways)
                 {
-                    dialogText = [NSString stringWithFormat:@"%@ has requested to always be pulled with you", [_displayedPull otherUser].firstName];
+                    dialogText = [NSString stringWithFormat:@"%@ has requested to always be pulled with you", user.firstName];
                 }
                 else
                 {
-                    dialogText = [NSString stringWithFormat:@"%@ has requested a %zd hour pull with you", [_displayedPull otherUser].firstName, _displayedPull.durationHours];
+                    dialogText = [NSString stringWithFormat:@"%@ has requested a %zd hour pull with you", user.firstName, _displayedPull.durationHours];
                 }
                 
                 [self updateDialogWithText:dialogText
@@ -897,6 +898,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     [self _toggleMoreArrow];
     
     [_compassView setPull:_displayedPull];
+    
 }
 
 

@@ -55,12 +55,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 {
     if (self = [super init])
     {
-        // TODO: since we no longer are observing a server for changes, we will have to poll
-        //      while in the background to check if a pulled friend is in the foregound.
-        
-        // TODO: we will also need to update accuracy everytime a pull's status changes or is
-        //      added or removed
-        
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         [_locationManager startUpdatingHeading];
@@ -109,6 +103,11 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 - (void)removeHeadingUpdateBlock;
 {
     _headingChangeBlock = nil;
+}
+
+- (BOOL)hasHeadingUpdateBlock;
+{
+    return _headingChangeBlock != nil;
 }
 
 /*!
@@ -165,7 +164,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     {
         PULLog(@"location permission granted");
         
-        if ([self _shouldUpdateLocation] && !_tracking)
+        if (!_tracking)
         {
             [self startUpdatingLocation];
         }
@@ -184,43 +183,38 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
-    static NSInteger count = 0;
+//    static NSInteger count = 0;
     
     if (_headingChangeBlock)
     {
         _headingChangeBlock(newHeading);
     }
     
-    if (count % 15 == 0)
-    {
-        // get nearest pull
-        PULPull *pull = [_parse.cache nearestPull];
-        
-        if (pull)
-        {
-            // calculate angle
-            double angle = [[PULUser currentUser] angleWithHeading:newHeading
-                                                          fromUser:[pull otherUser]];
-            
-            // check if we have a pull available
-            //            [_wormhole passMessageObject:@{@"angle":@(angle),
-            //                                           @"friendName":[pull otherUser].firstName}
-            //                              identifier:@"com.pull-llc.watch-data"];
-            
-            if (count != 0)
-            {
-                count = 0;
-            }
-        }
-    }
+//    if (count % 15 == 0)
+//    {
+//        // get nearest pull
+//        PULPull *pull = [_parse.cache nearestPull];
+//        
+//        if (pull)
+//        {
+//            // calculate angle
+//            double angle = [[PULUser currentUser] angleWithHeading:newHeading
+//                                                          fromUser:[pull otherUser]];
+//            
+//            // check if we have a pull available
+//            //            [_wormhole passMessageObject:@{@"angle":@(angle),
+//            //                                           @"friendName":[pull otherUser].firstName}
+//            //                              identifier:@"com.pull-llc.watch-data"];
+//            
+//            if (count != 0)
+//            {
+//                count = 0;
+//            }
+//        }
+//    }
 }
 
 #pragma mark - Private
-- (NSTimeInterval)_secondsSinceLastUpdate
-{
-    return fabs([[PULUser currentUser].location.location.timestamp timeIntervalSinceNow]);
-}
-
 - (void)_updateTrackingMode
 {
     PULUser *acct = [PULUser currentUser];
@@ -289,6 +283,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     if (!acct) { return; } 
     
     BOOL hasDifferentLoc = YES;
+    static NSInteger numUpdates = 0;
     
     if (acct.location.isDataAvailable)
     {
@@ -301,7 +296,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         hasDifferentLoc = (newLat != acctLat || newLon != acctLon);
     }
     
-    if (hasDifferentLoc || location.horizontalAccuracy < acct.location.accuracy)
+    if (hasDifferentLoc || location.horizontalAccuracy < acct.location.accuracy || numUpdates++ < 3)
     {
         // save new location if coords are different or if the accuracy has improved
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -351,11 +346,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     
 }
 
-- (NSInteger)_secondsBetween:(CLLocation*)location0 andLocation:(CLLocation*)location1;
-{
-    return fabs([location1.timestamp timeIntervalSinceDate:location0.timestamp]);
-}
-
 - (void)_requestPermission
 {
     if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
@@ -363,19 +353,5 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         [_locationManager requestAlwaysAuthorization];
     }
 }
-
-- (BOOL)_shouldUpdateLocation
-{
-    return YES;
-    //    BOOL shouldUpdate = ([[PULUser currentUser] pullsPulledNearby].count > 0 || [[PULUser currentUser] pullsPulledFar].count > 0) && !_tracking;
-    //
-    //    //    BOOL useLK = [[NSUserDefaults standardUserDefaults] boolForKey:@"LK"];
-    //    //    if (useLK)
-    //    //    {
-    //    //        shouldUpdate = shouldUpdate && [PULUser currentUser].currentMotionType != LKActivityModeAutomotive;
-    //    //    }
-    //    return shouldUpdate;
-}
-
 
 @end

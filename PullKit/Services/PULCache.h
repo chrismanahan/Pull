@@ -48,6 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setPulls:(nullable NSArray<PULPull*>*)pulls;
 - (void)removePull:(PULPull*)pull;
 
+- (void)resetPullSorting;
+
 - (nullable NSArray<PULPull*>*)cachedPulls;
 - (nullable NSArray<PULPull*>*)cachedPullsOrdered;
 - (nullable NSArray<PULPull*>*)cachedPullsPending;

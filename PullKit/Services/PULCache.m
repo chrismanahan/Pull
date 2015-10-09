@@ -17,6 +17,9 @@
 
 @property (nonatomic, strong) NSMutableDictionary *cacheStorage;
 
+@property (nonatomic, strong) NSMutableDictionary *sortedPulls;
+
+
 @end
 
 @implementation NSArray (PullSorting)
@@ -30,7 +33,6 @@
 
 @end
 
-
 @implementation PULCache
 
 #pragma mark - Init
@@ -42,6 +44,8 @@
         [_cacheStorage setObject:@[] forKey:@"pulls"];
         [_cacheStorage setObject:@[] forKey:@"friends"];
         [_cacheStorage setObject:@[] forKey:@"blocked"];
+        
+        _sortedPulls = [[NSMutableDictionary alloc] init];
     }
     
     return self;
@@ -58,6 +62,9 @@
 
 - (void)setPulls:(nullable NSArray<PULPull*>*)pulls;
 {
+    // clear out sorted pulls
+    [self resetPullSorting];
+    
     if (pulls)
     {
         [_cacheStorage setObject:pulls forKey:@"pulls"];
@@ -158,60 +165,93 @@
 }
 
 #pragma mark Pulls
+- (void)resetPullSorting;
+{
+    [_sortedPulls removeAllObjects];
+}
+
 - (nullable NSArray<PULPull*>*)cachedPulls
 {
     return [_cacheStorage objectForKey:@"pulls"];
 }
 
+- (nullable NSArray<PULPull*>*)_sortedPullsForKey:(NSString*)key sortingBlock:(NSArray*(^)())sortBlock
+{
+    if (_sortedPulls[key] == nil)
+    {
+        _sortedPulls[key] = sortBlock();
+    }
+    
+    return _sortedPulls[key];
+}
+
 - (nullable NSArray<PULPull*>*)cachedPullsOrdered
 {
-    return [[[self cachedPullsPulled]
-             linq_concat:[self cachedPullsPending]]
-            linq_concat:[self cachedPullsWaiting]];
+    return [self _sortedPullsForKey:@"ordered"
+                       sortingBlock:^NSArray *{
+                           return [[[self cachedPullsPulled]
+                                    linq_concat:[self cachedPullsPending]]
+                                   linq_concat:[self cachedPullsWaiting]];
+                       }];
 }
 
 - (nullable NSArray<PULPull*>*)cachedPullsPending
 {
-    return [[self cachedPulls]
-            linq_where:^BOOL(PULPull *pull) {
-                return pull.status == PULPullStatusPending && ![pull initiatedBy:[PULUser currentUser]];
-            }];
+    return [self _sortedPullsForKey:@"pending"
+                       sortingBlock:^NSArray *{
+                           return [[self cachedPulls]
+                                   linq_where:^BOOL(PULPull *pull) {
+                                       return pull.status == PULPullStatusPending && ![pull initiatedBy:[PULUser currentUser]];
+                                   }];
+                       }];
 }
 
 - (nullable NSArray<PULPull*>*)cachedPullsWaiting
 {
-    return [[self cachedPulls]
-            linq_where:^BOOL(PULPull *pull) {
-                return pull.status == PULPullStatusPending && [pull initiatedBy:[PULUser currentUser]];
-            }];
+    return [self _sortedPullsForKey:@"waiting"
+                       sortingBlock:^NSArray *{
+                           return [[self cachedPulls]
+                                   linq_where:^BOOL(PULPull *pull) {
+                                       return pull.status == PULPullStatusPending && [pull initiatedBy:[PULUser currentUser]];
+                                   }];
+                       }];
 }
 
 - (nullable NSArray<PULPull*>*)cachedPullsNearby
 {
-    return [[[self cachedPulls]
-            linq_where:^BOOL(PULPull *pull) {
-                PULUser *friend = [pull otherUser];
-                CGFloat distance = [friend.location.location distanceFromLocation:[PULUser currentUser].location.location];
-                return pull.status == PULPullStatusPulled && distance <= kPULDistanceNearbyMeters;
-            }]
-            pull_sortByDistance];
+    return [self _sortedPullsForKey:@"nearby" sortingBlock:^NSArray *{
+        return [[[self cachedPulls]
+                 linq_where:^BOOL(PULPull *pull) {
+                     PULUser *friend = [pull otherUser];
+                     CGFloat distance = [friend.location distanceInMeters:[PULUser currentUser].location];
+                     return pull.status == PULPullStatusPulled && distance <= kPULDistanceNearbyMeters;
+                 }]
+                pull_sortByDistance];
+    }];
 }
 
 - (nullable NSArray<PULPull*>*)cachedPullsFar
 {
-    return [[[self cachedPulls]
-            linq_where:^BOOL(PULPull *pull) {
-                PULUser *friend = [pull otherUser];
-                CGFloat distance = [friend.location.location distanceFromLocation:[PULUser currentUser].location.location];
-                return pull.status == PULPullStatusPulled && distance > kPULDistanceNearbyMeters;
-            }]
-            pull_sortByDistance];
+    return [self _sortedPullsForKey:@"far"
+                       sortingBlock:^NSArray *{
+                           return [[[self cachedPulls]
+                                    linq_where:^BOOL(PULPull *pull) {
+                                        PULUser *friend = [pull otherUser];
+                                        CGFloat distance = [friend.location distanceInMeters:[PULUser currentUser].location];
+                                        return pull.status == PULPullStatusPulled && distance > kPULDistanceNearbyMeters;
+                                    }]
+                                   pull_sortByDistance];
+                       }];
 }
 
 - (nullable NSArray<PULPull*>*)cachedPullsPulled
 {
-    return [[self cachedPullsNearby]
-            linq_concat:[self cachedPullsFar]];
+    return [self _sortedPullsForKey:@"pulled"
+                       sortingBlock:^NSArray *{
+                           return [[self cachedPullsNearby]
+                                   linq_concat:[self cachedPullsFar]];
+
+                       }];
 }
 
 - (nullable PULPull*)nearestPull

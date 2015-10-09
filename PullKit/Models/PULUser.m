@@ -45,8 +45,7 @@
 #pragma mark - Public
 - (double)distanceFromUser:(PULUser*)user;
 {
-    double distance = [user.location.location distanceFromLocation:self.location.location];
-    return distance;
+    return [self.location distanceInMeters:user.location];
 }
 
 - (double)angleWithHeading:(CLHeading*)heading fromUser:(PULUser*)user;

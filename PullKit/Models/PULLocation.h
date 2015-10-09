@@ -57,6 +57,12 @@
 @property (nonatomic, getter=isLowAccuracy, readonly) BOOL lowAccuracy;
 
 /*****************************
+ Instance Methods
+ *****************************/
+
+- (CGFloat)distanceInMeters:(PULLocation*)location;
+
+/*****************************
  Class Methods
  *****************************/
 + (NSString*)parseClassName;

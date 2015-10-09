@@ -44,6 +44,11 @@
     return self.accuracy >= kPULDistanceAllowedAccuracy;
 }
 
+- (CGFloat)distanceInMeters:(PULLocation*)location;
+{
+    CGFloat km = [self.coordinate distanceInKilometersTo:location.coordinate];
+    return km * 1000;
+}
 
 #pragma mark - Parse subclass
 + (NSString*)parseClassName;

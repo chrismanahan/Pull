@@ -67,7 +67,7 @@
     
     if (pulls)
     {
-        [_cacheStorage setObject:pulls forKey:@"pulls"];
+        [_cacheStorage setObject:[pulls mutableCopy] forKey:@"pulls"];
     }
     else
     {
@@ -98,7 +98,7 @@
 {
     if (users)
     {
-        [_cacheStorage setObject:users forKey:@"friends"];
+        [_cacheStorage setObject:[users mutableCopy] forKey:@"friends"];
     }
 }
 
@@ -121,7 +121,7 @@
 {
     if (users)
     {
-        [_cacheStorage setObject:users forKey:@"blocked"];
+        [_cacheStorage setObject:[users mutableCopy] forKey:@"blocked"];
     }
 }
 

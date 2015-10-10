@@ -254,7 +254,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)getPullsInBackground:(nullable PULPullsBlock)completion ignoreCache:(BOOL)ignoreCache;
 {
-    if ([_cache cachedPullsOrdered] && !ignoreCache)
+    if ([_cache cachedPulls] && !ignoreCache)
     {
         completion([_cache cachedPullsOrdered], nil);
     }
@@ -532,6 +532,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     [self _runBlockInBackground:^{
         PULUser *user = [timer userInfo];
         
+        [user fetch];
         [user.location fetch];
         
         NSString *key = user.username;

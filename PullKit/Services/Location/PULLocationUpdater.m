@@ -114,7 +114,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
  */
 -(void)startUpdatingLocation;
 {
-    
+    [parkour start];
     [self startUpdatingLocationWithMode:pkAutomotive];
 }
 
@@ -124,7 +124,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     _tracking = YES;
     _currentTrackingMode = mode;
     
-    [parkour start];
 //    [parkour setMinPositionUpdateRate:5];
     [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
         

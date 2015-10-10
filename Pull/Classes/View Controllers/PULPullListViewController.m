@@ -221,7 +221,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       // TODO: check if foreground
-                                                      [self reload];
+                                                      [self reloadForceRefresh:NO];//[self reload];
                                                   }];
 
     PULUser *user = [PULUser currentUser];

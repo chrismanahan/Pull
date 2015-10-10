@@ -2163,7 +2163,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                     <outlet property="delegate" destination="Wp0-jD-mqd" id="gDe-GB-fij"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" misplaced="YES" searchBarStyle="minimal" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="ldR-9J-uj7">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="ldR-9J-uj7">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2326,8 +2326,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                             <constraint firstItem="zQa-Fr-qkB" firstAttribute="leading" secondItem="cYL-5u-4M9" secondAttribute="leading" id="8DB-EQ-Dqa"/>
                             <constraint firstAttribute="trailing" secondItem="woB-1u-c5R" secondAttribute="trailing" id="9vp-fp-vdn"/>
                             <constraint firstItem="18r-Wo-YQp" firstAttribute="leading" secondItem="cYL-5u-4M9" secondAttribute="leading" id="HCh-kK-oW6"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ldR-9J-uj7" secondAttribute="trailing" constant="-16" id="J88-yW-rcW"/>
-                            <constraint firstItem="ldR-9J-uj7" firstAttribute="leading" secondItem="cYL-5u-4M9" secondAttribute="leadingMargin" constant="-16" id="ORF-lB-uzF"/>
+                            <constraint firstAttribute="trailing" secondItem="ldR-9J-uj7" secondAttribute="trailing" id="J88-yW-rcW"/>
+                            <constraint firstItem="ldR-9J-uj7" firstAttribute="leading" secondItem="cYL-5u-4M9" secondAttribute="leading" id="ORF-lB-uzF"/>
                             <constraint firstItem="woB-1u-c5R" firstAttribute="leading" secondItem="cYL-5u-4M9" secondAttribute="leading" id="TOt-wr-9FE"/>
                             <constraint firstAttribute="trailing" secondItem="zQa-Fr-qkB" secondAttribute="trailing" id="VKq-jE-Twh"/>
                             <constraint firstItem="ldR-9J-uj7" firstAttribute="top" secondItem="18r-Wo-YQp" secondAttribute="bottom" id="Zox-QG-AfT"/>

@@ -11,6 +11,7 @@
 #import "PULInviteViewController.h"
 
 #import "NZCircularImageView.h"
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 
 #import "PULUser.h"
 
@@ -53,9 +54,10 @@
 }
 
 - (void)_populateUserInfo {
-    [_userImageView setImageWithResizeURL:[PULUser currentUser].imageUrlString];
+    NSString *imageUrl = [PULUser currentUser].imageUrlString;
+    [_userImageView setImageWithResizeURL:imageUrl];
     // TODO: SET BACKGROUND IMAGE VIEW DYNAMICALLY IN MENU VIEW
-//    _backgroundImageView.image = [PULUser currentUser].image;
+    [_backgroundImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
     _nameLabel.text = [PULUser currentUser].fullName;
     
 }

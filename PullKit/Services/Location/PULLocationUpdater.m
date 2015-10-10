@@ -91,8 +91,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 #pragma mark - Public
 - (BOOL)hasPermission
 {
-    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized ||
-    [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
 }
 
 - (void)setHeadingUpdateBlock:(PULHeadingBlock)block;

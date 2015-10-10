@@ -543,7 +543,6 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
         [self _runBlockOnMainQueue:^{
             [target performSelector:selector];
         }];
-        
     }];
 }
 

@@ -211,7 +211,6 @@
 		95F3670F1AF6C8FB00A3E2F6 /* white_card_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367061AF6C8FB00A3E2F6 /* white_card_top.png */; };
 		95F367101AF6C8FB00A3E2F6 /* white_card_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367071AF6C8FB00A3E2F6 /* white_card_top@2x.png */; };
 		95F367111AF6C8FB00A3E2F6 /* white_card_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F367081AF6C8FB00A3E2F6 /* white_card_top@3x.png */; };
-		9B0A66DD1BBECBFA004575BE /* BackgroundTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0A66DB1BBECBFA004575BE /* BackgroundTask.m */; settings = {ASSET_TAGS = (); }; };
 		9B0EE7FF1BC5B59B002775E4 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0EE7FC1BC5B59B002775E4 /* UIScrollView+SVInfiniteScrolling.m */; settings = {ASSET_TAGS = (); }; };
 		9B0EE8001BC5B59B002775E4 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0EE7FE1BC5B59B002775E4 /* UIScrollView+SVPullToRefresh.m */; settings = {ASSET_TAGS = (); }; };
 		9B1546221BA6F70900CD0323 /* smiley_sad_with_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B15461F1BA6F70900CD0323 /* smiley_sad_with_background.png */; };
@@ -355,7 +354,6 @@
 		9BFF37A11BC1745800201811 /* PULLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 954285971BB3BEC500268329 /* PULLocation.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF37A21BC1746700201811 /* PULLocationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7AE1B80DE7D005569B4 /* PULLocationUpdater.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF37A41BC1746C00201811 /* PULInviteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7B21B80DE7D005569B4 /* PULInviteService.m */; settings = {ASSET_TAGS = (); }; };
-		9BFF37A61BC1747100201811 /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 951240BF1BABD4FF00988AC0 /* BackgroundTaskManager.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF37A81BC1747E00201811 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7C01B80DE88005569B4 /* NSDate+Utilities.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF37A91BC1748500201811 /* THBinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7CB1B80DE88005569B4 /* THBinder.m */; settings = {ASSET_TAGS = (); }; };
 		9BFF37AA1BC1748800201811 /* THObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A7CD1B80DE88005569B4 /* THObserver.m */; settings = {ASSET_TAGS = (); }; };
@@ -567,8 +565,6 @@
 		84FC35681B8D0D8000057C49 /* smiley_wink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_wink@2x.png"; sourceTree = "<group>"; };
 		84FC35691B8D0D8000057C49 /* smiley_wink@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiley_wink@3x.png"; sourceTree = "<group>"; };
 		8B9C2A6CE124E99CCF4CA7D5 /* libPods-Pull.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pull.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		951240BE1BABD4FF00988AC0 /* BackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundTaskManager.h; sourceTree = "<group>"; };
-		951240BF1BABD4FF00988AC0 /* BackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTaskManager.m; sourceTree = "<group>"; };
 		95169F331A86F7CD006D3078 /* PULMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULMenuViewController.h; sourceTree = "<group>"; };
 		95169F341A86F7CD006D3078 /* PULMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULMenuViewController.m; sourceTree = "<group>"; };
 		95169F5D1A8714FE006D3078 /* PULSlideSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULSlideSegue.h; sourceTree = "<group>"; };
@@ -655,8 +651,6 @@
 		95F367061AF6C8FB00A3E2F6 /* white_card_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_card_top.png; sourceTree = "<group>"; };
 		95F367071AF6C8FB00A3E2F6 /* white_card_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_card_top@2x.png"; sourceTree = "<group>"; };
 		95F367081AF6C8FB00A3E2F6 /* white_card_top@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_card_top@3x.png"; sourceTree = "<group>"; };
-		9B0A66DA1BBECBFA004575BE /* BackgroundTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundTask.h; sourceTree = "<group>"; };
-		9B0A66DB1BBECBFA004575BE /* BackgroundTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTask.m; sourceTree = "<group>"; };
 		9B0EE7FA1BC5B59B002775E4 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
 		9B0EE7FB1BC5B59B002775E4 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
 		9B0EE7FC1BC5B59B002775E4 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
@@ -717,8 +711,6 @@
 		9B78A77D1B80DE66005569B4 /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Hex.m"; path = "../../PullKit/Categories/NSData+Hex.m"; sourceTree = "<group>"; };
 		9B78A77E1B80DE66005569B4 /* UIVisualEffectView+PullBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIVisualEffectView+PullBlur.h"; path = "../../PullKit/Categories/UIVisualEffectView+PullBlur.h"; sourceTree = "<group>"; };
 		9B78A77F1B80DE66005569B4 /* UIVisualEffectView+PullBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIVisualEffectView+PullBlur.m"; path = "../../PullKit/Categories/UIVisualEffectView+PullBlur.m"; sourceTree = "<group>"; };
-		9B78A78B1B80DE66005569B4 /* PULAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULAccount.h; sourceTree = "<group>"; };
-		9B78A78C1B80DE66005569B4 /* PULAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULAccount.m; sourceTree = "<group>"; };
 		9B78A78D1B80DE66005569B4 /* PULPull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULPull.h; sourceTree = "<group>"; };
 		9B78A78E1B80DE66005569B4 /* PULPull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PULPull.m; sourceTree = "<group>"; };
 		9B78A78F1B80DE66005569B4 /* PULUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PULUser.h; sourceTree = "<group>"; };
@@ -1407,8 +1399,6 @@
 		952BDB8C1A0C4F4D00C67BB5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				9B0A66DA1BBECBFA004575BE /* BackgroundTask.h */,
-				9B0A66DB1BBECBFA004575BE /* BackgroundTask.m */,
 				952BDB8D1A0C4F5500C67BB5 /* App */,
 				9BED056B1B88E81E008F71CC /* Categories */,
 				9B78A7DD1B80DE9D005569B4 /* Headers */,
@@ -1638,8 +1628,6 @@
 		9B78A78A1B80DE66005569B4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9B78A78B1B80DE66005569B4 /* PULAccount.h */,
-				9B78A78C1B80DE66005569B4 /* PULAccount.m */,
 				9B78A78D1B80DE66005569B4 /* PULPull.h */,
 				9B78A78E1B80DE66005569B4 /* PULPull.m */,
 				9B78A78F1B80DE66005569B4 /* PULUser.h */,
@@ -1661,8 +1649,6 @@
 				9B78A7B21B80DE7D005569B4 /* PULInviteService.m */,
 				9B78A7B31B80DE7D005569B4 /* PULPush.h */,
 				9B78A7B41B80DE7D005569B4 /* PULPush.m */,
-				951240BE1BABD4FF00988AC0 /* BackgroundTaskManager.h */,
-				951240BF1BABD4FF00988AC0 /* BackgroundTaskManager.m */,
 				9BEFB0C91BBC2C6000A7A86B /* Parse */,
 			);
 			name = Services;
@@ -2380,7 +2366,6 @@
 				9BFF379B1BC1743400201811 /* PULConstants.m in Sources */,
 				9BFF37A01BC1745300201811 /* PULUserSettings.m in Sources */,
 				9531F8A41A86803A003CBEDF /* PULSettingsViewController.m in Sources */,
-				9BFF37A61BC1747100201811 /* BackgroundTaskManager.m in Sources */,
 				9BB82DF81AEB392C004447FA /* PULInviteViewController.m in Sources */,
 				953B062F1A8CDDE3008235EB /* PULReverseModal.m in Sources */,
 				9BF018911B9B35E7004E6DCA /* PULLocalPush.m in Sources */,
@@ -2399,7 +2384,6 @@
 				9BFF37A11BC1745800201811 /* PULLocation.m in Sources */,
 				33FB713D1AAD205B00B74C47 /* PULVerticallyCenteredButton.m in Sources */,
 				95169F621A8718AB006D3078 /* PULSlideUnwindSegue.m in Sources */,
-				9B0A66DD1BBECBFA004575BE /* BackgroundTask.m in Sources */,
 				33ABDE4C1AB4A20900A047BF /* PULOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

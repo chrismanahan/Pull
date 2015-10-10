@@ -690,7 +690,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             _moreNotificationContainerLeft.hidden = NO;
             
             // check if we should show the notification above the arrow
-            for (int i = lowest-1; i >= 0; i--)
+            for (NSInteger i = lowest-1; i >= 0; i--)
             {
                 PULPull *pull = _pullsDatasource[i];
                 if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULUser currentUser]])
@@ -710,7 +710,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             _moreNotificationContainerRight.hidden = NO;
             
             // check if we should show the notification above the arrow
-            for (int i = highest+1; i < _pullsDatasource.count; i++)
+            for (NSInteger i = highest+1; i < _pullsDatasource.count; i++)
             {
                 PULPull *pull = _pullsDatasource[i];
                 if (pull.status == PULPullStatusPending && [pull.receivingUser isEqual:[PULUser currentUser]])

@@ -8,8 +8,7 @@
 
 #import "PULPull.h"
 
-#import "PULAccount.h"
-
+#import "PULUser.h"
 #import "PULPush.h"
 #import "PULConstants.h"
 

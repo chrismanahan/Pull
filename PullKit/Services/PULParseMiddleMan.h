@@ -150,9 +150,6 @@ typedef void(^PULStatusBlock)(BOOL success, NSError * __nullable error);
 - (void)getPullsInBackground:(nullable PULPullsBlock)completion;
 - (void)getPullsInBackground:(nullable PULPullsBlock)completion ignoreCache:(BOOL)ignoreCache;
 
-- (nullable PULPull*)nearestPull;
-
-
 
 - (void)deletePull:(PULPull*)pull;
 - (void)acceptPull:(PULPull*)pull;

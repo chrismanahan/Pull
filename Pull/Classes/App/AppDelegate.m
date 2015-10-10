@@ -28,14 +28,6 @@
 
 #import "Amplitude.h"
 #import <parkour/parkour.h>
-#import "BackgroundTask.h"
-
-@interface AppDelegate ()
-{
-    BackgroundTask *bgTask;
-}
-
-@end
 
 @implementation AppDelegate
 
@@ -122,8 +114,6 @@
     
     // check if we need to notify the user of an update
     [PULUpdateChecker checkForUpdate];
-
-    bgTask = [[BackgroundTask alloc] init];
     
     [self startObservingBatteryLevel];
     
@@ -180,7 +170,6 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-//    [bgTask startBackgroundTasks:2 target:self selector:@selector(backgroundPing)];
     
     PULUser *user = [PULUser currentUser];
     if (user)
@@ -200,9 +189,7 @@
     ;
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-//    [bgTask stopBackgroundTask];
-    
+- (void)applicationWillEnterForeground:(UIApplication *)application {    
     PULUser *user = [PULUser currentUser];
     if (user)
     {

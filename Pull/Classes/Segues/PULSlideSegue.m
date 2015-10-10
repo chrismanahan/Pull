@@ -18,7 +18,6 @@
     // Add the destination view as a subview, temporarily
     UIView *destView = [destinationViewController.view snapshotViewAfterScreenUpdates:YES];
     CGRect frame = destView.frame;
-    CGRect origFrame = frame;
     frame.origin.x = -CGRectGetWidth(sourceViewController.view.frame);
     if (_slideLeft)
     {

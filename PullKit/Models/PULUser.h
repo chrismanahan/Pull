@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Distance in meters
  */
-- (CLLocationDistance)distanceFromUser:(PULUser*)user;
+- (CGFloat)distanceFromUser:(PULUser*)user;
 /**
  *  Calculates the angle between this user and other user given a magnetic heading
  *

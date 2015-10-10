@@ -47,17 +47,17 @@
 }
 
 #pragma mark - Public
-- (double)distanceFromUser:(PULUser*)user;
+- (CGFloat)distanceFromUser:(PULUser*)user;
 {
     return [self.location distanceInMeters:user.location];
 }
 
-- (double)angleWithHeading:(CLHeading*)heading fromUser:(PULUser*)user;
+- (CGFloat)angleWithHeading:(CLHeading*)heading fromUser:(PULUser*)user;
 {
-    double degrees = [self _calculateAngleBetween:self.location.coordinate
+    CGFloat degrees = [self _calculateAngleBetween:self.location.coordinate
                                               and:user.location.coordinate];
     
-    double rads = (degrees - heading.trueHeading) * M_PI / 180;
+    CGFloat rads = (degrees - heading.trueHeading) * M_PI / 180;
     
     return rads;
 }
@@ -85,16 +85,16 @@
 }
 
 #pragma mark - Private
-- (double)_calculateAngleBetween:(PFGeoPoint*)coords0 and:(PFGeoPoint*)coords1
+- (CGFloat)_calculateAngleBetween:(PFGeoPoint*)coords0 and:(PFGeoPoint*)coords1
 {
-    double myLat = coords0.latitude;
-    double myLon = coords0.longitude;
-    double yourLat = coords1.latitude;
-    double yourLon = coords1.longitude;
-    double dx = fabs(myLon - yourLon);
-    double dy = fabs(myLat - yourLat);
+    CGFloat myLat = coords0.latitude;
+    CGFloat myLon = coords0.longitude;
+    CGFloat yourLat = coords1.latitude;
+    CGFloat yourLon = coords1.longitude;
+    CGFloat dx = fabs(myLon - yourLon);
+    CGFloat dy = fabs(myLat - yourLat);
     
-    double ø;
+    CGFloat ø;
     
     // determine which quadrant we're in relative to other user
     if (dy < 0.000001 && myLon > yourLon) // horizontal right

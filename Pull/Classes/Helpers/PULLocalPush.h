@@ -11,6 +11,6 @@
 @interface PULLocalPush : NSObject
 
 + (void)sendLocalPushWithMessage:(NSString*)message;
-+ (void)sendLocalPushWithMessage:(NSString*)message delay:(float)delay;
++ (void)sendLocalPushWithMessage:(NSString*)message delay:(double)delay;
 
 @end

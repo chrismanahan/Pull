@@ -17,7 +17,7 @@
     [self sendLocalPushWithMessage:message delay:0];
 }
 
-+ (void)sendLocalPushWithMessage:(NSString*)message delay:(float)delay;
++ (void)sendLocalPushWithMessage:(NSString*)message delay:(double)delay;
 {
     UILocalNotification *notif = [[UILocalNotification alloc] init];
     notif.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];

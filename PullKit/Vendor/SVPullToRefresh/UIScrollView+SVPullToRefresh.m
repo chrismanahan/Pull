@@ -50,7 +50,7 @@ static CGFloat const SVPullToRefreshViewHeight = 60;
 - (void)resetScrollViewContentInset;
 - (void)setScrollViewContentInsetForLoading;
 - (void)setScrollViewContentInset:(UIEdgeInsets)insets;
-- (void)rotateArrow:(float)degrees hide:(BOOL)hide;
+- (void)rotateArrow:(CGFloat)degrees hide:(BOOL)hide;
 
 @end
 
@@ -244,7 +244,7 @@ static char UIScrollViewPullToRefreshView;
                         break;
                     }
                     case SVPullToRefreshPositionBottom:
-                        [self rotateArrow:(float)M_PI hide:NO];
+                        [self rotateArrow:(CGFloat)M_PI hide:NO];
                         break;
                 }
                 break;
@@ -254,7 +254,7 @@ static char UIScrollViewPullToRefreshView;
                     case SVPullToRefreshPositionTop:
                         [_overlayImageView startAnimating];
                         _overlayImageView.hidden = NO;
-                        [self rotateArrow:(float)M_PI hide:YES];
+                        [self rotateArrow:(CGFloat)M_PI hide:YES];
                         break;
                     case SVPullToRefreshPositionBottom:
                         [self rotateArrow:0 hide:NO];
@@ -271,7 +271,7 @@ static char UIScrollViewPullToRefreshView;
                         [self rotateArrow:0 hide:YES];
                         break;
                     case SVPullToRefreshPositionBottom:
-                        [self rotateArrow:(float)M_PI hide:YES];
+                        [self rotateArrow:(CGFloat)M_PI hide:YES];
                         break;
                 }
                 break;
@@ -657,7 +657,7 @@ static char UIScrollViewPullToRefreshView;
     }
 }
 
-- (void)rotateArrow:(float)degrees hide:(BOOL)hide {
+- (void)rotateArrow:(CGFloat)degrees hide:(BOOL)hide {
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
         self.arrow.layer.transform = CATransform3DMakeRotation(degrees, 0, 0, 1);
         self.arrow.layer.opacity = !hide;

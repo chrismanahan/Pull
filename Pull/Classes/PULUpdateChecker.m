@@ -87,8 +87,8 @@ NSString * const kPULUpdateDeclinedKey = @"UpdateDeclinedKey";
     strippedCurrent = [self _string:strippedCurrent byPaddingEndWithZeroToLength:MAX(strippedCurrent.length, strippedNew.length)];
     strippedNew     = [self _string:strippedNew byPaddingEndWithZeroToLength:MAX(strippedCurrent.length, strippedNew.length)];
     
-    int current = [strippedCurrent intValue];
-    int new = [strippedNew intValue];
+    NSInteger current = [strippedCurrent integerValue];
+    NSInteger new = [strippedNew integerValue];
     
     return new > current;
 }
@@ -96,7 +96,7 @@ NSString * const kPULUpdateDeclinedKey = @"UpdateDeclinedKey";
 - (NSString*)_string:(NSString*)string byPaddingEndWithZeroToLength:(NSInteger)length
 {
     NSMutableString *newString = [string mutableCopy];
-    int numZeros = length - string.length;
+    NSInteger numZeros = length - string.length;
     if (numZeros)
     {
         for (int i = 0; i < numZeros; i++)

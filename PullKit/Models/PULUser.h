@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Angle in radians
  */
-- (double)angleWithHeading:(CLHeading*)heading fromUser:(PULUser*)user;
+- (CGFloat)angleWithHeading:(CLHeading*)heading fromUser:(PULUser*)user;
 
 @end
 

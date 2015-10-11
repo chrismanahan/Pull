@@ -190,24 +190,26 @@
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {    
-    PULUser *user = [PULUser currentUser];
-    if (user)
-    {
-        user.isInForeground = YES;
-        user[@"killed"] = @(NO);
-        [user saveInBackground];
-    }
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
     
     application.applicationIconBadgeNumber = 0;
+    
+    PULUser *user = [PULUser currentUser];
+    if (user)
+    {
+        user.isInForeground = YES;
+        user.killed = NO;
+        [user saveInBackground];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [PULUser currentUser][@"killed"] = @(YES);
+    [PULUser currentUser].killed = YES;
     [[PULUser currentUser] save];
     [[PFFacebookUtils session] close];
 }

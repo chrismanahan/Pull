@@ -68,17 +68,20 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    static BOOL keyboardShowing = NO;
     [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillShowNotification
                                                       object:nil
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification * _Nonnull note) {
                                                       NSDictionary* userInfo = [note userInfo];
                                                       
-                                                      // get the size of the keyboard
-                                                      CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-                                                      
-                                                      _originalContainerFrame = _selectedTextContainer.frame;
-    
+                                                      if (!keyboardShowing)
+                                                      {
+                                                          // get the size of the keyboard
+                                                          CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+                                                          
+                                                          _originalContainerFrame = _selectedTextContainer.frame;
+                                                          
                                                           CGFloat y = CGRectGetMinY(keyboardRect) - CGRectGetHeight(keyboardRect) - CGRectGetHeight(_selectedTextContainer.frame)- 8;
                                                           CGRect textFrame = CGRectMake(8, y, CGRectGetWidth(_selectedTextContainer.frame), CGRectGetHeight(_selectedTextContainer.frame));
                                                           
@@ -96,6 +99,9 @@
                                                               
                                                               [self.view setNeedsUpdateConstraints];
                                                           }];
+                                                          
+                                                          keyboardShowing = YES;
+                                                      }
                                                   }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillHideNotification
@@ -103,18 +109,23 @@
                                                        queue:[NSOperationQueue currentQueue]
                                                   usingBlock:^(NSNotification * _Nonnull note) {
                                                       [UIView animateWithDuration:0.3 animations:^{
-                                                          _selectedTextContainer.frame = _originalContainerFrame;
-                                                          
-                                                          if ([_selectedTextContainer isEqual:_inviteCodeTextContainer])
+                                                          if (keyboardShowing)
                                                           {
-                                                              _inviteWallCodeEnterTextLabel.alpha = 1;
-                                                          }
-                                                          else
-                                                          {
-                                                              _inviteWallEmailTopLabel.alpha = 1;
+                                                              _selectedTextContainer.frame = _originalContainerFrame;
+                                                              
+                                                              if ([_selectedTextContainer isEqual:_inviteCodeTextContainer])
+                                                              {
+                                                                  _inviteWallCodeEnterTextLabel.alpha = 1;
+                                                              }
+                                                              else
+                                                              {
+                                                                  _inviteWallEmailTopLabel.alpha = 1;
+                                                              }
+                                                              
+                                                              keyboardShowing = NO;
                                                           }
                                                       }];
-
+                                                      
                                                   }];
 }
 
@@ -124,12 +135,11 @@
     return YES;
 }
 
-// TODO: this isn't called if the user pastes the code in
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if ([textField isEqual:_inviteWallCodeTextField])
     {
-        if (textField.text.length >= 1 && string.length > 0)
+        if ((textField.text.length >= 1 && string.length > 0) || (textField.text.length == 0 && string.length > 2))
         {
             _inviteWallCodeRedeemButton.enabled = YES;
         }
@@ -142,7 +152,7 @@
     {
         _inviteWallEmailSubmitButton.enabled = [self _validateEmail:textField.text];
     }
-        
+    
     return YES;
 }
 
@@ -216,8 +226,8 @@
                 [UIView animateWithDuration:0.3
                                  animations:^{
                                      CGRect frame = _inviteWallScrollView.frame;
-                                     
-                                     frame.origin.x = -CGRectGetWidth(frame);
+                                     // BUG: this is jutting to the right then sliding left
+                                     frame.origin.x -= CGRectGetWidth(frame);
                                      _inviteWallScrollView.frame = frame;
                                  } completion:^(BOOL finished) {
                                      _inviteWallScrollView.hidden = YES;
@@ -253,8 +263,12 @@
 
 - (IBAction)ibPresentFacebookLogin:(id)sender;
 {
-
+    _ai = [PULLoadingIndicator indicatorOnView:self.view];
+    [_ai show];
+    
     [[PULParseMiddleMan sharedInstance] loginWithFacebook:^(BOOL success, NSError * _Nullable error) {
+        [_ai hide];
+        
         if (success)
         {
             // check if we already have location/notifcation permissions
@@ -293,7 +307,7 @@
                                                        cancelButtonTitle:@"Ok"
                                                        otherButtonTitles: nil];
             [errorAlert show];
-
+            
         }
     }];
 }

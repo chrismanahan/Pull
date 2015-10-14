@@ -98,6 +98,8 @@
     UIView *launchOverlay = [[NSBundle mainBundle] loadNibNamed:@"LaunchScreen"
                                                           owner:nil
                                                         options:nil][0];
+    
+    launchOverlay.frame = self.window.frame;
     [self.window addSubview:launchOverlay];
  
     [UIView animateWithDuration:0.5

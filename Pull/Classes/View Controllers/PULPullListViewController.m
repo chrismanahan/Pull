@@ -175,6 +175,13 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     _dialogCancelButton.backgroundColor = PUL_DarkPurple;
     _dialogContainer.backgroundColor = [UIColor clearColor];
     
+    if (![PULLocationUpdater sharedUpdater].hasPermission)
+    {
+        [_compassView showBusy:NO];
+        [self showNoLocation:YES];
+    }
+    
+    
     [self.view setNeedsUpdateConstraints];
 }
 

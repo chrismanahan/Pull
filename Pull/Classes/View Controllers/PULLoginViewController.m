@@ -48,6 +48,14 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    BOOL redeemed = [[NSUserDefaults standardUserDefaults] boolForKey:@"RedeemedInvite"];
+    _inviteWallScrollView.hidden = redeemed;
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillShowNotification
@@ -70,20 +78,53 @@
                                                   }];
 }
 
+// TODO: this isn't called if the user pastes the code in
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if ([textField isEqual:_inviteWallCodeTextField])
     {
-        if (textField.text.length > 0)
+        if (textField.text.length >= 1 && string.length > 0)
         {
-            
+            _inviteWallCodeRedeemButton.enabled = YES;
+        }
+        else if (textField.text.length == 1 && string.length == 0)
+        {
+            _inviteWallCodeRedeemButton.enabled = NO;
         }
     }
-            
+    else if ([textField isEqual:_inviteWallEmailTextField])
+    {
+        _inviteWallEmailSubmitButton.enabled = [self _validateEmail:textField.text];
+    }
+        
     return YES;
 }
 
+- (BOOL)_validateEmail:(NSString*)email;
+{
+    NSString *pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:nil];
+    
+    if ([regex numberOfMatchesInString:email options:0 range:NSMakeRange(0, email.length)])
+    {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - Actions
+- (IBAction)ibInviteTapHere:(id)sender
+{
+    [_inviteWallScrollView scrollRectToVisible:_inviteWallEmailView.frame animated:YES];
+}
+
+- (IBAction)ibInviteBack:(id)sender
+{
+    [_inviteWallScrollView scrollRectToVisible:_inviteWallCodeView.frame animated:YES];
+}
+
 - (IBAction)ibRedeemInvite:(id)sender
 {
     [_inviteWallCodeTextField resignFirstResponder];
@@ -96,6 +137,8 @@
         [inviteService redeemInviteCode:code completion:^(BOOL success) {
             if (success)
             {
+                // TODO: slide invite wall to the left 
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"RedeemedInvite"];
                 _inviteWallScrollView.hidden = YES;
             }
             else
@@ -108,6 +151,22 @@
             }
         }];
     }
+}
+
+- (IBAction)ibInviteRequestEmail:(id)sender;
+{
+    PFObject *obj = [PFObject objectWithClassName:@"InviteRequest"];
+    obj[@"email"] = _inviteWallEmailTextField.text;
+    obj[@"isInvited"] = @(NO);
+    
+    PFACL *acl = [PFACL ACL];
+    [acl setPublicReadAccess:NO];
+    [acl setPublicWriteAccess:NO];
+    obj.ACL = acl;
+    
+    [obj saveInBackground];
+    
+    [_inviteWallScrollView scrollRectToVisible:_inviteWallThanksView.frame animated:YES];
 }
 
 - (IBAction)ibPresentFacebookLogin:(id)sender;

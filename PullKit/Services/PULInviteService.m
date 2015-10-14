@@ -28,7 +28,7 @@ typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
 - (void)sendInviteToEmail:(NSString*)email completion:(PULInviteCompleteBlock)completion;
 {
     // create code to send
-    NSString *code = [self _createInvite];
+    NSString *code = [self _createInviteForEmail:email];
     
     PULLog(@"sending invite to: %@", email);
     NSDictionary *params = @{@"action": @"invite",
@@ -142,12 +142,13 @@ typedef void(^PULConnectionBlock)(NSDictionary *jsonData, NSError *error);
                            }];
 }
 
-- (NSString*)_createInvite;
+- (NSString*)_createInviteForEmail:(NSString*)email
 {
     PFObject *obj = [PFObject objectWithClassName:@"InviteLookup"];
     obj[@"fromUser"] = [PULUser currentUser];
     obj[@"isRedeemed"] = @(NO);
     obj[@"code"] = [self _generateCode];
+    obj[@"email"] = email;
     [obj saveInBackground];
     
     return obj[@"code"];

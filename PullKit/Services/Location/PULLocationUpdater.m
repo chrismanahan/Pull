@@ -34,7 +34,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 @property (nonatomic, strong) PULParseMiddleMan *parse;
 
-@property (nonatomic, assign) PKPositionTrackingMode currentTrackingMode;
+@property (nonatomic, assign) int currentTrackingMode;
 
 @end
 
@@ -115,16 +115,15 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 -(void)startUpdatingLocation;
 {
     [parkour start];
-    [self startUpdatingLocationWithMode:pkAutomotive];
+    [self startUpdatingLocationWithMode:3];
 }
 
-- (void)startUpdatingLocationWithMode:(PKPositionTrackingMode)mode
+- (void)startUpdatingLocationWithMode:(int)mode
 {
     PULLog(@"starting location updater");
     _tracking = YES;
     _currentTrackingMode = mode;
     
-//    [parkour setMinPositionUpdateRate:5];
     [parkour trackPositionWithHandler:^(CLLocation *position, PKPositionType positionType, PKMotionType motionType) {
         
         PULLog(@"received location: %@ of type %zd", position, motionType);
@@ -133,13 +132,15 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         
     }];
     
-    [parkour setTrackPositionMode:mode];
+    [parkour setInterval:mode];
 }
 
-- (void)restartUpdatingLocationWithMode:(PKPositionTrackingMode)mode
+- (void)restartUpdatingLocationWithMode:(int)mode
 {
-    [self stopUpdatingLocation];
-    [self startUpdatingLocationWithMode:mode];
+    _currentTrackingMode = mode;
+    [parkour setInterval:mode];
+//    [self stopUpdatingLocation];
+//    [self startUpdatingLocationWithMode:mode];
 }
 
 /*!
@@ -218,7 +219,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     PULUser *acct = [PULUser currentUser];
     // determine which tracking mode to use based on current motion type
     // and state of pulls
-    PKPositionTrackingMode trackingMode = pkLowEnergy;
+    int trackingMode = 90;
     BOOL keepTuning = YES;
     BOOL foreground = acct.isInForeground;
     BOOL hasActivePull = NO;
@@ -243,7 +244,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         // if no one's in the foreground, use low tracking
         if (!foreground)
         {
-            trackingMode = hasActivePull ? pkGeofencing : pkLowEnergy;
+            trackingMode = hasActivePull ? 60 : 300;
             keepTuning = NO;
         }
     }
@@ -265,9 +266,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 - (void)_updateToLocation:(nullable CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
 {
-    
-    [self _updateTrackingMode];
-    
     // save new location
     [self _saveNewLocation:location position:positionType motion:motionType];
 
@@ -308,31 +306,31 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     }
 }
 
-- (PKPositionTrackingMode)_settingTypeForDistance:(CLLocationDistance)distance
+- (int)_settingTypeForDistance:(CLLocationDistance)distance
 {
-    PKPositionTrackingMode settingType;
+    int settingType;
     
     if (distance > kPULLocationTuningDistanceLowMeters)
     {
-        settingType = pkGeofencing;
+        settingType = 90;
     }
     else if (distance > kPULLocationTuningDistanceAutoMeters)
     {
-        settingType = pkPedestrian;
+        settingType = 60;
     }
     else if (distance > kPULLocationTuningDistanceMediumMeters)
     {
-        settingType = pkFitness;
+        settingType = 45;
     }
     else
     {
-        settingType = pkAutomotive;
+        settingType = 10;
     }
     
     return settingType;
 }
 
-- (PKPositionTrackingMode)_settingTypeForPull:(PULPull*)pull
+- (int)_settingTypeForPull:(PULPull*)pull
 {
     // distance between us and user of nearest pull
     PULUser *otherUser = [pull otherUser];

@@ -12,14 +12,17 @@
 
 
 #import "PKConstants.h"
-#define theParkourSDKVersion 2042
+#define theParkourSDKVersion 2053
 
 
 @interface parkour : NSObject
 
+
 //
 // start the parkour location engine in uber low power consumption mode.
 // usage: [parkour start];
+///
+///
 + (void)start;
 
 //

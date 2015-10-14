@@ -12,6 +12,7 @@
 
 #import "PULSlideLeftSegue.h"
 
+#import "PULLoadingIndicator.h"
 #import "PULInviteService.h"
 
 #import "PULParseMiddleMan.h"
@@ -30,11 +31,20 @@
 @property (strong, nonatomic) IBOutlet UIButton *inviteWallCodeRedeemButton;
 @property (strong, nonatomic) IBOutlet UILabel *inviteWallCodeEnterTextLabel;
 
+@property (strong, nonatomic) IBOutlet UIView *inviteCodeTextContainer;
+@property (strong, nonatomic) IBOutlet UIView *inviteEmailTextContainer;
+
 @property (strong, nonatomic) IBOutlet UIView *inviteWallEmailView;
 @property (strong, nonatomic) IBOutlet UITextField *inviteWallEmailTextField;
 @property (strong, nonatomic) IBOutlet UIButton *inviteWallEmailSubmitButton;
+@property (strong, nonatomic) IBOutlet UILabel *inviteWallEmailTopLabel;
+
+@property (nonatomic, strong) UIView *selectedTextContainer;
+@property (nonatomic, assign) CGRect originalContainerFrame;
 
 @property (strong, nonatomic) IBOutlet UIView *inviteWallThanksView;
+
+@property (nonatomic, strong) PULLoadingIndicator *ai;
 
 @end
 
@@ -65,17 +75,53 @@
                                                       NSDictionary* userInfo = [note userInfo];
                                                       
                                                       // get the size of the keyboard
-                                                      CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+                                                      CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
                                                       
-                                                      CGRect viewFrame = _inviteWallScrollView.frame;
-                                                      viewFrame.size.height -= (keyboardSize.height);
-                                                      
-                                                      [UIView beginAnimations:nil context:NULL];
-                                                      [UIView setAnimationBeginsFromCurrentState:YES];
-                                                      [self.inviteWallScrollView setFrame:viewFrame];
-                                                      [UIView commitAnimations];
-//                                                      keyboardIsShown = YES;
+                                                      _originalContainerFrame = _selectedTextContainer.frame;
+    
+                                                          CGFloat y = CGRectGetMinY(keyboardRect) - CGRectGetHeight(keyboardRect) - CGRectGetHeight(_selectedTextContainer.frame)- 8;
+                                                          CGRect textFrame = CGRectMake(8, y, CGRectGetWidth(_selectedTextContainer.frame), CGRectGetHeight(_selectedTextContainer.frame));
+                                                          
+                                                          [UIView animateWithDuration:0.3 animations:^{
+                                                              _selectedTextContainer.frame = textFrame;
+                                                              
+                                                              if ([_selectedTextContainer isEqual:_inviteCodeTextContainer])
+                                                              {
+                                                                  _inviteWallCodeEnterTextLabel.alpha = 0.6;
+                                                              }
+                                                              else
+                                                              {
+                                                                  _inviteWallEmailTopLabel.alpha = 0.6;
+                                                              }
+                                                              
+                                                              [self.view setNeedsUpdateConstraints];
+                                                          }];
                                                   }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillHideNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                      [UIView animateWithDuration:0.3 animations:^{
+                                                          _selectedTextContainer.frame = _originalContainerFrame;
+                                                          
+                                                          if ([_selectedTextContainer isEqual:_inviteCodeTextContainer])
+                                                          {
+                                                              _inviteWallCodeEnterTextLabel.alpha = 1;
+                                                          }
+                                                          else
+                                                          {
+                                                              _inviteWallEmailTopLabel.alpha = 1;
+                                                          }
+                                                      }];
+
+                                                  }];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 // TODO: this isn't called if the user pastes the code in
@@ -97,6 +143,20 @@
         _inviteWallEmailSubmitButton.enabled = [self _validateEmail:textField.text];
     }
         
+    return YES;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if ([textField isEqual:_inviteWallCodeTextField])
+    {
+        _selectedTextContainer = _inviteCodeTextContainer;
+    }
+    else
+    {
+        _selectedTextContainer = _inviteEmailTextContainer;
+    }
+    
     return YES;
 }
 
@@ -122,7 +182,18 @@
 
 - (IBAction)ibInviteBack:(id)sender
 {
-    [_inviteWallScrollView scrollRectToVisible:_inviteWallCodeView.frame animated:YES];
+    if (_inviteWallEmailTextField.isFirstResponder)
+    {
+        [_inviteWallEmailTextField resignFirstResponder];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_inviteWallScrollView scrollRectToVisible:_inviteWallCodeView.frame animated:YES];
+        });
+    }
+    else
+    {
+        [_inviteWallScrollView scrollRectToVisible:_inviteWallCodeView.frame animated:YES];
+    }
 }
 
 - (IBAction)ibRedeemInvite:(id)sender
@@ -133,13 +204,24 @@
     
     if (code && code.length > 0)
     {
+        _ai = [PULLoadingIndicator indicatorOnView:self.view];
+        [_ai show];
         PULInviteService *inviteService = [PULInviteService sharedInstance];
         [inviteService redeemInviteCode:code completion:^(BOOL success) {
+            [_ai hide];
             if (success)
             {
-                // TODO: slide invite wall to the left 
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"RedeemedInvite"];
-                _inviteWallScrollView.hidden = YES;
+                
+                [UIView animateWithDuration:0.3
+                                 animations:^{
+                                     CGRect frame = _inviteWallScrollView.frame;
+                                     
+                                     frame.origin.x = -CGRectGetWidth(frame);
+                                     _inviteWallScrollView.frame = frame;
+                                 } completion:^(BOOL finished) {
+                                     _inviteWallScrollView.hidden = YES;
+                                 }];
             }
             else
             {

@@ -14,6 +14,7 @@ NSString * const kPULFacebookAppID = @"468309439970987";
 NSString * const kPULMessageFbInvite = @"Pull me on Pull!";
 
 // urls
+// TODO: change app download url
 NSString * const kPULAppDownloadURL = @"http://getpulled.com";
 NSString * const kPULAppUpdateURL = @"http://getpulled.com/app/version.json";
 
@@ -54,6 +55,7 @@ const NSInteger kPULLocationTuningIntervalNearby = 60;
 const NSInteger kPULLocationTuningIntervalClose = 20;
 
 const double kPULDistanceAllowedAccuracy = 20;
+const double kPULDistanceMaxDistanceForAccuracyReading = FEET_TO_METERS(5000);
 
 const NSInteger kPULPullLocalNotificationDelayMinutes = 5;
 

@@ -140,17 +140,27 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
 {
     PULUser *otherUser = [self otherUser];
     // if someone's accuracy is low
-    BOOL accurate =  (self.sendingUser.location.accuracy < kPULDistanceAllowedAccuracy || self.receivingUser.location.accuracy < kPULDistanceAllowedAccuracy);
+    BOOL accurate =  self.sendingUser.location.accuracy < kPULDistanceAllowedAccuracy &&
+                     self.receivingUser.location.accuracy < kPULDistanceAllowedAccuracy;
+    
+    NSInteger distance = [self.sendingUser distanceFromUser:self.receivingUser];
     
     // neither user has moved since their last update and they're relatively close
-    BOOL closeEnough = self.together || [self _isAlmostHere];
+    BOOL closeEnough = self.together;// || [self _isAlmostHere];
     // TODO: add back in an implemenation of determine if the user hasn't moved since the last update
 //    BOOL noMovement = ((!_receivingUser.hasMovedSinceLastLocationUpdate && !_sendingUser.hasMovedSinceLastLocationUpdate) && closeEnough);
     
-    return (accurate || closeEnough) &&
-    !otherUser.killed &&
-    !otherUser.noLocation &&
-    !otherUser.lowBattery;// || noMovement;
+    accurate = (accurate || closeEnough);
+    if (!accurate)
+    {
+        // if not accurate, we don't care if the distance is far enough
+        accurate = distance > kPULDistanceMaxDistanceForAccuracyReading;
+    }
+    
+    return  accurate &&
+            !otherUser.killed &&
+            !otherUser.noLocation &&
+            !otherUser.lowBattery;
 }
 
 #pragma mark - Properties

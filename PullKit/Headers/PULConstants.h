@@ -44,6 +44,7 @@ extern const NSInteger kPULLocationTuningIntervalNearby;
 extern const NSInteger kPULLocationTuningIntervalClose;
 
 extern const double kPULDistanceAllowedAccuracy;
+extern const double kPULDistanceMaxDistanceForAccuracyReading;
 
 extern const NSInteger kPULPullLocalNotificationDelayMinutes;
 

@@ -226,7 +226,6 @@
                 [UIView animateWithDuration:0.3
                                  animations:^{
                                      CGRect frame = _inviteWallScrollView.frame;
-                                     // BUG: this is jutting to the right then sliding left
                                      frame.origin.x -= CGRectGetWidth(frame);
                                      _inviteWallScrollView.frame = frame;
                                  } completion:^(BOOL finished) {

@@ -815,18 +815,18 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                 // figure out which dialog text to show
                 if ([PULUser currentUser].location.isLowAccuracy)
                 {
-                    dialogText = @"Because of poor reception, we're having trouble locating you. Enabling WiFi, if it is off, may help.";
+                    dialogText = @"Due to poor cell reception, we are unable to locate you";
                 }
                 else
                 {
-                    dialogText = [NSString stringWithFormat:@"We're having trouble locating %@ right now because of poor reception on their phone. Try again in a little bit.", user.firstName];
+                    dialogText = [NSString stringWithFormat:@"Due to poor cell reception, we are unable to locate %@", user.firstName];
                 }
                 break;
             }
             case PULPullDistanceStateFar:
             {
-                _distanceLabel.text = @"Isn't Nearby";
-                dialogText = [NSString stringWithFormat:@"%@ isn't within %zd ft yet. Don't worry, we'll notify you when they're near", user.firstName, kPULDistanceNearbyFeet];
+                _distanceLabel.text = @"Not Nearby";
+                dialogText = [NSString stringWithFormat:@"%@ isn't within %zd ft yet", user.firstName, kPULDistanceNearbyFeet];
                 break;
             }
             case PULPullDistanceStateAlmostHere:
@@ -875,7 +875,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                 // waiting on response
                 _distanceLabel.text = @"Request Sent";
                 
-                dialogText = [NSString stringWithFormat:@"We've sent %@ a request. We'll notify you when they accept", [_displayedPull otherUser].firstName];
+                dialogText = [NSString stringWithFormat:@"We've sent %@ your request", [_displayedPull otherUser].firstName];
                 
                 [self updateDialogWithText:dialogText
                                       hide:NO
@@ -886,15 +886,15 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             else
             {
                 // waiting on us
-                _distanceLabel.text = @"Invite Requested";
+                _distanceLabel.text = @"Pull Requested";
                 
                 if (_displayedPull.duration == kPullDurationAlways)
                 {
-                    dialogText = [NSString stringWithFormat:@"%@ has requested to always be pulled with you", user.firstName];
+                    dialogText = [NSString stringWithFormat:@"%@ would like to always be pulled with you", user.firstName];
                 }
                 else
                 {
-                    dialogText = [NSString stringWithFormat:@"%@ has requested a %zd hour pull with you", user.firstName, _displayedPull.durationHours];
+                    dialogText = [NSString stringWithFormat:@"%@ would like a %zd hour pull with you", user.firstName, _displayedPull.durationHours];
                 }
                 
                 [self updateDialogWithText:dialogText

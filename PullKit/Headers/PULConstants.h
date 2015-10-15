@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Chris Manahan. All rights reserved.
 //
 
-extern NSString * const kPULFirebaseURL;
-
 extern NSString * const kPULFacebookAppID;
 
 extern NSString * const kPULMessageFbInvite;
@@ -21,40 +19,38 @@ extern NSString * const kPULAppPartnerEmail;
 
 // DISTANCES
 extern const NSInteger kPULDistanceTogetherFeet;
-extern const NSInteger kPULDistanceTogetherMeters;
-
+extern const double kPULDistanceTogetherMeters;
 extern const NSInteger kPULDistanceNoLongerTogetherFeet;
-extern const NSInteger kPULDistanceNoLongerTogetherMeters;
-
+extern const double kPULDistanceNoLongerTogetherMeters;
 extern const NSInteger kPULDistanceHereFeet;
 extern const double kPULDistanceHereMeters;
 extern const NSInteger kPULDistanceHereTogetherFeet;
 extern const double kPULDistanceHereTogetherMeters;
-
 extern const NSInteger kPULDistanceAlmostHereFeet;
 extern const double kPULDistanceAlmostHereMeter;
-
 extern const NSInteger kPULDistanceNearbyFeet;
 extern const double kPULDistanceNearbyMeters;
 
-extern const NSInteger kPULLocationTuningDistanceLowFeet;
-extern const NSInteger kPULLocationTuningDistanceLowMeters;
-extern const NSInteger kPULLocationTuningDistanceAutoFeet;
-extern const NSInteger kPULLocationTuningDistanceAutoMeters;
-extern const NSInteger kPULLocationTuningDistanceMediumFeet;
-extern const NSInteger kPULLocationTuningDistanceMediumMeters;
-extern const NSInteger kPULLocationTuningDistanceHighFeet;
-extern const NSInteger kPULLocationTuningDistanceHighMeters;
+extern const NSInteger kPULLocationTuningDistanceVeryFarFeet;
+extern const NSInteger kPULLocationTuningDistanceVeryFarMeters;
+extern const NSInteger kPULLocationTuningDistanceFarFeet;
+extern const NSInteger kPULLocationTuningDistanceFarMeters;
+extern const NSInteger kPULLocationTuningDistanceNearbyFeet;
+extern const NSInteger kPULLocationTuningDistanceNearbyMeters;
+
+extern const NSInteger kPULLocationTuningIntervalVeryFar;
+extern const NSInteger kPULLocationTuningIntervalFar;
+extern const NSInteger kPULLocationTuningIntervalNearby;
+extern const NSInteger kPULLocationTuningIntervalClose;
+
+extern const double kPULDistanceAllowedAccuracy;
 
 extern const NSInteger kPULPullLocalNotificationDelayMinutes;
-extern const double kPULDistanceAllowedAccuracy;
 
 extern const NSInteger kPULPollTimeActive;
 extern const NSInteger kPULPollTimePassive;
 extern const NSInteger kPULPollTimeBackground;
-// distance filters
-extern const NSInteger kLocationForegroundDistanceFilter;
-extern const NSInteger kLocationBackgroundDistanceFilter;
+
 
 /**
  *  Constant defines the string that is sent as a push notification when sending a pull. For this

@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-NSString * const kPULFirebaseURL = @"https://pull.firebaseio.com";
-
 NSString * const kPULFacebookAppID = @"468309439970987";
 
 // messages
@@ -26,9 +24,9 @@ NSString * const kPULAppPartnerEmail = @"support@getpulled.com";
 
 // distances
 const NSInteger kPULDistanceTogetherFeet = 25;
-const NSInteger kPULDistanceTogetherMeters = FEET_TO_METERS(kPULDistanceTogetherFeet);
+const double kPULDistanceTogetherMeters = FEET_TO_METERS(kPULDistanceTogetherFeet);
 const NSInteger kPULDistanceNoLongerTogetherFeet = 70;
-const NSInteger kPULDistanceNoLongerTogetherMeters = FEET_TO_METERS(kPULDistanceNoLongerTogetherFeet);
+const double kPULDistanceNoLongerTogetherMeters = FEET_TO_METERS(kPULDistanceNoLongerTogetherFeet);
 
 const NSInteger kPULDistanceHereFeet = 30;
 const double kPULDistanceHereMeters =  FEET_TO_METERS( kPULDistanceHereFeet);
@@ -43,33 +41,25 @@ const NSInteger kPULDistanceNearbyFeet = 1000;
 const double kPULDistanceNearbyMeters = FEET_TO_METERS(kPULDistanceNearbyFeet);
 
 
-const NSInteger kPULLocationTuningDistanceLowFeet = 7000;
-const NSInteger kPULLocationTuningDistanceLowMeters = FEET_TO_METERS(kPULLocationTuningDistanceLowFeet);
-const NSInteger kPULLocationTuningDistanceAutoFeet = 1000;
-const NSInteger kPULLocationTuningDistanceAutoMeters = FEET_TO_METERS(kPULLocationTuningDistanceAutoFeet);
-const NSInteger kPULLocationTuningDistanceMediumFeet = 100;
-const NSInteger kPULLocationTuningDistanceMediumMeters = FEET_TO_METERS(kPULLocationTuningDistanceMediumFeet);
-const NSInteger kPULLocationTuningDistanceHighFeet = 0;
-const NSInteger kPULLocationTuningDistanceHighMeters = FEET_TO_METERS(kPULLocationTuningDistanceHighFeet);
+const NSInteger kPULLocationTuningDistanceVeryFarFeet = 7000;
+const NSInteger kPULLocationTuningDistanceVeryFarMeters = FEET_TO_METERS(kPULLocationTuningDistanceVeryFarFeet);
+const NSInteger kPULLocationTuningDistanceFarFeet = 2000;
+const NSInteger kPULLocationTuningDistanceFarMeters = FEET_TO_METERS(kPULLocationTuningDistanceFarFeet);
+const NSInteger kPULLocationTuningDistanceNearbyFeet = 250;
+const NSInteger kPULLocationTuningDistanceNearbyMeters = FEET_TO_METERS(kPULLocationTuningDistanceNearbyFeet);
 
-const double kPULDistanceAllowedAccuracy = 15;
+const NSInteger kPULLocationTuningIntervalVeryFar = 300;
+const NSInteger kPULLocationTuningIntervalFar = 90;
+const NSInteger kPULLocationTuningIntervalNearby = 60;
+const NSInteger kPULLocationTuningIntervalClose = 20;
+
+const double kPULDistanceAllowedAccuracy = 20;
 
 const NSInteger kPULPullLocalNotificationDelayMinutes = 5;
 
-#ifdef DEBUG
-const NSInteger kPULPollTimeActive = 2;//TODO:5;
-const NSInteger kPULPollTimePassive = 15;//TODO:30;
-const NSInteger kPULPollTimeBackground = 30;//TODO:120;
-#else
-const NSInteger kPULPollTimeActive = 5;
-const NSInteger kPULPollTimePassive = 30;
+const NSInteger kPULPollTimeActive = 10;
+const NSInteger kPULPollTimePassive = 60;
 const NSInteger kPULPollTimeBackground = 120;
-#endif
-
-// location tracking
-const NSInteger kLocationForegroundDistanceFilter = 1;//20;    // meters
-const NSInteger kLocationBackgroundDistanceFilter = 4;//30;
-
 
 NSString * const kPULPushFormattedMessageSendPull = @"%@ has sent you a pull!";
 NSString * const kPULPushFormattedMessageAcceptPull = @"%@ has accepted your pull!";

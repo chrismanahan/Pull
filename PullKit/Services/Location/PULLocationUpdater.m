@@ -219,48 +219,52 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     PULUser *acct = [PULUser currentUser];
     // determine which tracking mode to use based on current motion type
     // and state of pulls
-    int trackingMode = 90;
+    NSInteger updateInterval = kPULLocationTuningIntervalVeryFar;
     BOOL keepTuning = YES;
     BOOL foreground = acct.isInForeground;
     BOOL hasActivePull = NO;
     BOOL getImmediateUpdate = NO;
     
     // check if we're in the foreground or anyone we're pulled with is in the foreground
-    if (keepTuning)
+    for (PULPull *pull in [_parse.cache cachedPulls])
     {
-        for (PULPull *pull in [_parse.cache cachedPulls])
+        if (pull.status == PULPullStatusPulled)
         {
-            if (pull.status == PULPullStatusPulled)
+            hasActivePull = YES;
+            if ([pull otherUser].isInForeground)
             {
-                hasActivePull = YES;
-                if ([pull otherUser].isInForeground)
-                {
-                    getImmediateUpdate = !acct.isInForeground;
-                    foreground = YES;
-                }
+                getImmediateUpdate = !acct.isInForeground;
+                foreground = YES;
             }
-        }
-        
-        // if no one's in the foreground, use low tracking
-        if (!foreground)
-        {
-            trackingMode = hasActivePull ? 60 : 300;
-            keepTuning = NO;
         }
     }
     
+    // if no one's in the foreground, use low tracking
+    if (!hasActivePull)
+    {
+        updateInterval = kPULLocationTuningIntervalVeryFar;
+        keepTuning = NO;
+    }
+    
+    
     // if we have a pull, get setting type for the nearest one
-    if (keepTuning && hasActivePull)
+    if (keepTuning)
     {
         PULPull *nearestPull = [_parse.cache nearestPull];
-        trackingMode = [self _settingTypeForPull:nearestPull];
+        updateInterval = [self _intervalForPull:nearestPull];
+        
+        // if no one's in the foreground, don't use close interval
+        if (!foreground && updateInterval == kPULLocationTuningIntervalClose)
+        {
+            updateInterval = kPULLocationTuningIntervalNearby;
+        }
     }
     
     // restart location tracking with new mode
-    if (trackingMode != _currentTrackingMode)
+    if (updateInterval != _currentTrackingMode)
     {
-        PULLog(@"changing tracking mode to %ld", (long)trackingMode);
-        [self restartUpdatingLocationWithMode:trackingMode];
+        PULLog(@"changing tracking mode to %ld", (long)updateInterval);
+        [self restartUpdatingLocationWithMode:updateInterval];
     }
 }
 
@@ -306,36 +310,36 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     }
 }
 
-- (int)_settingTypeForDistance:(CLLocationDistance)distance
+- (NSInteger)_intervalForDistance:(CLLocationDistance)distance
 {
-    int settingType;
+    NSInteger interval;
     
-    if (distance > kPULLocationTuningDistanceLowMeters)
+    if (distance > kPULLocationTuningDistanceVeryFarMeters)
     {
-        settingType = 90;
+        interval = kPULLocationTuningIntervalVeryFar;
     }
-    else if (distance > kPULLocationTuningDistanceAutoMeters)
+    else if (distance > kPULLocationTuningDistanceFarMeters)
     {
-        settingType = 60;
+        interval = kPULLocationTuningIntervalFar;
     }
-    else if (distance > kPULLocationTuningDistanceMediumMeters)
+    else if (distance > kPULLocationTuningDistanceNearbyMeters)
     {
-        settingType = 45;
+        interval = kPULLocationTuningIntervalNearby;
     }
     else
     {
-        settingType = 10;
+        interval = kPULLocationTuningIntervalClose;
     }
     
-    return settingType;
+    return interval;
 }
 
-- (int)_settingTypeForPull:(PULPull*)pull
+- (NSInteger)_intervalForPull:(PULPull*)pull
 {
     // distance between us and user of nearest pull
     PULUser *otherUser = [pull otherUser];
     CGFloat distance = [[PULUser currentUser] distanceFromUser:otherUser];
-    return [self _settingTypeForDistance:distance];
+    return [self _intervalForDistance:distance];
     
 }
 

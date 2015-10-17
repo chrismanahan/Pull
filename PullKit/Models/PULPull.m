@@ -146,7 +146,7 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
     NSInteger distance = [self.sendingUser distanceFromUser:self.receivingUser];
     
     // neither user has moved since their last update and they're relatively close
-    BOOL closeEnough = self.together;// || [self _isAlmostHere];
+    BOOL closeEnough = self.together || [self _isAlmostHere];
     // TODO: add back in an implemenation of determine if the user hasn't moved since the last update
 //    BOOL noMovement = ((!_receivingUser.hasMovedSinceLastLocationUpdate && !_sendingUser.hasMovedSinceLastLocationUpdate) && closeEnough);
     
@@ -209,8 +209,7 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
 {
     PULUser *thisUser = [PULUser currentUser];
     PULUser *otherUser = [self otherUser];
-    return [thisUser distanceFromUser:otherUser] <= kPULDistanceAlmostHereMeter &&
-            [thisUser distanceFromUser:otherUser] > kPULDistanceHereMeters;
+    return [thisUser distanceFromUser:otherUser] <= kPULDistanceAlmostHereMeter;
 }
 
 - (BOOL)_isHere

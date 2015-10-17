@@ -63,7 +63,7 @@
     [super viewWillAppear:animated];
     
     BOOL redeemed = [[NSUserDefaults standardUserDefaults] boolForKey:@"RedeemedInvite"];
-    _inviteWallScrollView.hidden = redeemed;
+    _inviteWallScrollView.hidden = YES;// redeemed;
 }
 
 - (void)viewDidAppear:(BOOL)animated

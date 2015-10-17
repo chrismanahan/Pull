@@ -28,7 +28,13 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
 
-@property (nonatomic) NSTimer* locationUpdateTimer;
+@property (nonatomic, strong) NSTimer* locationTrackingUpdateTimer;
+
+@property (nonatomic, strong) CLLocation *currentLocation;
+@property (nonatomic) PKMotionType currentMotionType;
+@property (nonatomic) PKPositionType currentPositionType;
+@property (nonatomic) BOOL locationDirty;
+@property (nonatomic, strong) NSTimer *locationSaveTimer;
 
 //@property (nonatomic, strong) MMWormhole *wormhole;
 
@@ -64,11 +70,17 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         //                                                         optionalDirectory:@"wormhole"];
         
         
-        _locationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:5
+        _locationTrackingUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:5
                                                                 target:self
-                                                              selector:@selector(_updateTrackingMode)
+                                                              selector:@selector(_updateTrackingInterval)
                                                               userInfo:nil
                                                                repeats:YES];
+        
+        _locationSaveTimer = [NSTimer scheduledTimerWithTimeInterval:3
+                                                              target:self
+                                                            selector:@selector(_saveCurrentLocation)
+                                                            userInfo:nil
+                                                             repeats:YES];
         
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
                                                           object:nil
@@ -214,7 +226,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 }
 
 #pragma mark - Private
-- (void)_updateTrackingMode
+- (void)_updateTrackingInterval
 {
     PULUser *acct = [PULUser currentUser];
     // determine which tracking mode to use based on current motion type
@@ -268,11 +280,26 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     }
 }
 
-- (void)_updateToLocation:(nullable CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
+- (void)_updateToLocation:(CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
 {
-    // save new location
-    [self _saveNewLocation:location position:positionType motion:motionType];
+    if (location.coordinate.latitude != _currentLocation.coordinate.latitude ||
+        location.coordinate.longitude != _currentLocation.coordinate.longitude ||
+        positionType != _currentPositionType || motionType != _currentMotionType)
+    {
+        _locationDirty = YES;
+        _currentLocation = location;
+        _currentMotionType = motionType;
+        _currentPositionType = positionType;
+    }
+}
 
+- (void)_saveCurrentLocation
+{
+    if (_locationDirty)
+    {
+        [self _saveNewLocation:_currentLocation position:_currentPositionType motion:_currentMotionType];
+         _locationDirty = NO;
+    }
 }
 
 - (void)_saveNewLocation:(CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
@@ -294,9 +321,21 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         CGFloat acctLon = round(100000 * acct.location.coordinate.longitude) / 100000;
         
         hasDifferentLoc = (newLat != acctLat || newLon != acctLon);
+        
+        if (hasDifferentLoc)
+        {
+            // check if this really is different
+            // if new accuracy is worse than previous accuracy and motion type is still,
+            // set that we don't have a differen location
+            if (location.horizontalAccuracy > acct.location.accuracy &&
+                motionType == pkNotMoving)
+            {
+                hasDifferentLoc = NO;
+            }
+        }
     }
     
-    if (hasDifferentLoc || location.horizontalAccuracy < acct.location.accuracy || numUpdates++ < 3)
+    if (hasDifferentLoc || location.horizontalAccuracy < acct.location.accuracy || numUpdates++ < 1)
     {
         // save new location if coords are different or if the accuracy has improved
             PULLog(@"\tsaving new location: (%.5f, %.5f)", location.coordinate.latitude, location.coordinate.longitude);

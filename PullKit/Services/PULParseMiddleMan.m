@@ -311,10 +311,6 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     
 }
 
-// TODO: refactor caches into their own class
-#pragma mark - Cache
-
-
 #pragma mark - Location
 - (void)updateLocation:(CLLocation*)location movementType:(PKMotionType)moveType positionType:(PKPositionType)posType
 {
@@ -363,9 +359,27 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     
 //    [self stopObservingChangesInLocationForUser:user];
     
-    _locationTimers[user.username] = @{@"timer": timer,
+    if (![self _timerExistsForUser:user target:target selector:selector])
+    {
+        [self stopObservingChangesInLocationForUser:user];
+        _locationTimers[user.username] = @{@"timer": timer,
                                        @"target": target,
                                        @"selector": [NSValue valueWithPointer:selector]};
+    }
+}
+
+- (BOOL)_timerExistsForUser:(PULUser*)user target:(id)target selector:(SEL)selector
+{
+    if (_locationTimers[user.username])
+    {
+        NSDictionary *dict = _locationTimers[user.username];
+        id oldTarget = dict[@"target"];
+        SEL oldSelector = [dict[@"selector"] pointerValue];
+        
+        return ([oldTarget isEqual:target] && [NSStringFromSelector(oldSelector) isEqualToString:NSStringFromSelector(selector)]);
+    }
+    
+    return NO;
 }
 
 - (void)stopObservingChangesInLocationForUser:(PULUser*)user
@@ -532,7 +546,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     [self _runBlockInBackground:^{
         PULUser *user = [timer userInfo];
         
-        [user fetch];
+        [user fetchIfNeeded];
         [user.location fetch];
         
         NSString *key = user.username;
@@ -554,6 +568,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
         return;
     }
     [self _runBlockInBackground:^{
+        // timer observing pulls
         if ([timer isEqual:_observerTimerPulls])
         {
             // refresh pulls
@@ -568,6 +583,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 //                //TODO: go through each pull and see if we have a nearby flag that we need to notify the user about
 //            } ignoreCache:YES];
         }
+        // timer observing locations of pulled friends
         else if ([timer isEqual:_observerTimerLocations])
         {
             // refresh locations

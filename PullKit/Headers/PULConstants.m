@@ -50,16 +50,16 @@ const NSInteger kPULLocationTuningDistanceNearbyFeet = 250;
 const NSInteger kPULLocationTuningDistanceNearbyMeters = FEET_TO_METERS(kPULLocationTuningDistanceNearbyFeet);
 
 const NSInteger kPULLocationTuningIntervalVeryFar = 300;
-const NSInteger kPULLocationTuningIntervalFar = 90;
-const NSInteger kPULLocationTuningIntervalNearby = 60;
-const NSInteger kPULLocationTuningIntervalClose = 20;
+const NSInteger kPULLocationTuningIntervalFar = 65;
+const NSInteger kPULLocationTuningIntervalNearby = 25;
+const NSInteger kPULLocationTuningIntervalClose = 10;
 
-const double kPULDistanceAllowedAccuracy = 20;
+const double kPULDistanceAllowedAccuracy = 25;
 const double kPULDistanceMaxDistanceForAccuracyReading = FEET_TO_METERS(5000);
 
 const NSInteger kPULPullLocalNotificationDelayMinutes = 5;
 
-const NSInteger kPULPollTimeActive = 10;
+const NSInteger kPULPollTimeActive = 11;
 const NSInteger kPULPollTimePassive = 60;
 const NSInteger kPULPollTimeBackground = 120;
 

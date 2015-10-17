@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,17 +13,14 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pull_logo_splash.png" translatesAutoresizingMaskIntoConstraints="NO" id="Gk5-zY-Sek">
                     <rect key="frame" x="78" y="131" width="165" height="238"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smile_buddies.png" translatesAutoresizingMaskIntoConstraints="NO" id="Tah-v4-1XE">
-                    <rect key="frame" x="122" y="399" width="77" height="86"/>
+                    <animations/>
                 </imageView>
             </subviews>
+            <animations/>
             <color key="backgroundColor" red="0.36078431370000003" green="0.090196078430000007" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="Gk5-zY-Sek" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="6fk-qk-moj"/>
                 <constraint firstItem="Gk5-zY-Sek" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-34" id="U64-pf-5tm"/>
-                <constraint firstItem="Tah-v4-1XE" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="v9v-7c-bta"/>
-                <constraint firstItem="Tah-v4-1XE" firstAttribute="top" secondItem="Gk5-zY-Sek" secondAttribute="bottom" constant="30" id="wJa-xx-19p"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -32,6 +29,5 @@
     </objects>
     <resources>
         <image name="pull_logo_splash.png" width="165" height="238"/>
-        <image name="smile_buddies.png" width="77" height="86"/>
     </resources>
 </document>

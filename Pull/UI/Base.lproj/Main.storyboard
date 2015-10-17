@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -36,14 +36,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="intro_one.png" translatesAutoresizingMaskIntoConstraints="NO" id="c0J-6L-Xsa">
-                                                <rect key="frame" x="8" y="60" width="584" height="349"/>
+                                                <rect key="frame" x="8" y="84" width="584" height="325"/>
                                                 <animations/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Easily navigate to friends within 1000 ft with a simple compass" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xa2-tt-JKG">
-                                                <rect key="frame" x="8" y="28" width="584" height="24"/>
+                                                <rect key="frame" x="8" y="28" width="584" height="48"/>
                                                 <animations/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                                <color key="textColor" red="0.45098039215686275" green="0.41960784313725491" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                                <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By continuing, you agree to our Terms of Service and Privacy Policy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEe-Lp-bfv">
@@ -52,8 +52,8 @@
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <pageControl opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="758" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Drx-Fa-ISs">
-                                                <rect key="frame" x="273" y="410" width="55" height="37"/>
+                                            <pageControl opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="758" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Drx-Fa-ISs">
+                                                <rect key="frame" x="281" y="410" width="39" height="37"/>
                                                 <animations/>
                                                 <color key="pageIndicatorTintColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="currentPageIndicatorTintColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -108,7 +108,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You set how long you want to share your location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzC-id-Xjj">
                                                 <rect key="frame" x="8" y="28" width="584" height="28"/>
                                                 <animations/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                 <color key="textColor" red="0.45098039220000002" green="0.41960784309999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -132,10 +132,10 @@
                                                 <rect key="frame" x="8" y="64" width="584" height="345"/>
                                                 <animations/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Receive notifications whenever a friend arrives &amp; leaves." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bly-97-AlW">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Receive notifications whenever a friend arrives &amp; leaves" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bly-97-AlW">
                                                 <rect key="frame" x="8" y="28" width="584" height="28"/>
                                                 <animations/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                 <color key="textColor" red="0.45098039220000002" green="0.41960784309999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -255,6 +255,7 @@
                                                         </connections>
                                                     </textField>
                                                 </subviews>
+                                                <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="e2D-zW-1Og" firstAttribute="leading" secondItem="SIH-6f-Zn1" secondAttribute="trailing" constant="8" id="OqX-bW-gp4"/>
@@ -359,6 +360,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="ReS-Td-RLX" secondAttribute="bottom" id="G20-Dn-vus"/>
@@ -555,15 +557,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="753" text="To use Pull, we need permission to access your location when you are using the app and when it is in the background" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwX-bG-X8X">
-                                <rect key="frame" x="20" y="28" width="560" height="86"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" image="permission_request_location.png" translatesAutoresizingMaskIntoConstraints="NO" id="ObC-tM-Nzh">
-                                <rect key="frame" x="20" y="29" width="560" height="444"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="750" image="permission_request_location.png" translatesAutoresizingMaskIntoConstraints="NO" id="ObC-tM-Nzh">
+                                <rect key="frame" x="20" y="61" width="560" height="338"/>
                                 <animations/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Iy-1A-Nkq">
@@ -581,20 +576,29 @@
                                     <action selector="ibNext:" destination="Gdj-3V-1ED" eventType="touchUpInside" id="gM7-0i-MkP"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pull requires your location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="Oq8-7Z-OwL">
+                                <rect key="frame" x="126" y="407" width="349" height="127"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
+                                <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9Iy-1A-Nkq" firstAttribute="leading" secondItem="2a7-Ng-Keo" secondAttribute="leading" id="1vx-Hs-sI0"/>
+                            <constraint firstItem="Oq8-7Z-OwL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2a7-Ng-Keo" secondAttribute="leadingMargin" constant="8" id="A5L-zB-4Cf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ObC-tM-Nzh" secondAttribute="trailing" id="EdB-GW-KP1"/>
-                            <constraint firstAttribute="centerY" secondItem="ObC-tM-Nzh" secondAttribute="centerY" constant="50" id="RuA-OX-0Eb"/>
-                            <constraint firstItem="jwX-bG-X8X" firstAttribute="leading" secondItem="2a7-Ng-Keo" secondAttribute="leadingMargin" id="Szy-4j-VmU"/>
+                            <constraint firstItem="Oq8-7Z-OwL" firstAttribute="centerX" secondItem="ObC-tM-Nzh" secondAttribute="centerX" id="Mzl-fW-tVe"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Oq8-7Z-OwL" secondAttribute="trailing" constant="8" id="NIw-xN-NL7"/>
+                            <constraint firstItem="9Iy-1A-Nkq" firstAttribute="top" secondItem="Oq8-7Z-OwL" secondAttribute="bottom" constant="16" id="OV1-3i-TXH"/>
+                            <constraint firstAttribute="centerY" secondItem="ObC-tM-Nzh" secondAttribute="centerY" constant="70" id="RuA-OX-0Eb"/>
                             <constraint firstItem="9Iy-1A-Nkq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ObC-tM-Nzh" secondAttribute="bottom" constant="8" id="TMq-M6-FDl"/>
-                            <constraint firstItem="jwX-bG-X8X" firstAttribute="trailing" secondItem="2a7-Ng-Keo" secondAttribute="trailingMargin" id="Xrx-lu-AnQ"/>
                             <constraint firstItem="ObC-tM-Nzh" firstAttribute="leading" secondItem="2a7-Ng-Keo" secondAttribute="leadingMargin" id="Ycc-gE-6e8"/>
                             <constraint firstAttribute="trailing" secondItem="9Iy-1A-Nkq" secondAttribute="trailing" id="dZH-ms-hXb"/>
+                            <constraint firstItem="Oq8-7Z-OwL" firstAttribute="top" secondItem="ObC-tM-Nzh" secondAttribute="bottom" constant="8" id="eSY-2d-L51"/>
                             <constraint firstItem="ObC-tM-Nzh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="GUu-K3-AOf" secondAttribute="bottom" constant="8" id="ieO-H3-lIM"/>
-                            <constraint firstItem="jwX-bG-X8X" firstAttribute="top" secondItem="GUu-K3-AOf" secondAttribute="bottom" constant="8" id="jef-N8-hea"/>
                             <constraint firstItem="ojv-09-uum" firstAttribute="top" secondItem="9Iy-1A-Nkq" secondAttribute="bottom" id="nnE-7z-uqY"/>
                         </constraints>
                     </view>
@@ -615,15 +619,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We also need to be able to send you push notifications when a friend wants to pull you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQY-fl-Uz4">
-                                <rect key="frame" x="20" y="28" width="560" height="58"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" image="permission_request_notification.png" translatesAutoresizingMaskIntoConstraints="NO" id="qQy-Kj-KHv">
-                                <rect key="frame" x="20" y="28" width="560" height="444"/>
+                                <rect key="frame" x="20" y="28" width="560" height="404"/>
                                 <animations/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AP9-Je-beb">
@@ -641,21 +638,30 @@
                                     <action selector="ibNext:" destination="L3Y-xa-3UU" eventType="touchUpInside" id="pjh-vf-YiB"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pull recommends push notifications" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="O5C-WH-dlm">
+                                <rect key="frame" x="126" y="480" width="349" height="54"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
+                                <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EQY-fl-Uz4" firstAttribute="top" secondItem="E6J-6l-TH1" secondAttribute="bottom" constant="8" id="0pa-vO-89Y"/>
+                            <constraint firstItem="O5C-WH-dlm" firstAttribute="centerX" secondItem="qQy-Kj-KHv" secondAttribute="centerX" id="Aa2-iq-mxO"/>
                             <constraint firstItem="qQy-Kj-KHv" firstAttribute="leading" secondItem="Hj4-P1-beH" secondAttribute="leadingMargin" id="B3F-uR-aLz"/>
+                            <constraint firstItem="O5C-WH-dlm" firstAttribute="top" secondItem="qQy-Kj-KHv" secondAttribute="bottom" id="H0A-S6-8b8"/>
                             <constraint firstItem="AP9-Je-beb" firstAttribute="leading" secondItem="Hj4-P1-beH" secondAttribute="leading" id="MiF-sP-oLy"/>
                             <constraint firstItem="AP9-Je-beb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qQy-Kj-KHv" secondAttribute="bottom" constant="8" id="OXy-Sc-ggW"/>
-                            <constraint firstAttribute="centerY" secondItem="qQy-Kj-KHv" secondAttribute="centerY" constant="50" id="PDy-pb-8Jh"/>
-                            <constraint firstItem="EQY-fl-Uz4" firstAttribute="trailing" secondItem="Hj4-P1-beH" secondAttribute="trailingMargin" id="UmH-FX-Lke"/>
-                            <constraint firstItem="EQY-fl-Uz4" firstAttribute="leading" secondItem="Hj4-P1-beH" secondAttribute="leadingMargin" id="Zay-TW-U7V"/>
+                            <constraint firstAttribute="centerY" secondItem="qQy-Kj-KHv" secondAttribute="centerY" constant="70" id="PDy-pb-8Jh"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="O5C-WH-dlm" secondAttribute="trailing" constant="8" id="VU0-UM-tlD"/>
                             <constraint firstItem="qQy-Kj-KHv" firstAttribute="top" secondItem="E6J-6l-TH1" secondAttribute="bottom" constant="8" id="d7Z-Wj-PtJ"/>
                             <constraint firstItem="WpK-JG-EEp" firstAttribute="top" secondItem="AP9-Je-beb" secondAttribute="bottom" id="dqs-5x-Uw1"/>
                             <constraint firstItem="qQy-Kj-KHv" firstAttribute="trailing" secondItem="Hj4-P1-beH" secondAttribute="trailingMargin" id="iXn-Ug-CfQ"/>
+                            <constraint firstItem="O5C-WH-dlm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hj4-P1-beH" secondAttribute="leadingMargin" constant="8" id="mSN-cL-ulA"/>
                             <constraint firstAttribute="trailing" secondItem="AP9-Je-beb" secondAttribute="trailing" id="oJj-kj-QW4"/>
+                            <constraint firstItem="AP9-Je-beb" firstAttribute="top" secondItem="O5C-WH-dlm" secondAttribute="bottom" constant="16" id="yib-bF-EPP"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -738,14 +744,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="0 ft" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7c-j8-VHH">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" text="0 ft" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7c-j8-VHH">
                                 <rect key="frame" x="285" y="112" width="31" height="26"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
                                 <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uwd-8l-A5U" customClass="PULCompassView">
+                            <view contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uwd-8l-A5U" customClass="PULCompassView">
                                 <rect key="frame" x="186" y="154" width="228" height="228"/>
                                 <subviews>
                                     <view contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="660-e9-Q0d">
@@ -826,7 +832,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lisa has request a 12 hour pull with you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="WlA-iR-Ztv">
                                         <rect key="frame" x="8" y="8" width="584" height="39"/>
                                         <animations/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
                                         <color key="textColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -834,7 +840,7 @@
                                         <rect key="frame" x="60" y="59" width="210" height="45"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.2640422080098922" green="0.093793317623897685" blue="0.7155342487373737" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                         <state key="normal" title="Accept">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" red="0.36901407371599482" green="0.13108152096060344" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -847,7 +853,7 @@
                                         <rect key="frame" x="320" y="59" width="210" height="45"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.2640422080098922" green="0.093793317623897685" blue="0.7155342487373737" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                         <state key="normal" title="Decline">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" red="0.36901407371599482" green="0.13108152096060344" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -860,7 +866,7 @@
                                         <rect key="frame" x="165" y="59" width="260" height="45"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.2640422080098922" green="0.093793317623897685" blue="0.7155342487373737" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" red="0.36901407371599482" green="0.13108152096060344" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1175,7 +1181,7 @@
                                         <rect key="frame" x="0.0" y="73" width="600" height="72"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
                                         <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Contact" image="contact_white.png">
@@ -1190,7 +1196,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="72"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
                                         <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="App Settings" image="app_settings_white.png">
@@ -1205,7 +1211,7 @@
                                         <rect key="frame" x="0.0" y="146" width="600" height="72"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.36862745099999999" green="0.13725490200000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
                                         <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Share" image="share_white.png">
@@ -2042,7 +2048,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Brandon Murin" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="gnG-J1-LXh" userLabel="Title label">
                                                     <rect key="frame" x="107" y="32" width="183" height="36"/>
                                                     <animations/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2358,7 +2364,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Brandon Murin" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yV7-uA-1Ya" userLabel="Title label">
                                                     <rect key="frame" x="107" y="32" width="183" height="36"/>
                                                     <animations/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -3140,14 +3146,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <image name="golden_ticket_small.png" width="35" height="32"/>
         <image name="home_white.png" width="51" height="47"/>
         <image name="info_dot.png" width="20" height="20"/>
-        <image name="intro_one.png" width="219" height="462"/>
-        <image name="intro_three.png" width="219" height="462"/>
-        <image name="intro_two.png" width="219" height="462"/>
+        <image name="intro_one.png" width="232" height="463"/>
+        <image name="intro_three.png" width="232" height="463"/>
+        <image name="intro_two.png" width="232" height="463"/>
         <image name="more_pull_left.png" width="38" height="38"/>
         <image name="more_pull_right.png" width="38" height="37"/>
         <image name="new_pull.png" width="30" height="30"/>
-        <image name="permission_request_location.png" width="442" height="444"/>
-        <image name="permission_request_notification.png" width="499" height="444"/>
+        <image name="permission_request_location.png" width="327" height="338"/>
+        <image name="permission_request_notification.png" width="327" height="338"/>
         <image name="request_notification.png" width="21" height="22"/>
         <image name="setting_white.png" width="50" height="52"/>
         <image name="settings_purple.png" width="32" height="32"/>

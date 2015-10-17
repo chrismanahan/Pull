@@ -98,7 +98,7 @@
     [self _useCompass:NO];
     _overlayImageView.hidden = YES;
     _imageView.backgroundColor = [UIColor whiteColor];
-    _imageView.image = [UIImage imageNamed:@"smiley_sad_with_background"];
+    _imageView.image = [UIImage imageNamed:@"location_disabled"];
 }
 
 - (void)showBusy:(BOOL)busy;

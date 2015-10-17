@@ -40,7 +40,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 @property (nonatomic, strong) PULParseMiddleMan *parse;
 
-@property (nonatomic, assign) int currentTrackingMode;
+@property (nonatomic, assign) NSInteger currentTrackingMode;
 
 @end
 
@@ -147,10 +147,10 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     [parkour setInterval:mode];
 }
 
-- (void)restartUpdatingLocationWithMode:(int)mode
+- (void)restartUpdatingLocationWithMode:(NSInteger)mode
 {
     _currentTrackingMode = mode;
-    [parkour setInterval:mode];
+    [parkour setInterval:(int)mode];
 //    [self stopUpdatingLocation];
 //    [self startUpdatingLocationWithMode:mode];
 }
@@ -235,7 +235,17 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     BOOL keepTuning = YES;
     BOOL foreground = acct.isInForeground;
     BOOL hasActivePull = NO;
-    BOOL getImmediateUpdate = NO;
+    
+    // check if the user has killed the app
+    if (acct.killed)
+    {
+        // return with lowest update
+        if (_currentTrackingMode != updateInterval)
+        {
+            [self restartUpdatingLocationWithMode:updateInterval];
+            return;
+        }
+    }
     
     // check if we're in the foreground or anyone we're pulled with is in the foreground
     for (PULPull *pull in [_parse.cache cachedPulls])
@@ -245,7 +255,6 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
             hasActivePull = YES;
             if ([pull otherUser].isInForeground)
             {
-                getImmediateUpdate = !acct.isInForeground;
                 foreground = YES;
             }
         }

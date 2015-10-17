@@ -12,8 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern const CGFloat kPULCompassSmileyWinkDuration;
-
 @interface PULCompassView : UIView
 
 @property (nonatomic, strong, readonly) PULPull *pull;

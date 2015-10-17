@@ -180,9 +180,9 @@ static char UIScrollViewPullToRefreshView;
         self.showsDateLabel = NO;
         
         self.titles = [NSMutableArray arrayWithObjects:NSLocalizedString(@"Pull to refresh...",),
-                             NSLocalizedString(@"Release to refresh...",),
-                             NSLocalizedString(@"Loading...",),
-                                nil];
+                       NSLocalizedString(@"Release to refresh...",),
+                       NSLocalizedString(@"Loading...",),
+                       nil];
         
         self.subtitles = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", nil];
         self.viewForState = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", nil];
@@ -232,7 +232,7 @@ static char UIScrollViewPullToRefreshView;
         switch (self.state) {
             case SVPullToRefreshStateAll:
             case SVPullToRefreshStateStopped:
-//                self.arrow.alpha = 1;
+                //                self.arrow.alpha = 1;
                 [_overlayImageView stopAnimating];
                 _overlayImageView.hidden = YES;
                 switch (self.position) {
@@ -302,9 +302,9 @@ static char UIScrollViewPullToRefreshView;
         
         CGFloat totalMaxWidth;
         if (maxLabelWidth) {
-        	totalMaxWidth = leftViewWidth + margin + maxLabelWidth;
+            totalMaxWidth = leftViewWidth + margin + maxLabelWidth;
         } else {
-        	totalMaxWidth = leftViewWidth + maxLabelWidth;
+            totalMaxWidth = leftViewWidth + maxLabelWidth;
         }
         
         CGFloat labelX = (self.bounds.size.width / 2) - (totalMaxWidth / 2) + leftViewWidth + margin;
@@ -396,7 +396,7 @@ static char UIScrollViewPullToRefreshView;
     }
     else if([keyPath isEqualToString:@"frame"])
         [self layoutSubviews];
-
+    
 }
 
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {
@@ -451,9 +451,9 @@ static char UIScrollViewPullToRefreshView;
 
 - (SVPullToRefreshArrow *)arrow {
     if(!_arrow) {
-		_arrow = [[SVPullToRefreshArrow alloc]initWithFrame:CGRectMake(0, self.bounds.size.height-54, 22, 48)];
+        _arrow = [[SVPullToRefreshArrow alloc]initWithFrame:CGRectMake(0, self.bounds.size.height-54, 22, 48)];
         _arrow.backgroundColor = [UIColor clearColor];
-		[self addSubview:_arrow];
+        [self addSubview:_arrow];
     }
     return _arrow;
 }
@@ -463,11 +463,11 @@ static char UIScrollViewPullToRefreshView;
         
         _overlayImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
         _overlayImageView.animationImages = @[[UIImage imageNamed:@"friends_loading"],
-                               [UIImage imageNamed:@"friends_loading2"],
-                               [UIImage imageNamed:@"friends_loading3"],
-                               [UIImage imageNamed:@"friends_loading4"]];
+                                              [UIImage imageNamed:@"friends_loading2"],
+                                              [UIImage imageNamed:@"friends_loading3"],
+                                              [UIImage imageNamed:@"friends_loading4"]];
         _overlayImageView.animationDuration = 0.5;
-
+        
         [self addSubview:_overlayImageView];
     }
     return _overlayImageView;
@@ -503,15 +503,15 @@ static char UIScrollViewPullToRefreshView;
 - (NSDateFormatter *)dateFormatter {
     if(!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
-		[dateFormatter setDateStyle:NSDateFormatterShortStyle];
-		[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-		dateFormatter.locale = [NSLocale currentLocale];
+        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        dateFormatter.locale = [NSLocale currentLocale];
     }
     return dateFormatter;
 }
 
 - (UIColor *)arrowColor {
-	return self.arrow.arrowColor; // pass through
+    return self.arrow.arrowColor; // pass through
 }
 
 - (UIColor *)textColor {
@@ -521,8 +521,8 @@ static char UIScrollViewPullToRefreshView;
 #pragma mark - Setters
 
 - (void)setArrowColor:(UIColor *)newArrowColor {
-	self.arrow.arrowColor = newArrowColor; // pass through
-	[self.arrow setNeedsDisplay];
+    self.arrow.arrowColor = newArrowColor; // pass through
+    [self.arrow setNeedsDisplay];
 }
 
 - (void)setTitle:(NSString *)title forState:(SVPullToRefreshState)state {
@@ -566,7 +566,7 @@ static char UIScrollViewPullToRefreshView;
 - (void)setTextColor:(UIColor *)newTextColor {
     textColor = newTextColor;
     self.titleLabel.textColor = newTextColor;
-	self.subtitleLabel.textColor = newTextColor;
+    self.subtitleLabel.textColor = newTextColor;
 }
 
 - (void)setLastUpdatedDate:(NSDate *)newLastUpdatedDate {
@@ -575,7 +575,7 @@ static char UIScrollViewPullToRefreshView;
 }
 
 - (void)setDateFormatter:(NSDateFormatter *)newDateFormatter {
-	dateFormatter = newDateFormatter;
+    dateFormatter = newDateFormatter;
     self.dateLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Last Updated: %@",), self.lastUpdatedDate?[newDateFormatter stringFromDate:self.lastUpdatedDate]:NSLocalizedString(@"Never",)];
 }
 
@@ -674,36 +674,36 @@ static char UIScrollViewPullToRefreshView;
 @synthesize arrowColor;
 
 - (UIColor *)arrowColor {
-	if (arrowColor) return arrowColor;
-	return [UIColor grayColor]; // default Color
+    if (arrowColor) return arrowColor;
+    return [UIColor grayColor]; // default Color
 }
 
 - (void)drawRect:(CGRect)rect {
-	CGContextRef c = UIGraphicsGetCurrentContext();
-	
-	// the rects above the arrow
-	CGContextAddRect(c, CGRectMake(5, 0, 12, 4)); // to-do: use dynamic points
-	CGContextAddRect(c, CGRectMake(5, 6, 12, 4)); // currently fixed size: 22 x 48pt
-	CGContextAddRect(c, CGRectMake(5, 12, 12, 4));
-	CGContextAddRect(c, CGRectMake(5, 18, 12, 4));
-	CGContextAddRect(c, CGRectMake(5, 24, 12, 4));
-	CGContextAddRect(c, CGRectMake(5, 30, 12, 4));
-	
-	// the arrow
-	CGContextMoveToPoint(c, 0, 34);
-	CGContextAddLineToPoint(c, 11, 48);
-	CGContextAddLineToPoint(c, 22, 34);
-	CGContextAddLineToPoint(c, 0, 34);
-	CGContextClosePath(c);
-	
-	CGContextSaveGState(c);
-	CGContextClip(c);
-	
-	// Gradient Declaration
-	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-	CGFloat alphaGradientLocations[] = {0, 0.8f};
+    CGContextRef c = UIGraphicsGetCurrentContext();
     
-	CGGradientRef alphaGradient = nil;
+    // the rects above the arrow
+    CGContextAddRect(c, CGRectMake(5, 0, 12, 4)); // to-do: use dynamic points
+    CGContextAddRect(c, CGRectMake(5, 6, 12, 4)); // currently fixed size: 22 x 48pt
+    CGContextAddRect(c, CGRectMake(5, 12, 12, 4));
+    CGContextAddRect(c, CGRectMake(5, 18, 12, 4));
+    CGContextAddRect(c, CGRectMake(5, 24, 12, 4));
+    CGContextAddRect(c, CGRectMake(5, 30, 12, 4));
+    
+    // the arrow
+    CGContextMoveToPoint(c, 0, 34);
+    CGContextAddLineToPoint(c, 11, 48);
+    CGContextAddLineToPoint(c, 22, 34);
+    CGContextAddLineToPoint(c, 0, 34);
+    CGContextClosePath(c);
+    
+    CGContextSaveGState(c);
+    CGContextClip(c);
+    
+    // Gradient Declaration
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGFloat alphaGradientLocations[] = {0, 0.8f};
+    
+    CGGradientRef alphaGradient = nil;
     if([[[UIDevice currentDevice] systemVersion]floatValue] >= 5){
         NSArray* alphaGradientColors = [NSArray arrayWithObjects:
                                         (id)[self.arrowColor colorWithAlphaComponent:0].CGColor,
@@ -732,13 +732,13 @@ static char UIScrollViewPullToRefreshView;
         colors[7] = 1;
         alphaGradient = CGGradientCreateWithColorComponents(colorSpace,colors,alphaGradientLocations,2);
     }
-	
-	
-	CGContextDrawLinearGradient(c, alphaGradient, CGPointZero, CGPointMake(0, rect.size.height), 0);
     
-	CGContextRestoreGState(c);
-	
-	CGGradientRelease(alphaGradient);
-	CGColorSpaceRelease(colorSpace);
+    
+    CGContextDrawLinearGradient(c, alphaGradient, CGPointZero, CGPointMake(0, rect.size.height), 0);
+    
+    CGContextRestoreGState(c);
+    
+    CGGradientRelease(alphaGradient);
+    CGColorSpaceRelease(colorSpace);
 }
 @end

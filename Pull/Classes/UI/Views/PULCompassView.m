@@ -14,8 +14,6 @@
 
 #import "NZCircularImageView.h"
 
-const CGFloat kPULCompassSmileyWinkDuration = 6;
-
 @interface PULCompassView ()
 
 @property (strong, nonatomic) IBOutlet NZCircularImageView *imageView;
@@ -154,19 +152,7 @@ const CGFloat kPULCompassSmileyWinkDuration = 6;
         [self _useCompass:NO];
         _overlayImageView.hidden = YES;
         _imageView.backgroundColor = [UIColor whiteColor];
-        
-        _imageView.animationImages = @[[UIImage imageNamed:@"smiley_smile_with_background"],
-                                       [UIImage imageNamed:@"smiley_wink_with_background"]];
-        _imageView.animationDuration = kPULCompassSmileyWinkDuration;
-        [_imageView startAnimating];
-    }
-    else
-    {
-        if (_imageView.isAnimating)
-        {
-            [_imageView stopAnimating];
-            _imageView.animationImages = nil;
-        }
+        _imageView.image = [UIImage imageNamed:@"empty_home_buddy"];
     }
 }
 

@@ -27,6 +27,7 @@
 #import "CALayer+Animations.h"
 
 #import "PULParseMiddleMan.h"
+#import "PULParseMiddleMan+Pulls.h"
 #import "PULLocationUpdater.h"
 #import "PULInviteService.h"
 
@@ -725,7 +726,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 }
 
 - (void)updateUI
-{
+{    
     if (!_displayedPull)
     {
         [self _showNoActivePulls:YES];

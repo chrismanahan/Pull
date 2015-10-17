@@ -12,7 +12,7 @@
 
 #import "PULUser.h"
 
-#import "PULParseMiddleMan.h"
+#import "PULParseMiddleMan+Pulls.h"
 
 #import "NZCircularImageView.h"
 

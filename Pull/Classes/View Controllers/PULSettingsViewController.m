@@ -10,7 +10,7 @@
 #import "PULLoginViewController.h"
 
 #import "PULLoadingIndicator.h"
-#import "PULParseMiddleMan.h"
+#import "PULParseMiddleMan+Pulls.h"
 #import "PULUser.h"
 #import "PULSlideUnwindSegue.h"
 #import "PULReverseModal.h"

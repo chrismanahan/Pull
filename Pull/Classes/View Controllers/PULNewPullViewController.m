@@ -15,8 +15,10 @@
 #import "PULParseMiddleMan+Pulls.h"
 
 #import "NZCircularImageView.h"
+#import "PULLoadingIndicator.h"
 
 #import "PULPullListViewController.h"
+
 
 @interface PULNewPullViewController () <UITextViewDelegate>
 
@@ -36,6 +38,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *sendInviteButton;
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (nonatomic, strong) PULLoadingIndicator *ai;
 
 @property (nonatomic) NSTimeInterval requestedDuration;
 
@@ -132,11 +136,13 @@
 - (IBAction)ibSendInvite:(id)sender
 {
     // send pull
-    // TODO: show loading indicator
+    _ai = [PULLoadingIndicator indicatorOnView:self.view];
+    [_ai show];
     [[PULParseMiddleMan sharedInstance] sendPullToUser:_user
                                               duration:_requestedDuration
                                             completion:^(BOOL success, NSError * _Nullable error) {
                                                 // dismiss vc
+                                                [_ai hide];
                                                 [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
                                             }];
     

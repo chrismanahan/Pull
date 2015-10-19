@@ -117,7 +117,9 @@
     // check if we need to notify the user of an update
     [PULUpdateChecker checkForUpdate];
     
-    [self startObservingBatteryLevel];
+    // TODO: battery level observing is a little buggy. had an issue where low batt was true in
+    // parse, but false locally, so it wouldn't save the false
+//    [self startObservingBatteryLevel];
     
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
@@ -239,6 +241,12 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
+    
+    // notify that we need to reload the UI if we're in the foreground
+    if (application.applicationState == UIApplicationStateActive)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DidReceivePush" object:nil];
+    }
 }
 
 @end

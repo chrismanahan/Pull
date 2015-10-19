@@ -139,22 +139,28 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
 - (BOOL)isAccurate;
 {
     PULUser *otherUser = [self otherUser];
-    // if someone's accuracy is low
-    BOOL accurate =  self.sendingUser.location.accuracy < kPULDistanceAllowedAccuracy &&
-                     self.receivingUser.location.accuracy < kPULDistanceAllowedAccuracy;
+    PULUser *user = [PULUser currentUser];
+    BOOL otherUserIndoors = otherUser.location.positionType == pkVerifiedIndoors;
+    BOOL thisUserIndoors = user.location.positionType == pkVerifiedIndoors;
+    BOOL someoneIndoors = otherUserIndoors || thisUserIndoors;
+    BOOL closeEnough = self.together || (!someoneIndoors && [self _isAlmostHere]);
+    BOOL accurate =  (self.sendingUser.location.accuracy <= kPULDistanceAllowedAccuracy &&
+                     self.receivingUser.location.accuracy <= kPULDistanceAllowedAccuracy) || closeEnough;
     
     NSInteger distance = [self.sendingUser distanceFromUser:self.receivingUser];
-    
-    // neither user has moved since their last update and they're relatively close
-    BOOL closeEnough = self.together || [self _isAlmostHere];
-    // TODO: add back in an implemenation of determine if the user hasn't moved since the last update
-//    BOOL noMovement = ((!_receivingUser.hasMovedSinceLastLocationUpdate && !_sendingUser.hasMovedSinceLastLocationUpdate) && closeEnough);
-    
-    accurate = (accurate || closeEnough);
+
     if (!accurate)
     {
         // if not accurate, we don't care if the distance is far enough
         accurate = distance > kPULDistanceMaxDistanceForAccuracyReading;
+        
+        // if still not accurate, check the distance compared to a rough sum of the accuracies
+        if (!accurate)
+        {
+            // sum of both accuracies
+            CGFloat accuracySum = (otherUser.location.accuracy * 1.5) + (user.location.accuracy * 1.5);
+            accurate = distance > accuracySum;
+        }
     }
     
     return  accurate &&

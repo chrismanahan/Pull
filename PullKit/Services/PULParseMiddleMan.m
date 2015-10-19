@@ -328,10 +328,9 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)stopObservingChangesInLocationForAllUsers
 {
-    for (NSDictionary *dict in _locationTimers)
+    for (NSString *username in _locationTimers)
     {
-        NSTimer *timer = dict[@"timer"];
-        [timer invalidate];
+        [((NSTimer*)_locationTimers[username][@"timer"]) invalidate];
     }
     [_locationTimers removeAllObjects];
 }
@@ -382,6 +381,14 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 #pragma mark - Private
 - (void)_tickActiveLocationTimer:(NSTimer*)timer
 {
+    // check if the app has been killed
+    if ([PULUser currentUser].killed || ![PULUser currentUser].isInForeground)
+    {
+        // stop the timer
+        [self stopObservingChangesInLocationForAllUsers];
+        return;
+    }
+    
     [self _runBlockInBackground:^{
         PULUser *user = [timer userInfo];
         
@@ -410,53 +417,63 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
         // timer observing pulls
         if ([timer isEqual:_observerTimerPulls])
         {
-            // refresh pulls
-            [PFObject fetchAll:[_cache cachedPulls]];
-            [_cache resetPullSorting];
-            [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
-                                                                object:nil];
-//            [self getPullsInBackground:^(NSArray<PULPull *> * _Nullable pulls, NSError * _Nullable error) {
-//                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
-//                                                                    object:nil];
-//                ;
-//                //TODO: go through each pull and see if we have a nearby flag that we need to notify the user about
-//            } ignoreCache:YES];
+            [self _observerTimerPullsTicked];
         }
         // timer observing locations of pulled friends
         else if ([timer isEqual:_observerTimerLocations])
         {
-            // refresh locations
-            NSArray *locations = [[_cache cachedPullsPulled]
-                                  linq_select:^id(PULPull *pull) {
-                                      return [pull otherUser].location;
-                                  }];
-            
-            if (locations.count > 0)
-            {
-                [PFObject fetchAll:locations];
-                [_cache resetPullSorting];
-//                [PFObject fetchAll:[_cache cacwhedFriendsPulled]];
-                
-                // go through each pull and check if we need to add nearby or together flag
-                for (PULPull *pull in [_cache cachedPullsPulled])
-                {
-                    BOOL wasNearby = pull.nearby;
-                    BOOL wasTogether = pull.together;
-                    [pull setDistanceFlags];
-                    
-                    BOOL dirty = wasNearby != pull.nearby || wasTogether != pull.together;
-                    
-                    if (dirty)
-                    {
-                        [pull saveEventually];
-                    }
-                }
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedLocationsNotification
-                                                                    object:nil];
-            }
+            [self _observerTimerLocationsTicked];
         }
     }];
+}
+
+- (void)_observerTimerLocationsTicked
+{
+    // refresh locations
+    NSArray *locations = [[_cache cachedPullsPulled]
+                          linq_select:^id(PULPull *pull) {
+                              return [pull otherUser].location;
+                          }];
+    
+    if (locations.count > 0)
+    {
+        [PFObject fetchAll:locations];
+        [_cache resetPullSorting];
+        //                [PFObject fetchAll:[_cache cacwhedFriendsPulled]];
+        
+        // go through each pull and check if we need to add nearby or together flag
+        for (PULPull *pull in [_cache cachedPullsPulled])
+        {
+            [self _updatePullDistanceFlags:pull];
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedLocationsNotification
+                                                            object:nil];
+    }
+}
+
+- (void)_observerTimerPullsTicked
+{
+    // refresh pulls
+    [PFObject fetchAll:[_cache cachedPulls]];
+    [_cache resetPullSorting];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PULParseObjectsUpdatedPullsNotification
+                                                        object:nil];
+
+}
+
+- (void)_updatePullDistanceFlags:(PULPull*)pull
+{
+    BOOL wasNearby = pull.nearby;
+    BOOL wasTogether = pull.together;
+    [pull setDistanceFlags];
+    
+    BOOL dirty = wasNearby != pull.nearby || wasTogether != pull.together;
+    
+    if (dirty)
+    {
+        [pull saveEventually];
+    }
 }
 
 #pragma mark Parsing Results

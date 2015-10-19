@@ -29,6 +29,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 @property (nonatomic, strong) CLLocationManager* locationManager;
 
 @property (nonatomic, strong) NSTimer* locationTrackingUpdateTimer;
+@property (nonatomic, strong) NSTimer* parkourPingTimer;
 
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic) PKMotionType currentMotionType;
@@ -76,7 +77,13 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
                                                               userInfo:nil
                                                                repeats:YES];
         
-        _locationSaveTimer = [NSTimer scheduledTimerWithTimeInterval:3
+        _parkourPingTimer = [NSTimer scheduledTimerWithTimeInterval:120
+                                         target:self
+                                       selector:@selector(pingParkour)
+                                       userInfo:nil
+                                        repeats:YES];
+        
+        _locationSaveTimer = [NSTimer scheduledTimerWithTimeInterval:6
                                                               target:self
                                                             selector:@selector(_saveCurrentLocation)
                                                             userInfo:nil
@@ -96,9 +103,10 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
                                                           [_locationManager startUpdatingHeading];
                                                       }];
     }
-    
+
     return self;
 }
+
 
 #pragma mark - Public
 - (BOOL)hasPermission
@@ -127,10 +135,10 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 -(void)startUpdatingLocation;
 {
     [parkour start];
-    [self startUpdatingLocationWithMode:3];
+    [self startUpdatingLocationWithMode:1];
 }
 
-- (void)startUpdatingLocationWithMode:(int)mode
+- (void)startUpdatingLocationWithMode:(NSInteger)mode
 {
     PULLog(@"starting location updater");
     _tracking = YES;
@@ -144,11 +152,17 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         
     }];
     
-    [parkour setInterval:mode];
+    [parkour setInterval:(int)mode];
+}
+
+- (void)pingParkour
+{
+    [self restartUpdatingLocationWithMode:_currentTrackingMode];
 }
 
 - (void)restartUpdatingLocationWithMode:(NSInteger)mode
 {
+    PULLog(@"changing tracking mode to %ld", (long)mode);
     _currentTrackingMode = mode;
     [parkour setInterval:(int)mode];
 //    [self stopUpdatingLocation];
@@ -274,8 +288,10 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         PULPull *nearestPull = [_parse.cache nearestPull];
         updateInterval = [self _intervalForPull:nearestPull];
         
-        // if no one's in the foreground, don't use close interval
-        if (!foreground && updateInterval == kPULLocationTuningIntervalClose)
+        // if no one's in the foreground,
+        // or this device is not moving with a good accuracy reading, don't use close interval
+        if ((!foreground || (_currentMotionType == pkNotMoving && acct.location.accuracy <= 10)) &&
+            updateInterval == kPULLocationTuningIntervalClose)
         {
             updateInterval = kPULLocationTuningIntervalNearby;
         }
@@ -284,22 +300,52 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     // restart location tracking with new mode
     if (updateInterval != _currentTrackingMode)
     {
-        PULLog(@"changing tracking mode to %ld", (long)updateInterval);
         [self restartUpdatingLocationWithMode:updateInterval];
     }
 }
 
 - (void)_updateToLocation:(CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
 {
-    if (location.coordinate.latitude != _currentLocation.coordinate.latitude ||
-        location.coordinate.longitude != _currentLocation.coordinate.longitude ||
-        positionType != _currentPositionType || motionType != _currentMotionType)
+    PULUser *acct = [PULUser currentUser];
+    BOOL hasDifferentLoc = YES;
+    BOOL worseAccuracy = location.horizontalAccuracy > _currentLocation.horizontalAccuracy;
+    BOOL improvedAccuracy = !worseAccuracy && location.horizontalAccuracy != _currentLocation.horizontalAccuracy;
+    BOOL acceptableAccuracy = location.horizontalAccuracy <= kPULDistanceAllowedAccuracy;
+    BOOL isStill = motionType == pkNotMoving;
+    BOOL isWalking = motionType == pkWalking;
+    BOOL tooLongSinceLastUpdate = [location.timestamp timeIntervalSinceDate:_currentLocation.timestamp] > 60;
+    
+    // determine if we have a different location
+    if (acct.location.isDataAvailable)
+    {
+        // round each lat lon for comparison
+        CGFloat newLat = round(100000 * location.coordinate.latitude) / 100000;
+        CGFloat newLon = round(100000 * location.coordinate.longitude) / 100000;
+        CGFloat acctLat = round(100000 * acct.location.coordinate.latitude) / 100000;
+        CGFloat acctLon = round(100000 * acct.location.coordinate.longitude) / 100000;
+        
+        hasDifferentLoc =   (newLat != acctLat || newLon != acctLon ||
+                            positionType != _currentPositionType ||
+                            motionType != _currentMotionType) ;
+        
+        if (hasDifferentLoc && worseAccuracy && isStill)
+        {
+            hasDifferentLoc = NO;
+        }
+    }
+    
+
+    if (hasDifferentLoc ||
+        (!isStill && (tooLongSinceLastUpdate || acceptableAccuracy)) || // not still and it's been awhile or acc is good
+        improvedAccuracy || // accuracy has improved
+        !_currentLocation) // or we don't have a location yet
     {
         _locationDirty = YES;
         _currentLocation = location;
         _currentMotionType = motionType;
         _currentPositionType = positionType;
     }
+
 }
 
 - (void)_saveCurrentLocation
@@ -317,45 +363,16 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     PULUser *acct = [PULUser currentUser];
     
     if (!acct) { return; } 
+
+    // save new location if coords are different or if the accuracy has improved
+    PULLog(@"\tsaving new location: %@", location);
+    PULLog(@"\t\tmotion type: %zd", motionType);
+    [_parse updateLocation:location
+              movementType:motionType
+              positionType:positionType];
     
-    BOOL hasDifferentLoc = YES;
-    static NSInteger numUpdates = 0;
-    
-    if (acct.location.isDataAvailable)
-    {
-        // round each lat lon for comparison
-        CGFloat newLat = round(100000 * location.coordinate.latitude) / 100000;
-        CGFloat newLon = round(100000 * location.coordinate.longitude) / 100000;
-        CGFloat acctLat = round(100000 * acct.location.coordinate.latitude) / 100000;
-        CGFloat acctLon = round(100000 * acct.location.coordinate.longitude) / 100000;
-        
-        hasDifferentLoc = (newLat != acctLat || newLon != acctLon);
-        
-        if (hasDifferentLoc)
-        {
-            // check if this really is different
-            // if new accuracy is worse than previous accuracy and motion type is still,
-            // set that we don't have a differen location
-            if (location.horizontalAccuracy > acct.location.accuracy &&
-                motionType == pkNotMoving)
-            {
-                hasDifferentLoc = NO;
-            }
-        }
-    }
-    
-    if (hasDifferentLoc || location.horizontalAccuracy < acct.location.accuracy || numUpdates++ < 1)
-    {
-        // save new location if coords are different or if the accuracy has improved
-            PULLog(@"\tsaving new location: (%.5f, %.5f)", location.coordinate.latitude, location.coordinate.longitude);
-            PULLog(@"\t\tmotion type: %zd", motionType);
-            [_parse updateLocation:location
-                      movementType:motionType
-                      positionType:positionType];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
-                                                                object:location];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:PULLocationUpdatedNotification
+                                                            object:location];
 }
 
 - (NSInteger)_intervalForDistance:(CLLocationDistance)distance

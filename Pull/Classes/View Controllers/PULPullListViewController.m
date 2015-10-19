@@ -97,8 +97,17 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                                                           [self reload];
                                                       }
                                                       
+                                                      [self showNoLocation:NO];
                                                   }];
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"DidReceivePush"
+                                                      object:nil
+                                                       queue:[NSOperationQueue currentQueue]
+                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                      // this notif is only sent when we're in the foreground
+                                                      // so we don't need to check if we're in the foreground
+                                                      [self reloadForceRefresh:YES];
+                                                  }];
     
     [_compassView showBusy:YES];
     [[NSNotificationCenter defaultCenter] addObserverForName:PULLocationUpdatedNotification
@@ -263,7 +272,12 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 {
     if (!_isReloading)
     {
-        [self showNoLocation:![PULLocationUpdater sharedUpdater].hasPermission];
+        BOOL hasLocationPermission = [PULLocationUpdater sharedUpdater].hasPermission;
+        if (!hasLocationPermission)
+        {
+            [self showNoLocation:YES];
+            return;
+        }
       
         if (refresh)
         {
@@ -553,15 +567,21 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 - (void)showNoLocation:(BOOL)show
 {
     _addPullButton.enabled = !show;
+    _collectionView.hidden = show;
+    
+    PULUser *user = [PULUser currentUser];
     
     if (show)
     {
-        _pullTimeButton.hidden = YES;
         BOOL canGoToSettings = (UIApplicationOpenSettingsURLString != NULL);
         
-        [PULUser currentUser][@"noLocation"] = @(YES);
-        [[PULUser currentUser] saveInBackground];
+        if (!user.noLocation)
+        {
+            user.noLocation = YES;
+            [user saveInBackground];
+        }
         
+        _pullTimeButton.hidden  = YES;
         [self _setNameLabel:@"Location Disabled" active:NO];
         [_compassView showBusy:NO];
         [_compassView showNoLocation];
@@ -570,10 +590,10 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     }
     else
     {
-        if ([[PULUser currentUser][@"noLocation"] isEqual:@(YES)])
+        if (user.noLocation)
         {
-            [PULUser currentUser][@"noLocation"] = @(NO);
-            [[PULUser currentUser] saveInBackground];
+            user.noLocation = NO;
+            [user saveInBackground];
         }
         
 //        [self updateDialogWithText:nil hide:YES showAcceptDecline:NO showCancel:NO location:NO];
@@ -726,11 +746,23 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
 }
 
 - (void)updateUI
-{    
+{
+//    NSAssert([UIApplication sharedApplication].applicationState == UIApplicationStateActive, @"application needs to be active");
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive)
+    {
+        // shouldn't update the ui if we're not active
+        return;
+    }
     if (!_displayedPull)
     {
         [self _showNoActivePulls:YES];
         
+        return;
+    }
+    
+    BOOL hasLocationPermission = [PULLocationUpdater sharedUpdater].hasPermission;
+    if (!hasLocationPermission)
+    {
         return;
     }
 

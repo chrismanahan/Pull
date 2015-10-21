@@ -291,8 +291,11 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                 [_compassView showBusy:NO];
                 _pullsDatasource = [[PULParseMiddleMan sharedInstance].cache cachedPullsOrdered];
                 [_collectionView reloadData];
-//                [self updateUI];
-                [self setSelectedIndex:_selectedIndex];
+                [self updateUI];
+                if (!_displayedPull)
+                {
+                    [self setSelectedIndex:_selectedIndex];
+                }
                 
             } ignoreCache:YES];
         }
@@ -302,7 +305,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             
             [_collectionView reloadData];
             [self updateUI];
-            [self setSelectedIndex:_selectedIndex];
+//            [self setSelectedIndex:_selectedIndex];
         }
     }
 }
@@ -509,7 +512,6 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
     // stop observing location for last pull
     if (_displayedPull)
     {
-        // TODO: STOP OBSERVING LOCATION
         [[PULParseMiddleMan sharedInstance] stopObservingChangesInLocationForUser:[_displayedPull otherUser]];
     }
     

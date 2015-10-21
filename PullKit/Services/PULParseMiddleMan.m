@@ -285,6 +285,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 #pragma mark - Observing changes
 - (void)observeChangesInLocationForUser:(PULUser*)user interval:(NSTimeInterval)interval target:(id)target selecter:(SEL)selector;
 {
+    PULLog(@"starting timer to observe location changes for user: %@", user);
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:interval
                                                       target:self
                                                     selector:@selector(_tickActiveLocationTimer:)
@@ -321,6 +322,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 {
     if (_locationTimers[user.username])
     {
+        PULLog(@"stopping observer timer for user %@", user.username);
         [((NSTimer*)_locationTimers[user.username][@"timer"]) invalidate];
         [_locationTimers removeObjectForKey:user.username];
     }
@@ -339,7 +341,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 #pragma mark - Monitoring Stuff
 - (void)_startMonitoringPullsInBackground:(BOOL)inBackground
 {
-    NSAssert(_observerTimerPulls == nil, @"observer timer already set. should be stopped first");
+//    NSAssert(_observerTimerPulls == nil, @"observer timer already set. should be stopped first");
     _observerTimerPulls = [NSTimer
                            scheduledTimerWithTimeInterval:inBackground ? kPULPollTimeBackground : kPULPollTimePassive
                            target:self
@@ -350,7 +352,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)_startMonitoringPulledLocationsInBackground:(BOOL)inBackground
 {
-    NSAssert(_observerTimerLocations == nil, @"observer timer already set. should be stopped first");
+//    NSAssert(_observerTimerLocations == nil, @"observer timer already set. should be stopped first");
     _observerTimerLocations = [NSTimer
                                scheduledTimerWithTimeInterval:inBackground ? kPULPollTimeBackground : kPULPollTimePassive
                                target:self
@@ -392,6 +394,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     [self _runBlockInBackground:^{
         PULUser *user = [timer userInfo];
         
+        PULLog(@"updating active pulled user");
         [user fetchIfNeeded];
         [user.location fetch];
         
@@ -429,6 +432,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)_observerTimerLocationsTicked
 {
+    PULLog(@"updating locations of all pulled users");
     // refresh locations
     NSArray *locations = [[_cache cachedPullsPulled]
                           linq_select:^id(PULPull *pull) {
@@ -454,6 +458,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 
 - (void)_observerTimerPullsTicked
 {
+    PULLog(@"updating pulls");
     // refresh pulls
     [PFObject fetchAll:[_cache cachedPulls]];
     [_cache resetPullSorting];
@@ -472,6 +477,7 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
     
     if (dirty)
     {
+        PULLog(@"\tsaving updated distance flags for pull: %@", pull);
         [pull saveEventually];
     }
 }

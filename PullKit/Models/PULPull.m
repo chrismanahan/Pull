@@ -163,10 +163,11 @@ NSString * const PULPullNoLongerNearbyNotification = @"PULPullNoLongerNearbyNoti
         }
     }
     
-    return  accurate &&
+    return  (accurate &&
             !otherUser.killed &&
             !otherUser.noLocation &&
-            !otherUser.lowBattery;
+            !otherUser.lowBattery) ||
+            self.together;
 }
 
 #pragma mark - Properties

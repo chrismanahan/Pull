@@ -157,7 +157,11 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 - (void)pingParkour
 {
-    [self restartUpdatingLocationWithMode:_currentTrackingMode];
+    NSInteger interval = _currentTrackingMode;
+    [self restartUpdatingLocationWithMode:1];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self restartUpdatingLocationWithMode:interval];
+    });
 }
 
 - (void)restartUpdatingLocationWithMode:(NSInteger)mode
@@ -312,12 +316,12 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     BOOL improvedAccuracy = !worseAccuracy && location.horizontalAccuracy != _currentLocation.horizontalAccuracy;
     BOOL acceptableAccuracy = location.horizontalAccuracy <= kPULDistanceAllowedAccuracy;
     BOOL isStill = motionType == pkNotMoving;
-    BOOL isWalking = motionType == pkWalking;
+    BOOL wasStill = NO;
     BOOL tooLongSinceLastUpdate = [location.timestamp timeIntervalSinceDate:_currentLocation.timestamp] > 60;
     
     // determine if we have a different location
-    if (acct.location.isDataAvailable)
-    {
+    @try {
+        wasStill = acct.location.movementType == pkNotMoving;
         // round each lat lon for comparison
         CGFloat newLat = round(100000 * location.coordinate.latitude) / 100000;
         CGFloat newLon = round(100000 * location.coordinate.longitude) / 100000;
@@ -325,21 +329,26 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         CGFloat acctLon = round(100000 * acct.location.coordinate.longitude) / 100000;
         
         hasDifferentLoc =   (newLat != acctLat || newLon != acctLon ||
-                            positionType != _currentPositionType ||
-                            motionType != _currentMotionType) ;
+                             positionType != _currentPositionType ||
+                             motionType != _currentMotionType) ;
         
         if (hasDifferentLoc && worseAccuracy && isStill)
         {
             hasDifferentLoc = NO;
-        }
+        }    
     }
-    
+    @catch (NSException *exception) {
+        ;
+    }
 
     if (hasDifferentLoc ||
-        (!isStill && (tooLongSinceLastUpdate || acceptableAccuracy)) || // not still and it's been awhile or acc is good
+        (wasStill != isStill) || // were still and now we're moving, or vice versa
         improvedAccuracy || // accuracy has improved
-        !_currentLocation) // or we don't have a location yet
+        !_currentLocation || // or we don't have a location yet
+        acceptableAccuracy || // or accuracy is good enough
+        tooLongSinceLastUpdate)
     {
+        PULLog(@"\twill update to location %@", location);
         _locationDirty = YES;
         _currentLocation = location;
         _currentMotionType = motionType;

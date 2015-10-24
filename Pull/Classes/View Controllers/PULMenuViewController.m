@@ -56,7 +56,6 @@
 - (void)_populateUserInfo {
     NSString *imageUrl = [PULUser currentUser].imageUrlString;
     [_userImageView setImageWithResizeURL:imageUrl];
-    // TODO: SET BACKGROUND IMAGE VIEW DYNAMICALLY IN MENU VIEW
     [_backgroundImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
     _nameLabel.text = [PULUser currentUser].fullName;
     
@@ -69,7 +68,7 @@
                                                        delegate:self
                                               cancelButtonTitle:@"Cancel"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"Report an Issue", @"Make a Suggestion", @"Partner with Us", @"Invite a Friend", nil];
+                                              otherButtonTitles:@"Report an Issue", @"Make a Suggestion", @"Partner with Us", nil];
     
     [sheet showInView:self.view];
     
@@ -105,16 +104,6 @@
         case 2:
         {
             [self _showPartnerMail];
-            break;
-        }
-        case 3:
-        {
-            [self _showInviteMail];
-            break;
-        }
-        case 4:
-        {
-            // cancel
             break;
         }
         default:
@@ -159,11 +148,6 @@
 - (void)_showPartnerMail
 {
     [self _showMailWithSubject:@"Become Partner" to:kPULAppPartnerEmail body:nil];
-}
-
-- (void)_showInviteMail
-{
-    [self _showMailWithSubject:@"Invite Friend" to:kPULAppPartnerEmail body:nil];
 }
 
 - (void)_showMailWithSubject:(NSString*)subject to:(NSString*)to body:(NSString*)body

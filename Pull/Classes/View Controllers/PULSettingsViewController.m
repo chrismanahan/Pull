@@ -104,7 +104,6 @@
 {
     if (_dirty)
     {
-        // TODO: Save settings
         [[PULUser currentUser].userSettings saveInBackground];
     }
     

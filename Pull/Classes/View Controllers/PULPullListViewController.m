@@ -124,8 +124,10 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                                                           
 //                                                          [self updateUI];
                                                       }
-                                                      
-                                                      
+                                                      else
+                                                      {
+                                                          [self updateUI];
+                                                      }
                                                   }];
     
     // add swipe gesture recognizers
@@ -278,7 +280,7 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             [self showNoLocation:YES];
             return;
         }
-      
+        
         if (refresh)
         {
             if (showAI)
@@ -292,10 +294,10 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
                 _pullsDatasource = [[PULParseMiddleMan sharedInstance].cache cachedPullsOrdered];
                 [_collectionView reloadData];
                 [self updateUI];
-                if (!_displayedPull)
-                {
-                    [self setSelectedIndex:_selectedIndex];
-                }
+    
+                NSInteger currentIndex = _displayedPull == nil ? _selectedIndex : [self _indexForPull:_displayedPull];
+                [self setSelectedIndex:currentIndex];
+                
                 
             } ignoreCache:YES];
         }
@@ -305,7 +307,9 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
             
             [_collectionView reloadData];
             [self updateUI];
-//            [self setSelectedIndex:_selectedIndex];
+            
+            NSInteger currentIndex = _displayedPull == nil ? _selectedIndex : [self _indexForPull:_displayedPull];
+            [self setSelectedIndex:currentIndex];
         }
     }
 }
@@ -838,9 +842,9 @@ NSString * const kPULDialogButtonTextEnableLocation = @"Enable Location";
         // TODO: DEBUG
         //        _dialogContainer.hidden = NO;
         //        _dialogMessageLabel.text = [NSString stringWithFormat:@"%@\n%@", [PULUser currentUser].location, user.location];
-#ifdef DEBUG
-        _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULUser currentUser]]);
-#endif
+//#ifdef DEBUG
+//        _distanceLabel.text = PUL_FORMATTED_DISTANCE_FEET([user distanceFromUser:[PULUser currentUser]]);
+//#endif
     }
     else
     {

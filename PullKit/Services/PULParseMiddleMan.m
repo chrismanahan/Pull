@@ -217,7 +217,6 @@ NSString * const PULParseObjectsUpdatedPullsNotification = @"PULParseObjectsUpda
 {
     PFUser *currUser = [PFUser currentUser];
     
-    // TODO: check if user is already friends with this user
     PFObject *obj = [PFObject objectWithClassName:@"FriendLookup"];
     
     obj[@"sendingUser"] = currUser;

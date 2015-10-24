@@ -145,7 +145,6 @@
 
 - (void)_reloadDatasourceForSearch:(NSString*)search
 {
-    // TODO: reload data source
     if (!search || search.length == 0)
     {
         _dataSource = [_parse.cache cachedFriendsNotPulled];

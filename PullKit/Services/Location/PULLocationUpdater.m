@@ -34,8 +34,13 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic) PKMotionType currentMotionType;
 @property (nonatomic) PKPositionType currentPositionType;
-@property (nonatomic) BOOL locationDirty;
 @property (nonatomic, strong) NSTimer *locationSaveTimer;
+
+@property (nonatomic) CLLocationDistance currentDistanceFilter;
+@property (nonatomic) CLLocationAccuracy currentDesiredAccuracy;
+@property (nonatomic) BOOL isUsingAuxLocationManager;
+
+@property (nonatomic, strong) NSMutableArray *locationBuffer;
 
 //@property (nonatomic, strong) MMWormhole *wormhole;
 
@@ -62,9 +67,14 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 {
     if (self = [super init])
     {
+        _locationBuffer = [[NSMutableArray alloc] init];
+        
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         [_locationManager startUpdatingHeading];
+        
+        _currentDistanceFilter = 20;
+        _currentDesiredAccuracy = kCLLocationAccuracyBest;
         
         _parse = [PULParseMiddleMan sharedInstance];
         //        _wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.pull"
@@ -77,11 +87,11 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
                                                               userInfo:nil
                                                                repeats:YES];
         
-        _parkourPingTimer = [NSTimer scheduledTimerWithTimeInterval:120
-                                         target:self
-                                       selector:@selector(pingParkour)
-                                       userInfo:nil
-                                        repeats:YES];
+//        _parkourPingTimer = [NSTimer scheduledTimerWithTimeInterval:120
+//                                         target:self
+//                                       selector:@selector(pingParkour)
+//                                       userInfo:nil
+//                                        repeats:YES];
         
         _locationSaveTimer = [NSTimer scheduledTimerWithTimeInterval:6
                                                               target:self
@@ -94,6 +104,8 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
                                                            queue:[NSOperationQueue currentQueue]
                                                       usingBlock:^(NSNotification * _Nonnull note) {
                                                           [_locationManager stopUpdatingHeading];
+                                                          [self _startAuxLocationManager];
+                                                          
                                                       }];
         
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
@@ -101,12 +113,12 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
                                                            queue:[NSOperationQueue currentQueue]
                                                       usingBlock:^(NSNotification * _Nonnull note) {
                                                           [_locationManager startUpdatingHeading];
+                                                          [self _stopAuxLocationManager];
                                                       }];
     }
 
     return self;
 }
-
 
 #pragma mark - Public
 - (BOOL)hasPermission
@@ -169,6 +181,35 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     PULLog(@"changing tracking mode to %ld", (long)mode);
     _currentTrackingMode = mode;
     [parkour setInterval:(int)mode];
+    
+    if (mode == kPULLocationTuningIntervalVeryFar)
+    {
+        _currentDesiredAccuracy = kCLLocationAccuracyThreeKilometers;
+        _currentDistanceFilter = 50;
+    }
+    else if (mode == kPULLocationTuningIntervalFar)
+    {
+        _currentDesiredAccuracy = kCLLocationAccuracyKilometer;
+        _currentDistanceFilter = 30;
+    }
+    else if (mode == kPULLocationTuningIntervalNearby)
+    {
+        _currentDesiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+        _currentDistanceFilter = 10;
+    }
+    else if (mode == kPULLocationTuningIntervalClose)
+    {
+        _currentDesiredAccuracy = 5;
+        _currentDistanceFilter = 3;
+    }
+    
+    
+    if (_isUsingAuxLocationManager)
+    {
+        PULLog(@"updating aux loc manager");
+        _locationManager.desiredAccuracy = _currentDesiredAccuracy;
+        _locationManager.distanceFilter = _currentDistanceFilter;
+    }
 //    [self stopUpdatingLocation];
 //    [self startUpdatingLocationWithMode:mode];
 }
@@ -243,6 +284,23 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 //    }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    @try {
+        if ([PULUser currentUser].killed)
+        {
+            [_locationManager stopUpdatingLocation];
+            return;
+        }
+    }
+    @catch (NSException *exception) {
+        ;
+    }
+    
+    CLLocation *loc = locations[locations.count-1];
+    [self _updateToLocation:loc position:-1 motion:-1];
+}
+
 #pragma mark - Private
 - (void)_updateTrackingInterval
 {
@@ -263,6 +321,12 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
             [self restartUpdatingLocationWithMode:updateInterval];
             return;
         }
+    }
+    
+    // check if we have to kill the aux loc manager
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive && _isUsingAuxLocationManager)
+    {
+        [self _stopAuxLocationManager];
     }
     
     // check if we're in the foreground or anyone we're pulled with is in the foreground
@@ -310,59 +374,103 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 
 - (void)_updateToLocation:(CLLocation*)location position:(PKPositionType)positionType motion:(PKMotionType)motionType
 {
-    PULUser *acct = [PULUser currentUser];
-    BOOL hasDifferentLoc = YES;
-    BOOL worseAccuracy = location.horizontalAccuracy > _currentLocation.horizontalAccuracy;
-    BOOL improvedAccuracy = !worseAccuracy && location.horizontalAccuracy != _currentLocation.horizontalAccuracy;
-    BOOL acceptableAccuracy = location.horizontalAccuracy <= kPULDistanceAllowedAccuracy;
-    BOOL isStill = motionType == pkNotMoving;
-    BOOL wasStill = NO;
-    BOOL tooLongSinceLastUpdate = [location.timestamp timeIntervalSinceDate:_currentLocation.timestamp] > 60;
-    
-    // determine if we have a different location
-    @try {
-        wasStill = acct.location.movementType == pkNotMoving;
-        // round each lat lon for comparison
-        CGFloat newLat = round(100000 * location.coordinate.latitude) / 100000;
-        CGFloat newLon = round(100000 * location.coordinate.longitude) / 100000;
-        CGFloat acctLat = round(100000 * acct.location.coordinate.latitude) / 100000;
-        CGFloat acctLon = round(100000 * acct.location.coordinate.longitude) / 100000;
+    [self _runBlockInBackground:^{
+        PULUser *acct = [PULUser currentUser];
+        BOOL hasPosMotionData = positionType != -1 && motionType != -1;
+        BOOL hasDifferentLoc = YES;
+        BOOL worseAccuracy = location.horizontalAccuracy > _currentLocation.horizontalAccuracy;
+        BOOL improvedAccuracy = !worseAccuracy && location.horizontalAccuracy != _currentLocation.horizontalAccuracy;
+        BOOL acceptableAccuracy = location.horizontalAccuracy <= kPULDistanceAllowedAccuracy;
+        BOOL isStill = motionType == pkNotMoving;
+        BOOL wasStill = NO;
+        BOOL tooLongSinceLastUpdate = [location.timestamp timeIntervalSinceDate:_currentLocation.timestamp] > 60;
         
-        hasDifferentLoc =   (newLat != acctLat || newLon != acctLon ||
-                             positionType != _currentPositionType ||
-                             motionType != _currentMotionType) ;
+        // determine if we have a different location
+        @try {
+            wasStill = acct.location.movementType == pkNotMoving;
+            // round each lat lon for comparison
+            CGFloat newLat = round(100000 * location.coordinate.latitude) / 100000;
+            CGFloat newLon = round(100000 * location.coordinate.longitude) / 100000;
+            CGFloat acctLat = round(100000 * acct.location.coordinate.latitude) / 100000;
+            CGFloat acctLon = round(100000 * acct.location.coordinate.longitude) / 100000;
+            
+            hasDifferentLoc =   (newLat != acctLat || newLon != acctLon ||
+                                 positionType != _currentPositionType ||
+                                 motionType != _currentMotionType) ;
+            
+            if (hasDifferentLoc && worseAccuracy && isStill)
+            {
+                hasDifferentLoc = NO;
+            }
+            else if (hasDifferentLoc && worseAccuracy)
+            {
+                // check if the loss of accuracy
+            }
+        }
+        @catch (NSException *exception) {
+            ;
+        }
         
-        if (hasDifferentLoc && worseAccuracy && isStill)
+        if (hasDifferentLoc ||
+            ((wasStill != isStill) && hasPosMotionData) || // were still and now we're moving, or vice versa
+            improvedAccuracy || // accuracy has improved
+            !_currentLocation || // or we don't have a location yet
+            (acceptableAccuracy && hasDifferentLoc) || // or accuracy is good enough
+            tooLongSinceLastUpdate)
         {
-            hasDifferentLoc = NO;
-        }    
-    }
-    @catch (NSException *exception) {
-        ;
-    }
+            [self _pushToBuffer:location];
+            _currentMotionType = motionType;
+            _currentPositionType = positionType;
+        }
+    }];
+   
+}
 
-    if (hasDifferentLoc ||
-        (wasStill != isStill) || // were still and now we're moving, or vice versa
-        improvedAccuracy || // accuracy has improved
-        !_currentLocation || // or we don't have a location yet
-        acceptableAccuracy || // or accuracy is good enough
-        tooLongSinceLastUpdate)
+- (void)_pushToBuffer:(CLLocation*)loc
+{
+    if (_locationBuffer.count == 0)
     {
-        PULLog(@"\twill update to location %@", location);
-        _locationDirty = YES;
-        _currentLocation = location;
-        _currentMotionType = motionType;
-        _currentPositionType = positionType;
+        PULLog(@"\twill update to location %@", loc);
+        [_locationBuffer addObject:loc];
+        _currentLocation = loc;
     }
+    else
+    {
+        CLLocation *lastLoc = [self _peakFromBuffer];
+        if (loc.horizontalAccuracy <= lastLoc.horizontalAccuracy)
+        {
+            PULLog(@"\twill update to location %@", loc);
+            [_locationBuffer addObject:loc];
+            _currentLocation = loc;
+        }
+    }
+}
 
+- (nullable CLLocation*)_peakFromBuffer;
+{
+    if (_locationBuffer.count == 0)
+    {
+        return nil;
+    }
+    else
+    {
+        return _locationBuffer[_locationBuffer.count-1];
+    }
+}
+
+- (void)_clearBuffer;
+{
+    [_locationBuffer removeAllObjects];
 }
 
 - (void)_saveCurrentLocation
 {
-    if (_locationDirty)
+    if (_locationBuffer.count > 0)
     {
-        [self _saveNewLocation:_currentLocation position:_currentPositionType motion:_currentMotionType];
-         _locationDirty = NO;
+        [self _saveNewLocation:[self _peakFromBuffer]
+                      position:_currentPositionType
+                        motion:_currentMotionType];
+        [self _clearBuffer];
     }
 }
 
@@ -424,5 +532,56 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
         [_locationManager requestAlwaysAuthorization];
     }
 }
+
+
+- (void)_startAuxLocationManager
+{
+    PULLog(@"starting aux loc manager");
+    [parkour stopTrackPosition];
+    
+    _locationManager.distanceFilter = _currentDistanceFilter;
+    _locationManager.desiredAccuracy = _currentDesiredAccuracy;
+    [_locationManager startUpdatingLocation];
+    _isUsingAuxLocationManager = YES;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        PULLog(@"pausing aux loc manager");
+        [_locationManager stopUpdatingLocation];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_currentTrackingMode * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (_isUsingAuxLocationManager)
+            {
+                [self _startAuxLocationManager];
+            }
+        });
+    });
+}
+
+- (void)_stopAuxLocationManager
+{
+    PULLog(@"stopping aux loc manager");
+    [_locationManager stopUpdatingLocation];
+    _isUsingAuxLocationManager = NO;
+    
+    [self startUpdatingLocationWithMode:_currentTrackingMode];
+}
+
+#pragma mark - Threading
+- (void)_runBlockInBackground:(void(^)())block
+{
+    [self _runBlock:block onQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+}
+
+- (void)_runBlockOnMainQueue:(void(^)())block
+{
+    [self _runBlock:block onQueue:dispatch_get_main_queue()];
+}
+
+- (void)_runBlock:(void(^)())block onQueue:(dispatch_queue_t)queue
+{
+    dispatch_async(queue, ^{
+        block();
+    });
+}
+
 
 @end

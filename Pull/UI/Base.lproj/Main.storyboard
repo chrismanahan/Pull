@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -740,7 +740,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="9Yg-IK-ztU"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1060,10 +1060,10 @@
                                     <constraint firstItem="wxz-6a-VRo" firstAttribute="top" secondItem="6Zo-Hd-EUz" secondAttribute="top" constant="4" id="wRI-ql-7j2"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXm-v5-UdK">
+                            <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXm-v5-UdK">
                                 <rect key="frame" x="8" y="112" width="78" height="21"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
                                 <state key="normal" title="12 Hours" image="clock_purple.png">
                                     <color key="titleColor" red="0.36862745099999999" green="0.13725490200000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -1326,10 +1326,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ao8-Qw-wcn" userLabel="purp overlay">
                                 <rect key="frame" x="0.0" y="64" width="600" height="200"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brandon Murin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="I1K-aZ-Ea2">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Brandon Murin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="I1K-aZ-Ea2">
                                         <rect key="frame" x="233" y="154" width="134" height="26"/>
                                         <animations/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1820,65 +1820,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2NP-PR-IMy">
-                                <rect key="frame" x="20" y="64" width="560" height="536"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2NP-PR-IMy">
+                                <rect key="frame" x="20" y="64" width="560" height="3724"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <string key="text">_____________________
-THObserversAndBinders
-
-Copyright (c) 2012-2013 James Montgomerie.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-_____________________
-Reachability
-
-Copyright (c) 2011-2013, Tony Million.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-this list of conditions and the following disclaimer in the documentation
-and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
-
-_____________________
+                                <mutableString key="text">_____________________
 Facebook SDK
 
 Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
@@ -1908,7 +1854,150 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+___________________
+SDWebImage
+
+Copyright (c) 2009 Olivier Poitrey &lt;rs@dailymotion.com&gt;
+ 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is furnished
+to do so, subject to the following conditions:
+ 
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+ 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+____________________
+LinqToObjectiveC
+
+Copyright 2013 Colin Eberhardt
+Linq to Objective-C
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+__________________
+Bolts
+
+BSD License
+
+For Bolts software
+
+Copyright (c) 2013-present, Facebook, Inc. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+ * Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+ * Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+ * Neither the name Facebook nor the names of its contributors may be used to
+   endorse or promote products derived from this software without specific
+   prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+________________
+Facebook iOS SDK
+
+Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+
+You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
+copy, modify, and distribute this software in source code or binary form for use
+in connection with the web services and APIs provided by Facebook.
+
+As with any software that integrates with the Facebook platform, your use of
+this software is subject to the Facebook Developer Principles and Policies
+[http://developers.facebook.com/policy/]. This copyright notice shall be
+included in all copies or substantial portions of the software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+_______________
+Parse SDK
+
+BSD License
+
+For Parse iOS/OSX SDK software
+
+Copyright (c) 2015-present, Parse, LLC. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+ * Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+ * Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+ * Neither the name Parse nor the names of its contributors may be used to
+   endorse or promote products derived from this software without specific
+   prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</mutableString>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2179,11 +2268,299 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0a-Ym-lue">
-                                <rect key="frame" x="20" y="64" width="560" height="536"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q0a-Ym-lue">
+                                <rect key="frame" x="20" y="64" width="560" height="9036"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <string key="text">Please read the following Terms &amp; Conditions carefully. By accessing or using this Web Site or the Services, you agree to be bound by the Terms &amp; Conditions described herein and all terms, policies, and disclosures incorporated by reference. If you do not agree to all of these terms, do not use this Web Sites or the Service. These Terms &amp; Conditions (“Terms”) apply to the Web Sites located at www.getpulled.com owned and operated by Pull LLC and the Pull service accessed through our mobile applications (collectively, the “Service”). These Terms do not alter in any way the terms or conditions of any other agreement you may have with Pull, or its subsidiaries or affiliates, for products, services or otherwise. By accessing or using the Sites, you agree to the following Terms. You should review these Terms regularly as they may change at any time at the sole discretion of Pull. If you do not agree to any portion of these Terms, you should not access or otherwise use the Sites. “Content” refers to any text, materials, documents, images, graphics, logos, design, audio, video and any other information provided from or on, uploaded to and/or downloaded from the Sites or Service, other than User Content, which is discussed in Paragraph 5. We will make an effort to update this web page with any changes to these Terms and/or to the services described in these Terms and you are encouraged to review these Terms frequently (the date of the most recent revision to these Terms appears at the end of these Terms). By your continued use of the Sites or Service after changes are posted, you will be deemed to have accepted such changes. 1. Privacy Policy Personal data that you provide regarding yourself will be handled in accordance with the Pull Privacy Policy located above which is hereby incorporated herein as if stated in full. 2. Age Restrictions THE WEB SITE IS NOT INTENDED FOR CHILDREN UNDER 13 YEARS OF AGE. If you are 13 or older but under the age of 18, then you agree to review these terms and conditions with your parent or guardian prior to use of the Sites or Service. If you are a parent or guardian entering this agreement for the benefit of a child aged 13 or older, then you agree to and accept full responsibility for that child's use of the Web Sites and the Pull Mobile Application(s), including all financial charges and legal liability that he or she may incur. Otherwise, you affirm that you are 18 years of age or older and fully able and competent to enter into the terms, conditions, obligations, affirmations, representations, and warranties set forth in these Terms, and to abide by and comply with these Terms. Your registration for, and/or use of, the Web Sites or Service constitutes your representation and warranty that: (a) you satisfy these eligibility requirements, and (b) you have the right, authority and capacity to abide by all of the Terms. 3. Safety The Service is designed to permit others to visualize your location (i.e., your mobile device) as a compass. They are also designed to provide you with the ability to know when you are sharing your location and with the ability to delete location sharing. Nonetheless, use of the Service may involve special risks associated with other persons knowing your location. You should only share such information with those that you trust. You should not endanger yourself or others by viewing a portable mobile device while driving, operating dangerous mechanical devices, or in other situations in which you should be observing your surroundings. 4. Site Use and Content You may view, copy or print pages from the Sites or Service solely for personal and non-commercial purposes. Except solely in connection with your authorized participation in the services offered by Pull, you may not otherwise use, modify, copy, print, display, reproduce, distribute or publish any information from the Sites or Service without the express, prior, written consent of Pull. At any time, we may, without further notice, make changes to the Sites, to these Terms or to the Service described in these Terms. You are prohibited from accessing any portion of the Sites or Service for which you have not been granted proper access and permission. 5. Copyright and Trademarks The trademarks, service marks and logos used and displayed on the Sites and within the Service are Pull’s, or its subsidiaries’ or affiliates’, or one or more other party’s, registered and unregistered trademarks. Pull is the copyright owner or authorized licensee of all text and all graphics contained on the Sites and in the Service. All trademarks and service marks of Pull that may be referred to on the Web Sites or in the Service are the property of Pull. Other parties’ trademarks and service marks that may be referred to on the Sites or in the Service are the property of their respective owners. Nothing on the Sites or in the Service should be construed as granting, by implication, estoppel or otherwise, any license or right to use any of Pull’s trademarks or service marks without Pull’s prior written permission. Pull aggressively enforces its intellectual property rights. Neither the name of Pull nor any of Pull’s other trademarks, service marks or copyrighted materials may be used in any way, including in any advertising, hyperlink, publicity or promotional materials of any kind, whether relating to the Sites, Service or otherwise, without Pull’s prior, written permission. If you believe that any Content or user Content on the Sites or in the Service violates any intellectual property right of yours other than a copyright right (which is covered by Paragraph 4 above), please contact Pull at the address, email address or telephone number set forth at the bottom of these Terms. 6. Disclaimers; Indemnification Any and all interactions between you and any third party through the Sites or Service is your exclusive and sole responsibility, whether in person or through the Sites or Service. You acknowledge and agree that because of the nature of an online service that arranges for third parties to share their respective locations, Pull cannot and does not actively investigate, monitor, review or substantiate any representations or statements made by other users of the Web Sites or Service. Likewise, Pull does not confirm the identity or reputation of, or perform any background investigation into, any user of the Sites or Service. No Warranties YOU EXPRESSLY AGREE THAT YOUR USE OF THE SITES OR SERVICE IS AT YOUR SOLE RISK. THE SITES, THE CONTENT, THE USER CONTENT, AND THE PRODUCTS, SERVICES AND MATERIALS AVAILABLE THROUGH THE SITES AND SERVICE (WHETHER PROVIDED BY PULL, YOU, OTHER USERS OR OTHER AFFILIATES/THIRD PARTIES), INCLUDING, ARE PROVIDED “AS IS” AND “AS AVAILABLE” FOR YOUR USE, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, UNLESS SUCH WARRANTIES ARE LEGALLY INCAPABLE OF EXCLUSION. PULL PROVIDES THE SITES ON A COMMERCIALLY REASONABLE BASIS AND PULL MAKES NO REPRESENTATIONS OR WARRANTIES THAT THE SITES, THE SERVICE, THE CONTENT, THE USER CONTENT OR ANY PRODUCTS OR SERVICES OFFERED IN CONNECTION WITH THE SITES OR SERVICE ARE OR SHALL REMAIN UNINTERRUPTED OR ERROR-FREE, THE CONTENT AND/OR USER CONTENT SHALL BE NON-INFRINGING ON ANY THIRD PARTY’S INTELLECTUAL PROPERTY RIGHTS, THE CONTENT AND/OR USER CONTENT SHALL BE ACCURATE OR TRUE, THAT DEFECTS SHALL BE CORRECTED, THAT THE WEB PAGES ON THE WEB SITES AND SERVICE OR THE SERVERS USED IN CONNECTION WITH THE WEB SITES AND SERVICE ARE OR SHALL REMAIN FREE FROM ANY VIRUSES, WORMS, TIME BOMBS, DROP DEAD DEVICES, TROJAN HORSES OR OTHER HARMFUL COMPONENTS, OR THAT ANY PERSON USING THE SITES OR SERVICE WILL BE THE PERSON THAT HE OR SHE REPRESENTS HIMSELF OR HERSELF TO BE. PULL DOES NOT GUARANTEE THAT YOU WILL BE ABLE TO ACCESS OR USE THE SITES OR SERVICE AT TIMES OR LOCATIONS OF YOUR CHOOSING, OR THAT PULL SHALL HAVE ADEQUATE CAPACITY FOR THE SITES OR SERVICE AS A WHOLE OR IN ANY SPECIFIC GEOGRAPHIC AREA. You acknowledge and agree that you are exclusively and solely responsible for taking, and you will take, reasonable precautions in all interactions with other users of the Sites or Service, whether online or in person. Indemnification You agree to defend, indemnify and hold Pull and its affiliates, subsidiaries, owners, directors, officers, trustees, employees and agents (collectively, the “Indemnified Parties”) harmless from and against any and all claims, demands, suits, proceedings, liabilities, judgments, losses, damages, expenses and costs (including without limitation reasonable attorneys’ fees) assessed or incurred by any Indemnified Party, directly or indirectly, with respect to or arising out of: (i) your failure to comply with these Terms; (ii) your breach of your obligations under these Terms; (iii) your use of the rights granted hereunder including, without limitation, any claims made by any third parties; (iv) your violation of any third party right including, without limitation, any copyright, property, or privacy right; and/or (v) any claim that your User Content caused damage to a third party, including, but not limited to, any other user of the Sites or Service. 7. Limitation of Liability OUR AND OUR SUPPLIERS’ ENTIRE LIABILITY AND YOUR EXCLUSIVE REMEDY WITH RESPECT TO THE USE OF THE SITES OR SERVICE, YOUR COMMUNICATIONS AND/OR DEALINGS IN CONNECTION WITH THE SITES OR SERVICE, AND/OR ANY PRODUCT OR SERVICE PROVIDED IN CONNECTION WITH THE SITES OR SERVICE ARE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO US FOR THE SITES OR SERVICE. YOU HEREBY RELEASE US AND EACH OF OUR SUPPLIERS FROM ANY AND ALL OBLIGATIONS, LIABILITIES AND CLAIMS IN EXCESS OF THIS LIMITATION. IN NO EVENT WILL PULL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE OR CONSEQUENTIAL DAMAGES ARISING FROM YOUR USE OF THE SITES, THE SERVICE, OR ANY SERVICE PROVIDED IN CONNECTION WITH THE SITE OR SERVICE OR FOR ANY OTHER CLAIM RELATED IN ANY WAY TO YOUR USE OF THE SITES, THE SERVICE, OR ANY SERVICE PROVIDED IN CONNECTION WITH THE SITES AND THE SERVICE, INCLUDING, BUT NOT LIMITED TO, (I) ERRORS, MISTAKES, OR INACCURACIES OF CONTENT, (II) PERSONAL INJURY OR PROPERTY DAMAGE OF ANY NATURE WHATSOEVER RESULTING FROM YOUR ACCESS TO AND USE OF THE SITES OR SERVICE OR THE GOODS AND/OR SERVICES OBTAINED THROUGH THE USE OF THE SITES OR THE SERVICE, (III) ANY UNAUTHORIZED ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION AND/OR FINANCIAL INFORMATION STORED THEREIN, (IV) ANY ACT OR OMISSION OF ANOTHER USER OF THE SITES OR THE SERVICE OR PERSON OR BUSINESS ENTITY WITH WHOM YOU COMMUNICATE OR DEAL WITH THROUGH YOUR USE OF THE SITES OR THE SERVICE, (V) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THE SITES OR THE SERVICE, AND/OR (VI) ANY VIRUSES, WORMS, TIME BOMBS, DROP DEAD DEVICES, TROJAN HORSES OR OTHER HARMFUL COMPONENTS THAT MAY BE TRANSMITTED TO OR THROUGH THE SITES OR THE SERVICE BY ANY THIRD PARTY OR FOR ANY LOSS OR DAMAGE OF ANY KIND. BECAUSE SOME STATES OR JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, IN SUCH STATES OR JURISDICTIONS PULL’S LIABILITY WILL BE LIMITED TO THE GREATEST EXTENT PERMITTED BY LAW. 8. Third Party Content Pull or its Sites and Service users may provide hyperlinks to other web sites maintained by third parties (collectively, “Third Party Content”). THE LINKS TO THIRD PARTY WEB SITES AND THIRD PARTY CONTENT ARE PROVIDED FOR YOUR CONVENIENCE AND INFORMATION ONLY. THE CONTENT ON ANY LINKED WEB SITE AND THIRD PARTY CONTENT IS NOT UNDER PULL’S CONTROL AND PULL IS NOT RESPONSIBLE FOR THE CONTENT OF LINKED WEB SITES AND THIRD PARTY CONTENT, INCLUDING ANY FURTHER LINKS CONTAINED IN A THIRD PARTY WEB SITE. IF YOU DECIDE TO ACCESS ANY OF THE THIRD PARTY WEB SITES LINKED TO THE SITES OR THE SERVICE OR VIEW THE THIRD PARTY CONTENT, YOU DO SO ENTIRELY AT YOUR OWN RISK. If a third party links to the Sites or the Service, it is not necessarily an indication of an endorsement, authorization, sponsorship, affiliation, joint venture or partnership by or with Pull. In most cases, Pull is not even aware that a third party has linked to the Sites or the Service. A web site that links to the Sites or Service (i) may link to, but not replicate, Content; (ii) may not create a browser, border environment or frame Content; (iii) may not imply that Pull is endorsing it or its products; (iv) may not misrepresent its relationship with Pull; (v) may not present false or misleading information about Pull’s services or products; and (vi) should not include content that could be construed as distasteful, offensive or controversial, and should contain only Content that is appropriate for all age groups. 9. Your Comments and Feedback We may provide forms or mechanisms for you to provide comments, feedback, suggestions and ideas about our or our suppliers’ Content (such as blog postings), products and services (collectively, “User Content”), and accordingly, we may use any User Content in any way, including in future versions of our Content, products or services, and/or advertising or promotions. You hereby grant us a perpetual, worldwide, irrevocable, royalty-free, non-exclusive, transferable, and sub-licensable license to use, copy, create derivative works of, publicly perform, publicly display, transfer, transmit, translate, distribute and publish, all or any portion of the User Content, in any manner and for any purpose in any media or technology now or hereafter known. In addition, if you provide User Content, you agree not to: (a) defame, abuse, harass, stalk, threaten, or otherwise violate the legal rights of others; (b) publish, post, upload, or otherwise disseminate (collectively, “Transmit”) any Content that is tortious, inappropriate, profane, defamatory, infringing, obscene, indecent, vulgar, unlawful, invasive of another’s privacy, hateful, or racially, ethnically or otherwise objectionable, or that otherwise could result in civil or criminal liability; (c) transmit any Content prohibited by intellectual property (e.g., patent, copyright, trademark, trade secret, or privacy and publicity) or other laws unless you are the owner or have permission to use such rights; (d) transmit Content that contains viruses, corrupted files, or any other software or functionality that may damage or adversely affect the operation of another person’s computer, the Sites or the Service, any software or hardware, or telecommunications equipment, or interfere with any security or rights protection functionality of ours or any third party; (e) advertise or offer to sell any goods or services for any commercial purpose unless you have our written consent to do so; (f) transmit surveys, contests, pyramid schemes, spam and other unsolicited mass mail or email, unsolicited advertising or promotional materials, or chain letters; (g) falsify or delete any author attributions, legal or other proper notices or proprietary designations or labels of the origin or the source of software or other Content; (h) forge headers or manipulate identifiers or other data in order to disguise the origin of any Content transmitted through the Sites or the Service or to manipulate your presence on the Sites or the Service; (i) impersonate any person or entity, including, but not limited to, a Pull representative, or falsely state or otherwise misrepresent your affiliation with a person or entity; or (j) engage in any illegal activities, or incite or provide instructional information about illegal activities, under U.S. and local law. 10. Mobile Services The Service requires the use of mobile devices and wireless services. Pull does not charge for its Service. However, your mobile service provider will charge you for those services that it provides, which are related to the Pull Services. You should check with your carrier to learn about such charges. By using the Service, you agree that Pull may communicate with you regarding the Service by SMS, text message, email or other electronic means to your mobile device or email address, including without limitation providing promotional offers and information from third parties. 11. Local Laws These Terms and your use of the Sites or Service shall be governed by and construed in accordance with the laws of the United States of America and the State of California applicable to agreements made and to be entirely performed within the State of California (even if your use is outside of the State of California), without resort to its conflict of law provisions. You agree that with respect to any disputes or claims not subject to arbitration (as set forth below), any action at law or in equity arising out of or relating to the Sites, the Service or these Terms shall be filed only in the state and federal courts located in Sacramento County, California and you hereby irrevocably and unconditionally consent and submit to the exclusive jurisdiction of such courts. 12. Arbitration THIS ARBITRATION SECTION PROVIDES THAT ANY DISPUTE ARISING FROM THESE TERMS AND/OR YOUR USE OF THE SITES AND/OR SERVICE MAY BE RESOLVED BY BINDING ARBITRATION, WHICH REPLACES THE RIGHT TO GO TO COURT. THIS SECTION PROHIBITS YOU FROM BRINGING A CLASS ACTION OR OTHER REPRESENTATIVE ACTION IN COURT, INCLUDING IN THE FORM OF A PRIVATE ATTORNEY GENERAL ACTION, AND PROHIBITS YOU FROM BRINGING ANY CLAIM IN ARBITRATION AS A CLASS ACTION OR OTHER REPRESENTATIVE ACTION. IN ADDITION, THIS ARBITRATION SECTION PROHIBITS YOUR ABILITY TO BE PART OF ANY CLASS ACTION OR OTHER REPRESENTATIVE ACTION BROUGHT BY ANYONE ELSE, AND PROHIBITS YOUR ABILITY TO BE REPRESENTED IN A CLASS ACTION OR OTHER REPRESENTATIVE ACTION. IF NOT FOR THIS ARBITRATION SECTION, YOU MAY HAVE OTHERWISE HAD A RIGHT TO PARTICIPATE OR BE REPRESENTED IN A CASE FILED IN COURT BY OTHERS (INCLUDING CLASS ACTIONS AND OTHER REPRESENTATIVE ACTIONS) AND YOU AND WE MAY OTHERWISE HAVE HAD A RIGHT TO BRING CLAIMS IN A COURT BEFORE A JUDGE OR JURY. EXCEPT AS OTHERWISE PROVIDED BELOW, YOU WAIVE ANY OTHER RIGHTS THAT YOU WOULD HAVE IF YOU WENT TO A COURT, SUCH AS DISCOVERY OR THE RIGHT TO APPEAL A DECISION. You acknowledge and agree that this Arbitration Section and the agreements contained herein are made pursuant to a transaction that involves interstate commerce, and shall be governed by and be enforceable under the Federal Arbitration Act (the “FAA”) (9 U.S.C. §1 et seq.) as it may be amended from time to time. The circumstances and procedures under which claims (as defined below) may be resolved by arbitration instead of in court are set forth herein. For the purposes of this Arbitration Section, “we” and “us” means Pull, including any parent, subsidiaries, affiliates, licensees, predecessors, successors, or assigns, and all of their officers, directors, employees, agents, and assigns. For the purposes of this Arbitration Section, a “Claim” shall be any claim, dispute or controversy brought by either you or us against the other or against the employees, parents, subsidiaries, affiliates, beneficiaries, agents or assigns of the other and arising from or relating in any way to the Sites or Service or the goods and/or services obtained through use of the Sites or Service. Either party hereto may, without the other’s consent, elect to pursue mandatory binding arbitration with respect to any Claim. A party who initiates a proceeding in court may elect arbitration with respect to any such Claims advanced in the lawsuit by any party or parties. This Arbitration Section governs all Claims, whether based in law, common law, tort, contract, statute, regulation, ordinance, constitutional provision, or any other legal theory of law, including respondeat superior, or any other legal or equitable ground. In addition, this Arbitration Section governs whether or not such Claims seek as remedies declaratory relief, equitable relief, money damages, penalties or injunctions. For the purposes of this Arbitration Section, the term Claim is to be given the broadest possible meaning, including counterclaims, cross claims, third party claims, interpleaders or otherwise. Any claim, dispute or controversy regarding the applicability of this Arbitration Section or the validity of any or all of the Terms or the Pull Privacy Policy are also Claims for the purposes of this Arbitration Section. Notwithstanding anything herein to the contrary, you retain the right to pursue any Claim in a small claims court and proceed on an individual basis for any such Claim that is within the court’s jurisdiction. Arbitration of Claims will be conducted as an individual action. Neither party agrees to any arbitration on a class or representative basis and the arbitrator shall not have authority to proceed with any arbitration on a class or representative basis. Even if a class action lawsuit or other representative action is filed, including in the form of a private attorney general action, any Claim between you and us related to such lawsuits will be subject to an individual arbitration claim if so elected by either you or us. Arbitration proceedings with respect to separate Claims will not be consolidated without the consent of all parties. Only those Claims that are (1) those brought by us against you, or your heirs or your trustee in bankruptcy or (2) those brought by you, or your heirs or your trustee in bankruptcy against us, may be joined in an individual action under this Arbitration Section. The party filing a Claim in arbitration must choose one of the following two arbitration administrators: American Arbitration Association; or JAMS/Endispute (“JAMS”), both of which are independent from us. Any arbitration will be conducted under the rules of the selected arbitration administrator by an impartial third party chosen in accordance with the rules of the selected arbitration administrator and as provided herein. Arbitration hearings will be held at a place chosen by the arbitrator or arbitration administrator within the federal judicial district in which you reside at the time the Claim is filed or at some other place as agreed by the parties in writing. Copies of the current rules of the arbitration administrators named above, and well as information about arbitration and arbitration fees, and instructions for initiating arbitration may be obtained by using the following contact information: American Arbitration Association 1633 Broadway, 10th Floor, New York, NY 10019 Web site: www.adr.org Telephone: 800-778-7879 JAMS 1920 Main Street, Suite 300, Irvine, CA 92614 Web site: www.jamsadr.com Telephone: 800-352-5267 Claims will be resolved by a single, neutral arbitrator, who will be either be a lawyer with at least ten years experience or a retired or former judge. The applicable procedures and rules of the arbitration administrator that are in effect on the date the arbitration is filed will govern the arbitration unless those procedures and rules are inconsistent with this Arbitration Section in which case the procedures and rules of this Arbitration Section will prevail. The procedures and rules of arbitration may limit the amount of discovery available to you or us in the proceeding. Applicable substantive law consistent with the FAA and applicable statutes of limitations will be applied, and the arbitrator will honor claims of privilege recognized at law. At your discretion, you may have a hearing and be represented by counsel. Reasonable steps will be taken by the arbitrator to protect customer information and other confidential information, and the arbitrator may use protective orders to prohibit disclosure outside the arbitration if requested to do so by either party. The arbitrator will have the power to award to a party any damages or other relief provided for under applicable law, Terms and the Pull Privacy Policy. The arbitrator will not have the power to award relief to, against, or for the benefit of any person who is not a party to the proceeding. The arbitrator may award punitive damages or attorneys fees if the law, Terms and the Pull Private Policy authorize such relief. Any award made by the arbitrator will be evidenced in writing by the arbitrator, but the arbitrator is not required to provide a statement of reasons unless requested by a party. Any failure or other delay by either party in enforcing this Arbitration Section at any time, or in connection with any particular Claims, will not constitute a waiver of any rights to require arbitration at a later time or in connection with any other Claims. Decisions rendered in arbitration proceedings will be final and binding on the parties. There shall be no appeal from arbitration decisions other than for arbitrator bias, fraud or misconduct and any award granted in arbitration will be enforceable by any court having jurisdiction as provided by the FAA and/or other applicable law. Regardless of which party prevails, each party will bear the expense of the fees and costs of that party’s attorneys, experts, witnesses, documents and other expenses for arbitration and any appeal. Notwithstanding the foregoing, the arbitrator shall apply applicable law in determining whether a party should recover any or all fees and costs from another party, and the parties will be bound by such determination. This Arbitration Section shall survive: (i) termination of, or changes in, the Terms or the Pull Privacy Policy and any relationship between you and us; (ii) the bankruptcy of any party or any other similar proceeding initiated by you or on your behalf; and (iii) payment in full of any debt by you or by a third party. Should any portion of this Arbitration Section be deemed invalid or unenforceable, the remaining portions shall nevertheless remain in force. 13. Availability Information that Pull publishes in the Sites or in the Service may contain references or cross-references to products, programs or services of Pull that are not necessarily announced or available in your area. Such references do not mean that Pull will announce any of those products, programs or services in your area at any time in the future. You should contact Pull for information regarding the products, programs and services that may be available to you, if any. 14. Termination of Service We may terminate your right to access secured portions of the Sites or Service at any time, without notice, for any or no reason including, but not limited to, conduct that we believe violates these Terms and/or is harmful to other users of the Sites or Service, to Pull, to the business of the Web Site’s Internet service provider, or to other information providers. 15. Miscellaneous If any provision of these Terms is deemed invalid by a court of competent jurisdiction, the invalidity of such provision shall not affect the validity of the remaining provisions of these Terms, which shall remain in full force and effect. No waiver of any term of these Terms shall be deemed a further or continuing waiver of such term or any other term, and Pull’s failure to assert any right or provision under these Terms shall not constitute a waiver of such right or provision. Your Consent To This Agreement By accessing and using the Sitesor the Service, you consent to and agree to be bound by the terms of the foregoing Terms. These Terms, together with Pull’s Privacy Policy and any other legal notices published by Pull on the Sites or in the Service, shall constitute the entire agreement between you and Pull concerning the Sites or the Service. If we decide to change these Terms, we will make an effort to post those changes on the web page so that you will always be able to understand the terms and conditions that apply to your use of the Site or the Service. Your use of the Sites or the Service following any amendment of these Terms will signify your assent to and acceptance of its revised terms. If you have additional questions or comments of any kind, if you see anything on the Sites or in the Service that you think is inappropriate, please let us know by e-mail or by sending your comments or requests to: Pull 947 Bush St, Suite 216 San Francisco, CA 94109 support@getpulled.com Copyright © 2014. Pull LLC. All Rights Reserved. EFFECTIVE AS OF: January 22, 2015 LAST UPDATED: January 22, 2015</string>
+                                <mutableString key="text">TERMS AND CONDITIONS OF USE
+
+
+
+Date of Last Revision: 23 Oct 2015
+
+
+
+PLEASE READ THESE TERMS AND CONDITIONS OF USE CAREFULLY. BY ACCESSING OR USING THIS WEB SITE, THE PULL APP AND ANY RELATED SERVICES, YOU AGREE TO BE BOUND BY THE TERMS AND CONDITIONS DESCRIBED HEREIN AND ALL TERMS, POLICIES, GUIDELINES AND DISCLOSURES INCORPORATED BY REFERENCE. IF YOU ARE OBTAINING A LICENSE ON BEHALF OF AN ORGANIZATION, YOU CONFIRM THAT YOU HAVE THE AUTHORITY TO BIND THE ORGANIZATION AND THAT THE ORGANIZATION WILL BE BOUND BY THESE TERMS, AND THE TERM “YOU” SHALL THEN REFER TO YOU AND YOUR ORGANIZATION. IF YOU DO NOT AGREE TO ALL OF THESE TERMS, DO NOT USE THIS WEB SITE OR PULL SERVICES.
+
+
+
+These terms and conditions of use ("Site Terms") apply exclusively to your access to, and use of, the Pull Web site located at www.getpulled.com (the "Site") and the information and other services provided therein, and to your use of the Pull app accessed through your mobile device (together the "Services"). The Pull Site and Services are owned and operated by Pull Software LLC.
+
+
+
+These Site Terms do not alter in any way the terms or conditions of any other agreement you may have with Company, or its subsidiaries or affiliates, for products, services or otherwise.
+
+
+
+Company reserves the right to change or modify any of the terms and conditions contained in these Site Terms or any policy or guideline of the Site or the Services, at any time and in its sole discretion. Any changes or modification will be effective immediately upon posting of the revisions on the Site. Your continued use of this Site or the Services following the posting of its changes or modifications will constitute your acceptance of such changes or modifications. Therefore, you should frequently review these Site Terms and applicable policies from time-to-time to understand the terms and conditions that apply to your use of the Site and Services. If you do not agree to the amended terms, you must stop using the Site and the Services.
+
+
+
+1. Privacy Policy
+
+
+
+Please refer to our Privacy Policy  for information on how the company collects, uses and discloses personally identifiable information from its users.
+
+
+
+2. Age Restrictions.
+
+
+
+If you are not fourteen (14) years old or older, you may not use this Site or the Services. If you are fourteen (14) or older but under the age of majority in the country where you live, then you should obtain the consent of your parent or guardian prior to use of the Site or the Services. If you are a parent or guardian who has consented to your child’s use of the Site or Services, then, to the fullest extent permitted by applicable law, you agree to and accept full responsibility for that child's use of Pull software and the Services, including all financial charges and legal liability that he or she may incur.
+
+
+
+3. Safety.
+
+
+
+The Services are designed to permit others to visualize your location (i.e. that of your mobile device) Via compass. They are also designed to provide you with the ability to know when you are broadcasting your location and with the ability to limit the duration of such broadcast. Nonetheless, use of the Services may involve special risks associated with other persons knowing your location. You should only share such information with those that you trust. You should not endanger yourself or others by viewing a portable mobile device while driving, operating dangerous mechanical devices, or in other situations in which you should be observing your surroundings.
+
+
+
+4. Consent to Receive Emails
+
+
+
+If you provide us with your email address as part of your use of the Site or the Services, we may send you news and product updates relating to the Company. You may "opt out" of receiving marketing or promotional emails from the Company at any time by following unsubscribe instructions or using unsubscribe links within communications we send. Please note, however, that as long as you receive the Services, you may not "opt out" of receiving service related emails from the Company.
+
+
+
+
+
+5. Disclaimers and Acknowledgements Regarding Use of Site Information
+
+
+
+THE SITE, PULL MATERIALS AND THE SERVICES ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, COMPANY DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT AS TO THE INFORMATION, CONTENT OR MATERIALS ON THE SITE OR PROVIDED THOUGH THE SERVICES. COMPANY DOES NOT REPRESENT OR WARRANT THAT PULL MATERIALS, INCLUDING THE INFORMATION AVAILABLE IN OR ON THE SITE, OR THE SERVICES ARE ACCURATE, COMPLETE, RELIABLE, CURRENT OR ERROR-FREE. COMPANY DOES NOT REPRESENT OR WARRANT THAT THE SITE OR ITS SERVERS ARE FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
+
+
+
+You should independently verify the accuracy of any information you obtain on the Site or through the Services before using it. You agree to be solely responsible for your use of the content found on this Site, the Pull Materials and the Services.
+
+
+
+TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, COMPANY IS NOT RESPONSIBLE FOR ERRORS OR OMISSIONS IN ANY INFORMATION OR MATERIALS CONTAINED ON THE SITE OR THROUGH THE SERVICES. WHILE COMPANY ATTEMPTS TO MAKE YOUR ACCESS AND USE OF THE SITE AND SERVICES SAFE, COMPANY CANNOT AND DOES NOT REPRESENT OR WARRANT THAT THE SITE OR ITS SERVICES, OR ANY CONTENT OR MATERIALS ARE FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS; THEREFORE, YOU SHOULD USE INDUSTRY-RECOGNIZED SOFTWARE TO DETECT AND DISINFECT VIRUSES, SPYWARE, MALWARE, AND OTHER HARMFUL OR OTHERWISE UNDESIRABLE COMPONENTS FROM ANY DOWNLOAD.
+
+
+
+Company reserves the right to change any and all content contained in the Site and any Services offered through the Site at any time without notice.
+
+
+
+6. Limitation of Liability
+
+
+
+TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL COMPANY OR ANY OF ITS CORPORATE AFFILIATES, INDEPENDENT CONTRACTORS, SERVICE PROVIDERS OR CONSULTANTS, OR ANY OF THEIR RESPECTIVE DIRECTORS, EMPLOYEES AND AGENTS, BE LIABLE FOR ANY DIRECT, SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES, OR ANY OTHER DAMAGES OF ANY KIND, INCLUDING BUT NOT LIMITED TO, LOSS OF USE, LOSS OF PROFITS OR LOSS OF DATA, WHETHER IN AN ACTION IN CONTRACT, TORT (INCLUDING BUT NOT LIMITED TO NEGLIGENCE) OR OTHERWISE, ARISING OUT OF OR IN ANY WAY RELATED TO OR CONNECTED WITH ANY USE OF THE SITE, THE SERVICES, THE CONTENT OR THE MATERIALS CONTAINED IN OR ACCESSED THROUGH THE SITE OR SERVICES, INCLUDING WITHOUT LIMITATION ANY DAMAGES, LOSS OR INJURY CAUSED BY OR RESULTING FROM RELIANCE BY USER ON ANY INFORMATION OBTAINED FROM COMPANY OR THE SITE, OR THAT RESULT FROM MISTAKES, OMISSIONS, INTERRUPTIONS, DELETION OF FILES OR EMAIL, ERRORS, DEFECTS, VIRUSES, DELAYS IN OPERATION OR TRANSMISSION OR ANY FAILURE OF PERFORMANCE, WHETHER OR NOT RESULTING FROM ACTS OF GOD, COMMUNICATIONS FAILURE, THEFT, DESTRUCTION OR UNAUTHORIZED ACCESS TO COMPANY'S RECORDS, PROGRAMS OR SERVICES. THE AGGREGATE LIABILITY OF COMPANY, WHETHER IN CONTRACT, WARRANTY, TORT (INCLUDING NEGLIGENCE, WHETHER ACTIVE, PASSIVE OR IMPUTED), PRODUCT LIABILITY, STRICT LIABILITY OR OTHER THEORY, ARISING OUT OF OR RELATING IN ANY MANNER TO THE USE OF THE SITE, THE SERVICES OR THE PULL MATERIALS, SHALL NOT EXCEED ANY COMPENSATION YOU PAY, IF ANY, TO COMPANY FOR ACCESS TO OR USE OF THE SITE OR THE SERVICES. THE LIMITATIONS IN THIS PARAGRAPH DO NOT APPLY TO ANY LIABILITY WHICH CANNOT BE LIMITED OR EXCLUDED UNDER APPLICABLE LAW.  
+
+
+
+IF YOU ARE A CALIFORNIA RESIDENT, YOU WAIVE CALIFORNIA CIVIL CODE SECTION 1542, WHICH SAYS “A GENERAL RELEASE DOES NOT EXTEND TO CLAIMS WHICH THE CREDITOR DOES NOT KNOW OR SUSPECT TO EXIST IN HIS FAVOR AT THE TIME OF EXECUTING THE RELEASE, WHICH, IF KNOWN BY HIM MUST HAVE MATERIALLY AFFECTED HIS SETTLEMENT WITH THE DEBTOR.”
+
+
+
+7. Third Party Content
+
+
+
+Company or users may provide links to Web pages and content of third parties as a service to those interested in such links and content, and Company may post third party content or allow users to post their content or third party content to the Site or through the Services (such content is collectively referred to as "Third Party Content"). Company does not monitor or have any control over any Third Party Content or third party Web sites. Company does not endorse or adopt any Third Party Content or third party Website and can make no guarantee as to its accuracy or completeness. Company does not represent or warrant the accuracy of any information contained therein and undertakes no responsibility to update or review any Third Party Content or third party Websites. Users use these links, Third Party Content and third party Websites at their own risk.
+
+
+
+8. Third Party Services
+
+
+
+The Site or the Services may also contain, provide information regarding or link to certain applications and services provided or offered by third parties (collectively the "Third-Party Services"). Company is merely an information provider and is not a referral service, and it does not recommend or endorse any such Third-Party Services or monitor or have any control over such Third-Party Services. Therefore, Company makes no guarantee, representation or warranty of any kinds as to the quality, competency, value, reliability, responsiveness, accuracy or completeness of any such Third-Party Services or the results obtained therefrom, and Company assumes no responsibility or liability for any Third Party Services or for the actions or failure to act of those providing such Third-Party Services. You assume full responsibility for your use of any such Third-Party Services, and Company is not responsible or liable for any Third-Party Services.
+
+
+
+9. Advertisements and Promotions
+
+
+
+Company may run advertisements and promotions from third parties on the Site or through the Services. Your business dealings or correspondence with, or participation in promotions of, advertisers other than Company, and any terms, conditions, warranties or representations associated with such dealings, are solely between you and such third party. Company is not responsible or liable for any loss or damage of any sort incurred as the result of any such dealings or as the result of the presence of such non-Company advertisements on the Site or made available through the Services.
+
+
+
+10. Mobile Services
+
+
+
+The Pull app requires the use of mobile devices and wireless services. The Company does not charge for its Services provided to end users. However, your mobile service provider may charge you for those services that it provides, which are related to the Company Services. You should check with your mobile service provider to learn about such charges. By using the Services, you agree that the Company may communicate with you regarding the Services by SMS, text message, email or other electronic means to your mobile device or email address.
+
+
+
+11. Submissions
+
+
+
+You acknowledge and agree that any materials, including but not limited to questions, comments, reviews, suggestions, ideas, feedback, plans, notes, original or creative materials or other information, provided by you in the form of email or other submissions to Company (other than “User Content”, as defined below), are non-confidential and shall become the sole property of Company. You agree Company shall own exclusive rights, including all intellectual property rights, and shall be entitled to the unrestricted use and dissemination of these materials for any purpose, commercial or otherwise, without acknowledgment or compensation to you.
+
+
+
+12. User Posted Content &amp; Other Interactive Services or Areas
+
+
+
+The Site or the Services may from time to time include areas in which users may post content and information (the "User Content") and may include other interactive areas or services in which you or third parties may create, post, modify or store information, content, materials or other items ("Interactive Areas"). You are solely responsible for your use of such Interactive Areas and use them at your own risk. By using any Interactive Areas, you agree not to post, upload to, transmit, distribute, store, create or otherwise publish through the Site or the Services any of the following:
+
+
+
+1.      User Content that is false, deceptive, deceitful, misleading, unlawful, libelous, defamatory, obscene, pornographic, indecent, lewd, suggestive, harassing, threatening, invasive of privacy or publicity rights, abusive, inflammatory, harmful to minors, fraudulent or otherwise objectionable;
+
+
+
+2.      User Content that would constitute, encourage or provide instructions for a criminal offense, violate the rights of any party, violate any applicable rules of professional conduct, or that would otherwise create liability or violate any local, state, national or international law;
+
+
+
+3.      User Content that may infringe any patent, trademark, trade secret, copyright or other intellectual or proprietary right of any party. By posting any User Content, you represent and warrant that you have the lawful right to distribute and reproduce such User Content as provided under these Site Terms;
+
+
+
+4.      User Content that impersonates any person or entity or otherwise misrepresents your affiliation with a person or entity;
+
+
+
+5.      Unsolicited promotions, political campaigning, advertising or solicitations, including without limitation any advertisements for commercial services or products;
+
+
+
+6.      Private or confidential information of any third party, including, without limitation, addresses, phone numbers, email addresses, Social Security numbers and credit card numbers;
+
+
+
+7.      Viruses, spyware, malware, corrupted data or other harmful, disruptive or destructive files;
+
+
+
+8.      Any answers, responses, comments, opinions, analysis or recommendations that you are not properly licensed or otherwise qualified to provide; and
+
+
+
+9.      User Content that, in the sole judgment of Company, is objectionable or which restricts or inhibits any other person from using or enjoying the Interactive Areas, the Site or the Services, or which may expose Company or its users to any harm or liability of any type.
+
+
+
+10.  User Content that harasses, degrades, intimidates or is hateful toward an individual or group of individuals for any reason and especially on the basis of religion, gender, sexual orientation, race, ethnicity, age or disability.
+
+
+
+ 
+
+
+
+Additionally, you agree not to:
+
+
+
+1.      use the Services to impersonate a third party or load the Pull software on a third party’s mobile device without their permission;
+
+
+
+2.      use the Services to "stalk", harm or otherwise harass anyone;
+
+
+
+3.      use the Services or collect personal data about others for unlawful purposes;
+
+
+
+4.      use automated means, including spiders, robots, crawlers, data mining tools, or the like to download data from the Site or the Services - unless expressly permitted by the Company;
+
+
+
+5.      post non-local or otherwise irrelevant User Content, repeatedly post the same or similar User Content or otherwise impose an unreasonable or disproportionately large load on our infrastructure;
+
+
+
+6.      attempt to gain unauthorized access to the Company’s computer systems or engage in any activity that disrupts, diminishes the quality of, interferes with the performance of, or impairs the functionality of, the Services or the Pull website;
+
+
+
+7.      use any form of automated device or computer program that enables the submission of postings without each posting being manually entered by the author thereof (an "automated posting device"), including without limitation, the use of any such automated posting device to submit postings in bulk, or for automatic submission of postings at regular intervals; or
+
+
+
+8.      threaten anyone or exploit anyone in a sexual, violent or other objectionable manner.
+
+
+
+ 
+
+
+
+To the fullest extent permitted by applicable law, Company disclaims all liability for any User Content posted, stored or uploaded by you or any third party, or for any loss or damage thereto, nor is Company liable for any mistakes, defamation, slander, libel, omissions, falsehoods, obscenity, pornography or profanity you may encounter. Your use of Interactive Areas is at your own risk. As a provider of interactive services, Company is not liable for any statements, representations, responses, comments or other User Content provided by its users. Although Company has no obligation to screen, edit or monitor any of the User Content posted in any Interactive Area, Company reserves the right, and has absolute discretion, to remove, screen or edit any User Content posted or stored on the Site or made available through the Services at any time and for any reason without notice. Any use of the Interactive Areas or other portions of the Site or the Services in violation of the foregoing violates these Site Terms and may result in, among other things, termination or suspension of your rights to use the Interactive Areas, and/or the Site and/or the Services.
+
+
+
+If you post User Content to the Site or through the Services, you grant Company and its affiliates a nonexclusive, royalty-free, perpetual, irrevocable and fully sublicensable right to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, perform and display such User Content throughout the world in any media. If applicable local law does not allow the above rights to be granted in perpetuity, you agree that they shall be granted for the maximum period allowed, being no less than the duration of the relevant intellectual property right. You grant Company and its affiliates and sublicensees the right to use the name that you submit in connection with such User Content, if they choose. You represent and warrant that (a) you own and control all of the rights to the User Content that you post or you otherwise have the right to post such User Content to the Site and the Services and to grant the rights granted herein; (b) the User Content is accurate and not misleading; and (c) use and posting of the User Content you supply does not violate these Site Terms and will not violate any rights of or cause injury to any person or entity.
+
+
+
+ 
+
+
+
+13. Registration Data; Security
+
+
+
+In consideration of your use of the Site and/or Services, you agree to (a) provide accurate, current and complete information about you as may be prompted by any registration forms on the Site or through the Services ("Registration Data"); and (b) promptly inform the Company of any changes to the Registration Data, and any other information you provide to Company, to keep it accurate, current and complete. In addition, you agree not to access or use, or attempt to access or use, the Site or any part thereof or the Services using the identity or the Registration Data of any person other than yourself.
+
+
+
+14. Indemnification
+
+
+
+To the fullest extent permitted by applicable law, you agree to defend, indemnify and hold harmless Company, its corporate affiliates, independent contractors, service providers and consultants, and each of their respective directors, employees and agents, from and against any claims, damages, costs, liabilities and expenses (including, but not limited to, reasonable attorneys' fees) arising out of or related to any User Content you post, store or otherwise transmit on or through the Site or the Services or your use of or inability to use the Site or the Services, including without limitation any actual or threatened suit, demand or claim arising out of or relating to the User Content, your conduct, your violation of these Site Terms or your violation of the rights of any third party (save to the extent that a court of competent jurisdiction holds that such claim arose due to an act or omission by the Company).
+
+
+
+15. Applicable Law and Venue
+
+
+
+These Site Terms and your use of the Site and Services shall be governed by and construed in accordance with the laws of the United States of America and the State of Delaware applicable to agreements made and to be entirely performed within the State of Delaware
+
+ (even if your use is outside of the State of Delaware), without resort to its conflict of law provisions. You agree that with respect to any disputes or claims not subject to arbitration (as set forth below), any action at law or in equity arising out of or relating to the Site, the Services or these Site Terms shall be filed only in the state and federal courts located in Delaware and you hereby irrevocably and unconditionally consent and submit to the exclusive jurisdiction of such courts. The requirements in this paragraph 21 shall not apply where and to the extent they are prohibited by the local law in the country where you live.
+
+
+
+16. Arbitration
+
+
+
+You and Company agree that except as otherwise specifically provided in this paragraph, any controversy or claim arising out of or relating in any way to these Site Terms, or the breach thereof, or to the Site and/or the Services shall be settled exclusively by arbitration administered by the American Arbitration Association (the "AAA") in accordance with its Commercial Arbitration Rules and, in the case of consumer disputes, with the AAA's Supplementary Procedures for Consumer Related Disputes (collectively, the "AAA Rules"), and that judgment on the award rendered by the arbitrator(s) may be entered in any court having jurisdiction thereof. Notwithstanding the foregoing, to the extent that either of us has in any manner infringed upon or violated or threatened to infringe upon or violate the other party's patent, copyright, trademark or trade secret rights, then the parties acknowledge that arbitration is not an adequate remedy at law and that without waiving any remedy under these Site Terms, injunctive or other appropriate relief may be sought from any court specified in Section 21 (above). The place of arbitration and the allocation of costs and fees for such arbitration shall be determined in accordance with such AAA Rules. To the fullest extent permitted by applicable law, no arbitration or claim shall be joined to any other arbitration or claim, and no class arbitration proceedings shall be permitted. In no event shall any claim, action or proceeding by you related in any way to the Site or the Services be instituted more than two (2) years after the cause of action arose. In the event that any term of this Section 22 (Arbitration) is held to be in conflict with a mandatory provision of applicable law, such conflicting term shall be modified automatically to comply with such provision and the remainder of this Section 22 shall not be affected.
+
+
+
+17. Termination
+
+
+
+Notwithstanding any of these Site Terms, Company reserves the right, without notice and in its sole discretion, to terminate your license to use the Site and the Services, and to block or prevent your access to and use of the Site and the Services.
+
+
+
+18. Severability
+
+
+
+If any provision of these Site Terms shall be deemed unlawful, void or for any reason unenforceable, then that provision shall be deemed severable from these Site Terms and shall not affect the validity and enforceability of any remaining provisions.
+
+
+
+19. Questions &amp; Contact Information
+
+
+
+Questions or comments about the Site or the Service may be directed to Company at the email address support@getpulled.com .</mutableString>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2260,11 +2637,148 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHZ-jG-qGV">
-                                <rect key="frame" x="20" y="64" width="560" height="536"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RHZ-jG-qGV">
+                                <rect key="frame" x="20" y="64" width="560" height="3691"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <string key="text">We respect and are committed to protecting your privacy. That is why we have adopted this privacy policy (“Policy”). The Policy lets you know how and for what purposes your personal information is being collected, processed, and used. We pledge that we will take reasonable steps to ensure that your personal information will only be used in ways that are in compliance with this Policy. This Policy applies to the Web Sites located at www.getpulled.com owned and operated by Pull LLC. (“Pull”, “we”, “us”) and the Pull service accessed through our mobile applications (collectively, the “Service”). This privacy policy is designed to tell you how we collect and use personal information (as defined below) so you can make an informed decision about using our Site and the Pull Service. Your use of the Site is also governed by Terms &amp; Conditions (“Terms”) located below and which is hereby incorporated herein as if stated in full. We will make an effort to update this web page with any changes to this Policy and you are encouraged to review this Policy frequently (the date of the most recent revision to this Policy appears at the end of this Policy). Use of Information In order to participate in certain features of the Sites and the Service, we may require that individuals provide us with certain specific information that specifically identifies an individual (such as the individual’s full name and mobile number) and information about that individual’s location or activities, such as information about his or her use of the Service. The foregoing use includes submitting Feedback forms (as defined in the Terms located below) for use in connection with the Sites and Service. Personal information does not include "aggregate" information, which is data we collect about the use of the Sites or the Service or categories of the Sites and Service users, from which any personal information has been removed. For example, information that 10% of users have invited others to use the Service is aggregate information. We collect aggregate data for a number of purposes, including to help us understand trends and user needs so that we can better consider new features, products and services, and tailor existing features, products and services, etc., to user desires. This policy in no way limits or restricts our collection of aggregate information. Personal Information Collected Personal information may be collected in a number of ways when you use the various services and activities available through the Pull Service. At several places within our Mobile Application(s), we may collect certain information you voluntarily provide to us which may contain personal information. For example, if you begin using the Service, send us an email, or submit content, we may collect your name, photo, and the mobile number which you provide. In addition, from time to time we may collect contact or other personal or demographic information you provide in connection with your participation in surveys or promotional offers. When turned on and with an active Pull, the Service will automatically collect location information from your mobile device and/or your mobile carrier. When you use the service through your mobile device, some information is also collected automatically, such as your Internet Protocol (IP) address, your operating system, the browser type, the address of a referring web site, and your activity on the application and through the Service. This information can be considered personal information if we combine it with, or link it to, any of the identifying information mentioned above. Personal location information will be used in the aggregate only. If you choose to discontinue allowing us to collect and use your location information, you may discontinue the use of the Service. We may also automatically collect certain information through the use of "cookies”, which are small data files that are stored on a user's hard drive at the request of a Web site to enable the site to recognize users who have previously visited them and retain certain information, such as customer preferences and history. If we combine cookies with or link them to any of the personal information, we would treat this information as personal information. If you wish to block, erase, or be warned of cookies, please refer to your browser instructions or help screen to learn about these functions. Mobile Analytics We use mobile analytics software to allow us to better understand the functionality of our Mobile Application(s) on your phone. This software may record information such as how often you use the application, the events that occur within the application, aggregated usage, performance data, and from where the application was downloaded. We do not link the information we store within the analytics software to any personally identifiable information you submit within the mobile application(s). Usage and Disclosure In general, we use personal information we may collect (such as your name or phone number) to facilitate your use of the mobile application(s) and Pull Service, to provide you with information, products and services you request, to administer and assist us with the operation of the Sites and Mobile Application(s) and of our Service, and for the purpose for which the information was provided. For example, we may use the information we collect: (1) to respond to your emails, submissions, comments, requests or complaints, (2) to ensure that the Service is working correctly and that you are being served the most recent version, (3) to allow other users of the Service that you designate to temporarily view your location in real-time, (4) to request feedback and to enable us to develop, customize, and improve the Sites and our information and services, and (5) for the specific purpose for which the information was provided. In addition, if you so indicate in the event of sharing your contact information with us, we may use the information we collect to send you news and product and service updates, including contacting you about our services, products, activities, special events or offers and for other marketing, informational, product development and promotional purposes, including notifications about new features and or improvements to the Sites or our products and services. We may also receive information from third parties with whom we have business relationships, and may combine this information with the other personal information we have about you. In such cases, this Policy governs our use and disclosure of such information. Information Shared with Third Parties We do not rent, share, or sell any personal information to third parties in any ways different from what is disclosed in this Policy. We may, however, provide other non-personal information and aggregate information to third parties without your authorization. Regarding SMS functionality, when Pull sends location information from your mobile device to those recipients designated by you, your phone number will be provided to them along with such identifying information as you choose, such as name and/or photo. Pull does not use its users’ mobile numbers or other personally identifiable information for commercial or marketing purposes without your consent or except as part of a program or feature for which you will have the ability to opt-in or opt-out. We may share non-personally-identifiable information (such as anonymous user usage data, referring/exit pages and URLs, platform types, number of clicks, etc.) with third parties to demonstrate the usage patterns for Pull’s advertisements, marketing, promotions and/or services on the Service. We are not responsible for any information you provide to these parties directly, and we encourage you to become familiar with their practices before disclosing information directly to such third parties with which you come into contact. You should only share your location with people you know and trust not to convey your location to others. You should also note that personal information you share with others may be forwarded and information you post to public areas of the Sites may become publicly available. In addition to the other times or occasions on which we might disclose information about users of the Sites, we might also disclose information when required by law or in the good-faith belief that such disclosure is necessary to: (a) comply with a legal process and applicable laws; (b) enforce this Policy; (c) respond to claims that any materials, documents, images, graphics, logos, designs, audio, video and any other information provided from or on the Sites or Service violates the rights of third parties; or (d) protect the rights, property or personal safety of Pull its users, or the public. We use reasonable precautions to keep the information that is disclosed to us secure. We provide personally identifiable information and non-personally-identifiable information to our subsidiaries, affiliated companies, or other businesses or persons for the purpose of processing such information on our behalf. We require that these parties agree to process such information in compliance with our Privacy Policy, and we use reasonable efforts to limit their use of such information and to use other appropriate confidentiality and security measures. We also reserve the right to disclose personally identifiable information and/or non-personally-identifiable information in connection with the enforcement of our Terms located below, take precautions against liability, to investigate and defend against any third-party claims or allegations, to assist government enforcement agencies, to protect the security or integrity of the Sites and Service, and to protect the rights, property, or personal safety of Pull, our users, or others. We reserve the right to transfer your personally identifiable information, as well as any other information, in connection with the sale or other disposition of all or part of Pull Apps business and/or assets. We also cannot make any representations regarding the use or transfer of your personally identifiable information or other information that we may have in the event of our bankruptcy, reorganization, insolvency, receivership or an assignment for the benefit of creditors. Furthermore, we cannot and will not be responsible for any breach of security by any third parties or for any actions of any third parties (including other users of the Sites or Service) that receive any of the information that is disclosed to us. The Sites also link to a wide variety of other web sites and the Sites may contain advertisements of third parties. We are not and cannot be responsible for the privacy policies of those web sites of third parties or how they treat information about their users. Any personal information that you may provide in a public or semi-public forum through the Sites or Service are displayed to any person accessing the Sites or Service. ANY PERSONAL INFORMATION THAT YOU SHARE IN A PUBLIC OR SEMI-PUBLIC FORUM IS NOT SUBJECT TO THIS PRIVACY POLICY. ADDITIONALLY, PULL APPS HAS NO CONTROL OF THE FURTHER DISSEMINATION OF INFORMATION THAT YOU PROVIDE TO ANY THIRD PARTY. Measures Taken To Ensure Protection of Your Information Pull endeavors to secure your personal information from unauthorized access, use or disclosure by putting into place measures to safeguard the information we collect. Please be aware, however, that despite our efforts, no security measures are perfect or impenetrable, and that we cannot guarantee that the Sites or Service will be free of any defects or flaws that affect your use of it or the security of your information. When you enter sensitive information or we automatically collect sensitive information on our forms, we encrypt the transmission of that information using secure socket layer technology (SSL). Information From Children The Site and Mobile Applications are not intended or designed to attract users under the age of thirteen (13). We do not collect personally identifiable data from any person that we know to be under the age of thirteen (13). You affirm that you are thirteen (13) years of age or older and are fully able and competent to enter into the terms, conditions, obligations, affirmations, representations, and warranties set forth in this Privacy Policy, and to abide by and comply with this Policy. THE WEB SITES AND MOBILE APPLICATIONS ARE NOT INTENDED FOR USERS UNDER THE AGE OF THIRTEEN (13). Choices With Your Personal Information Whether you submit personally identifiable information to Pull is entirely up to you. You may decide not to submit personally identifiable information through the Sites or Mobile Application(s), in which case Pull LLC may not be able to provide certain services to you. Please note that any information that you post, upload or transmit through the Sites or Service remain subject to our Terms located below. We do not keep your Pull’s active for longer than 6 hours. If you wish to discontinue use of the Pull service and would like to have your account permanently deleted, you may send us an email at support@getpulled.com Once your account is deleted, you will no longer have access to your Recent Pull’s or any other information associated with your use of the Pull Service. Data Retention We will retain your information for as long as your account is active or as needed to provide you services. If you wish to cancel your account or request that we no longer use your information to provide you services contact us at support@getpulled.com. We will retain and use your information as necessary to comply with our legal obligations, resolve disputes, and enforce our agreements. Your Consent To This Privacy Policy By using the Sites or Mobile Application(s), you consent to the collection and use of information by us as specified above or as we otherwise see fit unless you inform us otherwise by means of the procedure identified below. If we decide to change this Privacy Policy, we will make an effort to post those changes on this web page so that you will always be able to understand what information we collect, how we use that information and under what circumstances we may disclose that information to others. Your use of the Sites or Service following any amendment of this Policy will signify your assent to and acceptance of its revised terms. We may use comments, information or feedback that you may submit in any manner that we may choose without notice or compensation to you. If you have additional questions or comments of any kind, if you see anything on the Sites or in the Service that you think is inappropriate, please let us know by e-mail or by sending your comments or requests to: Pull 947 Bush St, Suite 216 San Francisco, CA 94109 support@getpulled.com Copyright © 2014. Pull LLC. All Rights Reserved. EFFECTIVE AS OF: January 22, 2015 LAST UPDATED: January 22, 2015</string>
+                                <mutableString key="text">Privacy Policy
+
+This Privacy Policy was last modified on October 23rd, 2015.
+
+
+
+Pull Software LLC (“Pull,” “we,” or “us”) are committed to protecting your privacy. This Privacy Policy explains our practices regarding the collection, use, disclosure, and protection of information that is collected through our mobile app and our website (collectively, our “Service”), as well as your choices regarding the collection and use of information. Capitalized terms that are not defined in this Privacy Policy have the meaning given them in our Terms of Use.
+
+
+
+1. How We Collect and Use Information
+
+We collect the following types of information about you:
+
+
+
+Information we collect from you directly:
+
+Registration and Profile Information. When you create an account, we may collect your personal information such as your username, first and last name, birth date, email address, and mobile phone number.
+
+
+Geolocation. We collect your unique user identifier and your location through GPS, WiFi, or wireless network triangulation in order to obtain your location for the purposes of providing our Service. If you turn off location sharing, we will not share your location, however, while you are logged in to your account, we will continue to collect your location information in order to provide the Service. We maintain location information only so long as is reasonable to provide the Service and then destroy the location data.
+
+
+
+
+
+Information we receive about you from others:
+
+Social Media. When you interact with our site through various social media, such as when you Like us on Facebook or post a comment to our Facebook page, we may receive information from the social network such as your profile information, profile picture, gender, user name, user ID associated with your social media account, age range, language, country, friends list, and any other information you permit the social network to share with third parties. The data we receive is dependent upon your privacy settings with the social network. You should always review, and if necessary, adjust your privacy settings on third-party websites and services before linking or connecting them to Pull website or Service.
+
+
+
+Information we collect automatically through the use of technology:
+
+When you visit our website or use our mobile app, we and our business partners may collect certain information about your computer or device through technology such as cookies, web beacons, log files, or other tracking/recording tools. The information we collect through the use of tracking technologies includes, but is not limited to, IP address, browser information, referring/exit pages and URLs, click stream data and how you interact with links on the website, mobile app, or Service, domain names, landing pages, page views, cookie data that allows us to uniquely identify your browser, browsing behavior on our site, mobile device type, mobile device IDs or other persistent identifiers, and location data collected from your mobile device. Some or all of this data may be combined with other personally identifying information described above. We use this information to:
+
+
+
+Remember information so that you will not have to re-enter it during your visit or the next time you visit the site or mobile app,
+
+Provide custom, personalized content and information,
+
+Monitor the effectiveness of our Service and our marketing campaigns,
+
+Monitor aggregate metrics such as total number of visitors, users, traffic, and demographic patterns,
+
+Diagnose or fix technology problems reported by our Users or engineers that are associated with certain IP addresses or User IDs.
+
+
+
+2. Sharing of Your Information
+
+Personal Information: We will not rent or sell your personal information to third parties outside the Company and its controlled subsidiaries and affiliates without your consent, except as noted below:
+
+
+
+We share your information, including name, Photo and location, with others with your friend’s  using Pull Application.
+
+We may share your personal information with our third-party business partners, vendors and consultants who perform services on our behalf, such as accounting, managerial, technical, marketing or analytic services. These business partners will be given access to your information as necessary to deliver the Service under reasonable confidentiality terms.
+
+Any information or content that you voluntarily post to the website or to our Facebook page will automatically be available to the public. We may publicly post your reviews and comments online on our website or mobile app, or link your reviews to third party websites.
+
+We may aggregate or otherwise strip data of all personally identifying characteristics of our data and may share that aggregated, anonymized data with third parties.
+
+
+
+We may at any time buy or sell/divest the company, or any combination of its products, services, assets and/or businesses. Personal information such as customer names and email addresses, and other user information related to the Service will likely be one of the items transferred in these types of transactions. We may also transfer or assign such information in the course of corporate divestitures, mergers, acquisitions, bankruptcies, dissolutions or similar transactions or proceedings.
+
+Except as described above, we will not disclose personal information to third parties (including law enforcement, other government entity, or civil litigant; excluding our subcontractors) unless required to do so by law or subpoena or if in our sole discretion, we determine it is necessary to (a) conform to the law, comply with legal process, or investigate, prevent, or take action regarding suspected or actual illegal activities; (b) to enforce our Terms of Use, take precautions against liability, to investigate and defend ourselves against any claims or allegations, or to protect the security or integrity of our site; and/or (c) to exercise or protect the rights, property, or personal safety of Pull, our Users or others.
+
+
+
+3. How We Protect Your Information
+
+Pull Software LLC cares about the security of your information and uses commercially reasonable physical, administrative, and technological safeguards to preserve the integrity and security of all information we collect and that we share with our service providers. However, no security system is impenetrable and we cannot guarantee the security of our systems 100%. In the event that any information under our control is compromised as a result of a breach of security, we will take reasonable steps to investigate the situation and where appropriate, notify those individuals whose information may have been compromised and take other steps, in accordance with any applicable laws and regulations.
+
+
+
+
+
+4. Your Choices About Your Information
+
+You may, of course, decline to submit any personal information through the Service, in which case Pull Software LLC may not be able to provide its Services to you.
+
+
+
+
+
+Delete Your Account and Personal Information: We will retain your information for as long as your account is active or as needed to provide you services. If you wish to cancel your account, please contact us at support@getpulled.com.
+
+
+
+Opting Out of Collection of Tracking Data: The only way to completely “opt out” of the collection of any information through cookies or other tracking technology is to actively manage the settings on your browser.
+
+
+
+
+
+5. Changes to Our Privacy Policy
+
+Pull Software LLC may, in its sole discretion, modify or update this Privacy Policy from time to time, and so you should review this page periodically. When we change the policy, we will update the ‘last modified’ date at the top of this page. If there are material changes to this Privacy Policy or in how Pull Software LLC will use your personal information, we will notify you either by prominently posting a notice of such changes prior to implementing the change or by directly sending you a notification.
+
+
+
+
+
+6. Your California Privacy Rights
+
+Pull Software LLC collects various types of personal information about you both online and offline, as described in this privacy policy. Under California law, Pull customers who are residents of California may request certain information about our disclosure of personal information during the prior calendar year to third parties for their direct marketing purposes. To make such a request, please write to us at the following address:
+
+
+
+Pull Software LLC.
+
+3843 Howe St. Suite 4
+
+Oakland, CA 94611
+
+
+
+Alternatively, you may send us an email at support@getpulled.com with the words “California Privacy Rights” in the subject line.
+
+
+
+
+
+7. How to Contact Us
+
+If you have any questions about this Privacy Policy or the Service, please contact us at support@getpulled.com
+
+
+
+Pull Software LLC.
+
+3843 Howe St. Suite 4
+
+Oakland, CA 94611</mutableString>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

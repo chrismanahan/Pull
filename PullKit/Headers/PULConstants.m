@@ -14,7 +14,6 @@ NSString * const kPULFacebookAppID = @"468309439970987";
 NSString * const kPULMessageFbInvite = @"Pull me on Pull!";
 
 // urls
-// TODO: change app download url
 NSString * const kPULAppDownloadURL = @"https://itunes.apple.com/us/app/pull-never-lose-a-friend-again/id1039987134?ls=1&mt=8";
 NSString * const kPULAppUpdateURL = @"http://getpulled.com/app/version.json";
 
@@ -51,15 +50,15 @@ const NSInteger kPULLocationTuningDistanceNearbyMeters = FEET_TO_METERS(kPULLoca
 
 const NSInteger kPULLocationTuningIntervalVeryFar = 100;
 const NSInteger kPULLocationTuningIntervalFar = 60;
-const NSInteger kPULLocationTuningIntervalNearby = 10;
-const NSInteger kPULLocationTuningIntervalClose = 3;
+const NSInteger kPULLocationTuningIntervalNearby = 15;
+const NSInteger kPULLocationTuningIntervalClose = 6;
 
 const double kPULDistanceAllowedAccuracy = 15;
 const double kPULDistanceMaxDistanceForAccuracyReading = FEET_TO_METERS(3000);
 
 const NSInteger kPULPullLocalNotificationDelayMinutes = 5;
 
-const NSInteger kPULPollTimeActive = 11;
+const NSInteger kPULPollTimeActive = 10;
 const NSInteger kPULPollTimePassive = 60;
 const NSInteger kPULPollTimeBackground = 120;
 

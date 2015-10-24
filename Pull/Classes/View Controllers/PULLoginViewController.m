@@ -63,7 +63,7 @@
     [super viewWillAppear:animated];
     
     BOOL redeemed = [[NSUserDefaults standardUserDefaults] boolForKey:@"RedeemedInvite"];
-    _inviteWallScrollView.hidden = YES;// redeemed;
+    _inviteWallScrollView.hidden = redeemed;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -223,14 +223,22 @@
             {
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"RedeemedInvite"];
                 
-                [UIView animateWithDuration:0.3
-                                 animations:^{
-                                     CGRect frame = _inviteWallScrollView.frame;
-                                     frame.origin.x -= CGRectGetWidth(frame);
-                                     _inviteWallScrollView.frame = frame;
-                                 } completion:^(BOOL finished) {
-                                     _inviteWallScrollView.hidden = YES;
-                                 }];
+                UIView *snapshot = [_inviteWallScrollView snapshotViewAfterScreenUpdates:NO];
+                _inviteWallScrollView.hidden = YES;
+                [self.view addSubview:snapshot];
+                
+                CGRect frame = snapshot.frame;
+                frame.origin.x = -CGRectGetWidth(frame);
+                
+                [UIView transitionWithView:_inviteWallScrollView
+                                  duration:0.3
+                                   options:UIViewAnimationOptionCurveEaseIn
+                                animations:^{
+                                    snapshot.frame = frame;
+                                } completion:^(BOOL finished) {
+                                    [snapshot removeFromSuperview];
+                                }];
+                
             }
             else
             {

@@ -62,6 +62,12 @@
     [Parse setApplicationId:@"god9ShWzf5pq0wgRtKsIeTDRpFidspOOLmOxjv5g" clientKey:@"iIruWYgQqsurRYsLYsqT8GJjkYJX4UWlBJXVTjO0"];
     [PFFacebookUtils initializeFacebook];
     
+    [Parse setLogLevel:PFLogLevelDebug];
+    // Register observer and selector to receive the request we sent to server
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveWillSendURLRequestNotification:) name:PFNetworkWillSendURLRequestNotification object:nil];
+    // Register observer and selector to receive the response we get from server
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveDidReceiveURLResponseNotification:) name:PFNetworkDidReceiveURLResponseNotification object:nil];
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     __block NSString *vcName = NSStringFromClass([PULLoginViewController class]);
     
@@ -216,6 +222,23 @@
     [PULUser currentUser].killed = YES;
     [[PULUser currentUser] save];
     [[PFFacebookUtils session] close];
+}
+
+-(void)receiveWillSendURLRequestNotification:(NSNotification *) notification {
+    // Use key to get the NSURLRequest from userInfo
+    NSURLRequest *request = notification.userInfo[PFNetworkNotificationURLRequestUserInfoKey ];
+    
+    PULLog(@">parse>> sending url request: %@", request);
+}
+
+-(void)receiveDidReceiveURLResponseNotification:(NSNotification *) notification {
+    // Use key to get the NSURLRequest from userInfo
+    NSURLRequest *request = notification.userInfo[PFNetworkNotificationURLRequestUserInfoKey];
+    // Use key to get the NSURLResponse from userInfo
+    NSURLResponse *response = notification.userInfo[PFNetworkNotificationURLResponseUserInfoKey];
+    NSString *responseBody = notification.userInfo[PFNetworkNotificationURLResponseBodyUserInfoKey];
+    
+    PULLog(@">parse>> received response from request: %@", responseBody);
 }
 
 #pragma mark - Facebook

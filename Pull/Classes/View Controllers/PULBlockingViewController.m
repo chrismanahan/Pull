@@ -132,7 +132,6 @@
 #pragma mark - alert view delegat
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    // TODO: ALERT USER WHEN BUTTON TAPPED
     if (buttonIndex == 1)
     {
         if (alertView.tag == 1000)

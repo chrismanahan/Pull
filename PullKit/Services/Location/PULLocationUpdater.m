@@ -104,7 +104,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
                                                            queue:[NSOperationQueue currentQueue]
                                                       usingBlock:^(NSNotification * _Nonnull note) {
                                                           [_locationManager stopUpdatingHeading];
-                                                          [self _startAuxLocationManager];
+//                                                          [self _startAuxLocationManager];
                                                           
                                                       }];
         
@@ -113,7 +113,7 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
                                                            queue:[NSOperationQueue currentQueue]
                                                       usingBlock:^(NSNotification * _Nonnull note) {
                                                           [_locationManager startUpdatingHeading];
-                                                          [self _stopAuxLocationManager];
+//                                                          [self _stopAuxLocationManager];
                                                       }];
     }
 
@@ -204,12 +204,12 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     }
     
     
-    if (_isUsingAuxLocationManager)
-    {
-        PULLog(@"updating aux loc manager");
-        _locationManager.desiredAccuracy = _currentDesiredAccuracy;
-        _locationManager.distanceFilter = _currentDistanceFilter;
-    }
+//    if (_isUsingAuxLocationManager)
+//    {
+//        PULLog(@"updating aux loc manager");
+//        _locationManager.desiredAccuracy = _currentDesiredAccuracy;
+//        _locationManager.distanceFilter = _currentDistanceFilter;
+//    }
 //    [self stopUpdatingLocation];
 //    [self startUpdatingLocationWithMode:mode];
 }
@@ -284,22 +284,22 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 //    }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
-{
-    @try {
-        if ([PULUser currentUser].killed)
-        {
-            [_locationManager stopUpdatingLocation];
-            return;
-        }
-    }
-    @catch (NSException *exception) {
-        ;
-    }
-    
-    CLLocation *loc = locations[locations.count-1];
-    [self _updateToLocation:loc position:-1 motion:-1];
-}
+//- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+//{
+//    @try {
+//        if ([PULUser currentUser].killed)
+//        {
+//            [_locationManager stopUpdatingLocation];
+//            return;
+//        }
+//    }
+//    @catch (NSException *exception) {
+//        ;
+//    }
+//    
+//    CLLocation *loc = locations[locations.count-1];
+//    [self _updateToLocation:loc position:-1 motion:-1];
+//}
 
 #pragma mark - Private
 - (void)_updateTrackingInterval
@@ -324,10 +324,10 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
     }
     
     // check if we have to kill the aux loc manager
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive && _isUsingAuxLocationManager)
-    {
-        [self _stopAuxLocationManager];
-    }
+//    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive && _isUsingAuxLocationManager)
+//    {
+//        [self _stopAuxLocationManager];
+//    }
     
     // check if we're in the foreground or anyone we're pulled with is in the foreground
     for (PULPull *pull in [_parse.cache cachedPulls])
@@ -534,36 +534,36 @@ NSString* const PULLocationUpdatedNotification = @"PULLocationUpdatedNotificatio
 }
 
 
-- (void)_startAuxLocationManager
-{
-    PULLog(@"starting aux loc manager");
-    [parkour stopTrackPosition];
-    
-    _locationManager.distanceFilter = _currentDistanceFilter;
-    _locationManager.desiredAccuracy = _currentDesiredAccuracy;
-    [_locationManager startUpdatingLocation];
-    _isUsingAuxLocationManager = YES;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        PULLog(@"pausing aux loc manager");
-        [_locationManager stopUpdatingLocation];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_currentTrackingMode * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (_isUsingAuxLocationManager)
-            {
-                [self _startAuxLocationManager];
-            }
-        });
-    });
-}
-
-- (void)_stopAuxLocationManager
-{
-    PULLog(@"stopping aux loc manager");
-    [_locationManager stopUpdatingLocation];
-    _isUsingAuxLocationManager = NO;
-    
-    [self startUpdatingLocationWithMode:_currentTrackingMode];
-}
+//- (void)_startAuxLocationManager
+//{
+//    PULLog(@"starting aux loc manager");
+//    [parkour stopTrackPosition];
+//    
+//    _locationManager.distanceFilter = _currentDistanceFilter;
+//    _locationManager.desiredAccuracy = _currentDesiredAccuracy;
+//    [_locationManager startUpdatingLocation];
+//    _isUsingAuxLocationManager = YES;
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        PULLog(@"pausing aux loc manager");
+//        [_locationManager stopUpdatingLocation];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_currentTrackingMode * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            if (_isUsingAuxLocationManager)
+//            {
+//                [self _startAuxLocationManager];
+//            }
+//        });
+//    });
+//}
+//
+//- (void)_stopAuxLocationManager
+//{
+//    PULLog(@"stopping aux loc manager");
+//    [_locationManager stopUpdatingLocation];
+//    _isUsingAuxLocationManager = NO;
+//    
+//    [self startUpdatingLocationWithMode:_currentTrackingMode];
+//}
 
 #pragma mark - Threading
 - (void)_runBlockInBackground:(void(^)())block

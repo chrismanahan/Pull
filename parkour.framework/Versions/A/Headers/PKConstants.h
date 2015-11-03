@@ -2,16 +2,23 @@
 //  PKConstants.h
 //  parkour
 //
-//  Created by phillip on 10/2/15.
-//  Copyright © 2015 phillip. All rights reserved.
+//  Created by Phillip, Anthony, Emily, Jeremy, Yonis and Randall on 11/2/15.
+//  Trademark and Copyright © 2015 parkour method, inc. All rights reserved.
+//  www.parkourmethod.com
 //
+//  Use of this SDK is authorized only upon your full acceptance of Parkour Method Inc.
+//  license terms and privacy policies. License terms and privacy policies are subject to change
+//  without prior notice.  For details contact team@parkourmethod.com or visit www.parkourmethod.com
 
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AdSupport/ASIdentifierManager.h>
 
-#define aSDKVersion 2053
+#define aSDKVersion 2295
+
+
+// For help and documentation: www.parkourmethod.com and docs.parkourmethod.com
 
 
 

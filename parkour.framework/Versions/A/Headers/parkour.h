@@ -2,7 +2,7 @@
 //  parkour.h
 //  parkour
 //
-//  Created by Phillip, Anthony, Emily, Jeremy and Yonis on 10/1/15.
+//  Created by Phillip, Anthony, Emily, Jeremy, Yonis and Randall on 11/2/15.
 //  Trademark and Copyright © 2015 parkour method, inc. All rights reserved.
 //  www.parkourmethod.com
 //
@@ -12,7 +12,9 @@
 
 
 #import "PKConstants.h"
-#define theParkourSDKVersion 2053
+#define theParkourSDKVersion 2295
+
+// For help and documentation: www.parkourmethod.com and docs.parkourmethod.com
 
 
 @interface parkour : NSObject

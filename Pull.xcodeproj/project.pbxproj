@@ -198,7 +198,6 @@
 		9B5EFA5A1AE28F8600EFCCD5 /* PULUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EFA591AE28F8600EFCCD5 /* PULUserCell.m */; };
 		9B5F7E0C1BC837D600FB1C4E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5F7E0A1BC837D600FB1C4E /* Fabric.framework */; };
 		9B5F7E0D1BC837D600FB1C4E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5F7E0B1BC837D600FB1C4E /* Crashlytics.framework */; };
-		9B78A7EE1B8118EE005569B4 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1835781B7FDBA200BBD669 /* WatchKit.framework */; };
 		9B78A7F01B8124EB005569B4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7EF1B8124EB005569B4 /* MessageUI.framework */; };
 		9B78A7F21B8124FF005569B4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7F11B8124FF005569B4 /* AVFoundation.framework */; };
 		9B78A7F41B812512005569B4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B78A7F31B812512005569B4 /* CoreMedia.framework */; };
@@ -557,7 +556,6 @@
 		9B16DFC21BC9EF3E003A52BB /* arrow_button_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_button_disabled.png; sourceTree = "<group>"; };
 		9B16DFC31BC9EF3E003A52BB /* arrow_button_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_button_disabled@2x.png"; sourceTree = "<group>"; };
 		9B16DFC41BC9EF3E003A52BB /* arrow_button_disabled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_button_disabled@3x.png"; sourceTree = "<group>"; };
-		9B1835781B7FDBA200BBD669 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		9B2F7E161BB86B7600CCB547 /* FriendingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendingTests.m; sourceTree = "<group>"; };
 		9B3E4CC51A0B3BA35B14E484 /* Pods-PullKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PullKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-PullKit/Pods-PullKit.release.xcconfig"; sourceTree = "<group>"; };
 		9B49DFC91B8D4DCC009D0C71 /* circle_purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_purple.png; sourceTree = "<group>"; };
@@ -681,7 +679,6 @@
 		9BF61D331B8E772900BD2A27 /* cutout_row@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cutout_row@3x.png"; sourceTree = "<group>"; };
 		9BF61D341B8E772900BD2A27 /* cutout_row@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cutout_row@2x.png"; sourceTree = "<group>"; };
 		9BF61D351B8E772900BD2A27 /* cutout_row.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cutout_row.png; sourceTree = "<group>"; };
-		9BF9BEC41B742D380020981E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		9BFE6F491AF313AD000D00FF /* clock_icon_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock_icon_large.png; sourceTree = "<group>"; };
 		9BFE6F4A1AF313AD000D00FF /* clock_icon_large@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_icon_large@2x.png"; sourceTree = "<group>"; };
 		9BFE6F4B1AF313AD000D00FF /* clock_icon_large@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_icon_large@3x.png"; sourceTree = "<group>"; };
@@ -694,7 +691,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B78A7EE1B8118EE005569B4 /* WatchKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1165,8 +1161,6 @@
 				9B78A7F31B812512005569B4 /* CoreMedia.framework */,
 				9B78A7F11B8124FF005569B4 /* AVFoundation.framework */,
 				9B78A7EF1B8124EB005569B4 /* MessageUI.framework */,
-				9B1835781B7FDBA200BBD669 /* WatchKit.framework */,
-				9BF9BEC41B742D380020981E /* AdSupport.framework */,
 				953B064C1A8D9021008235EB /* MediaPlayer.framework */,
 				95D6661B1A7C8EEE000FAD8D /* MapKit.framework */,
 				952BDB5D1A0C4F0500C67BB5 /* CFNetwork.framework */,

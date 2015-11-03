@@ -35,11 +35,11 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7kr-p3-cRz" userLabel="label container">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="intro_one.png" translatesAutoresizingMaskIntoConstraints="NO" id="c0J-6L-Xsa">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" ambiguous="YES" misplaced="YES" image="intro_one.png" translatesAutoresizingMaskIntoConstraints="NO" id="c0J-6L-Xsa">
                                                 <rect key="frame" x="8" y="84" width="584" height="325"/>
                                                 <animations/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Easily navigate to friends within 1000 ft with a simple compass" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xa2-tt-JKG">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Easily navigate to friends within 1000 ft with a simple compass" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xa2-tt-JKG">
                                                 <rect key="frame" x="8" y="28" width="584" height="48"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
@@ -1824,7 +1824,7 @@
                                 <rect key="frame" x="20" y="64" width="560" height="3724"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">_____________________
+                                <string key="text">_____________________
 Facebook SDK
 
 Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
@@ -1997,7 +1997,7 @@ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</mutableString>
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2272,7 +2272,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</mutableString>
                                 <rect key="frame" x="20" y="64" width="560" height="9036"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">TERMS AND CONDITIONS OF USE
+                                <string key="text">TERMS AND CONDITIONS OF USE
 
 
 
@@ -2560,7 +2560,7 @@ If any provision of these Site Terms shall be deemed unlawful, void or for any r
 
 
 
-Questions or comments about the Site or the Service may be directed to Company at the email address support@getpulled.com .</mutableString>
+Questions or comments about the Site or the Service may be directed to Company at the email address support@getpulled.com .</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2641,7 +2641,7 @@ Questions or comments about the Site or the Service may be directed to Company a
                                 <rect key="frame" x="20" y="64" width="560" height="3691"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Privacy Policy
+                                <string key="text">Privacy Policy
 
 This Privacy Policy was last modified on October 23rd, 2015.
 
@@ -2778,7 +2778,7 @@ Pull Software LLC.
 
 3843 Howe St. Suite 4
 
-Oakland, CA 94611</mutableString>
+Oakland, CA 94611</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
